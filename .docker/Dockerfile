@@ -1,0 +1,114 @@
+FROM ubuntu:focal
+
+ENV DEBIAN_FRONTEND noninteractive
+
+ARG APP_ENV
+ARG APP_KEY
+ARG APP_URL
+ARG APP_DEBUG
+ARG DB_HOST
+ARG DB_PORT=3306
+ARG DB_DATABASE
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_DEFAULT_REGION
+ARG AWS_PUBLIC_BUCKET
+ARG AWS_PRIVATE_BUCKET
+ARG FILESYSTEM_DRIVER
+ARG SENTRY_LARAVEL_DSN
+ARG MAIL_MAILER
+ARG MAIL_MAILER
+ARG MAIL_FROM_ADDRESS
+ARG MAIL_FROM_NAME
+ARG MAIL_HOST
+ARG MAIL_PORT
+ARG MAIL_USERNAME
+ARG MAIL_PASSWORD
+ARG MAIL_CONTACT_TO
+ARG ADMIN_APP_URL
+ARG ADMIN_APP_PATH
+ARG S3_KEY
+ARG S3_SECRET
+ARG S3_BUCKET
+ARG S3_REGION=eu-central-1
+ARG MEDIA_LIBRARY_ACL=public-read
+ARG MAILCHIMP_APIKEY
+ARG MAILCHIMP_LIST_ID
+
+
+ENV APP_ENV ${APP_ENV}
+ENV APP_KEY ${APP_KEY}
+ENV APP_URL ${APP_URL}
+ENV APP_DEBUG ${APP_DEBUG}
+ENV DB_HOST ${DB_HOST}
+ENV DB_PORT ${DB_PORT}
+ENV DB_DATABASE ${DB_DATABASE}
+ENV DB_USERNAME ${DB_USERNAME}
+ENV DB_PASSWORD ${DB_PASSWORD}
+ENV AWS_ACCESS_KEY_ID ${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY ${AWS_SECRET_ACCESS_KEY}
+ENV AWS_DEFAULT_REGION ${AWS_DEFAULT_REGION}
+ENV AWS_PUBLIC_BUCKET ${AWS_PUBLIC_BUCKET}
+ENV AWS_PRIVATE_BUCKET ${AWS_PRIVATE_BUCKET}
+ENV FILESYSTEM_DRIVER ${FILESYSTEM_DRIVER}
+ENV SENTRY_LARAVEL_DSN ${SENTRY_LARAVEL_DSN}
+ENV MAIL_MAILER ${MAIL_MAILER}
+ENV MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+ENV MAIL_FROM_NAME=${MAIL_FROM_NAME}
+ENV MAIL_HOST=${MAIL_HOST}
+ENV MAIL_PORT=${MAIL_PORT}
+ENV MAIL_USERNAME=${MAIL_USERNAME}
+ENV MAIL_PASSWORD=${MAIL_PASSWORD}
+ENV MAIL_CONTACT_TO=${MAIL_CONTACT_TO}
+ENV ADMIN_APP_URL=${ADMIN_APP_URL}
+ENV ADMIN_APP_PATH=${ADMIN_APP_PATH}
+ENV S3_KEY=${S3_KEY}
+ENV S3_SECRET=${S3_SECRET}
+ENV S3_BUCKET=${S3_BUCKET}
+ENV S3_REGION=${S3_REGION}
+ENV MEDIA_LIBRARY_ACL=${MEDIA_LIBRARY_ACL}
+ENV MAILCHIMP_APIKEY=${MAILCHIMP_APIKEY}
+ENV MAILCHIMP_LIST_ID=${MAILCHIMP_LIST_ID}
+
+# update APT repository
+RUN apt-get update
+
+# install packages
+RUN apt-get install --no-install-recommends -y wget vim ca-certificates supervisor nginx php7.4 php7.4-fpm php7.4-json php7.4-curl php7.4-zip php7.4-xml php7.4-mbstring php7.4-mysql php7.4-gd php7.4-zip php7.4-xml php7.4-sqlite php7.4-curl
+
+WORKDIR /var/www/html
+
+# copy application file
+RUN rm -rf /var/www/html/*
+COPY . /var/www/html
+
+# create application environment file
+RUN cp .env.example .env
+
+# prepare Laravel log
+RUN touch /var/www/html/storage/logs/laravel.log
+RUN chmod 777 /var/www/html/storage/logs/laravel.log
+
+# fix permissions
+RUN chown -R www-data:www-data /var/www/html
+
+# configure Supervisor
+COPY .docker/config/supervisor/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
+# configure Ngnix
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+COPY .docker/config/nginx/.htpasswd /etc/nginx/.htpasswd
+COPY .docker/config/nginx/default /etc/nginx/sites-available/default
+
+# configure PHP-FPM
+RUN sed -i -e "s/;clear_env\s*=\s*no/clear_env = no/g" /etc/php/7.4/fpm/pool.d/www.conf
+RUN echo "php_admin_value[memory_limit] = 512M" >> /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed -i -e "s/upload_max_filesize\s=\s2M/upload_max_filesize = 128M/g" /etc/php/7.4/fpm/php.ini
+RUN sed -i -e "s/post_max_size\s=\s8M/post_max_size = 128M/g" /etc/php/7.4/fpm/php.ini
+RUN sed -i -e "s/max_execution_time\s=\s30/max_execution_time = 120/g" /etc/php/7.4/fpm/php.ini
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord"]

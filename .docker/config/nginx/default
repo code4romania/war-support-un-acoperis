@@ -1,0 +1,40 @@
+server {
+    listen 80;
+    server_name www.ajutordeurgenta.ro;
+    return 301 https://ajutordeurgenta.ro$request_uri;
+}
+
+server {
+    listen 80;
+    server_name ajutordeurgenta.ro dev.ajutordeurgenta.ro;
+    root /var/www/html/public;
+
+    index index.html index.htm index.php;
+
+    charset utf-8;
+
+    location / {
+       auth_basic  "Restricted Area";
+       auth_basic_user_file /etc/nginx/.htpasswd;
+
+       try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    client_max_body_size 128m;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
