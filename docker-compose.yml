@@ -1,0 +1,68 @@
+version: '3.1'
+
+services:
+
+  database:
+    image: mysql:8
+    container_name: helpforhealth_db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: developer
+    volumes:
+      - MySQLStorageHelpForHealth:/var/lib/mysql
+    networks:
+      helpforhealth.local:
+        ipv4_address: 192.168.132.2
+        aliases:
+          - db.helpforhealth.local
+    expose:
+      - 3306
+    ports:
+      - 33066:3306
+
+  webserver:
+    container_name: helpforhealth_web
+    build:
+      context: .docker/webserver
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    links:
+      - database
+    networks:
+      helpforhealth.local:
+        ipv4_address: 192.168.132.3
+        aliases:
+          - helpforhealth.local
+    expose:
+      - 80
+    ports:
+      - 80:80
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: helpforhealth_phpmyadmin
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: developer
+    networks:
+      helpforhealth.local:
+        ipv4_address: 192.168.132.4
+        aliases:
+          - pma.helpforhealth.local
+    links:
+      - database:db
+    expose:
+      - 80
+    ports:
+      - 8080:80
+
+networks:
+  helpforhealth.local:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.132.0/24
+
+volumes:
+  MySQLStorageHelpForHealth:
