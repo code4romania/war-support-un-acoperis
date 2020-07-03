@@ -5,22 +5,22 @@
             <div class="col-md-8">
                 <ul class="d-flex justify-content-between list-unstyled align-items-center flex-column flex-sm-row">
                     <li class="">
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('Partners') }}</a>
+                        <a class="nav-link" href="{{ route('partners') }}">{{ __('Partners') }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('About Help For Health') }}</a>
+                        <a class="nav-link" href="{{ route('about') }}">{{ __('About Help For Health') }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('Media') }}</a>
+                        <a class="nav-link" href="{{ route('media') }}">{{ __('Media') }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('News') }}</a>
+                        <a class="nav-link" href="{{ route('news') }}">{{ __('News') }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('Privacy Policy') }}</a>
+                        <a class="nav-link" href="{{ route('privacy-policy') }}">{{ __('Privacy Policy') }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('Terms & Conditions') }}</a>
+                        <a class="nav-link" href="{{ route('terms-and-conditions') }}">{{ __('Terms & Conditions') }}</a>
                     </li>
                 </ul>
             </div>

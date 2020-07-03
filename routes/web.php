@@ -25,10 +25,22 @@ Route::middleware([SetLanguage::class])
     ->group(function () {
         Auth::routes(['verify' => true]);
 
-        Route::get('/homepage', 'HomeController@index')->name('home');
-        Route::get('/about', 'AboutController@index')->name('about');
+        /**
+         * Header
+         */
+        Route::get('/homepage', 'StaticPagesController@home')->name('home');
+        Route::get('/about', 'StaticPagesController@about')->name('about');
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
         Route::get('/donate', 'DonateController@index')->name('donate');
+
+        /**
+         * Footer
+         */
+        Route::get('/partners', 'StaticPagesController@partners')->name('partners');
+        Route::get('/media', 'StaticPagesController@media')->name('media');
+        Route::get('/news', 'StaticPagesController@news')->name('news');
+        Route::get('/privacy-policy', 'StaticPagesController@privacyPolicy')->name('privacy-policy');
+        Route::get('/terms-and-conditions', 'StaticPagesController@termsAndConditions')->name('terms-and-conditions');
     });
