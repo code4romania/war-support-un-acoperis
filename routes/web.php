@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SetLanguage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Route::redirect('/', '/ro/homepage');
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/about', 'AboutController@index')->name('about');
-Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
-Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
-Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
-Route::get('/donate', 'DonateController@index')->name('donate');
+/**
+ * Frontend routes
+ */
+Route::middleware([SetLanguage::class])
+    ->prefix('{locale}')
+    ->group(function () {
+        Auth::routes(['verify' => true]);
+
+        Route::get('/homepage', 'HomeController@index')->name('home');
+        Route::get('/about', 'AboutController@index')->name('about');
+        Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
+        Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
+        Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
+        Route::get('/donate', 'DonateController@index')->name('donate');
+    });
