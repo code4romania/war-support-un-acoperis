@@ -31,7 +31,35 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'about' ? 'active' : '' }}" href="{{ route('about') }}">
+                                {{ __('About') }}
+                            </a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">
+                                {{ __('Request Services') }}
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'get-involved' ? 'active' : '' }}" href="{{ route('get-involved') }}">
+                                {{ __('Get Involved') }}
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'clinic-list' ? 'active' : '' }}" href="{{ route('clinic-list') }}">
+                                {{ __('Clinic List') }}
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="{{ route('donate') }}">
+                                {{ __('Donate') }}
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -65,7 +93,29 @@
                                 </div>
                             </li>
                         @endguest
+
+                        <!-- Language switcher -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>{{ str_replace('_', '-', app()->getLocale()) }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
+                                @php
+                                    $params = request()->route()->parameters();
+                                    $ro = $en = $de = $hu = $params;
+                                    $ro['locale'] = 'ro';
+                                    $de['locale'] = 'de';
+                                    $en['locale'] = 'en';
+                                    $hu['locale'] = 'hu';
+                                @endphp
+                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
+                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
+                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>
+                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>
+                            </div>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </nav>

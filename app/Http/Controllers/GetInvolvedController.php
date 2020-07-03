@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
- * Class HomeController
+ * Class GetInvolvedController
  * @package App\Http\Controllers
  */
-class HomeController extends Controller
+class GetInvolvedController extends Controller
 {
     /**
      * @param Request $request
@@ -17,6 +17,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('frontend.home');
+        return view('frontend.get-involved');
     }
 }
