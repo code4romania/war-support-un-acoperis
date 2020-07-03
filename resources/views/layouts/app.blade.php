@@ -97,7 +97,7 @@
                         <!-- Language switcher -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>{{ str_replace('_', '-', app()->getLocale()) }}</span>
+                                <span>{{ strtoupper(str_replace('_', '-', app()->getLocale())) }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
                                 @php
