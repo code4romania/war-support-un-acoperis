@@ -4,6 +4,7 @@ namespace App;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Country
@@ -22,7 +23,13 @@ class Country extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'code', 'name'
-    ];
+    protected $fillable = ['code', 'name'];
+
+    /**
+     * @return HasMany
+     */
+    public function clinics()
+    {
+        return $this->hasMany(Clinic::class);
+    }
 }
