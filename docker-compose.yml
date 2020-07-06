@@ -40,7 +40,7 @@ services:
       - 80:80
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
     container_name: helpforhealth_phpmyadmin
     environment:
       PMA_USER: root
