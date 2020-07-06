@@ -25,4 +25,12 @@ class County extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function helprequests()
+    {
+        return $this->hasMany(HelpRequest::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class City
@@ -25,5 +26,13 @@ class City extends Model
     public function county()
     {
         return $this->belongsTo(County::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function helprequests()
+    {
+        return $this->hasMany(HelpRequest::class);
     }
 }
