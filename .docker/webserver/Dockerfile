@@ -8,7 +8,7 @@ ENV LC_ALL C.UTF-8
 RUN apt-get update
 
 # install PHP 7.4
-RUN apt-get install --no-install-recommends -y apt-utils wget ca-certificates vim php7.4-cli php7.4-fpm php7.4-common php7.4-json php7.4-opcache php7.4-mbstring php7.4-mysql php7.4-gd php7.4-zip php7.4-xml
+RUN apt-get install --no-install-recommends -y apt-utils wget ca-certificates vim zip unzip composer php7.4-cli php7.4-fpm php7.4-common php7.4-json php7.4-opcache php7.4-mbstring php7.4-mysql php7.4-gd php7.4-zip php7.4-xml php7.4-intl php7.4-curl
 
 # install Nginx
 RUN apt-get install --no-install-recommends -y nginx
