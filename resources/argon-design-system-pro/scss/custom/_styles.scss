@@ -12,10 +12,16 @@ body {
     }
 }
 
+.navbar-brand {
+    img {
+        height:74px;
+    }
+}
+
 .navbar-nav {
     .nav-link {
         font-family: 'Titillium Web', sans-serif;
-        color:$purple;
+        font-weight: $font-weight-bold;
     }
 }
 
@@ -187,3 +193,35 @@ body {
         outline:none;
     }
 }
+
+
+//Homepage
+
+.bg-homepage-section-1 {
+    background:url("/images/bg-section-homepage.jpg") no-repeat center center;
+    background-size:cover;
+}
+
+.how-can-we-help {
+    .card-title{
+        line-height: 1.2;
+        font-size:1.2rem;
+        margin-bottom:1rem;
+    }
+}
+
+.container-holder{
+    overflow: hidden;
+    background: $primary;
+    .strech-bg{
+        background: $secondary;
+        margin: 0 -15px 0 -15px;
+        padding-left:15px;
+        padding-right:15px;
+        @include media-breakpoint-up(sm) {
+            padding: 0 15px 9999px 9999px;
+            margin: 0 -15px -9999px -9999px;
+        }
+    }
+}
+
