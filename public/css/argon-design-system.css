@@ -31762,7 +31762,7 @@ body {
 }
 
 .navbar-light .navbar-nav .nav-link.active {
-  color: #caa405 !important;
+  color: #28AEE4 !important;
 }
 
 .btn-group-custom .btn {
@@ -31952,5 +31952,13 @@ body {
     padding: 0 15px 9999px 9999px;
     margin: 0 -15px -9999px -9999px;
   }
+}
+
+.accordion-1 .accordion .card {
+  border-bottom: 2px solid #E9F6FB !important;
+}
+
+.accordion-1 .accordion .card .card-header {
+  padding: 0.55rem 1.5rem;
 }
 

@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    <div class="container py-5 border-bottom">
+    <div class="container py-5">
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="text-primary font-weight-600 mb-4">Lorem ipsum</h2>

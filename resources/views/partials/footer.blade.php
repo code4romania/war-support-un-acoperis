@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="footer pt-0 bg-white">
-    <div class="container pt-4">
+    <div class="container pt-4 border-top">
         <div class="row align-items-center mb-2">
             <div class="col-md-8">
                 <ul class="d-flex justify-content-between list-unstyled align-items-center flex-column flex-sm-row">

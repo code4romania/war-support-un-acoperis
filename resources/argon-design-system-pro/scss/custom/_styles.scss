@@ -34,7 +34,7 @@ body {
     .navbar-nav {
         .nav-link {
             &.active {
-                color:#caa405!important;
+                color:$primary!important;
             }
         }
     }
@@ -225,3 +225,16 @@ body {
     }
 }
 
+
+//About us page
+
+.accordion-1 {
+    .accordion {
+        .card {
+            border-bottom:2px solid $light-blue!important;
+            .card-header {
+                padding:0.55rem 1.5rem;
+            }
+        }
+    }
+}

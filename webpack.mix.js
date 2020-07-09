@@ -14,4 +14,6 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/argon-design-system-pro/scss/argon-design-system.scss', 'public/css')
-    .copy('resources/js/argon-design-system.js', 'public/js/argon-design-system.js');
+    .copy('resources/js/argon-design-system.js', 'public/js/argon-design-system.js')
+    .copy('resources/css/', 'public/css/')
+    .copy('resources/fonts/', 'public/fonts/')

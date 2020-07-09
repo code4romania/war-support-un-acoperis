@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('/css/nucleo-svg.css') }}" rel="stylesheet"/>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
 </head>
