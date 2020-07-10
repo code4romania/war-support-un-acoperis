@@ -233,7 +233,16 @@ body {
         .card {
             border-bottom:2px solid $light-blue!important;
             .card-header {
-                padding:0.55rem 1.5rem;
+                padding:0.55rem 0rem;
+                .btn {
+                    padding:10px 30px;
+                    text-transform:none;
+                    font-size:1.075rem;
+                    &.collapsed {
+                        color:$dark;
+                    }
+                    color:$primary;
+                }
             }
         }
     }
