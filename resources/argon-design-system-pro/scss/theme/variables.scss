@@ -49,6 +49,7 @@ $teal:    #11cdef !default;
 $cyan:    #2bffc6 !default;
 $light-blue: #E9F6FB !default;
 $brand-blue: #4175BE!default;
+$light-green: #DFF2E3!default;
 
 $colors: () !default;
 $colors: map-merge((
@@ -68,7 +69,8 @@ $colors: map-merge((
   "lighter":    $gray-200,
   "gray-dark":  $gray-800,
   "light-blue": $light-blue,
-    "brand-blue": $brand-blue
+    "brand-blue": $brand-blue,
+  "light-green": $light-green
 ), $colors);
 
 $default:       #172b4d !default;
@@ -586,7 +588,7 @@ $custom-control-indicator-disabled-bg:          $gray-200 !default;
 $custom-control-label-disabled-color:           $gray-600 !default;
 
 $custom-checkbox-indicator-border-radius:       $border-radius-sm !default;
-//$custom-checkbox-indicator-icon-checked:        str-replace(url("data:image/svg+xml !default;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"), "#", "%23") !default;
+
 
 $custom-toggle-slider-bg:   #ddd !default;
 $custom-toggle-checked-bg:  theme-color("primary") !default;
