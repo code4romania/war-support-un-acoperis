@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet"/>
     <link href="{{ asset('/css/nucleo-svg.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet"/>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
 </head>
