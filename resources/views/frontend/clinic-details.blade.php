@@ -7,11 +7,10 @@
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-4">{{ __('Clinic List') }}</h1>
+        <h1 class="display-3 title mb-4">{{ __('Clinic details') }}</h1>
         <div class="text-muted">
             <p>
-                Clinic list contents...
-                <a href="{{ route('clinic-details', 'demo-clinic') }}" title="Detalii clinica">Detalii clinica</a>
+                Clinic details.
             </p>
         </div>
     </div>

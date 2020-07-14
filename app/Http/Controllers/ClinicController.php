@@ -15,8 +15,17 @@ class ClinicController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('frontend.clinic-list');
+    }
+
+    /**
+     * @param string $slug
+     * @return View
+     */
+    public function show(string $slug)
+    {
+        return view('frontend.clinic-details');
     }
 }

@@ -33,6 +33,7 @@ Route::middleware([SetLanguage::class])
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
+        Route::get('/clinic/{slug}', 'ClinicController@show')->name('clinic-details');
         Route::get('/donate', 'DonateController@index')->name('donate');
 
         /**

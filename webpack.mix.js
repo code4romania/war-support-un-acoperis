@@ -17,3 +17,8 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/js/argon-design-system.js', 'public/js/argon-design-system.js')
     .copy('resources/css/', 'public/css/')
     .copy('resources/fonts/', 'public/fonts/')
+    .copy('resources/images/', 'public/images/')
+    .version()
+if (mix.inProduction()) {
+    mix.version();
+}
