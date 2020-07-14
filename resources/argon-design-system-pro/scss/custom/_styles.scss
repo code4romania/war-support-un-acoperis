@@ -292,6 +292,7 @@ label.required {
 .form-control, .input-group-text {
     &:focus {
         box-shadow: none;
+        border-color: darken($primary, 20%);
     }
     box-shadow: none;
     border-color:#28AEE4;
