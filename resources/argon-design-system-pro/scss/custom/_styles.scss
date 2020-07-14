@@ -309,3 +309,46 @@ label.required {
 .alert-general {
     color:$gray-900;
 }
+
+.table {
+    .thead-dark {
+        th {
+            background:$primary;
+            border-color:$primary;
+            border-top:0;
+            color:#fff;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            font-size: 0.75rem;
+            &:first-child {
+                border-top-left-radius: 0.3rem;
+            }
+            &:last-child {
+                border-top-right-radius: 0.3rem;
+            }
+        }
+    }
+    td {
+        border-top:none;
+        a {
+            font-weight: 600;
+        }
+    }
+    &.table-striped {
+        tbody {
+            tr {
+                &:nth-of-type(odd) {
+                    background-color:$light-blue;
+                }
+            }
+        }
+    }
+}
+
+.custom-select {
+    &.form-control-sm {
+        background:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23252525' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.45rem center/8px 10px;
+        height: calc(1.5em + 0.5rem + 2px)!important;
+        padding: 0.25rem 1rem 0.25rem 0.5rem!important;
+    }
+}

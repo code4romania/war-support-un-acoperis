@@ -24,22 +24,22 @@
 
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row pb-4 border-bottom border-white">
             <li>
-                <a class="nav-link text-white text-underline mb-2 mb-sm-0" href="{{ route('partners') }}">{{ __('Partners') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('partners') }}">{{ __('Partners') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white text-underline mb-2 mb-sm-0" href="{{ route('about') }}">{{ __('About Help For Health') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('about') }}">{{ __('About Help For Health') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white text-underline mb-2 mb-sm-0" href="{{ route('media') }}">{{ __('Media') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('media') }}">{{ __('Media') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white text-underline mb-2 mb-sm-0" href="{{ route('news') }}">{{ __('News') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('news') }}">{{ __('News') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white text-underline mb-2 mb-sm-0" href="{{ route('privacy-policy') }}">{{ __('Privacy Policy') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('privacy-policy') }}">{{ __('Privacy Policy') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white text-underline mb-2 mb-sm-0" href="{{ route('terms-and-conditions') }}">{{ __('Terms & Conditions') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('terms-and-conditions') }}">{{ __('Terms & Conditions') }}</a>
             </li>
             <li>
                 <a class="text-white btn btn-secondary" href="#">Sustine proiectul</a>
