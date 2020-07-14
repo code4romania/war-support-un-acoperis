@@ -3,6 +3,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css
+/public/js
+/public/fonts
 /storage/*.key
 .env
 .env.backup
