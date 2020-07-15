@@ -36,10 +36,10 @@
                 <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('news') }}">{{ __('News') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('privacy-policy') }}">{{ __('Privacy Policy') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('privacy-policy') }}">{{ __('Confidentiality policy') }}</a>
             </li>
             <li>
-                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('terms-and-conditions') }}">{{ __('Terms & Conditions') }}</a>
+                <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('terms-and-conditions') }}">{{ __('Terms and conditions') }}</a>
             </li>
             <li>
                 <a class="text-white btn btn-secondary" href="#">Sustine proiectul</a>
