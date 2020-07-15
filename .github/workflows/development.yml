@@ -3,7 +3,7 @@ name: Development Deployment
 on:
   push:
     branches:
-      - development-TODO
+      - master
 
 jobs:
   deploy:
@@ -48,21 +48,21 @@ jobs:
       - name: Build and tag docker image
         run: |
           docker build -f .docker/Dockerfile \
-          --build-arg APP_ENV=${{ secrets.PROD_APP_ENV }} \
-          --build-arg APP_KEY=${{ secrets.PROD_APP_KEY }} \
-          --build-arg APP_URL=${{ secrets.PROD_APP_URL }} \
-          --build-arg APP_DEBUG=${{ secrets.PROD_APP_DEBUG }} \
-          --build-arg DB_HOST=${{ secrets.PROD_DB_HOST }} \
-          --build-arg DB_DATABASE=${{ secrets.PROD_DB_DATABASE }} \
-          --build-arg DB_USERNAME=${{ secrets.PROD_DB_USERNAME }} \
-          --build-arg DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD}} \
-          --build-arg AWS_ACCESS_KEY_ID=${{ secrets.PROD_AWS_ACCESS_KEY_ID}} \
-          --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}} \
+          --build-arg APP_ENV=${{ secrets.DEV_APP_ENV }} \
+          --build-arg APP_KEY=${{ secrets.DEV_APP_KEY }} \
+          --build-arg APP_URL=${{ secrets.DEV_APP_URL }} \
+          --build-arg APP_DEBUG=${{ secrets.DEV_APP_DEBUG }} \
+          --build-arg DB_HOST=${{ secrets.DEV_DB_HOST }} \
+          --build-arg DB_DATABASE=${{ secrets.DEV_DB_DATABASE }} \
+          --build-arg DB_USERNAME=${{ secrets.DEV_DB_USERNAME }} \
+          --build-arg DB_PASSWORD=${{ secrets.DEV_DB_PASSWORD}} \
+          --build-arg AWS_ACCESS_KEY_ID=${{ secrets.DEV_AWS_ACCESS_KEY_ID}} \
+          --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.DEV_AWS_SECRET_ACCESS_KEY}} \
           --build-arg AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION}} \
-          --build-arg AWS_PUBLIC_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
-          --build-arg AWS_PRIVATE_BUCKET=${{ secrets.PROD_AWS_PRIVATE_BUCKET}} \
-          --build-arg FILESYSTEM_DRIVER=${{ secrets.PROD_FILESYSTEM_DRIVER}} \
-          --build-arg SENTRY_LARAVEL_DSN=${{ secrets.PROD_SENTRY_LARAVEL_DSN}} \
+          --build-arg AWS_PUBLIC_BUCKET=${{ secrets.DEV_AWS_PUBLIC_BUCKET}} \
+          --build-arg AWS_PRIVATE_BUCKET=${{ secrets.DEV_AWS_PRIVATE_BUCKET}} \
+          --build-arg FILESYSTEM_DRIVER=${{ secrets.FILESYSTEM_DRIVER}} \
+          --build-arg SENTRY_LARAVEL_DSN=${{ secrets.DEV_SENTRY_LARAVEL_DSN}} \
           --build-arg MAIL_MAILER=${{ secrets.MAIL_MAILER}} \
           --build-arg MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS}} \
           --build-arg MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME}} \
@@ -71,21 +71,22 @@ jobs:
           --build-arg MAIL_USERNAME=${{ secrets.MAIL_USERNAME}} \
           --build-arg MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}} \
           --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
-          --build-arg ADMIN_APP_URL=${{ secrets.PROD_ADMIN_APP_URL}} \
+          --build-arg ADMIN_APP_URL=${{ secrets.DEV_ADMIN_APP_URL}} \
           --build-arg ADMIN_APP_PATH=${{ secrets.ADMIN_APP_PATH}} \
-          --build-arg S3_KEY=${{ secrets.PROD_AWS_ACCESS_KEY_ID}} \
-          --build-arg S3_SECRET=${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}} \
-          --build-arg S3_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
+          --build-arg S3_KEY=${{ secrets.DEV_AWS_ACCESS_KEY_ID}} \
+          --build-arg S3_SECRET=${{ secrets.DEV_AWS_SECRET_ACCESS_KEY}} \
+          --build-arg S3_BUCKET=${{ secrets.DEV_AWS_PUBLIC_BUCKET}} \
           --build-arg MAILCHIMP_APIKEY=${{ secrets.MAILCHIMP_APIKEY}} \
           --build-arg MAILCHIMP_LIST_ID=${{ secrets.MAILCHIMP_LIST_ID}} \
-          -t code4romania/eduacces:${{ github.sha }} \
-          -t ${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }} .
+          --build-arg APP_HOST=${{ secrets.DEV_APP_HOST}} \
+          -t code4romania/help-for-health:${{ github.sha }} \
+          -t ${{ secrets.DEV_AWS_ECR_REPOSITORY }}:${{ github.sha }} .
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Login to AWS ECR
@@ -95,34 +96,34 @@ jobs:
         run: |
           docker push ${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}
 
-#      - name: Prepare AWS EB payload
-#        run: |
-#          echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
-#
-#      - name: Preapre AWS EB .ebextensions with Nginx config
-#        run: |
-#          mkdir -p .ebextensions && echo '{"commands":{"01_write_nginx_config":{"command":"/bin/echo \"client_max_body_size 64M;\" > /etc/nginx/conf.d/proxy.conf"},"02_restart_nginx_service":{"command":"/sbin/service nginx reload"}}}' > .ebextensions/nginx.config
-#
-#      - name: Generate AWS EB deployment package
-#        run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
-#
-#      - name: Deploy docker image from AWS ECR to AWS EB -
-#        uses: einaregilsson/beanstalk-deploy@v10
-#        with:
-#          aws_access_key: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-#          aws_secret_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
-#          region: ${{ secrets.AWS_DEFAULT_REGION }}
-#          application_name: ${{ secrets.PROD_AWS_EV_APPLICATION }}
-#          environment_name: ${{ secrets.PROD_AWS_EB_ENVIRONMENT }}
-#          version_label: ${{ github.sha }}
-#          deployment_package: deploy.zip
-#          use_existing_version_if_available: true
-#          wait_for_deployment: true
-#          wait_for_environment_recovery: 300
-#
-#      - name: Send Slack notification
-#        uses: Ilshidur/action-slack@master
-#        env:
-#          SLACK_WEBHOOK: ${{ secrets.PROD_SLACK_WEBHOOK }}
-#        with:
-#          args: "A new PROD deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
+      - name: Prepare AWS EB payload
+        run: |
+          echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
+
+      - name: Preapre AWS EB .ebextensions with Nginx config
+        run: |
+          mkdir -p .ebextensions && echo '{"commands":{"01_write_nginx_config":{"command":"/bin/echo \"client_max_body_size 64M;\" > /etc/nginx/conf.d/proxy.conf"},"02_restart_nginx_service":{"command":"/sbin/service nginx reload"}}}' > .ebextensions/nginx.config
+
+      - name: Generate AWS EB deployment package
+        run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
+
+      - name: Deploy docker image from AWS ECR to AWS EB -
+        uses: einaregilsson/beanstalk-deploy@v10
+        with:
+          aws_access_key: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_DEFAULT_REGION }}
+          application_name: ${{ secrets.DEV_AWS_EB_APPLICATION }}
+          environment_name: ${{ secrets.DEV_AWS_EB_ENVIRONMENT }}
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
+          use_existing_version_if_available: true
+          wait_for_deployment: true
+          wait_for_environment_recovery: 300
+
+      - name: Send Slack notification
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.DEV_SLACK_WEBHOOK }}
+        with:
+          args: "A new PROD deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
