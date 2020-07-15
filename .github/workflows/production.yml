@@ -62,22 +62,13 @@ jobs:
           --build-arg AWS_PUBLIC_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
           --build-arg AWS_PRIVATE_BUCKET=${{ secrets.PROD_AWS_PRIVATE_BUCKET}} \
           --build-arg FILESYSTEM_DRIVER=${{ secrets.FILESYSTEM_DRIVER}} \
-#          --build-arg SENTRY_LARAVEL_DSN=${{ secrets.PROD_SENTRY_LARAVEL_DSN}} \
-#          --build-arg MAIL_MAILER=${{ secrets.MAIL_MAILER}} \
           --build-arg MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS}} \
           --build-arg MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME}} \
-#          --build-arg MAIL_HOST=${{ secrets.MAIL_HOST}} \
-#          --build-arg MAIL_PORT=${{ secrets.MAIL_PORT}} \
-#          --build-arg MAIL_USERNAME=${{ secrets.MAIL_USERNAME}} \
-#          --build-arg MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}} \
           --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
-#          --build-arg ADMIN_APP_URL=${{ secrets.PROD_ADMIN_APP_URL}} \
           --build-arg ADMIN_APP_PATH=${{ secrets.ADMIN_APP_PATH}} \
           --build-arg S3_KEY=${{ secrets.PROD_AWS_ACCESS_KEY_ID}} \
           --build-arg S3_SECRET=${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}} \
           --build-arg S3_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
-#          --build-arg MAILCHIMP_APIKEY=${{ secrets.MAILCHIMP_APIKEY}} \
-#          --build-arg MAILCHIMP_LIST_ID=${{ secrets.MAILCHIMP_LIST_ID}} \
           --build-arg APP_HOST=${{ secrets.PROD_APP_HOST}} \
           -t ${{ github.repository }}:${{ github.sha }} \
           -t ${{ secrets.PROD_AWS_ECR_REPOSITORY }}:${{ github.sha }} .
@@ -96,34 +87,34 @@ jobs:
         run: |
           docker push ${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}
 
-#      - name: Prepare AWS EB payload
-#        run: |
-#          echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
-#
-#      - name: Preapre AWS EB .ebextensions with Nginx config
-#        run: |
-#          mkdir -p .ebextensions && echo '{"commands":{"01_write_nginx_config":{"command":"/bin/echo \"client_max_body_size 64M;\" > /etc/nginx/conf.d/proxy.conf"},"02_restart_nginx_service":{"command":"/sbin/service nginx reload"}}}' > .ebextensions/nginx.config
-#
-#      - name: Generate AWS EB deployment package
-#        run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
-#
-#      - name: Deploy docker image from AWS ECR to AWS EB -
-#        uses: einaregilsson/beanstalk-deploy@v10
-#        with:
-#          aws_access_key: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-#          aws_secret_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
-#          region: ${{ secrets.AWS_DEFAULT_REGION }}
-#          application_name: ${{ secrets.PROD_AWS_EB_APPLICATION }}
-#          environment_name: ${{ secrets.PROD_AWS_EB_ENVIRONMENT }}
-#          version_label: ${{ github.sha }}
-#          deployment_package: deploy.zip
-#          use_existing_version_if_available: true
-#          wait_for_deployment: true
-#          wait_for_environment_recovery: 300
-#
-#      - name: Send Slack notification
-#        uses: Ilshidur/action-slack@master
-#        env:
-#          SLACK_WEBHOOK: ${{ secrets.PROD_SLACK_WEBHOOK }}
-#        with:
-#          args: "A new PROD deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
+      - name: Prepare AWS EB payload
+        run: |
+          echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
+
+      - name: Preapre AWS EB .ebextensions with Nginx config
+        run: |
+          mkdir -p .ebextensions && echo '{"commands":{"01_write_nginx_config":{"command":"/bin/echo \"client_max_body_size 64M;\" > /etc/nginx/conf.d/proxy.conf"},"02_restart_nginx_service":{"command":"/sbin/service nginx reload"}}}' > .ebextensions/nginx.config
+
+      - name: Generate AWS EB deployment package
+        run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
+
+      - name: Deploy docker image from AWS ECR to AWS EB -
+        uses: einaregilsson/beanstalk-deploy@v10
+        with:
+          aws_access_key: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_DEFAULT_REGION }}
+          application_name: ${{ secrets.PROD_AWS_EB_APPLICATION }}
+          environment_name: ${{ secrets.PROD_AWS_EB_ENVIRONMENT }}
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
+          use_existing_version_if_available: true
+          wait_for_deployment: true
+          wait_for_environment_recovery: 300
+
+      - name: Send Slack notification
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.PROD_SLACK_WEBHOOK }}
+        with:
+          args: "A new PROD deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
