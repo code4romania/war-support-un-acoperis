@@ -352,3 +352,46 @@ label.required {
         padding: 0.25rem 1rem 0.25rem 0.5rem!important;
     }
 }
+
+.details-wrapper {
+    border-left:3px solid $primary;
+    padding-left: 20px;
+    li {
+        margin-bottom:20px;
+        align-items: center;
+    }
+    i {
+        font-size:1.3rem;
+        margin-right:20px;
+
+    }
+}
+
+.list-custom {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 15px;
+    li {
+        position: relative;
+        font-weight:300;
+        padding-left:30px;
+        margin-bottom: 7px;
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 6px;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 6px;
+            border: 3px solid #28AEE4;
+            background: #fff;
+            box-sizing: content-box;
+        }
+    }
+}
+
+.clinic-map {
+    height:450px;
+}
