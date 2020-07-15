@@ -62,25 +62,25 @@ jobs:
           --build-arg AWS_PUBLIC_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
           --build-arg AWS_PRIVATE_BUCKET=${{ secrets.PROD_AWS_PRIVATE_BUCKET}} \
           --build-arg FILESYSTEM_DRIVER=${{ secrets.FILESYSTEM_DRIVER}} \
-          --build-arg SENTRY_LARAVEL_DSN=${{ secrets.PROD_SENTRY_LARAVEL_DSN}} \
-          --build-arg MAIL_MAILER=${{ secrets.MAIL_MAILER}} \
+#          --build-arg SENTRY_LARAVEL_DSN=${{ secrets.PROD_SENTRY_LARAVEL_DSN}} \
+#          --build-arg MAIL_MAILER=${{ secrets.MAIL_MAILER}} \
           --build-arg MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS}} \
           --build-arg MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME}} \
-          --build-arg MAIL_HOST=${{ secrets.MAIL_HOST}} \
-          --build-arg MAIL_PORT=${{ secrets.MAIL_PORT}} \
-          --build-arg MAIL_USERNAME=${{ secrets.MAIL_USERNAME}} \
-          --build-arg MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}} \
+#          --build-arg MAIL_HOST=${{ secrets.MAIL_HOST}} \
+#          --build-arg MAIL_PORT=${{ secrets.MAIL_PORT}} \
+#          --build-arg MAIL_USERNAME=${{ secrets.MAIL_USERNAME}} \
+#          --build-arg MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}} \
           --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
-          --build-arg ADMIN_APP_URL=${{ secrets.PROD_ADMIN_APP_URL}} \
+#          --build-arg ADMIN_APP_URL=${{ secrets.PROD_ADMIN_APP_URL}} \
           --build-arg ADMIN_APP_PATH=${{ secrets.ADMIN_APP_PATH}} \
           --build-arg S3_KEY=${{ secrets.PROD_AWS_ACCESS_KEY_ID}} \
           --build-arg S3_SECRET=${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}} \
           --build-arg S3_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
-          --build-arg MAILCHIMP_APIKEY=${{ secrets.MAILCHIMP_APIKEY}} \
-          --build-arg MAILCHIMP_LIST_ID=${{ secrets.MAILCHIMP_LIST_ID}} \
+#          --build-arg MAILCHIMP_APIKEY=${{ secrets.MAILCHIMP_APIKEY}} \
+#          --build-arg MAILCHIMP_LIST_ID=${{ secrets.MAILCHIMP_LIST_ID}} \
           --build-arg APP_HOST=${{ secrets.PROD_APP_HOST}} \
-          -t code4romania/help-for-health:${{ github.sha }} \
-          -t ${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }} .
+          -t ${{ github.repository }}:${{ github.sha }} \
+          -t ${{ secrets.PROD_AWS_ECR_REPOSITORY }}:${{ github.sha }} .
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
