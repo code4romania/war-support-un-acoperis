@@ -41,10 +41,9 @@ class LoginController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        // TODO
-//        if ($user->isAdministrator()) {
-//            return route('admin.resource.index');
-//        }
+        if ($user->isAdministrator()) {
+            return route('admin.dashboard');
+        }
 
         return route('home');
     }

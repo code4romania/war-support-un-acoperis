@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Administration;
 use App\Http\Middleware\SetLanguage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/ro/homepage');
+
+/**
+ * Administration routes
+ */
+Route::middleware([SetLanguage::class, Administration::class])
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
+    });
 
 /**
  * Frontend routes
