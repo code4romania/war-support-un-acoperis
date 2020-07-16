@@ -44,7 +44,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="pacient-name">Numele si prenumele pacientului:</label>
-                                                        <input type="text" placeholder="Ana-Maria Vasile" class="form-control" id="pacient-name" value="{{ old('pacient-name') }}" />
+                                                        <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('pacient-name') is-invalid @enderror" name="pacient-name" id="pacient-name" value="{{ old('pacient-name') }}" required />
 
                                                         @error('pacient-name')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -55,7 +55,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">Numele si prenumele persoanei care completeaza formularul:</label>
-                                                        <input type="text" placeholder="Ioan Vasile" class="form-control" id="caretaker-name" value="{{ old('caretaker-name') }}" />
+                                                        <input type="text" placeholder="Ioan Vasile" class="form-control @error('caretaker-name') is-invalid @enderror" name="caretaker-name" id="caretaker-name" value="{{ old('caretaker-name') }}" required />
 
                                                         @error('caretaker-name')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -66,7 +66,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="pacient-phone">Telefonul pacientului:</label>
-                                                        <input type="tel" placeholder="0700000000" class="form-control" id="pacient-phone" />
+                                                        <input type="tel" placeholder="0700000000" class="form-control @error('pacient-phone') is-invalid @enderror" name="pacient-phone" id="pacient-phone" value="{{ old('pacient-phone') }}" required />
 
                                                         @error('pacient-phone')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -77,7 +77,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-phone">Telefonul persoanei care completeaza formularul:</label>
-                                                        <input type="tel" placeholder="0700000001" class="form-control" id="caretaker-phone" value="{{ old('caretaker-phone') }}" />
+                                                        <input type="tel" placeholder="0700000001" class="form-control @error('caretaker-phone') is-invalid @enderror" name="caretaker-phone" id="caretaker-phone" value="{{ old('caretaker-phone') }}" required />
 
                                                         @error('caretaker-phone')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -88,7 +88,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">E-mailul pacientului:</label>
-                                                        <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control" id="pacient-email" value="{{ old('pacient-email') }}" />
+                                                        <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('pacient-email') is-invalid @enderror" name="pacient-email" id="pacient-email" value="{{ old('pacient-email') }}" required />
 
                                                         @error('pacient-email')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -98,10 +98,10 @@
 
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-name">E-mailul persoanei care completeaza formularul:</label>
-                                                        <input type="email" placeholder="ioan.vasile@provider.tld" class="form-control" id="caretaker-phone" value="{{ old('caretaker-phone') }}" />
+                                                        <label class="required font-weight-600" for="caretaker-email">E-mailul persoanei care completeaza formularul:</label>
+                                                        <input type="email" placeholder="ioan.vasile@provider.tld" class="form-control @error('caretaker-email') is-invalid @enderror" name="caretaker-email" id="caretaker-email" value="{{ old('caretaker-email') }}" required />
 
-                                                        @error('caretaker-phone')
+                                                        @error('caretaker-email')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </div>
@@ -111,7 +111,7 @@
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="patient-county">Judet:</label>
-                                                                <select name="patient-county" id="patient-county" class="custom-select form-control @error('county') is-invalid @enderror">
+                                                                <select name="patient-county" id="patient-county" class="custom-select form-control @error('county') is-invalid @enderror" required>
                                                                     <option></option>
                                                                     @foreach ($counties as $county)
                                                                         @if (old('patient-county'))
@@ -133,8 +133,8 @@
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="patient-city">Localitate:</label>
-                                                                <select name="patient-city" id="patient-city" class="custom-select form-control @error('patient-city') is-invalid @enderror">
-                                                                    <option>Selectati Judetul</option>
+                                                                <select name="patient-city" id="patient-city" class="custom-select form-control @error('patient-city') is-invalid @enderror" required>
+                                                                    <option value="">Selectati Judetul</option>
                                                                     @foreach ($cities as $cities)
                                                                         @if (old('patient-city'))
                                                                             <option value="{{ $cities->id }}" {{ (old('patient-city') == $cities->id ? 'selected' : '') }}>{{ $cities->name }}</option>
@@ -155,7 +155,7 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label  class="required font-weight-600" for="caretaker-name">Diagnostic:</label>
-                                                                <input type="text" placeholder="Diagnostic" class="form-control" id="pacient-diagnostic" value="{{ old('pacient-diagnostic') }}" />
+                                                                <input type="text" placeholder="Diagnostic" class="form-control @error('pacient-diagnostic') is-invalid @enderror" name="pacient-diagnostic" id="pacient-diagnostic" value="{{ old('pacient-diagnostic') }}" required />
 
                                                                 @error('pacient-diagnostic')
                                                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -168,7 +168,13 @@
                                                 <div class="col-12 mt-4">
                                                     <div class="form-group">
                                                         <label for="extra-details" class="font-weight-600">Te rugam sa ne oferi mai multe detalii referitoare la cazul pe care il supui atentiei noastre!</label>
-                                                        <textarea name="extra-details" id="extra-details" rows="5" class="form-control" placeholder=""></textarea>
+                                                        <textarea name="extra-details" id="extra-details" rows="5" class="form-control" placeholder="Detalii caz">{{ old('extra-details') }}</textarea>
+
+                                                        @error('extra-details')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
@@ -213,10 +219,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="border-top pt-5 mt-3 clearfix">
-                                                        <button type="submit" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        <button type="submit" class="btn btn-secondary pull-right btn-lg px-6" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                             <span class="btn-inner--text">Pasul urmator</span>
                                                             <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                                         </button>
+{{--                                                        <button type="submit" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">--}}
+{{--                                                            <span class="btn-inner--text">Pasul urmator</span>--}}
+{{--                                                            <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>--}}
+{{--                                                        </button>--}}
                                                     </div>
                                                 </div>
                                             </div>

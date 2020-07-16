@@ -176,6 +176,11 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
 
+        /**
+         * Laravel Phone
+         */
+        Propaganistas\LaravelPhone\PhoneServiceProvider::class,
+
     ],
 
     /*
