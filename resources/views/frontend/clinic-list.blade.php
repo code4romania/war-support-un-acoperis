@@ -37,7 +37,7 @@
                 <div class="row mt-5">
                     <div class="col-sm-8">
                         <label for="">Specialitate</label>
-                        <div class="input-group">
+                        <div class="input-group mb-3 mb-sm-0">
                             <input type="text" placeholder="Placeholder text here..." class="form-control" id="pacient-name" />
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".bd-example-modal-xl">
@@ -358,7 +358,7 @@
                 </div>
                 <div class="modal-body">
                    <div class="row mb-4">
-                       <div class="col">
+                       <div class="col-sm-6">
                             <h6 class="font-weight-600">Oncologie</h6>
                             <p>Centre, clinici si spitale care trateaza cancerul renal, cancerul pulmonar, cancerul pancreatic, cancerul uterin, cancerul-ovarian, cancerul vezicii urinare, cancerul esofagian, cancerul colorectal, cancerul prostatei, cancerul hepatic,cancerul gastric, cancerul cutanat, sarcomul osos, sarcomul tesuturilor moi, tumorile sistemului nervos (retinoblastoame, neuroblastoame, tumori cerebrale, meduloblastoame).</p>
                            <div class="custom-control custom-checkbox mb-3">
@@ -370,7 +370,7 @@
                                <label class="custom-control-label" for="customCheck2">Oncologie Pediatrie</label>
                            </div>
                        </div>
-                       <div class="col">
+                       <div class="col-sm-6">
                            <h6 class="font-weight-600">Hematologie</h6>
                            <p>Centre, clinici si spitale care trateaza anemiile aplastice, leucemiile acute, leucemiile cronice, limfoamele maligne Hodgkin, limfoamele non-Hodgkin, mielomul multiplu si alte tipuri de afectiuni grave ale sangelui.</p>
                            <div class="custom-control custom-checkbox mb-3">
@@ -384,7 +384,7 @@
                        </div>
                    </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-sm-6">
                             <h6 class="font-weight-600">Radiografie</h6>
                             <p>Centre, clinici si spitale care trateaza afectiunile oncologice si hematologice prin utilizarea radiatiilor ionizante in scop curativ, neoadjuvant, adjuvant, paliativ.</p>
                             <div class="custom-control custom-checkbox mb-3">
@@ -396,7 +396,7 @@
                                 <label class="custom-control-label" for="customCheck2"> Radioterapie Pediatrie</label>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-sm-6">
                             <h6 class="font-weight-600">Transplant medular</h6>
                             <p>Centre, clinici si spitale care trateaza neoplaziile hematologice, bolile maligne ale ganglionilor limfatici si ale maduvei (mielom multiplu, limfom, leucemie) sau tumori solide, ca alternativa de tratament.</p>
                             <div class="custom-control custom-checkbox mb-3">
