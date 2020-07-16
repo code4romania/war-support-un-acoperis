@@ -61,6 +61,10 @@ jobs:
           --build-arg AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION}} \
           --build-arg AWS_PUBLIC_BUCKET=${{ secrets.DEV_AWS_PUBLIC_BUCKET}} \
           --build-arg AWS_PRIVATE_BUCKET=${{ secrets.DEV_AWS_PRIVATE_BUCKET}} \
+          --build-arg FILESYSTEM_DRIVER=${{ secrets.FILESYSTEM_DRIVER}} \
+          --build-arg MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS}} \
+          --build-arg MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME}} \
+          --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
           --build-arg S3_KEY=${{ secrets.DEV_AWS_ACCESS_KEY_ID}} \
           --build-arg S3_SECRET=${{ secrets.DEV_AWS_SECRET_ACCESS_KEY}} \
           --build-arg S3_BUCKET=${{ secrets.DEV_AWS_PUBLIC_BUCKET}} \
