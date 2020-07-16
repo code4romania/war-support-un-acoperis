@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\County;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -17,6 +18,17 @@ class RequestServicesController extends Controller
      */
     public function index(Request $request)
     {
-        return view('frontend.request-services');
+        $counties = County::all(['id', 'name'])->sortBy('name');
+
+        $cities = [];
+
+        return view('frontend.request-services')
+            ->with('counties', $counties)
+            ->with('cities', $cities);
+    }
+
+    public function submit(Request $request)
+    {
+        return 'Submitted';
     }
 }

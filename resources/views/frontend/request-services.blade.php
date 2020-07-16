@@ -24,6 +24,7 @@
                 <div class="row">
                     <div class="col-md-12 ml-auto">
                         <div class="accordion my-3" id="accordionExample">
+
                             <div class="card shadow mb-4">
                                 <div class="card-header" id="headingOne">
                                     <h5 class="mb-0">
@@ -36,77 +37,141 @@
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body py-5">
-                                        <form action="">
+                                        <form method="POST" action="{{ route('request-services-submit') }}">
+                                            @csrf
                                             <div class="row">
+
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="pacient-name">Numele si prenumele pacientului:</label>
-                                                        <input type="text" placeholder="Placeholder text here..." class="form-control" id="pacient-name" />
+                                                        <input type="text" placeholder="Ana-Maria Vasile" class="form-control" id="pacient-name" value="{{ old('pacient-name') }}" />
+
+                                                        @error('pacient-name')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-name">Numele si prenumele persoanei care completeaza formularul:</label>
-                                                        <input type="text" placeholder="Placeholder text here..." class="form-control" id="completer-name" />
+                                                        <label class="required font-weight-600" for="caretaker-name">Numele si prenumele persoanei care completeaza formularul:</label>
+                                                        <input type="text" placeholder="Ioan Vasile" class="form-control" id="caretaker-name" value="{{ old('caretaker-name') }}" />
+
+                                                        @error('caretaker-name')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="pacient-phone">Telefonul pacientului:</label>
-                                                        <input type="tel" placeholder="Placeholder text here..." class="form-control" id="pacient-phone" />
+                                                        <input type="tel" placeholder="0700000000" class="form-control" id="pacient-phone" />
+
+                                                        @error('pacient-phone')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-phone">Telefonul persoanei care completeaza formularul:</label>
-                                                        <input type="tel" placeholder="Placeholder text here..." class="form-control" id="completer-phone" />
+                                                        <label class="required font-weight-600" for="caretaker-phone">Telefonul persoanei care completeaza formularul:</label>
+                                                        <input type="tel" placeholder="0700000001" class="form-control" id="caretaker-phone" value="{{ old('caretaker-phone') }}" />
+
+                                                        @error('caretaker-phone')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-name">E-mailul pacientului:</label>
-                                                        <input type="email" placeholder="Placeholder text here..." class="form-control" id="pacient-email" />
+                                                        <label class="required font-weight-600" for="caretaker-name">E-mailul pacientului:</label>
+                                                        <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control" id="pacient-email" value="{{ old('pacient-email') }}" />
+
+                                                        @error('pacient-email')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-name">E-mailul persoanei care completeaza formularul:</label>
-                                                        <input type="email" placeholder="Placeholder text here..." class="form-control" id="completer-phone" />
+                                                        <label class="required font-weight-600" for="caretaker-name">E-mailul persoanei care completeaza formularul:</label>
+                                                        <input type="email" placeholder="ioan.vasile@provider.tld" class="form-control" id="caretaker-phone" value="{{ old('caretaker-phone') }}" />
+
+                                                        @error('caretaker-phone')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <div class="form-group">
-                                                                <label class="required font-weight-600" for="completer-name">Judet:</label>
-                                                                <select name="" id="" class="custom-select form-control">
-                                                                    <option value="">Judet 1</option>
-                                                                    <option value="">Judet 2</option>
-                                                                    <option value="">Judet 3</option>
-                                                                    <option value="">Judet 4</option>
+                                                                <label class="required font-weight-600" for="patient-county">Judet:</label>
+                                                                <select name="patient-county" id="patient-county" class="custom-select form-control @error('county') is-invalid @enderror">
+                                                                    <option></option>
+                                                                    @foreach ($counties as $county)
+                                                                        @if (old('patient-county'))
+                                                                            <option value="{{ $county->id }}" {{ (old('patient-county') == $county->id ? 'selected' : '') }}>{{ $county->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $county->id }}">{{ $county->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
                                                                 </select>
+
+                                                                @error('patient-county')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
+
                                                         <div class="col-6">
                                                             <div class="form-group">
-                                                                <label class="required font-weight-600" for="completer-name">Localitate:</label>
-                                                                <input type="email" placeholder="Placeholder text here..." class="form-control" id="pacient-email" />
+                                                                <label class="required font-weight-600" for="patient-city">Localitate:</label>
+                                                                <select name="patient-city" id="patient-city" class="custom-select form-control @error('patient-city') is-invalid @enderror">
+                                                                    <option>Selectati Judetul</option>
+                                                                    @foreach ($cities as $cities)
+                                                                        @if (old('patient-city'))
+                                                                            <option value="{{ $cities->id }}" {{ (old('patient-city') == $cities->id ? 'selected' : '') }}>{{ $cities->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $cities->id }}">{{ $cities->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+
+                                                                @error('patient-city')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
+
                                                         <div class="col">
                                                             <div class="form-group">
-                                                                <label  class="required font-weight-600" for="completer-name">Localitate:</label>
-                                                                <input type="email" placeholder="Placeholder text here..." class="form-control" id="pacient-email" />
+                                                                <label  class="required font-weight-600" for="caretaker-name">Diagnostic:</label>
+                                                                <input type="text" placeholder="Diagnostic" class="form-control" id="pacient-diagnostic" value="{{ old('pacient-diagnostic') }}" />
+
+                                                                @error('pacient-diagnostic')
+                                                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-12 mt-4">
                                                     <div class="form-group">
-                                                        <label for="" class="font-weight-600">Te rugam sa ne oferi mai multe detalii referitoare la cazul pe care il supui atentiei noastre!</label>
-                                                        <textarea name="" id="" rows="5" class="form-control" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></textarea>
+                                                        <label for="extra-details" class="font-weight-600">Te rugam sa ne oferi mai multe detalii referitoare la cazul pe care il supui atentiei noastre!</label>
+                                                        <textarea name="extra-details" id="extra-details" rows="5" class="form-control" placeholder=""></textarea>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-12">
                                                     <label for="" class="font-weight-600 mb-3">Cu ce putem să te ajutăm?</label>
                                                     <div class="row">
@@ -148,7 +213,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="border-top pt-5 mt-3 clearfix">
-                                                        <button type="button" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        <button type="submit" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                             <span class="btn-inner--text">Pasul urmator</span>
                                                             <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                                         </button>
@@ -159,7 +224,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card mb-4 shadow">
+
+                            <div class="card mb-4 shadow invisible">
                                 <div class="card-header" id="headingTwo">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -194,7 +260,7 @@
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <div class="form-group">
-                                                                <label class="required font-weight-600" for="completer-name">Tara:</label>
+                                                                <label class="required font-weight-600" for="caretaker-name">Tara:</label>
                                                                 <select name="" id="" class="custom-select form-control">
                                                                     <option value="">Tara 1</option>
                                                                     <option value="">Tara 2</option>
@@ -222,7 +288,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card mb-4 shadow">
+
+                            <div class="card mb-4 shadow invisible">
                                 <div class="card-header" id="headingThree">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -246,7 +313,7 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-name">Tara:</label>
+                                                        <label class="required font-weight-600" for="caretaker-name">Tara:</label>
                                                         <select name="" id="" class="custom-select form-control">
                                                             <option value="">Tara 1</option>
                                                             <option value="">Tara 2</option>
@@ -257,7 +324,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-name">Oras:</label>
+                                                        <label class="required font-weight-600" for="caretaker-name">Oras:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="city" />
                                                     </div>
                                                 </div>
@@ -265,7 +332,7 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="completer-name">Pentru câte persoane ai nevoie de cazare?</label>
+                                                        <label class="required font-weight-600" for="caretaker-name">Pentru câte persoane ai nevoie de cazare?</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="no-of-persons" />
                                                     </div>
                                                 </div>
@@ -313,4 +380,24 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('select[name=patient-county]').on('change', function () {
+                var cities = $('select[name=patient-city]');
+
+                cities.empty().append(new Option('-', null));
+
+                axios.get('/ajax/county/' + this.value + '/city')
+                    .then(res => {
+                        cities.empty().append(new Option('-', null));
+                        $.each(res.data, function(key, value) {
+                            cities.append(new Option(value, key));
+                        });
+                    });
+            });
+        });
+    </script>
 @endsection

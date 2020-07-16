@@ -28,6 +28,11 @@ Route::middleware([SetLanguage::class, Administration::class])
     });
 
 /**
+ * Ajax routes
+ */
+Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+
+/**
  * Frontend routes
  */
 Route::middleware([SetLanguage::class])
@@ -41,6 +46,7 @@ Route::middleware([SetLanguage::class])
         Route::get('/homepage', 'StaticPagesController@home')->name('home');
         Route::get('/about', 'StaticPagesController@about')->name('about');
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
+        Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinic/{slug}', 'ClinicController@show')->name('clinic-details');
