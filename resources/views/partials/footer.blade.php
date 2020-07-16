@@ -42,43 +42,43 @@
                 <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('terms-and-conditions') }}">{{ __('Terms and conditions') }}</a>
             </li>
             <li>
-                <a class="text-white btn btn-secondary" href="#">Sustine proiectul</a>
+                <a class="text-white btn btn-secondary" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">{{ __('Support this project') }}</a>
             </li>
         </ul>
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row mb-3 small">
             <li>
                 <span class="nav-link text-white-50">
-                    Daca ai nevoie de ajutor contactează Asociatia MAME:
+                  {{ __('If you need help please contact Asociația MAME') }}
                 </span>
             </li>
             <li>
                 <span class="nav-link text-white-50">
-                    Telefon: <a class="text-white-50" href="tel: (+40) 734.949.281">(+40) 734.949.281</a>
+                   {{ __('Phone Number') }}: <a class="text-white-50" href="tel: (+40) 734.949.281">(+40) 734.949.281</a>
                 </span>
             </li>
             <li>
                 <span class="nav-link text-white-50">
-                    Email: <a class="text-white-50" href="tel: (+40) 734.949.281">ajutor@asociatiamame.com</a>
+                    {{ __('Email') }}: <a class="text-white-50" href="mailto:ajutor@asociatiamame.com">ajutor@asociatiamame.com</a>
                 </span>
             </li>
             <li>
                 <span class="nav-link text-white-50">
-                    Website: <a class="text-white-50" href="tel: (+40) 734.949.281">www.asociatiamame.ro</a>
+                    {{ __('Website') }}: <a class="text-white-50" href="https://asociatiamame.ro" target="_blank" rel="noopener">www.asociatiamame.ro</a>
                 </span>
             </li>
         </ul>
         <ul class="d-flex justify-content-center list-unstyled align-items-center flex-sm-row mt-5 mb-3 social-buttons">
             <li class="mx-3">
-                <a href="#"><i class="fa fa-facebook text-white"></i></a>
+                <a href="https://www.facebook.com/AsocMAME" target="_blank" rel="noopener"><i class="fa fa-facebook text-white"></i></a>
             </li>
             <li class="mx-3">
-                <a href="#"><i class="fa fa-instagram text-white"></i></a>
+                <a href="https://www.instagram.com/asociatiamame/" target="_blank" rel="noopener"><i class="fa fa-instagram text-white"></i></a>
             </li>
             <li class="mx-3">
-                <a href="#"><i class="fa fa-youtube text-white"></i></a>
+                <a href="https://www.youtube.com/channel/UCqFuHLZSiMR4_BTEZveMPXg" target="_blank" rel="noopener"><i class="fa fa-youtube text-white"></i></a>
             </li>
             <li class="mx-3">
-                <a href="#"><i class="fa fa-github text-white"></i></a>
+                <a href="https://github.com/code4romania/help-for-health" target="_blank" rel="noopener"><i class="fa fa-github text-white"></i></a>
             </li>
         </ul>
     </div>
