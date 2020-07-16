@@ -34,7 +34,6 @@
   "English": "[HU] English",
   "German": "[HU] German",
   "Hungarian": "[HU] Hungarian",
-  "project released by": "[HU] project released by",
   "About Help For Health": "[HU] About Help For Health",
   "Media" : "[HU] Media",
   "News" : "[HU] News",
@@ -45,5 +44,8 @@
   "Get Involved": "[HU]Get Involved",
   "Clinic List": "[HU] Clinic List",
   "Donate": "[HU] Donate",
-  "Login host": "[HU] Login host"
+  "Login host": "[HU] Login host",
+  "project released by": "[HU] project released by",
+  "project incubated in": "[HU] project incubated in",
+  "project financed by": "[HU] project financed by"
 }
