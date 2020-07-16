@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\County;
+use App\HelpRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -37,18 +38,32 @@ class RequestServicesController extends Controller
     public function submit(Request $request)
     {
         $request->validate([
-            'pacient-name' => ['required', 'string', 'max:32'],
+            'patient-name' => ['required', 'string', 'max:32'],
             'caretaker-name' => ['required', 'string', 'max:32'],
-            'pacient-phone' => ['required', 'phone:RO', 'string', 'max:16'],
+            'patient-phone' => ['required', 'phone:RO', 'string', 'max:16'],
             'caretaker-phone' => ['required', 'phone:RO', 'string', 'max:16'],
-            'pacient-email' => ['required', 'email', 'string', 'max:255'],
+            'patient-email' => ['required', 'email', 'string', 'max:255'],
             'caretaker-email' => ['required', 'email', 'string', 'max:255'],
             'patient-county' => ['required', 'exists:counties,id'],
             'patient-city' => ['required', 'exists:cities,id'],
             'extra-details' => ['nullable'],
-            'pacient-diagnostic' => ['required', 'string', 'max:128']
+            'patient-diagnostic' => ['required', 'string', 'max:128']
         ]);
 
-        echo 'Validated';
+        $helpRequest = new HelpRequest();
+        $helpRequest->patient_full_name = $request->get('patient-name');
+        $helpRequest->patient_phone_number = $request->get('patient-phone');
+        $helpRequest->patient_email = $request->get('patient-email');
+        $helpRequest->caretaker_full_name = $request->get('caretaker-name');
+        $helpRequest->caretaker_phone_number = $request->get('caretaker-phone');
+        $helpRequest->caretaker_email = $request->get('caretaker-email');
+        $helpRequest->county_id = $request->get('patient-county');
+        $helpRequest->city_id = $request->get('patient-city');
+        $helpRequest->diagnostic = $request->get('patient-diagnostic');
+        $helpRequest->extra_details = $request->get('extra-details');
+        $helpRequest->status = HelpRequest::STATUS_NEW;
+        $helpRequest->save();
+
+        echo 'Saved. TODO: thanks page!';
     }
 }

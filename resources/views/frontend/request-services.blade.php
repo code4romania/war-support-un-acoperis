@@ -43,10 +43,10 @@
 
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="pacient-name">Numele si prenumele pacientului:</label>
-                                                        <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('pacient-name') is-invalid @enderror" name="pacient-name" id="pacient-name" value="{{ old('pacient-name') }}" required />
+                                                        <label class="required font-weight-600" for="patient-name">Numele si prenumele pacientului:</label>
+                                                        <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('patient-name') is-invalid @enderror" name="patient-name" id="patient-name" value="{{ old('patient-name') }}" required />
 
-                                                        @error('pacient-name')
+                                                        @error('patient-name')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </div>
@@ -65,10 +65,10 @@
 
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="pacient-phone">Telefonul pacientului:</label>
-                                                        <input type="tel" placeholder="0700000000" class="form-control @error('pacient-phone') is-invalid @enderror" name="pacient-phone" id="pacient-phone" value="{{ old('pacient-phone') }}" required />
+                                                        <label class="required font-weight-600" for="patient-phone">Telefonul pacientului:</label>
+                                                        <input type="tel" placeholder="0700000000" class="form-control @error('patient-phone') is-invalid @enderror" name="patient-phone" id="patient-phone" value="{{ old('patient-phone') }}" required />
 
-                                                        @error('pacient-phone')
+                                                        @error('patient-phone')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </div>
@@ -88,9 +88,9 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">E-mailul pacientului:</label>
-                                                        <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('pacient-email') is-invalid @enderror" name="pacient-email" id="pacient-email" value="{{ old('pacient-email') }}" required />
+                                                        <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('patient-email') is-invalid @enderror" name="patient-email" id="patient-email" value="{{ old('patient-email') }}" required />
 
-                                                        @error('pacient-email')
+                                                        @error('patient-email')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </div>
@@ -155,9 +155,9 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label  class="required font-weight-600" for="caretaker-name">Diagnostic:</label>
-                                                                <input type="text" placeholder="Diagnostic" class="form-control @error('pacient-diagnostic') is-invalid @enderror" name="pacient-diagnostic" id="pacient-diagnostic" value="{{ old('pacient-diagnostic') }}" required />
+                                                                <input type="text" placeholder="Diagnostic" class="form-control @error('patient-diagnostic') is-invalid @enderror" name="patient-diagnostic" id="patient-diagnostic" value="{{ old('patient-diagnostic') }}" required />
 
-                                                                @error('pacient-diagnostic')
+                                                                @error('patient-diagnostic')
                                                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                                 @enderror
                                                             </div>

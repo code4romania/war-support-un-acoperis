@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class HelpRequest extends Model
 {
     // TODO: define status list, as constants
+    const STATUS_NEW = 'new';
 
     /**
      * @return BelongsTo
