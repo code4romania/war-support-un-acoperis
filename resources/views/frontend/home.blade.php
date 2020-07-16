@@ -12,8 +12,8 @@
             <div class="banner-content ml-sm-5 mt-3 mt-sm-0">
                 <h1 class="text-primary font-weight-600 mb-4">Bine ai venit!</h1>
                 <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.</p>
-                <button class="btn btn-lg btn-primary mr-3 px-5">Solicita servicii</button>
-                <button class="btn btn-lg btn-secondary px-5">Implica-te</button>
+                <a href="{{ route('request-services') }}" class="btn btn-lg btn-primary mr-3 px-5">Solicita servicii</a>
+                <a href="{{ route('get-involved') }}" class="btn btn-lg btn-secondary px-5">Implica-te</a>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.
                         </p>
-                        <button class="btn btn-white text-secondary btn-lg px-6 mt-4">Solicita aici</button>
+                        <a href="{{ route('request-services') }}" class="btn btn-white text-secondary btn-lg px-6 mt-4">Solicita aici</a>
                     </div>
                 </div>
                 <div class="col-sm-6 py-5 pl-sm-6">
@@ -87,7 +87,7 @@
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.
                     </p>
-                    <button class="btn btn-white text-primary btn-lg px-6 mt-4">Implica-te</button>
+                    <a href="{{ route('get-involved') }}" class="btn btn-white text-primary btn-lg px-6 mt-4">Implica-te</a>
                 </div>
             </div>
         </div>
