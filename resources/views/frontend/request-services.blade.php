@@ -38,45 +38,45 @@
                                     <div class="card-body py-5">
                                         <form action="">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="pacient-name">Numele si prenumele pacientului:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="pacient-name" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-name">Numele si prenumele persoanei care completeaza formularul:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="completer-name" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="pacient-phone">Telefonul pacientului:</label>
                                                         <input type="tel" placeholder="Placeholder text here..." class="form-control" id="pacient-phone" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-phone">Telefonul persoanei care completeaza formularul:</label>
                                                         <input type="tel" placeholder="Placeholder text here..." class="form-control" id="completer-phone" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-name">E-mailul pacientului:</label>
                                                         <input type="email" placeholder="Placeholder text here..." class="form-control" id="pacient-email" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-name">E-mailul persoanei care completeaza formularul:</label>
                                                         <input type="email" placeholder="Placeholder text here..." class="form-control" id="completer-phone" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="row">
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="completer-name">Judet:</label>
                                                                 <select name="" id="" class="custom-select form-control">
@@ -87,7 +87,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="completer-name">Localitate:</label>
                                                                 <input type="email" placeholder="Placeholder text here..." class="form-control" id="pacient-email" />
@@ -110,7 +110,7 @@
                                                 <div class="col-12">
                                                     <label for="" class="font-weight-600 mb-3">Cu ce putem să te ajutăm?</label>
                                                     <div class="row">
-                                                        <div class="col">
+                                                        <div class="col-sm-6">
                                                             <div class="custom-control custom-checkbox mb-3">
                                                                 <input class="custom-control-input" id="customCheck1" type="checkbox">
                                                                 <label class="custom-control-label" for="customCheck1">Informare si indrumare catre spitale din tara</label>
@@ -128,7 +128,7 @@
                                                                 <label class="custom-control-label" for="customCheck4">Consultanta privind strangerea de fonduri necesare pentru plata tratamentelor</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col-sm-6">
                                                             <div class="custom-control custom-checkbox mb-3">
                                                                 <input class="custom-control-input" id="customCheck5" type="checkbox">
                                                                 <label class="custom-control-label" for="customCheck5">Alocarea unui numar de SMS pentru strangerea de fonduri</label>
@@ -172,27 +172,27 @@
                                     <div class="card-body py-5">
                                         <form action="">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="estimate-sum">Suma estimativa necesara pentru tratament/interventie chirurgicala:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="estimate-sum" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="destination-sms">Destinatie fonduri stranse in campanie SMS</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="destination-sms" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="clinic-name">Denumire clinica/spital unde este acceptat pacientul:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="clinic-name" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="row">
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="completer-name">Tara:</label>
                                                                 <select name="" id="" class="custom-select form-control">
@@ -203,7 +203,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="localitate">Localitate:</label>
                                                                 <input type="text" placeholder="Placeholder text here..." class="form-control" id="localitate" />
@@ -236,7 +236,7 @@
                                         <h5 class="mb-5">Te rugam sa completezi campurile de mai jos pentru a te ajuta sa gasesti cea mai buna optiune de cazare langa spital!</h5>
                                         <form action="">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="font-weight-600" for="estimate-sum">La ce spital urmeaza sa fie efectuate investigatiile medicale / tratamentul?</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="estimate-sum" />
@@ -244,7 +244,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-name">Tara:</label>
                                                         <select name="" id="" class="custom-select form-control">
@@ -255,7 +255,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-name">Oras:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="city" />
@@ -263,7 +263,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="completer-name">Pentru câte persoane ai nevoie de cazare?</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="no-of-persons" />
@@ -271,7 +271,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="date-start">Incepand cu ce data ai nevoie de cazare?</label>
                                                         <div class="input-group">
@@ -282,7 +282,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="date-end">Până când ai nevoie de cazare?</label>
                                                         <div class="input-group">

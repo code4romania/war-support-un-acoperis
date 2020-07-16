@@ -41,6 +41,9 @@ body {
 }
 
 .footer {
+    .border-bottom-dark {
+        border-color:darken($primary, 20%)!important;
+    }
     .social-buttons {
         i {
             font-size:2rem;
@@ -394,4 +397,11 @@ label.required {
 
 .clinic-map {
     height:450px;
+}
+
+@include media-breakpoint-down(md) {
+    .navbar-brand img {
+        height:50px;
+        margin-left:10px;
+    }
 }

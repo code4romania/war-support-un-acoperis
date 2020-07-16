@@ -32,6 +32,21 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-collapse-header">
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a href="{{ url('/') }}">
+                                    <img src="/images/logo-hfh.svg" alt="{{ config('app.name') }}">
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">

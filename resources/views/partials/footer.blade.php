@@ -22,7 +22,7 @@
             </li>
         </ul>
 
-        <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row pb-4 border-bottom border-white">
+        <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row pb-4 border-bottom border-bottom-dark">
             <li>
                 <a class="nav-link text-white  mb-2 mb-sm-0" href="{{ route('partners') }}">{{ __('Partners') }}</a>
             </li>
