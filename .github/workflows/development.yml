@@ -82,7 +82,7 @@ jobs:
 
       - name: Push docker image to AWS ECR
         run: |
-          docker push ${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}
+          docker push ${{ secrets.DEV_AWS_ECR_REPOSITORY }}:${{ github.sha }}
 
       - name: Prepare AWS EB payload
         run: |
