@@ -48,6 +48,15 @@ jobs:
       - name: Build and tag docker image
         run: |
           docker build -f .docker/Dockerfile \
+          --build-arg FILESYSTEM_DRIVER=${{ secrets.FILESYSTEM_DRIVER}} \
+          --build-arg MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS}} \
+          --build-arg MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME}} \
+          --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
+          --build-arg ADMIN_APP_PATH=${{ secrets.ADMIN_APP_PATH}} \
+          --build-arg S3_KEY=${{ secrets.DEV_AWS_ACCESS_KEY_ID}} \
+          --build-arg S3_SECRET=${{ secrets.DEV_AWS_SECRET_ACCESS_KEY}} \
+          --build-arg S3_BUCKET=${{ secrets.DEV_AWS_PUBLIC_BUCKET}} \
+          --build-arg APP_HOST=${{ secrets.DEV_APP_HOST}} \
           -t ${{ github.repository }}:${{ github.sha }} \
           -t ${{ secrets.DEV_AWS_ECR_REPOSITORY }}:${{ github.sha }} .
 
