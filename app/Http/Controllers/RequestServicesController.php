@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use App\County;
 use App\HelpRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -35,6 +36,10 @@ class RequestServicesController extends Controller
             ->with('cities', $cities);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function submit(Request $request)
     {
         $request->validate([
@@ -64,6 +69,15 @@ class RequestServicesController extends Controller
         $helpRequest->status = HelpRequest::STATUS_NEW;
         $helpRequest->save();
 
-        echo 'Saved. TODO: thanks page!';
+        return redirect()->route('request-services-thanks');
+    }
+
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function thanks(Request $request)
+    {
+        return view('frontend.request-services-thanks');
     }
 }

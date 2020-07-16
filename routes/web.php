@@ -47,6 +47,7 @@ Route::middleware([SetLanguage::class])
         Route::get('/about', 'StaticPagesController@about')->name('about');
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
         Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
+        Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinic/{slug}', 'ClinicController@show')->name('clinic-details');
