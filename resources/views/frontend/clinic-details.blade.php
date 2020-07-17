@@ -17,7 +17,7 @@
     </section>
     <div class="container py-5">
         <div class="row mb-6">
-            <div class="col pr-lg-5">
+            <div class="col-sm-6 pr-lg-5 mb-4 mb-0">
                 <h4 class="text-primary mb-4 font-weight-600">Detalii despre clinica</h4>
                 <ul class="details-wrapper list-unstyled">
                     <li class="d-flex align-items-start">
@@ -40,7 +40,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col pl-lg-5">
+            <div class="col-sm-6 pl-lg-5">
                 <h4 class="text-primary mb-4 font-weight-600">Persoana de contact</h4>
                 <ul class="details-wrapper list-unstyled">
                     <li class="d-flex">
@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col pr-lg-5">
+            <div class="col-sm-6 pr-lg-5">
                 <div class="description mb-6">
                     <h4 class="text-primary mb-4 font-weight-600">Descriere</h4>
                     <p>In cadrul spitalului se ofera ingrijire si tratament copiilor si tinerilor diagnosticati cu leucemie limfoblastica acuta, leucemie mieloida acuta, sarcom Ewing, tumori cu celule germinale, boala Hodgkin, limfom non-Hodgkin de osteosarcom si tumori ale sistemului nervos central.</p>
@@ -85,7 +85,7 @@
                     <p>Pentru Centrul Oncologic Macmillan, din cadrul Spitalului University College, adresa este Str. Huntley nr. WC1E 6AG, si puteti obtine informatii suplimentare la telefon: 004402034567016.</p>
                 </div>
             </div>
-            <div class="col pl-lg-5">
+            <div class="col-sm-6 pl-lg-5">
                 <div class="mb-5">
                     <h4 class="text-primary mb-4 font-weight-600">Detalii despre clinica</h4>
                     <ul class="list-custom">

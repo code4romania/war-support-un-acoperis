@@ -16,7 +16,7 @@ class CreateHelpRequestTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('help_request_type', function (Blueprint $table) {
+        Schema::create('help_request_types', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('help_request_id');
             $table->unsignedBigInteger('help_type_id');
@@ -41,6 +41,6 @@ class CreateHelpRequestTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('help_request_type');
+        Schema::dropIfExists('help_request_types');
     }
 }

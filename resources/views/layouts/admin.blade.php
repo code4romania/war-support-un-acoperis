@@ -107,14 +107,14 @@
                                     $params = request()->route()->parameters();
                                     $ro = $en = $de = $hu = $params;
                                     $ro['locale'] = 'ro';
-                                    $de['locale'] = 'de';
+                                    //$de['locale'] = 'de';
                                     $en['locale'] = 'en';
-                                    $hu['locale'] = 'hu';
+                                    //$hu['locale'] = 'hu';
                                 @endphp
                                 <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
                                 <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
-                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>
-                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>
+{{--                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>--}}
+{{--                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>--}}
                             </div>
                         </li>
                     </ul>
@@ -132,5 +132,6 @@
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('/js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

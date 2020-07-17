@@ -8,7 +8,7 @@
             </div>
         @endif
             <div class="d-flex align-items-sm-center flex-column flex-sm-row">
-                <img src="/images/featured-about.png" alt="Help for Health" srcset="/images/featured-about@2x.png 2x">
+                <img src="/images/featured-about.png" alt="Help for Health" srcset="/images/featured-about@2x.png 2x" class="w-100">
                 <div class="banner-content ml-sm-6 mt-3 mt-sm-0">
                     <h1 class="text-primary font-weight-600 mb-4">Ce este Help for Health?</h1>
                     <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>
@@ -19,32 +19,32 @@
     <section class="bg-light-blue my-2 py-5">
         <div class="container">
             <h2 class="font-weight-600 mb-5">Care sunt tipurile de servicii cu care te putem ajuta</h2>
-            <div class="media mb-5">
-                <img src="/images/about-icon-1.svg" height="140" class="mr-5 align-self-center" alt="...">
+            <div class="media mb-5 flex-column flex-sm-row">
+                <img src="/images/about-icon-1.svg" height="140" class="mr-0 mr-sm-5 align-self-center align-self-center-sm mb-3 mb-sm-0" alt="...">
                 <div class="media-body align-self-center">
-                    <h5 class="mt-0 font-weight-600">Consultanta in strangerea de fonduri</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
+                    <h5 class="mt-0 font-weight-600 text-center text-sm-left">Consultanta in strangerea de fonduri</h5>
+                    <p class="text-center text-sm-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
                 </div>
             </div>
-            <div class="media mb-5">
-                <img src="/images/about-icon-2.svg" height="140" class="mr-5 align-self-center" alt="...">
+            <div class="media mb-5 flex-column flex-sm-row">
+                <img src="/images/about-icon-2.svg" height="140" class="mr-0 mr-sm-5 align-self-center align-self-center-sm mb-3 mb-sm-0" alt="...">
                 <div class="media-body align-self-center">
-                    <h5 class="mt-0 font-weight-600">Accesarea serviciilor medicale potrivite</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
+                    <h5 class="mt-0 font-weight-600 text-center text-sm-left">Accesarea serviciilor medicale potrivite</h5>
+                    <p class="text-center text-sm-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
                 </div>
             </div>
-            <div class="media mb-5">
-                <img src="/images/about-icon-3.svg" height="140" class="mr-5 align-self-center" alt="...">
+            <div class="media mb-5 flex-column flex-sm-row">
+                <img src="/images/about-icon-3.svg" height="140" class="mr-0 mr-sm-5 align-self-center align-self-center-sm mb-3 mb-sm-0" alt="...">
                 <div class="media-body align-self-center">
-                    <h5 class="mt-0 font-weight-600">Solutionarea altor nevoi</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
+                    <h5 class="mt-0 font-weight-600 text-center text-sm-left">Solutionarea altor nevoi</h5>
+                    <p class="text-center text-sm-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
                 </div>
             </div>
-            <div class="media">
-                <img src="/images/about-icon-4.svg" height="140" class="mr-5 align-self-center" alt="...">
+            <div class="media flex-column flex-sm-row">
+                <img src="/images/about-icon-4.svg" height="140" class="mr-0 mr-sm-5 align-self-center align-self-center-sm mb-3 mb-sm-0" alt="...">
                 <div class="media-body align-self-center">
-                    <h5 class="mt-0 font-weight-600">Sprijin pentru a găsi cazare</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
+                    <h5 class="mt-0 font-weight-600 text-center text-sm-left">Sprijin pentru a găsi cazare</h5>
+                    <p class="text-center text-sm-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus. Pellentesque sed netus.</p>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
     <div class="py-5">
         <div class="container">
             <h2 class="text-primary font-weight-600 mb-5">Despre Asociația MAME</h2>
-            <div class="row mb-6">
+            <div class="row mb-6 flex-column-reverse flex-sm-row">
                 <div class="col-sm-8">
                     <p class="mb-4">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.
@@ -61,7 +61,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum.
                     </p>
                 </div>
-                <div class="col-sm-4 px-sm-5 align-self-center">
+                <div class="col-sm-4 px-sm-5 align-self-center mb-4 mb-sm-0">
                     <img src="/images/logo-asociatia-mame.svg" class="w-100" alt="">
                 </div>
             </div>
