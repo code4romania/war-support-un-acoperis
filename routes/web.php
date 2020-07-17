@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/ro/homepage');
+Route::redirect('/', '/ro');
 
 /**
  * Administration routes
@@ -43,7 +43,7 @@ Route::middleware([SetLanguage::class])
         /**
          * Header
          */
-        Route::get('/homepage', 'StaticPagesController@home')->name('home');
+        Route::get('/', 'StaticPagesController@home')->name('home');
         Route::get('/about', 'StaticPagesController@about')->name('about');
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
         Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');

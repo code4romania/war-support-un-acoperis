@@ -25,18 +25,33 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/images/logo-hfh.svg" height="75" alt="{{ config('app.name', 'Laravel') }}">
+                    <img src="/images/logo-hfh.svg" height="75" alt="{{ config('app.name', 'Ajutor de urgenta') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-collapse-header">
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a href="{{ url('/') }}">
+                                    <img src="/images/logo-hfh.svg" alt="{{ config('app.name') }}">
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'about' ? 'active' : '' }}" href="{{ route('about') }}">
-                                {{ __('About') }}
+                                {{ __('About the project') }}
                             </a>
                         </li>
 
@@ -59,7 +74,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="{{ route('donate') }}">
+                            <a class="nav-link text-secondary text-underline {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">
                                 {{ __('Donate') }}
                             </a>
                         </li>
@@ -70,13 +85,8 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item align-self-md-center">
-                                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">{{ __('Login host') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

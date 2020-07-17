@@ -3,7 +3,7 @@ name: Production Deployment
 on:
   push:
     branches:
-      - master-TODO
+      - master
 
 jobs:
   deploy:
@@ -85,11 +85,11 @@ jobs:
 
       - name: Push docker image to AWS ECR
         run: |
-          docker push ${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}
+          docker push ${{ secrets.PROD_AWS_ECR_REPOSITORY }}:${{ github.sha }}
 
       - name: Prepare AWS EB payload
         run: |
-          echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
+          echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.PROD_AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
 
       - name: Preapre AWS EB .ebextensions with Nginx config
         run: |

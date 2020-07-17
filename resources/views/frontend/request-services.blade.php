@@ -41,7 +41,7 @@
                                             @csrf
                                             <div class="row">
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="patient-name">Numele si prenumele pacientului:</label>
                                                         <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('patient-name') is-invalid @enderror" name="patient-name" id="patient-name" value="{{ old('patient-name') }}" required />
@@ -52,7 +52,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">Numele si prenumele persoanei care completeaza formularul:</label>
                                                         <input type="text" placeholder="Ioan Vasile" class="form-control @error('caretaker-name') is-invalid @enderror" name="caretaker-name" id="caretaker-name" value="{{ old('caretaker-name') }}" required />
@@ -63,7 +63,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="patient-phone">Telefonul pacientului:</label>
                                                         <input type="tel" placeholder="0700000000" class="form-control @error('patient-phone') is-invalid @enderror" name="patient-phone" id="patient-phone" value="{{ old('patient-phone') }}" required />
@@ -74,7 +74,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-phone">Telefonul persoanei care completeaza formularul:</label>
                                                         <input type="tel" placeholder="0700000001" class="form-control @error('caretaker-phone') is-invalid @enderror" name="caretaker-phone" id="caretaker-phone" value="{{ old('caretaker-phone') }}" required />
@@ -85,7 +85,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">E-mailul pacientului:</label>
                                                         <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('patient-email') is-invalid @enderror" name="patient-email" id="patient-email" value="{{ old('patient-email') }}" required />
@@ -96,7 +96,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-email">E-mailul persoanei care completeaza formularul:</label>
                                                         <input type="email" placeholder="ioan.vasile@provider.tld" class="form-control @error('caretaker-email') is-invalid @enderror" name="caretaker-email" id="caretaker-email" value="{{ old('caretaker-email') }}" required />
@@ -106,9 +106,9 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="row">
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="patient-county">Judet:</label>
                                                                 <select name="patient-county" id="patient-county" class="custom-select form-control @error('county') is-invalid @enderror" required>
@@ -130,7 +130,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="patient-city">Localitate:</label>
                                                                 <select name="patient-city" id="patient-city" class="custom-select form-control @error('patient-city') is-invalid @enderror" required>
@@ -181,7 +181,7 @@
                                                 <div class="col-12">
                                                     <label for="" class="font-weight-600 mb-3">Cu ce putem să te ajutăm?</label>
                                                     <div class="row">
-                                                        <div class="col">
+                                                        <div class="col-sm-6">
                                                             <div class="custom-control custom-checkbox mb-3">
                                                                 <input class="custom-control-input" id="customCheck1" type="checkbox">
                                                                 <label class="custom-control-label" for="customCheck1">Informare si indrumare catre spitale din tara</label>
@@ -199,7 +199,7 @@
                                                                 <label class="custom-control-label" for="customCheck4">Consultanta privind strangerea de fonduri necesare pentru plata tratamentelor</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col-sm-6">
                                                             <div class="custom-control custom-checkbox mb-3">
                                                                 <input class="custom-control-input" id="customCheck5" type="checkbox">
                                                                 <label class="custom-control-label" for="customCheck5">Alocarea unui numar de SMS pentru strangerea de fonduri</label>
@@ -248,27 +248,27 @@
                                     <div class="card-body py-5">
                                         <form action="">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="estimate-sum">Suma estimativa necesara pentru tratament/interventie chirurgicala:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="estimate-sum" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="destination-sms">Destinatie fonduri stranse in campanie SMS</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="destination-sms" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="clinic-name">Denumire clinica/spital unde este acceptat pacientul:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="clinic-name" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="row">
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="caretaker-name">Tara:</label>
                                                                 <select name="" id="" class="custom-select form-control">
@@ -279,7 +279,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="localitate">Localitate:</label>
                                                                 <input type="text" placeholder="Placeholder text here..." class="form-control" id="localitate" />
@@ -313,7 +313,7 @@
                                         <h5 class="mb-5">Te rugam sa completezi campurile de mai jos pentru a te ajuta sa gasesti cea mai buna optiune de cazare langa spital!</h5>
                                         <form action="">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="font-weight-600" for="estimate-sum">La ce spital urmeaza sa fie efectuate investigatiile medicale / tratamentul?</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="estimate-sum" />
@@ -321,7 +321,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">Tara:</label>
                                                         <select name="" id="" class="custom-select form-control">
@@ -332,7 +332,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">Oras:</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="city" />
@@ -340,7 +340,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="caretaker-name">Pentru câte persoane ai nevoie de cazare?</label>
                                                         <input type="text" placeholder="Placeholder text here..." class="form-control" id="no-of-persons" />
@@ -348,7 +348,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="date-start">Incepand cu ce data ai nevoie de cazare?</label>
                                                         <div class="input-group">
@@ -359,7 +359,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600" for="date-end">Până când ai nevoie de cazare?</label>
                                                         <div class="input-group">

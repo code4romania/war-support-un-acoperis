@@ -3,7 +3,7 @@ name: Development Deployment
 on:
   push:
     branches:
-      - master
+      - master-SUSPENDED
 
 jobs:
   deploy:
