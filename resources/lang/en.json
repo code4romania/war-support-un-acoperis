@@ -46,7 +46,7 @@
     "Get Involved": "Get Involved",
     "Clinic List": "Clinic List",
     "Donate": "Donate",
-    "Login host": "Login host"
+    "Login host": "Login host",
     "project released by": "project released by",
     "project incubated in": "project incubated in",
     "project financed by": "project financed by",
@@ -58,5 +58,16 @@
     "Allocation of an SMS number for fundraising": "Allocation of an SMS number for fundraising",
     "Support to find accommodation options near the hospital": "Support to find accommodation options near the hospital",
     "Support to find the medications you need": "Support to find the medications you need",
-    "Solving other needs": "Solving other needs"
+    "Solving other needs": "Solving other needs",
+
+    "All information provided using the application form is confidential.": "All information provided using the application form is confidential.",
+    "General information": "General information",
+    "Patient's full name": "Patient's full name",
+    "Patient's phone number": "Patient's phone number",
+    "Patient's e-mail": "Patient's e-mail",
+    "Diagnostic": "Diagnostic",
+    "Please provide us with more details regarding the case you are bringing to our attention": "Please provide us with more details regarding the case you are bringing to our attention",
+    "How can we help you": "How can we help you",
+    "Send request": "Send request",
+    "Next step": "Next step"
 }

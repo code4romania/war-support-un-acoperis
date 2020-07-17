@@ -18,7 +18,7 @@
     "Reset Password": "Resetează parola",
     "Send Password Reset Link": "Trimite link de resetare a parolei",
     "County": "Județ",
-    "Select County": "Selectează Județul",
+    "Select County": "Selectati Județul",
     "City": "Localitate",
     "Select City": "Selectează Localitatea",
     "School": "Școală",
@@ -56,5 +56,16 @@
     "Allocation of an SMS number for fundraising": "Alocarea unui numar de SMS pentru strangerea de fonduri",
     "Support to find accommodation options near the hospital": "Sprijin pentru a gasi optiuni de cazare langa spital",
     "Support to find the medications you need": "Sprijin pentru a gasi medicamentele de care ai nevoie",
-    "Solving other needs": "Solutionarea altor nevoi"
+    "Solving other needs": "Solutionarea altor nevoi",
+
+    "All information provided using the application form is confidential.": "Toate informațiile furnizate cu ajutorul formularului de solicitare sunt confidențiale.",
+    "General information": "Informații generale",
+    "Patient's full name": "Numele și prenumele pacientului",
+    "Patient's phone number": "Telefonul pacientului",
+    "Patient's e-mail": "E-mailul pacientului",
+    "Diagnostic": "Diagnostic",
+    "Please provide us with more details regarding the case you are bringing to our attention": "Te rugăm să ne oferi mai multe detalii referitoare la cazul pe care îl supui atenției noastre",
+    "How can we help you": "Cu ce putem să te ajutăm",
+    "Send request": "Trimite solicitarea",
+    "Next step": "Următorul pas"
 }

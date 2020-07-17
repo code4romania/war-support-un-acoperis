@@ -15,7 +15,7 @@
     <div class="alert bg-light-green alert-general alert-secondary font-weight-600 mb-0" role="alert">
         <div class="container">
             <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
-            <span class="alert-inner--text">Toate informatiile furnizate cu ajutorul formularului de solicitare sunt confidentiale</span>
+            <span class="alert-inner--text">{{ __('All information provided using the application form is confidential.') }}</span>
         </div>
     </div>
     <section class="py-5 bg-light-blue">
@@ -33,7 +33,7 @@
                                 <div class="card-header" id="headingOne">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Informatii generale
+                                            {{ __('General information') }}
                                             <i class="ni ni-bold-down align-self-center ml-4"></i>
                                         </button>
                                     </h5>
@@ -44,7 +44,7 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="patient-name">Numele si prenumele pacientului:</label>
+                                                        <label class="required font-weight-600" for="patient-name">{{ __("Patient's full name") }}:</label>
                                                         <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('patient-name') is-invalid @enderror" name="patient-name" id="patient-name" value="{{ old('patient-name') }}" />
 
                                                         @error('patient-name')
@@ -66,7 +66,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="patient-phone">Telefonul pacientului:</label>
+                                                        <label class="required font-weight-600" for="patient-phone">{{ __("Patient's phone number") }}:</label>
                                                         <input type="tel" placeholder="0700000000" class="form-control @error('patient-phone') is-invalid @enderror" name="patient-phone" id="patient-phone" value="{{ old('patient-phone') }}" />
 
                                                         @error('patient-phone')
@@ -88,7 +88,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-name">E-mailul pacientului:</label>
+                                                        <label class="required font-weight-600" for="caretaker-name">{{ __("Patient's e-mail") }}:</label>
                                                         <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('patient-email') is-invalid @enderror" name="patient-email" id="patient-email" value="{{ old('patient-email') }}" />
 
                                                         @error('patient-email')
@@ -111,7 +111,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
-                                                                <label class="required font-weight-600" for="patient-county">Judet:</label>
+                                                                <label class="required font-weight-600" for="patient-county">{{ __('County') }}:</label>
                                                                 <select name="patient-county" id="patient-county" class="custom-select form-control @error('patient-county') is-invalid @enderror">
                                                                     <option></option>
                                                                     @foreach ($counties as $county)
@@ -131,9 +131,9 @@
 
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
-                                                                <label class="required font-weight-600" for="patient-city">Localitate:</label>
+                                                                <label class="required font-weight-600" for="patient-city">{{ __('City') }}:</label>
                                                                 <select name="patient-city" id="patient-city" class="custom-select form-control @error('patient-city') is-invalid @enderror">
-                                                                    <option value="">Selectati Judetul</option>
+                                                                    <option value="">{{( __('Select County')) }}</option>
                                                                     @foreach ($cities as $cities)
                                                                         @if (old('patient-city'))
                                                                             <option value="{{ $cities->id }}" {{ (old('patient-city') == $cities->id ? 'selected' : '') }}>{{ $cities->name }}</option>
@@ -151,7 +151,7 @@
 
                                                         <div class="col">
                                                             <div class="form-group">
-                                                                <label  class="required font-weight-600" for="caretaker-name">Diagnostic:</label>
+                                                                <label  class="required font-weight-600" for="caretaker-name">{{ __('Diagnostic') }}:</label>
                                                                 <input type="text" placeholder="Diagnostic" class="form-control @error('patient-diagnostic') is-invalid @enderror" name="patient-diagnostic" id="patient-diagnostic" value="{{ old('patient-diagnostic') }}" />
 
                                                                 @error('patient-diagnostic')
@@ -164,7 +164,7 @@
 
                                                 <div class="col-12 mt-4">
                                                     <div class="form-group">
-                                                        <label for="extra-details" class="font-weight-600">Te rugam sa ne oferi mai multe detalii referitoare la cazul pe care il supui atentiei noastre!</label>
+                                                        <label for="extra-details" class="font-weight-600">{{ __('Please provide us with more details regarding the case you are bringing to our attention') }}!</label>
                                                         <textarea name="extra-details" id="extra-details" rows="5" class="form-control" placeholder="Detalii caz">{{ old('extra-details') }}</textarea>
 
                                                         @error('extra-details')
@@ -176,7 +176,7 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <label for="" class="font-weight-600 mb-3">Cu ce putem să te ajutăm?</label>
+                                                    <label for="" class="font-weight-600 mb-3">{{ __('How can we help you') }}?</label>
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             @foreach($helpTypesLeft as $helpType)
@@ -201,12 +201,12 @@
                                                     </div>
                                                     <div class="border-top pt-5 mt-3 clearfix">
                                                         <button type="submit" id="submit-button-1" class="btn btn-secondary pull-right btn-lg px-6">
-                                                            <span class="btn-inner--text">Trimite solicitare</span>
+                                                            <span class="btn-inner--text">{{ __('Send request') }}</span>
                                                             <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                                         </button>
 
                                                         <button style="display: none;" type="button" id="next-step-button-1" class="btn btn-secondary pull-right btn-lg px-6 hide" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false">
-                                                            <span class="btn-inner--text">Pasul urmator</span>
+                                                            <span class="btn-inner--text">{{ __('Next step') }}</span>
                                                             <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                                         </button>
                                                     </div>
@@ -265,7 +265,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="required font-weight-600" for="sms-clinic-country">Tara:</label>
+                                                            <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>
                                                             <select name="sms-clinic-country" id="sms-clinic-country" class="custom-select form-control @error('sms-clinic-country') is-invalid @enderror">
                                                                 <option></option>
                                                                 @foreach ($countries as $country)
@@ -285,7 +285,7 @@
 
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="required font-weight-600" for="sms-clinic-city">Localitate:</label>
+                                                            <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
                                                             <input type="text" placeholder="Viena" class="form-control @error('sms-clinic-city') is-invalid @enderror" id="sms-clinic-city" name="sms-clinic-city" value="{{ old('sms-clinic-city') }}" />
 
                                                             @error('sms-clinic-city')
@@ -299,12 +299,12 @@
                                         </div>
                                         <div class="border-top pt-5 mt-3 clearfix">
                                             <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                                                <span class="btn-inner--text">Trimite solicitare</span>
+                                                <span class="btn-inner--text">{{ __('Send request') }}</span>
                                                 <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                             </button>
 
                                             <button style="display: none;" id="next-step-button-2" type="button" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
-                                                <span class="btn-inner--text">Pasul urmator</span>
+                                                <span class="btn-inner--text">{{ __('Next step') }}</span>
                                                 <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                             </button>
                                         </div>
@@ -339,7 +339,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="accommodation-country">Tara:</label>
+                                                    <label class="required font-weight-600" for="accommodation-country">{{ __('Country') }}:</label>
                                                     <select name="accommodation-country" id="accommodation-country" class="custom-select form-control @error('accommodation-country') is-invalid @enderror">
                                                         <option></option>
                                                         @foreach ($countries as $country)
@@ -358,7 +358,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="accommodation-city">Oras:</label>
+                                                    <label class="required font-weight-600" for="accommodation-city">{{ __('City') }}:</label>
                                                     <input type="text" placeholder="Viena" class="form-control @error('accommodation-city') is-invalid @enderror" id="accommodation-city" name="accommodation-city" value="{{ old('accommodation-city') }}" />
 
                                                     @error('accommodation-city')
@@ -417,7 +417,7 @@
                                         </div>
                                         <div class="pt-5 clearfix">
                                             <button type="submit" class="btn btn-secondary pull-right btn-lg px-6">
-                                                <span class="btn-inner--text">Trimite solicitare</span>
+                                                <span class="btn-inner--text">{{ __('Send request') }}</span>
                                                 <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                             </button>
                                         </div>
