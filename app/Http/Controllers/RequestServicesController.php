@@ -6,6 +6,8 @@ use App\City;
 use App\Country;
 use App\County;
 use App\HelpRequest;
+use App\HelpRequestAccommodationDetail;
+use App\HelpRequestSmsDetails;
 use App\HelpRequestType;
 use App\HelpType;
 use Illuminate\Http\RedirectResponse;
@@ -115,6 +117,30 @@ class RequestServicesController extends Controller
 
                 $helpRequestType->save();
             }
+        }
+
+        if ('true' == $request->get('has-sms')) {
+            $helpRequestSmsDetails = new HelpRequestSmsDetails();
+            $helpRequestSmsDetails->help_request_id = $helpRequest->id;
+            $helpRequestSmsDetails->amount = $request->get('sms-estimated-amount');
+            $helpRequestSmsDetails->purpose = $request->get('sms-purpose');
+            $helpRequestSmsDetails->clinic = $request->get('sms-clinic-name');
+            $helpRequestSmsDetails->country_id = $request->get('sms-clinic-country');
+            $helpRequestSmsDetails->city = $request->get('sms-clinic-city');
+            $helpRequestSmsDetails->save();
+        }
+
+        if ('true' == $request->get('has-accommodation')) {
+            $helpRequestAccommodationDetails = new HelpRequestAccommodationDetail();
+            $helpRequestAccommodationDetails->help_request_id = $helpRequest->id;
+            $helpRequestAccommodationDetails->clinic = $request->get('accommodation-clinic-name');
+            $helpRequestAccommodationDetails->country_id = $request->get('accommodation-country');
+            $helpRequestAccommodationDetails->city = $request->get('accommodation-city');
+            $helpRequestAccommodationDetails->guests_number = $request->get('accommodation-guests-number');
+            $helpRequestAccommodationDetails->start_date = $request->get('accommodation-start-date');
+            $helpRequestAccommodationDetails->end_date = $request->get('accommodation-end-date');
+            $helpRequestAccommodationDetails->special_request = $request->get('accommodation-special-request');
+            $helpRequestAccommodationDetails->save();
         }
 
         return redirect()->route('request-services-thanks');
