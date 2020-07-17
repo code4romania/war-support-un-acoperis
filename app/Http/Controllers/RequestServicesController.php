@@ -113,7 +113,9 @@ class RequestServicesController extends Controller
                 $helpRequestType->help_type_id = $helpType->id;
                 $helpRequestType->approve_status = HelpRequestType::APPROVE_STATUS_PENDING;
 
-                // TODO: add message!
+                if (8 === $helpType->id) {
+                    $helpRequestType->message = $request->get('request-other-message');
+                }
 
                 $helpRequestType->save();
             }

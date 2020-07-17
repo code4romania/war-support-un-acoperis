@@ -193,6 +193,10 @@
                                                                     <label class="custom-control-label" for="help-type-{{ $helpType['id'] }}">{{ __($helpType['name']) }}</label>
                                                                 </div>
                                                             @endforeach
+
+                                                                <div style="display: none;" id="request-other-message-control" class="custom-control mb-3">
+                                                                    <textarea id="request-other-message" name="request-other-message" rows="3" class="form-control" placeholder="Mesajul tau aici">{{ old('request-other-message') }}</textarea>
+                                                                </div>
                                                         </div>
                                                     </div>
                                                     <div class="border-top pt-5 mt-3 clearfix">
@@ -457,6 +461,14 @@
 
                 toggleFlowSteps();
                 toggleSubmitButtons();
+            });
+
+            $('#help-type-8').on('change', function() {
+                if ($('#help-type-8').is(':checked')) {
+                    $('#request-other-message-control').show();
+                } else {
+                    $('#request-other-message-control').hide();
+                }
             });
 
             $('#help-type-6').on('change', function() {
