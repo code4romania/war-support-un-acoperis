@@ -22,7 +22,7 @@ class CreateHelpRequestAccommodationDetailsTable extends Migration
             $table->string('clinic', 128)->nullable();
             $table->unsignedBigInteger('country_id');
             $table->string('city', 255);
-            $table->tinyInteger('guests_number');
+            $table->tinyInteger('guests_number')->unsigned();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->text('special_request')->nullable();

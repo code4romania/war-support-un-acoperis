@@ -19,7 +19,7 @@ class CreateHelpRequestSmsDetailsTable extends Migration
         Schema::create('help_request_sms_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('help_request_id');
-            $table->decimal('amount', 8, 2);
+            $table->string('amount', 32);
             $table->string('purpose', 128)->nullable();
             $table->string('clinic', 128)->nullable();
             $table->unsignedBigInteger('country_id');

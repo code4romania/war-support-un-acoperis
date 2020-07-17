@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\Country;
 use App\County;
 use App\HelpRequest;
 use App\HelpRequestType;
@@ -23,6 +24,8 @@ class RequestServicesController extends Controller
      */
     public function index(Request $request)
     {
+        $countries = Country::all(['id', 'name'])->sortBy('name');
+
         $counties = County::all(['id', 'name'])->sortBy('name');
 
         $oldCounty = $request->old('patient-county');
@@ -39,6 +42,7 @@ class RequestServicesController extends Controller
         $secondRight = array_slice($helpTypes->toArray(), $helpTypes->count() / 2);
 
         return view('frontend.request-services')
+            ->with('countries', $countries)
             ->with('counties', $counties)
             ->with('cities', $cities)
             ->with('helpTypesLeft', $firstLeft)
@@ -51,7 +55,7 @@ class RequestServicesController extends Controller
      */
     public function submit(Request $request)
     {
-        $request->validate([
+        $rules = [
             'patient-name' => ['required', 'string', 'max:32'],
             'caretaker-name' => ['required', 'string', 'max:32'],
             'patient-phone' => ['required', 'phone:RO', 'string', 'max:16'],
@@ -62,7 +66,26 @@ class RequestServicesController extends Controller
             'patient-city' => ['required', 'exists:cities,id'],
             'extra-details' => ['nullable'],
             'patient-diagnostic' => ['required', 'string', 'max:128']
-        ]);
+        ];
+
+        if ('true' == $request->get('has-sms')) {
+            $rules['sms-estimated-amount'] = ['required', 'string', 'max:32'];
+            $rules['sms-purpose'] = ['required', 'string', 'max:128'];
+            $rules['sms-clinic-name'] = ['required', 'string', 'max:128'];
+            $rules['sms-clinic-country'] = ['required', 'exists:countries,id'];
+            $rules['sms-clinic-city'] = ['required', 'string', 'max:255'];
+        }
+
+        if ('true' == $request->get('has-accommodation')) {
+            $rules['accommodation-clinic-name'] = ['required', 'string', 'max:128'];
+            $rules['accommodation-country'] = ['required', 'exists:countries,id'];
+            $rules['accommodation-city'] = ['required', 'string', 'max:255'];
+            $rules['accommodation-guests-number'] = ['required', 'numeric', 'max:255'];
+            $rules['accommodation-start-date'] = ['required', 'date'];
+            $rules['accommodation-end-date'] = ['required', 'date', 'after_or_equal:accommodation-start-date'];
+        }
+
+        $request->validate($rules);
 
         $helpRequest = new HelpRequest();
         $helpRequest->patient_full_name = $request->get('patient-name');
