@@ -456,7 +456,7 @@
                 }
 
                 toggleFlowSteps();
-                toggleSubmitButton();
+                toggleSubmitButtons();
             });
 
             $('#help-type-6').on('change', function() {
@@ -469,10 +469,10 @@
                 }
 
                 toggleFlowSteps();
-                toggleSubmitButton();
+                toggleSubmitButtons();
             });
 
-            function toggleSubmitButton() {
+            function toggleSubmitButtons() {
                 if (
                     false === $('#help-type-5').is(':checked') &&
                     false === $('#help-type-6').is(':checked')
@@ -482,6 +482,17 @@
                 } else {
                     $('#submit-button-1').hide();
                     $('#next-step-button-1').show();
+                }
+
+                if (
+                    true === $('#help-type-5').is(':checked') &&
+                    true === $('#help-type-6').is(':checked')
+                ) {
+                    $('#submit-button-2').hide();
+                    $('#next-step-button-2').show();
+                } else {
+                    $('#submit-button-2').show();
+                    $('#next-step-button-2').hide();
                 }
             }
 
