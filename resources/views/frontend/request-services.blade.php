@@ -182,40 +182,20 @@
                                                     <label for="" class="font-weight-600 mb-3">Cu ce putem să te ajutăm?</label>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck1" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck1">Informare si indrumare catre spitale din tara</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck2" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck2">Informare si indrumare catre spitale din strainatate</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck3" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck3">Traduceri ale documentelor medicale</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck4" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck4">Consultanta privind strangerea de fonduri necesare pentru plata tratamentelor</label>
-                                                            </div>
+                                                            @foreach($helpTypesLeft as $helpType)
+                                                                <div class="custom-control custom-checkbox mb-3">
+                                                                    <input class="custom-control-input" id="help-type-{{ $helpType['id'] }}" name="help-type-{{ $helpType['id'] }}" type="checkbox" {{ !empty(old('help-type-' . $helpType['id'])) ? 'checked' : '' }}>
+                                                                    <label class="custom-control-label" for="help-type-{{ $helpType['id'] }}">{{ __($helpType['name']) }}</label>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck5">Alocarea unui numar de SMS pentru strangerea de fonduri</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck6" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck6">Sprijin pentru a gasi optiuni de cazare langa spital</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck7" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck7">Sprijin pentru a gasi medicamentele de care ai nevoie</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox mb-3">
-                                                                <input class="custom-control-input" id="customCheck8" type="checkbox">
-                                                                <label class="custom-control-label" for="customCheck8">Solutionarea altor nevoi</label>
-                                                            </div>
+                                                            @foreach($helpTypesRight as $helpType)
+                                                                <div class="custom-control custom-checkbox mb-3">
+                                                                    <input class="custom-control-input" id="help-type-{{ $helpType['id'] }}" name="help-type-{{ $helpType['id'] }}" type="checkbox" {{ !empty(old('help-type-' . $helpType['id'])) ? 'checked' : '' }}>
+                                                                    <label class="custom-control-label" for="help-type-{{ $helpType['id'] }}">{{ __($helpType['name']) }}</label>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                     <div class="border-top pt-5 mt-3 clearfix">

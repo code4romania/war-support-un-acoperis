@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\City;
 use App\County;
 use App\HelpRequest;
+use App\HelpRequestType;
+use App\HelpType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -31,9 +33,16 @@ class RequestServicesController extends Controller
             $cities = City::where('county_id', '=', $oldCounty)->get(['id', 'name'])->sortBy('name');
         }
 
+        $helpTypes = HelpType::all(['id', 'name'])->sortBy('id');
+
+        $firstLeft = array_slice($helpTypes->toArray(), 0, $helpTypes->count() / 2);
+        $secondRight = array_slice($helpTypes->toArray(), $helpTypes->count() / 2);
+
         return view('frontend.request-services')
             ->with('counties', $counties)
-            ->with('cities', $cities);
+            ->with('cities', $cities)
+            ->with('helpTypesLeft', $firstLeft)
+            ->with('helpTypesRight', $secondRight);
     }
 
     /**
@@ -68,6 +77,22 @@ class RequestServicesController extends Controller
         $helpRequest->extra_details = $request->get('extra-details');
         $helpRequest->status = HelpRequest::STATUS_NEW;
         $helpRequest->save();
+
+        $helpTypes = HelpType::all(['id', 'name'])->sortBy('id');
+
+        /** @var HelpType $helpType */
+        foreach ($helpTypes as $helpType) {
+            if ('on' === ($request->get('help-type-' . $helpType->id))) {
+                $helpRequestType = new HelpRequestType();
+                $helpRequestType->help_request_id = $helpRequest->id;
+                $helpRequestType->help_type_id = $helpType->id;
+                $helpRequestType->approve_status = HelpRequestType::APPROVE_STATUS_PENDING;
+
+                // TODO: add message!
+
+                $helpRequestType->save();
+            }
+        }
 
         return redirect()->route('request-services-thanks');
     }
