@@ -220,7 +220,7 @@
                                 <div class="card-header" id="headingTwo">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false" aria-controls="smsDetails">
-                                            Date necesare pentru alocarea unui numar de SMS pentru strangerea de fonduri
+                                            {{ __('Data required for the allocation of an SMS fundraising number') }}
                                             <i class="ni ni-bold-down align-self-center ml-4"></i>
                                         </button>
                                     </h5>
@@ -231,7 +231,7 @@
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="sms-estimated-amount">Suma estimativa necesara pentru tratament/interventie chirurgicala:</label>
+                                                    <label class="required font-weight-600" for="sms-estimated-amount">{{ __('Estimated amount required for treatment / surgery') }}:</label>
                                                     <input type="text" placeholder="9800 EUR" class="form-control @error('sms-estimated-amount') is-invalid @enderror" id="sms-estimated-amount" name="sms-estimated-amount" value="{{ old('sms-estimated-amount') }}" />
 
                                                     @error('sms-estimated-amount')
@@ -242,8 +242,8 @@
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="sms-purpose">Destinatie fonduri stranse in campanie SMS</label>
-                                                    <input type="text" placeholder="Destinatia fondurilor" class="form-control @error('sms-purpose') is-invalid @enderror" id="sms-purpose" name="sms-purpose" value="{{ old('sms-purpose') }}" />
+                                                    <label class="required font-weight-600" for="sms-purpose">{{ __('Destination of funds raised in the SMS campaign') }}</label>
+                                                    <input type="text" placeholder="{{ __('Fund destination') }}" class="form-control @error('sms-purpose') is-invalid @enderror" id="sms-purpose" name="sms-purpose" value="{{ old('sms-purpose') }}" />
 
                                                     @error('sms-purpose')
                                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -253,7 +253,7 @@
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="sms-clinic-name">Denumire clinica/spital unde este acceptat pacientul:</label>
+                                                    <label class="required font-weight-600" for="sms-clinic-name">{{ __('Clinic / hospital name where the patient is accepted') }}:</label>
                                                     <input type="text" placeholder="VIENNA GENERAL HOSPITAL" class="form-control @error('sms-clinic-name') is-invalid @enderror" id="sms-clinic-name" name="sms-clinic-name" value="{{ old('sms-clinic-name') }}" />
 
                                                     @error('sms-clinic-name')
@@ -316,18 +316,18 @@
                                 <div class="card-header" id="headingThree">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
-                                            Cerere pentru a gasi optiuni de cazare langa spital
+                                            {{ __('Application to find accommodation options near the hospital') }}
                                             <i class="ni ni-bold-down align-self-center ml-4"></i>
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="accommodationDetails" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                     <div class="card-body py-5">
-                                        <h5 class="mb-5">Te rugam sa completezi campurile de mai jos pentru a te ajuta sa gasesti cea mai buna optiune de cazare langa spital!</h5>
+                                        <h5 class="mb-5">{{ __('Please fill in the fields below to help you find the best accommodation near hospital') }}!</h5>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="font-weight-600" for="accommodation-clinic-name">La ce spital urmeaza sa fie efectuate investigatiile medicale / tratamentul?</label>
+                                                    <label class="font-weight-600" for="accommodation-clinic-name">{{ __('At which hospital will the medical investigations / treatment be performed') }}?</label>
                                                     <input type="text" placeholder="VIENNA GENERAL HOSPITAL" class="form-control @error('accommodation-clinic-name') is-invalid @enderror" id="accommodation-clinic-name" name="accommodation-clinic-name" value="{{ old('accommodation-clinic-name') }}" />
 
                                                     @error('accommodation-clinic-name')
@@ -370,7 +370,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="accommodation-guests-number">Pentru câte persoane ai nevoie de cazare?</label>
+                                                    <label class="required font-weight-600" for="accommodation-guests-number">{{ __('For how many people do you need accommodation') }}?</label>
                                                     <input type="number" placeholder="2" class="form-control @error('accommodation-guests-number') is-invalid @enderror" id="accommodation-guests-number" name="accommodation-guests-number" value="{{ old('accommodation-guests-number') }}" />
 
                                                     @error('accommodation-guests-number')
@@ -382,12 +382,12 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="accommodation-start-date">Incepand cu ce data ai nevoie de cazare?</label>
+                                                    <label class="required font-weight-600" for="accommodation-start-date">{{ __('Starting with what date you need accommodation') }}?</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                                         </div>
-                                                        <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="Selectati data" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
+                                                        <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
 
                                                         @error('accommodation-start-date')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -397,12 +397,12 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="required font-weight-600" for="accommodation-end-date">Până când ai nevoie de cazare?</label>
+                                                    <label class="required font-weight-600" for="accommodation-end-date">{{ __('Until when do you need accommodation') }}?</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                                         </div>
-                                                        <input class="flatpickr flatpickr-input form-control @error('accommodation-end-date') is-invalid @enderror" type="text" placeholder="Selectati data" id="accommodation-end-date" name="accommodation-end-date" value="{{ old('accommodation-end-date') }}" />
+                                                        <input class="flatpickr flatpickr-input form-control @error('accommodation-end-date') is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" id="accommodation-end-date" name="accommodation-end-date" value="{{ old('accommodation-end-date') }}" />
 
                                                         @error('accommodation-start-date')
                                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -412,7 +412,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="accommodation-special-request" class="font-weight-600">Detaliază aici dacă ai nevoie de condiții speciale de cazare:</label>
+                                            <label for="accommodation-special-request" class="font-weight-600">{{ __('Detail here if you need special accommodation conditions') }}:</label>
                                             <textarea id="accommodation-special-request" name="accommodation-special-request" rows="5" class="form-control" placeholder="">{{ old('accommodation-special-request') }}</textarea>
                                         </div>
                                         <div class="pt-5 clearfix">

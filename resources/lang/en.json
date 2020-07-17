@@ -19,6 +19,7 @@
     "Send Password Reset Link": "Send Password Reset Link",
     "County": "County",
     "Select County": "Select County",
+    "Select Date": "Select Date",
     "City": "City",
     "Select City": "Select City",
     "School": "School",
@@ -69,5 +70,17 @@
     "Please provide us with more details regarding the case you are bringing to our attention": "Please provide us with more details regarding the case you are bringing to our attention",
     "How can we help you": "How can we help you",
     "Send request": "Send request",
-    "Next step": "Next step"
+    "Next step": "Next step",
+    "Data required for the allocation of an SMS fundraising number": "Data required for the allocation of an SMS fundraising number",
+    "Estimated amount required for treatment / surgery": "Estimated amount required for treatment / surgery",
+    "Destination of funds raised in the SMS campaign": "Destination of funds raised in the SMS campaign",
+    "Clinic / hospital name where the patient is accepted": "Clinic / hospital name where the patient is accepted",
+    "Fund destination": "Fund destination",
+    "Application to find accommodation options near the hospital": "Application to find accommodation options near the hospital",
+    "Please fill in the fields below to help you find the best accommodation near hospital": "Please fill in the fields below to help you find the best accommodation near hospital",
+    "At which hospital will the medical investigations / treatment be performed": "At which hospital will the medical investigations / treatment be performed",
+    "For how many people do you need accommodation": "For how many people do you need accommodation",
+    "Starting with what date you need accommodation": "Starting with what date you need accommodation",
+    "Until when do you need accommodation": "Until when do you need accommodation",
+    "Detail here if you need special accommodation conditions": "Detail here if you need special accommodation conditions"
 }
