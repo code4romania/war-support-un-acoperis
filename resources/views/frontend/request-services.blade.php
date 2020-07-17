@@ -216,7 +216,7 @@
                                 </div>
                             </div>
 
-                            <div class="card mb-4 shadow invisible" id="sms-details">
+                            <div class="card mb-4 shadow d-none" id="sms-details">
                                 <div class="card-header" id="headingTwo">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false" aria-controls="smsDetails">
@@ -312,7 +312,7 @@
                                 </div>
                             </div>
 
-                            <div class="card mb-4 shadow invisible" id="accommodation-details">
+                            <div class="card mb-4 shadow d-none" id="accommodation-details">
                                 <div class="card-header" id="headingThree">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
@@ -452,10 +452,10 @@
 
             $('#help-type-5').on('change', function() {
                 if ($('#help-type-5').is(':checked')) {
-                    $('#sms-details').removeClass('invisible');
+                    $('#sms-details').removeClass('d-none');
                     $('#has-sms').val('true');
                 } else {
-                    $('#sms-details').addClass('invisible');
+                    $('#sms-details').addClass('d-none');
                     $('#has-sms').val('false');
                 }
 
@@ -473,10 +473,10 @@
 
             $('#help-type-6').on('change', function() {
                 if ($('#help-type-6').is(':checked')) {
-                    $('#accommodation-details').removeClass('invisible');
+                    $('#accommodation-details').removeClass('d-none');
                     $('#has-accommodation').val('true');
                 } else {
-                    $('#accommodation-details').addClass('invisible');
+                    $('#accommodation-details').addClass('d-none');
                     $('#has-accommodation').val('false');
                 }
 
