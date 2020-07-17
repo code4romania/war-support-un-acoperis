@@ -112,7 +112,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="patient-county">Judet:</label>
-                                                                <select name="patient-county" id="patient-county" class="custom-select form-control @error('county') is-invalid @enderror">
+                                                                <select name="patient-county" id="patient-county" class="custom-select form-control @error('patient-county') is-invalid @enderror">
                                                                     <option></option>
                                                                     @foreach ($counties as $county)
                                                                         @if (old('patient-county'))
@@ -124,9 +124,7 @@
                                                                 </select>
 
                                                                 @error('patient-county')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
+                                                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
                                                         </div>
@@ -146,9 +144,7 @@
                                                                 </select>
 
                                                                 @error('patient-city')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
+                                                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
                                                         </div>
@@ -200,12 +196,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="border-top pt-5 mt-3 clearfix">
-                                                        <button type="submit" id="submit-button" class="btn btn-secondary pull-right btn-lg px-6">
+                                                        <button type="submit" id="submit-button-1" class="btn btn-secondary pull-right btn-lg px-6">
                                                             <span class="btn-inner--text">Trimite solicitare</span>
                                                             <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                                         </button>
 
-                                                        <button style="display: none;" type="button" id="next-step-button" class="btn btn-secondary pull-right btn-lg px-6 hide" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false">
+                                                        <button style="display: none;" type="button" id="next-step-button-1" class="btn btn-secondary pull-right btn-lg px-6 hide" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false">
                                                             <span class="btn-inner--text">Pasul urmator</span>
                                                             <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                                         </button>
@@ -278,9 +274,7 @@
                                                             </select>
 
                                                             @error('sms-clinic-country')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
+                                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
@@ -300,7 +294,12 @@
                                             </div>
                                         </div>
                                         <div class="border-top pt-5 mt-3 clearfix">
-                                            <button type="button" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
+                                            <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
+                                                <span class="btn-inner--text">Trimite solicitare</span>
+                                                <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
+                                            </button>
+
+                                            <button style="display: none;" id="next-step-button-2" type="button" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
                                                 <span class="btn-inner--text">Pasul urmator</span>
                                                 <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                             </button>
@@ -349,9 +348,7 @@
                                                     </select>
 
                                                     @error('accommodation-country')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
+                                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -389,9 +386,7 @@
                                                         <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="Selectati data" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
 
                                                         @error('accommodation-start-date')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -406,9 +401,7 @@
                                                         <input class="flatpickr flatpickr-input form-control @error('accommodation-end-date') is-invalid @enderror" type="text" placeholder="Selectati data" id="accommodation-end-date" name="accommodation-end-date" value="{{ old('accommodation-end-date') }}" />
 
                                                         @error('accommodation-start-date')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -420,7 +413,8 @@
                                         </div>
                                         <div class="pt-5 clearfix">
                                             <button type="submit" class="btn btn-secondary pull-right btn-lg px-6">
-                                                <span class="btn-inner--text">Finalizare</span>
+                                                <span class="btn-inner--text">Trimite solicitare</span>
+                                                <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
                                             </button>
                                         </div>
                                     </div>
@@ -483,19 +477,19 @@
                     false === $('#help-type-5').is(':checked') &&
                     false === $('#help-type-6').is(':checked')
                 ) {
-                    $('#submit-button').show();
-                    $('#next-step-button').hide();
+                    $('#submit-button-1').show();
+                    $('#next-step-button-1').hide();
                 } else {
-                    $('#submit-button').hide();
-                    $('#next-step-button').show();
+                    $('#submit-button-1').hide();
+                    $('#next-step-button-1').show();
                 }
             }
 
             function toggleFlowSteps() {
                 if ($('#help-type-5').is(':checked')) {
-                    $('#next-step-button').attr('data-target', '#smsDetails');
+                    $('#next-step-button-1').attr('data-target', '#smsDetails');
                 } else if ($('#help-type-6').is(':checked')) {
-                    $('#next-step-button').attr('data-target', '#accommodationDetails');
+                    $('#next-step-button-1').attr('data-target', '#accommodationDetails');
                 }
             }
 
