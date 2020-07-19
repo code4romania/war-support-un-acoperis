@@ -94,31 +94,31 @@
                     </div>
                     <label for="" class="font-weight-600 mb-3 mt-3 d-block required">Ce tip de ajutor doresti sa oferi?</label>
                     <div class="form-check form-check-inline mb-3">
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help1" name="help1" type="checkbox">
                             <label class="custom-control-label" for="help1">Cazare</label>
                         </div>
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help2" name="help2" type="checkbox">
                             <label class="custom-control-label" for="help2">Transport</label>
                         </div>
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help3" name="help3" type="checkbox">
                             <label class="custom-control-label" for="help3">Medicamente</label>
                         </div>
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help4" name="help4" type="checkbox">
                             <label class="custom-control-label" for="help4">Bunuri</label>
                         </div>
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help5" name="help5" type="checkbox">
                             <label class="custom-control-label" for="help5">Traduceri acte medicale</label>
                         </div>
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help6" name="help6" type="checkbox">
                             <label class="custom-control-label" for="help6">Servicii</label>
                         </div>
-                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                        <div class="custom-control custom-checkbox mr-4 mb-3">
                             <input class="custom-control-input" id="help7" name="help7" type="checkbox">
                             <label class="custom-control-label" for="help7">Alte tipuri de ajutor</label>
                         </div>
