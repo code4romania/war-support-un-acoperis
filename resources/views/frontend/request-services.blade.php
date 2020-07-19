@@ -327,7 +327,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="font-weight-600" for="accommodation-clinic-name">{{ __('At which hospital will the medical investigations / treatment be performed') }}?</label>
+                                                    <label class="font-weight-600 required" for="accommodation-clinic-name">{{ __('At which hospital will the medical investigations / treatment be performed') }}?</label>
                                                     <input type="text" placeholder="VIENNA GENERAL HOSPITAL" class="form-control @error('accommodation-clinic-name') is-invalid @enderror" id="accommodation-clinic-name" name="accommodation-clinic-name" value="{{ old('accommodation-clinic-name') }}" />
 
                                                     @error('accommodation-clinic-name')
