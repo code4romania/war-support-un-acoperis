@@ -14,9 +14,9 @@
         <div class="container">
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary">
-                    <h5 class="mb-0 text-white">
+                    <h6 class="mb-0 text-white font-weight-600">
                         Informatii generale
-                    </h5>
+                    </h6>
                 </div>
                 <div class="card-body py-5">
                     <div class="row">
