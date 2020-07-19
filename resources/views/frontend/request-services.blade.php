@@ -518,6 +518,7 @@
 
             $('#help-type-5').trigger('change');
             $('#help-type-6').trigger('change');
+            $('#help-type-8').trigger('change');
         });
     </script>
 @endsection
