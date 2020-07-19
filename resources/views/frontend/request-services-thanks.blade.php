@@ -1,28 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="upload-banner"></div>
-    <div class="upload-form-container pb-lg">
-        <div class="container pb-300">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-
-                        <div class="card-body text-center">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-                            <i class="ni ni-like-2 d-inline-block rounded-circle shadow-sm text-white bg-primary p-3 my-4"></i>
-                            <h4 class="text-center mb-4">
-                                {{ __('Your request was successfully sent.') }}
-                                <br>
-                                {{ __('Thank you!') }}
-                            </h4>
-                        </div>
-                    </div>
-                </div>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+    <div class="container my-5">
+        <div class="row flex-column-reverse flex-sm-row align-items-sm-center">
+            <div class="col-sm-6">
+                <h1 class="font-weight-600 text-primary mb-5">
+                    {{ __('Thank you!') }}
+                </h1>
+                <p>
+                    {{ __('Your form has been submitted to the MAME Association. As soon as possible you will be contacted by someone from the organization so that we can help you with everything you need.') }}
+                </p>
+                <p>
+                    {{ __('If you want to communicate other information that has not already been sent through the form, you can contact us at') }}
+                    <a href="mailto:ajutor@asociatiamame.ro" target="_blank">ajutor@asociatiamame.ro</a>
+                </p>
+                <p>
+                    {{ __('You will also receive the confirmation of sending the request form to the email address entered!') }}
+                </p>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/thanks.svg" alt="" class="w-100 mb-5 mb-sm-0">
             </div>
         </div>
     </div>

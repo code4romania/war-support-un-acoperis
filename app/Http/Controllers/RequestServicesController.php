@@ -10,6 +10,7 @@ use App\HelpRequestAccommodationDetail;
 use App\HelpRequestSmsDetails;
 use App\HelpRequestType;
 use App\HelpType;
+use App\Http\Requests\ServiceRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -52,43 +53,11 @@ class RequestServicesController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ServiceRequest $request
      * @return RedirectResponse
      */
-    public function submit(Request $request)
+    public function submit(ServiceRequest $request)
     {
-        $rules = [
-            'patient-name' => ['required', 'string', 'max:32'],
-            'caretaker-name' => ['required', 'string', 'max:32'],
-            'patient-phone' => ['required', 'phone:RO', 'string', 'max:16'],
-            'caretaker-phone' => ['required', 'phone:RO', 'string', 'max:16'],
-            'patient-email' => ['required', 'email', 'string', 'max:255'],
-            'caretaker-email' => ['required', 'email', 'string', 'max:255'],
-            'patient-county' => ['required', 'exists:counties,id'],
-            'patient-city' => ['required', 'exists:cities,id'],
-            'extra-details' => ['nullable'],
-            'patient-diagnostic' => ['required', 'string', 'max:128']
-        ];
-
-        if ('true' == $request->get('has-sms')) {
-            $rules['sms-estimated-amount'] = ['required', 'string', 'max:32'];
-            $rules['sms-purpose'] = ['required', 'string', 'max:128'];
-            $rules['sms-clinic-name'] = ['required', 'string', 'max:128'];
-            $rules['sms-clinic-country'] = ['required', 'exists:countries,id'];
-            $rules['sms-clinic-city'] = ['required', 'string', 'max:255'];
-        }
-
-        if ('true' == $request->get('has-accommodation')) {
-            $rules['accommodation-clinic-name'] = ['required', 'string', 'max:128'];
-            $rules['accommodation-country'] = ['required', 'exists:countries,id'];
-            $rules['accommodation-city'] = ['required', 'string', 'max:255'];
-            $rules['accommodation-guests-number'] = ['required', 'numeric', 'max:255'];
-            $rules['accommodation-start-date'] = ['required', 'date'];
-            $rules['accommodation-end-date'] = ['required', 'date', 'after_or_equal:accommodation-start-date'];
-        }
-
-        $request->validate($rules);
-
         $helpRequest = new HelpRequest();
         $helpRequest->patient_full_name = $request->get('patient-name');
         $helpRequest->patient_phone_number = $request->get('patient-phone');

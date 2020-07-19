@@ -21,52 +21,34 @@
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="admin-area">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/images/logo-hfh.svg" height="75" alt="{{ config('app.name', 'Laravel') }}">
+                    <img src="/images/logo-hfh.svg" height="30" alt="{{ config('app.name', 'Laravel') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'about' ? 'active' : '' }}" href="{{ route('about') }}">
-                                {{ __('About') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">
-                                {{ __('Request Services') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'get-involved' ? 'active' : '' }}" href="{{ route('get-involved') }}">
-                                {{ __('Get Involved') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'clinic-list' ? 'active' : '' }}" href="{{ route('clinic-list') }}">
-                                {{ __('Clinic List') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="{{ route('donate') }}">
-                                {{ __('Donate') }}
-                            </a>
-                        </li>
-                    </ul>
-
+                    <div class="navbar-collapse-header">
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a href="{{ url('/') }}">
+                                    <img src="/images/logo-hfh.svg" alt="{{ config('app.name') }}">
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-md-4">
+                    <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item align-self-md-center">
@@ -95,9 +77,9 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                    @endguest
 
-                        <!-- Language switcher -->
+                    <!-- Language switcher -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span>{{ strtoupper(str_replace('_', '-', app()->getLocale())) }}</span>
@@ -113,8 +95,8 @@
                                 @endphp
                                 <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
                                 <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
-{{--                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>--}}
-{{--                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>--}}
+                                {{--                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>--}}
+                                {{--                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>--}}
                             </div>
                         </li>
                     </ul>
@@ -122,12 +104,37 @@
                 </div>
             </div>
         </nav>
-
-        <main>
-            @yield('content')
-        </main>
-
-        @include('partials.footer')
+        <div class="d-flex">
+            <div class="sidebar border-right">
+                <div class="list-group list-group-flush mt-5">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        <i class="fa fa-pie-chart mr-3"></i>Dashboard
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-plus-square mr-3"></i>Lista Clinici</a>
+                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                        <i class="fa fa-plus-square invisible mr-3"></i>Adauga o clinica</a>
+                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                        <i class="fa fa-plus-square invisible mr-3"></i>Categorii clinici</a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-exclamation-triangle mr-3"></i>Cereri de ajutor</a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-book mr-3"></i>Resurse ajutor
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                        <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
+                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                        <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
+                </div>
+            </div>
+            <div class="page-wrapper">
+                <main class="p-5">
+                    <div class="container-fluid">
+                        @yield('content')
+                    </div>
+                </main>
+            </div>
+        </div>
     </div>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
