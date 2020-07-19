@@ -87,5 +87,23 @@
     "If you want to communicate other information that has not already been sent through the form, you can contact us at": "Dacă vrei să ne comunici și alte informații care nu au fost transmise deja prin formular ne poti contacta la adresa ",
     "You will also receive the confirmation of sending the request form to the email address entered!": "Confirmarea trimiterii formularului de solicitare o veti primi si pe adresa de email introdusă!",
 
-    "Name and surname": "Nume și prenume"
+    "Name and surname": "Nume și prenume",
+
+    "patient name": "nume pacient",
+    "patient phone": "telefon pacient",
+    "patient email": "email pacient",
+    "patient county": "județ",
+    "patient city": "localitate",
+    "patient diagnostic": "diagnostic",
+    "caretaker name": "numele persoanei ce completeaza formularul",
+    "caretaker phone": "telefonul persoanei ce completează formularul",
+    "caretaker email": "e-mailul persoanei ce completează formularul",
+    "estimated amount": "suma estimativă",
+    "purpose": "destinația fondurilor",
+    "clinic name": "denumirea clinicii",
+    "clinic country": "țara",
+    "clinic city": "localitatea",
+    "guests number": "numărul de persoane",
+    "start date": "data de început",
+    "end date": "data de sfrârșit"
 }
