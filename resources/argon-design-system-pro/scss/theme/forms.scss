@@ -13,11 +13,6 @@ label {
             color: $input-focus-placeholder-color;
         }
     }
-
-    &.is-valid,
-    &.is-invalid {
-      background-image: none;
-    }
 }
 
 
