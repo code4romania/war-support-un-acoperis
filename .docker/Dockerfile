@@ -1,6 +1,4 @@
-FROM ubuntu:focal
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM citizennext/webserver:latest
 
 ARG APP_ENV
 ARG APP_KEY
@@ -75,16 +73,7 @@ ENV MAILCHIMP_LIST_ID=${MAILCHIMP_LIST_ID}
 ENV SESSION_SECURE_COOKIE=${SESSION_SECURE_COOKIE}
 ENV APP_HOST=${APP_HOST}
 
-# update APT repository
-RUN apt-get update
-
-# install packages
-RUN apt-get install --no-install-recommends -y wget vim ca-certificates supervisor nginx php7.4 php7.4-fpm php7.4-json php7.4-curl php7.4-zip php7.4-xml php7.4-mbstring php7.4-mysql php7.4-gd php7.4-zip php7.4-xml php7.4-sqlite php7.4-curl
-
-WORKDIR /var/www/html
-
 # copy application file
-RUN rm -rf /var/www/html/*
 COPY . /var/www/html
 
 # create application environment file
@@ -97,20 +86,9 @@ RUN chmod 777 /var/www/html/storage/logs/laravel.log
 # fix permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# configure Supervisor
-COPY .docker/config/supervisor/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
-
 # configure Ngnix
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY .docker/config/nginx/.htpasswd /etc/nginx/.htpasswd
 COPY .docker/config/nginx/default /etc/nginx/sites-available/default
-
-# configure PHP-FPM
-RUN sed -i -e "s/;clear_env\s*=\s*no/clear_env = no/g" /etc/php/7.4/fpm/pool.d/www.conf
-RUN echo "php_admin_value[memory_limit] = 512M" >> /etc/php/7.4/fpm/pool.d/www.conf
-RUN sed -i -e "s/upload_max_filesize\s=\s2M/upload_max_filesize = 128M/g" /etc/php/7.4/fpm/php.ini
-RUN sed -i -e "s/post_max_size\s=\s8M/post_max_size = 128M/g" /etc/php/7.4/fpm/php.ini
-RUN sed -i -e "s/max_execution_time\s=\s30/max_execution_time = 120/g" /etc/php/7.4/fpm/php.ini
 
 EXPOSE 80
 
