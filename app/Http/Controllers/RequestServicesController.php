@@ -90,7 +90,7 @@ class RequestServicesController extends Controller
             }
         }
 
-        if ('true' == $request->get('has-sms')) {
+        if ($request->has('help-type-5')) {
             $helpRequestSmsDetails = new HelpRequestSmsDetails();
             $helpRequestSmsDetails->help_request_id = $helpRequest->id;
             $helpRequestSmsDetails->amount = $request->get('sms-estimated-amount');
@@ -101,7 +101,7 @@ class RequestServicesController extends Controller
             $helpRequestSmsDetails->save();
         }
 
-        if ('true' == $request->get('has-accommodation')) {
+        if ($request->has('help-type-6')) {
             $helpRequestAccommodationDetails = new HelpRequestAccommodationDetail();
             $helpRequestAccommodationDetails->help_request_id = $helpRequest->id;
             $helpRequestAccommodationDetails->clinic = $request->get('accommodation-clinic-name');

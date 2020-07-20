@@ -23,8 +23,6 @@
             <div class="accordion-1 request-services">
                 <form method="POST" action="{{ route('request-services-submit') }}">
                 @csrf
-                <input type="hidden" id="has-sms" name="has-sms" value="false" />
-                <input type="hidden" id="has-accommodation" name="has-accommodation" value="false" />
                 <div class="row">
                     <div class="col-md-12 ml-auto">
                         <div class="accordion my-3" id="accordionExample">
@@ -453,10 +451,8 @@
             $('#help-type-5').on('change', function() {
                 if ($('#help-type-5').is(':checked')) {
                     $('#sms-details').removeClass('d-none');
-                    $('#has-sms').val('true');
                 } else {
                     $('#sms-details').addClass('d-none');
-                    $('#has-sms').val('false');
                 }
 
                 toggleFlowSteps();
@@ -474,10 +470,8 @@
             $('#help-type-6').on('change', function() {
                 if ($('#help-type-6').is(':checked')) {
                     $('#accommodation-details').removeClass('d-none');
-                    $('#has-accommodation').val('true');
                 } else {
                     $('#accommodation-details').addClass('d-none');
-                    $('#has-accommodation').val('false');
                 }
 
                 toggleFlowSteps();

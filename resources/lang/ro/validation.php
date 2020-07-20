@@ -161,8 +161,6 @@ return [
         'terms' => 'termeni și condiții',
         'phone' => 'telefon',
         'password' => 'parola',
-        'grade' => 'nivelul de studiu',
-        'activity' => 'tip de activitate',
     ],
     'dates' => [
         'today' => 'azi'
