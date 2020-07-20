@@ -29,9 +29,10 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
-
         Route::get('/clinic/categories', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
         Route::get('/clinic/categories/add', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
+
+        Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
     });
 
 /**
