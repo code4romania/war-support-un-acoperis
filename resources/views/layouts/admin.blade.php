@@ -78,43 +78,21 @@
                                 </div>
                             </li>
                     @endguest
-
-                    <!-- Language switcher -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>{{ strtoupper(str_replace('_', '-', app()->getLocale())) }}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-                                @php
-                                    $params = request()->route()->parameters();
-                                    $ro = $en = $de = $hu = $params;
-                                    $ro['locale'] = 'ro';
-                                    //$de['locale'] = 'de';
-                                    $en['locale'] = 'en';
-                                    //$hu['locale'] = 'hu';
-                                @endphp
-                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
-                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
-                                {{--                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>--}}
-                                {{--                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>--}}
-                            </div>
-                        </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
         <div class="d-flex">
             <div class="sidebar border-right">
                 <div class="list-group list-group-flush mt-5">
-                    <a href="#" class="list-group-item list-group-item-action active">
+                    <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                         <i class="fa fa-pie-chart mr-3"></i>Dashboard
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action ">
+                    <a href="{{ route('admin.clinic-list') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.clinic-list' ? 'active' : '' }}">
                         <i class="fa fa-plus-square mr-3"></i>Lista Clinici</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                    <a href="{{ route('admin.clinic-add') }}" class="list-group-item list-group-item-action sub-list {{ Route::currentRouteName() == 'admin.clinic-add' ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o clinica</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                    <a href="{{ route('admin.clinic-category-list') }}" class="list-group-item list-group-item-action sub-list {{ Route::currentRouteName() == 'admin.clinic-category-list' ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Categorii clinici</a>
                     <a href="#" class="list-group-item list-group-item-action ">
                         <i class="fa fa-exclamation-triangle mr-3"></i>Cereri de ajutor</a>
