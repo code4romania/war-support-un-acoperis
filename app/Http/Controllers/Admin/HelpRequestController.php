@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
@@ -16,6 +17,8 @@ class HelpRequestController extends Controller
      */
     public function helpList()
     {
+
+
         return view('admin.help-list');
     }
 }

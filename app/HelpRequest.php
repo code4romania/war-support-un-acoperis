@@ -28,8 +28,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class HelpRequest extends Model
 {
-    // TODO: define status list, as constants
     const STATUS_NEW = 'new';
+    const STATUS_IN_PROGRESS = 'in-progress';
+    const STATUS_COMPLETED = 'completed';
+
+    /**
+     * @return array
+     */
+    public static function statusList(): array
+    {
+        return [
+            self::STATUS_NEW => __('Status New'),
+            self::STATUS_IN_PROGRESS => __('Status In Progress'),
+            self::STATUS_COMPLETED => __('Status Completed')
+        ];
+    }
 
     /**
      * @return BelongsTo
