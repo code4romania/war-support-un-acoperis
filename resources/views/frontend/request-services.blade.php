@@ -25,19 +25,19 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-12 ml-auto">
-                        <div class="accordion my-3" id="accordionExample">
+                        <div class="accordion my-3" id="requestForm">
 
                             <div class="card shadow mb-4">
-                                <div class="card-header" id="headingOne">
+                                <div class="card-header">
                                     <h5 class="mb-0">
-                                        <button class="btn btn-link w-100 text-left d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <button class="btn btn-link w-100 text-left d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#generalInformation" aria-expanded="true" aria-controls="collapseOne">
                                             {{ __('General information') }}
                                             <i class="ni ni-bold-down align-self-center ml-4"></i>
                                         </button>
                                     </h5>
                                 </div>
 
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="generalInformation" class="collapse show" aria-labelledby="generalInformation" data-parent="#requestForm">
                                     <div class="card-body py-5">
                                             <div class="row">
                                                 <div class="col-sm-6">
@@ -215,7 +215,7 @@
                             </div>
 
                             <div class="card mb-4 shadow d-none" id="sms-details">
-                                <div class="card-header" id="headingTwo">
+                                <div class="card-header">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false" aria-controls="smsDetails">
                                             {{ __('Data required for the allocation of an SMS fundraising number') }}
@@ -223,7 +223,7 @@
                                         </button>
                                     </h5>
                                 </div>
-                                <div id="smsDetails" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div id="smsDetails" class="collapse" aria-labelledby="smsDetails" data-parent="#requestForm">
                                     <div class="card-body py-5">
                                         <div class="row">
 
@@ -311,7 +311,7 @@
                             </div>
 
                             <div class="card mb-4 shadow d-none" id="accommodation-details">
-                                <div class="card-header" id="headingThree">
+                                <div class="card-header">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link w-100 text-left collapsed d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
                                             {{ __('Application to find accommodation options near the hospital') }}
@@ -319,7 +319,7 @@
                                         </button>
                                     </h5>
                                 </div>
-                                <div id="accommodationDetails" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div id="accommodationDetails" class="collapse" aria-labelledby="accommodationDetails" data-parent="#requestForm">
                                     <div class="card-body py-5">
                                         <h5 class="mb-5">{{ __('Please fill in the fields below to help you find the best accommodation near hospital') }}!</h5>
                                         <div class="row">
@@ -513,6 +513,14 @@
             $('#help-type-5').trigger('change');
             $('#help-type-6').trigger('change');
             $('#help-type-8').trigger('change');
+
+            @if ($errors->has('patient-*') || $errors->has('caretaker-*'))
+                $('#generalInformation.collapse').collapse('show');
+            @elseif ($errors->has('sms-*'))
+                $('#smsDetails.collapse').collapse('show');
+            @elseif ($errors->has('accommodation-*'))
+                $('#accommodationDetails.collapse').collapse('show');
+            @endif
         });
     </script>
 @endsection

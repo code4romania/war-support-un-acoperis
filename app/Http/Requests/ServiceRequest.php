@@ -40,7 +40,7 @@ class ServiceRequest extends FormRequest
             'patient-diagnostic' => ['required', 'string', 'max:128']
         ];
 
-        if ('true' == request()->get('has-sms')) {
+        if (request()->has('help-type-5')) {
             $rules['sms-estimated-amount'] = ['required', 'string', 'max:32'];
             $rules['sms-purpose'] = ['required', 'string', 'max:128'];
             $rules['sms-clinic-name'] = ['required', 'string', 'max:128'];
@@ -48,7 +48,7 @@ class ServiceRequest extends FormRequest
             $rules['sms-clinic-city'] = ['required', 'string', 'max:255'];
         }
 
-        if ('true' == request()->get('has-accommodation')) {
+        if (request()->has('help-type-6')) {
             $rules['accommodation-clinic-name'] = ['required', 'string', 'max:128'];
             $rules['accommodation-country'] = ['required', 'exists:countries,id'];
             $rules['accommodation-city'] = ['required', 'string', 'max:255'];
