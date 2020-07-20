@@ -161,8 +161,29 @@ return [
         'terms' => 'termeni și condiții',
         'phone' => 'telefon',
         'password' => 'parola',
-        'grade' => 'nivelul de studiu',
-        'activity' => 'tip de activitate',
+
+        'patient-name' => __('patient name'),
+        'patient-phone' => __('patient phone'),
+        'patient-email' => __('patient email'),
+        'patient-county' => __('patient county'),
+        'patient-city' => __('patient city'),
+        'patient-diagnostic' => __('patient diagnostic'),
+        'caretaker-name' => __('caretaker name'),
+        'caretaker-phone' => __('caretaker phone'),
+        'caretaker-email' => __('caretaker email'),
+
+        'sms-estimated-amount' => __('estimated amount'),
+        'sms-purpose' => __('purpose'),
+        'sms-clinic-name' => __('clinic name'),
+        'sms-clinic-country' => __('clinic country'),
+        'sms-clinic-city' => __('clinic city'),
+
+        'accommodation-clinic-name' => __('clinic name'),
+        'accommodation-country' => __('clinic country'),
+        'accommodation-city' => __('clinic city'),
+        'accommodation-guests-number' => __('guests number'),
+        'accommodation-start-date' => __('start date'),
+        'accommodation-end-date' => __('end date'),
     ],
     'dates' => [
         'today' => 'azi'
