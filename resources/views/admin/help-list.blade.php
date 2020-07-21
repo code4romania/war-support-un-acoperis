@@ -8,10 +8,10 @@
             <form action="" class="">
                 <div class="row">
                     <div class="col-sm-6">
-                        <label for="search">{{ __('Search') }}</label>
+                        <label for="searchFilter">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
                             <div class="input-group">
-                                <input id="search" name="search" class="form-control" placeholder="{{ __('Search') }}" type="text" value="">
+                                <input id="searchFilter" name="searchFilter" class="form-control" placeholder="{{ __('Search') }}" type="text" value="">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
                                 </div>
@@ -30,31 +30,23 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="accommodation-start-date">Date start</label>
+                            <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
-
-                                @error('accommodation-start-date')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                @enderror
+                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="2020-08-01" id="startDateFilter" name="startDateFilter" />
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="accommodation-start-date">Date end</label>
+                            <label class="" for="endDateFilter">{{ __('Until') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
-
-                                @error('accommodation-start-date')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                @enderror
+                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="2020-08-31" id="endDateFilter" name="endDateFilter" />
                             </div>
                         </div>
                     </div>
@@ -72,8 +64,7 @@
                 <ul class="pagination justify-content-center mb-0">
                     <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1">
-                            <i class="fa fa-angle-left"></i>
-                            <span class="sr-only">Previous</span>
+                            <i class="fa fa-angle-left"></i><span class="sr-only">Previous</span>
                         </a>
                     </li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -165,11 +156,48 @@
             pageState.page = 1;
             pageState.perPage = 10;
 
+            let urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.has('page')) {
+                pageState.page = urlParams.get('page');
+            }
+
+            if (urlParams.has('perPage') && -1 !== $.inArray(urlParams.get('perPage'), ["10", "25", "50"])) {
+                pageState.perPage = urlParams.get('perPage');
+                $('.resultsPerPage').val(pageState.perPage);
+            }
+
+            if (urlParams.has('status')) {
+                pageState.status = urlParams.get('status');
+                $('#statusFilter').val(pageState.status);
+            }
+
             let render = new HelpRequestRenderer();
             render.renderHelpRequests(pageState);
 
+            $('#searchFilter').on('keyup', e => {
+                delay(() => {
+                    let searchQuery = e.target.value;
+
+                    if (searchQuery.length > 1 || searchQuery.length === 0) {
+                        pageState.query = searchQuery;
+                        render.renderHelpRequests(pageState);
+                    }
+                }, 500);
+            });
+
             $('#statusFilter').on('change', function () {
                 pageState.status = this.value;
+                render.renderHelpRequests(pageState);
+            });
+
+            $('#startDateFilter').on('change', function() {
+                pageState.startDate = $('#startDateFilter').val();
+                render.renderHelpRequests(pageState);
+            });
+
+            $('#endDateFilter').on('change', function() {
+                pageState.endDate = $('#endDateFilter').val();
                 render.renderHelpRequests(pageState);
             });
 
@@ -181,7 +209,13 @@
             });
         });
 
-
+        let delay = (function(){
+            let timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
 
         class HelpRequestRenderer {
             renderHelpRequests(pageState) {
@@ -211,7 +245,7 @@
                         '    <td>' + value.caretaker_full_name + '</td>\n' +
                         '    <td>' + value.diagnostic + '</td>\n' +
                         '    <td>' + value.status + '</td>\n' +
-                        '    <td>' + moment(value.created_at).lang('ro').format('LLL') + '</td>\n' +
+                        '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/admin/help/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
                         '            {{ __('See details') }}\n' +

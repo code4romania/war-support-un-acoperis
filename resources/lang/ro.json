@@ -105,5 +105,7 @@
     "Patient Name": "Nume beneficiar",
     "Request Status": "Status cerere",
     "Caretaker Name": "Nume solicitant",
-    "Actions": "Acțiuni"
+    "Actions": "Acțiuni",
+    "Starting with": "Începând cu",
+    "Until": "Până la"
 }
