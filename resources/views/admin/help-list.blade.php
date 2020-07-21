@@ -7,7 +7,7 @@
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <label for="search">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
                             <div class="input-group">
@@ -26,6 +26,36 @@
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="" for="accommodation-start-date">Date start</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
+
+                                @error('accommodation-start-date')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="" for="accommodation-start-date">Date end</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="flatpickr flatpickr-input form-control  @error('accommodation-start-date') is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" id="accommodation-start-date" name="accommodation-start-date" value="{{ old('accommodation-start-date') }}" />
+
+                                @error('accommodation-start-date')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>

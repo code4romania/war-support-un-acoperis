@@ -123,6 +123,7 @@
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/argon-design-system.js')}}"></script>
     @yield('scripts')
 </body>
 </html>
