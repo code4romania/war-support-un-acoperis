@@ -81,31 +81,12 @@
                     <th>{{ __('Patient Name') }}</th>
                     <th>{{ __('Caretaker Name') }}</th>
                     <th>{{ __('Diagnostic') }}</th>
-                    <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Request Status') }}</th>
+                    <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
-            <tbody id="tableBody">
-{{--                    <tr>--}}
-{{--                        <td><a href="#">1</a></td>--}}
-{{--                        <td>Ioana Petrescu</td>--}}
-{{--                        <td>Cancer de col uterin</td>--}}
-{{--                        <td>Noua</td>--}}
-{{--                        <td>Neaprobat</td>--}}
-{{--                        <td>23.10.2019</td>--}}
-{{--                        <td class="td-actions">--}}
-{{--                            <a href="#" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Delete') }}" title="{{ __('Delete') }}">--}}
-{{--                                {{ __('Delete') }}--}}
-{{--                            </a>--}}
-{{--                        </td>--}}
-{{--                        <td class="text-right">--}}
-{{--                            <a href="#" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">--}}
-{{--                                {{ __('See details') }}--}}
-{{--                            </a>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-            </tbody>
+            <tbody id="tableBody"></tbody>
         </table>
     </div>
     <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
@@ -193,7 +174,7 @@
                         '    <td>' + value.patient_full_name + '</td>\n' +
                         '    <td>' + value.caretaker_full_name + '</td>\n' +
                         '    <td>' + value.diagnostic + '</td>\n' +
-                        '    <td>Noua</td>\n' +
+                        '    <td>' + value.status + '</td>\n' +
                         '    <td>' + moment(value.created_at).lang('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/admin/help/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
