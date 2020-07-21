@@ -33,6 +33,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic/categories/add', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
 
         Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
+        Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
 
         /**
          * Ajax routes (admin)

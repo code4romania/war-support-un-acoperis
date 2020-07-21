@@ -98,7 +98,7 @@
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o clinica</a>
                     <a href="{{ route('admin.clinic-category-list') }}" class="list-group-item list-group-item-action sub-list {{ Route::currentRouteName() == 'admin.clinic-category-list' ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Categorii clinici</a>
-                    <a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.help-list' ? 'active' : '' }}">
+                    <a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.help-list', 'admin.help-detail']) ? 'active' : '' }}">
                         <i class="fa fa-exclamation-triangle mr-3"></i>Cereri de ajutor</a>
                     <a href="#" class="list-group-item list-group-item-action ">
                         <i class="fa fa-book mr-3"></i>Resurse ajutor
@@ -120,7 +120,8 @@
     </div>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

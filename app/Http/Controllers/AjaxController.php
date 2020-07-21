@@ -62,8 +62,23 @@ class AjaxController extends Controller
             } catch (\Exception $exception) { }
         }
 
-        // TODO: add more filters, if needed
+        $query->select([
+            'id',
+            'patient_full_name',
+            'caretaker_full_name',
+            'diagnostic',
+            'status',
+            'created_at'
+        ]);
 
-        return response()->json($query->paginate());
+        $perPage = 10;
+
+        if ($request->has('per_page') && in_array($request->get('per_page'), [10, 25, 50])) {
+            $perPage = $request->get('per_page');
+        }
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
     }
 }

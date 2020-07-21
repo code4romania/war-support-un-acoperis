@@ -17,8 +17,23 @@ class HelpRequestController extends Controller
      */
     public function helpList()
     {
-
-
         return view('admin.help-list');
+    }
+
+    /**
+     * @param int $id
+     * @return View
+     */
+    public function helpDetail($id)
+    {
+        /** @var HelpRequest $helpRequest */
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        return view('admin.help-detail')
+            ->with('helpRequest', $helpRequest);
     }
 }
