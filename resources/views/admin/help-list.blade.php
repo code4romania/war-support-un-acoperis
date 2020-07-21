@@ -28,16 +28,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label class="" for="approveStatus">Nivel aprobare</label>
-                            <select name="approveStatus" id="approveStatus" class="custom-select form-control">
-                                <option value="">Neaprobata</option>
-                                <option value="">Aprobata partial</option>
-                                <option value="">Total aprobata</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
             </form>
         </div>
@@ -73,11 +63,11 @@
         <div class="col d-none d-sm-block">
             <div class="form-inline justify-content-end">
                 <div class="form-group">
-                    <label for="" class="mr-3">rezultate pe pagina</label>
-                    <select name="" id="" class="custom-select form-control form-control-sm bg-white">
-                        <option value="15">15</option>
-                        <option value="15">50</option>
-                        <option value="15">100</option>
+                    <label for="resultsPerPage" class="mr-3">rezultate pe pagina</label>
+                    <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
                     </select>
                 </div>
             </div>
@@ -87,13 +77,13 @@
         <table class="table table-striped w-100 mb-0">
             <thead class="thead-dark">
                 <tr>
-                    <th>Nr. cerere</th>
-                    <th>Nume beneficiar</th>
-                    <th>Diagnostic</th>
-                    <th>Status cerere</th>
-                    <th>Nivel aprobare</th>
-                    <th>Data</th>
-                    <th>Actiuni</th>
+                    <th>{{ __('Request ID') }}</th>
+                    <th>{{ __('Patient Name') }}</th>
+                    <th>{{ __('Caretaker Name') }}</th>
+                    <th>{{ __('Diagnostic') }}</th>
+                    <th>{{ __('Request Date') }}</th>
+                    <th>{{ __('Request Status') }}</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -145,11 +135,11 @@
         <div class="col">
             <div class="form-inline justify-content-center justify-content-sm-end">
                 <div class="form-group">
-                    <label for="" class="mr-3">rezultate pe pagina</label>
-                    <select name="" id="" class="custom-select form-control form-control-sm bg-white">
-                        <option value="15">15</option>
-                        <option value="15">50</option>
-                        <option value="15">100</option>
+                    <label for="resultsPerPage" class="mr-3">rezultate pe pagina</label>
+                    <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
                     </select>
                 </div>
             </div>
@@ -160,44 +150,59 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            let render = new HelpRequestRenderer();
+            let pageState = {};
+            pageState.page = 1;
+            pageState.perPage = 10;
 
-            render.renderHelpRequests(1);
+            let render = new HelpRequestRenderer();
+            render.renderHelpRequests(pageState);
+
+
+            $('.resultsPerPage').on('change', function () {
+                $('.resultsPerPage').val(this.value); // keep both selectors in sync
+
+                pageState.perPage = this.value;
+                render.renderHelpRequests(pageState);
+            });
         });
 
         class HelpRequestRenderer {
-            renderHelpRequests(page, status, startDate, endDate) {
-
-                // TODO: pass parameters to request
-                axios.get('{{ route('ajax.help-requests') }}')
+            renderHelpRequests(pageState) {
+                axios.get('{{ route('ajax.help-requests') }}', {params: pageState})
                     .then(res => {
-                        this.renderPagination(res.data);
+                        this.updateResultsCount(res.data.total);
                         this.renderTable(res.data.data);
+                        this.renderPagination(res.data);
                     });
             }
 
+            emptyTable() {
+                $('#tableBody tr').remove();
+            }
+
+            updateResultsCount(count) {
+                $('#totalCount').text(count);
+            }
+
             renderTable(responseData) {
-                console.log('rendering table');
+                this.emptyTable();
 
                 $.each(responseData, function(key, value) {
                     let row = '<tr>\n' +
-                        '    <td><a href="#">' + value.id + '</a></td>\n' +
+                        '    <td><a href="/admin/help/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + value.patient_full_name + '</td>\n' +
+                        '    <td>' + value.caretaker_full_name + '</td>\n' +
                         '    <td>' + value.diagnostic + '</td>\n' +
                         '    <td>Noua</td>\n' +
-                        '    <td>Neaprobat</td>\n' +
-                        '    <td>23.10.2019</td>\n' +
-                        '    <td class="td-actions">\n' +
-                        '        <a href="#" class="btn btn-info btn-icon btn-sm btn-danger" data-original-title="{{ __('Delete') }}" title="{{ __('Delete') }}">\n' +
-                        '            {{ __('Delete') }}\n' +
+                        '    <td>' + moment(value.created_at).lang('ro').format('LLL') + '</td>\n' +
+                        '    <td class="text-right">\n' +
+                        '        <a href="/admin/help/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
+                        '            {{ __('See details') }}\n' +
                         '        </a>\n' +
-                            '    <a href="#" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
-                            '            {{ __('See details') }}\n' +
-                            '        </a>\n' +
                         '    </td>\n' +
                         '</tr>';
 
-                    $('#tableBody').after(row);
+                    $('#tableBody').append(row);
                 });
             }
 
