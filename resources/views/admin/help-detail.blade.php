@@ -56,16 +56,10 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <div class="kv">
                         <p>Data:</p>
                         <b>23.10.2015</b>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="kv">
-                        <p>Nivel de aprobare:</p>
-                        <span class="badge badge-danger">Neaprobata</span>
                     </div>
                 </div>
                 <div class="col-sm-3">
