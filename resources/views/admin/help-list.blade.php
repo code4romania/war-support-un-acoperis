@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label class="" for="status">Status</label>
                             <select name="statusFilter" id="statusFilter" class="custom-select form-control">
-                                    <option value="" disabled selected>{{ __('Request Status') }}</option>
+                                    <option value="" selected>{{ __('All statuses') }}</option>
                                 @foreach(\App\HelpRequest::statusList() as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
@@ -242,7 +242,11 @@
         function setQueryParameter(parameter, value) {
             let filters = $.QueryString;
 
-            filters[parameter] = value;
+            if ('' === value) {
+                delete filters[parameter];
+            } else {
+                filters[parameter] = value;
+            }
 
             let queryString = Object.keys(filters)
                 .map(key => key + '=' + filters[key])
