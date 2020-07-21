@@ -35,7 +35,7 @@
 
     <div class="row align-items-center mb-4">
         <div class="col">
-            <h6 class="font-weight-600 mb-0">Total rezultate: 142</h6>
+            <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
         </div>
         <div class="col d-none d-sm-block">
             <nav aria-label="...">
@@ -63,7 +63,7 @@
         <div class="col d-none d-sm-block">
             <div class="form-inline justify-content-end">
                 <div class="form-group">
-                    <label for="resultsPerPage" class="mr-3">rezultate pe pagina</label>
+                    <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
                     <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
                         <option value="10">10</option>
                         <option value="25">25</option>
@@ -116,7 +116,7 @@
         <div class="col">
             <div class="form-inline justify-content-center justify-content-sm-end">
                 <div class="form-group">
-                    <label for="resultsPerPage" class="mr-3">rezultate pe pagina</label>
+                    <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
                     <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
                         <option value="10">10</option>
                         <option value="25">25</option>
@@ -162,7 +162,7 @@
             }
 
             updateResultsCount(count) {
-                $('#totalCount').text(count);
+                $('#totalResults').text(count);
             }
 
             renderTable(responseData) {
