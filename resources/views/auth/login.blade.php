@@ -19,7 +19,7 @@
                                 <label for="email">{{ __('E-Mail Address') }}</label>
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+                                        <span class="input-group-text"><i class="fa fa-user-circle text-primary"></i></span>
                                     </div>
                                     <input id="email" type="email" class="form-control pl-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ex. ionescudiana@gmail.com">
                                 </div>
@@ -34,7 +34,7 @@
                                 <label for="password">{{ __('Password') }}</label>
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-unlock-alt"></i></span>
+                                        <span class="input-group-text"><i class="fa fa-unlock-alt text-primary"></i></span>
                                     </div>
                                     <input id="password" type="password" class="form-control pl-2 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __("Choose a password") }}">
                                 </div>

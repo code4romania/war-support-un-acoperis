@@ -357,16 +357,19 @@ label.required {
 }
 
 .details-wrapper {
-    border-left:3px solid $primary;
-    padding-left: 20px;
+    &.bordered-left {
+        border-left:3px solid $primary;
+        padding-left: 20px;
+    }
     li {
-        margin-bottom:20px;
+        margin-bottom:15px;
         align-items: center;
     }
     i {
-        font-size:1.3rem;
+        width:20px;
+        font-size:1.2rem;
         margin-right:20px;
-
+        opacity:0.78;
     }
 }
 
@@ -409,3 +412,29 @@ label.required {
 .form-control, .form-control:focus {
     color:#4e5967;
 }
+
+.modal-header {
+    .close {
+        span {
+            font-size:1.85rem;
+        }
+    }
+}
+
+.note {
+    background:#f5f5f5;
+    border-left:4px solid $primary;
+    .meta {
+        color: #909090;
+        .text-dot-left {
+            &:before {
+                content: "•";
+                padding:0 5px;
+            }
+        }
+    }
+    &:not(:last-child) {
+        margin-bottom:20px;
+    }
+}
+

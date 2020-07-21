@@ -19,7 +19,7 @@
         <div class="row mb-6">
             <div class="col-sm-6 pr-lg-5 mb-4 mb-0">
                 <h4 class="text-primary mb-4 font-weight-600">Detalii despre clinica</h4>
-                <ul class="details-wrapper list-unstyled">
+                <ul class="details-wrapper bordered-left list-unstyled">
                     <li class="d-flex align-items-start">
                         <i class="fa fa-map-marker"></i>
                         <span>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-sm-6 pl-lg-5">
                 <h4 class="text-primary mb-4 font-weight-600">Persoana de contact</h4>
-                <ul class="details-wrapper list-unstyled">
+                <ul class="details-wrapper bordered-left list-unstyled">
                     <li class="d-flex">
                         <i class="fa fa-user-circle"></i>
                         <span>
