@@ -22,6 +22,7 @@
                         <div class="form-group">
                             <label class="" for="status">Status</label>
                             <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                                    <option value="" disabled selected>{{ __('Request Status') }}</option>
                                 @foreach(\App\HelpRequest::statusList() as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
@@ -206,6 +207,7 @@
 
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.query = searchQuery;
+                        setQueryParameter('query', pageState.query);
                         render.renderHelpRequests(pageState);
                     }
                 }, 500);
