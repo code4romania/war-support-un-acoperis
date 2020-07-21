@@ -61,7 +61,7 @@
 	.input-group-text {
     color: $input-group-addon-focus-color;
     background-color: $input-group-addon-focus-bg;
-    border-color: $primary;
+    border-color: darken($primary, 20%);
 	}
 
 	.form-control {

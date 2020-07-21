@@ -104,7 +104,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item align-self-md-center">
-                                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">{{ __('Login host') }}</a>
+                                <a class="btn btn-primary btn-sm mr-sm-2" href="{{ route('login') }}">{{ __('Login host') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
@@ -167,6 +167,7 @@
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('js/argon-design-system.js')}}"></script>
     @yield('scripts')
 </body>
 </html>
