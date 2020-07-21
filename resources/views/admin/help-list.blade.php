@@ -83,7 +83,7 @@
                     <th>{{ __('Diagnostic') }}</th>
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Request Status') }}</th>
-                    <th></th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
