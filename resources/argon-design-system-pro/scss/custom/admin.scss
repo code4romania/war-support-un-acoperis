@@ -13,7 +13,7 @@
         }
     }
     .sidebar {
-        background:#197398;
+        background:$admin-blue;
         min-height: 100vh;
         margin-left:-15rem;
         color:#fff;
@@ -107,4 +107,14 @@
 }
 .navbar-toggler .bottom-bar {
     transform: rotate(0);
+}
+
+.is-open {
+    .choices__inner {
+        border-color: darken($primary, 20%);
+        border-radius: 2.5px 2.5px 0 0!important;
+    }
+}
+.choices__inner {
+    border-color:$primary;
 }

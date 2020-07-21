@@ -46,6 +46,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="/images/logo-hfh.svg" height="30" alt="{{ config('app.name', 'Laravel') }}">
                 </a>
+                <h5 class="ml-4 font-weight-600 text-muted d-none d-sm-block">Help for Health Administration</h5>
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
