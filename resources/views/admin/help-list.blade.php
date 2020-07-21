@@ -21,7 +21,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="" for="status">Status</label>
-                            <select name="status" id="status" class="custom-select form-control">
+                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
                                 @foreach(\App\HelpRequest::statusList() as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
@@ -138,6 +138,10 @@
             let render = new HelpRequestRenderer();
             render.renderHelpRequests(pageState);
 
+            $('#statusFilter').on('change', function () {
+                pageState.status = this.value;
+                render.renderHelpRequests(pageState);
+            });
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value); // keep both selectors in sync
@@ -146,6 +150,8 @@
                 render.renderHelpRequests(pageState);
             });
         });
+
+
 
         class HelpRequestRenderer {
             renderHelpRequests(pageState) {
