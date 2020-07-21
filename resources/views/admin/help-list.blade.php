@@ -155,10 +155,8 @@
             $.QueryString = (function(paramsArray) {
                 let params = {};
 
-                for (let i = 0; i < paramsArray.length; ++i)
-                {
-                    let param = paramsArray[i]
-                        .split('=', 2);
+                for (let i = 0; i < paramsArray.length; ++i) {
+                    let param = paramsArray[i].split('=', 2);
 
                     if (param.length !== 2)
                         continue;
