@@ -183,9 +183,18 @@
             }
 
             if (undefined !== $.QueryString.status) {
-                console.log($.QueryString.status);
                 pageState.status = $.QueryString.status;
                 $('#statusFilter').val(pageState.status);
+            }
+
+            if (undefined !== $.QueryString.startDate) {
+                pageState.startDate = $.QueryString.startDate;
+                $('#startDateFilter').val(pageState.startDate);
+            }
+
+            if (undefined !== $.QueryString.endDate) {
+                pageState.endDate = $.QueryString.endDate;
+                $('#endDateFilter').val(pageState.endDate);
             }
 
             let render = new HelpRequestRenderer();
@@ -221,7 +230,7 @@
             });
 
             $('.resultsPerPage').on('change', function () {
-                $('.resultsPerPage').val(this.value); // keep both selectors in sync
+                $('.resultsPerPage').val(this.value);
                 pageState.perPage = this.value;
                 setQueryParameter('perPage', pageState.perPage);
                 render.renderHelpRequests(pageState);
