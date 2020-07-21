@@ -1,16 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="shadow-sm">
-        <div class="container py-4">
-            <div class="row align-items-end">
-                <div class="col-sm-8">
-                    <h4 class="font-weight-600">Cereri de ajutor</h4>
-                    <p class="mb-sm-0">{{ __('Search for a help request using the search field or filter the list of requests using the present options.') }}</p>
-                </div>
-            </div>
-            <form action="">
-                <div class="row mt-5">
+    <section class="mb-5">
+        <h6 class="page-title font-weight-600">Cereri de ajutor</h6>
+        <p class="mb-sm-0">{{ __('Search for a help request using the search field or filter the list of requests using the present options.') }}</p>
+        <div class="card p-3 mt-4 shadow-sm">
+            <form action="" class="">
+                <div class="row">
                     <div class="col-sm-8">
                         <label for="search">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
@@ -47,62 +43,60 @@
         </div>
     </section>
 
-    <div class="container py-5">
-        <div class="row align-items-center mb-4">
-            <div class="col">
-                <h6 class="font-weight-600 mb-0">Total rezultate: 142</h6>
-            </div>
-            <div class="col d-none d-sm-block">
-                <nav aria-label="...">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col d-none d-sm-block">
-                <div class="form-inline justify-content-end">
-                    <div class="form-group">
-                        <label for="" class="mr-3">rezultate pe pagina</label>
-                        <select name="" id="" class="custom-select form-control form-control-sm">
-                            <option value="15">15</option>
-                            <option value="15">50</option>
-                            <option value="15">100</option>
-                        </select>
-                    </div>
+    <div class="row align-items-center mb-4">
+        <div class="col">
+            <h6 class="font-weight-600 mb-0">Total rezultate: 142</h6>
+        </div>
+        <div class="col d-none d-sm-block">
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center mb-0">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">
+                            <i class="fa fa-angle-left"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col d-none d-sm-block">
+            <div class="form-inline justify-content-end">
+                <div class="form-group">
+                    <label for="" class="mr-3">rezultate pe pagina</label>
+                    <select name="" id="" class="custom-select form-control form-control-sm bg-white">
+                        <option value="15">15</option>
+                        <option value="15">50</option>
+                        <option value="15">100</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="table-responsive shadow-sm mb-4">
-            <table class="table table-striped w-100 mb-0">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nr. cerere</th>
-                        <th>Nume beneficiar</th>
-                        <th>Diagnostic</th>
-                        <th>Status cerere</th>
-                        <th>Nivel aprobare</th>
-                        <th>Data</th>
-                        <th>Actiuni</th>
-                        <th class="text-right"></th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
+    </div>
+    <div class="table-responsive shadow-sm mb-4 bg-white">
+        <table class="table table-striped w-100 mb-0">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nr. cerere</th>
+                    <th>Nume beneficiar</th>
+                    <th>Diagnostic</th>
+                    <th>Status cerere</th>
+                    <th>Nivel aprobare</th>
+                    <th>Data</th>
+                    <th>Actiuni</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
 {{--                    <tr>--}}
 {{--                        <td><a href="#">1</a></td>--}}
 {{--                        <td>Ioana Petrescu</td>--}}
@@ -121,43 +115,42 @@
 {{--                            </a>--}}
 {{--                        </td>--}}
 {{--                    </tr>--}}
-                </tbody>
-            </table>
+            </tbody>
+        </table>
+    </div>
+    <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
+        <div class="col offset-sm-4 mb-4 mb-sm-0">
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center mb-0">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">
+                            <i class="fa fa-angle-left"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
-            <div class="col offset-sm-4 mb-4 mb-sm-0">
-                <nav aria-label="...">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col">
-                <div class="form-inline justify-content-center justify-content-sm-end">
-                    <div class="form-group">
-                        <label for="" class="mr-3">rezultate pe pagina</label>
-                        <select name="" id="" class="custom-select form-control form-control-sm">
-                            <option value="15">15</option>
-                            <option value="15">50</option>
-                            <option value="15">100</option>
-                        </select>
-                    </div>
+        <div class="col">
+            <div class="form-inline justify-content-center justify-content-sm-end">
+                <div class="form-group">
+                    <label for="" class="mr-3">rezultate pe pagina</label>
+                    <select name="" id="" class="custom-select form-control form-control-sm bg-white">
+                        <option value="15">15</option>
+                        <option value="15">50</option>
+                        <option value="15">100</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -195,14 +188,12 @@
                         '    <td>Neaprobat</td>\n' +
                         '    <td>23.10.2019</td>\n' +
                         '    <td class="td-actions">\n' +
-                        '        <a href="#" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Delete') }}" title="{{ __('Delete') }}">\n' +
+                        '        <a href="#" class="btn btn-info btn-icon btn-sm btn-danger" data-original-title="{{ __('Delete') }}" title="{{ __('Delete') }}">\n' +
                         '            {{ __('Delete') }}\n' +
                         '        </a>\n' +
-                        '    </td>\n' +
-                        '    <td class="text-right">\n' +
-                        '        <a href="#" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
-                        '            {{ __('See details') }}\n' +
-                        '        </a>\n' +
+                            '    <a href="#" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
+                            '            {{ __('See details') }}\n' +
+                            '        </a>\n' +
                         '    </td>\n' +
                         '</tr>';
 
