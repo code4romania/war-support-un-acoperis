@@ -62,24 +62,7 @@
         </div>
         <div class="col d-none d-sm-block">
             <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="fa fa-angle-left"></i><span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="pagination justify-content-center mb-0"></ul>
             </nav>
         </div>
         <div class="col d-none d-sm-block">
@@ -114,25 +97,7 @@
     <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
         <div class="col offset-sm-4 mb-4 mb-sm-0">
             <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="fa fa-angle-left"></i>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="pagination justify-content-center mb-0"></ul>
             </nav>
         </div>
         <div class="col">
@@ -152,23 +117,6 @@
 
 @section('scripts')
     <script>
-        (function($) {
-            $.QueryString = (function(paramsArray) {
-                let params = {};
-
-                for (let i = 0; i < paramsArray.length; ++i) {
-                    let param = paramsArray[i].split('=', 2);
-
-                    if (param.length !== 2)
-                        continue;
-
-                    params[param[0]] = decodeURIComponent(param[1].replace(/\+/g, " "));
-                }
-
-                return params;
-            })(window.location.search.substr(1).split('&'))
-        })(jQuery);
-
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -207,7 +155,7 @@
 
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.query = searchQuery;
-                        setQueryParameter('query', pageState.query);
+                        $.SetQueryStringParameter('query', pageState.query);
                         render.renderHelpRequests(pageState);
                     }
                 }, 500);
@@ -215,47 +163,29 @@
 
             $('#statusFilter').on('change', function () {
                 pageState.status = this.value;
-                setQueryParameter('status', pageState.status);
+                $.SetQueryStringParameter('status', pageState.status);
                 render.renderHelpRequests(pageState);
             });
 
             $('#startDateFilter').on('change', function() {
                 pageState.startDate = $('#startDateFilter').val();
-                setQueryParameter('startDate', pageState.startDate);
+                $.SetQueryStringParameter('startDate', pageState.startDate);
                 render.renderHelpRequests(pageState);
             });
 
             $('#endDateFilter').on('change', function() {
                 pageState.endDate = $('#endDateFilter').val();
-                setQueryParameter('endDate', pageState.endDate);
+                $.SetQueryStringParameter('endDate', pageState.endDate);
                 render.renderHelpRequests(pageState);
             });
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value);
                 pageState.perPage = this.value;
-                setQueryParameter('perPage', pageState.perPage);
+                $.SetQueryStringParameter('perPage', pageState.perPage);
                 render.renderHelpRequests(pageState);
             });
         });
-
-        function setQueryParameter(parameter, value) {
-            let filters = $.QueryString;
-
-            if ('' === value) {
-                delete filters[parameter];
-            } else {
-                filters[parameter] = value;
-            }
-
-            let queryString = Object.keys(filters)
-                .map(key => key + '=' + filters[key])
-                .join('&');
-
-            let historyUrl = location.pathname + '?' + queryString;
-
-            history.replaceState(null, null, historyUrl);
-        }
 
         let delay = (function(){
             let timer = 0;
@@ -306,7 +236,31 @@
             }
 
             renderPagination(response) {
-                console.log('rendering pagination');
+                $('.pagination li').remove();
+
+                let firstPage = '';
+                if (null == response.prev_page_url) {
+                    firstPage = '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-angle-left"></i><span class="sr-only">Previous</span></a></li>';
+                } else {
+                    firstPage = '<li class="page-item"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-angle-left"></i><span class="sr-only">Previous</span></a></li>';
+                }
+
+                let previous = '';
+
+                let current = '<li class="page-item active"><a class="page-link" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
+
+                let next = '';
+
+                //<li class="page-item"><a class="page-link" href="#">1</a></li>
+
+                let lastPage = '';
+                if (response.last_page > response.current_page) {
+                    lastPage = '<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i><span class="sr-only">Next</span></a></li>';
+                } else {
+                    lastPage = '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-angle-right"></i><span class="sr-only">Next</span></a></li>';
+                }
+
+                $('.pagination').append(firstPage).append(previous).append(current).append(next).append(lastPage);
             }
         }
     </script>
