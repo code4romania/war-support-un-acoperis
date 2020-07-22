@@ -257,6 +257,8 @@
                     return;
                 }
 
+                let morePages = '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+
                 let currentPage = '<li class="page-item active"><a class="page-link" data-page="' + response.current_page + '" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
 
                 let firstPage = '';
@@ -274,6 +276,10 @@
                     previousPages = '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>' + previousPages;
                 }
 
+                if (response.current_page > 4) {
+                    previousPages = morePages + previousPages;
+                }
+
                 step = response.current_page;
                 counter = 0;
 
@@ -282,6 +288,10 @@
                     counter++;
                     step++;
                     nextPages += '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>';
+                }
+
+                if ((response.last_page - response.current_page) > 3) {
+                    nextPages += morePages;
                 }
 
                 let lastPage = '';
