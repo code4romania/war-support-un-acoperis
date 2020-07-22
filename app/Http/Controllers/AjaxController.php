@@ -73,8 +73,8 @@ class AjaxController extends Controller
 
         $perPage = 10;
 
-        if ($request->has('per_page') && in_array($request->get('per_page'), [10, 25, 50])) {
-            $perPage = $request->get('per_page');
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
         }
 
         return response()->json(

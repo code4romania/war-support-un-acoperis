@@ -70,6 +70,8 @@
                 <div class="form-group">
                     <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
                     <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -105,6 +107,8 @@
                 <div class="form-group">
                     <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
                     <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -126,10 +130,11 @@
                 pageState.page = $.QueryString.page;
             }
 
-            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["10", "25", "50"])) {
+            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["1", "3", "10", "25", "50"])) {
                 pageState.perPage = $.QueryString.perPage;
-                $('.resultsPerPage').val(pageState.perPage);
             }
+
+            $('.resultsPerPage').val(pageState.perPage);
 
             if (undefined !== $.QueryString.status) {
                 pageState.status = $.QueryString.status;
@@ -183,6 +188,16 @@
                 $('.resultsPerPage').val(this.value);
                 pageState.perPage = this.value;
                 $.SetQueryStringParameter('perPage', pageState.perPage);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', pageState.page);
+
+                render.renderHelpRequests(pageState);
+            });
+
+            $('body').on('click', 'a.page-link', function(event) {
+                event.preventDefault();
+                pageState.page = $(this).data('page');
+                $.SetQueryStringParameter('page', pageState.page);
                 render.renderHelpRequests(pageState);
             });
         });
@@ -238,29 +253,19 @@
             renderPagination(response) {
                 $('.pagination li').remove();
 
+                let currentPage = '<li class="page-item active"><a class="page-link" data-page="' + response.current_page + '" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
+
                 let firstPage = '';
-                if (null == response.prev_page_url) {
-                    firstPage = '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-angle-left"></i><span class="sr-only">Previous</span></a></li>';
-                } else {
-                    firstPage = '<li class="page-item"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-angle-left"></i><span class="sr-only">Previous</span></a></li>';
+                if (response.current_page > 1) {
+                    firstPage = '<li class="page-item"><a class="page-link" data-page="1" href="#">1</a></li>';
                 }
-
-                let previous = '';
-
-                let current = '<li class="page-item active"><a class="page-link" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
-
-                let next = '';
-
-                //<li class="page-item"><a class="page-link" href="#">1</a></li>
 
                 let lastPage = '';
-                if (response.last_page > response.current_page) {
-                    lastPage = '<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i><span class="sr-only">Next</span></a></li>';
-                } else {
-                    lastPage = '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-angle-right"></i><span class="sr-only">Next</span></a></li>';
+                if (response.current_page < response.last_page) {
+                    lastPage = '<li class="page-item"><a class="page-link" data-page="' + response.last_page + '" href="#">' + response.last_page + '</a></li>';
                 }
 
-                $('.pagination').append(firstPage).append(previous).append(current).append(next).append(lastPage);
+                $('.pagination').append(firstPage).append(currentPage).append(lastPage);
             }
         }
     </script>

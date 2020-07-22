@@ -1,5 +1,6 @@
 require('./bootstrap');
 require("flatpickr");
+import { Romanian } from "flatpickr/dist/l10n/ro.js"
 
 (function($) {
     $.QueryString = (function(paramsArray) {
@@ -36,7 +37,10 @@ require("flatpickr");
 })(jQuery);
 
 $(document).ready(function () {
-    flatpickr('.flatpickr', {});
+    flatpickr('.flatpickr-h4h', {
+        "locale": Romanian // TODO @argon
+    });
+
     //Sidebar on admin
     $("#sidebar-collapse").click(function(){
         $(".admin-area").toggleClass("sidebar-visible");
