@@ -44,20 +44,20 @@ class AjaxController extends Controller
 
         if ($request->has('startDate')) {
             try {
-                $startDate = Carbon::createFromFormat('d-m-Y', $request->get('startDate'));
+                $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
 
                 if ($startDate->year >= 2020) {
-                    $request->where('created_at', '>=', $startDate);
+                    $query->where('created_at', '>=', $startDate);
                 }
             } catch (\Exception $exception) { }
         }
 
         if ($request->has('endDate')) {
             try {
-                $endDate = Carbon::createFromFormat('d-m-Y', $request->get('endDate'));
+                $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
 
                 if ($endDate->year >= 2020) {
-                    $request->where('created_at', '<=', $endDate);
+                    $query->where('created_at', '<=', $endDate);
                 }
             } catch (\Exception $exception) { }
         }
