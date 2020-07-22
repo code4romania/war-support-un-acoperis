@@ -45,4 +45,9 @@ class ClinicController extends Controller
     {
         return view('admin.clinic-category-list');
     }
+
+    public function clinicCategoryCreate()
+    {
+        return view('admin.clinic-category-create');
+    }
 }
