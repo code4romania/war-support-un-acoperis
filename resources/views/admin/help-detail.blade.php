@@ -14,7 +14,7 @@
         <div class="card-body pt-4">
             <h4 class="font-weight-600 text-primary mb-5">Ioana Petrescu</h4>
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <ul class="details-wrapper list-unstyled mb-4">
                         <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
@@ -56,19 +56,18 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="kv">
                         <p>Data:</p>
                         <b>23.10.2015</b>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="">Status cerere:</label>
-                        <select name="" id="" class="custom-select form-control">
-                            <option value="noua">Noua</option>
-                            <option value="aprobata">Aprobata</option>
-                        </select>
+                    <div class="kv">
+                        <h6 class="mb-0">Status cerere</h6>
+                        <span class="badge badge-warning">In asteptare</span>
+                        <span class="badge badge-danger">Neaprobata</span>
+                        <span class="badge badge-success">Aprobata</span>
                     </div>
                 </div>
             </div>
@@ -220,6 +219,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Confirmation modal -->
+
+    <div class="modal fade bd-example-modal-sm" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Aprobare cerere</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Sigur vrei sa aprobi aceasta cerere?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal">Inchide</button>
+                    <button type="button" class="btn btn-secondary">Aproba</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -227,6 +248,11 @@
     <script>
         tinymce.init({
             selector: '#mytextarea'
+        });
+        $(document).ready(function(){
+            $('.custom-select').change(function(){
+                $('#confirmationModal').modal('show')
+            });
         });
     </script>
 @endsection
