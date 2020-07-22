@@ -19,7 +19,7 @@ require("flatpickr");
 })(jQuery);
 
 (function($) {
-    $.SetQueryParameter = function(parameter, value) {
+    $.SetQueryStringParameter = function(parameter, value) {
         let filters = $.QueryString;
 
         if ('' === value) {

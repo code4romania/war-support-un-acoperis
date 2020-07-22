@@ -190,7 +190,7 @@
 
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.query = searchQuery;
-                        $.SetQueryParameter('query', pageState.query);
+                        $.SetQueryStringParameter('query', pageState.query);
                         render.renderHelpRequests(pageState);
                     }
                 }, 500);
@@ -198,26 +198,26 @@
 
             $('#statusFilter').on('change', function () {
                 pageState.status = this.value;
-                $.SetQueryParameter('status', pageState.status);
+                $.SetQueryStringParameter('status', pageState.status);
                 render.renderHelpRequests(pageState);
             });
 
             $('#startDateFilter').on('change', function() {
                 pageState.startDate = $('#startDateFilter').val();
-                $.SetQueryParameter('startDate', pageState.startDate);
+                $.SetQueryStringParameter('startDate', pageState.startDate);
                 render.renderHelpRequests(pageState);
             });
 
             $('#endDateFilter').on('change', function() {
                 pageState.endDate = $('#endDateFilter').val();
-                $.SetQueryParameter('endDate', pageState.endDate);
+                $.SetQueryStringParameter('endDate', pageState.endDate);
                 render.renderHelpRequests(pageState);
             });
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value);
                 pageState.perPage = this.value;
-                $.SetQueryParameter('perPage', pageState.perPage);
+                $.SetQueryStringParameter('perPage', pageState.perPage);
                 render.renderHelpRequests(pageState);
             });
         });
