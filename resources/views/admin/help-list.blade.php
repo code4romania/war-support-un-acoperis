@@ -55,34 +55,34 @@
             </form>
         </div>
     </section>
-
-    <div class="row align-items-center mb-4">
-        <div class="col">
-            <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
-        </div>
-        <div class="col d-none d-sm-block">
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0"></ul>
-            </nav>
-        </div>
-        <div class="col d-none d-sm-block">
-            <div class="form-inline justify-content-end">
-                <div class="form-group">
-                    <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
-                    <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                    </select>
+    <section class="details">
+        <div class="row align-items-center mb-4">
+            <div class="col">
+                <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
+            </div>
+            <div class="col d-none d-sm-block">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center mb-0"></ul>
+                </nav>
+            </div>
+            <div class="col d-none d-sm-block">
+                <div class="form-inline justify-content-end">
+                    <div class="form-group">
+                        <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
+                        <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="table-responsive shadow-sm mb-4 bg-white">
-        <table class="table table-striped w-100 mb-0">
-            <thead class="thead-dark">
+        <div class="table-responsive shadow-sm mb-4 bg-white">
+            <table class="table table-striped w-100 mb-0">
+                <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Request ID') }}</th>
                     <th>{{ __('Patient Name') }}</th>
@@ -92,31 +92,39 @@
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
                 </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
-    </div>
-    <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
-        <div class="col offset-sm-4 mb-4 mb-sm-0">
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0"></ul>
-            </nav>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
         </div>
-        <div class="col">
-            <div class="form-inline justify-content-center justify-content-sm-end">
-                <div class="form-group">
-                    <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
-                    <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                    </select>
+        <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
+            <div class="col offset-sm-4 mb-4 mb-sm-0">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center mb-0"></ul>
+                </nav>
+            </div>
+            <div class="col">
+                <div class="form-inline justify-content-center justify-content-sm-end">
+                    <div class="form-group">
+                        <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
+                        <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <section class="no-results d-flex align-content-center">
+        <img src="/images/no-results.svg" height="120" alt="" class="mr-4"/>
+        <div class="no-results-description align-self-center">
+            <h4 class="font-weight-600 mb-1">No rusults found</h4>
+            <p class="mb-0 text-muted">Try clearing some filters or perform another search.</p>
+        </div>
+    </section>
 @endsection
 
 @section('scripts')
