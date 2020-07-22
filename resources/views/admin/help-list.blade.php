@@ -118,10 +118,10 @@
             </div>
         </div>
     </section>
-    <section class="no-results d-flex align-content-center">
+    <section class="no-results d-none align-content-center">
         <img src="/images/no-results.svg" height="120" alt="" class="mr-4"/>
         <div class="no-results-description align-self-center">
-            <h4 class="font-weight-600 mb-1">No rusults found</h4>
+            <h4 class="font-weight-600 mb-1">No results found</h4>
             <p class="mb-0 text-muted">Try clearing some filters or perform another search.</p>
         </div>
     </section>
@@ -234,6 +234,14 @@
 
             updateResultsCount(count) {
                 $('#totalResults').text(count);
+
+                if (0 === count) {
+                    $('.no-results').removeClass('d-none');
+                    $('.details').addClass('d-none');
+                } else {
+                    $('.no-results').addClass('d-none');
+                    $('.details').removeClass('d-none');
+                }
             }
 
             renderTable(responseData) {
