@@ -260,12 +260,32 @@
                     firstPage = '<li class="page-item"><a class="page-link" data-page="1" href="#">1</a></li>';
                 }
 
+                let step = response.current_page
+                let counter = 0;
+
+                let previousPages = '';
+                while(step > 2 && 2 > counter) {
+                    counter++;
+                    step--;
+                    previousPages = '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>' + previousPages;
+                }
+
+                step = response.current_page;
+                counter = 0;
+
+                let nextPages = '';
+                while(step < response.last_page - 1 && 2 > counter) {
+                    counter++;
+                    step++;
+                    nextPages += '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>';
+                }
+
                 let lastPage = '';
                 if (response.current_page < response.last_page) {
                     lastPage = '<li class="page-item"><a class="page-link" data-page="' + response.last_page + '" href="#">' + response.last_page + '</a></li>';
                 }
 
-                $('.pagination').append(firstPage).append(currentPage).append(lastPage);
+                $('.pagination').append(firstPage).append(previousPages).append(currentPage).append(nextPages).append(lastPage);
             }
         }
     </script>
