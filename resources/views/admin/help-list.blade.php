@@ -236,7 +236,7 @@
                 $('#totalResults').text(count);
 
                 if (0 === count) {
-                    $('.no-results').removeClass('d-none');
+                    $('.no-results').addClass('d-flex');
                     $('.details').addClass('d-none');
                 } else {
                     $('.no-results').addClass('d-none');
