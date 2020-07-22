@@ -62,24 +62,7 @@
         </div>
         <div class="col d-none d-sm-block">
             <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="fa fa-angle-left"></i><span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="pagination justify-content-center mb-0"></ul>
             </nav>
         </div>
         <div class="col d-none d-sm-block">
@@ -114,25 +97,7 @@
     <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
         <div class="col offset-sm-4 mb-4 mb-sm-0">
             <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="fa fa-angle-left"></i>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="pagination justify-content-center mb-0"></ul>
             </nav>
         </div>
         <div class="col">
@@ -271,7 +236,31 @@
             }
 
             renderPagination(response) {
-                console.log('rendering pagination');
+                $('.pagination li').remove();
+
+                let firstPage = '';
+                if (null == response.prev_page_url) {
+                    firstPage = '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-angle-left"></i><span class="sr-only">Previous</span></a></li>';
+                } else {
+                    firstPage = '<li class="page-item"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-angle-left"></i><span class="sr-only">Previous</span></a></li>';
+                }
+
+                let previous = '';
+
+                let current = '<li class="page-item active"><a class="page-link" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
+
+                let next = '';
+
+                //<li class="page-item"><a class="page-link" href="#">1</a></li>
+
+                let lastPage = '';
+                if (response.last_page > response.current_page) {
+                    lastPage = '<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i><span class="sr-only">Next</span></a></li>';
+                } else {
+                    lastPage = '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-angle-right"></i><span class="sr-only">Next</span></a></li>';
+                }
+
+                $('.pagination').append(firstPage).append(previous).append(current).append(next).append(lastPage);
             }
         }
     </script>
