@@ -17,7 +17,12 @@
 
                             <div class="form-group">
                                 <label for="email">{{ __('E-Mail Address') }}</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ex. ionescudiana@gmail.com">
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle text-primary"></i></span>
+                                    </div>
+                                    <input id="email" type="email" class="form-control pl-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ex. ionescudiana@gmail.com">
+                                </div>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -27,7 +32,12 @@
 
                             <div class="form-group">
                                 <label for="password">{{ __('Password') }}</label>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __("Choose a password") }}">
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-unlock-alt text-primary"></i></span>
+                                    </div>
+                                    <input id="password" type="password" class="form-control pl-2 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __("Choose a password") }}">
+                                </div>
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

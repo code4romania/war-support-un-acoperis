@@ -1,13 +1,21 @@
 .admin-area {
     background:$light-blue;
+    overflow-x:hidden;
     .navbar-brand {
         img {
             height: 50px;
         }
     }
+    .nav-item {
+        .dropdown-menu {
+            position: absolute;
+            width:100%;
+        }
+    }
     .sidebar {
-        background:#197398;
+        background:$admin-blue;
         min-height: 100vh;
+        margin-left:-15rem;
         color:#fff;
         -webkit-transition: margin .25s ease-out;
         -moz-transition: margin .25s ease-out;
@@ -37,11 +45,88 @@
             }
         }
     }
-    .page-wrapper {
-        min-width: 0;
-        width: 100%;
-        .page-title {
-            margin-bottom: 50px;
+    &.sidebar-visible {
+        .sidebar {
+            margin-left:0;
         }
     }
+    .page-wrapper {
+        min-width: 100vw;
+        .page-title {
+            margin-bottom: 50px;
+            font-size:1.7rem;
+        }
+    }
+    @include media-breakpoint-up(sm) {
+        .sidebar {
+            margin-left:0;
+        }
+        .page-wrapper {
+            min-width: 0;
+            width: 100%;
+        }
+    }
+}
+
+
+
+//Navbar toggler
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
+    border-color:$primary;
+}
+.navbar-toggler:hover {
+    background: transparent !important;
+}
+.navbar-toggler .icon-bar {
+    width: 22px;
+    transition: all 0.2s;
+    background: $dark;
+    height:2px;
+    border-radius: 1px;
+    display:block;
+    margin-top:4px;
+}
+.sidebar-visible .navbar-toggler .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+}
+.sidebar-visible .navbar-toggler .middle-bar {
+    opacity: 0;
+}
+.sidebar-visible .navbar-toggler .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%;
+}
+.navbar-toggler .top-bar {
+    transform: rotate(0);
+}
+.navbar-toggler.middle-bar {
+    opacity: 1;
+}
+.navbar-toggler .bottom-bar {
+    transform: rotate(0);
+}
+
+.is-open {
+    .choices__inner {
+        border-color: darken($primary, 20%);
+        border-radius: 2.5px 2.5px 0 0!important;
+    }
+}
+.choices__inner {
+    border-color:$primary;
+}
+
+
+.kv {
+    margin-bottom:20px;
+    p {
+        margin-bottom:0;
+    }
+}
+
+p.smaller {
+    font-size:14px;
 }

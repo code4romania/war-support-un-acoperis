@@ -9,6 +9,25 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!--Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href=/images/favicon"/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#00b0ea">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -85,7 +104,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item align-self-md-center">
-                                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">{{ __('Login host') }}</a>
+                                <a class="btn btn-primary btn-sm mr-sm-2" href="{{ route('login') }}">{{ __('Login host') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
@@ -121,16 +140,12 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
                                 @php
                                     $params = request()->route()->parameters();
-                                    $ro = $en = $de = $hu = $params;
+                                    $ro = $en = $params;
                                     $ro['locale'] = 'ro';
-                                    //$de['locale'] = 'de';
                                     $en['locale'] = 'en';
-                                    //$hu['locale'] = 'hu';
                                 @endphp
                                 <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
                                 <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
-{{--                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), $de) }}">DE</a>--}}
-{{--                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), $hu) }}">HU</a>--}}
                             </div>
                         </li>
                     </ul>
@@ -147,7 +162,9 @@
     </div>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/argon-design-system.js')}}"></script>
     @yield('scripts')
 </body>
 </html>

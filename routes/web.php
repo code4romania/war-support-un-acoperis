@@ -29,9 +29,16 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
-
         Route::get('/clinic/categories', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
-        Route::get('/clinic/categories/add', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
+        Route::get('/clinic/category/add', 'Admin\ClinicController@clinicCategoryCreate')->name('admin.clinic-category-create');
+
+        Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
+        Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
+
+        /**
+         * Ajax routes (admin)
+         */
+        Route::get('/ajax/help-requests', 'AjaxController@helpRequests')->name('ajax.help-requests');
     });
 
 /**
@@ -56,7 +63,7 @@ Route::middleware([SetLanguage::class])
         Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
         Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
-        Route::get('/clinic-list', 'ClinicController@index')->name('clinic-list');
+        Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinic/{slug}', 'ClinicController@show')->name('clinic-details');
         Route::get('/donate', 'DonateController@index')->name('donate');
 
