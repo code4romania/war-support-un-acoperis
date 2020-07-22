@@ -146,7 +146,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Nivel de aprobare:</label>
-                        <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600">
+                        <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600 border-danger">
                             <option value="noua">Neaprobata</option>
                             <option value="aprobata">Aprobata</option>
                         </select>
@@ -188,7 +188,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Nivel de aprobare:</label>
-                        <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600">
+                        <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600 border-danger">
                             <option value="noua">Neaprobata</option>
                             <option value="aprobata">Aprobata</option>
                         </select>
