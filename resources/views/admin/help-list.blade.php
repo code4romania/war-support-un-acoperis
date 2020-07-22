@@ -253,6 +253,10 @@
             renderPagination(response) {
                 $('.pagination li').remove();
 
+                if (1 === response.last_page) {
+                    return;
+                }
+
                 let currentPage = '<li class="page-item active"><a class="page-link" data-page="' + response.current_page + '" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
 
                 let firstPage = '';
