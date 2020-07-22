@@ -152,23 +152,6 @@
 
 @section('scripts')
     <script>
-        (function($) {
-            $.QueryString = (function(paramsArray) {
-                let params = {};
-
-                for (let i = 0; i < paramsArray.length; ++i) {
-                    let param = paramsArray[i].split('=', 2);
-
-                    if (param.length !== 2)
-                        continue;
-
-                    params[param[0]] = decodeURIComponent(param[1].replace(/\+/g, " "));
-                }
-
-                return params;
-            })(window.location.search.substr(1).split('&'))
-        })(jQuery);
-
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -207,7 +190,7 @@
 
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.query = searchQuery;
-                        setQueryParameter('query', pageState.query);
+                        $.SetQueryParameter('query', pageState.query);
                         render.renderHelpRequests(pageState);
                     }
                 }, 500);
@@ -215,47 +198,29 @@
 
             $('#statusFilter').on('change', function () {
                 pageState.status = this.value;
-                setQueryParameter('status', pageState.status);
+                $.SetQueryParameter('status', pageState.status);
                 render.renderHelpRequests(pageState);
             });
 
             $('#startDateFilter').on('change', function() {
                 pageState.startDate = $('#startDateFilter').val();
-                setQueryParameter('startDate', pageState.startDate);
+                $.SetQueryParameter('startDate', pageState.startDate);
                 render.renderHelpRequests(pageState);
             });
 
             $('#endDateFilter').on('change', function() {
                 pageState.endDate = $('#endDateFilter').val();
-                setQueryParameter('endDate', pageState.endDate);
+                $.SetQueryParameter('endDate', pageState.endDate);
                 render.renderHelpRequests(pageState);
             });
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value);
                 pageState.perPage = this.value;
-                setQueryParameter('perPage', pageState.perPage);
+                $.SetQueryParameter('perPage', pageState.perPage);
                 render.renderHelpRequests(pageState);
             });
         });
-
-        function setQueryParameter(parameter, value) {
-            let filters = $.QueryString;
-
-            if ('' === value) {
-                delete filters[parameter];
-            } else {
-                filters[parameter] = value;
-            }
-
-            let queryString = Object.keys(filters)
-                .map(key => key + '=' + filters[key])
-                .join('&');
-
-            let historyUrl = location.pathname + '?' + queryString;
-
-            history.replaceState(null, null, historyUrl);
-        }
 
         let delay = (function(){
             let timer = 0;
