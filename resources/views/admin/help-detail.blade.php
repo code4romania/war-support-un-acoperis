@@ -240,11 +240,11 @@
             let badge = '';
 
             if ('new' === status) {
-                badge = '<span class="badge badge-danger">Nouă</span>';
+                badge = '<span class="badge badge-danger">' + $.TranslateRequestStatus(status) + '</span>';
             } else if ('in-progress' === status) {
-                badge = '<span class="badge badge-warning">În progres</span>';
+                badge = '<span class="badge badge-warning">' + $.TranslateRequestStatus(status) + '</span>';
             } else if ('completed' === status) {
-                badge = '<span class="badge badge-success">Finalizată</span>';
+                badge = '<span class="badge badge-success">' + $.TranslateRequestStatus(status) + '</span>';
             }
 
             $('#requestStatus span').remove();

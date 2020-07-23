@@ -36,6 +36,21 @@ import { Romanian } from "flatpickr/dist/l10n/ro.js"
     }
 })(jQuery);
 
+(function($) {
+    $.TranslateRequestStatus = function(status) {
+        switch (status) {
+            case 'new':
+                return 'Nouă';
+            case 'in-progress':
+                return 'În progres';
+            case 'completed':
+                return 'Finalizată';
+            default:
+                return status;
+        }
+    }
+})(jQuery);
+
 $(document).ready(function () {
     flatpickr('.flatpickr-h4h', {
         "locale": Romanian // TODO @argon

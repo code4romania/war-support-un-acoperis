@@ -253,7 +253,7 @@
                         '    <td>' + value.patient_full_name + '</td>\n' +
                         '    <td>' + value.caretaker_full_name + '</td>\n' +
                         '    <td>' + value.diagnostic + '</td>\n' +
-                        '    <td>' + value.status + '</td>\n' +
+                        '    <td>' + $.TranslateRequestStatus(value.status) + '</td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/admin/help/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
