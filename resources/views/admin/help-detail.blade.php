@@ -87,6 +87,8 @@
                     </i>
                 </p>
             </div>
+
+
             <div class="border-bottom py-4">
                 <h6 class="font-weight-600 mb-3">Note</h6>
                 <div class="note p-3">
@@ -105,6 +107,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="pt-4 pb-3 mt-3 clearfix">
                 <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="modal" data-target=".bd-example-modal-lg">
                     <span class="btn-inner--icon mr-2"><i class="fa fa-comment"></i></span>
@@ -214,7 +217,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="mb-4">Introduceti o nota explicativa pentru aceasta solicitare</p>
-                    <textarea name="" id="mytextarea" cols="30" rows="20"></textarea>
+                    <textarea name="addNote" id="addNote" cols="30" rows="20"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
@@ -225,7 +228,6 @@
     </div>
 
     <!-- Confirmation modal -->
-
     <div class="modal fade bd-example-modal-sm" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -251,7 +253,7 @@
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#mytextarea'
+            selector: '#addNote'
         });
         $(document).ready(function(){
             $('.custom-select').change(function(){
