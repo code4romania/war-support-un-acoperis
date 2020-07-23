@@ -5,6 +5,7 @@ namespace App;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -74,5 +75,21 @@ class HelpRequest extends Model
     public function helprequestsmsdetail()
     {
         return $this->hasMany(HelpRequestSmsDetails::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function helprequestaccommodationdetail()
+    {
+        return $this->hasMany(HelpRequestAccommodationDetail::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function helptypes()
+    {
+        return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['approve_status', 'message']);
     }
 }

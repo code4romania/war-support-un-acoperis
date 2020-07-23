@@ -59,7 +59,7 @@
                 <div class="col-sm-3">
                     <div class="kv">
                         <p>Data:</p>
-                        <b>{{ $helpRequest->created_at }}</b>
+                        <b>{{ $helpRequest->created_at->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_datetime_format')) }}</b>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -88,7 +88,6 @@
                 </p>
             </div>
 
-
             <div class="border-bottom py-4">
                 <h6 class="font-weight-600 mb-3">Note</h6>
                 <div class="note p-3">
@@ -116,94 +115,80 @@
             </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="font-weight-600 text-primary mb-4">Date necesare pentru alocarea unui numar de SMS pentru strangerea de fonduri</h5>
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="kv">
-                        <p>Suma estimata necesara pentru tratament/interventie chirurgicala</p>
-                        <b>25 000 EUR</b>
-                    </div>
-                    <div class="kv">
-                        <p>Denumire clinica/spital unde este acceptat pacientul:</p>
-                        <b>Centrul de Oncologie Robert Janker</b>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col">
+    @foreach($helpRequest->helptypes as $helpType)
+        <div class="card">
+            <div class="card-body">
+                <h5 class="font-weight-600 text-primary mb-4">{{ __($helpType->name) }}</h5>
+                <div class="row">
+                    <div class="col-sm-5">
+                        @if (\App\HelpType::TYPE_SMS === $helpType->id)
                             <div class="kv">
-                                <p>Tara:</p>
-                                <b>Spania</b>
+                                <p>{{ __('Estimated amount required for treatment / surgery') }}:</p>
+                                <b>{{ $helpRequest->helprequestsmsdetail()->first()->amount }}</b>
                             </div>
-                        </div>
-                        <div class="col">
                             <div class="kv">
-                                <p>Oras:</p>
-                                <b>Madrid</b>
+                                <p>{{ __('Clinic / hospital name where the patient is accepted') }}:</p>
+                                <b>{{ $helpRequest->helprequestsmsdetail()->first()->clinic }}</b>
                             </div>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <div class="kv">
+                                        <p>{{ __('Country') }}:</p>
+                                        <b>{{ $helpRequest->helprequestsmsdetail()->first()->country->name }}</b>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="kv">
+                                        <p>{{ __('City') }}:</p>
+                                        <b>{{ $helpRequest->helprequestsmsdetail()->first()->city }}</b>
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                            <div class="kv">
+                                <p>{{ __('At which hospital will the medical investigations / treatment be performed') }}?</p>
+                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->clinic }}</b>
+                            </div>
+                            <div class="kv">
+                                <p>{{ __('Starting with what date you need accommodation') }}?</p>
+                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->start_date->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_date_format')) }}</b>
+                            </div>
+                            <div class="kv">
+                                <p>{{ __('Detail here if you need special accommodation conditions') }}:</p>
+                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->special_request }}</b>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-sm-4">
+                        @if (\App\HelpType::TYPE_SMS === $helpType->id)
+                            <div class="kv">
+                                <p>{{ __('Fund destination') }}:</p>
+                                <b>{{ $helpRequest->helprequestsmsdetail()->first()->purpose }}</b>
+                            </div>
+                        @elseif (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                            <div class="kv">
+                                <p>{{ __('For how many people do you need accommodation') }}?</p>
+                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->guests_number }}</b>
+                            </div>
+                            <div class="kv">
+                                <p>{{ __('Until when do you need accommodation') }}?</p>
+                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->end_date->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_date_format')) }}</b>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">Nivel de aprobare:</label>
+                            <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600 border-danger">
+                                <option value="noua">Neaprobata</option>
+                                <option value="aprobata">Aprobata</option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="kv">
-                        <p>Destinatie fonduri stranse in campanie SMS (cont bancar)</p>
-                        <b>RO49AAAA1B3100759384234B</b>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="">Nivel de aprobare:</label>
-                        <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600 border-danger">
-                            <option value="noua">Neaprobata</option>
-                            <option value="aprobata">Aprobata</option>
-                        </select>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="font-weight-600 text-primary mb-4">Cerere pentru a gasi optiuni de cazare langa spital</h5>
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="kv">
-                        <p>La ce spital se află internat pacientul?</p>
-                        <b>CHC - Clinica Sf. Joseph</b>
-                    </div>
-                    <div class="kv">
-                        <p>
-                            Începând cu ce dată ai nevoie de cazare?
-                        </p>
-                        <b>12.02.2020</b>
-                    </div>
-                    <div class="kv">
-                        <p>Detaliază aici dacă ai nevoie de condiții speciale de cazare:</p>
-                        <b>Nu este cazul</b>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="kv">
-                        <p>Pentru câte persoane ai nevoie de cazare?</p>
-                        <b>2</b>
-                    </div>
-                    <div class="kv">
-                        <p>Până când ai nevoie de cazare?</p>
-                        <b>25.02.2020</b>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="">Nivel de aprobare:</label>
-                        <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600 border-danger">
-                            <option value="noua">Neaprobata</option>
-                            <option value="aprobata">Aprobata</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
 
     <!-- Popup nota -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
