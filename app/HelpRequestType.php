@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class HelpRequestType extends Model
 {
-    const APPROVE_STATUS_APPROVED = 'approved';
     const APPROVE_STATUS_PENDING = 'pending';
+    const APPROVE_STATUS_APPROVED = 'approved';
     const APPROVE_STATUS_DENIED = 'denied';
 
     /**
@@ -30,8 +30,8 @@ class HelpRequestType extends Model
     public static function approveStatusList(): array
     {
         return [
-            self::APPROVE_STATUS_APPROVED => __('Approved'),
             self::APPROVE_STATUS_PENDING => __('Pending'),
+            self::APPROVE_STATUS_APPROVED => __('Approved'),
             self::APPROVE_STATUS_DENIED => __('Denied')
         ];
     }

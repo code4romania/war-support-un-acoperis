@@ -105,6 +105,10 @@ class AjaxController extends Controller
         $helpRequestType->approve_status = $approveStatus;
         $helpRequestType->save();
 
-        return response()->json(['success' => 'true']);
+        /** @var HelpRequest $helpRequest */
+        $helpRequest = HelpRequest::find($helpRequestType->help_request_id);
+        $helpRequest->updateStatus();
+
+        return response()->json(['success' => 'true', 'requestStatus' => $helpRequest->status]);
     }
 }

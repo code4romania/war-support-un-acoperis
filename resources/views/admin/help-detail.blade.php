@@ -65,13 +65,7 @@
                 <div class="col-sm-3">
                     <div class="kv">
                         <h6 class="mb-0">Status cerere</h6>
-                        @if (\App\HelpRequest::STATUS_NEW === $helpRequest->status)
-                            <span class="badge badge-danger">Neaprobată</span>
-                        @elseif (\App\HelpRequest::STATUS_IN_PROGRESS === $helpRequest->status)
-                            <span class="badge badge-warning">În așteptare</span>
-                        @elseif (\App\HelpRequest::STATUS_COMPLETED === $helpRequest->status)
-                            <span class="badge badge-success">Aprobată</span>
-                        @endif
+                        <div id="requestStatus"></div>
                     </div>
                 </div>
             </div>
@@ -242,10 +236,27 @@
 @section('scripts')
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        $(document).ready(function(){
+        let setRequestStatus = function(status) {
+            let badge = '';
+
+            if ('new' === status) {
+                badge = '<span class="badge badge-danger">Nouă</span>';
+            } else if ('in-progress' === status) {
+                badge = '<span class="badge badge-warning">În progres</span>';
+            } else if ('completed' === status) {
+                badge = '<span class="badge badge-success">Finalizată</span>';
+            }
+
+            $('#requestStatus span').remove();
+            $('#requestStatus').append(badge);
+        };
+
+        $(document).ready(function() {
             tinymce.init({
                 selector: '#addNote'
             });
+
+            setRequestStatus('{{ $helpRequest->status }}');
 
             let selectedHelpTypeId = null;
             let selectedHelpTypeStatus = null;
@@ -263,6 +274,7 @@
                 })
                     .then(response => {
                         $('#confirmationModal').modal('hide');
+                        setRequestStatus(response.data.requestStatus);
                     })
                     .catch(error => {
                         console.log(error);

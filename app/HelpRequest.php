@@ -92,4 +92,22 @@ class HelpRequest extends Model
     {
         return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['id', 'approve_status', 'message']);
     }
+
+    public function updateStatus()
+    {
+        $total = $this->helptypes()->count();
+
+        if (
+            $total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_APPROVED)->count() ||
+            $total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_DENIED)->count()
+        ) {
+            $this->status = self::STATUS_COMPLETED;
+        } else if ($total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
+            $this->status = self::STATUS_NEW;
+        } else {
+            $this->status = self::STATUS_IN_PROGRESS;
+        }
+
+        $this->save();
+    }
 }
