@@ -157,6 +157,10 @@
                                 <p>{{ __('Detail here if you need special accommodation conditions') }}:</p>
                                 <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->special_request }}</b>
                             </div>
+                        @elseif (\App\HelpType::TYPE_OTHER_NEEDS === $helpType->id)
+                            <div class="kv">
+                                <b>{{ $helpType->pivot->message }}</b>
+                            </div>
                         @endif
                     </div>
                     <div class="col-sm-4">
