@@ -109,5 +109,8 @@
     "Actions": "Acțiuni",
     "Starting with": "Începând cu",
     "Until": "Până la",
-    "All statuses": "Toate statusurile"
+    "All statuses": "Toate statusurile",
+    "Pending": "În așteptare",
+    "Approved": "Aprobat",
+    "Denied": "Respins"
 }

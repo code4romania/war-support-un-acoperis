@@ -39,6 +39,7 @@ Route::middleware([SetLanguage::class, Administration::class])
          * Ajax routes (admin)
          */
         Route::get('/ajax/help-requests', 'AjaxController@helpRequests')->name('ajax.help-requests');
+        Route::put('/ajax/help-type/{id}', 'AjaxController@updateHelpRequestType')->name('ajax.update-help-requests-type');
     });
 
 /**

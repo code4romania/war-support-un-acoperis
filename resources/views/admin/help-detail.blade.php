@@ -182,10 +182,11 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="">Nivel de aprobare:</label>
-                            <select name="" id="" class="custom-select form-control bg-danger text-white font-weight-600 border-danger">
-                                <option value="noua">Neaprobata</option>
-                                <option value="aprobata">Aprobata</option>
+                            <label for="change-approval-{{ $helpType->id }}">Nivel de aprobare:</label>
+                            <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-identifier="{{ $helpType->id }}" class="change-approval-status custom-select form-control bg-danger text-white font-weight-600 border-danger">
+                                @foreach(\App\HelpRequestType::approveStatusList() as $key => $value)
+                                    <option value="{{ $key }}" {{ ($key == $helpType->pivot->approve_status) ? 'selected' : '' }}>{{ __($value) }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -221,17 +222,17 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Aprobare cerere</h5>
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Schimbare nivel de aprobare</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Sigur vrei sa aprobi aceasta cerere?
+                    Sigur vrei sa schimbi nivelul de aprobare pentru aceasta cerere?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal">Inchide</button>
-                    <button type="button" class="btn btn-secondary">Aproba</button>
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal">Renunță</button>
+                    <button type="button" class="btn btn-secondary" id="proceed">Da</button>
                 </div>
             </div>
         </div>
@@ -241,12 +242,31 @@
 @section('scripts')
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        tinymce.init({
-            selector: '#addNote'
-        });
         $(document).ready(function(){
-            $('.custom-select').change(function(){
-                $('#confirmationModal').modal('show')
+            tinymce.init({
+                selector: '#addNote'
+            });
+
+            let selectedHelpTypeId = null;
+            let selectedHelpTypeStatus = null;
+
+            $('.change-approval-status').on('change', function() {
+                selectedHelpTypeId = $(this).data('identifier');
+                selectedHelpTypeStatus = $(this).val();
+                $('#confirmationModal').modal('show');
+            });
+
+            $('#proceed').on('click', function() {
+                axios.put('/admin/ajax/help-type/' + selectedHelpTypeId, {
+                    _token: "{{ csrf_token() }}",
+                    approvalStatus: selectedHelpTypeStatus
+                })
+                    .then(response => {
+                        $('#confirmationModal').modal('hide');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             });
         });
     </script>

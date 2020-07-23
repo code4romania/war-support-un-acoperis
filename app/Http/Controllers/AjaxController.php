@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\HelpRequest;
+use App\HelpRequestType;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
@@ -80,5 +81,30 @@ class AjaxController extends Controller
         return response()->json(
             $query->paginate($perPage)
         );
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function updateHelpRequestType($id)
+    {
+        /** @var HelpRequestType|null $helpRequestType */
+        $helpRequestType = HelpRequestType::find($id);
+
+        if (empty($helpRequestType)) {
+            abort(404);
+        }
+
+        $approveStatus = request()->get('approvalStatus');
+
+        if (!array_key_exists($approveStatus, HelpRequestType::approveStatusList())) {
+            abort(400);
+        }
+
+        $helpRequestType->approve_status = $approveStatus;
+        $helpRequestType->save();
+
+        return response()->json(['success' => 'true']);
     }
 }
