@@ -90,6 +90,6 @@ class HelpRequest extends Model
      */
     public function helptypes()
     {
-        return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['approve_status', 'message']);
+        return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['id', 'approve_status', 'message']);
     }
 }

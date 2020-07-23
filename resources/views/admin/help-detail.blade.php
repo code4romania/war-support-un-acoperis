@@ -183,7 +183,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="change-approval-{{ $helpType->id }}">Nivel de aprobare:</label>
-                            <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-identifier="{{ $helpType->id }}" class="change-approval-status custom-select form-control bg-danger text-white font-weight-600 border-danger">
+                            <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-identifier="{{ $helpType->pivot->id }}" class="change-approval-status custom-select form-control bg-danger text-white font-weight-600 border-danger">
                                 @foreach(\App\HelpRequestType::approveStatusList() as $key => $value)
                                     <option value="{{ $key }}" {{ ($key == $helpType->pivot->approve_status) ? 'selected' : '' }}>{{ __($value) }}</option>
                                 @endforeach
