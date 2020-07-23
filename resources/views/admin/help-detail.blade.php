@@ -2,36 +2,36 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600">Cerere 001233 - Ioana Petrescu</h6>
+        <h6 class="page-title font-weight-600">Cerere #{{ $helpRequest->id }} - {{ $helpRequest->patient_full_name }}</h6>
     </section>
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
                 Detalii Cerere
             </h6>
-            <button class="btn btn-white btn-sm text-danger px-4">Delete</button>
+            <button class="btn btn-white btn-sm text-danger px-4">Șterge</button>
         </div>
         <div class="card-body pt-4">
-            <h4 class="font-weight-600 text-primary mb-5">Ioana Petrescu</h4>
+            <h4 class="font-weight-600 text-primary mb-5">{{ $helpRequest->patient_full_name }}</h4>
             <div class="row">
                 <div class="col-sm-6">
                     <ul class="details-wrapper list-unstyled mb-4">
                         <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
                             <span>
-                            Locatie: <b>Romania, Bacau, Bacau</b>
+                            Locatie: <b>{{ $helpRequest->county->name }}, {{ $helpRequest->city->name }}</b>
                             </span>
                         </li>
                         <li class="d-flex">
                             <i class="fa fa-phone"></i>
                             <span>
-                            Telefon: <b>0725659585</b>
+                            Telefon: <b>{{ $helpRequest->patient_phone_number }}</b>
                         </span>
                         </li>
                         <li class="d-flex">
                             <i class="fa fa-at"></i>
                             <span>
-                            Email:  <a href="mailto:diana.soreanu@gmail.com" target="_blank">ioana.petrescu@gmail.com</a>
+                            Email:  <a href="mailto:{{ $helpRequest->patient_email }}" target="_blank">{{ $helpRequest->patient_email }}</a>
                         </span>
                         </li>
                     </ul>
@@ -39,19 +39,19 @@
                         <li class="d-flex align-items-start">
                             <i class="fa fa-dot-circle-o"></i>
                             <span>
-                            Responsabil: <b>Diana Sorescu</b>
+                            Responsabil: <b>{{ $helpRequest->caretaker_full_name }}</b>
                             </span>
                         </li>
                         <li class="d-flex">
                             <i class="fa fa-phone"></i>
                             <span>
-                            Telefon responsabil: <b>0725659585</b>
+                            Telefon responsabil: <b>{{ $helpRequest->caretaker_phone_number }}</b>
                         </span>
                         </li>
                         <li class="d-flex">
                             <i class="fa fa-at"></i>
                             <span>
-                            Email responsabil:  <a href="mailto:diana.soreanu@gmail.com" target="_blank">diana.soreanu@gmail.com</a>
+                            Email responsabil:  <a href="mailto:{{ $helpRequest->caretaker_email }}" target="_blank">{{ $helpRequest->caretaker_email }}</a>
                         </span>
                         </li>
                     </ul>
@@ -59,29 +59,33 @@
                 <div class="col-sm-3">
                     <div class="kv">
                         <p>Data:</p>
-                        <b>23.10.2015</b>
+                        <b>{{ $helpRequest->created_at }}</b>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="kv">
                         <h6 class="mb-0">Status cerere</h6>
-                        <span class="badge badge-warning">In asteptare</span>
-                        <span class="badge badge-danger">Neaprobata</span>
-                        <span class="badge badge-success">Aprobata</span>
+                        @if (\App\HelpRequest::STATUS_NEW === $helpRequest->status)
+                            <span class="badge badge-danger">Neaprobată</span>
+                        @elseif (\App\HelpRequest::STATUS_IN_PROGRESS === $helpRequest->status)
+                            <span class="badge badge-warning">În așteptare</span>
+                        @elseif (\App\HelpRequest::STATUS_COMPLETED === $helpRequest->status)
+                            <span class="badge badge-success">Aprobată</span>
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="border-top border-bottom py-4 mt-4">
                 <h6 class="font-weight-600">Diagnostic</h6>
-                <p class="mb-0">Cancer de col uterin</p>
+                <p class="mb-0">{{ $helpRequest->diagnostic }}</p>
             </div>
             <div class="border-bottom py-4">
                 <h6 class="font-weight-600">Alte informații:</h6>
-                <p>Un text care să cuprindă evoluţia bolii de la diagnosticare până în prezent, simptome şi/sau alte detalii privind starea pacientului</p>
                 <p class="mb-0">
                     <i>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+                        {{ $helpRequest->extra_details }}
                     </i>
+                </p>
             </div>
             <div class="border-bottom py-4">
                 <h6 class="font-weight-600 mb-3">Note</h6>
