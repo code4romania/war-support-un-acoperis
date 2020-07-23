@@ -237,18 +237,18 @@
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         let setRequestStatus = function(status) {
-            let badge = '';
+            let badgeColor = 'badge-success';
 
             if ('new' === status) {
-                badge = '<span class="badge badge-danger">' + $.TranslateRequestStatus(status) + '</span>';
+                badgeColor = 'badge-danger';
             } else if ('in-progress' === status) {
-                badge = '<span class="badge badge-warning">' + $.TranslateRequestStatus(status) + '</span>';
+                badgeColor = 'badge-warning';
             } else if ('completed' === status) {
-                badge = '<span class="badge badge-success">' + $.TranslateRequestStatus(status) + '</span>';
+                badgeColor = 'badge-success';
             }
 
             $('#requestStatus span').remove();
-            $('#requestStatus').append(badge);
+            $('#requestStatus').append('<span class="badge ' + badgeColor + '">' + $.TranslateRequestStatus(status) + '</span>');
         };
 
         $(document).ready(function() {
