@@ -97,10 +97,7 @@ class HelpRequest extends Model
     {
         $total = $this->helptypes()->count();
 
-        if (
-            $total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_APPROVED)->count() ||
-            $total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_DENIED)->count()
-        ) {
+        if (0 === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
             $this->status = self::STATUS_COMPLETED;
         } else if ($total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
             $this->status = self::STATUS_NEW;
