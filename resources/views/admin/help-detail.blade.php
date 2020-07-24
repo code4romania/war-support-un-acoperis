@@ -190,7 +190,9 @@
                             @endphp
                             <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-type-id="{{ $helpType->id }}" data-identifier="{{ $helpType->pivot->id }}" class="change-approval-status custom-select form-control text-white font-weight-600 {{ $newClass }}">
                                 @foreach(\App\HelpRequestType::approveStatusList() as $key => $value)
+                                    @if (!(\App\HelpRequestType::APPROVE_STATUS_PENDING === $key && \App\HelpRequestType::APPROVE_STATUS_PENDING !== $helpType->pivot->approve_status))
                                     <option value="{{ $key }}" {{ ($key == $helpType->pivot->approve_status) ? 'selected' : '' }}>{{ __($value) }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -307,7 +309,6 @@
 
             $('#cancel').on('click', function() {
                 setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
-
                 $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
             });
 
