@@ -177,7 +177,18 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="change-approval-{{ $helpType->id }}">Nivel de aprobare:</label>
-                            <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-identifier="{{ $helpType->pivot->id }}" class="change-approval-status custom-select form-control bg-danger text-white font-weight-600 border-danger">
+                            @php
+                                $newClass = '';
+
+                                if ('pending' === $helpType->pivot->approve_status) {
+                                    $newClass = 'bg-warning border-warning';
+                                } else if ('approved' === $helpType->pivot->approve_status) {
+                                    $newClass = 'bg-success border-success';
+                                } else if ('denied' === $helpType->pivot->approve_status) {
+                                    $newClass = 'bg-danger border-danger';
+                                }
+                            @endphp
+                            <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-type-id="{{ $helpType->id }}" data-identifier="{{ $helpType->pivot->id }}" class="change-approval-status custom-select form-control text-white font-weight-600 {{ $newClass }}">
                                 @foreach(\App\HelpRequestType::approveStatusList() as $key => $value)
                                     <option value="{{ $key }}" {{ ($key == $helpType->pivot->approve_status) ? 'selected' : '' }}>{{ __($value) }}</option>
                                 @endforeach
@@ -225,7 +236,7 @@
                     Sigur vrei sa schimbi nivelul de aprobare pentru aceasta cerere?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal">Renunță</button>
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">Renunță</button>
                     <button type="button" class="btn btn-secondary" id="proceed">Da</button>
                 </div>
             </div>
@@ -251,6 +262,22 @@
             $('#requestStatus').append('<span class="badge ' + badgeColor + '">' + $.TranslateRequestStatus(status) + '</span>');
         };
 
+        let setRequestTypeStatus = function(id, status) {
+            let newClass = '';
+
+            if ('pending' === status) {
+                newClass = 'bg-warning border-warning';
+            } else if ('approved' === status) {
+                newClass = 'bg-success border-success';
+            } else if ('denied' === status) {
+                newClass = 'bg-danger border-danger';
+            }
+
+            $('#change-approval-' + id)
+                .removeClass('bg-danger border-danger bg-warning border-warning bg-success border-warning')
+                .addClass(newClass);
+        }
+
         $(document).ready(function() {
             tinymce.init({
                 selector: '#addNote'
@@ -258,17 +285,34 @@
 
             setRequestStatus('{{ $helpRequest->status }}');
 
+            let selectedHelpTypeIdentifier = null;
             let selectedHelpTypeId = null;
             let selectedHelpTypeStatus = null;
+            let selectedHelpTypePreviousStatus = null;
 
-            $('.change-approval-status').on('change', function() {
-                selectedHelpTypeId = $(this).data('identifier');
+            $('.change-approval-status')
+                .on('focusin', function() {
+                    $(this).data('val', $(this).val());
+                })
+                .on('change', function() {
+                selectedHelpTypeIdentifier = $(this).data('identifier');
+                selectedHelpTypeId = $(this).data('type-id');
                 selectedHelpTypeStatus = $(this).val();
+                selectedHelpTypePreviousStatus = $(this).data('val');
+
+                setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypeStatus);
+
                 $('#confirmationModal').modal('show');
             });
 
+            $('#cancel').on('click', function() {
+                setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
+
+                $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
+            });
+
             $('#proceed').on('click', function() {
-                axios.put('/admin/ajax/help-type/' + selectedHelpTypeId, {
+                axios.put('/admin/ajax/help-type/' + selectedHelpTypeIdentifier, {
                     _token: "{{ csrf_token() }}",
                     approvalStatus: selectedHelpTypeStatus
                 })
