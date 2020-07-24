@@ -319,6 +319,9 @@
                 })
                     .then(response => {
                         $('#confirmationModal').modal('hide');
+                        if ('approved' === selectedHelpTypeStatus || 'denied' === selectedHelpTypeStatus) {
+                            $('#change-approval-' + selectedHelpTypeId + ' option[value=pending]').remove();
+                        }
                         setRequestStatus(response.data.requestStatus);
                     })
                     .catch(error => {
