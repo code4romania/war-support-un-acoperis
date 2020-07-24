@@ -84,21 +84,25 @@
 
             <div class="border-bottom py-4">
                 <h6 class="font-weight-600 mb-3">Note</h6>
-                <div class="note p-3">
-                    <div class="row align-items-sm-center">
-                        <div class="col-sm-9 mb-4 mb-sm-0">
-                            <p class="mb-1">Acest beneficiar nu ne-a mai cerut ajutor in trecut</p>
-                            <div class="meta">
-                                <span>Added by <b>Grigore Minulescu</b></span>
-                                <span class="text-dot-left">12 Jun, 2020 - 13:43 PM</span>
+                @foreach($helpRequest->helprequestnotes as $helpRequestNote)
+                    <div class="note p-3">
+                        <div class="row align-items-sm-center">
+                            <div class="col-sm-9 mb-4 mb-sm-0">
+                                <p class="mb-1">{{ $helpRequestNote->message }}</p>
+                                <div class="meta">
+                                    @if (!empty($helpRequestNote))
+                                    <span>Adăugat de <b>{{ $helpRequestNote->user->name }}</b></span>
+                                    @endif
+                                    <span class="text-dot-left">{{ $helpRequestNote->created_at->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_datetime_format')) }}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 text-sm-right">
+                                <button class="btn btn-sm btn-info">Editeaza</button>
+                                <button class="btn btn-sm btn-danger">Sterge</button>
                             </div>
                         </div>
-                        <div class="col-sm-3 text-sm-right">
-                            <button class="btn btn-sm btn-info">Editeaza</button>
-                            <button class="btn btn-sm btn-danger">Sterge</button>
-                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
 
             <div class="pt-4 pb-3 mt-3 clearfix">

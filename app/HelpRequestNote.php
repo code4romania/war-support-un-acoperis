@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $help_request_id
  * @property string $message
+ * @property int|null $user_id
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  */
@@ -24,5 +25,13 @@ class HelpRequestNote extends Model
     public function helprequest()
     {
         return $this->belongsTo(HelpRequest::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
