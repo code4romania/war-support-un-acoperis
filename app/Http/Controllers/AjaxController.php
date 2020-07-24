@@ -145,8 +145,52 @@ class AjaxController extends Controller
         $helpRequestNote->user_id = $user->id;
         $helpRequestNote->save();
 
-        $helpRequestNote = HelpRequestNote::with('user')->find($helpRequestNote->id);
+        $helpRequestNote = HelpRequestNote::find($helpRequestNote->id);
 
-        return response()->json(['success' => 'true', 'helpRequestNote' => $helpRequestNote->toArray()]);
+        return response()->json([
+            'success' => 'true',
+            'helpRequestNoteDate' => formatDateTime($helpRequestNote->created_at),
+            'helpRequestNoteUser' => $helpRequestNote->user->name]
+        );
+    }
+
+    /**
+     * @param $id
+     * @param $noteId
+     * @return JsonResponse
+     */
+    public function updateHelpRequestNote($id, $noteId)
+    {
+        /** @var HelpRequest|null $helpRequest */
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        /** @var HelpRequestNote|null $helpRequestNote */
+        $helpRequestNote = HelpRequestNote::where('help_request_id', '=', $helpRequest->id)
+            ->where('id', '=', $noteId)
+            ->first();
+
+        if (empty($helpRequestNote)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        if (!request()->has('message')) {
+            abort(400);
+        }
+
+        $helpRequestNote->message = request()->get('message');
+        $helpRequestNote->save();
+
+        return response()->json(['success' => 'true']);
     }
 }

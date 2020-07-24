@@ -88,17 +88,21 @@
                     <div class="note p-3">
                         <div class="row align-items-sm-center">
                             <div class="col-sm-9 mb-4 mb-sm-0">
-                                <p class="mb-1">{!! $helpRequestNote->message !!}</p>
+                                <div id="note-body-{{ $helpRequestNote->id }}">
+                                    {!! $helpRequestNote->message !!}
+                                </div>
+
                                 <div class="meta">
                                     @if (!empty($helpRequestNote))
                                     <span>Adăugat de <b>{{ $helpRequestNote->user->name }}</b></span>
                                     @endif
                                     <span class="text-dot-left">{{ formatDateTime($helpRequestNote->created_at) }}</span>
                                 </div>
+
                             </div>
                             <div class="col-sm-3 text-sm-right">
-                                <button class="btn btn-sm btn-info edit-note" data-note-id="{{ $helpRequestNote->id }}">Editează</button>
-                                <button class="btn btn-sm btn-danger delete-note" data-note-id="{{ $helpRequestNote->id }}">Șterge</button>
+                                <button class="edit-note btn btn-sm btn-info" data-note-id="{{ $helpRequestNote->id }}">Editează</button>
+                                <button class="delete-note btn btn-sm btn-danger" data-note-id="{{ $helpRequestNote->id }}">Șterge</button>
                             </div>
                         </div>
                     </div>
@@ -207,7 +211,7 @@
     @endforeach
 
     <!-- Popup notă -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="addNoteModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -218,11 +222,33 @@
                 </div>
                 <div class="modal-body">
                     <p class="mb-4">Introduceți o notă explicativă pentru această solicitare</p>
-                    <textarea name="note-message" id="note-message" cols="30" rows="20"></textarea>
+                    <textarea class="tinymce" name="note-message" id="note-message" cols="30" rows="20"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="addNote">Adaugă notă</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup editare notă -->
+    <div id="editNoteModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">Editează notă</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-4">Introduceți o notă explicativă pentru această solicitare</p>
+                    <textarea class="tinymce" name="edit-note-message" id="edit-note-message" cols="30" rows="20"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="editNote" data-note-id="">Editează notă</button>
                 </div>
             </div>
         </div>
@@ -282,13 +308,22 @@
             $('#change-approval-' + id)
                 .removeClass('bg-danger border-danger bg-warning border-warning bg-success border-warning')
                 .addClass(newClass);
-        }
+        };
+
+        let addNote = function (id, message, user, date) {
+            console.log('Adding note');
+            console.log(message);
+            console.log(user);
+            console.log(date);
+
+            // TODO
+        };
 
         $(document).ready(function() {
             setRequestStatus('{{ $helpRequest->status }}');
 
             tinymce.init({
-                selector: '#note-message'
+                selector: '.tinymce'
             });
 
             let selectedHelpTypeIdentifier = null;
@@ -340,12 +375,51 @@
                     _token: "{{ csrf_token() }}",
                     message: tinymce.get('note-message').getContent()
                 }).then(response => {
-                    console.log(response.data)
-                    tinymce.close();
+                    addNote(
+                        tinymce.get('note-message').getContent(),
+                        response.data.helpRequestNoteUser,
+                        response.data.helpRequestNoteDate,
+                    );
+
+                    tinymce.get('note-message').setContent('');
+                    $('#addNoteModal').modal('hide');
                 })
                 .catch(error => {
                     console.log(error);
                 });
+            });
+
+            $('.edit-note').on('click', function() {
+                let noteId = $(this).data('note-id');
+
+                tinymce.get('edit-note-message').setContent(
+                    $('#note-body-' + noteId).html()
+                );
+
+                $('#editNote').data('note-id', noteId);
+                $('#editNoteModal').modal('show');
+            });
+
+            $('#editNote').on('click', function() {
+                let noteId = $(this).data('note-id');
+                let noteMessage = tinymce.get('edit-note-message').getContent();
+
+                axios
+                .put('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + noteId, {
+                    _token: "{{ csrf_token() }}",
+                    message: noteMessage
+                })
+                .then(response => {
+                    $('#note-body-' + noteId).html(noteMessage);
+                    $('#editNoteModal').modal('hide');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            });
+
+            $('.delete-note').on('click', function() {
+                console.log('Deleting note ' + $(this).data('note-id'));
             });
         });
     </script>
