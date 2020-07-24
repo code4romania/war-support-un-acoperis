@@ -297,17 +297,22 @@
                     $(this).data('val', $(this).val());
                 })
                 .on('change', function() {
-                selectedHelpTypeIdentifier = $(this).data('identifier');
-                selectedHelpTypeId = $(this).data('type-id');
-                selectedHelpTypeStatus = $(this).val();
-                selectedHelpTypePreviousStatus = $(this).data('val');
+                    selectedHelpTypeIdentifier = $(this).data('identifier');
+                    selectedHelpTypeId = $(this).data('type-id');
+                    selectedHelpTypeStatus = $(this).val();
+                    selectedHelpTypePreviousStatus = $(this).data('val');
 
-                setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypeStatus);
+                    setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypeStatus);
 
-                $('#confirmationModal').modal('show');
-            });
+                    $('#confirmationModal').modal('show');
+                });
 
             $('#cancel').on('click', function() {
+                setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
+                $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
+            });
+
+            $('#confirmationModal').on('hidden.bs.modal', function (e) {
                 setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
                 $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
             });
@@ -316,17 +321,16 @@
                 axios.put('/admin/ajax/help-type/' + selectedHelpTypeIdentifier, {
                     _token: "{{ csrf_token() }}",
                     approvalStatus: selectedHelpTypeStatus
+                }).then(response => {
+                    $('#confirmationModal').modal('hide');
+                    if ('approved' === selectedHelpTypeStatus || 'denied' === selectedHelpTypeStatus) {
+                        $('#change-approval-' + selectedHelpTypeId + ' option[value=pending]').remove();
+                    }
+                    setRequestStatus(response.data.requestStatus);
                 })
-                    .then(response => {
-                        $('#confirmationModal').modal('hide');
-                        if ('approved' === selectedHelpTypeStatus || 'denied' === selectedHelpTypeStatus) {
-                            $('#change-approval-' + selectedHelpTypeId + ' option[value=pending]').remove();
-                        }
-                        setRequestStatus(response.data.requestStatus);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .catch(error => {
+                    console.log(error);
+                });
             });
         });
     </script>
