@@ -307,14 +307,11 @@
                     $('#confirmationModal').modal('show');
                 });
 
-            $('#cancel').on('click', function() {
-                setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
-                $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
-            });
-
-            $('#confirmationModal').on('hidden.bs.modal', function (e) {
-                setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
-                $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
+            $('#confirmationModal').on('hide.bs.modal', function () {
+                if (selectedHelpTypePreviousStatus !== selectedHelpTypeStatus) {
+                    setRequestTypeStatus(selectedHelpTypeId, selectedHelpTypePreviousStatus);
+                    $('#change-approval-' + selectedHelpTypeId).val(selectedHelpTypePreviousStatus);
+                }
             });
 
             $('#proceed').on('click', function() {
@@ -322,11 +319,12 @@
                     _token: "{{ csrf_token() }}",
                     approvalStatus: selectedHelpTypeStatus
                 }).then(response => {
-                    $('#confirmationModal').modal('hide');
                     if ('approved' === selectedHelpTypeStatus || 'denied' === selectedHelpTypeStatus) {
                         $('#change-approval-' + selectedHelpTypeId + ' option[value=pending]').remove();
                     }
+                    selectedHelpTypePreviousStatus = selectedHelpTypeStatus;
                     setRequestStatus(response.data.requestStatus);
+                    $('#confirmationModal').modal('hide');
                 })
                 .catch(error => {
                     console.log(error);
