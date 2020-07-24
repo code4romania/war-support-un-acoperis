@@ -236,10 +236,10 @@
                 $('#totalResults').text(count);
 
                 if (0 === count) {
-                    $('.no-results').addClass('d-flex');
+                    $('.no-results').removeClass('d-none').addClass('d-flex');
                     $('.details').addClass('d-none');
                 } else {
-                    $('.no-results').addClass('d-none');
+                    $('.no-results').removeClass('d-flex').addClass('d-none');
                     $('.details').removeClass('d-none');
                 }
             }

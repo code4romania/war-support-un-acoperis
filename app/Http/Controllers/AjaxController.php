@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\HelpRequest;
+use App\HelpRequestNote;
 use App\HelpRequestType;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AjaxController
@@ -110,5 +113,40 @@ class AjaxController extends Controller
         $helpRequest->updateStatus();
 
         return response()->json(['success' => 'true', 'requestStatus' => $helpRequest->status]);
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function createHelpRequestNote($id)
+    {
+        /** @var HelpRequest|null $helpRequest */
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        if (!request()->has('message')) {
+            abort(400);
+        }
+
+        $helpRequestNote = new HelpRequestNote();
+        $helpRequestNote->help_request_id = $helpRequest->id;
+        $helpRequestNote->message = request()->get('message');
+        $helpRequestNote->user_id = $user->id;
+        $helpRequestNote->save();
+
+        $helpRequestNote = HelpRequestNote::with('user')->find($helpRequestNote->id);
+
+        return response()->json(['success' => 'true', 'helpRequestNote' => $helpRequestNote->toArray()]);
     }
 }

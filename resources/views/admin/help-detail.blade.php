@@ -59,7 +59,7 @@
                 <div class="col-sm-3">
                     <div class="kv">
                         <p>Data:</p>
-                        <b>{{ $helpRequest->created_at->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_datetime_format')) }}</b>
+                        <b>{{ formatDateTime($helpRequest->created_at) }}</b>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -88,17 +88,17 @@
                     <div class="note p-3">
                         <div class="row align-items-sm-center">
                             <div class="col-sm-9 mb-4 mb-sm-0">
-                                <p class="mb-1">{{ $helpRequestNote->message }}</p>
+                                <p class="mb-1">{!! $helpRequestNote->message !!}</p>
                                 <div class="meta">
                                     @if (!empty($helpRequestNote))
                                     <span>Adăugat de <b>{{ $helpRequestNote->user->name }}</b></span>
                                     @endif
-                                    <span class="text-dot-left">{{ $helpRequestNote->created_at->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_datetime_format')) }}</span>
+                                    <span class="text-dot-left">{{ formatDateTime($helpRequestNote->created_at) }}</span>
                                 </div>
                             </div>
                             <div class="col-sm-3 text-sm-right">
-                                <button class="btn btn-sm btn-info">Editeaza</button>
-                                <button class="btn btn-sm btn-danger">Sterge</button>
+                                <button class="btn btn-sm btn-info edit-note" data-note-id="{{ $helpRequestNote->id }}">Editează</button>
+                                <button class="btn btn-sm btn-danger delete-note" data-note-id="{{ $helpRequestNote->id }}">Șterge</button>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
             <div class="pt-4 pb-3 mt-3 clearfix">
                 <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="modal" data-target=".bd-example-modal-lg">
                     <span class="btn-inner--icon mr-2"><i class="fa fa-comment"></i></span>
-                    <span class="btn-inner--text">Adauga nota</span>
+                    <span class="btn-inner--text">Adaugă notă</span>
                 </button>
             </div>
         </div>
@@ -206,23 +206,23 @@
         </div>
     @endforeach
 
-    <!-- Popup nota -->
+    <!-- Popup notă -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">Adauga o nota</h5>
+                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">Adauga o notă</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-4">Introduceti o nota explicativa pentru aceasta solicitare</p>
-                    <textarea name="addNote" id="addNote" cols="30" rows="20"></textarea>
+                    <p class="mb-4">Introduceți o notă explicativă pentru această solicitare</p>
+                    <textarea name="note-message" id="note-message" cols="30" rows="20"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Adauga nota</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addNote">Adaugă notă</button>
                 </div>
             </div>
         </div>
@@ -285,11 +285,11 @@
         }
 
         $(document).ready(function() {
-            tinymce.init({
-                selector: '#addNote'
-            });
-
             setRequestStatus('{{ $helpRequest->status }}');
+
+            tinymce.init({
+                selector: '#note-message'
+            });
 
             let selectedHelpTypeIdentifier = null;
             let selectedHelpTypeId = null;
@@ -329,6 +329,19 @@
                     selectedHelpTypePreviousStatus = selectedHelpTypeStatus;
                     setRequestStatus(response.data.requestStatus);
                     $('#confirmationModal').modal('hide');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            });
+
+            $('#addNote').on('click', function() {
+                axios.post('/admin/ajax/help-request/{{ $helpRequest->id }}/note', {
+                    _token: "{{ csrf_token() }}",
+                    message: tinymce.get('note-message').getContent()
+                }).then(response => {
+                    console.log(response.data)
+                    tinymce.close();
                 })
                 .catch(error => {
                     console.log(error);
