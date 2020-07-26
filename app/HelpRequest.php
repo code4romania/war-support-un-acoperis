@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class HelpRequest
@@ -26,9 +27,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $status
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property DateTime|null $deleted_at
  */
 class HelpRequest extends Model
 {
+    use SoftDeletes;
+
     const STATUS_NEW = 'new';
     const STATUS_IN_PROGRESS = 'in-progress';
     const STATUS_COMPLETED = 'completed';
