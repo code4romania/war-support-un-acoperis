@@ -100,10 +100,12 @@
                             </div>
 
                         </div>
+                        @if (Auth::user()->id === $helpRequestNote->user_id)
                         <div class="col-sm-3 text-sm-right">
                             <button class="edit-note btn btn-sm btn-info" data-note-id="{{ $helpRequestNote->id }}">{{ __('Edit') }}</button>
                             <button class="delete-note btn btn-sm btn-danger" data-note-id="{{ $helpRequestNote->id }}">{{ __('Delete') }}</button>
                         </div>
+                        @endif
                     </div>
                 </div>
                 @endforeach

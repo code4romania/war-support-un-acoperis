@@ -181,7 +181,7 @@ class AjaxController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user)) {
+        if (empty($user) || $user->id !== $helpRequestNote->user_id) {
             abort(403);
         }
 
@@ -221,7 +221,7 @@ class AjaxController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user)) {
+        if (empty($user) || $user->id !== $helpRequestNote->user_id) {
             abort(403);
         }
 
