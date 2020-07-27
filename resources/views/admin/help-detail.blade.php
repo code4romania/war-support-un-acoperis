@@ -2,14 +2,14 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600">Cerere #{{ $helpRequest->id }} - {{ $helpRequest->patient_full_name }}</h6>
+        <h6 class="page-title font-weight-600">{{ __('Request #') }}{{ $helpRequest->id }} - {{ $helpRequest->patient_full_name }}</h6>
     </section>
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                Detalii Cerere
+                {{ __('Request Details') }}
             </h6>
-            <button class="btn btn-white btn-sm text-danger px-4">Șterge</button>
+            <button class="btn btn-white btn-sm text-danger px-4">{{ __('Delete') }}</button>
         </div>
         <div class="card-body pt-4">
             <h4 class="font-weight-600 text-primary mb-5">{{ $helpRequest->patient_full_name }}</h4>
@@ -64,17 +64,17 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="kv">
-                        <h6 class="mb-0">Status cerere</h6>
+                        <h6 class="mb-0">{{ __('Request status') }}</h6>
                         <div id="requestStatus"></div>
                     </div>
                 </div>
             </div>
             <div class="border-top border-bottom py-4 mt-4">
-                <h6 class="font-weight-600">Diagnostic</h6>
+                <h6 class="font-weight-600">{{ __('Diagnostic') }}</h6>
                 <p class="mb-0">{{ $helpRequest->diagnostic }}</p>
             </div>
             <div class="border-bottom py-4">
-                <h6 class="font-weight-600">Alte informații:</h6>
+                <h6 class="font-weight-600">{{ __('Extra details') }}:</h6>
                 <p class="mb-0">
                     <i>
                         {{ $helpRequest->extra_details }}
@@ -83,36 +83,36 @@
             </div>
 
             <div class="border-bottom py-4">
-                <h6 class="font-weight-600 mb-3">Note</h6>
+                <h6 class="font-weight-600 mb-3">{{ __('Notes') }}</h6>
                 @foreach($helpRequest->helprequestnotes as $helpRequestNote)
-                    <div class="note p-3">
-                        <div class="row align-items-sm-center">
-                            <div class="col-sm-9 mb-4 mb-sm-0">
-                                <div id="note-body-{{ $helpRequestNote->id }}">
-                                    {!! $helpRequestNote->message !!}
-                                </div>
-
-                                <div class="meta">
-                                    @if (!empty($helpRequestNote))
-                                    <span>Adăugat de <b>{{ $helpRequestNote->user->name }}</b></span>
-                                    @endif
-                                    <span class="text-dot-left">{{ formatDateTime($helpRequestNote->created_at) }}</span>
-                                </div>
-
+                <div class="note p-3">
+                    <div class="row align-items-sm-center">
+                        <div class="col-sm-9 mb-4 mb-sm-0">
+                            <div id="note-body-{{ $helpRequestNote->id }}">
+                                {!! $helpRequestNote->message !!}
                             </div>
-                            <div class="col-sm-3 text-sm-right">
-                                <button class="edit-note btn btn-sm btn-info" data-note-id="{{ $helpRequestNote->id }}">Editează</button>
-                                <button class="delete-note btn btn-sm btn-danger" data-note-id="{{ $helpRequestNote->id }}">Șterge</button>
+
+                            <div class="meta">
+                                @if (!empty($helpRequestNote))
+                                <span>{{ __('Added by') }} <b>{{ $helpRequestNote->user->name }}</b></span>
+                                @endif
+                                <span class="text-dot-left">{{ formatDateTime($helpRequestNote->created_at) }}</span>
                             </div>
+
+                        </div>
+                        <div class="col-sm-3 text-sm-right">
+                            <button class="edit-note btn btn-sm btn-info" data-note-id="{{ $helpRequestNote->id }}">{{ __('Edit') }}</button>
+                            <button class="delete-note btn btn-sm btn-danger" data-note-id="{{ $helpRequestNote->id }}">{{ __('Delete') }}</button>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
 
             <div class="pt-4 pb-3 mt-3 clearfix">
                 <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="modal" data-target=".bd-example-modal-lg">
                     <span class="btn-inner--icon mr-2"><i class="fa fa-comment"></i></span>
-                    <span class="btn-inner--text">Adaugă notă</span>
+                    <span class="btn-inner--text">{{ __('Add note') }}</span>
                 </button>
             </div>
         </div>

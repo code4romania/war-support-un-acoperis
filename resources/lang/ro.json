@@ -112,5 +112,13 @@
     "All statuses": "Toate statusurile",
     "Pending": "În așteptare",
     "Approved": "Aprobată",
-    "Denied": "Respinsă"
+    "Denied": "Respinsă",
+    "Added by": "Adăugat de",
+    "Edit": "Editează",
+    "Request Details": "Detalii Cerere",
+    "Request #": "Cerere #",
+    "Request status": "Status cerere",
+    "Extra details": "Alte informații",
+    "Notes": "Note",
+    "Add note": "Adaugă notă"
 }
