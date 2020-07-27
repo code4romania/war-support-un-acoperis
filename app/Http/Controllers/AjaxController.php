@@ -194,4 +194,39 @@ class AjaxController extends Controller
 
         return response()->json(['success' => 'true']);
     }
+
+    /**
+     * @param $id
+     * @param $noteId
+     * @return JsonResponse
+     */
+    public function deleteHelpRequestNote($id, $noteId)
+    {
+        /** @var HelpRequest|null $helpRequest */
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        /** @var HelpRequestNote|null $helpRequestNote */
+        $helpRequestNote = HelpRequestNote::where('help_request_id', '=', $helpRequest->id)
+            ->where('id', '=', $noteId)
+            ->first();
+
+        if (empty($helpRequestNote)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $helpRequestNote->delete();
+
+        return response()->json(['success' => 'true']);
+    }
 }

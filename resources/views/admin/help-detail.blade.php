@@ -85,7 +85,7 @@
             <div class="border-bottom py-4" id="noteContainer">
                 <h6 class="font-weight-600 mb-3">{{ __('Notes') }}</h6>
                 @foreach($helpRequest->helprequestnotes as $helpRequestNote)
-                <div class="note p-3">
+                <div class="note p-3" id="note-container-{{ $helpRequestNote->id }}">
                     <div class="row align-items-sm-center">
                         <div class="col-sm-9 mb-4 mb-sm-0">
                             <div id="note-body-{{ $helpRequestNote->id }}">
@@ -316,7 +316,7 @@
             console.log(user);
             console.log(date);
 
-            let addNoteElement = '<div class="note p-3">\n' +
+            let addNoteElement = '<div class="note p-3" id="note-container-'+id+'">\n' +
                 '                    <div class="row align-items-sm-center">\n' +
                 '                        <div class="col-sm-9 mb-4 mb-sm-0">\n' +
                 '                            <div id="note-body-'+id+'">\n' +
@@ -421,7 +421,7 @@
                 $('#editNoteModal').modal('show');
             });
 
-            $('#editNote').on('click', function() {
+            $('body').on('click', '#editNote', function() {
                 let noteId = $(this).data('note-id');
                 let noteMessage = tinymce.get('edit-note-message').getContent();
 
@@ -439,8 +439,19 @@
                 });
             });
 
-            $('.delete-note').on('click', function() {
-                console.log('Deleting note ' + $(this).data('note-id'));
+            $('body').on('click', '.delete-note', function() {
+                let noteId = $(this).data('note-id');
+
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios
+                    .delete('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + noteId)
+                    .then(response => {
+                        $('#note-container-' + noteId).remove();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             });
         });
     </script>
