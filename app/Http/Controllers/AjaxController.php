@@ -229,4 +229,29 @@ class AjaxController extends Controller
 
         return response()->json(['success' => 'true']);
     }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteHelpRequestType($id)
+    {
+        /** @var HelpRequest|null $helpRequest */
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $helpRequest->delete();
+
+        return response()->json(['success' => 'true']);
+    }
 }

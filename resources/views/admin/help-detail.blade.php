@@ -488,14 +488,14 @@
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                    .delete('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + deleteNoteId)
-                    .then(response => {
-                        $('#note-container-' + deleteNoteId).remove();
-                        $('#deleteNoteModal').modal('hide');
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .delete('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + deleteNoteId)
+                .then(response => {
+                    $('#note-container-' + deleteNoteId).remove();
+                    $('#deleteNoteModal').modal('hide');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             });
 
             $('body').on('click', '.delete-note', function() {
@@ -508,8 +508,17 @@
             });
 
             $('#proceedDeleteRequest').on('click', function() {
-                $('#deleteRequestModal').modal('hide');
-                window.location.replace('{{ route('admin.help-list') }}');
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios
+                .delete('/admin/ajax/help-request/{{ $helpRequest->id }}')
+                .then(response => {
+                    $('#deleteRequestModal').modal('hide');
+                    window.location.replace('{{ route('admin.help-list') }}');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             });
         });
     </script>
