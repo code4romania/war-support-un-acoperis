@@ -77,7 +77,7 @@
                 <h6 class="font-weight-600">{{ __('Extra details') }}:</h6>
                 <p class="mb-0">
                     <i>
-                        {{ $helpRequest->extra_details }}
+                        {{ $helpRequest->extra_details ?? 'N/A' }}
                     </i>
                 </p>
             </div>
