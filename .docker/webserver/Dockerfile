@@ -15,5 +15,7 @@ EXPOSE 80
 
 VOLUME ["/app"]
 
-# start supervisor
-CMD ["/usr/bin/supervisord"]
+COPY ./run.sh /tmp/run.sh
+RUN chmod +x /tmp/run.sh
+
+ENTRYPOINT ["/tmp/run.sh"]
