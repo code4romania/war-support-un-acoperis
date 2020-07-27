@@ -92,4 +92,7 @@ COPY .docker/config/nginx/default /etc/nginx/sites-available/default
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord"]
+COPY .docker/run.sh /tmp/run.sh
+RUN chmod +x /tmp/run.sh
+
+ENTRYPOINT ["/tmp/run.sh"]
