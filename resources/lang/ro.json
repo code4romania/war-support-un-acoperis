@@ -120,5 +120,10 @@
     "Request status": "Status cerere",
     "Extra details": "Alte informații",
     "Notes": "Note",
-    "Add note": "Adaugă notă"
+    "Add note": "Adaugă notă",
+    "Edit note": "Editează notă",
+    "Cancel": "Renunță",
+    "Yes": "Da",
+    "No": "Nu",
+    "Close": "Închide"
 }

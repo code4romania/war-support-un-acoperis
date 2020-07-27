@@ -82,7 +82,7 @@
                 </p>
             </div>
 
-            <div class="border-bottom py-4">
+            <div class="border-bottom py-4" id="noteContainer">
                 <h6 class="font-weight-600 mb-3">{{ __('Notes') }}</h6>
                 @foreach($helpRequest->helprequestnotes as $helpRequestNote)
                 <div class="note p-3">
@@ -153,7 +153,7 @@
                             </div>
                             <div class="kv">
                                 <p>{{ __('Starting with what date you need accommodation') }}?</p>
-                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->start_date->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_date_format')) }}</b>
+                                <b>{{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->start_date) }}</b>
                             </div>
                             <div class="kv">
                                 <p>{{ __('Detail here if you need special accommodation conditions') }}:</p>
@@ -178,7 +178,7 @@
                             </div>
                             <div class="kv">
                                 <p>{{ __('Until when do you need accommodation') }}?</p>
-                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->end_date->setTimezone(Config::get('app.frontend_timezone'))->format(Config::get('app.frontend_date_format')) }}</b>
+                                <b>{{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->end_date) }}</b>
                             </div>
                         @endif
                     </div>
@@ -215,7 +215,7 @@
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">Adauga o notă</h5>
+                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">{{ __('Add note') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -225,8 +225,8 @@
                     <textarea class="tinymce" name="note-message" id="note-message" cols="30" rows="20"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addNote">Adaugă notă</button>
+                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addNote">{{ __('Add note') }}</button>
                 </div>
             </div>
         </div>
@@ -237,7 +237,7 @@
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">Editează notă</h5>
+                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">{{ __('Edit note') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -247,8 +247,8 @@
                     <textarea class="tinymce" name="edit-note-message" id="edit-note-message" cols="30" rows="20"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="editNote" data-note-id="">Editează notă</button>
+                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="editNote" data-note-id="">{{ __('Edit note') }}</button>
                 </div>
             </div>
         </div>
@@ -268,8 +268,8 @@
                     Sigur vrei sa schimbi nivelul de aprobare pentru aceasta cerere?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">Renunță</button>
-                    <button type="button" class="btn btn-secondary" id="proceed">Da</button>
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceed">{{ __('Yes') }}</button>
                 </div>
             </div>
         </div>
@@ -316,7 +316,27 @@
             console.log(user);
             console.log(date);
 
-            // TODO
+            let addNoteElement = '<div class="note p-3">\n' +
+                '                    <div class="row align-items-sm-center">\n' +
+                '                        <div class="col-sm-9 mb-4 mb-sm-0">\n' +
+                '                            <div id="note-body-'+id+'">\n' +
+                '                                '+message+'\n' +
+                '                            </div>\n' +
+                '\n' +
+                '                            <div class="meta">\n' +
+                '                                <span>{{ __('Added by') }} <b>'+user+'</b></span>\n' +
+                '                                <span class="text-dot-left">'+date+'</span>\n' +
+                '                            </div>\n' +
+                '\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-3 text-sm-right">\n' +
+                '                            <button class="edit-note btn btn-sm btn-info" data-note-id="'+id+'">{{ __('Edit') }}</button>\n' +
+                '                            <button class="delete-note btn btn-sm btn-danger" data-note-id="'+id+'">{{ __('Delete') }}</button>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>';
+
+            $('#noteContainer').append(addNoteElement);
         };
 
         $(document).ready(function() {
@@ -376,6 +396,7 @@
                     message: tinymce.get('note-message').getContent()
                 }).then(response => {
                     addNote(
+                        response.data.helpRequestNoteId,
                         tinymce.get('note-message').getContent(),
                         response.data.helpRequestNoteUser,
                         response.data.helpRequestNoteDate,

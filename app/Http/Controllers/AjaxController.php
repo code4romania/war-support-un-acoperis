@@ -149,6 +149,7 @@ class AjaxController extends Controller
 
         return response()->json([
             'success' => 'true',
+            'helpRequestNoteId' => $helpRequestNote->id,
             'helpRequestNoteDate' => formatDateTime($helpRequestNote->created_at),
             'helpRequestNoteUser' => $helpRequestNote->user->name]
         );
