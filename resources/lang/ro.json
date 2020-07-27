@@ -122,6 +122,8 @@
     "Notes": "Note",
     "Add note": "Adaugă notă",
     "Edit note": "Editează notă",
+    "Delete note": "Sterge notă",
+    "Are you sure you want to delete this note": "Sigur vrei sa stergi aceasta nota",
     "Cancel": "Renunță",
     "Yes": "Da",
     "No": "Nu",

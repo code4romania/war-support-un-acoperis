@@ -237,7 +237,7 @@
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">{{ __('Edit note') }}</h5>
+                    <h5 class="modal-title font-weight-600">{{ __('Delete note') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -270,6 +270,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
                     <button type="button" class="btn btn-secondary" id="proceed">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmare stergere nota -->
+    <div class="modal fade bd-example-modal-sm" id="deleteNoteModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete note') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this note') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteNote">{{ __('Yes') }}</button>
                 </div>
             </div>
         </div>
@@ -350,6 +371,7 @@
             let selectedHelpTypeId = null;
             let selectedHelpTypeStatus = null;
             let selectedHelpTypePreviousStatus = null;
+            let deleteNoteId = null;
 
             $('.change-approval-status')
                 .on('focusin', function() {
@@ -439,19 +461,23 @@
                 });
             });
 
-            $('body').on('click', '.delete-note', function() {
-                let noteId = $(this).data('note-id');
-
+            $('#proceedDeleteNote').on('click', function() {
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                    .delete('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + noteId)
+                    .delete('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + deleteNoteId)
                     .then(response => {
-                        $('#note-container-' + noteId).remove();
+                        $('#note-container-' + deleteNoteId).remove();
+                        $('#deleteNoteModal').modal('hide');
                     })
                     .catch(error => {
                         console.log(error);
                     });
+            });
+
+            $('body').on('click', '.delete-note', function() {
+                deleteNoteId = $(this).data('note-id');
+                $('#deleteNoteModal').modal('show');
             });
         });
     </script>
