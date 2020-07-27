@@ -4,6 +4,7 @@ namespace App;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class HelpType
@@ -16,5 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class HelpType extends Model
 {
-
+    const TYPE_SMS = 5;
+    const TYPE_ACCOMMODATION = 6;
+    const TYPE_OTHER_NEEDS = 8;
 }

@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class HelpRequestAccommodationDetail extends Model
 {
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['start_date', 'end_date'];
+
+    /**
      * @return BelongsTo
      */
     public function helprequest()

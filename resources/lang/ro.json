@@ -89,6 +89,7 @@
 
     "Name and surname": "Nume și prenume",
     "Country": "Țara",
+    "Message": "Mesaj",
 
     "Status New": "Nouă",
     "Status In Progress": "În progres",
@@ -108,5 +109,24 @@
     "Actions": "Acțiuni",
     "Starting with": "Începând cu",
     "Until": "Până la",
-    "All statuses": "Toate statusurile"
+    "All statuses": "Toate statusurile",
+    "Pending": "În așteptare",
+    "Approved": "Aprobată",
+    "Denied": "Respinsă",
+    "Added by": "Adăugat de",
+    "Edit": "Editează",
+    "Request Details": "Detalii Cerere",
+    "Request #": "Cerere #",
+    "Request status": "Status cerere",
+    "Extra details": "Alte informații",
+    "Notes": "Note",
+    "Add note": "Adaugă notă",
+    "Edit note": "Editează notă",
+    "Delete note": "Sterge notă",
+    "Are you sure you want to delete this note": "Sigur vrei sa ștergi această notă",
+    "Cancel": "Renunță",
+    "Yes": "Da",
+    "No": "Nu",
+    "Close": "Închide",
+    "Are you sure you want to delete this request": "Sigur vrei să ștergi această cerere de ajutor"
 }

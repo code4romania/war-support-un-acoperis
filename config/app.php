@@ -69,6 +69,10 @@ return [
 
     'timezone' => 'UTC',
 
+    'frontend_timezone' => 'Europe/Bucharest',
+    'frontend_datetime_format' => 'd.m.Y h:i:s',
+    'frontend_date_format' => 'd.m.Y',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

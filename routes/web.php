@@ -39,6 +39,11 @@ Route::middleware([SetLanguage::class, Administration::class])
          * Ajax routes (admin)
          */
         Route::get('/ajax/help-requests', 'AjaxController@helpRequests')->name('ajax.help-requests');
+        Route::put('/ajax/help-type/{id}', 'AjaxController@updateHelpRequestType')->name('ajax.update-help-requests-type');
+        Route::delete('/ajax/help-request/{id}', 'AjaxController@deleteHelpRequestType')->name('ajax.delete-help-requests-type');
+        Route::post('/ajax/help-request/{id}/note', 'AjaxController@createHelpRequestNote')->name('ajax.create-help-request-note');
+        Route::put('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@updateHelpRequestNote')->name('ajax.update-help-request-note');
+        Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
     });
 
 /**

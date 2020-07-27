@@ -55,34 +55,34 @@
             </form>
         </div>
     </section>
-
-    <div class="row align-items-center mb-4">
-        <div class="col">
-            <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
-        </div>
-        <div class="col d-none d-sm-block">
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0"></ul>
-            </nav>
-        </div>
-        <div class="col d-none d-sm-block">
-            <div class="form-inline justify-content-end">
-                <div class="form-group">
-                    <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
-                    <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                    </select>
+    <section class="details">
+        <div class="row align-items-center mb-4">
+            <div class="col">
+                <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
+            </div>
+            <div class="col d-none d-sm-block">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center mb-0"></ul>
+                </nav>
+            </div>
+            <div class="col d-none d-sm-block">
+                <div class="form-inline justify-content-end">
+                    <div class="form-group">
+                        <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
+                        <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="table-responsive shadow-sm mb-4 bg-white">
-        <table class="table table-striped w-100 mb-0">
-            <thead class="thead-dark">
+        <div class="table-responsive shadow-sm mb-4 bg-white">
+            <table class="table table-striped w-100 mb-0">
+                <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Request ID') }}</th>
                     <th>{{ __('Patient Name') }}</th>
@@ -92,31 +92,39 @@
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
                 </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
-    </div>
-    <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
-        <div class="col offset-sm-4 mb-4 mb-sm-0">
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center mb-0"></ul>
-            </nav>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
         </div>
-        <div class="col">
-            <div class="form-inline justify-content-center justify-content-sm-end">
-                <div class="form-group">
-                    <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
-                    <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                    </select>
+        <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
+            <div class="col offset-sm-4 mb-4 mb-sm-0">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center mb-0"></ul>
+                </nav>
+            </div>
+            <div class="col">
+                <div class="form-inline justify-content-center justify-content-sm-end">
+                    <div class="form-group">
+                        <label for="resultsPerPage" class="mr-3">{{ __('Results per page') }}</label>
+                        <select name="resultsPerPage" class="custom-select form-control form-control-sm bg-white resultsPerPage">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <section class="no-results d-none align-content-center">
+        <img src="/images/no-results.svg" height="120" alt="" class="mr-4"/>
+        <div class="no-results-description align-self-center">
+            <h4 class="font-weight-600 mb-1">No results found</h4>
+            <p class="mb-0 text-muted">Try clearing some filters or perform another search.</p>
+        </div>
+    </section>
 @endsection
 
 @section('scripts')
@@ -226,6 +234,14 @@
 
             updateResultsCount(count) {
                 $('#totalResults').text(count);
+
+                if (0 === count) {
+                    $('.no-results').removeClass('d-none').addClass('d-flex');
+                    $('.details').addClass('d-none');
+                } else {
+                    $('.no-results').removeClass('d-flex').addClass('d-none');
+                    $('.details').removeClass('d-none');
+                }
             }
 
             renderTable(responseData) {
@@ -237,7 +253,7 @@
                         '    <td>' + value.patient_full_name + '</td>\n' +
                         '    <td>' + value.caretaker_full_name + '</td>\n' +
                         '    <td>' + value.diagnostic + '</td>\n' +
-                        '    <td>' + value.status + '</td>\n' +
+                        '    <td>' + $.TranslateRequestStatus(value.status) + '</td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/admin/help/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +

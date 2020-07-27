@@ -5,7 +5,9 @@ namespace App;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class HelpRequest
@@ -25,9 +27,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $status
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property DateTime|null $deleted_at
  */
 class HelpRequest extends Model
 {
+    use SoftDeletes;
+
     const STATUS_NEW = 'new';
     const STATUS_IN_PROGRESS = 'in-progress';
     const STATUS_COMPLETED = 'completed';
@@ -74,5 +79,36 @@ class HelpRequest extends Model
     public function helprequestsmsdetail()
     {
         return $this->hasMany(HelpRequestSmsDetails::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function helprequestaccommodationdetail()
+    {
+        return $this->hasMany(HelpRequestAccommodationDetail::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function helptypes()
+    {
+        return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['id', 'approve_status', 'message']);
+    }
+
+    public function updateStatus()
+    {
+        $total = $this->helptypes()->count();
+
+        if (0 === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
+            $this->status = self::STATUS_COMPLETED;
+        } else if ($total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
+            $this->status = self::STATUS_NEW;
+        } else {
+            $this->status = self::STATUS_IN_PROGRESS;
+        }
+
+        $this->save();
     }
 }
