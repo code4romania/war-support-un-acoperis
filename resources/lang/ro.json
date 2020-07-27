@@ -123,9 +123,10 @@
     "Add note": "Adaugă notă",
     "Edit note": "Editează notă",
     "Delete note": "Sterge notă",
-    "Are you sure you want to delete this note": "Sigur vrei sa stergi aceasta nota",
+    "Are you sure you want to delete this note": "Sigur vrei sa ștergi această notă",
     "Cancel": "Renunță",
     "Yes": "Da",
     "No": "Nu",
-    "Close": "Închide"
+    "Close": "Închide",
+    "Are you sure you want to delete this request": "Sigur vrei să ștergi această cerere de ajutor"
 }

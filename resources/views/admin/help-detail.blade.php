@@ -9,7 +9,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Request Details') }}
             </h6>
-            <button class="btn btn-white btn-sm text-danger px-4">{{ __('Delete') }}</button>
+            <button class="btn btn-white btn-sm text-danger px-4" id="delete-request-button">{{ __('Delete') }}</button>
         </div>
         <div class="card-body pt-4">
             <h4 class="font-weight-600 text-primary mb-5">{{ $helpRequest->patient_full_name }}</h4>
@@ -297,6 +297,27 @@
             </div>
         </div>
     </div>
+
+    <!-- Confirmare stergere cerere -->
+    <div class="modal fade bd-example-modal-sm" id="deleteRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete note') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this request') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteRequest">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -480,6 +501,15 @@
             $('body').on('click', '.delete-note', function() {
                 deleteNoteId = $(this).data('note-id');
                 $('#deleteNoteModal').modal('show');
+            });
+
+            $('#delete-request-button').on('click', function() {
+                $('#deleteRequestModal').modal('show');
+            });
+
+            $('#proceedDeleteRequest').on('click', function() {
+                $('#deleteRequestModal').modal('hide');
+                window.location.replace('{{ route('admin.help-list') }}');
             });
         });
     </script>
