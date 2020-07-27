@@ -410,7 +410,7 @@
                 });
             });
 
-            $('.edit-note').on('click', function() {
+            $('body').on('click', '.edit-note', function() {
                 let noteId = $(this).data('note-id');
 
                 tinymce.get('edit-note-message').setContent(
