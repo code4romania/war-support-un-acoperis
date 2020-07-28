@@ -1,8 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="mb-5">
-        <h6 class="page-title font-weight-600">Edit Profile</h6>
+    <section class="mb-5 d-flex align-items-center">
+        <a href="{{ route('host.profile') }}" class="btn btn-sm btn-outline-primary mr-3">Inapoi</a>
+        <h6 class="page-title mb-0 font-weight-600">Edit Profile</h6>
     </section>
 
     <div class="card shadow">
