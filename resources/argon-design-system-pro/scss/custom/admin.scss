@@ -144,3 +144,16 @@ p.smaller {
         }
     }
 }
+
+.accomodation-list {
+    @include media-breakpoint-down(sm) {
+        .media {
+            flex-direction: column;
+            img {
+                width:100%!important;
+                margin-right:0!important;
+                margin-bottom:20px;
+            }
+        }
+    }
+}
