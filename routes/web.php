@@ -57,8 +57,12 @@ Route::middleware([SetLanguage::class, Host::class])
     ->prefix('host')
     ->group(function () {
         Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile');
+        Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
+        Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
 
         Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
+        Route::get('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
+        Route::get('/accommodation/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
     });
 
 /**

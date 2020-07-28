@@ -110,10 +110,10 @@
                     <a href="#" class="list-group-item list-group-item-action sub-list">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
                 @elseif (Auth::user()->isHost())
-                    <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'host.profile' ? 'active' : '' }}">
+                    <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu
                     </a>
-                    <a href="{{ route('host.accommodation') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'host.accommodation' ? 'active' : '' }}">
+                    <a href="{{ route('host.accommodation') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.accommodation', 'host.create-accommodation', 'host.edit-accommodation']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Cazare
                     </a>
                 @endif
