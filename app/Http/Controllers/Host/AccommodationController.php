@@ -40,6 +40,18 @@ class AccommodationController extends Controller
     /**
      * @return View
      */
+    public function viewAccommodation()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        return view('host.view-accommodation')
+            ->with('user', $user);
+    }
+
+    /**
+     * @return View
+     */
     public function editAccommodation()
     {
         /** @var User $user */

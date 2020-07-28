@@ -62,6 +62,7 @@ Route::middleware([SetLanguage::class, Host::class])
 
         Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
         Route::get('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
+        Route::get('/accommodation/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
         Route::get('/accommodation/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
     });
 
