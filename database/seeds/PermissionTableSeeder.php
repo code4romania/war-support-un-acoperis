@@ -20,14 +20,14 @@ class PermissionTableSeeder extends Seeder
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
         Permission::create(['name' => 'is administrator']);
-        Permission::create(['name' => 'is landlord']);
+        Permission::create(['name' => 'is host']);
 
         /** @var Role $administrator */
         $administrator = Role::create(['name' => 'administrator']);
         $administrator->givePermissionTo('is administrator');
 
-        /** @var Role $teacherRole */
-        $teacherRole = Role::create(['name' => 'landlord']);
-        $teacherRole->givePermissionTo('is landlord');
+        /** @var Role $host */
+        $host = Role::create(['name' => 'host']);
+        $host->givePermissionTo('is host');
     }
 }
