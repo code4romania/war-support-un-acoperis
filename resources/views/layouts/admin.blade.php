@@ -90,6 +90,7 @@
         <div class="d-flex">
             <div class="sidebar border-right">
                 <div class="list-group list-group-flush mt-2 mt-sm-4">
+                @if (Auth::user()->isAdministrator())
                     <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                         <i class="fa fa-pie-chart mr-3"></i>Dashboard
                     </a>
@@ -108,6 +109,14 @@
                         <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
                     <a href="#" class="list-group-item list-group-item-action sub-list">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
+                @elseif (Auth::user()->isHost())
+                    <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'host.profile' ? 'active' : '' }}">
+                        <i class="fa fa-user mr-3"></i>Profilul meu
+                    </a>
+                    <a href="{{ route('host.accommodation') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'host.accommodation' ? 'active' : '' }}">
+                        <i class="fa fa-user mr-3"></i>Cazare
+                    </a>
+                @endif
                 </div>
             </div>
             <div class="page-wrapper">

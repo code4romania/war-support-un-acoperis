@@ -43,6 +43,8 @@ class LoginController extends Controller
 
         if ($user->isAdministrator()) {
             return route('admin.dashboard');
+        } else if ($user->isHost()) {
+            return route('host.profile');
         }
 
         return route('home');
