@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-    Hello, {{ $user->name }} ({{ $user->email }})!
-    <h6 class="page-title font-weight-600">Host Profile Page</h6>
+    <section class="mb-5">
+        <h6 class="page-title font-weight-600 mb-3">Host Profile Page</h6>
+        <p class="text-muted">Hello, {{ $user->name }} ({{ $user->email }})!</p>
+    </section>
 
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
