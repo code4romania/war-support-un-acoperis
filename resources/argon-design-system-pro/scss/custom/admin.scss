@@ -130,3 +130,30 @@
 p.smaller {
     font-size:14px;
 }
+
+.pwd-container {
+    position: relative;
+    i {
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        right:20px;
+        cursor:pointer;
+        &:hover {
+            opacity: 0.68;
+        }
+    }
+}
+
+.accomodation-list {
+    @include media-breakpoint-down(sm) {
+        .media {
+            flex-direction: column;
+            img {
+                width:100%!important;
+                margin-right:0!important;
+                margin-bottom:20px;
+            }
+        }
+    }
+}

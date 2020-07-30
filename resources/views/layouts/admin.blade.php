@@ -38,6 +38,8 @@
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet"/>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app" class="admin-area">
@@ -90,6 +92,7 @@
         <div class="d-flex">
             <div class="sidebar border-right">
                 <div class="list-group list-group-flush mt-2 mt-sm-4">
+                @if (Auth::user()->isAdministrator())
                     <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                         <i class="fa fa-pie-chart mr-3"></i>Dashboard
                     </a>
@@ -108,6 +111,14 @@
                         <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
                     <a href="#" class="list-group-item list-group-item-action sub-list">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
+                @elseif (Auth::user()->isHost())
+                    <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
+                        <i class="fa fa-user mr-3"></i>Profilul meu
+                    </a>
+                    <a href="{{ route('host.accommodation') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.accommodation', 'host.create-accommodation', 'host.view-accommodation', 'host.edit-accommodation']) ? 'active' : '' }}">
+                        <i class="fa fa-user mr-3"></i>Cazare
+                    </a>
+                @endif
                 </div>
             </div>
             <div class="page-wrapper">
@@ -124,6 +135,7 @@
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/argon-design-system.js')}}"></script>
+    <script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
     @yield('scripts')
 </body>
 </html>

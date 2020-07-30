@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\Administration;
+use App\Http\Middleware\Host;
 use App\Http\Middleware\SetLanguage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::redirect('/', '/ro');
 Route::middleware([SetLanguage::class, Administration::class])
     ->prefix('admin')
     ->group(function () {
+        /**
+         * Administrator routes
+         */
         Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
 
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
@@ -44,6 +48,22 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/ajax/help-request/{id}/note', 'AjaxController@createHelpRequestNote')->name('ajax.create-help-request-note');
         Route::put('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@updateHelpRequestNote')->name('ajax.update-help-request-note');
         Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
+    });
+
+/**
+ * Host routes
+ */
+Route::middleware([SetLanguage::class, Host::class])
+    ->prefix('host')
+    ->group(function () {
+        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile');
+        Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
+        Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
+
+        Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
+        Route::get('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
+        Route::get('/accommodation/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
+        Route::get('/accommodation/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
     });
 
 /**

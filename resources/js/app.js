@@ -61,3 +61,25 @@ $(document).ready(function () {
         $(".admin-area").toggleClass("sidebar-visible");
     });
 });
+
+// Reveal password
+
+$('#revealCurrentPass').click(function(){
+    if('password' == $('#currentPwd').attr('type')){
+        $('#currentPwd').prop('type', 'text');
+        $('#revealCurrentPass').removeClass('fa-eye').addClass('fa-eye-slash');
+    }else{
+        $('#currentPwd').prop('type', 'password');
+        $('#revealCurrentPass').removeClass('fa-eye-slash').addClass('fa-eye');
+    }
+});
+
+$('#revealNewPass').click(function(){
+    if('password' == $('#newPwd').attr('type')){
+        $('#newPwd').prop('type', 'text');
+        $('#revealNewPass').removeClass('fa-eye').addClass('fa-eye-slash');
+    }else{
+        $('#newPwd').prop('type', 'password');
+        $('#revealNewPass').removeClass('fa-eye-slash').addClass('fa-eye');
+    }
+});

@@ -17,7 +17,7 @@ class User extends Authenticatable
     use HasRoles;
 
     public const ROLE_ADMINISTRATOR = 'administrator';
-    public const ROLE_LANDLORD = 'landlord';
+    public const ROLE_HOST = 'host';
 
     /**
      * The attributes that are mass assignable.
@@ -57,8 +57,8 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function isLandlord(): bool
+    public function isHost(): bool
     {
-        return $this->hasRole(self::ROLE_LANDLORD);
+        return $this->hasRole(self::ROLE_HOST);
     }
 }
