@@ -121,8 +121,8 @@
     <section class="no-results d-none align-content-center">
         <img src="/images/no-results.svg" height="120" alt="" class="mr-4"/>
         <div class="no-results-description align-self-center">
-            <h4 class="font-weight-600 mb-1">No results found</h4>
-            <p class="mb-0 text-muted">Try clearing some filters or perform another search.</p>
+            <h4 class="font-weight-600 mb-1">{{ __('No results found') }}</h4>
+            <p class="mb-0 text-muted">{{ __('Try clearing some filters or perform another search.') }}</p>
         </div>
     </section>
 @endsection

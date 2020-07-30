@@ -129,5 +129,7 @@
     "No": "Nu",
     "Close": "Închide",
     "Are you sure you want to delete this request": "Sigur vrei să ștergi această cerere de ajutor",
-    "Please select at least one option.": "Cel puțin una dintre opțiuni este obligatorie."
+    "Please select at least one option.": "Cel puțin una dintre opțiuni este obligatorie.",
+    "No results found": "Nu am gasit nici un rezultat",
+    "Try clearing some filters or perform another search.": "Încercați să ștergeți unele filtre sau să efectuați o altă căutare."
 }
