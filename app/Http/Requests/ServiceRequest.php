@@ -37,7 +37,16 @@ class ServiceRequest extends FormRequest
             'patient-county' => ['required', 'exists:counties,id'],
             'patient-city' => ['required', 'exists:cities,id'],
             'extra-details' => ['nullable'],
-            'patient-diagnostic' => ['required', 'string', 'max:128']
+            'patient-diagnostic' => ['required', 'string', 'max:128'],
+
+            'help-type-1' => ['required_without_all:help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7,help-type-8'],
+            'help-type-2' => ['required_without_all:help-type-1,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7,help-type-8'],
+            'help-type-3' => ['required_without_all:help-type-1,help-type-2,help-type-4,help-type-5,help-type-6,help-type-7,help-type-8'],
+            'help-type-4' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-5,help-type-6,help-type-7,help-type-8'],
+            'help-type-5' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-6,help-type-7,help-type-8'],
+            'help-type-6' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-7,help-type-8'],
+            'help-type-7' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-8'],
+            'help-type-8' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7']
         ];
 
         if (request()->has('help-type-5')) {

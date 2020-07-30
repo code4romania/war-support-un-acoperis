@@ -93,5 +93,6 @@
 
     "Status New": "New",
     "Status In Progress": "In progress",
-    "Status Completed": "Completed"
+    "Status Completed": "Completed",
+    "Please select at least one option.": "Please select at least one option."
 }
