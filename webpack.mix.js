@@ -24,6 +24,8 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/css/', 'public/css/')
     .copy('resources/fonts/', 'public/fonts/')
     .copy('resources/images/', 'public/images/')
+    .copy('resources/js/jquery.fileuploader.min.js', 'public/js/jquery.fileuploader.min.js')
+    .copy('resources/js/jasny-bootstrap.min.js', 'public/js/jasny-bootstrap.min.js')
     .version()
 if (mix.inProduction()) {
     mix.version();

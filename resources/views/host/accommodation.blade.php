@@ -6,12 +6,17 @@
     </section>
 
     <div class="card shadow">
-        <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
+        <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center rounded">
             <h6 class="font-weight-600 text-white mb-0">
                 0 spatii de cazare
             </h6>
             <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.create-accommodation') }}">Adauga cazare</a>
         </div>
+    </div>
+
+    <div class="alert bg-white text-dark d-flex align-items-center shadow-sm mb-4">
+        <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
+        <span class="alert-inner--text font-weight-600">Poti adauga unul sau mai multe spatii de cazare pe care sa le oferi persoanelor care au nevoie de ajutor!</span>
     </div>
 
     <div class="card-deck accomodation-list">
