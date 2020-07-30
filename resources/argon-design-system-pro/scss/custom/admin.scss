@@ -157,3 +157,19 @@ p.smaller {
         }
     }
 }
+
+.gallery {
+    img {
+        max-width:150px;
+        border-radius:7px;
+        margin:0 15px 15px 0;
+        position: relative;
+        top:0;
+        &:hover {
+            filter:brightness(120%);
+            top:-2px;
+            @extend .shadow;
+            transition: all 0.2s ease;
+        }
+    }
+}
