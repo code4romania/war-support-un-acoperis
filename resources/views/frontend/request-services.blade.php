@@ -175,6 +175,11 @@
 
                                                 <div class="col-12">
                                                     <label for="" class="font-weight-600 mb-3">{{ __('How can we help you') }}?</label>
+                                                        @if ($errors->has('help-type-*'))
+                                                        <span class="invalid-feedback d-block mb-3" role="alert">
+                                                            {{ __('Please select at least one option.') }}
+                                                        </span>
+                                                        @endif
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             @foreach($helpTypesLeft as $helpType)
@@ -197,6 +202,7 @@
                                                                 </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="border-top pt-5 mt-3 clearfix">
                                                         <button type="submit" id="submit-button-1" class="btn btn-secondary pull-right btn-lg px-6">
                                                             <span class="btn-inner--text">{{ __('Send request') }}</span>
