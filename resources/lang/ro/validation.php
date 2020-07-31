@@ -111,7 +111,7 @@ return [
         'array' => 'The :attribute must contain :size items.',
     ],
     'starts_with' => 'Câmpul :attribute trebuie să înceapă cu: :values',
-    'string' => 'The :attribute must be a string.',
+    'string' => 'Câmpul :attribute trebuie sa fie alfanumeric.',
     'timezone' => 'The :attribute must be a valid zone.',
     'unique' => 'Acest :attribute este deja folosit.',
     'uploaded' => 'The :attribute failed to upload.',
