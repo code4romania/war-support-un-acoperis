@@ -105,7 +105,7 @@
                         <i class="fa fa-plus-square invisible mr-3"></i>Categorii clinici</a>
                     <a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.help-list', 'admin.help-detail']) ? 'active' : '' }}">
                         <i class="fa fa-exclamation-triangle mr-3"></i>Cereri de ajutor</a>
-                    <a href="#" class="list-group-item list-group-item-action ">
+                    <a href="{{ route('admin.resource-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.resource-list', 'admin.resource-detail']) ? 'active' : '' }}">
                         <i class="fa fa-book mr-3"></i>Resurse ajutor
                     </a>
                     <a href="#" class="list-group-item list-group-item-action sub-list">

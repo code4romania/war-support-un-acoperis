@@ -39,6 +39,9 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
         Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
 
+        Route::get('/resources', 'Admin\ResourceController@resourceList')->name('admin.resource-list');
+        Route::get('/resources/detail', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
+
         /**
          * Ajax routes (admin)
          */
