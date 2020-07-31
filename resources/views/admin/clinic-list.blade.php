@@ -116,11 +116,11 @@
                 <td>Marea Britanie</td>
                 <td>Londra</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -130,11 +130,11 @@
                 <td>Turcia</td>
                 <td>Istanbul </td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -144,11 +144,11 @@
                 <td>Germania</td>
                 <td>Hanovra </td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -158,11 +158,11 @@
                 <td>Marea Britanie</td>
                 <td>Londra</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -172,11 +172,11 @@
                 <td>Austria</td>
                 <td>Viena</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -186,11 +186,11 @@
                 <td>Germania</td>
                 <td>Berlin </td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -200,11 +200,11 @@
                 <td>Elveția</td>
                 <td>St Gallen</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -214,11 +214,11 @@
                 <td>Elveția</td>
                 <td>Basel</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -228,11 +228,11 @@
                 <td>Elveția</td>
                 <td>Aarau</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -242,11 +242,11 @@
                 <td>Marea Britanie</td>
                 <td>Londra</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -256,11 +256,11 @@
                 <td>Grecia</td>
                 <td>Atena</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -270,11 +270,11 @@
                 <td>Spania</td>
                 <td>Barcelona</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -284,11 +284,11 @@
                 <td>China</td>
                 <td>Beijing</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -298,11 +298,11 @@
                 <td>Elveția</td>
                 <td>Aarau</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             <tr>
@@ -312,11 +312,11 @@
                 <td>Grecia</td>
                 <td>Atena</td>
                 <td class="td-actions">
-                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm " data-original-title="" title="">
+                    <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-secondary btn-sm mb-2 mb-sm-0 " data-original-title="" title="">
                         Editeaza
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger">Sterge</a>
-                    <a href="#" class="btn btn-sm btn-info">Vezi detalii</a>
+                    <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">Sterge</a>
+                    <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0">Vezi detalii</a>
                 </td>
             </tr>
             </tbody>

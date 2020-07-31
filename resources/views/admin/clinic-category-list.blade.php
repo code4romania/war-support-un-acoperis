@@ -39,9 +39,9 @@
                 </p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-sm btn-outline-primary">Editeaza Categoria</button>
-                <button class="btn btn-sm btn-outline-danger">Sterge Categoria</button>
-                <button class="btn btn-sm btn-secondary">Adauga Subcategorie</button>
+                <a href="#" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Categoria</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Categoria</a>
+                <a href="#" class="btn btn-sm btn-secondary mb-0 mb-sm-0">Adauga Subcategorie</a>
             </div>
         </div>
         <div class="card">
@@ -70,9 +70,9 @@
                 </p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-sm btn-outline-primary">Editeaza Categoria</button>
-                <button class="btn btn-sm btn-outline-danger">Sterge Categoria</button>
-                <button class="btn btn-sm btn-secondary">Adauga Subcategorie</button>
+                <a href="#" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Categoria</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Categoria</a>
+                <a href="#" class="btn btn-sm btn-secondary mb-0 mb-sm-0">Adauga Subcategorie</a>
             </div>
         </div>
     </div>
