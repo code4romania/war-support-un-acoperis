@@ -119,7 +119,7 @@
                                         </a>
                                     @elseif (Auth::user()->isHost())
                                         <a class="dropdown-item" href="{{ route('host.profile', ['locale' => app()->getLocale()]) }}">
-                                            <i class="fa fa-wrench"></i> {{ __('My Profile') }}
+                                            <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
                                     @endif
 
