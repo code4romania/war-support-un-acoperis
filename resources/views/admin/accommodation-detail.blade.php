@@ -211,3 +211,16 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                //props
+            });
+        });
+    </script>
+@endsection
+
