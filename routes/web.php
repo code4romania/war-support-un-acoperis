@@ -45,6 +45,9 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
         Route::get('/accommodation/detail', 'Admin\AccommodationController@accommodationDetail')->name('admin.accommodation-detail');
 
+        Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
+        Route::get('/host/detail', 'Admin\HostController@detail')->name('admin.host-detail');
+
         /**
          * Ajax routes (admin)
          */
