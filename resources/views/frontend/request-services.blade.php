@@ -199,6 +199,12 @@
 
                                                                 <div style="display: none;" id="request-other-message-control" class="custom-control mb-3">
                                                                     <textarea id="request-other-message" name="request-other-message" rows="3" class="form-control" placeholder="Mesajul tau aici">{{ old('request-other-message') }}</textarea>
+
+                                                                    @error('request-other-message')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        {{ $message }}
+                                                                    </span>
+                                                                    @enderror
                                                                 </div>
                                                         </div>
                                                     </div>

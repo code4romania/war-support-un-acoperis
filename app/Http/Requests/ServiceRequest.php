@@ -46,7 +46,9 @@ class ServiceRequest extends FormRequest
             'help-type-5' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-6,help-type-7,help-type-8'],
             'help-type-6' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-7,help-type-8'],
             'help-type-7' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-8'],
-            'help-type-8' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7']
+            'help-type-8' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7'],
+
+            'request-other-message' => ['required_with:help-type-8', 'string']
         ];
 
         if (request()->has('help-type-5')) {
