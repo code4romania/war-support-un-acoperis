@@ -108,7 +108,7 @@
                     <a href="{{ route('admin.resource-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.resource-list', 'admin.resource-detail']) ? 'active' : '' }}">
                         <i class="fa fa-book mr-3"></i>Resurse ajutor
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                    <a href="{{ route('admin.accommodation-list') }}" class="list-group-item list-group-item-action sub-list">
                         <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
                     <a href="#" class="list-group-item list-group-item-action sub-list">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
