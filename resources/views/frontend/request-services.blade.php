@@ -201,7 +201,7 @@
                                                                     <textarea id="request-other-message" name="request-other-message" rows="3" class="form-control" placeholder="Mesajul tau aici">{{ old('request-other-message') }}</textarea>
 
                                                                     @error('request-other-message')
-                                                                    <span class="invalid-feedback" role="alert">
+                                                                    <span class="invalid-feedback d-flex" role="alert">
                                                                         {{ $message }}
                                                                     </span>
                                                                     @enderror
