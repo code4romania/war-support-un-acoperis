@@ -121,11 +121,7 @@ class ClinicController extends Controller
         }
 
         $speciality->name = $request->get('name');
-
-        if (!empty($speciality->parent_id)) { // Parent can be updated only for Specialities with parents
-            $speciality->parent_id = $request->get('parent');
-        }
-
+        $speciality->parent_id = $request->get('parent');
         $speciality->description = $request->get('description');
         $speciality->save();
 
