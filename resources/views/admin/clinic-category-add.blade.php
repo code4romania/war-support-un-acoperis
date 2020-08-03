@@ -60,7 +60,6 @@
 
                 <div class="pb-3 mt-3 clearfix">
                     <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                        <span class="btn-inner--icon mr-2"><i class="fa fa-plus"></i></span>
                         <span class="btn-inner--text">Adaugă</span>
                     </button>
                 </div>
