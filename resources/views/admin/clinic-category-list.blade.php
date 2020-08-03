@@ -9,7 +9,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 Categorii
             </h6>
-            <a href="{{ route('admin.clinic-category-add') }}" class="btn btn-success btn-sm text-white px-4">Adauga categorie</a>
+            <a href="{{ route('admin.clinic-category-add') }}" class="btn btn-success btn-sm text-white px-4">Adaugă categorie</a>
         </div>
     </div>
     <div class="row row-cols-2">
@@ -26,8 +26,8 @@
                         <li class="list-group-item py-2 d-flex justify-content-between align-content-center">
                             <span>{{ $children->name }}</span>
                             <div class="actions">
-                                <a href="#" class="btn btn-sm btn-link text-primary">Editeaza</a>
-                                <a href="#" class="btn btn-sm btn-link text-danger">Sterge</a>
+                                <a href="#" class="btn btn-sm btn-link text-primary edit-subcategory" data-id="{{ $children->id }}">Editează</a>
+                                <a href="#" class="btn btn-sm btn-link text-danger delete-subcategory" data-id="{{ $children->id }}">Șterge</a>
                             </div>
                         </li>
                     @endforeach
@@ -38,12 +38,38 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Categoria</a>
-                    <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Categoria</a>
-                    <a href="#" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Adauga Subcategorie</a>
+                    <a href="#" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0 edit-category" data-id="{{ $category->id }}">Editează Categoria</a>
+                    <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-category" data-id="{{ $category->id }}">Șterge Categoria</a>
+                    <a href="#" class="btn btn-sm btn-secondary mb-2 mb-sm-0 add-subcategory" data-id="{{ $category->id }}">Adaugă Subcategorie</a>
                 </div>
             </div>
         </div>
     @endforeach
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.edit-category').on('click', function() {
+                alert('Editing category ' + $(this).data('id'));
+            });
+
+            $('.delete-category').on('click', function() {
+                alert('Deleting category ' + $(this).data('id'));
+            });
+
+            $('.add-subcategory').on('click', function() {
+                alert('Adding subcategory for category ' + $(this).data('id'));
+            });
+
+            $('.edit-subcategory').on('click', function() {
+                alert('Editing subcategory ' + $(this).data('id'));
+            });
+
+            $('.delete-subcategory').on('click', function() {
+                alert('Deleting subcategory ' + $(this).data('id'));
+            });
+        });
+    </script>
 @endsection
