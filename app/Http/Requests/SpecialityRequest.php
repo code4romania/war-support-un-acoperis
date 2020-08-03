@@ -27,8 +27,14 @@ class SpecialityRequest extends FormRequest
      */
     public function rules()
     {
+        $uniqueName = 'unique:specialities,name';
+
+        if (!empty($this->id)) {
+            $uniqueName .= ',' . $this->id;
+        }
+
         return [
-            'name' => ['required', 'unique:specialities,name', 'string', 'max:128'],
+            'name' => ['required', $uniqueName, 'string', 'max:128'],
             'parent' => ['nullable', 'exists:specialities,id'],
             'description' => ['nullable', 'string', 'max:8192']
         ];
