@@ -2,7 +2,7 @@
 
 @section('content')
     <section class=" mb-5">
-        <h6 class="page-title font-weight-600">Adaugă Categorie</h6>
+        <h6 class="page-title font-weight-600">Editează Categorie</h6>
     </section>
     <div class="card">
         <div class="card-header bg-admin-blue">
@@ -11,14 +11,14 @@
             </h6>
         </div>
         <div class="card-body">
-            <form method="post" action="{{ route('admin.clinic-category-create') }}" name="add-category" id="add-category">
+            <form method="post" action="{{ route('admin.clinic-category-update', $category->id) }}" name="add-category" id="add-category">
                 @csrf
 
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="required font-weight-600">Denumire categorie:</label>
-                            <input type="text" class="form-control" placeholder="ex. Oncologie" name="name" id="name">
+                            <input type="text" class="form-control" placeholder="ex. Oncologie" name="name" id="name" value="{{ $category->name }}">
 
                             @error('name')
                             <span class="invalid-feedback d-flex" role="alert">
@@ -27,13 +27,14 @@
                             @enderror
                         </div>
                     </div>
+                    @if (!empty($category->parent_id))
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="parent" class="font-weight-600">Părinte categorie:</label>
                             <select type="text" class="custom-select form-control" name="parent" id="parent">
                                 <option value=""></option>
                                 @foreach($parents as $speciality)
-                                    <option value="{{ $speciality->id }}" {{ (old('parent') == $speciality->id ? 'selected' : '') }}>{{ $speciality->name }}</option>
+                                    <option value="{{ $speciality->id }}" {{ ((old('parent') ?? $category->parent_id) == $speciality->id ? 'selected' : '') }}>{{ $speciality->name }}</option>
                                 @endforeach
                             </select>
 
@@ -44,10 +45,11 @@
                             @enderror
                         </div>
                     </div>
+                    @endif
                     <div class="col-12">
                         <div class="form-group">
                             <label for="description" class="font-weight-600">Descriere:</label>
-                            <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description') }}</textarea>
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description') ?? $category->description }}</textarea>
 
                             @error('description')
                             <span class="invalid-feedback d-flex" role="alert">

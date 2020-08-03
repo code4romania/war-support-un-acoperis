@@ -5,10 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class CreateSpecialityRequest
+ * Class SpecialityRequest
  * @package App\Http\Requests
  */
-class CreateSpecialityRequest extends FormRequest
+class SpecialityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

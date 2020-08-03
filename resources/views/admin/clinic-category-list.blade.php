@@ -38,7 +38,7 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0 edit-category" data-id="{{ $category->id }}">Editează Categoria</a>
+                    <a href="{{ route('admin.clinic-category-edit', $category->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editează Categoria</a>
                     <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-category" data-id="{{ $category->id }}">Șterge Categoria</a>
                     <a href="#" class="btn btn-sm btn-secondary mb-2 mb-sm-0 add-subcategory" data-id="{{ $category->id }}">Adaugă Subcategorie</a>
                 </div>
@@ -51,10 +51,6 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('.edit-category').on('click', function() {
-                alert('Editing category ' + $(this).data('id'));
-            });
-
             $('.delete-category').on('click', function() {
                 alert('Deleting category ' + $(this).data('id'));
             });
