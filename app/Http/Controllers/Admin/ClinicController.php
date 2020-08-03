@@ -131,4 +131,23 @@ class ClinicController extends Controller
 
         return redirect()->route('admin.clinic-category-list');
     }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function clinicCategoryDelete(int $id)
+    {
+        /** @var Speciality|null $speciality */
+        $speciality = Speciality::find($id);
+
+        if (empty($speciality)) {
+            abort(404);
+        }
+
+        $speciality->children()->delete();
+        $speciality->delete();
+
+        return redirect()->back();
+    }
 }

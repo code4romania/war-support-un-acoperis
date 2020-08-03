@@ -27,7 +27,7 @@
                             <span>{{ $children->name }}</span>
                             <div class="actions">
                                 <a href="{{ route('admin.clinic-category-edit', $children->id) }}" class="btn btn-sm btn-link text-primary">Editează</a>
-                                <a href="#" class="btn btn-sm btn-link text-danger delete-subcategory" data-id="{{ $children->id }}">Șterge</a>
+                                <a href="{{ route('admin.clinic-category-delete', $children->id) }}" class="btn btn-sm btn-link text-danger delete-subcategory" data-id="{{ $children->id }}">Șterge</a>
                             </div>
                         </li>
                     @endforeach
@@ -39,24 +39,84 @@
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('admin.clinic-category-edit', $category->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editează Categoria</a>
-                    <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-category" data-id="{{ $category->id }}">Șterge Categoria</a>
+                    <a href="{{ route('admin.clinic-category-delete', $category->id) }}" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-category" data-id="{{ $category->id }}">Șterge Categoria</a>
                     <a href="{{ route('admin.clinic-category-add', $category->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0 add-subcategory" data-id="{{ $category->id }}">Adaugă Subcategorie</a>
                 </div>
             </div>
         </div>
     @endforeach
     </div>
+
+    <!-- Confirmare stergere categorie -->
+    <div class="modal fade bd-example-modal-sm" id="deleteCategory" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Șterge categorie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Ești sigur că vrei să ștergi categoria selectată?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">Renunță</button>
+                    <button type="button" class="btn btn-danger" id="proceedDeleteCategory">Șterge</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmare stergere subcategorie -->
+    <div class="modal fade bd-example-modal-sm" id="deleteSubCategory" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Șterge subcategorie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Ești sigur că vrei să ștergi subcategoria selectată?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">Renunță</button>
+                    <button type="button" class="btn btn-danger" id="proceedDeleteSubCategory">Șterge</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('.delete-category').on('click', function() {
-                alert('Deleting category ' + $(this).data('id'));
+            let selectedCategory = null;
+            let selectedSubCategory = null;
+
+            $('.delete-category').on('click', function(event) {
+                event.preventDefault();
+                selectedCategory = $(this).data('id');
+                $('#deleteCategory').modal('show');
             });
 
-            $('.delete-subcategory').on('click', function() {
-                alert('Deleting subcategory ' + $(this).data('id'));
+            $('.delete-subcategory').on('click', function(event) {
+                event.preventDefault();
+                selectedSubCategory = $(this).data('id');
+                $('#deleteSubCategory').modal('show');
+            });
+
+            $('#proceedDeleteCategory').on('click', function() {
+                $('#deleteCategory').modal('hide');
+                window.location.href = '/admin/clinic/category/delete/' + selectedCategory;
+            });
+
+            $('#proceedDeleteSubCategory').on('click', function() {
+                $('#deleteSubCategory').modal('hide');
+
+                window.location.href = '/admin/clinic/category/delete/' + selectedSubCategory;
             });
         });
     </script>
