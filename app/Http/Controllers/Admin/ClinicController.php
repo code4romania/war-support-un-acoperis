@@ -49,9 +49,16 @@ class ClinicController extends Controller
         return view('admin.clinic-category-list');
     }
 
+    /**
+     * @return View
+     */
     public function clinicCategoryAdd()
     {
-        return view('admin.clinic-category-add');
+        /** @var Collection $parents */
+        $parents = Speciality::whereNull('parent_id')->get();
+
+        return view('admin.clinic-category-add')
+            ->with('parents', $parents);
     }
 
     /**
