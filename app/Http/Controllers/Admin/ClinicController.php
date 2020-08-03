@@ -46,7 +46,13 @@ class ClinicController extends Controller
      */
     public function clinicCategoryList()
     {
-        return view('admin.clinic-category-list');
+        /** @var Collection $categories */
+        $categories = Speciality::whereNull('parent_id')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('admin.clinic-category-list')
+            ->with('categories', $categories);
     }
 
     /**
