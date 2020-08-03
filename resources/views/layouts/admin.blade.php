@@ -101,16 +101,16 @@
                         <i class="fa fa-plus-square mr-3"></i>Lista Clinici</a>
                     <a href="{{ route('admin.clinic-add') }}" class="list-group-item list-group-item-action sub-list {{ Route::currentRouteName() == 'admin.clinic-add' ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o clinica</a>
-                    <a href="{{ route('admin.clinic-category-list') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.clinic-category-list', 'admin.clinic-category-create']) ? 'active' : '' }}">
+                    <a href="{{ route('admin.clinic-category-list') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.clinic-category-list', 'admin.clinic-category-add']) ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Categorii clinici</a>
                     <a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.help-list', 'admin.help-detail']) ? 'active' : '' }}">
                         <i class="fa fa-exclamation-triangle mr-3"></i>Cereri de ajutor</a>
-                    <a href="#" class="list-group-item list-group-item-action ">
+                    <a href="{{ route('admin.resource-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.resource-list', 'admin.resource-detail']) ? 'active' : '' }}">
                         <i class="fa fa-book mr-3"></i>Resurse ajutor
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                    <a href="{{ route('admin.accommodation-list') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.accommodation-list', 'admin.accommodation-detail']) ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-list">
+                    <a href="{{ route('admin.host-add') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.host-add', 'admin.host-detail']) ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
                 @elseif (Auth::user()->isHost())
                     <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">

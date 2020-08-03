@@ -99,7 +99,7 @@ return [
     'required' => 'Câmpul :attribute este obligatoriu.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'Câmpul :attribute este obligatoriu exceptând atunci când :other are una dintre următoarele valori :values.',
-    'required_with' => 'The :attribute field is required when :values is present.',
+    'required_with' => 'Câmpul :attribute este obligatoriu cand :values este prezent.',
     'required_with_all' => 'The :attribute field is required when :values are present.',
     'required_without' => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
@@ -111,7 +111,7 @@ return [
         'array' => 'The :attribute must contain :size items.',
     ],
     'starts_with' => 'Câmpul :attribute trebuie să înceapă cu: :values',
-    'string' => 'The :attribute must be a string.',
+    'string' => 'Câmpul :attribute trebuie sa fie alfanumeric.',
     'timezone' => 'The :attribute must be a valid zone.',
     'unique' => 'Acest :attribute este deja folosit.',
     'uploaded' => 'The :attribute failed to upload.',
@@ -184,6 +184,9 @@ return [
         'accommodation-guests-number' => 'numărul de persoane',
         'accommodation-start-date' => 'data de început',
         'accommodation-end-date' => 'data de sfrârșit',
+
+        'request-other-message' => 'mesaj',
+        'help-type-8' => 'alte nevoi'
     ],
     'dates' => [
         'today' => 'azi'

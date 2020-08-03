@@ -118,7 +118,7 @@
             </div>
         </div>
     </section>
-    <section class="no-results d-none align-content-center">
+    <section class="no-results d-none align-content-center mb-4">
         <img src="/images/no-results.svg" height="120" alt="" class="mr-4"/>
         <div class="no-results-description align-self-center">
             <h4 class="font-weight-600 mb-1">{{ __('No results found') }}</h4>

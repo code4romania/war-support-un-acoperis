@@ -42,9 +42,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
+                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
         <div class="card">
@@ -69,9 +69,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
+                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
     </div>
@@ -98,9 +98,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
+                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
         <div class="card">
@@ -125,9 +125,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
+                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
     </div>
@@ -154,9 +154,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
+                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
         <div class="card">
@@ -181,9 +181,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
+                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
     </div>

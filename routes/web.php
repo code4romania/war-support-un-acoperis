@@ -33,11 +33,25 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
+
         Route::get('/clinic/categories', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
-        Route::get('/clinic/category/add', 'Admin\ClinicController@clinicCategoryCreate')->name('admin.clinic-category-create');
+        Route::get('/clinic/category/add/{parent?}', 'Admin\ClinicController@clinicCategoryAdd')->name('admin.clinic-category-add');
+        Route::post('/clinic/category/add/{parent?}', 'Admin\ClinicController@clinicCategoryCreate')->name('admin.clinic-category-create');
+        Route::get('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryEdit')->name('admin.clinic-category-edit');
+        Route::post('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryUpdate')->name('admin.clinic-category-update');
+        Route::get('/clinic/category/delete/{id}', 'Admin\ClinicController@clinicCategoryDelete')->name('admin.clinic-category-delete');
 
         Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
         Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
+
+        Route::get('/resources', 'Admin\ResourceController@resourceList')->name('admin.resource-list');
+        Route::get('/resources/detail', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
+
+        Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
+        Route::get('/accommodation/detail', 'Admin\AccommodationController@accommodationDetail')->name('admin.accommodation-detail');
+
+        Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
+        Route::get('/host/detail', 'Admin\HostController@detail')->name('admin.host-detail');
 
         /**
          * Ajax routes (admin)

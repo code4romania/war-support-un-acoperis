@@ -176,6 +176,9 @@ return [
         'accommodation-guests-number' => 'guests number',
         'accommodation-start-date' => 'start date',
         'accommodation-end-date' => 'end date',
+
+        'request-other-message' => 'message',
+        'help-type-8' => 'other needs'
     ],
 
 ];

@@ -117,6 +117,10 @@
                                         <a class="dropdown-item" href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}">
                                             <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
+                                    @elseif (Auth::user()->isHost())
+                                        <a class="dropdown-item" href="{{ route('host.profile', ['locale' => app()->getLocale()]) }}">
+                                            <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
+                                        </a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

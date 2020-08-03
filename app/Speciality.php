@@ -4,7 +4,10 @@ namespace App;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Speciality
@@ -19,6 +22,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Speciality extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * @return BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Speciality::class, 'parent_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(Speciality::class, 'parent_id');
+    }
+
     /**
      * @return BelongsToMany
      */
