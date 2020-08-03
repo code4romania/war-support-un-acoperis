@@ -35,8 +35,8 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
 
         Route::get('/clinic/categories', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
-        Route::get('/clinic/category/add', 'Admin\ClinicController@clinicCategoryAdd')->name('admin.clinic-category-add');
-        Route::post('/clinic/category/add', 'Admin\ClinicController@clinicCategoryCreate')->name('admin.clinic-category-create');
+        Route::get('/clinic/category/add/{parent?}', 'Admin\ClinicController@clinicCategoryAdd')->name('admin.clinic-category-add');
+        Route::post('/clinic/category/add/{parent?}', 'Admin\ClinicController@clinicCategoryCreate')->name('admin.clinic-category-create');
         Route::get('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryEdit')->name('admin.clinic-category-edit');
         Route::post('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryUpdate')->name('admin.clinic-category-update');
 

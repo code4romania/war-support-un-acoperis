@@ -11,7 +11,7 @@
             </h6>
         </div>
         <div class="card-body">
-            <form method="post" action="{{ route('admin.clinic-category-create') }}" name="add-category" id="add-category">
+            <form method="post" action="{{ route('admin.clinic-category-create', $preselectedParent) }}" name="add-category" id="add-category">
                 @csrf
 
                 <div class="row">
@@ -30,10 +30,10 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="parent" class="font-weight-600">Părinte categorie:</label>
-                            <select type="text" class="custom-select form-control" name="parent" id="parent">
+                            <select type="text" class="custom-select form-control" name="parent" id="parent" {{ $preselectedParent ? 'disabled' : '' }}>
                                 <option value=""></option>
                                 @foreach($parents as $speciality)
-                                    <option value="{{ $speciality->id }}" {{ (old('parent') == $speciality->id ? 'selected' : '') }}>{{ $speciality->name }}</option>
+                                    <option value="{{ $speciality->id }}" {{ (($preselectedParent ?? old('parent')) == $speciality->id ? 'selected' : '') }}>{{ $speciality->name }}</option>
                                 @endforeach
                             </select>
 

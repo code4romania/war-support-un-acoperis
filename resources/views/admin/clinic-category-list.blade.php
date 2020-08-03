@@ -26,7 +26,7 @@
                         <li class="list-group-item py-2 d-flex justify-content-between align-content-center">
                             <span>{{ $children->name }}</span>
                             <div class="actions">
-                                <a href="#" class="btn btn-sm btn-link text-primary edit-subcategory" data-id="{{ $children->id }}">Editează</a>
+                                <a href="{{ route('admin.clinic-category-edit', $children->id) }}" class="btn btn-sm btn-link text-primary">Editează</a>
                                 <a href="#" class="btn btn-sm btn-link text-danger delete-subcategory" data-id="{{ $children->id }}">Șterge</a>
                             </div>
                         </li>
@@ -40,7 +40,7 @@
                 <div class="card-footer">
                     <a href="{{ route('admin.clinic-category-edit', $category->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editează Categoria</a>
                     <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-category" data-id="{{ $category->id }}">Șterge Categoria</a>
-                    <a href="#" class="btn btn-sm btn-secondary mb-2 mb-sm-0 add-subcategory" data-id="{{ $category->id }}">Adaugă Subcategorie</a>
+                    <a href="{{ route('admin.clinic-category-add', $category->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0 add-subcategory" data-id="{{ $category->id }}">Adaugă Subcategorie</a>
                 </div>
             </div>
         </div>
@@ -53,14 +53,6 @@
         $(document).ready(function () {
             $('.delete-category').on('click', function() {
                 alert('Deleting category ' + $(this).data('id'));
-            });
-
-            $('.add-subcategory').on('click', function() {
-                alert('Adding subcategory for category ' + $(this).data('id'));
-            });
-
-            $('.edit-subcategory').on('click', function() {
-                alert('Editing subcategory ' + $(this).data('id'));
             });
 
             $('.delete-subcategory').on('click', function() {

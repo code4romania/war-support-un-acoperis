@@ -56,26 +56,29 @@ class ClinicController extends Controller
     }
 
     /**
+     * @param int|null $parent
      * @return View
      */
-    public function clinicCategoryAdd()
+    public function clinicCategoryAdd(int $parent = null)
     {
         /** @var Collection $parents */
         $parents = Speciality::whereNull('parent_id')->get();
 
         return view('admin.clinic-category-add')
+            ->with('preselectedParent', $parent)
             ->with('parents', $parents);
     }
 
     /**
      * @param SpecialityRequest $request
+     * @param int|null $parent
      * @return RedirectResponse
      */
-    public function clinicCategoryCreate(SpecialityRequest $request)
+    public function clinicCategoryCreate(SpecialityRequest $request, int $parent = null)
     {
         $speciality = new Speciality();
         $speciality->name = $request->get('name');
-        $speciality->parent_id = $request->get('parent');
+        $speciality->parent_id = $parent ?? $request->get('parent');
         $speciality->description = $request->get('description');
         $speciality->save();
 
