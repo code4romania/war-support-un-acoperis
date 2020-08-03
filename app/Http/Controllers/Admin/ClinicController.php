@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Clinic;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateSpecialityRequest;
+use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 /**
@@ -46,8 +49,23 @@ class ClinicController extends Controller
         return view('admin.clinic-category-list');
     }
 
-    public function clinicCategoryCreate()
+    public function clinicCategoryAdd()
     {
-        return view('admin.clinic-category-create');
+        return view('admin.clinic-category-add');
+    }
+
+    /**
+     * @param CreateSpecialityRequest $request
+     * @return RedirectResponse
+     */
+    public function clinicCategoryCreate(CreateSpecialityRequest $request)
+    {
+        $speciality = new Speciality();
+        $speciality->name = $request->get('name');
+        $speciality->parent_id = $request->get('parent');
+        $speciality->description = $request->get('description');
+        $speciality->save();
+
+        return redirect()->route('admin.clinic-category-list');
     }
 }

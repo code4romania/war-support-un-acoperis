@@ -9,7 +9,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 Categorii
             </h6>
-            <a href="{{ route('admin.clinic-category-create') }}" class="btn btn-success btn-sm text-white px-4">Adauga categorie</a>
+            <a href="{{ route('admin.clinic-category-add') }}" class="btn btn-success btn-sm text-white px-4">Adauga categorie</a>
         </div>
     </div>
     <div class="card-deck">
