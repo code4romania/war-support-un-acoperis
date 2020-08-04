@@ -2,169 +2,189 @@
 
 @section('content')
     <section class="">
-        <h6 class="page-title font-weight-600">Add Clinic</h6>
+        <h6 class="page-title font-weight-600">Adaugă Clinică</h6>
     </section>
     <div class="card shadow">
-        <div class="card-header bg-admin-blue py-3">
-            <h6 class="font-weight-600 text-white mb-0">
-                Informatii clinica
-            </h6>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="required font-weight-600" for="full-name">Nume clinica:</label>
-                        <input type="text" placeholder="Clinica x" class="form-control @error('name') is-invalid @enderror" name="full-name" id="full-name" value="{{ old('full-name') }}" />
-
-                        @error('full-name')
-                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="font-weight-600" for="full-name">Categorie:</label>
-                        <select class="form-control" data-trigger name="choices-multiple-default" id="choices-multiple-default" multiple >
-                            <option value="Selectati o categorie" disabled>Selectati o categorie</option>
-                            <option value="2">Paris </option>
-                            <option value="3">Bucharest</option>
-                            <option value="4">Rome</option>
-                            <option value="5">New York</option>
-                            <option value="6">Miami </option>
-                            <option value="7">Los Santos</option>
-                            <option value="8">Sydney</option>
-                            <option value="9">Piatra Neamt</option>
-                        </select>
-
-                        @error('full-name')
-                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
+        <form method="post" action="{{ route('admin.clinic-create') }}">
+            @csrf
+            <div class="card-header bg-admin-blue py-3">
+                <h6 class="font-weight-600 text-white mb-0">
+                    Informații clinică
+                </h6>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="required font-weight-600" for="name">Nume clinică:</label>
+                            <input type="text" placeholder="Vienna General Hospital" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
+
+                            @error('name')
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="font-weight-600 required" for="categories">Categorii:</label>
+                            <select class="form-control" data-trigger name="categories[]" id="categories" multiple>
+                                @foreach($specialities as $speciality)
+                                    <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categories')) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                @endforeach
+                            </select>
+
+                            @error('categories')
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="required font-weight-600" for="country">Țara</label>
+                                    <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
+                                        <option>Selectati Țara</option>
+                                        @foreach($countries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('country')
+                                    <span class="invalid-feedback d-flex" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="required font-weight-600" for="city">Localitatea:</label>
+                                    <input type="text" placeholder="Viena" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
+
+                                    @error('city')
+                                    <span class="invalid-feedback d-flex" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="font-weight-600 required" for="address">Adresa:</label>
+                            <input type="text" placeholder="Strada, numarul, etc." class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
+
+                            @error('address')
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="required font-weight-600" for="phone">Număr de telefon:</label>
+                            <input type="tel" placeholder="+40760000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+
+                            @error('phone')
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="font-weight-600" for="website">Website:</label>
+                            <input type="url" placeholder="https://www.domain.tld" class="form-control @error('website') is-invalid @enderror" name="website" id="website" value="{{ old('website') }}" />
+
+                            @error('website')
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="py-3 mt-4 mb-4 border-top border-bottom">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>
-                                <select name="patient-country" id="patient-county" class="custom-select form-control @error('patient-county') is-invalid @enderror">
-                                    <option>Select country</option>
-                                    <option value="Tara 1">Tara 1</option>
-                                </select>
+                                <label class="required font-weight-600" for="contact_name">Nume persoană de contact:</label>
+                                <input type="tel" placeholder="Johan Donald" class="form-control @error('contact_name') is-invalid @enderror" name="contact_name" id="contact_name" value="{{ old('contact_name') }}" />
 
-                                @error('patient-county')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @error('contact_name')
+                                <span class="invalid-feedback d-flex" role="alert">
+                                    {{ $message }}
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="contact_phone">Telefon persoană de contact:</label>
+                                <input type="tel" placeholder="+40745000000" class="form-control @error('contact_phone') is-invalid @enderror" name="contact_phone" id="contact_phone" value="{{ old('contact_phone') }}" />
+
+                                @error('contact_phone')
+                                <span class="invalid-feedback d-flex" role="alert">
+                                    {{ $message }}
+                                </span>
                                 @enderror
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                                <input type="text" placeholder="Viena" class="form-control @error('sms-clinic-city') is-invalid @enderror" id="sms-clinic-city" name="sms-clinic-city" value="{{ old('sms-clinic-city') }}" />
+                                <label class="required font-weight-600" for="contact_email">Email persoană de contact:</label>
+                                <input type="email" placeholder="johan.donald@gmail.com" class="form-control @error('contact_email') is-invalid @enderror" name="contact_email" id="contact_email" value="{{ old('contact_email') }}" />
 
-                                @error('sms-clinic-city')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @error('contact_email')
+                                <span class="invalid-feedback d-flex" role="alert">
+                                    {{ $message }}
+                                </span>
                                 @enderror
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="description mb-5">
                     <div class="form-group">
-                        <label class="font-weight-600" for="address">{{ __('Address') }}:</label>
-                        <input type="text" placeholder="Street name, no, etc" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
-
-                        @error('sms-clinic-city')
-                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                        @enderror
+                        <label for="description" class="font-weight-600">Descriere:</label>
+                        <textarea name="description" id="description" class="form-control" rows="6"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
+                <div class="extra-info mb-5">
                     <div class="form-group">
-                        <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                        <input type="tel" placeholder="+40 760 000 000" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
-
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                        @enderror
+                        <label for="extra_details" class="font-weight-600">Informații suplimentare:</label>
+                        <textarea name="extra_details" id="extra_details" class="form-control" rows="6"></textarea>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="transportation">
                     <div class="form-group">
-                        <label class="required font-weight-600" for="email">Website:</label>
-                        <input type="url" placeholder="ana.iordache@gmail.com" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
-
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                        @enderror
+                        <label for="transport_details" class="font-weight-600">Modalități de transport:</label>
+                        <textarea name="transport_details" id="transport_details" class="form-control" rows="6"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="py-3 mt-4 mb-4 border-top border-bottom">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="required font-weight-600" for="phone">Nume persoana de contact:</label>
-                            <input type="tel" placeholder="+40 760 000 000" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
-
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="required font-weight-600" for="phone">Telefon persoana de contact:</label>
-                            <input type="tel" placeholder="+40 760 000 000" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
-
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="required font-weight-600" for="email">Email persoana de contact:</label>
-                            <input type="email" placeholder="ana.iordache@gmail.com" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
-
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+                <div class="border-top pt-4 pb-3 mt-5 clearfix">
+                    <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
+                            <span class="btn-inner--text">Salvează</span>
+                    </button>
                 </div>
             </div>
-            <div class="description mb-5">
-                <div class="form-group">
-                    <label for="" class="font-weight-600">Descriere</label>
-                    <textarea name="" id="mytextarea2" class="form-control" rows="6"></textarea>
-                </div>
-            </div>
-            <div class="extra-info mb-5">
-                <div class="form-group">
-                    <label for="" class="font-weight-600">Informatii suplimentare:</label>
-                    <textarea name="" id="mytextarea" class="form-control" rows="6"></textarea>
-                </div>
-            </div>
-            <div class="transportation">
-                <div class="form-group">
-                    <label for="" class="font-weight-600">Modalitati de transport</label>
-                    <textarea name="" id="mytextarea3" class="form-control" rows="6"></textarea>
-                </div>
-            </div>
-            <div class="border-top pt-4 pb-3 mt-5 clearfix">
-                <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                    <span class="btn-inner--icon mr-2"><i class="fa fa-plus"></i></span>
-                    <span class="btn-inner--text">Adauga</span>
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 @endsection
 
@@ -172,16 +192,11 @@
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
-        tinymce.init({
-            selector: '#mytextarea'
-        });
-        tinymce.init({
-            selector: '#mytextarea2'
-        });
-        tinymce.init({
-            selector: '#mytextarea3'
-        });
-        new Choices('#choices-multiple-default', {
+        tinymce.init({selector: '#description'});
+        tinymce.init({selector: '#extra_details'});
+        tinymce.init({selector: '#transport_details'});
+
+        new Choices('#categories', {
             search: false,
             delimiter: ',',
             editItems: true,

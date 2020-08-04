@@ -186,7 +186,16 @@ return [
         'accommodation-end-date' => 'data de sfrârșit',
 
         'request-other-message' => 'mesaj',
-        'help-type-8' => 'alte nevoi'
+        'help-type-8' => 'alte nevoi',
+
+        'categories' => 'categorii',
+        'country' => 'țara',
+        'city' => 'localitate',
+        'address' => 'adresă',
+        'contact_name' => 'nume persoană de contact',
+        'contact_phone' => 'telefon persoană de contact',
+        'contact_email' => 'email persoană de contact',
+
     ],
     'dates' => [
         'today' => 'azi'

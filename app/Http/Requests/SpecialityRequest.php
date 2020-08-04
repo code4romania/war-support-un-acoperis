@@ -28,10 +28,8 @@ class SpecialityRequest extends FormRequest
     public function rules()
     {
         $uniqueName = 'unique:specialities,name';
-
-        if (!empty($this->id)) {
-            $uniqueName .= ',' . $this->id;
-        }
+        $uniqueName .= ',' . (!empty($this->id) ? $this->id : 'NULL');
+        $uniqueName .= ',id,deleted_at,NULL'; // ignore soft deleted entries
 
         return [
             'name' => ['required', $uniqueName, 'string', 'max:128'],

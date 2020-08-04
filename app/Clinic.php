@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Clinic
@@ -26,9 +27,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string|null $contact_person_email
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property DateTime|null $deleted_at
  */
 class Clinic extends Model
 {
+    use SoftDeletes;
+
     /**
      * @return BelongsTo
      */

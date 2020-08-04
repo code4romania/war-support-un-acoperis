@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Clinic;
+use App\Country;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClinicRequest;
 use App\Http\Requests\SpecialityRequest;
 use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,12 +35,43 @@ class ClinicController extends Controller
      */
     public function clinicAdd()
     {
-        return view('admin.clinic-add');
+        /** @var Collection $specialities */
+        $specialities = Speciality::whereNotNull('parent_id')->orderBy('name', 'asc')->get();
+
+        /** @var Collection $countries */
+        $countries = Country::all();
+
+        return view('admin.clinic-add')
+            ->with('specialities', $specialities)
+            ->with('countries', $countries);
     }
 
-    public function clinicCreate()
+    /**
+     * @param ClinicRequest $request
+     * @return RedirectResponse
+     */
+    public function clinicCreate(ClinicRequest $request)
     {
-        return 'create';
+        $clinic = new Clinic();
+        $clinic->name = $request->get('name');
+        $clinic->description = $request->get('description');
+        $clinic->additional_information = $request->get('extra_details');
+        $clinic->transport_details = $request->get('transport_details');
+        $clinic->country_id = $request->get('country');
+        $clinic->city = $request->get('city');
+        $clinic->address = $request->get('address');
+        $clinic->phone_number = $request->get('phone');
+        $clinic->website = $request->get('website');
+        $clinic->contact_person_name = $request->get('contact_name');
+        $clinic->contact_person_phone = $request->get('contact_phone');
+        $clinic->contact_person_email = $request->get('contact_email');
+        $clinic->save();
+
+        foreach ($request->get('categories') as $key => $value) {
+            $clinic->specialities()->attach($value);
+        }
+
+        return redirect()->route('admin.clinic-list');
     }
 
     /**
