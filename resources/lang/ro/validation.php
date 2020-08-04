@@ -195,7 +195,9 @@ return [
         'contact_name' => 'nume persoană de contact',
         'contact_phone' => 'telefon persoană de contact',
         'contact_email' => 'email persoană de contact',
-
+        'description' => 'descriere',
+        'extra_details' => 'informații suplimentare',
+        'transport_details' => 'modalități de transport'
     ],
     'dates' => [
         'today' => 'azi'

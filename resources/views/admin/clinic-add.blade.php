@@ -165,18 +165,36 @@
                     <div class="form-group">
                         <label for="description" class="font-weight-600">Descriere:</label>
                         <textarea name="description" id="description" class="form-control" rows="6"></textarea>
+
+                        @error('description')
+                        <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="extra-info mb-5">
                     <div class="form-group">
                         <label for="extra_details" class="font-weight-600">Informații suplimentare:</label>
                         <textarea name="extra_details" id="extra_details" class="form-control" rows="6"></textarea>
+
+                        @error('extra_details')
+                        <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="transportation">
                     <div class="form-group">
                         <label for="transport_details" class="font-weight-600">Modalități de transport:</label>
                         <textarea name="transport_details" id="transport_details" class="form-control" rows="6"></textarea>
+
+                        @error('transport_details')
+                        <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="border-top pt-4 pb-3 mt-5 clearfix">
