@@ -29,12 +29,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="font-weight-600 required" for="categories">Categorii:</label>
-                            <select class="form-control" data-trigger name="categories[]" id="categories" multiple>
-                                @foreach($specialities as $speciality)
-                                    <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categories')) ? 'selected' : '' }}>{{ $speciality->name }}</option>
-                                @endforeach
-                            </select>
-
+                            <div class="@error('categories') is-invalid @enderror">
+                                <select class="form-control" data-trigger name="categories[]" id="categories" multiple>
+                                    @foreach($specialities as $speciality)
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categories')) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             @error('categories')
                             <span class="invalid-feedback d-flex" role="alert">
                                 {{ $message }}
