@@ -62,6 +62,8 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/ajax/help-request/{id}/note', 'AjaxController@createHelpRequestNote')->name('ajax.create-help-request-note');
         Route::put('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@updateHelpRequestNote')->name('ajax.update-help-request-note');
         Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
+
+        Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
     });
 
 /**

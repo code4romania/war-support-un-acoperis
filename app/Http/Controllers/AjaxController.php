@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\Clinic;
 use App\HelpRequest;
 use App\HelpRequestNote;
 use App\HelpRequestType;
@@ -253,5 +254,34 @@ class AjaxController extends Controller
         $helpRequest->delete();
 
         return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function clinicList(Request $request)
+    {
+        /** @var Builder $query */
+        $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->orderBy('clinics.id', 'desc');
+
+        // TODO: add some filters, here!
+
+        $query->select([
+            'clinics.id',
+            'clinics.name',
+            'countries.name as country',
+            'clinics.city'
+        ]);
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
+        }
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
     }
 }
