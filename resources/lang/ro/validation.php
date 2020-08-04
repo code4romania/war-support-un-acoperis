@@ -79,7 +79,7 @@ return [
     'max' => [
         'numeric' => ':attribute trebuie să fie maxim :max.',
         'file' => ':attribute nu trebuie să fie mai mare de :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => 'Câmpul :attribute nu poate fi mai lung de :max caractere.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'Câmpul :attribute trebuie să fie un fișier de tipul: :values.',
