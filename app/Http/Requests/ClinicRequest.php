@@ -43,6 +43,9 @@ class ClinicRequest extends FormRequest
             'contact_name' => ['required', 'string', 'min:2', 'max:64'],
             'contact_phone' => ['required', 'string', 'min:5', 'max:64'],
             'contact_email' => ['required', 'email', 'min:5', 'max:64'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'additional_information' => ['nullable', 'string', 'max:5000'],
+            'transport_details' => ['nullable', 'string', 'max:5000']
         ];
     }
 }
