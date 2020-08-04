@@ -107,7 +107,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="font-weight-600" for="website">Website:</label>
+                            <label class="font-weight-600 required" for="website">Website:</label>
                             <input type="url" placeholder="https://www.domain.tld" class="form-control @error('website') is-invalid @enderror" name="website" id="website" value="{{ old('website') }}" />
 
                             @error('website')
