@@ -39,7 +39,7 @@ class ClinicRequest extends FormRequest
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['required', 'string', 'min:5', 'max:256'],
             'phone' => ['required', 'string', 'max:64'],
-            'website' => ['nullable', 'url', 'max:256'],
+            'website' => ['required', 'url', 'max:256'],
             'contact_name' => ['required', 'string', 'min:2', 'max:64'],
             'contact_phone' => ['required', 'string', 'min:5', 'max:64'],
             'contact_email' => ['required', 'email', 'min:5', 'max:64'],
