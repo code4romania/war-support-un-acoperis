@@ -217,7 +217,7 @@
 
                 $.each(responseData, function(key, value) {
                     let row = '<tr>\n' +
-                        '    <td><a href="/admin/clinic/' + value.id + '">#' + value.name + '</a></td>\n' +
+                        '    <td><a href="/admin/clinic/' + value.id + '">' + value.name + '</a></td>\n' +
                         '    <td>' + value.country + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
                         '    <td class="text-right">\n' +
