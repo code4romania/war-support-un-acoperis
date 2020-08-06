@@ -99,7 +99,7 @@ jobs:
         run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
 
       - name: Deploy docker image from AWS ECR to AWS EB -
-        uses: einaregilsson/beanstalk-deploy@v10
+        uses: einaregilsson/beanstalk-deploy@v11
         with:
           aws_access_key: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
