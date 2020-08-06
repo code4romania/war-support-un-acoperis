@@ -36,11 +36,11 @@
     <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet"/>
     <link href="{{ asset('/css/nucleo-svg.css') }}" rel="stylesheet"/>
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet"/>
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app" class="admin-area">
