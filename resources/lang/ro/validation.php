@@ -79,7 +79,7 @@ return [
     'max' => [
         'numeric' => ':attribute trebuie să fie maxim :max.',
         'file' => ':attribute nu trebuie să fie mai mare de :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => 'Câmpul :attribute nu poate fi mai lung de :max caractere.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'Câmpul :attribute trebuie să fie un fișier de tipul: :values.',
@@ -186,7 +186,18 @@ return [
         'accommodation-end-date' => 'data de sfrârșit',
 
         'request-other-message' => 'mesaj',
-        'help-type-8' => 'alte nevoi'
+        'help-type-8' => 'alte nevoi',
+
+        'categories' => 'categorii',
+        'country' => 'țara',
+        'city' => 'localitate',
+        'address' => 'adresă',
+        'contact_name' => 'nume persoană de contact',
+        'contact_phone' => 'telefon persoană de contact',
+        'contact_email' => 'email persoană de contact',
+        'description' => 'descriere',
+        'extra_details' => 'informații suplimentare',
+        'transport_details' => 'modalități de transport'
     ],
     'dates' => [
         'today' => 'azi'

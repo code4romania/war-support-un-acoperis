@@ -33,6 +33,8 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
+        Route::get('/clinic/edit/{id}', 'Admin\ClinicController@clinicEdit')->name('admin.clinic-edit');
+        Route::post('/clinic/edit/{id}', 'Admin\ClinicController@clinicUpdate')->name('admin.clinic-update');
 
         Route::get('/clinic/categories', 'Admin\ClinicController@clinicCategoryList')->name('admin.clinic-category-list');
         Route::get('/clinic/category/add/{parent?}', 'Admin\ClinicController@clinicCategoryAdd')->name('admin.clinic-category-add');
@@ -62,6 +64,9 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/ajax/help-request/{id}/note', 'AjaxController@createHelpRequestNote')->name('ajax.create-help-request-note');
         Route::put('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@updateHelpRequestNote')->name('ajax.update-help-request-note');
         Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
+
+        Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
+        Route::delete('/ajax/clinic/{id}', 'AjaxController@deleteClinic')->name('ajax.delete-clinic');
     });
 
 /**

@@ -173,3 +173,15 @@ p.smaller {
         }
     }
 }
+
+.choices {
+    margin-bottom: 0;
+}
+
+.is-invalid {
+    .choices .choices__inner {
+        border-color: #fb6340;
+        padding-right: calc((1em + 1.25rem) * 3 / 4 + 1.75rem);
+        background: $form-feedback-icon-invalid no-repeat center right 1.75rem/calc(0.75em + 0.625rem) calc(0.75em + 0.625rem);
+    }
+}

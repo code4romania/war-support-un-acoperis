@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $description
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property DateTime|null $deleted_at
  */
 class Speciality extends Model
 {
