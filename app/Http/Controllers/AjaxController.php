@@ -263,9 +263,22 @@ class AjaxController extends Controller
     public function clinicList(Request $request)
     {
         /** @var Builder $query */
-        $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->orderBy('clinics.id', 'desc');
+        $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->with('specialities')->orderBy('clinics.id', 'desc');
 
-        // TODO: add some filters, here!
+        if ($request->has('categories') && !empty($request->get('categories'))) {
+            $categories = explode("|", $request->get('categories'));
+            $query->whereHas('specialities', function ($q) use ($categories) {
+                return $q->whereIn('specialities.id', $categories);
+            });
+        }
+
+        if ($request->has('country') && !empty($request->get('country'))) {
+            $query->where('country_id', "=", $request->get('country'));
+        }
+
+        if ($request->has('city') && !empty($request->get('city'))) {
+            $query->where('city', "=", $request->get('city'));
+        }
 
         $query->select([
             'clinics.id',

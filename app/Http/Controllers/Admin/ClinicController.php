@@ -24,10 +24,27 @@ class ClinicController extends Controller
     public function clinicList()
     {
         /** @var Collection $clinicList */
-        $clinicList = Clinic::all();
+        $clinicList = Clinic::with('specialities')->get();
+
+        // set up filters
+        $specialityList = new Collection();
+        $countryList = new Collection();
+        $cityList = [];
+        foreach ($clinicList as $clinic) {
+            $specialityList = $specialityList->merge($clinic->specialities);
+            $countryList->add($clinic->country);
+            $cityList[] = $clinic->city;
+        }
+
+        $specialityList = $specialityList->unique();
+        $countryList = $countryList->unique();
+        $cityList = array_unique($cityList);
 
         return view('admin.clinic-list')
-            ->with('clinicList', $clinicList);
+            ->with('clinicList', $clinicList)
+            ->with('specialityList', $specialityList)
+            ->with('countryList', $countryList)
+            ->with('cityList', $cityList);
     }
 
     /**

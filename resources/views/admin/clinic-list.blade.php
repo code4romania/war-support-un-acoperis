@@ -22,35 +22,36 @@
             <form action="">
                 <div class="row">
                     <div class="col-sm-8">
-                        <label for="">Specialitate</label>
-                        <div class="input-group mb-3 mb-sm-0">
-                            <input type="text" placeholder="Placeholder text here..." class="form-control" id="pacient-name" />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".bd-example-modal-xl">
-                                    Adauga
-                                </button>
+                        <div class="form-group">
+                            <label for="categoryFilter">Specialitate</label>
+                            <div>
+                                <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" multiple>
+                                    @foreach($specialityList as $speciality)
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categoryFilter', $specialityList->pluck('specialities.id')->all())) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="completer-name">Tara</label>
-                            <select name="" id="" class="custom-select form-control">
-                                <option value="">Tara 1</option>
-                                <option value="">Tara 2</option>
-                                <option value="">Tara 3</option>
-                                <option value="">Tara 4</option>
+                            <label for="countryFilter">Tara</label>
+                            <select name="countryFilter" id="countryFilter" class="custom-select form-control">
+                                <option value=""></option>
+                                @foreach ($countryList as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="completer-name">Oras</label>
-                            <select name="" id="" class="custom-select form-control">
-                                <option value="">Oras 1</option>
-                                <option value="">Oras 2</option>
-                                <option value="">Oras 3</option>
-                                <option value="">Oras 4</option>
+                            <label class="" for="cityFilter">Oras</label>
+                            <select name="cityFilter" id="cityFilter" class="custom-select form-control">
+                                <option value=""></option>
+                                @foreach ($cityList as $city)
+                                    <option value="{{ $city }}">{{ $city }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -150,6 +151,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
         $(document).ready(function () {
             let pageState = {};
@@ -198,25 +200,60 @@
                 $.SetQueryStringParameter('page', pageState.page);
                 render.renderHelpRequests(pageState);
             });
-        });
 
-        $('body').on('click', '.delete-clinic', function() {
-            deleteClinicId = $(this).data('id');
-            $('#deleteClinicModal').modal('show');
-        });
 
-        $('#proceedDeleteClinic').on('click', function() {
-            axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+            $( "#categoryFilter" ).change(function() {
+                const selectedCategories = $(this).children("option:selected").map(function(){ return this.value }).get().join("|");
+                pageState.categories = selectedCategories;
+                if (selectedCategories.length) {
+                    $.SetQueryStringParameter('categories', pageState.categories);
+                }
+                render.renderHelpRequests(pageState);
+            });
 
-            axios
-                .delete('/admin/ajax/clinic/' + deleteClinicId)
-                .then(response => {
-                    $('#clinic-container-' + deleteClinicId).remove();
-                    $('#deleteClinicModal').modal('hide');
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            $( "#countryFilter" ).change(function() {
+                pageState.country = $(this).val();
+                if (pageState.country.length) {
+                    $.SetQueryStringParameter('country', pageState.country);
+                }
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#cityFilter" ).change(function() {
+                pageState.city = $(this).val();
+                if (pageState.city.length) {
+                    $.SetQueryStringParameter('city', pageState.city);
+                }
+                render.renderHelpRequests(pageState);
+            });
+
+            new Choices('#categoryFilter', {
+                search: false,
+                delimiter: ',',
+                editItems: true,
+                removeItemButton: true,
+                placeholder: true,
+                placeholderValue: 'Selectați o categorie'
+            });
+
+            $('body').on('click', '.delete-clinic', function() {
+                deleteClinicId = $(this).data('id');
+                $('#deleteClinicModal').modal('show');
+            });
+
+            $('#proceedDeleteClinic').on('click', function() {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios
+                    .delete('/admin/ajax/clinic/' + deleteClinicId)
+                    .then(response => {
+                        $('#clinic-container-' + deleteClinicId).remove();
+                        $('#deleteClinicModal').modal('hide');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
         });
 
         let delay = (function(){
