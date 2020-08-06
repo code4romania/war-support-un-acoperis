@@ -284,4 +284,29 @@ class AjaxController extends Controller
             $query->paginate($perPage)
         );
     }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function deleteClinic($id)
+    {
+        /** @var Clinic|null $clinic */
+        $clinic = Clinic::find($id);
+
+        if (empty($clinic)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $clinic->delete();
+
+        return response()->json(['success' => 'true']);
+    }
 }

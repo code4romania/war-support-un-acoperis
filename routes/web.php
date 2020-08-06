@@ -66,6 +66,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
 
         Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
+        Route::delete('/ajax/clinic/{id}', 'AjaxController@deleteClinic')->name('ajax.delete-clinic');
     });
 
 /**

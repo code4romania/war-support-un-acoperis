@@ -126,6 +126,27 @@
             <p class="mb-0 text-muted">{{ __('Try clearing some filters or perform another search.') }}</p>
         </div>
     </section>
+
+    <!-- Confirmare stergere clinica -->
+    <div class="modal fade bd-example-modal-sm" id="deleteClinicModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete clinic') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this clinic') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteClinic">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -145,6 +166,7 @@
 
             $('.resultsPerPage').val(pageState.perPage);
 
+            let deleteClinicId = null;
             let render = new ClinicsRenderer();
             render.renderHelpRequests(pageState);
 
@@ -176,6 +198,25 @@
                 $.SetQueryStringParameter('page', pageState.page);
                 render.renderHelpRequests(pageState);
             });
+        });
+
+        $('body').on('click', '.delete-clinic', function() {
+            deleteClinicId = $(this).data('id');
+            $('#deleteClinicModal').modal('show');
+        });
+
+        $('#proceedDeleteClinic').on('click', function() {
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+            axios
+                .delete('/admin/ajax/clinic/' + deleteClinicId)
+                .then(response => {
+                    $('#clinic-container-' + deleteClinicId).remove();
+                    $('#deleteClinicModal').modal('hide');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         });
 
         let delay = (function(){
@@ -216,7 +257,7 @@
                 this.emptyTable();
 
                 $.each(responseData, function(key, value) {
-                    let row = '<tr>\n' +
+                    let row = '<tr id="clinic-container-' + value.id + '">\n' +
                         '    <td><a href="/admin/clinic/' + value.id + '">' + value.name + '</a></td>\n' +
                         '    <td>' + value.country + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
@@ -224,7 +265,7 @@
                         '        <a href="/admin/clinic/edit/' + value.id + '" class="btn btn-secondary btn-icon btn-sm" data-original-title="{{ __('Edit') }}" title="{{ __('Edit') }}">\n' +
                         '            {{ __('Edit') }}\n' +
                         '        </a>\n' +
-                        '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>\n' +
+                        '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-clinic" data-id=' + value.id + '>{{ __('Delete') }}</a>\n' +
                         '        <a href="/admin/clinic/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('See details') }}</a>\n' +
                         '    </td>\n' +
                         '</tr>';
