@@ -42,6 +42,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryEdit')->name('admin.clinic-category-edit');
         Route::post('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryUpdate')->name('admin.clinic-category-update');
         Route::get('/clinic/category/delete/{id}', 'Admin\ClinicController@clinicCategoryDelete')->name('admin.clinic-category-delete');
+        Route::get('/clinic/{id}', 'Admin\ClinicController@clinicDetail')->name('admin-clinic-detail');
 
         Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
         Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');

@@ -2,10 +2,10 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600">Lista Clinicilor</h6>
+        <h6 class="page-title font-weight-600">{{ __('Clinic list') }}</h6>
         <div class="row align-items-sm-center">
             <div class="col-sm-8">
-                <p class="mb-sm-0">Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente</p>
+                <p class="mb-sm-0">{{ __('Clinic list description') }}</p>
             </div>
             <div class="col-sm-4">
                 <div class="form-group mb-0">
@@ -23,9 +23,10 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
-                            <label for="categoryFilter">Specialitate</label>
+                            <label for="categoryFilter">{{ __('Speciality') }}</label>
                             <div>
-                                <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" multiple>
+                                <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
+
                                     @foreach($specialityList as $speciality)
                                         <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categoryFilter', $specialityList->pluck('specialities.id')->all())) ? 'selected' : '' }}>{{ $speciality->name }}</option>
                                     @endforeach
@@ -35,9 +36,9 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label for="countryFilter">Tara</label>
+                            <label for="countryFilter">{{ __('Country') }}</label>
                             <select name="countryFilter" id="countryFilter" class="custom-select form-control">
-                                <option value=""></option>
+                                <option value="">{{ __('All countries') }}</option>
                                 @foreach ($countryList as $country)
                                     <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
@@ -46,9 +47,9 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="cityFilter">Oras</label>
+                            <label class="" for="cityFilter">{{ __('City') }}</label>
                             <select name="cityFilter" id="cityFilter" class="custom-select form-control">
-                                <option value=""></option>
+                                <option value="">{{ __('All cities') }}</option>
                                 @foreach ($cityList as $city)
                                     <option value="{{ $city }}">{{ $city }}</option>
                                 @endforeach
@@ -89,10 +90,9 @@
             <table class="table table-striped w-100 mb-0">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Nume Clinică</th>
-                    <th>Țară</th>
-                    <th>Localitate</th>
-                    <th>Acțiuni</th>
+                    <th>{{ __('Clinic name') }}</th>
+                    <th>{{ __('Country') }}</th>
+                    <th colspan="2">{{ __('City') }}</th>
                 </tr>
                 </thead>
                 <tbody id="tableBody"></tbody>
@@ -230,10 +230,10 @@
             new Choices('#categoryFilter', {
                 search: false,
                 delimiter: ',',
-                editItems: true,
+                editItems: false,
                 removeItemButton: true,
                 placeholder: true,
-                placeholderValue: 'Selectați o categorie'
+                placeholderValue: '{{ __('All specialities') }}'
             });
 
             $('body').on('click', '.delete-clinic', function() {

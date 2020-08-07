@@ -252,4 +252,19 @@ class ClinicController extends Controller
 
         return redirect()->back();
     }
+
+    public function clinicDetail(int $id)
+    {
+        /** @var Clinic|null $speciality */
+        $clinic = Clinic::find($id);
+
+        if (empty($clinic)) {
+            abort(404);
+        }
+
+//        dump($clinic);
+
+        return view('admin.clinic-detail')
+            ->with('clinic', $clinic);
+    }
 }
