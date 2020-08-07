@@ -36,35 +36,37 @@
             <form action="">
                 <div class="row mt-5">
                     <div class="col-sm-8">
-                        <label for="">Specialitate</label>
-                        <div class="input-group mb-3 mb-sm-0">
-                            <input type="text" placeholder="Placeholder text here..." class="form-control" id="pacient-name" />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".bd-example-modal-xl">
-                                    Adauga
-                                </button>
+                        <div class="form-group">
+                            <label for="categoryFilter">{{ __('Speciality') }}</label>
+                            <div>
+                                <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
+
+                                    @foreach($specialityList as $speciality)
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categoryFilter', $specialityList->pluck('specialities.id')->all())) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="completer-name">Tara</label>
-                            <select name="" id="" class="custom-select form-control">
-                                <option value="">Tara 1</option>
-                                <option value="">Tara 2</option>
-                                <option value="">Tara 3</option>
-                                <option value="">Tara 4</option>
+                            <label for="countryFilter">{{ __('Country') }}</label>
+                            <select name="countryFilter" id="countryFilter" class="custom-select form-control">
+                                <option value="">{{ __('All countries') }}</option>
+                                @foreach ($countryList as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="completer-name">Oras</label>
-                            <select name="" id="" class="custom-select form-control">
-                                <option value="">Oras 1</option>
-                                <option value="">Oras 2</option>
-                                <option value="">Oras 3</option>
-                                <option value="">Oras 4</option>
+                            <label class="" for="cityFilter">{{ __('City') }}</label>
+                            <select name="cityFilter" id="cityFilter" class="custom-select form-control">
+                                <option value="">{{ __('All cities') }}</option>
+                                @foreach ($cityList as $city)
+                                    <option value="{{ $city }}">{{ $city }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -75,39 +77,22 @@
     <div class="container py-5">
         <div class="row align-items-center mb-4">
             <div class="col">
-                <h6 class="font-weight-600 mb-0">Total rezultate: 142</h6>
+                <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
             </div>
             <div class="col d-none d-sm-block">
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="pagination justify-content-center mb-0"></ul>
                 </nav>
             </div>
             <div class="col d-none d-sm-block">
                 <div class="form-inline justify-content-end">
                     <div class="form-group">
-                        <label for="" class="mr-3">rezultate pe pagina</label>
-                        <select name="" id="" class="custom-select form-control form-control-sm">
+                        <label class="mr-3">{{ __('Results per page') }}</label>
+                        <select class="custom-select form-control form-control-sm resultsPerPage">
+                            <option value="1">1</option>
                             <option value="15">15</option>
-                            <option value="15">50</option>
-                            <option value="15">100</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </select>
                     </div>
                 </div>
@@ -123,222 +108,25 @@
                     <th class="text-right"></th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul University College</a>
-                    </td>
-                    <td>Marea Britanie</td>
-                    <td>Londra</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Intercontinental Hisar</a>
-                    </td>
-                    <td>Turcia</td>
-                    <td>Istanbul </td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Institutul International de Neurostiinte</a>
-                    </td>
-                    <td>Germania</td>
-                    <td>Hanovra </td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">The Royal Marsden NHS Trust</a>
-                    </td>
-                    <td>Marea Britanie</td>
-                    <td>Londra</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Clinica Pediatrica St. Anna</a>
-                    </td>
-                    <td>Austria</td>
-                    <td>Viena</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Universitar Charité, Campus Virchow</a>
-                    </td>
-                    <td>Germania</td>
-                    <td>Berlin </td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Cantonal St. Gallen</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>St Gallen</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Universitar Basel</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>Basel</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Hirslanden</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>Aarau</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Atena</a>
-                    </td>
-                    <td>Marea Britanie</td>
-                    <td>Londra</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul de Copii Sant Joan de Déu-Barcelona</a>
-                    </td>
-                    <td>Grecia</td>
-                    <td>Atena</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul International Beijing Puhua</a>
-                    </td>
-                    <td>Spania</td>
-                    <td>Barcelona</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Hirslanden</a>
-                    </td>
-                    <td>China</td>
-                    <td>Beijing</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Atena</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>Aarau</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul de Copii Sant Joan de Déu-Barcelona</a>
-                    </td>
-                    <td>Grecia</td>
-                    <td>Atena</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
+                <tbody id="tableBody">
                 </tbody>
             </table>
         </div>
         <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
             <div class="col offset-sm-4 mb-4 mb-sm-0">
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="pagination justify-content-center mb-0"></ul>
                 </nav>
             </div>
             <div class="col">
                 <div class="form-inline justify-content-center justify-content-sm-end">
                     <div class="form-group">
                         <label for="" class="mr-3">rezultate pe pagina</label>
-                        <select name="" id="" class="custom-select form-control form-control-sm">
+                        <select name="" id="" class="custom-select form-control form-control-sm resultsPerPage">
+                            <option value="1">1</option>
                             <option value="15">15</option>
-                            <option value="15">50</option>
-                            <option value="15">100</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </select>
                     </div>
                 </div>
@@ -418,4 +206,184 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let pageState = {};
+            pageState.page = 1;
+            pageState.perPage = 15;
+
+            if (undefined !== $.QueryString.page) {
+                pageState.page = $.QueryString.page;
+            }
+
+            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["15", "50", "100"])) {
+                pageState.perPage = $.QueryString.perPage;
+            }
+
+            $('.resultsPerPage').val(pageState.perPage);
+
+            let deleteClinicId = null;
+            let render = new ClinicsRenderer();
+            render.renderHelpRequests(pageState);
+
+            $('.resultsPerPage').on('change', function () {
+                $('.resultsPerPage').val(this.value);
+                pageState.perPage = this.value;
+                $.SetQueryStringParameter('perPage', pageState.perPage);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', pageState.page);
+
+                render.renderHelpRequests(pageState);
+            });
+
+            $('body').on('click', 'a.page-link', function(event) {
+                event.preventDefault();
+                pageState.page = $(this).data('page');
+                $.SetQueryStringParameter('page', pageState.page);
+                render.renderHelpRequests(pageState);
+            });
+
+            new Choices('#categoryFilter', {
+                search: false,
+                delimiter: ',',
+                editItems: false,
+                removeItemButton: true,
+                placeholder: true,
+                placeholderValue: '{{ __('All specialities') }}'
+            });
+
+            $( "#categoryFilter" ).change(function() {
+                const selectedCategories = $(this).children("option:selected").map(function(){ return this.value }).get().join("|");
+                pageState.categories = selectedCategories;
+                if (selectedCategories.length) {
+                    $.SetQueryStringParameter('categories', pageState.categories);
+                }
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#countryFilter" ).change(function() {
+                pageState.country = $(this).val();
+                if (pageState.country.length) {
+                    $.SetQueryStringParameter('country', pageState.country);
+                }
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#cityFilter" ).change(function() {
+                pageState.city = $(this).val();
+                if (pageState.city.length) {
+                    $.SetQueryStringParameter('city', pageState.city);
+                }
+                render.renderHelpRequests(pageState);
+            });
+        });
+
+        let delay = (function(){
+            let timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+
+        class ClinicsRenderer {
+            renderHelpRequests(pageState) {
+                axios.get('{{ route('ajax.clinic-list') }}', {params: pageState})
+                    .then(res => {
+                        this.updateResultsCount(res.data.total);
+                        this.renderTable(res.data.data);
+                        this.renderPagination(res.data);
+                    });
+            }
+
+            emptyTable() {
+                $('#tableBody tr').remove();
+            }
+
+            updateResultsCount(count) {
+                $('#totalResults').text(count);
+
+                if (0 === count) {
+                    $('.no-results').removeClass('d-none').addClass('d-flex');
+                    $('.details').addClass('d-none');
+                } else {
+                    $('.no-results').removeClass('d-flex').addClass('d-none');
+                    $('.details').removeClass('d-none');
+                }
+            }
+
+            renderTable(responseData) {
+                this.emptyTable();
+
+                $.each(responseData, function(key, value) {
+                    let row = '<tr id="clinic-container-' + value.id + '">\n' +
+                        '    <td><a href="/{{ $locale }}/clinic/' + value.id + '">' + value.name + '</a></td>\n' +
+                        '    <td>' + value.country + '</td>\n' +
+                        '    <td>' + value.city + '</td>\n' +
+                        '    <td class="text-right">\n' +
+                        '        <a href="/{{ $locale }}/clinic/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('See details') }}</a>\n' +
+                        '    </td>\n' +
+                        '</tr>';
+
+                    $('#tableBody').append(row);
+                });
+            }
+
+            renderPagination(response) {
+                $('.pagination li').remove();
+
+                if (1 === response.last_page) {
+                    return;
+                }
+
+                let morePages = '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+
+                let currentPage = '<li class="page-item active"><a class="page-link" data-page="' + response.current_page + '" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
+
+                let firstPage = '';
+                if (response.current_page > 1) {
+                    firstPage = '<li class="page-item"><a class="page-link" data-page="1" href="#">1</a></li>';
+                }
+
+                let step = response.current_page
+                let counter = 0;
+
+                let previousPages = '';
+                while(step > 2 && 2 > counter) {
+                    counter++;
+                    step--;
+                    previousPages = '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>' + previousPages;
+                }
+
+                if (response.current_page > 4) {
+                    previousPages = morePages + previousPages;
+                }
+
+                step = response.current_page;
+                counter = 0;
+
+                let nextPages = '';
+                while(step < response.last_page - 1 && 2 > counter) {
+                    counter++;
+                    step++;
+                    nextPages += '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>';
+                }
+
+                if ((response.last_page - response.current_page) > 3) {
+                    nextPages += morePages;
+                }
+
+                let lastPage = '';
+                if (response.current_page < response.last_page) {
+                    lastPage = '<li class="page-item"><a class="page-link" data-page="' + response.last_page + '" href="#">' + response.last_page + '</a></li>';
+                }
+
+                $('.pagination').append(firstPage).append(previousPages).append(currentPage).append(nextPages).append(lastPage);
+            }
+        }
+    </script>
 @endsection
