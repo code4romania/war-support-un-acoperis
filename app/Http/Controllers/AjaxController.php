@@ -283,13 +283,14 @@ class AjaxController extends Controller
         $query->select([
             'clinics.id',
             'clinics.name',
+            'clinics.slug',
             'countries.name as country',
             'clinics.city'
         ]);
 
         $perPage = 10;
 
-        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 15, 25, 50, 100])) {
             $perPage = $request->get('perPage');
         }
 

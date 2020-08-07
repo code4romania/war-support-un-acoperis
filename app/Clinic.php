@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  * @property string|null $description
  * @property string|null $additional_information
  * @property string|null $transport_details
@@ -32,6 +33,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Clinic extends Model
 {
     use SoftDeletes;
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * @return BelongsTo

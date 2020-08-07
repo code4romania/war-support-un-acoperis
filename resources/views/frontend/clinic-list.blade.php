@@ -321,11 +321,11 @@
 
                 $.each(responseData, function(key, value) {
                     let row = '<tr id="clinic-container-' + value.id + '">\n' +
-                        '    <td><a href="/{{ $locale }}/clinic/' + value.id + '">' + value.name + '</a></td>\n' +
+                        '    <td><a href="/{{ $locale }}/clinic/' + value.slug + '">' + value.name + '</a></td>\n' +
                         '    <td>' + value.country + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
                         '    <td class="text-right">\n' +
-                        '        <a href="/{{ $locale }}/clinic/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('See details') }}</a>\n' +
+                        '        <a href="/{{ $locale }}/clinic/' + value.slug + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('See details') }}</a>\n' +
                         '    </td>\n' +
                         '</tr>';
 

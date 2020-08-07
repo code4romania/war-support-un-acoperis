@@ -7,7 +7,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-0 text-primary">{{ __('Spitalul University College') }}</h1>
+        <h1 class="display-3 title mb-0 text-primary">{{ $clinic->name }}</h1>
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
@@ -18,47 +18,47 @@
     <div class="container py-5">
         <div class="row mb-6">
             <div class="col-sm-6 pr-lg-5 mb-4 mb-0">
-                <h4 class="text-primary mb-4 font-weight-600">Detalii despre clinica</h4>
+                <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic details') }}</h4>
                 <ul class="details-wrapper bordered-left list-unstyled">
                     <li class="d-flex align-items-start">
                         <i class="fa fa-map-marker"></i>
                         <span>
-                            Str. Euston, Nr. 235, Cod postal: NW1 2BU<br>Londra<br> Marea Britanie
+                            {{ $clinic->address }}<br>{{ $clinic->city }}<br> {{ $clinic->country->name }}
                         </span>
                     </li>
                     <li class="d-flex">
                         <i class="fa fa-phone"></i>
                         <span>
-                            004408451555000, 004402034567890
+                            {{ $clinic->phone_number }}
                         </span>
                     </li>
                     <li class="d-flex">
                         <i class="fa fa-globe"></i>
                         <span>
-                            <a href="#">http://www.uclh.nhs.uk/</a>
+                            <a href="{{ $clinic->website }}">{{ $clinic->website }}</a>
                         </span>
                     </li>
                 </ul>
             </div>
             <div class="col-sm-6 pl-lg-5">
-                <h4 class="text-primary mb-4 font-weight-600">Persoana de contact</h4>
+                <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic contact person') }}</h4>
                 <ul class="details-wrapper bordered-left list-unstyled">
                     <li class="d-flex">
                         <i class="fa fa-user-circle"></i>
                         <span>
-                            Dr. Rakesh Popat
+                            {{ $clinic->contact_person_name }}
                         </span>
                     </li>
                     <li class="d-flex">
                         <i class="fa fa-phone"></i>
                         <span>
-                            004402034479456
+                            {{ $clinic->contact_person_phone }}
                         </span>
                     </li>
                     <li class="d-flex">
                         <i class="fa fa-envelope"></i>
                         <span>
-                            lucia.geoffery@uclh.nhs.uk
+                            {{ $clinic->contact_person_email }}
                         </span>
                     </li>
                 </ul>
@@ -67,56 +67,31 @@
         <div class="row">
             <div class="col-sm-6 pr-lg-5">
                 <div class="description mb-6">
-                    <h4 class="text-primary mb-4 font-weight-600">Descriere</h4>
-                    <p>In cadrul spitalului se ofera ingrijire si tratament copiilor si tinerilor diagnosticati cu leucemie limfoblastica acuta, leucemie mieloida acuta, sarcom Ewing, tumori cu celule germinale, boala Hodgkin, limfom non-Hodgkin de osteosarcom si tumori ale sistemului nervos central.</p>
+                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Description') }}</h4>
+                    <div>
+                        {!! $clinic->description !!}
+                    </div>
                 </div>
                 <div class="extra-info">
-                    <h4 class="text-primary mb-4 font-weight-600">Informatii suplimentare</h4>
-                    <p>Spitalul University College este situat in inima Londrei si ofera servicii de specialitate in sase spitale:</p>
-                    <ul class="list-custom">
-                        <li>Spitalul University College (care incorporeaza Aripa Elizabeth Garrett Anderson, Spitalul University College</li>
-                        <li>Centrul Oncologic Macmillan si Institutul de Sport)</li>
-                        <li>Spitalul Royal National ORL</li>
-                        <li>Spitalul de Medicina Integrata Royal London</li>
-                        <li>Spitalul National de Neurologie si Neurochirurgie</li>
-                        <li>Spitalul de Cardiologie</li>
-                        <li>Spitalul de Stomatologie</li>
-                    </ul>
-                    <p>Pentru Centrul Oncologic Macmillan, din cadrul Spitalului University College, adresa este Str. Huntley nr. WC1E 6AG, si puteti obtine informatii suplimentare la telefon: 004402034567016.</p>
+                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional informations') }}</h4>
+                    <div>
+                        {!! $clinic->additional_information !!}
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6 pl-lg-5">
                 <div class="mb-5">
-                    <h4 class="text-primary mb-4 font-weight-600">Detalii despre clinica</h4>
+                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic details') }}</h4>
                     <ul class="list-custom">
-                        <li>Oncologie adulti</li>
-                        <li>Oncologie pediatrie</li>
+                        @foreach($clinic->specialities as $speciality)
+                            <li>{{ $speciality->name }}</li>
+                        @endforeach
                     </ul>
                 </div>
-                <h4 class="text-primary mb-4 font-weight-600">Modalitati de transport</h4>
-                <p>Exista diferite modalitati de a ajunge la Spitalul University College, situat pe Str. Euston, Nr. 235, NW1 2BU:</p>
-                <h6><i class="fa fa-train mr-2"></i>Cu trenul</h6>
-                <ul class="list-custom">
-                    <li>Spitalul University College se afla la doar cativa pasi de Gara Euston. </li>
-                </ul>
-                <h6><i class="fa fa-bus mr-2"></i>Cu autobuzul</h6>
-                <ul class="list-custom">
-                    <li>
-                        Statia Tottenham Court Road - Northbound (Warren Station Street), liniile: 10, 73, 24, 29, 134.
-                    </li>
-                    <li>
-                        Statia Gower Street - Southbound (University Street), liniile: 10, 24, 29, 73, 134.
-                    </li>
-                    <li>
-                        Statia Euston Road, liniile: 18, 27, 30, 88.
-                    </li>
-                </ul>
-                <h6><i class="fa fa-subway mr-2"></i>Cu metroul</h6>
-                <ul class="list-custom">
-                    <li>
-                        Spitalul University College este situat pe Euston Road, aproape de statiile de metrou Warren Street (linia Nord/Victoria) si Euston Square (linia Circle/Hammersmith si linia Oras/Metropolitan).
-                    </li>
-                </ul>
+                <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic transport') }}</h4>
+                <div>
+                    {!! $clinic->transport_details !!}
+                </div>
             </div>
         </div>
     </div>

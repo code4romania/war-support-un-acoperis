@@ -10,6 +10,7 @@ use App\Http\Requests\SpecialityRequest;
 use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -103,6 +104,7 @@ class ClinicController extends Controller
         }
 
         $clinic->name = $request->get('name', $clinic->name);
+        $clinic->slug = Str::slug($clinic->name);
         $clinic->description = $request->get('description', $clinic->description);
         $clinic->additional_information = $request->get('extra_details', $clinic->additional_information);
         $clinic->transport_details = $request->get('transport_details', $clinic->transport_details);
@@ -127,6 +129,7 @@ class ClinicController extends Controller
     {
         $clinic = new Clinic();
         $clinic->name = $request->get('name');
+        $clinic->slug = Str::slug($clinic->name);
         $clinic->description = $request->get('description');
         $clinic->additional_information = $request->get('extra_details');
         $clinic->transport_details = $request->get('transport_details');
@@ -261,8 +264,6 @@ class ClinicController extends Controller
         if (empty($clinic)) {
             abort(404);
         }
-
-//        dump($clinic);
 
         return view('admin.clinic-detail')
             ->with('clinic', $clinic);

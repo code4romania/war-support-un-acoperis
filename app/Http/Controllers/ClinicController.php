@@ -17,7 +17,7 @@ class ClinicController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index($locale)
+    public function index(string $locale)
     {
         /** @var Collection $clinicList */
         $clinicList = Clinic::with('specialities')->get();
@@ -45,11 +45,13 @@ class ClinicController extends Controller
     }
 
     /**
-     * @param string $slug
+     * @param string $locale
+     * @param Clinic $clinic
      * @return View
      */
-    public function show(string $slug)
+    public function show(string $locale, Clinic $clinic)
     {
-        return view('frontend.clinic-details');
+        return view('frontend.clinic-details')
+            ->with('clinic', $clinic);
     }
 }
