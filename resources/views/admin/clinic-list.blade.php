@@ -28,7 +28,7 @@
                                 <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
 
                                     @foreach($specialityList as $speciality)
-                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categoryFilter', $specialityList->pluck('specialities.id')->all())) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, explode("|", request()->get('categories'))) ? 'selected' : '' }}>{{ $speciality->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -40,7 +40,7 @@
                             <select name="countryFilter" id="countryFilter" class="custom-select form-control">
                                 <option value="">{{ __('All countries') }}</option>
                                 @foreach ($countryList as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -51,7 +51,7 @@
                             <select name="cityFilter" id="cityFilter" class="custom-select form-control">
                                 <option value="">{{ __('All cities') }}</option>
                                 @foreach ($cityList as $city)
-                                    <option value="{{ $city }}">{{ $city }}</option>
+                                    <option value="{{ $city }}"{{ request()->get('city') == $city ? ' selected' : '' }}>{{ $city }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -158,6 +158,18 @@
             let pageState = {};
             pageState.page = 1;
             pageState.perPage = 10;
+
+            @if (request()->get('categories'))
+            pageState.categories = '{{ request()->get('categories') }}'
+            @endif
+
+            @if (request()->get('country'))
+                pageState.country = '{{ request()->get('country') }}'
+            @endif
+
+            @if (request()->get('city'))
+                pageState.city = '{{ request()->get('city') }}'
+            @endif
 
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
