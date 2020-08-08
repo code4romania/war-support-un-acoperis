@@ -233,7 +233,7 @@
                 pageState.page = $.QueryString.page;
             }
 
-            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["15", "50", "100"])) {
+            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["1", "15", "50", "100"])) {
                 pageState.perPage = $.QueryString.perPage;
             }
 
