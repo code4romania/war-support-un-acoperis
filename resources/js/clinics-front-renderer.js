@@ -35,11 +35,11 @@ class ClinicsFrontRenderer {
         const _this = this
         $.each(responseData, function(key, value) {
             let row = '<tr id="clinic-container-' + value.id + '">\n' +
-                '    <td><a href="/' + _this.locale + '/clinic/' + value.slug + '">' + value.name + '</a></td>\n' +
+                '    <td><a href="/' + _this.locale + '/clinics/' + value.slug + '">' + value.name + '</a></td>\n' +
                 '    <td>' + value.country + '</td>\n' +
                 '    <td>' + value.city + '</td>\n' +
                 '    <td class="text-right">\n' +
-                '        <a href="/' + _this.locale + '/clinic/' + value.slug + '" class="btn btn-sm btn-info mb-2 mb-sm-0">' + _this.detailsText + '</a>\n' +
+                '        <a href="/' + _this.locale + '/clinics/' + value.slug + '" class="btn btn-sm btn-info mb-2 mb-sm-0">' + _this.detailsText + '</a>\n' +
                 '    </td>\n' +
                 '</tr>';
             $('#tableBody').append(row);
