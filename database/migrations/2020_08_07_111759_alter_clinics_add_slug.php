@@ -21,7 +21,9 @@ class AlterClinicsAddSlug extends Migration
 
         $clinicList = Clinic::all();
         foreach ($clinicList as $clinic) {
-            $clinic->slug = Str::slug($clinic->name);
+            $clinic->name = $clinic->name . " ";
+            $clinic->save();
+            $clinic->name = substr($clinic->name, 0, -1);
             $clinic->save();
         }
     }
