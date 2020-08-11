@@ -150,5 +150,10 @@
     "Clinic contact person": "Persoana de contact",
     "Clinic additional informations": "Informatii suplimentare",
     "Clinic transport": "Modalități de transport",
-    "Description": "Descriere"
+    "Description": "Descriere",
+
+    "Clinics list front description": "Caută clinica de care ai nevoie pentru diagnosticul tău și ia legătura cu ei pentru a putea beneficia de serviciile lor. Dacă ai nevoie de sprijin în a identifica o clinică potrivită și/sau în relația cu o clinică sau alta, te rugăm să ne scrii un mesaj folosind",
+    "this form": "acest formular",
+    "Clinics": "Clinici",
+    "Clinics subtitle": "Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente"
 }

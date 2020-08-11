@@ -11,16 +11,16 @@
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
-            Caută clinica de care ai nevoie pentru diagnosticul tău și ia legătura cu ei pentru a putea beneficia de serviciile lor. Dacă ai nevoie de sprijin în a identifica o clinică potrivită și/sau în relația cu o clinică sau alta, te rugăm să ne scrii un mesaj folosind
-            <a href="#">acest formular</a>.
+            {{ __("Clinics list front description") }}
+            <a href="{{ route('request-services') }}">{{ __("this form") }}</a>.
         </div>
     </section>
     <section class="shadow-sm">
         <div class="container py-4">
             <div class="row align-items-end">
                 <div class="col-sm-8">
-                    <h4 class="font-weight-600">Clinici</h4>
-                    <p class="mb-sm-0">Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente</p>
+                    <h4 class="font-weight-600">{{ __("Clinics") }}</h4>
+                    <p class="mb-sm-0">{{ __("Clinics subtitle") }}</p>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group mb-0">
@@ -102,9 +102,9 @@
             <table class="table table-striped w-100 mb-0">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Nume spital</th>
-                    <th>Tara</th>
-                    <th>Oras</th>
+                    <th>{{ __('Clinic name') }}</th>
+                    <th>{{ __('Country') }}</th>
+                    <th>{{ __('City') }}</th>
                     <th class="text-right"></th>
                 </tr>
                 </thead>
@@ -121,7 +121,7 @@
             <div class="col">
                 <div class="form-inline justify-content-center justify-content-sm-end">
                     <div class="form-group">
-                        <label for="" class="mr-3">rezultate pe pagina</label>
+                        <label for="" class="mr-3">{{ __('Results per page') }}</label>
                         <select name="" id="" class="custom-select form-control form-control-sm resultsPerPage">
                             <option value="1">1</option>
                             <option value="15">15</option>
