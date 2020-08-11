@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 /**
  * Class HelpRequest
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class HelpRequest extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Searchable;
 
     const STATUS_NEW = 'new';
     const STATUS_IN_PROGRESS = 'in-progress';
@@ -110,5 +111,20 @@ class HelpRequest extends Model
         }
 
         $this->save();
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->patient_full_name,
+            'description' => $this->caretaker_full_name,
+            'additional_information' => $this->diagnostic
+        ];
     }
 }

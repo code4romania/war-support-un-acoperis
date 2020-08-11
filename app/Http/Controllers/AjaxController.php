@@ -40,6 +40,11 @@ class AjaxController extends Controller
         /** @var Builder $query */
         $query = HelpRequest::orderBy('id', 'desc');
 
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $helpRequestIds = HelpRequest::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
+            $query->whereIn('help_requests.id', $helpRequestIds);
+        }
+
         if (
             $request->has('status') &&
             array_key_exists($request->get('status'), HelpRequest::statusList())
