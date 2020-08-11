@@ -28,7 +28,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
-                            <input id="resourceSearch" name="query" class="form-control" placeholder="Search" type="text" value="">
+                            <input id="searchFilter" name="searchFilter" class="form-control" placeholder="Search" type="text" value="{{ request()->get('searchFilter') }}">
                         </div>
                     </div>
                 </div>
@@ -229,6 +229,10 @@
                 pageState.city = '{{ request()->get('city') }}'
             @endif
 
+            @if (request()->get('searchFilter'))
+                pageState.searchFilter = '{{ request()->get('searchFilter') }}'
+            @endif
+
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
             }
@@ -241,6 +245,18 @@
 
             let render = new ClinicsFrontRenderer('{{ route('ajax.clinic-list') }}', '{{ __('See details') }}', '{{ $locale }}');
             render.renderHelpRequests(pageState);
+
+            $('#searchFilter').on('keyup', e => {
+                delay(() => {
+                    let searchQuery = e.target.value;
+
+                    if (searchQuery.length > 1 || searchQuery.length === 0) {
+                        pageState.searchFilter = searchQuery;
+                        $.SetQueryStringParameter('searchFilter', pageState.searchFilter);
+                        render.renderHelpRequests(pageState);
+                    }
+                }, 500);
+            });
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value);

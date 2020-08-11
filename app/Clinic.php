@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -34,7 +35,7 @@ use Spatie\Sluggable\SlugOptions;
  */
 class Clinic extends Model
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, Searchable;
 
     /**
      * @return string
@@ -68,5 +69,20 @@ class Clinic extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'additional_information' => $this->additional_information
+        ];
     }
 }

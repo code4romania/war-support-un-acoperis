@@ -265,6 +265,12 @@ class AjaxController extends Controller
         /** @var Builder $query */
         $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->with('specialities')->orderBy('clinics.id', 'desc');
 
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $clinicIds = Clinic::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
+//            print_r($clinicIds);
+            $query->whereIn('clinics.id', $clinicIds);
+        }
+
         if ($request->has('categories') && !empty($request->get('categories'))) {
             $categories = explode("|", $request->get('categories'));
             $query->whereHas('specialities', function ($q) use ($categories) {
