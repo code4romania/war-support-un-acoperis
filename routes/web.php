@@ -66,7 +66,6 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::put('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@updateHelpRequestNote')->name('ajax.update-help-request-note');
         Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
 
-        Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
         Route::delete('/ajax/clinic/{id}', 'AjaxController@deleteClinic')->name('ajax.delete-clinic');
     });
 
@@ -90,6 +89,7 @@ Route::middleware([SetLanguage::class, Host::class])
  * Ajax routes
  */
 Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
 /**
  * Frontend routes
