@@ -11,7 +11,7 @@
                         <label for="searchFilter">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
                             <div class="input-group">
-                                <input id="searchFilter" name="searchFilter" class="form-control" placeholder="{{ __('Search') }}" type="text" value="">
+                                <input id="searchFilter" name="searchFilter" class="form-control" placeholder="{{ __('Search') }}" type="text" value="{{ request()->get('searchFilter') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
                                 </div>
@@ -134,6 +134,10 @@
             pageState.page = 1;
             pageState.perPage = 10;
 
+            if (undefined !== $.QueryString.searchFilter) {
+                pageState.searchFilter = $.QueryString.searchFilter;
+            }
+
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
             }
@@ -167,8 +171,8 @@
                     let searchQuery = e.target.value;
 
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
-                        pageState.query = searchQuery;
-                        $.SetQueryStringParameter('query', pageState.query);
+                        pageState.searchFilter = searchQuery;
+                        $.SetQueryStringParameter('query', pageState.searchFilter);
                         render.renderHelpRequests(pageState);
                     }
                 }, 500);

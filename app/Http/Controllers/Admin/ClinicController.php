@@ -10,6 +10,7 @@ use App\Http\Requests\SpecialityRequest;
 use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -24,10 +25,27 @@ class ClinicController extends Controller
     public function clinicList()
     {
         /** @var Collection $clinicList */
-        $clinicList = Clinic::all();
+        $clinicList = Clinic::with('specialities')->get();
+
+        // set up filters
+        $specialityList = new Collection();
+        $countryList = new Collection();
+        $cityList = [];
+        foreach ($clinicList as $clinic) {
+            $specialityList = $specialityList->merge($clinic->specialities);
+            $countryList->add($clinic->country);
+            $cityList[] = $clinic->city;
+        }
+
+        $specialityList = $specialityList->unique();
+        $countryList = $countryList->unique();
+        $cityList = array_unique($cityList);
 
         return view('admin.clinic-list')
-            ->with('clinicList', $clinicList);
+            ->with('clinicList', $clinicList)
+            ->with('specialityList', $specialityList)
+            ->with('countryList', $countryList)
+            ->with('cityList', $cityList);
     }
 
     /**
@@ -234,5 +252,18 @@ class ClinicController extends Controller
         $speciality->delete();
 
         return redirect()->back();
+    }
+
+    public function clinicDetail(int $id)
+    {
+        /** @var Clinic|null $speciality */
+        $clinic = Clinic::find($id);
+
+        if (empty($clinic)) {
+            abort(404);
+        }
+
+        return view('admin.clinic-detail')
+            ->with('clinic', $clinic);
     }
 }

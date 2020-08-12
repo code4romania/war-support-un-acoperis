@@ -7,4 +7,7 @@ php artisan event:cache
 
 php artisan migrate --force
 
+php artisan scout:import App\\Clinic
+php artisan scout:import App\\HelpRequest
+
 /usr/bin/supervisord

@@ -87,7 +87,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'clinic-list' ? 'active' : '' }}" href="{{ route('clinic-list') }}">
+                            <a class="nav-link {{ in_array(Route::currentRouteName(), ['clinic-list', 'clinic-details']) ? 'active' : '' }}" href="{{ route('clinic-list') }}">
                                 {{ __('Clinic List') }}
                             </a>
                         </li>

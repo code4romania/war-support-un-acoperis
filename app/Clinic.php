@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 /**
  * Class Clinic
@@ -14,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  * @property string|null $description
  * @property string|null $additional_information
  * @property string|null $transport_details
@@ -31,7 +35,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Clinic extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasSlug, Searchable;
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * @return BelongsTo
@@ -47,5 +59,30 @@ class Clinic extends Model
     public function specialities()
     {
         return $this->belongsToMany(Speciality::class);
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'additional_information' => $this->additional_information
+        ];
     }
 }

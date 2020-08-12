@@ -20,7 +20,9 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "propaganistas/laravel-phone": "^4.2",
-        "spatie/laravel-permission": "^3.13"
+        "spatie/laravel-permission": "^3.13",
+        "spatie/laravel-sluggable": "^2.5",
+        "teamtnt/laravel-scout-tntsearch-driver": "^9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
