@@ -12,6 +12,8 @@
     </div>
     <section class="bg-light-green py-5">
         <div class="container">
+            <form method="POST" action="{{ route('store-get-involved') }}">
+            @csrf
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary">
                     <h6 class="mb-0 text-white font-weight-600">
@@ -22,8 +24,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="required font-weight-600" for="full-name">{{ __("Name and surname") }}:</label>
-                                <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('name') is-invalid @enderror" name="full-name" id="full-name" value="{{ old('full-name') }}" />
+                                <label class="required font-weight-600" for="name">{{ __("Name and surname") }}:</label>
+                                <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
 
                                 @error('full-name')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -37,12 +39,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>
-                                        <select name="patient-country" id="patient-county" class="custom-select form-control @error('patient-county') is-invalid @enderror">
+                                        <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
                                             <option>Select country</option>
-                                            <option value="Tara 1">Tara 1</option>
+                                            @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}"{{ old('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
 
-                                        @error('patient-county')
+                                        @error('country')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -50,9 +54,9 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                                        <input type="text" placeholder="Viena" class="form-control @error('sms-clinic-city') is-invalid @enderror" id="sms-clinic-city" name="sms-clinic-city" value="{{ old('sms-clinic-city') }}" />
+                                        <input type="text" placeholder="Viena" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
 
-                                        @error('sms-clinic-city')
+                                        @error('city')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -64,7 +68,7 @@
                                 <label class="font-weight-600" for="address">{{ __('Address') }}:</label>
                                 <input type="text" placeholder="Street name, no, etc" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
 
-                                @error('sms-clinic-city')
+                                @error('city')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -74,9 +78,9 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                                <input type="tel" placeholder="+40 760 000 000" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
+                                <input type="tel" placeholder="+40 760 000 000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
 
-                                @error('email')
+                                @error('phone')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -94,34 +98,12 @@
                     </div>
                     <label for="" class="font-weight-600 mb-3 mt-3 d-block required">Ce tip de ajutor doresti sa oferi?</label>
                     <div class="form-check form-check-inline mb-3">
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help1" name="help1" type="checkbox">
-                            <label class="custom-control-label" for="help1">Cazare</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help2" name="help2" type="checkbox">
-                            <label class="custom-control-label" for="help2">Transport</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help3" name="help3" type="checkbox">
-                            <label class="custom-control-label" for="help3">Medicamente</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help4" name="help4" type="checkbox">
-                            <label class="custom-control-label" for="help4">Bunuri</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help5" name="help5" type="checkbox">
-                            <label class="custom-control-label" for="help5">Traduceri acte medicale</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help6" name="help6" type="checkbox">
-                            <label class="custom-control-label" for="help6">Servicii</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                            <input class="custom-control-input" id="help7" name="help7" type="checkbox">
-                            <label class="custom-control-label" for="help7">Alte tipuri de ajutor</label>
-                        </div>
+                        @foreach ($resourceTypes as $resourceType)
+                            <div class="custom-control custom-checkbox mr-4 mb-3">
+                                <input {{ in_array($resourceType->id, (array)old('help')) ? 'checked' : '' }} class="custom-control-input" id="help{{ $loop->iteration }}" name="help[]" type="checkbox" value="{{ $resourceType->id }}">
+                                <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ $resourceType->name }}</label>
+                            </div>
+                        @endforeach
                     </div>
 
                     <!-- Other help type -->
@@ -148,6 +130,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </section>
 @endsection
@@ -155,20 +138,30 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#help1').on('change', function() {
-                if ($('#help1').is(':checked')) {
+            @foreach ($resourceTypes as $resourceType)
+
+            @if ($resourceType->options & \App\ResourceType::OPTION_ALERT || $resourceType->options & \App\ResourceType::OPTION_MESSAGE)
+            $('#help{{ $loop->iteration }}').on('change', function() {
+
+                @if ($resourceType->options & \App\ResourceType::OPTION_ALERT)
+                if ($('#help{{ $loop->iteration }}').is(':checked')) {
                     $('#accomodation-alert').removeClass('d-none').addClass('d-flex');
                 } else {
                     $('#accomodation-alert').addClass('d-none').removeClass('d-flex');
                 }
-            });
-            $('#help7').on('change', function() {
-                if ($('#help7').is(':checked')) {
+                @endif
+
+                @if ($resourceType->options & \App\ResourceType::OPTION_MESSAGE)
+                if ($('#help{{ $loop->iteration }}').is(':checked')) {
                     $('#other-help').removeClass('d-none');
                 } else {
                     $('#other-help').addClass('d-none');
                 }
+                @endif
             });
+            @endif
+
+            @endforeach
         });
     </script>
 @endsection

@@ -13,13 +13,13 @@ class ResourceTypeSeeder extends Seeder
     public function run()
     {
         if (empty(ResourceType::all()->count())) {
-            ResourceType::create(['id' => 1, 'name' => 'Cazare']);
-            ResourceType::create(['id' => 2, 'name' => 'Transport']);
-            ResourceType::create(['id' => 3, 'name' => 'Medicamente']);
-            ResourceType::create(['id' => 4, 'name' => 'Bunuri']);
-            ResourceType::create(['id' => 5, 'name' => 'Traduceri acte medicale']);
-            ResourceType::create(['id' => 6, 'name' => 'Servicii']);
-            ResourceType::create(['id' => 7, 'name' => 'Alte tipuri de ajutor']);
+            ResourceType::create(['id' => 1, 'name' => 'Cazare', 'options' => ResourceType::OPTION_ALERT]);
+            ResourceType::create(['id' => 2, 'name' => 'Transport', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 3, 'name' => 'Medicamente', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 4, 'name' => 'Bunuri', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 5, 'name' => 'Traduceri acte medicale', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 6, 'name' => 'Servicii', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 7, 'name' => 'Alte tipuri de ajutor', 'options' => ResourceType::OPTION_MESSAGE]);
         }
     }
 }
