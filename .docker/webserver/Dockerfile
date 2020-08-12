@@ -15,7 +15,4 @@ EXPOSE 80
 
 VOLUME ["/app"]
 
-COPY ./run.sh /tmp/run.sh
-RUN chmod +x /tmp/run.sh
-
-ENTRYPOINT ["/tmp/run.sh"]
+ENTRYPOINT ["/usr/bin/supervisord"]

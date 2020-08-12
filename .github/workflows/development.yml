@@ -91,12 +91,8 @@ jobs:
         run: |
           echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.DEV_AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
 
-      - name: Preapre AWS EB .ebextensions with Nginx config
-        run: |
-          mkdir -p .ebextensions && echo '{"commands":{"01_write_nginx_config":{"command":"/bin/echo \"client_max_body_size 64M;\" > /etc/nginx/conf.d/proxy.conf"},"02_restart_nginx_service":{"command":"/sbin/service nginx reload"}}}' > .ebextensions/nginx.config
-
       - name: Generate AWS EB deployment package
-        run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
+        run: zip -r deploy.zip Dockerrun.aws.json .platform
 
       - name: Deploy docker image from AWS ECR to AWS EB -
         uses: einaregilsson/beanstalk-deploy@v11
