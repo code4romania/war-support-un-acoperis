@@ -113,4 +113,4 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.DEV_SLACK_WEBHOOK }}
         with:
-          args: "A new PROD deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
+          args: "A new DEV deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
