@@ -40,6 +40,11 @@ class AjaxController extends Controller
         /** @var Builder $query */
         $query = HelpRequest::orderBy('id', 'desc');
 
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $helpRequestIds = HelpRequest::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
+            $query->whereIn('help_requests.id', $helpRequestIds);
+        }
+
         if (
             $request->has('status') &&
             array_key_exists($request->get('status'), HelpRequest::statusList())
@@ -263,20 +268,40 @@ class AjaxController extends Controller
     public function clinicList(Request $request)
     {
         /** @var Builder $query */
-        $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->orderBy('clinics.id', 'desc');
+        $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->with('specialities')->orderBy('clinics.id', 'desc');
 
-        // TODO: add some filters, here!
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $clinicIds = Clinic::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
+//            print_r($clinicIds);
+            $query->whereIn('clinics.id', $clinicIds);
+        }
+
+        if ($request->has('categories') && !empty($request->get('categories'))) {
+            $categories = explode("|", $request->get('categories'));
+            $query->whereHas('specialities', function ($q) use ($categories) {
+                return $q->whereIn('specialities.id', $categories);
+            });
+        }
+
+        if ($request->has('country') && !empty($request->get('country'))) {
+            $query->where('country_id', "=", $request->get('country'));
+        }
+
+        if ($request->has('city') && !empty($request->get('city'))) {
+            $query->where('city', "=", $request->get('city'));
+        }
 
         $query->select([
             'clinics.id',
             'clinics.name',
+            'clinics.slug',
             'countries.name as country',
             'clinics.city'
         ]);
 
         $perPage = 10;
 
-        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 15, 25, 50, 100])) {
             $perPage = $request->get('perPage');
         }
 

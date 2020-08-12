@@ -11,16 +11,16 @@
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
-            Caută clinica de care ai nevoie pentru diagnosticul tău și ia legătura cu ei pentru a putea beneficia de serviciile lor. Dacă ai nevoie de sprijin în a identifica o clinică potrivită și/sau în relația cu o clinică sau alta, te rugăm să ne scrii un mesaj folosind
-            <a href="#">acest formular</a>.
+            {{ __("Clinics list front description") }}
+            <a href="{{ route('request-services') }}">{{ __("this form") }}</a>.
         </div>
     </section>
     <section class="shadow-sm">
         <div class="container py-4">
             <div class="row align-items-end">
                 <div class="col-sm-8">
-                    <h4 class="font-weight-600">Clinici</h4>
-                    <p class="mb-sm-0">Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente</p>
+                    <h4 class="font-weight-600">{{ __("Clinics") }}</h4>
+                    <p class="mb-sm-0">{{ __("Clinics subtitle") }}</p>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group mb-0">
@@ -28,7 +28,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
-                            <input id="resourceSearch" name="query" class="form-control" placeholder="Search" type="text" value="">
+                            <input id="searchFilter" name="searchFilter" class="form-control" placeholder="Search" type="text" value="{{ request()->get('searchFilter') }}">
                         </div>
                     </div>
                 </div>
@@ -36,35 +36,37 @@
             <form action="">
                 <div class="row mt-5">
                     <div class="col-sm-8">
-                        <label for="">Specialitate</label>
-                        <div class="input-group mb-3 mb-sm-0">
-                            <input type="text" placeholder="Placeholder text here..." class="form-control" id="pacient-name" />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".bd-example-modal-xl">
-                                    Adauga
-                                </button>
+                        <div class="form-group">
+                            <label for="categoryFilter">{{ __('Speciality') }}</label>
+                            <div>
+                                <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
+
+                                    @foreach($specialityList as $speciality)
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, explode("|", request()->get('categories'))) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="completer-name">Tara</label>
-                            <select name="" id="" class="custom-select form-control">
-                                <option value="">Tara 1</option>
-                                <option value="">Tara 2</option>
-                                <option value="">Tara 3</option>
-                                <option value="">Tara 4</option>
+                            <label for="countryFilter">{{ __('Country') }}</label>
+                            <select name="countryFilter" id="countryFilter" class="custom-select form-control">
+                                <option value="">{{ __('All countries') }}</option>
+                                @foreach ($countryList as $country)
+                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="completer-name">Oras</label>
-                            <select name="" id="" class="custom-select form-control">
-                                <option value="">Oras 1</option>
-                                <option value="">Oras 2</option>
-                                <option value="">Oras 3</option>
-                                <option value="">Oras 4</option>
+                            <label class="" for="cityFilter">{{ __('City') }}</label>
+                            <select name="cityFilter" id="cityFilter" class="custom-select form-control">
+                                <option value="">{{ __('All cities') }}</option>
+                                @foreach ($cityList as $city)
+                                    <option value="{{ $city }}"{{ request()->get('city') == $city ? ' selected' : '' }}>{{ $city }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -75,39 +77,22 @@
     <div class="container py-5">
         <div class="row align-items-center mb-4">
             <div class="col">
-                <h6 class="font-weight-600 mb-0">Total rezultate: 142</h6>
+                <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
             </div>
             <div class="col d-none d-sm-block">
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="pagination justify-content-center mb-0"></ul>
                 </nav>
             </div>
             <div class="col d-none d-sm-block">
                 <div class="form-inline justify-content-end">
                     <div class="form-group">
-                        <label for="" class="mr-3">rezultate pe pagina</label>
-                        <select name="" id="" class="custom-select form-control form-control-sm">
+                        <label class="mr-3">{{ __('Results per page') }}</label>
+                        <select class="custom-select form-control form-control-sm resultsPerPage">
+                            <option value="1">1</option>
                             <option value="15">15</option>
-                            <option value="15">50</option>
-                            <option value="15">100</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </select>
                     </div>
                 </div>
@@ -117,228 +102,31 @@
             <table class="table table-striped w-100 mb-0">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Nume spital</th>
-                    <th>Tara</th>
-                    <th>Oras</th>
+                    <th>{{ __('Clinic name') }}</th>
+                    <th>{{ __('Country') }}</th>
+                    <th>{{ __('City') }}</th>
                     <th class="text-right"></th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul University College</a>
-                    </td>
-                    <td>Marea Britanie</td>
-                    <td>Londra</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Intercontinental Hisar</a>
-                    </td>
-                    <td>Turcia</td>
-                    <td>Istanbul </td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Institutul International de Neurostiinte</a>
-                    </td>
-                    <td>Germania</td>
-                    <td>Hanovra </td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">The Royal Marsden NHS Trust</a>
-                    </td>
-                    <td>Marea Britanie</td>
-                    <td>Londra</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Clinica Pediatrica St. Anna</a>
-                    </td>
-                    <td>Austria</td>
-                    <td>Viena</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Universitar Charité, Campus Virchow</a>
-                    </td>
-                    <td>Germania</td>
-                    <td>Berlin </td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Cantonal St. Gallen</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>St Gallen</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul Universitar Basel</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>Basel</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Hirslanden</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>Aarau</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Atena</a>
-                    </td>
-                    <td>Marea Britanie</td>
-                    <td>Londra</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul de Copii Sant Joan de Déu-Barcelona</a>
-                    </td>
-                    <td>Grecia</td>
-                    <td>Atena</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul International Beijing Puhua</a>
-                    </td>
-                    <td>Spania</td>
-                    <td>Barcelona</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Hirslanden</a>
-                    </td>
-                    <td>China</td>
-                    <td>Beijing</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Centrul Medical Atena</a>
-                    </td>
-                    <td>Elveția</td>
-                    <td>Aarau</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Spitalul de Copii Sant Joan de Déu-Barcelona</a>
-                    </td>
-                    <td>Grecia</td>
-                    <td>Atena</td>
-                    <td class="td-actions text-right">
-                        <a href="{{ route('clinic-details', 'demo-clinic') }}"  class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
-                            Vezi detalii
-                        </a>
-                    </td>
-                </tr>
+                <tbody id="tableBody">
                 </tbody>
             </table>
         </div>
         <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
             <div class="col offset-sm-4 mb-4 mb-sm-0">
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="pagination justify-content-center mb-0"></ul>
                 </nav>
             </div>
             <div class="col">
                 <div class="form-inline justify-content-center justify-content-sm-end">
                     <div class="form-group">
-                        <label for="" class="mr-3">rezultate pe pagina</label>
-                        <select name="" id="" class="custom-select form-control form-control-sm">
+                        <label for="" class="mr-3">{{ __('Results per page') }}</label>
+                        <select name="" id="" class="custom-select form-control form-control-sm resultsPerPage">
+                            <option value="1">1</option>
                             <option value="15">15</option>
-                            <option value="15">50</option>
-                            <option value="15">100</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </select>
                     </div>
                 </div>
@@ -418,4 +206,110 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script type="text/javascript" src="{{ mix('js/clinics-front-renderer.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let pageState = {};
+            pageState.page = 1;
+            pageState.perPage = 15;
+
+            @if (request()->get('categories'))
+                pageState.categories = '{{ request()->get('categories') }}'
+            @endif
+
+            @if (request()->get('country'))
+                pageState.country = '{{ request()->get('country') }}'
+            @endif
+
+            @if (request()->get('city'))
+                pageState.city = '{{ request()->get('city') }}'
+            @endif
+
+            @if (request()->get('searchFilter'))
+                pageState.searchFilter = '{{ request()->get('searchFilter') }}'
+            @endif
+
+            if (undefined !== $.QueryString.page) {
+                pageState.page = $.QueryString.page;
+            }
+
+            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["1", "15", "50", "100"])) {
+                pageState.perPage = $.QueryString.perPage;
+            }
+
+            $('.resultsPerPage').val(pageState.perPage);
+
+            let render = new ClinicsFrontRenderer('{{ route('ajax.clinic-list') }}', '{{ __('See details') }}', '{{ $locale }}');
+            render.renderHelpRequests(pageState);
+
+            $('#searchFilter').on('keyup', e => {
+                delay(() => {
+                    let searchQuery = e.target.value;
+
+                    if (searchQuery.length > 1 || searchQuery.length === 0) {
+                        pageState.searchFilter = searchQuery;
+                        $.SetQueryStringParameter('searchFilter', pageState.searchFilter);
+                        render.renderHelpRequests(pageState);
+                    }
+                }, 500);
+            });
+
+            $('.resultsPerPage').on('change', function () {
+                $('.resultsPerPage').val(this.value);
+                pageState.perPage = this.value;
+                $.SetQueryStringParameter('perPage', pageState.perPage);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', pageState.page);
+
+                render.renderHelpRequests(pageState);
+            });
+
+            $('body').on('click', 'a.page-link', function(event) {
+                event.preventDefault();
+                pageState.page = $(this).data('page');
+                $.SetQueryStringParameter('page', pageState.page);
+                render.renderHelpRequests(pageState);
+            });
+
+            new Choices('#categoryFilter', {
+                search: false,
+                delimiter: ',',
+                editItems: false,
+                removeItemButton: true,
+                placeholder: true,
+                placeholderValue: '{{ __('All specialities') }}'
+            });
+
+            $( "#categoryFilter" ).change(function() {
+                const selectedCategories = $(this).children("option:selected").map(function(){ return this.value }).get().join("|");
+                pageState.categories = selectedCategories;
+                $.SetQueryStringParameter('categories', pageState.categories);
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#countryFilter" ).change(function() {
+                pageState.country = $(this).val();
+                $.SetQueryStringParameter('country', pageState.country);
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#cityFilter" ).change(function() {
+                pageState.city = $(this).val();
+                $.SetQueryStringParameter('city', pageState.city);
+                render.renderHelpRequests(pageState);
+            });
+        });
+
+        let delay = (function(){
+            let timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+    </script>
 @endsection

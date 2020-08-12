@@ -3,7 +3,7 @@ name: Development Deployment
 on:
   push:
     branches:
-      - master-SUSPENDED
+      - development
 
 jobs:
   deploy:
@@ -62,8 +62,13 @@ jobs:
           --build-arg AWS_PUBLIC_BUCKET=${{ secrets.DEV_AWS_PUBLIC_BUCKET}} \
           --build-arg AWS_PRIVATE_BUCKET=${{ secrets.DEV_AWS_PRIVATE_BUCKET}} \
           --build-arg FILESYSTEM_DRIVER=${{ secrets.FILESYSTEM_DRIVER}} \
+          --build-arg MAIL_MAILER=${{ secrets.MAIL_MAILER}} \
           --build-arg MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS}} \
           --build-arg MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME}} \
+          --build-arg MAIL_HOST=${{ secrets.MAIL_HOST}} \
+          --build-arg MAIL_PORT=${{ secrets.MAIL_PORT}} \
+          --build-arg MAIL_USERNAME=${{ secrets.MAIL_USERNAME}} \
+          --build-arg MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}} \
           --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
           --build-arg ADMIN_APP_PATH=${{ secrets.ADMIN_APP_PATH}} \
           --build-arg S3_KEY=${{ secrets.DEV_AWS_ACCESS_KEY_ID}} \
@@ -91,12 +96,8 @@ jobs:
         run: |
           echo '{"AWSEBDockerrunVersion":"1","Image":{"Name":"${{ secrets.DEV_AWS_ECR_REPOSITORY }}:${{ github.sha }}","Update":"true"},"Ports":[{"ContainerPort":80,"HostPort":80}]}' > Dockerrun.aws.json
 
-      - name: Preapre AWS EB .ebextensions with Nginx config
-        run: |
-          mkdir -p .ebextensions && echo '{"commands":{"01_write_nginx_config":{"command":"/bin/echo \"client_max_body_size 64M;\" > /etc/nginx/conf.d/proxy.conf"},"02_restart_nginx_service":{"command":"/sbin/service nginx reload"}}}' > .ebextensions/nginx.config
-
       - name: Generate AWS EB deployment package
-        run: zip -r deploy.zip Dockerrun.aws.json .ebextensions
+        run: zip -r deploy.zip Dockerrun.aws.json .platform
 
       - name: Deploy docker image from AWS ECR to AWS EB -
         uses: einaregilsson/beanstalk-deploy@v11
@@ -117,4 +118,4 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.DEV_SLACK_WEBHOOK }}
         with:
-          args: "A new PROD deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"
+          args: "A new DEV deployment took place. Details: \nhttps://github.com/code4romania/help-for-health/commit/${{ github.sha }}"

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/ro');
+Route::get('/health', 'HealthController@check');
 
 /**
  * Administration routes
@@ -42,6 +43,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryEdit')->name('admin.clinic-category-edit');
         Route::post('/clinic/category/{id}', 'Admin\ClinicController@clinicCategoryUpdate')->name('admin.clinic-category-update');
         Route::get('/clinic/category/delete/{id}', 'Admin\ClinicController@clinicCategoryDelete')->name('admin.clinic-category-delete');
+        Route::get('/clinic/{id}', 'Admin\ClinicController@clinicDetail')->name('admin-clinic-detail');
 
         Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
         Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
@@ -65,7 +67,6 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::put('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@updateHelpRequestNote')->name('ajax.update-help-request-note');
         Route::delete('/ajax/help-request/{id}/note/{noteId}', 'AjaxController@deleteHelpRequestNote')->name('ajax.delete-help-request-note');
 
-        Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
         Route::delete('/ajax/clinic/{id}', 'AjaxController@deleteClinic')->name('ajax.delete-clinic');
     });
 
@@ -89,6 +90,7 @@ Route::middleware([SetLanguage::class, Host::class])
  * Ajax routes
  */
 Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
 /**
  * Frontend routes
@@ -108,7 +110,7 @@ Route::middleware([SetLanguage::class])
         Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
-        Route::get('/clinic/{slug}', 'ClinicController@show')->name('clinic-details');
+        Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');
         Route::get('/donate', 'DonateController@index')->name('donate');
 
         /**
