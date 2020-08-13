@@ -3,49 +3,76 @@
 @section('content')
     <section class="mb-5">
         <h6 class="page-title font-weight-600">Resurse ajutor</h6>
-        <p class="mb-sm-0">Caută resurse folosind câmpul de căutare sau filtrează lista resursele cu ajutorul opțiunilor prezente</p>
+        <div class="row align-items-sm-center">
+            <div class="col-sm-8">
+                <p class="mb-sm-0">Caută resurse folosind câmpul de căutare sau filtrează lista resursele cu ajutorul opțiunilor prezente</p>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group mb-0">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                        </div>
+                        <input id="searchFilter" name="searchFilter" class="form-control" placeholder="Search" type="text" value="{{ request()->get('searchFilter') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <label for="searchFilter">{{ __('Search') }}</label>
-                        <div class="form-group mb-0">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="" for="status">Tip ajutor</label>
+                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                                <option value="" selected>Tipul de ajutor</option>
+                                @foreach ($resourceTypeList as $resourceType)
+                                    <option value="{{ $resourceType->id }}"{{ request()->get('statusFilter') == $resourceType->id ? ' selected' : '' }}>{{ $resourceType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="countryFilter">{{ __('Country') }}</label>
+                            <select name="countryFilter" id="countryFilter" class="custom-select form-control">
+                                <option value="">{{ __('All countries') }}</option>
+                                @foreach ($countryList as $country)
+                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="" for="cityFilter">{{ __('City') }}</label>
+                            <select name="cityFilter" id="cityFilter" class="custom-select form-control">
+                                <option value="">{{ __('All cities') }}</option>
+                                @foreach ($cityList as $city)
+                                    <option value="{{ $city }}"{{ request()->get('city') == $city ? ' selected' : '' }}>{{ $city }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
                             <div class="input-group">
-                                <input id="searchFilter" name="searchFilter" class="form-control" placeholder="{{ __('Search') }}" type="text" value="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
+                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="2020-08-01" id="startDateFilter" name="startDateFilter" />
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">Tip ajutor</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
-                                <option value="" selected>Tipul de ajutor</option>
-                                <option value="">Cazare</option>
-                                <option value="">Transport</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label class="" for="status">Oras</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
-                                <option value="" selected>Selecteaza oras</option>
-                                <option value="">Oradea</option>
-                                <option value="">Baia Mare</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label class="" for="endDateFilter">Data</label>
+                            <label class="" for="endDateFilter">{{ __('Until') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="Selecteaza Data" id="endDateFilter" name="endDateFilter" />
+                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="2020-08-31" id="endDateFilter" name="endDateFilter" />
                             </div>
                         </div>
                     </div>
@@ -85,82 +112,13 @@
                 <tr>
                     <th>Nume persoana implicata</th>
                     <th>Tip ajutor</th>
-                    <th>Localitate</th>
+                    <th>{{ __('Country') }}</th>
+                    <th>{{ __('City') }}</th>
                     <th>Data</th>
-                    <th>{{ __('Actions') }}</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr>
-                        <td>
-                            <a href="">
-                                Dan Vintu
-                            </a>
-                        </td>
-                        <td>Transport</td>
-                        <td>Bacau</td>
-                        <td>23.10.2015</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-danger">{{ __('Delete') }}</a>
-                            <a href="{{ route('admin.resource-detail') }}" class="btn btn-sm btn-info">{{ __('See details') }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="">
-                                Dan Vintu
-                            </a>
-                        </td>
-                        <td>Cazare</td>
-                        <td>Bacau</td>
-                        <td>23.10.2015</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-danger">{{ __('Delete') }}</a>
-                            <a href="{{ route('admin.accommodation-detail') }}" class="btn btn-sm btn-info">{{ __('See details') }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="">
-                                Dan Vintu
-                            </a>
-                        </td>
-                        <td>Cazare</td>
-                        <td>Bacau</td>
-                        <td>23.10.2015</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-danger">{{ __('Delete') }}</a>
-                            <a href="{{ route('admin.accommodation-detail') }}" class="btn btn-sm btn-info">{{ __('See details') }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="">
-                                Dan Vintu
-                            </a>
-                        </td>
-                        <td>Cazare</td>
-                        <td>Bacau</td>
-                        <td>23.10.2015</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-danger">{{ __('Delete') }}</a>
-                            <a href="{{ route('admin.accommodation-detail') }}" class="btn btn-sm btn-info">{{ __('See details') }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="">
-                                Dan Vintu
-                            </a>
-                        </td>
-                        <td>Cazare</td>
-                        <td>Bacau</td>
-                        <td>23.10.2015</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-danger">{{ __('Delete') }}</a>
-                            <a href="{{ route('admin.accommodation-detail') }}" class="btn btn-sm btn-info">{{ __('See details') }}</a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -193,4 +151,123 @@
             <p class="mb-0 text-muted">{{ __('Try clearing some filters or perform another search.') }}</p>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{ mix('js/resources-renderer.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let pageState = {};
+            pageState.page = 1;
+            pageState.perPage = 10;
+
+
+            @if (request()->get('country'))
+                pageState.country = '{{ request()->get('country') }}'
+            @endif
+
+            @if (request()->get('city'))
+                pageState.city = '{{ request()->get('city') }}'
+            @endif
+
+            @if (request()->get('statusFilter'))
+                pageState.statusFilter = '{{ request()->get('statusFilter') }}'
+            @endif
+
+            @if (request()->get('searchFilter'))
+                pageState.searchFilter = '{{ request()->get('searchFilter') }}'
+            @endif
+
+            if (undefined !== $.QueryString.page) {
+                pageState.page = $.QueryString.page;
+            }
+
+            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["1", "3", "10", "25", "50"])) {
+                pageState.perPage = $.QueryString.perPage;
+            }
+
+            if (undefined !== $.QueryString.startDate) {
+                pageState.startDate = $.QueryString.startDate;
+                $('#startDateFilter').val(pageState.startDate);
+            }
+
+            if (undefined !== $.QueryString.endDate) {
+                pageState.endDate = $.QueryString.endDate;
+                $('#endDateFilter').val(pageState.endDate);
+            }
+
+            $('.resultsPerPage').val(pageState.perPage);
+
+            let render = new ResourcesRenderer('{{ route('ajax.resources') }}', '{{ __('Delete') }}', '{{ __('See details') }}');
+            console.log(render);
+            render.renderHelpRequests(pageState);
+
+            $('#searchFilter').on('keyup', e => {
+                delay(() => {
+                    let searchQuery = e.target.value;
+
+                    if (searchQuery.length > 1 || searchQuery.length === 0) {
+                        pageState.searchFilter = searchQuery;
+                        $.SetQueryStringParameter('searchFilter', pageState.searchFilter);
+                        render.renderHelpRequests(pageState);
+                    }
+                }, 500);
+            });
+
+            $('.resultsPerPage').on('change', function () {
+                $('.resultsPerPage').val(this.value);
+                pageState.perPage = this.value;
+                $.SetQueryStringParameter('perPage', pageState.perPage);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', pageState.page);
+
+                render.renderHelpRequests(pageState);
+            });
+
+            $('body').on('click', 'a.page-link', function(event) {
+                event.preventDefault();
+                pageState.page = $(this).data('page');
+                $.SetQueryStringParameter('page', pageState.page);
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#countryFilter" ).change(function() {
+                pageState.country = $(this).val();
+                $.SetQueryStringParameter('country', pageState.country);
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#cityFilter" ).change(function() {
+                pageState.city = $(this).val();
+                $.SetQueryStringParameter('city', pageState.city);
+                render.renderHelpRequests(pageState);
+            });
+
+            $( "#statusFilter" ).change(function() {
+                pageState.statusFilter = $(this).val();
+                $.SetQueryStringParameter('statusFilter', pageState.statusFilter);
+                render.renderHelpRequests(pageState);
+            });
+
+            $('#startDateFilter').on('change', function() {
+                pageState.startDate = $('#startDateFilter').val();
+                $.SetQueryStringParameter('startDate', pageState.startDate);
+                render.renderHelpRequests(pageState);
+            });
+
+            $('#endDateFilter').on('change', function() {
+                pageState.endDate = $('#endDateFilter').val();
+                $.SetQueryStringParameter('endDate', pageState.endDate);
+                render.renderHelpRequests(pageState);
+            });
+        });
+
+        let delay = (function(){
+            let timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+    </script>
 @endsection

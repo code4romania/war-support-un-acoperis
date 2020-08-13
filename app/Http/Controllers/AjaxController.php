@@ -7,12 +7,15 @@ use App\Clinic;
 use App\HelpRequest;
 use App\HelpRequestNote;
 use App\HelpRequestType;
+use App\HelpResource;
+use App\HelpResourceType;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AjaxController
@@ -333,5 +336,78 @@ class AjaxController extends Controller
         $clinic->delete();
 
         return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function helpResources(Request $request)
+    {
+//        DB::connection()->enableQueryLog();
+
+        /** @var Builder $query */
+        $query = HelpResourceType::join('help_resources', 'help_resources.id', '=', 'help_resource_types.help_resource_id')
+            ->join('countries', 'countries.id', '=', 'help_resources.country_id')
+            ->join('resource_types', 'resource_types.id', '=', 'help_resource_types.resource_type_id')
+            ->orderBy('id', 'desc');
+
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $helpResourcesIds = HelpResource::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
+            $query->whereIn('help_resources.id', $helpResourcesIds);
+        }
+
+        if ($request->has('startDate')) {
+            try {
+                $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
+
+                if ($startDate->year >= 2020) {
+                    $query->where('created_at', '>=', $startDate);
+                }
+            } catch (\Exception $exception) { }
+        }
+
+        if ($request->has('endDate')) {
+            try {
+                $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
+
+                if ($endDate->year >= 2020) {
+                    $query->where('created_at', '<=', $endDate);
+                }
+            } catch (\Exception $exception) { }
+        }
+
+
+        if ($request->has('statusFilter') && !empty($request->get('statusFilter'))) {
+            $query->where('resource_types.id', "=", $request->get('statusFilter'));
+        }
+
+        if ($request->has('country') && !empty($request->get('country'))) {
+            $query->where('help_resources.country_id', "=", $request->get('country'));
+        }
+
+        if ($request->has('city') && !empty($request->get('city'))) {
+            $query->where('help_resources.city', "=", $request->get('city'));
+        }
+
+        $query->select([
+            'help_resource_types.id',
+            'help_resources.full_name',
+            'resource_types.name as type',
+            'countries.name as country',
+            'help_resources.city',
+            'help_resource_types.created_at'
+        ]);
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
+        }
+
+//        $queries = DB::getQueryLog();
+        return response()->json(
+            $query->paginate($perPage)
+        );
     }
 }
