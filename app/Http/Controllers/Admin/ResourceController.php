@@ -46,6 +46,14 @@ class ResourceController extends Controller
      */
     public function resourceDetail($id)
     {
-        return view('admin.resource-detail');
+        /** @var HelpResourceType|null $helpResourceType */
+        $helpResourceType = HelpResourceType::find($id);
+
+        if (empty($helpResourceType)) {
+            abort(404);
+        }
+
+        return view('admin.resource-detail')
+            ->with('helpResourceType', $helpResourceType);
     }
 }

@@ -8,39 +8,39 @@
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-               Ajutor transport - Dan Vintu
+                {{ $helpResourceType->resourcetype->name }} - {{ $helpResourceType->helpresource->full_name }}
             </h6>
-            <a class="btn btn-white text-danger btn-sm px-4" href="#">Delete</a>
+            <a class="btn btn-white text-danger btn-sm px-4" href="#">{{ __('Delete') }}</a>
         </div>
         <div class="card-body">
             <h5 class="text-primary font-weight-600 mb-4">
-                Dan Vintu
+                {{ $helpResourceType->helpresource->full_name }}
             </h5>
             <div class="row  pb-3">
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-map-marker mr-2"></i> Locatie: <span class="font-weight-600">Bucuresti, Romania</span>
+                        <i class="fa fa-map-marker mr-2"></i> Locatie: <span class="font-weight-600">{{ $helpResourceType->helpresource->city }}, {{ $helpResourceType->helpresource->country->name }}</span>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-phone mr-2"></i> Telefon: <span class="font-weight-600">0762 560 816</span>
+                        <i class="fa fa-phone mr-2"></i> Telefon: <span class="font-weight-600">{{ $helpResourceType->helpresource->phone_number }}</span>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-envelope mr-2"></i> Email: <a href="mailto:dan.vintu@gmail.com" class="font-weight-600">dan.vintu@gmail.com</a>
+                        <i class="fa fa-envelope mr-2"></i> Email: <a href="mailto:dan.vintu@gmail.com" class="font-weight-600">{{ $helpResourceType->helpresource->email }}</a>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0 text-sm-right">
-                        <i class="fa fa-calendar mr-2"></i> Data: <span class="font-weight-600">23.10 2015</span>
+                        <i class="fa fa-calendar mr-2"></i> Data: <span class="font-weight-600">{{ formatDateTime($helpResourceType->helpresource->created_at) }}</span>
                     </p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card shadow">
+    <div class="card shadow" style="opacity:.3">
         <div class="card-body">
             <h5 class="text-primary font-weight-600 mb-4">
                 Ajutor
@@ -76,3 +76,25 @@
         </div>
     </div>
 @endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#proceedDeleteRequest').on('click', function() {
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+            axios
+                .delete('/admin/ajax/help-request/{{ 0 }}')
+                .then(response => {
+                    $('#deleteRequestModal').modal('hide');
+                    window.location.replace('{{ route('admin.help-list') }}');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
+    });
+</script>
+@endsection
+
