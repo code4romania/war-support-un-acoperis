@@ -33,9 +33,10 @@ class HelpResourceRequest extends FormRequest
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
-            'phone' => ['required', 'string', 'max:64'],
+            'phone' => ['required', 'phone:RO', 'string', 'max:16'],
             'email' => ['required', 'email', 'min:5', 'max:64'],
-            'help' => ['required']
+            'help' => ['required'],
+            'other' => ['nullable', 'string', 'min:2', 'max:256'],
         ];
     }
 }

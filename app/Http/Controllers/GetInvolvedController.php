@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Country;
 use App\HelpResource;
+use App\HelpResourceType;
 use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
 use Illuminate\Database\Eloquent\Collection;
@@ -45,7 +46,25 @@ class GetInvolvedController extends Controller
         $helpResource->email = $request->get('email');
         $helpResource->save();
 
-//        foreach ()
+        $resourceTypes = ResourceType::all();
+        $helpTypes = $request->get('help');
+
+
+        foreach ($resourceTypes as $resourceType) {
+            if (in_array($resourceType->id, $helpTypes)) {
+                $helpResourceType = new HelpResourceType();
+                $helpResourceType->resource_type_id = $resourceType->id;
+                $helpResourceType->help_resource_id = $helpResource->id;
+
+                if ($resourceType->options == ResourceType::OPTION_MESSAGE) {
+                    $helpResourceType->message = $request->get('other');
+                }
+
+                $helpResourceType->save();
+            }
+        }
+
+//        dd([$resourceTypes, $request]);
 
         return redirect()->route('get-involved-confirmation');
     }

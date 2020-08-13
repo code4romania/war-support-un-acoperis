@@ -118,7 +118,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="">Alt tip de ajutor</label>
-                                <input type="text" class="form-control" placeholder="Scrie aici ce tip de ajutor vrei sa oferi">
+                                <input type="text" class="form-control" name="other" placeholder="Scrie aici ce tip de ajutor vrei sa oferi">
                             </div>
                         </div>
                     </div>
