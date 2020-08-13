@@ -96,15 +96,22 @@
                             </div>
                         </div>
                     </div>
-                    <label for="" class="font-weight-600 mb-3 mt-3 d-block required">Ce tip de ajutor doresti sa oferi?</label>
-                    <div class="form-check form-check-inline mb-3">
-                        @foreach ($resourceTypes as $resourceType)
-                            <div class="custom-control custom-checkbox mr-4 mb-3">
-                                <input {{ in_array($resourceType->id, (array)old('help')) ? 'checked' : '' }} class="custom-control-input" id="help{{ $loop->iteration }}" name="help[]" type="checkbox" value="{{ $resourceType->id }}">
-                                <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ $resourceType->name }}</label>
+                    <div clas="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="" class="font-weight-600 mb-3 mt-3 d-block required">Ce tip de ajutor doresti sa oferi?</label>
+                                <div class="form-check form-check-inline mb-3">
+                                    @foreach ($resourceTypes as $resourceType)
+                                        <div class="custom-control custom-checkbox mr-4 mb-3">
+                                            <input {{ in_array($resourceType->id, (array)old('help')) ? 'checked' : '' }} class="custom-control-input @error('help') is-invalid @enderror" id="help{{ $loop->iteration }}" name="help[]" type="checkbox" value="{{ $resourceType->id }}">
+                                            <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ $resourceType->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        @endforeach
+                        </div>
                     </div>
+
 
                     <!-- Other help type -->
                     <div class="row d-none" id="other-help">
