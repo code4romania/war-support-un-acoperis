@@ -10,7 +10,6 @@ use App\Http\Requests\SpecialityRequest;
 use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -116,6 +115,12 @@ class ClinicController extends Controller
         $clinic->contact_person_phone = $request->get('contact_phone', $clinic->contact_person_phone);
         $clinic->contact_person_email = $request->get('contact_email', $clinic->contact_person_email);
         $clinic->save();
+
+        $clinic->specialities()->detach();
+
+        foreach ($request->get('categories') as $key => $value) {
+            $clinic->specialities()->attach($value);
+        }
 
         return redirect()->route('admin.clinic-list');
     }
