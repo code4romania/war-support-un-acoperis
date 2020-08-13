@@ -361,7 +361,7 @@ class AjaxController extends Controller
                 $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
 
                 if ($startDate->year >= 2020) {
-                    $query->where('created_at', '>=', $startDate);
+                    $query->where('help_resource_types.created_at', '>=', $startDate);
                 }
             } catch (\Exception $exception) { }
         }
@@ -371,7 +371,7 @@ class AjaxController extends Controller
                 $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
 
                 if ($endDate->year >= 2020) {
-                    $query->where('created_at', '<=', $endDate);
+                    $query->where('help_resource_types.created_at', '<=', $endDate);
                 }
             } catch (\Exception $exception) { }
         }
