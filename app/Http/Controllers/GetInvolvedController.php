@@ -57,7 +57,8 @@ class GetInvolvedController extends Controller
                 $helpResourceType->help_resource_id = $helpResource->id;
 
                 if ($resourceType->options == ResourceType::OPTION_MESSAGE) {
-                    $helpResourceType->message = $request->get('other');
+                    $helpResource->message = $request->get('other');
+                    $helpResource->save();
                 }
 
                 $helpResourceType->save();

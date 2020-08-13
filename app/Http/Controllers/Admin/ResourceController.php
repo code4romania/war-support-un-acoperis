@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\HelpResource;
+use App\HelpResourceType;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 
 /**
@@ -16,14 +19,41 @@ class ResourceController extends Controller
      */
     public function resourceList()
     {
-        return view('admin.resource-list');
+        $resourcesTypes = HelpResourceType::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+
+        $resourceTypeList = new Collection();
+        $countryList = new Collection();
+        $cityList = [];
+        foreach ($resourcesTypes as $resourcesType) {
+            $resourceTypeList->add($resourcesType->resourcetype);
+            $countryList->add($resourcesType->helpresource->country);
+            $cityList[] = $resourcesType->helpresource->city;
+        }
+
+        $resourceTypeList = $resourceTypeList->unique();
+        $countryList = $countryList->unique();
+        $cityList = array_unique($cityList);
+
+        return view('admin.resource-list')
+            ->with('resourceTypeList', $resourceTypeList)
+            ->with('resourcesTypes', $resourcesTypes)
+            ->with('countryList', $countryList)
+            ->with('cityList', $cityList);
     }
 
     /**
      * @return View
      */
-    public function resourceDetail()
+    public function resourceDetail($id)
     {
-        return view('admin.resource-detail');
+        /** @var HelpResourceType|null $helpResourceType */
+        $helpResourceType = HelpResourceType::find($id);
+
+        if (empty($helpResourceType)) {
+            abort(404);
+        }
+
+        return view('admin.resource-detail')
+            ->with('helpResourceType', $helpResourceType);
     }
 }

@@ -5,6 +5,7 @@ namespace App;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class HelpResourceType
@@ -13,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $help_resource_id
  * @property int $resource_type_id
- * @property string|null $message
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
@@ -21,12 +21,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class HelpResourceType extends Model
 {
+    use SoftDeletes;
+
     /**
      * @return BelongsTo
      */
     public function helpresource()
     {
-        return $this->belongsTo(HelpResource::class);
+        return $this->belongsTo(HelpResource::class, 'help_resource_id');
     }
 
     /**
@@ -34,6 +36,6 @@ class HelpResourceType extends Model
      */
     public function resourcetype()
     {
-        return $this->belongsTo(ResourceType::class);
+        return $this->belongsTo(ResourceType::class, 'resource_type_id');
     }
 }
