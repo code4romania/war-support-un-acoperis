@@ -109,6 +109,8 @@ Route::middleware([SetLanguage::class])
         Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
         Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
+        Route::get('/get-involved-confirmation', 'GetInvolvedController@confirmation')->name('get-involved-confirmation');
+        Route::post('/store-get-involved', 'GetInvolvedController@store')->name('store-get-involved');
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');
         Route::get('/donate', 'DonateController@index')->name('donate');
