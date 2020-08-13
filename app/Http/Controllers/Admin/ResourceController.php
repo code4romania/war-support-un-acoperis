@@ -44,7 +44,7 @@ class ResourceController extends Controller
     /**
      * @return View
      */
-    public function resourceDetail()
+    public function resourceDetail($id)
     {
         return view('admin.resource-detail');
     }
