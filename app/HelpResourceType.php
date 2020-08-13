@@ -26,7 +26,7 @@ class HelpResourceType extends Model
      */
     public function helpresource()
     {
-        return $this->belongsTo(HelpResource::class);
+        return $this->belongsTo(HelpResource::class, 'help_resource_id');
     }
 
     /**
@@ -34,6 +34,6 @@ class HelpResourceType extends Model
      */
     public function resourcetype()
     {
-        return $this->belongsTo(ResourceType::class);
+        return $this->belongsTo(ResourceType::class, 'resource_type_id');
     }
 }

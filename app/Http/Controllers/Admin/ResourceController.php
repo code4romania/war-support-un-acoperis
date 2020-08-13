@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\HelpResource;
+use App\HelpResourceType;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 
 /**
@@ -16,7 +19,26 @@ class ResourceController extends Controller
      */
     public function resourceList()
     {
-        return view('admin.resource-list');
+        $resourcesTypes = HelpResourceType::all();
+
+        $resourceTypeList = new Collection();
+        $countryList = new Collection();
+        $cityList = [];
+        foreach ($resourcesTypes as $resourcesType) {
+            $resourceTypeList->add($resourcesType->resourcetype);
+            $countryList->add($resourcesType->helpresource->country);
+            $cityList[] = $resourcesType->helpresource->city;
+        }
+
+        $resourceTypeList = $resourceTypeList->unique();
+        $countryList = $countryList->unique();
+        $cityList = array_unique($cityList);
+
+        return view('admin.resource-list')
+            ->with('resourceTypeList', $resourceTypeList)
+            ->with('resourcesTypes', $resourcesTypes)
+            ->with('countryList', $countryList)
+            ->with('cityList', $cityList);
     }
 
     /**
