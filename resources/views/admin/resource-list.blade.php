@@ -151,6 +151,27 @@
             <p class="mb-0 text-muted">{{ __('Try clearing some filters or perform another search.') }}</p>
         </div>
     </section>
+
+    <!-- Confirmare stergere clinica -->
+    <div class="modal fade bd-example-modal-sm" id="deleteResourceModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete resource') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this resource') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteResource">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -259,6 +280,25 @@
                 pageState.endDate = $('#endDateFilter').val();
                 $.SetQueryStringParameter('endDate', pageState.endDate);
                 render.renderHelpRequests(pageState);
+            });
+
+            $('body').on('click', '.delete-resource', function() {
+                deleteResourceId = $(this).data('id');
+                $('#deleteResourceModal').modal('show');
+            });
+
+            $('#proceedDeleteResource').on('click', function() {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios
+                    .delete('/admin/ajax/resources/' + deleteResourceId)
+                    .then(response => {
+                        $('#clinic-container-' + deleteResourceId).remove();
+                        $('#deleteResourceModal').modal('hide');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             });
         });
 

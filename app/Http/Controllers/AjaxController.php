@@ -9,6 +9,7 @@ use App\HelpRequestNote;
 use App\HelpRequestType;
 use App\HelpResource;
 use App\HelpResourceType;
+use App\Http\Controllers\Host\ProfileController;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -344,8 +345,6 @@ class AjaxController extends Controller
      */
     public function helpResources(Request $request)
     {
-//        DB::connection()->enableQueryLog();
-
         /** @var Builder $query */
         $query = HelpResourceType::join('help_resources', 'help_resources.id', '=', 'help_resource_types.help_resource_id')
             ->join('countries', 'countries.id', '=', 'help_resources.country_id')
@@ -405,9 +404,40 @@ class AjaxController extends Controller
             $perPage = $request->get('perPage');
         }
 
-//        $queries = DB::getQueryLog();
         return response()->json(
             $query->paginate($perPage)
         );
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteResource($id)
+    {
+        /** @var HelpResourceType|null $helpResourceType */
+        $helpResourceType = HelpResourceType::find($id);
+
+        if (empty($helpResourceType)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $helpResourceId = $helpResourceType->help_resource_id;
+        $helpResourceType->delete();
+
+        /** @var HelpResource|null $helpResourceType */
+        $helpResource = HelpResource::find($helpResourceId);
+        if (count($helpResource->helpresourcetypes) == 0) {
+            $helpResource->delete();
+        }
+
+        return response()->json(['success' => 'true']);
     }
 }
