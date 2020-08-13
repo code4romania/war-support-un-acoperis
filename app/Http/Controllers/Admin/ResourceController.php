@@ -19,7 +19,7 @@ class ResourceController extends Controller
      */
     public function resourceList()
     {
-        $resourcesTypes = HelpResourceType::all();
+        $resourcesTypes = HelpResourceType::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
         $resourceTypeList = new Collection();
         $countryList = new Collection();
