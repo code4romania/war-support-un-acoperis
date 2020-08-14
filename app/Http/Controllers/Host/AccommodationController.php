@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Host;
 
+use App\Accommodation;
+use App\AccommodationType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
@@ -35,7 +37,9 @@ class AccommodationController extends Controller
         $user = Auth::user();
 
         return view('host.add-accommodation')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('types', AccommodationType::all())
+            ->with('ownershipTypes', Accommodation::getOwnershipTypes());
     }
 
     /**
@@ -43,7 +47,7 @@ class AccommodationController extends Controller
      */
     public function createAccommodation(AccommodationRequest $request)
     {
-        // TODO
+        dd($request->all());
     }
 
     /**

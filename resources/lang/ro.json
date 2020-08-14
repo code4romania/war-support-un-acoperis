@@ -175,5 +175,19 @@
     "Fire extinguisher": "Extinctor",
     "Lock on the bedroom door": "Incuietoare la ușa dormitorului",
     "Elevator for people with disabilities": "Lift pentru persoane cu dizabilități",
-    "Others needs": "Alte nevoi"
+    "Others needs": "Alte nevoi",
+
+    "Add accommodation": "Adaugă cazare",
+    "Accommodation details": "Detalii cazare",
+    "Hosting details": "Detalii găzduire",
+    "Accommodation type": "Ce tip de cazare oferi",
+    "Ownership regime": "Regimul proprietatii",
+    "Owned": "Proprietate personală",
+    "Rental": "Închiriat",
+    "The accommodation is independent or part of your home": "Cazarea este independentă sau este parte din casa ta",
+    "Full accommodation for guests": "Cazare integral pentru oaspeți",
+    "Accommodation with owner in the same premises": "Cazare cu proprietar in aceeași incintă",
+    "What is the maximum number of guests": "Care este numărul maxim de persoane acceptat",
+    "How many rooms can the hosts use": "Câte camere pot folosi persoanele cazate",
+    "How many bathrooms does the place have": "Câte băi are locuința"
 }

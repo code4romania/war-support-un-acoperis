@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property boolean $is_fully_available
  * @property int $max_guests
  * @property int $available_rooms
+ * @property int $available_bathrooms
  * @property boolean $is_parking_available
  * @property boolean $is_smoking_allowed
  * @property boolean $is_pet_allowed
@@ -44,6 +45,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Accommodation extends Model
 {
+    const OWNERSHIP_TYPE_OWNED = 'owned';
+    const OWNERSHIP_TYPE_RENTAL = 'rental';
+
+    /**
+     * @return array
+     */
+    public static function getOwnershipTypes(): array
+    {
+        return [
+            self::OWNERSHIP_TYPE_OWNED => __('Owned'),
+            self::OWNERSHIP_TYPE_RENTAL => __('Rental')
+        ];
+    }
+
     /**
      * @return BelongsTo
      */

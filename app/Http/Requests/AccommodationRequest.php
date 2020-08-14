@@ -28,7 +28,12 @@ class AccommodationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'type' => '',
+            'owenership' => '',
+            'property_availability' => '',
+            'max_guests' => '',
+            'available_rooms' => '',
+
         ];
     }
 }

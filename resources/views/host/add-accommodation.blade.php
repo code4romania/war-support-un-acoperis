@@ -2,84 +2,113 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600 mb-3">Adauga Cazare</h6>
-        <a href="{{ route('host.accommodation') }}" class="btn btn-sm btn-outline-primary mr-3">Inapoi</a>
+        <h6 class="page-title font-weight-600 mb-3">{{ __('Add accommodation') }}</h6>
+        <a href="{{ route('host.accommodation') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __('Back') }}</a>
     </section>
 
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                Detalii Cazare
+                {{ __('Accommodation details') }}
             </h6>
         </div>
         <div class="card-body pt-4">
             <form action="{{ route('host.create-accommodation') }}" method="post">
                 @csrf
-                <h6 class="font-weight-600 text-primary mb-3">Detalii gazduire</h6>
+                <h6 class="font-weight-600 text-primary mb-3">{{ __('Hostinf details') }}</h6>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="font-weight-600 required">
-                                Ce tip de cazare oferi?
-                            </label>
-                            <select class="form-control custom-select" name="" id="">
-                                <option value="Garsoniera">Garsoniera</option>
-                                <option value="Apartament">Apartament</option>
-                                <option value="Casa">Casa</option>
+                            <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
+                            <select class="form-control custom-select" name="type" id="type">
+                            @foreach($types as $type)
+                                <option value="{{ $type->id }}" {{ (old('type') === $type->id) ? 'selected' : '' }}>{{ __($type->name) }}</option>
+                            @endforeach
                             </select>
+
+                            @error('type')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="font-weight-600 required">
-                                Regimul proprietatii
+                            <label for="owenership" class="font-weight-600 required">
+                                {{ __('Ownership regime') }}
                             </label>
-                            <select class="form-control custom-select" name="" id="">
-                                <option value="Garsoniera">Proprietate personala</option>
-                                <option value="Apartament">Chirie</option>
+                            <select class="form-control custom-select" name="owenership" id="owenership">
+                            @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
+                                <option value="{{ $ownershipTypeId }}" {{ (old('owenership') === $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
+                            @endforeach
                             </select>
+
+                            @error('owenership')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="col-sm-12 mb-3">
-                        <label for="" class="font-weight-600 mt-3 mb-3 required">Cazarea este independenta sau este parte din casa ta?</label>
+                        <label for="" class="font-weight-600 mt-3 mb-3 required">{{ __('The accommodation is independent or part of your home') }}?</label>
                         <div class="custom-control custom-radio mb-2">
-                            <input name="custom-radio-1" class="custom-control-input" id="customRadio1" checked="" type="radio">
-                            <label class="custom-control-label" for="customRadio1">Cazare integral pentru oaspeti</label>
+                            <input name="property_availability" class="custom-control-input" id="fully" value="fully" type="radio" {{ (in_array(old('property_availability'), [null, 'fully'])) ? 'checked="checked"' : '' }}>
+                            <label class="custom-control-label" for="fully">{{ __('Full accommodation for guests') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="custom-radio-1" class="custom-control-input" id="customRadio2" type="radio">
-                            <label class="custom-control-label" for="customRadio2">Cazare cu proprietar in aceeasi incinta</label>
+                            <input name="property_availability" class="custom-control-input" id="partially" value="partially" type="radio" {{ ('partially' === old('property_availability')) ? 'checked="checked"' : '' }}>
+                            <label class="custom-control-label" for="partially">{{ __('Accommodation with owner in the same premises') }}</label>
                         </div>
+
+                        @error('property_availability')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
+
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="font-weight-600 required">
-                                Care este numarul maxim de persoane acceptat
+                            <label for="max_guests" class="font-weight-600 required">
+                                {{ __('What is the maximum number of guests') }}?
                             </label>
-                            <input type="text" class="form-control" placeholder="ex. 3">
+                            <input type="text" class="form-control" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
+
+                            @error('max_guests')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="font-weight-600 required">
-                                Cate camere pot folosi persoanele cazate?
+                            <label for="available_rooms" class="font-weight-600 required">
+                                {{ __('How many rooms can the hosts use') }}?
                             </label>
-                            <input type="text" class="form-control" placeholder="ex. 1">
+                            <input type="text" class="form-control" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
+
+                            @error('available_rooms')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="font-weight-600 required">
-                                Cate bai are locuinta?
+                            <label for="available_bathrooms" class="font-weight-600 required">
+                                {{ __('How many bathrooms does the place have') }}?
                             </label>
-                            <select class="form-control custom-select" name="" id="">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                            <select class="form-control custom-select" name="available_bathrooms" id="available_bathrooms">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <option value="{{ $i }}" {{ ($i === old('available_bathrooms')) ? 'selected': '' }}> {{ $i }}</option>
+                                @endfor
                             </select>
+
+                            @error('available_bathrooms')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
+
                 <div class="row my-3">
                     <div class="col-sm-6">
                         <label for="" class="font-weight-600 mb-3 required">Permiteti folosirea bucatariei persoanelor cazate?</label>
