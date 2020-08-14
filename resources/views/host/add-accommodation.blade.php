@@ -151,7 +151,7 @@
                 <h6 class="font-weight-600 text-primary mb-3">{{ __('Available facilities') }}</h6>
                 <div class="row my-3">
                     <div class="col-sm-6">
-                        <label for="" class="font-weight-600 mb-3 required">Ce dotari are spatiul de cazare?</label>
+                        <label for="" class="font-weight-600 mb-3 required">{{ __('What facilities does the accommodation have') }}?</label>
 
                         @foreach($generalFacilities as $generalFacility)
                             <div class="custom-control custom-checkbox mb-3">
@@ -161,7 +161,7 @@
                         @endforeach
                     </div>
                     <div class="col-sm-6">
-                        <label for="" class="font-weight-600 mb-3 required">Ce dotari speciale are spatiul de cazare?</label>
+                        <label for="" class="font-weight-600 mb-3 required">{{ __('What special facilities does the accommodation space have') }}?</label>
 
                         @foreach($specialFacilities as $specialFacility)
                             <div class="custom-control custom-checkbox mb-3">
@@ -182,17 +182,15 @@
                     </div>
                 </div>
                 <div class="address py-4 border-top border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">Adresa locuintei</h6>
+                    <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation address') }}</h6>
                     <div class="row">
                         <div class="col-6 col-sm-3">
                             <div class="form-group">
-                                <label for="" class="font-weight-600 required">
-                                    Tara
-                                </label>
-                                <select class="form-control custom-select" name="" id="">
-                                    <option value="Garsoniera">Romania</option>
-                                    <option value="Apartament">Spania</option>
-                                    <option value="Casa">Italia</option>
+                                <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
+                                <select class="form-control custom-select" name="country" id="country">
+                                    @foreach($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
