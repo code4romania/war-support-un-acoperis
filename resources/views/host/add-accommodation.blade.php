@@ -189,27 +189,35 @@
                                 <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
                                 <select class="form-control custom-select" name="country" id="country">
                                     @foreach($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country', 178) === $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('country')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="col-6 col-sm-3">
                             <div class="form-group">
-                                <label for="" class="font-weight-600 required">
-                                    Oras
-                                </label>
-                                <select class="form-control custom-select" name="" id="">
-                                    <option value="Garsoniera">Bucuresti</option>
-                                    <option value="Apartament">Bacau</option>
-                                    <option value="Casa">Slobozia</option>
-                                </select>
+                                <label for="city" class="font-weight-600 required">{{ __('City') }}</label>
+                                <input type="text" class="form-control" name="city" id="city" placeholder="ex. Bucuresti" value="{{ old('city') }}">
+
+                                @error('city')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Strada</label>
-                                <input type="text" class="form-control" placeholder="ex. Rasaritului">
+                                <label for="street" class="font-weight-600 required">{{ __('Street') }}</label>
+                                <input type="text" class="form-control" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street') }}">
+
+                                @error('street')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -218,47 +226,64 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="" class="font-weight-600">Bloc</label>
-                                        <input type="text" class="form-control" placeholder="ex. B3">
+                                        <label for="building" class="font-weight-600 required">{{ __('Building') }}</label>
+                                        <input type="text" class="form-control" name="building" id="building" placeholder="ex. 1A" value="{{ old('building') }}">
+
+                                        @error('building')
+                                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
+
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="" class="font-weight-600">Scara</label>
-                                        <input type="text" class="form-control" placeholder="ex. B">
+                                        <label for="entrance" class="font-weight-600 required">{{ __('Entrance') }}</label>
+                                        <input type="text" class="form-control" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance') }}">
+
+                                        @error('entrance')
+                                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
+
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="" class="font-weight-600">Ap.</label>
-                                        <input type="text" class="form-control" placeholder="ex. 51">
+                                        <label for="apartment" class="font-weight-600 required">{{ __('Apartment') }}</label>
+                                        <input type="text" class="form-control" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment') }}">
+
+                                        @error('apartment')
+                                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
+
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="" class="font-weight-600 required">
-                                            Etaj
-                                        </label>
-                                        <select class="form-control custom-select" name="" id="">
-                                            <option value="Garsoniera">1</option>
-                                            <option value="Apartament">2</option>
-                                            <option value="Casa">3</option>
-                                        </select>
+                                        <label for="floor" class="font-weight-600 required">{{ __('Floor') }}</label>
+                                        <input type="text" class="form-control" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor') }}">
+
+                                        @error('floor')
+                                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Cod postal</label>
-                                <input type="text" class="form-control" placeholder="ex. 060522">
+                                <label for="postal_code" class="font-weight-600 required">{{ __('Postal code') }}</label>
+                                <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code') }}">
+
+                                @error('postal_code')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="gallery py-4 border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">Poze locuinta</h6>
-                    <input type="file" name="files">
+                    <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation photos') }}</h6>
+                    <input type="file" name="photos" id="photos">
                 </div>
                 <div class="rules py-4 border-bottom">
                     <h6 class="font-weight-600 text-primary mb-3">Regulile casi</h6>
@@ -429,7 +454,7 @@
                 defaultDate: "00:00"
             });
             // enable fileuploader plugin
-            $('input[name="files"]').fileuploader({
+            $('input[name="photos"]').fileuploader({
                 limit: 20,
                 maxSize: 50,
 

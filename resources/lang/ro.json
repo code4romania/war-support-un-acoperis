@@ -90,6 +90,11 @@
 
     "Name and surname": "Nume și prenume",
     "Country": "Țara",
+    "Street": "Strada",
+    "Building": "Bloc",
+    "Entrance": "Scara",
+    "Floor": "Etaj",
+    "Postal code": "Cod poștal",
     "Message": "Mesaj",
 
     "Status New": "Nouă",
@@ -199,5 +204,6 @@
     "What other facilities does the accommodation have": "Ce alte dotări are spatiul de cazare",
     "What facilities does the accommodation have": "Ce dotari are spatiul de cazare",
     "What special facilities does the accommodation space have": "Ce dotari speciale are spatiul de cazare",
-    "Accommodation address": "Adresa locuinței"
+    "Accommodation address": "Adresa locuinței",
+    "Accommodation photos": "Poze locuință"
 }
