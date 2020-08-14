@@ -378,6 +378,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="availability py-4 border-bottom">
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation availability') }}</h6>
                     <div class="row">
@@ -433,24 +434,33 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="cost py-4 border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">Costuri</h6>
+                    <h6 class="font-weight-600 text-primary mb-3">{{ __('Fees') }}</h6>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label for="" class="font-weight-600 mb-3 required">Ce dotari speciale are spatiul de cazare?</label>
+                            <label for="" class="font-weight-600 mt-3 mb-3 required">{{ __('What are the accommodation costs') }}?</label>
                             <div class="custom-control custom-radio mb-2">
-                                <input name="custom-radio-6" class="custom-control-input" id="customRadio11" checked="" type="radio">
-                                <label class="custom-control-label" for="customRadio11">Gratuit</label>
+                                <input name="accommodation_fee" class="custom-control-input" id="free" value="fully" type="radio" {{ (in_array(old('accommodation_fee'), [null, 'free'])) ? 'checked="checked"' : '' }}>
+                                <label class="custom-control-label" for="free">{{ __('Free') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="custom-radio-6" class="custom-control-input" id="customRadio12" type="radio">
-                                <label class="custom-control-label" for="customRadio12">Contracost</label>
+                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="partially" type="radio" {{ ('paid' === old('accommodation_fee')) ? 'checked="checked"' : '' }}>
+                                <label class="custom-control-label" for="paid">{{ __('Paid') }}</label>
                             </div>
+
+                            @error('property_availability')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Suma estimativă percepută pe zi/săptămână/lună în cazul în care soliciți un beneficiu financiar:</label>
-                                <input type="text" class="form-control" placeholder="ex. 100 lei">
+                                <label for="general_fee" class="font-weight-600">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}:</label>
+                                <input type="text" name="general_fee" id="general_fee" class="form-control" placeholder="ex. 100 RON" value="{{ old('general_fee') }}">
+
+                                @error('general_fee')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>

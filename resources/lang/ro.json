@@ -216,5 +216,10 @@
     "The nearest bus stop": "Cea mai apropiată stație de autobuz",
     "Nearest train station": "Cea mai apropiată gară de tren",
     "Other transport specifications": "Alte specificații referitoare la transport",
-    "Accommodation availability": "Disponibilitate cazare"
+    "Accommodation availability": "Disponibilitate cazare",
+    "Fees": "Costuri",
+    "What are the accommodation costs": "Care sunt costurile de cazare",
+    "Free": "Gratuit",
+    "Paid": "Contra-cost",
+    "Estimated amount charged per day / week / month if you apply for a financial benefit": "Suma estimativă percepută pe zi/săptămână/lună în cazul în care soliciți un beneficiu financiar"
 }
