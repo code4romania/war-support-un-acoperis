@@ -197,7 +197,16 @@ return [
         'contact_email' => 'email persoană de contact',
         'description' => 'descriere',
         'extra_details' => 'informații suplimentare',
-        'transport_details' => 'modalități de transport'
+        'transport_details' => 'modalități de transport',
+
+        'type' => 'tip',
+        'ownership' => 'regim proprietate',
+        'property_availability' => 'tip cazare',
+        'max_guests' => 'numărul maxim de persoane',
+        'available_rooms' => 'numărul de camere',
+        'available_bathrooms' => 'numărul de băi',
+        'allow_kitchen' => 'folosirea bucatariei',
+        'allow_parking' => 'parcare'
     ],
     'dates' => [
         'today' => 'azi'

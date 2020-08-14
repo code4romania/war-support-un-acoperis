@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Accommodation;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * Class AccommodationRequest
@@ -28,15 +30,15 @@ class AccommodationRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => '',
-            'owenership' => '',
-            'property_availability' => '',
-            'max_guests' => '',
-            'available_rooms' => '',
-            'available_bathrooms' => '',
-            'allow_kitchen' => '',
-            'allow_parking' => '',
-            'description' => '',
+            'type' => ['required', 'exists:accommodation_types,id'],
+            'owenership' => ['required', Rule::in(Accommodation::OWNERSHIP_TYPE_OWNED, Accommodation::OWNERSHIP_TYPE_RENTAL)],
+            'property_availability' => ['required', Rule::in('fully', 'partially')],
+            'max_guests' => ['required', 'numeric', 'min:1', 'max:127'],
+            'available_rooms' => ['required', 'numeric', 'min:1', 'max:127'],
+            'available_bathrooms' => ['required', 'numeric', 'min:1', 'max:127'],
+            'allow_kitchen' => ['required', Rule::in('yes', 'no')],
+            'allow_parking' => ['required', Rule::in('yes', 'no')],
+            'description' => ['nullable', 'string', 'max:5000'],
             'general_facility' => '', // array
             'general_facility.*' => '',
             'special_facility' => '', // array

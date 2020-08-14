@@ -22,7 +22,7 @@
                             <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                             <select class="form-control custom-select" name="type" id="type">
                             @foreach($types as $type)
-                                <option value="{{ $type->id }}" {{ (old('type') === $type->id) ? 'selected' : '' }}>{{ __($type->name) }}</option>
+                                <option value="{{ $type->id }}" {{ (old('type') == $type->id) ? 'selected' : '' }}>{{ __($type->name) }}</option>
                             @endforeach
                             </select>
 
@@ -34,16 +34,16 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="owenership" class="font-weight-600 required">
+                            <label for="ownership" class="font-weight-600 required">
                                 {{ __('Ownership regime') }}
                             </label>
-                            <select class="form-control custom-select" name="owenership" id="owenership">
+                            <select class="form-control custom-select" name="ownership" id="ownership">
                             @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
-                                <option value="{{ $ownershipTypeId }}" {{ (old('owenership') === $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
+                                <option value="{{ $ownershipTypeId }}" {{ (old('ownership') == $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
                             @endforeach
                             </select>
 
-                            @error('owenership')
+                            @error('ownership')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
@@ -56,7 +56,7 @@
                             <label class="custom-control-label" for="fully">{{ __('Full accommodation for guests') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="property_availability" class="custom-control-input" id="partially" value="partially" type="radio" {{ ('partially' === old('property_availability')) ? 'checked="checked"' : '' }}>
+                            <input name="property_availability" class="custom-control-input" id="partially" value="partially" type="radio" {{ ('partially' == old('property_availability')) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="partially">{{ __('Accommodation with owner in the same premises') }}</label>
                         </div>
 
@@ -70,7 +70,7 @@
                             <label for="max_guests" class="font-weight-600 required">
                                 {{ __('What is the maximum number of guests') }}?
                             </label>
-                            <input type="text" class="form-control" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
+                            <input type="number" min="1" max="127" class="form-control" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
 
                             @error('max_guests')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -83,7 +83,7 @@
                             <label for="available_rooms" class="font-weight-600 required">
                                 {{ __('How many rooms can the hosts use') }}?
                             </label>
-                            <input type="text" class="form-control" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
+                            <input type="number" min="1" max="127" class="form-control" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
 
                             @error('available_rooms')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -96,11 +96,7 @@
                             <label for="available_bathrooms" class="font-weight-600 required">
                                 {{ __('How many bathrooms does the place have') }}?
                             </label>
-                            <select class="form-control custom-select" name="available_bathrooms" id="available_bathrooms">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <option value="{{ $i }}" {{ ($i === old('available_bathrooms')) ? 'selected': '' }}> {{ $i }}</option>
-                                @endfor
-                            </select>
+                            <input type="number" min="1" max="127" class="form-control" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms') }}">
 
                             @error('available_bathrooms')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -117,7 +113,7 @@
                             <label class="custom-control-label" for="disallow_kitchen">{{ __('Yes, it is ready for guests') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="allow_kitchen" class="custom-control-input" id="allow_kitchen" value="no" type="radio" {{ ('no' === old('allow_kitchen')) ? 'checked="checked"' : '' }}>
+                            <input name="allow_kitchen" class="custom-control-input" id="allow_kitchen" value="no" type="radio" {{ ('no' == old('allow_kitchen')) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="allow_kitchen">{{ __('No, the kitchen is not accessible') }}</label>
                         </div>
 
@@ -133,7 +129,7 @@
                             <label class="custom-control-label" for="allow_parking_yes">{{ __('Yes') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="allow_parking" class="custom-control-input" id="allow_parking_no" value="no" type="radio" {{ ('no' === old('allow_parking')) ? 'checked="checked"' : '' }}>
+                            <input name="allow_parking" class="custom-control-input" id="allow_parking_no" value="no" type="radio" {{ ('no' == old('allow_parking')) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="allow_parking_no">{{ __('No') }}</label>
                         </div>
 
@@ -189,7 +185,7 @@
                                 <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
                                 <select class="form-control custom-select" name="country" id="country">
                                     @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" {{ (old('country', 178) === $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country', 178) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -296,7 +292,7 @@
                                 <label class="custom-control-label" for="allow_smoking_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name=allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ ('no' === old('allow_smoking')) ? 'checked="checked"' : '' }}>
+                                <input name=allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ ('no' == old('allow_smoking')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_smoking_no">{{ __('No') }}</label>
                             </div>
 
@@ -313,7 +309,7 @@
                                 <label class="custom-control-label" for="allow_pets_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name=allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ ('no' === old('allow_pets')) ? 'checked="checked"' : '' }}>
+                                <input name=allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ ('no' == old('allow_pets')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_pets_no">{{ __('No') }}</label>
                             </div>
 
@@ -445,7 +441,7 @@
                                 <label class="custom-control-label" for="free">{{ __('Free') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="partially" type="radio" {{ ('paid' === old('accommodation_fee')) ? 'checked="checked"' : '' }}>
+                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="partially" type="radio" {{ ('paid' == old('accommodation_fee')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="paid">{{ __('Paid') }}</label>
                             </div>
 
