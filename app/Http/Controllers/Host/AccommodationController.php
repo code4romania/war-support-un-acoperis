@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Host;
 
 use App\Accommodation;
 use App\AccommodationType;
+use App\FacilityType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
@@ -39,7 +40,10 @@ class AccommodationController extends Controller
         return view('host.add-accommodation')
             ->with('user', $user)
             ->with('types', AccommodationType::all())
-            ->with('ownershipTypes', Accommodation::getOwnershipTypes());
+            ->with('ownershipTypes', Accommodation::getOwnershipTypes())
+            ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
+            ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
+            ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first());
     }
 
     /**

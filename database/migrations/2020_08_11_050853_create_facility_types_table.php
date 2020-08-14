@@ -15,6 +15,7 @@ class CreateFacilityTypesTable extends Migration
     {
         Schema::create('facility_types', function (Blueprint $table) {
             $table->id();
+            $table->string('type', 16)->index();
             $table->string('name', 64)->unique();
             $table->timestamps();
         });

@@ -21,6 +21,7 @@ class CreateAccommodationsTable extends Migration
             $table->tinyInteger('max_guests');
             $table->tinyInteger('available_rooms');
             $table->tinyInteger('available_bathrooms');
+            $table->boolean('is_kitchen_available');
             $table->boolean('is_parking_available');
             $table->boolean('is_smoking_allowed');
             $table->boolean('is_pet_allowed');

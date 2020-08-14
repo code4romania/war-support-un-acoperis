@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $max_guests
  * @property int $available_rooms
  * @property int $available_bathrooms
+ * @property bool $is_kitchen_available
  * @property boolean $is_parking_available
  * @property boolean $is_smoking_allowed
  * @property boolean $is_pet_allowed

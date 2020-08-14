@@ -33,6 +33,10 @@ class AccommodationRequest extends FormRequest
             'property_availability' => '',
             'max_guests' => '',
             'available_rooms' => '',
+            'available_bathrooms' => '',
+            'allow_kitchen' => '',
+            'allow_parking' => '',
+            'description' => '',
 
         ];
     }

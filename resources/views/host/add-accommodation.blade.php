@@ -111,88 +111,64 @@
 
                 <div class="row my-3">
                     <div class="col-sm-6">
-                        <label for="" class="font-weight-600 mb-3 required">Permiteti folosirea bucatariei persoanelor cazate?</label>
+                        <label for="allow_kitchen" class="font-weight-600 mb-3 required">{{ __('Allow the use of the kitchen of the accommodated guests') }}?</label>
                         <div class="custom-control custom-radio mb-2">
-                            <input name="custom-radio-2" class="custom-control-input" id="customRadio3" checked="" type="radio">
-                            <label class="custom-control-label" for="customRadio3">Da, este pregatita pentru oaspeti</label>
+                            <input name="allow_kitchen" class="custom-control-input" id="disallow_kitchen" value="yes" type="radio" {{ (in_array(old('allow_kitchen'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
+                            <label class="custom-control-label" for="disallow_kitchen">{{ __('Yes, it is ready for guests') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="custom-radio-2" class="custom-control-input" id="customRadio4" type="radio">
-                            <label class="custom-control-label" for="customRadio4">Nu, bucataria nu este accesibila</label>
+                            <input name="allow_kitchen" class="custom-control-input" id="allow_kitchen" value="no" type="radio" {{ ('no' === old('allow_kitchen')) ? 'checked="checked"' : '' }}>
+                            <label class="custom-control-label" for="allow_kitchen">{{ __('No, the kitchen is not accessible') }}</label>
                         </div>
+
+                        @error('allow_kitchen')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
+
                     <div class="col-sm-6">
-                        <label for="" class="font-weight-600 mb-3 required">Persoanele cazate beneficiaza de loc de parcare?</label>
+                        <label for="" class="font-weight-600 mb-3 required">{{ __('The hosts can benefit from a parking space') }}?</label>
                         <div class="custom-control custom-radio mb-2">
-                            <input name="custom-radio-3" class="custom-control-input" id="customRadio5" checked="" type="radio">
-                            <label class="custom-control-label" for="customRadio5">Da</label>
+                            <input name="allow_parking" class="custom-control-input" id="allow_parking_yes" value="yes" type="radio" {{ (in_array(old('allow_parking'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
+                            <label class="custom-control-label" for="allow_parking_yes">{{ __('Yes') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="custom-radio-3" class="custom-control-input" id="customRadio6" type="radio">
-                            <label class="custom-control-label" for="customRadio6">Nu</label>
+                            <input name="allow_parking" class="custom-control-input" id="allow_parking_no" value="no" type="radio" {{ ('no' === old('allow_parking')) ? 'checked="checked"' : '' }}>
+                            <label class="custom-control-label" for="allow_parking_no">{{ __('No') }}</label>
                         </div>
+
+                        @error('allow_parking')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
-                </div>
-                <div class="description border-bottom pb-4 mb-4">
-                    <label for="" class="font-weight-600 mb-3">Adauga o descriere locuintei</label>
-                    <textarea id="mytextarea" class="form-control" name="" id="" cols="30" rows="10"></textarea>
                 </div>
 
-                <h6 class="font-weight-600 text-primary mb-3">Dotari cazare</h6>
+                <div class="description border-bottom pb-4 mb-4">
+                    <label for="description" class="font-weight-600 mb-3">{{ __('Add a property description') }}</label>
+                    <textarea id="description" class="form-control" name="description" cols="30" rows="10">{{ old('description') }}</textarea>
+                </div>
+
+                <h6 class="font-weight-600 text-primary mb-3">{{ __('Available facilities') }}</h6>
                 <div class="row my-3">
                     <div class="col-sm-6">
                         <label for="" class="font-weight-600 mb-3 required">Ce dotari are spatiul de cazare?</label>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Dotari esentiale (prosoape, lenjerie de pat, sapun, hartie igienica, perne)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Wi-fi</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Televizor</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Incalzire</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Aer conditionat</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Dulapuri/Sertare</label>
-                        </div>
+
+                        @foreach($generalFacilities as $generalFacility)
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" type="checkbox">
+                                <label class="custom-control-label" for="general_facility[{{ $generalFacility->id }}]">{{ __($generalFacility->name) }}</label>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="col-sm-6">
                         <label for="" class="font-weight-600 mb-3 required">Ce dotari speciale are spatiul de cazare?</label>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Detector de fum</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Detector de gaze</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Trusa de prim ajutor</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Extinctor</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Incuietoare la usa dormitorului</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                            <label class="custom-control-label" for="customCheck1">Lift pentru persoane cu dizabilitati</label>
-                        </div>
+
+                        @foreach($specialFacilities as $specialFacility)
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" type="checkbox">
+                                <label class="custom-control-label" for="special_facility[{{ $specialFacility->id }}]">{{ __($specialFacility->name) }}</label>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -435,7 +411,7 @@
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#mytextarea'
+            selector: '#description'
         });
         $(document).ready(function () {
             flatpickr("#timeStart", {
