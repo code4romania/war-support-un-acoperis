@@ -157,5 +157,23 @@
     "Clinics subtitle": "Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente",
 
     "Are you sure you want to delete this resource": "Sigur vrei să ștergi această ofertă de ajutor",
-    "Delete resource": "Ștergere resursă"
+    "Delete resource": "Ștergere resursă",
+
+    "Studio": "Garsonieră",
+    "Apartment": "Apartment",
+    "House": "Casă",
+
+    "Essential needs (towels, bad sheets, soap, toilet paper, pillows)": "Dotări esentiale (prosoape, lenjerie de pat, săpun, hârtie igienică, perne)",
+    "Wi-Fi": "Wi-Fi",
+    "TV": "Televizor",
+    "Heating": "Încălzire",
+    "Air conditioning": "Aer condiționat",
+    "Cabinets / drawers": "Dulapuri / sertare",
+    "Smoke detector": "Detector de fum",
+    "Gas detector": "Detector de gaze",
+    "First aid kit": "Trusă de prim ajutor",
+    "Fire extinguisher": "Extinctor",
+    "Lock on the bedroom door": "Incuietoare la ușa dormitorului",
+    "Elevator for people with disabilities": "Lift pentru persoane cu dizabilități",
+    "Others needs": "Alte nevoi"
 }
