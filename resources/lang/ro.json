@@ -210,5 +210,11 @@
     "Smoking is allowed in the house": "Este permis fumatul în locuință",
     "Pets are allowed in the house": "Se acceptă animale în locuință",
     "Other house rules": "Alte reguli",
-    "What other rules are for accommodation": "Ce alte reguli sunt pentru spatiul de cazare"
+    "What other rules are for accommodation": "Ce alte reguli sunt pentru spatiul de cazare",
+    "Transport accessibility (distance in meters)": "Accesibilitate transport (distanța în metri)",
+    "The nearest metro station": "Cea mai apropiată stație de metrou",
+    "The nearest bus stop": "Cea mai apropiată stație de autobuz",
+    "Nearest train station": "Cea mai apropiată gară de tren",
+    "Other transport specifications": "Alte specificații referitoare la transport",
+    "Accommodation availability": "Disponibilitate cazare"
 }

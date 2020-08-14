@@ -324,7 +324,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="other_rules" class="font-weight-600">{{ __('Other house rules') }}</label>
-                                <input type="text" name="other_rules" id="other_rules" class="form-control" placeholder="{{ __('What other rules are for accommodation') }}?">
+                                <input type="text" name="other_rules" id="other_rules" class="form-control" placeholder="{{ __('What other rules are for accommodation') }}?" value="{{ old('other_rules') }}">
 
                                 @error('other_rules')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -334,36 +334,52 @@
                     </div>
                 </div>
                 <div class="transport py-4 border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">Accesibilitate transport (distanta in metri)</h6>
+                    <h6 class="font-weight-600 text-primary mb-3">{{ __('Transport accessibility (distance in meters)') }}</h6>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Cea mai apropiata statie de metrou:</label>
-                                <input type="text" class="form-control" placeholder="ex. 500 metri">
+                                <label for="transport_subway_distance" class="font-weight-600">{{ __('The nearest metro station') }}:</label>
+                                <input type="text" name="transport_subway_distance" id="transport_subway_distance" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_subway_distance') }}">
+
+                                @error('transport_subway_distance')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Cea mai apropiata statie de autobuz:</label>
-                                <input type="text" class="form-control" placeholder="ex. 500 metri">
+                                <label for="transport_bus_distance" class="font-weight-600">{{ __('The nearest bus stop') }}:</label>
+                                <input type="text" name="transport_bus_distance" id="transport_bus_distance" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_bus_distance') }}">
+
+                                @error('transport_bus_distance')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Cea mai apropiata gara de trenuri:</label>
-                                <input type="text" class="form-control" placeholder="ex. 1000 metri">
+                                <label for="transport_railway_distance" class="font-weight-600">{{ __('Nearest train station') }}:</label>
+                                <input type="text" name="transport_railway_distance" id="transport_railway_distance" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_railway_distance') }}">
+
+                                @error('transport_railway_distance')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Alte specificatii referitoare la transport</label>
-                                <input type="text" class="form-control" placeholder="Cum se mai poate ajunge la spatiul de cazare?">
+                                <label for="transport_other_details" class="font-weight-600">{{ __('Other transport specifications') }}:</label>
+                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_other_details') }}">
+
+                                @error('transport_other_details')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="availability py-4 border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">Accesibilitate transport (distanta in metri)</h6>
+                    <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation availability') }}</h6>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
