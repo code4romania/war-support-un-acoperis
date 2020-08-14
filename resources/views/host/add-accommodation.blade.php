@@ -13,7 +13,8 @@
             </h6>
         </div>
         <div class="card-body pt-4">
-            <form action="">
+            <form action="{{ route('host.create-accommodation') }}" method="post">
+                @csrf
                 <h6 class="font-weight-600 text-primary mb-3">Detalii gazduire</h6>
                 <div class="row">
                     <div class="col-sm-6">

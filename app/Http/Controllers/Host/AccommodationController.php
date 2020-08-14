@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AccommodationRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -28,13 +29,21 @@ class AccommodationController extends Controller
     /**
      * @return View
      */
-    public function createAccommodation()
+    public function addAccommodation()
     {
         /** @var User $user */
         $user = Auth::user();
 
-        return view('host.create-accommodation')
+        return view('host.add-accommodation')
             ->with('user', $user);
+    }
+
+    /**
+     * @param AccommodationRequest $request
+     */
+    public function createAccommodation(AccommodationRequest $request)
+    {
+        // TODO
     }
 
     /**

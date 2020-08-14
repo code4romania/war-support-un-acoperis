@@ -13,9 +13,9 @@ class AccomodationTypeSeeder extends Seeder
     public function run()
     {
         if (empty(AccommodationType::all()->count())) {
-            AccommodationType::create(['id' => 1, 'name' => 'Garsoniera']);
-            AccommodationType::create(['id' => 2, 'name' => 'Apartament']);
-            AccommodationType::create(['id' => 3, 'name' => 'Casa']);
+            AccommodationType::create(['id' => 1, 'name' => 'Studio']);
+            AccommodationType::create(['id' => 2, 'name' => 'Apartment']);
+            AccommodationType::create(['id' => 3, 'name' => 'House']);
         }
     }
 }

@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
          $this->call(PermissionTableSeeder::class);
          $this->call(AdminUserSeeder::class);
          $this->call(HelpTypesSeeder::class);
+         $this->call(AccomodationTypeSeeder::class);
+         $this->call(FacilityTypeSeeder::class);
     }
 }

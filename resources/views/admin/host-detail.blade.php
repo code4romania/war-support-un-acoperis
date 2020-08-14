@@ -90,7 +90,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 2 spatii de cazare
             </h6>
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.create-accommodation') }}">Adauga cazare</a>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.add-accommodation') }}">Adauga cazare</a>
         </div>
     </div>
 
