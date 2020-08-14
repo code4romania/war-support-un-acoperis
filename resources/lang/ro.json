@@ -175,7 +175,7 @@
     "Fire extinguisher": "Extinctor",
     "Lock on the bedroom door": "Incuietoare la ușa dormitorului",
     "Elevator for people with disabilities": "Lift pentru persoane cu dizabilități",
-    "Others facilities": "Alte dotari",
+    "Others facilities": "Alte dotări",
 
     "Add accommodation": "Adaugă cazare",
     "Accommodation details": "Detalii cazare",
@@ -195,5 +195,6 @@
     "No, the kitchen is not accessible": "Nu, bucataria nu este accesibilă",
     "The hosts can benefit from a parking space": "Persoanele cazate beneficiază de loc de parcare",
     "Add a property description": "Adaugă o descriere locuintei",
-    "Available facilities": "Dotari cazare"
+    "Available facilities": "Dotări cazare",
+    "What other facilities does the accommodation have": "Ce alte dotări are spatiul de cazare"
 }

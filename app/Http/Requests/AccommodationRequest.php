@@ -37,7 +37,11 @@ class AccommodationRequest extends FormRequest
             'allow_kitchen' => '',
             'allow_parking' => '',
             'description' => '',
-
+            'general_facility' => '', // array
+            'general_facility.*' => '',
+            'special_facility' => '', // array
+            'special_facility.*' => '',
+            'other_facilities' => '',
         ];
     }
 }

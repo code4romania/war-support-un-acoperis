@@ -155,7 +155,7 @@
 
                         @foreach($generalFacilities as $generalFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" type="checkbox">
+                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ !empty(old('general_facility['.$generalFacility->id.']')) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="general_facility[{{ $generalFacility->id }}]">{{ __($generalFacility->name) }}</label>
                             </div>
                         @endforeach
@@ -165,15 +165,19 @@
 
                         @foreach($specialFacilities as $specialFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" type="checkbox">
+                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ !empty(old('general_facility['.$specialFacility->id.']')) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="special_facility[{{ $specialFacility->id }}]">{{ __($specialFacility->name) }}</label>
                             </div>
                         @endforeach
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="font-weight-600">Alte dotari</label>
-                            <input type="text" class="form-control" placeholder="Ce alte dotari are spatiul de cazare?">
+                            <label for="other_facilities" class="font-weight-600">{{ __($otherFacilities->name) }}</label>
+                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities') }}" class="form-control" placeholder="{{ __('What other facilities does the accommodation have') }}?">
+
+                            @error('other_facilities')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
