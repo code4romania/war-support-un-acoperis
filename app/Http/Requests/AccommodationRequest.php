@@ -51,7 +51,9 @@ class AccommodationRequest extends FormRequest
             'floor' => '',
             'postal_code' => '',
             'photos' => '',
-
+            'allow_smoking' => '',
+            'allow_pets' => '',
+            'other_rules' => ''
         ];
     }
 }

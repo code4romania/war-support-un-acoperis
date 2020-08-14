@@ -286,34 +286,49 @@
                     <input type="file" name="photos" id="photos">
                 </div>
                 <div class="rules py-4 border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">Regulile casi</h6>
+                    <h6 class="font-weight-600 text-primary mb-3">{{ __('House rules') }}</h6>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="" class="font-weight-600 mb-3">Este permis fumatul in locuinta?</label>
+                            <label class="font-weight-600 mb-3">{{ __('Smoking is allowed in the house') }}?</label>
+
                             <div class="custom-control custom-radio mb-2">
-                                <input name="custom-radio-4" class="custom-control-input" id="customRadio7" checked="" type="radio">
-                                <label class="custom-control-label" for="customRadio7">Da</label>
+                                <input name=allow_smoking" class="custom-control-input" id="allow_smoking_yes" value="yes" type="radio" {{ (in_array(old('allow_smoking'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
+                                <label class="custom-control-label" for="allow_smoking_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="custom-radio-4" class="custom-control-input" id="customRadio8" type="radio">
-                                <label class="custom-control-label" for="customRadio8">Nu</label>
+                                <input name=allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ ('no' === old('allow_smoking')) ? 'checked="checked"' : '' }}>
+                                <label class="custom-control-label" for="allow_smoking_no">{{ __('No') }}</label>
                             </div>
+
+                            @error('allow_smoking')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
+
                         <div class="col-sm-6">
-                            <label for="" class="font-weight-600 mb-3">Se accepta animale in locuinta?</label>
+                            <label for="" class="font-weight-600 mb-3">{{ __('Pets are allowed in the house') }}?</label>
+
                             <div class="custom-control custom-radio mb-2">
-                                <input name="custom-radio-5" class="custom-control-input" id="customRadio9" checked="" type="radio">
-                                <label class="custom-control-label" for="customRadio9">Da</label>
+                                <input name=allow_pets" class="custom-control-input" id="allow_pets_yes" value="yes" type="radio" {{ (in_array(old('allow_pets'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
+                                <label class="custom-control-label" for="allow_pets_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="custom-radio-5" class="custom-control-input" id="customRadio10" type="radio">
-                                <label class="custom-control-label" for="customRadio10">Nu</label>
+                                <input name=allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ ('no' === old('allow_pets')) ? 'checked="checked"' : '' }}>
+                                <label class="custom-control-label" for="allow_pets_no">{{ __('No') }}</label>
                             </div>
+
+                            @error('allow_pets')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Alte reguli</label>
-                                <input type="text" class="form-control" placeholder="Ce alte reguli sunt pentru spatiul de cazare?">
+                                <label for="other_rules" class="font-weight-600">{{ __('Other house rules') }}</label>
+                                <input type="text" name="other_rules" id="other_rules" class="form-control" placeholder="{{ __('What other rules are for accommodation') }}?">
+
+                                @error('other_rules')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
