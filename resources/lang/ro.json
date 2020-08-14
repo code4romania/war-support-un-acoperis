@@ -170,6 +170,13 @@
     "Help type": "Ce tip de ajutor doresti sa oferi?",
     "Other type": "Alt tip de ajutor",
     "Other type placeholder": "Scrie aici ce tip de ajutor vrei sa oferi",
-    "Help type message": "<b>Ajutorul de cazare</b> poate fi gestionat prin intermediul unui cont pe platforma. In urma inregistrarii veti primi pe adresa dumneavoastra de email datele de logare si informatii suplimentare!"
+    "Help type message": "<b>Ajutorul de cazare</b> poate fi gestionat prin intermediul unui cont pe platforma. In urma inregistrarii veti primi pe adresa dumneavoastra de email datele de logare si informatii suplimentare!",
 
+    "resource_types.accommodation": "Cazare",
+    "resource_types.transport": "Transport",
+    "resource_types.meds": "Medicamente",
+    "resource_types.goods": "Bunuri",
+    "resource_types.translations": "Traduceri acte medicale",
+    "resource_types.services": "Servicii",
+    "resource_types.other": "Alte tipuri de ajutor"
 }

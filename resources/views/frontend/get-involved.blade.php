@@ -104,7 +104,7 @@
                                     @foreach ($resourceTypes as $resourceType)
                                         <div class="custom-control custom-checkbox mr-4 mb-3">
                                             <input {{ in_array($resourceType->id, (array)old('help')) ? 'checked' : '' }} class="custom-control-input @error('help') is-invalid @enderror" id="help{{ $loop->iteration }}" name="help[]" type="checkbox" value="{{ $resourceType->id }}">
-                                            <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ $resourceType->name }}</label>
+                                            <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ __('resource_types.' . $resourceType->name) }}</label>
                                         </div>
                                     @endforeach
                                 </div>
