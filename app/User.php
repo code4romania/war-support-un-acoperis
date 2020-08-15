@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use DateTime;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -10,6 +10,15 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Class User
  * @package App
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property DateTime|null $email_verified_at
+ * @property string|null $password
+ * @property string|null $remember_token
+ * @property DateTime|null $created_at
+ * @property DateTime|null $updated_at
  */
 class User extends Authenticatable
 {

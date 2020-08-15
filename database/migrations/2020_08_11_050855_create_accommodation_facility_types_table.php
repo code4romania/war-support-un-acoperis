@@ -13,7 +13,7 @@ class CreateAccommodationFacilityTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('accommodation_facility_types', function (Blueprint $table) {
+        Schema::create('accommodation_facility_type', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('accommodation_id');
             $table->unsignedBigInteger('facility_type_id');
@@ -37,6 +37,6 @@ class CreateAccommodationFacilityTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accommodation_facility_types');
+        Schema::dropIfExists('accommodation_facility_type');
     }
 }

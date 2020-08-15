@@ -29,10 +29,9 @@ class AccommodationRequest extends FormRequest
      */
     public function rules()
     {
-//        dd(request()->all());
         return [
             'type' => ['required', 'exists:accommodation_types,id'],
-            'owenership' => ['required', Rule::in(Accommodation::OWNERSHIP_TYPE_OWNED, Accommodation::OWNERSHIP_TYPE_RENTAL)],
+            'ownership' => ['required', Rule::in(Accommodation::OWNERSHIP_TYPE_OWNED, Accommodation::OWNERSHIP_TYPE_RENTAL)],
             'property_availability' => ['required', Rule::in('fully', 'partially')],
             'max_guests' => ['required', 'numeric', 'min:1', 'max:127'],
             'available_rooms' => ['required', 'numeric', 'min:1', 'max:127'],
@@ -53,7 +52,8 @@ class AccommodationRequest extends FormRequest
             'apartment' => ['nullable', 'string', 'max:16'],
             'floor' => ['nullable', 'string', 'max:16'],
             'postal_code' => ['nullable', 'string', 'max:16'],
-//            'photos' => '',
+            'photos' => ['nullable', 'array'],
+            'photos.*' => ['nullable', 'string'],
             'allow_smoking' => ['required', Rule::in('yes', 'no')],
             'allow_pets' => ['required', Rule::in('yes', 'no')],
             'other_rules' => ['nullable', 'string', 'max:255'],

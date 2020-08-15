@@ -20,7 +20,7 @@ class CreateAccommodationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('accommodation_type_id');
-            $table->tinyInteger('ownership_type');
+            $table->string('ownership_type', 16);
             $table->boolean('is_fully_available');
             $table->tinyInteger('max_guests');
             $table->tinyInteger('available_rooms');
@@ -38,16 +38,13 @@ class CreateAccommodationsTable extends Migration
             $table->string('address_apartment', 16)->nullable();
             $table->string('address_floor', 16)->nullable();
             $table->string('address_postal_code', 16)->nullable();
-            $table->string('other_rules', 255);
+            $table->string('other_rules', 255)->nullable();
             $table->boolean('is_free');
-            $table->string('phone_number', 64);
-            $table->string('transport_subway_distance', 64);
-            $table->string('transport_bus_distance', 64);
-            $table->string('transport_railway_distance', 64);
-            $table->string('transport_other_details', 64);
-            $table->time('checkin_hour', 0);
-            $table->time('checkout_hour', 0);
-            $table->string('general_fee', 64);
+            $table->string('transport_subway_distance', 64)->nullable();
+            $table->string('transport_bus_distance', 64)->nullable();
+            $table->string('transport_railway_distance', 64)->nullable();
+            $table->string('transport_other_details', 64)->nullable();
+            $table->string('general_fee', 64)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -61,7 +58,7 @@ class CreateAccommodationsTable extends Migration
 
             $table->foreign('address_country_id')
                 ->references('id')
-                ->on('counties');
+                ->on('countries');
         });
     }
 

@@ -20,6 +20,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AccommodationFacilityType extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'accommodation_facility_type';
+
+    /**
      * @return BelongsTo
      */
     public function accommodation()

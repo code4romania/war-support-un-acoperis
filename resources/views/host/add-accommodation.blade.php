@@ -279,6 +279,10 @@
                 <div class="gallery py-4 border-bottom">
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation photos') }}</h6>
                     <input type="file" name="photos" id="photos">
+
+                    @error('photos')
+                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="rules py-4 border-bottom">
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('House rules') }}</h6>
@@ -491,6 +495,7 @@
                 defaultDate: "18:00"
             });
             $('input[name="photos"]').fileuploader({
+                captions: $('html').attr('lang'),
                 limit: 20,
                 maxSize: 50,
 
