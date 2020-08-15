@@ -3,6 +3,7 @@
 namespace App;
 
 use DateTime;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -69,5 +70,13 @@ class User extends Authenticatable
     public function isHost(): bool
     {
         return $this->hasRole(self::ROLE_HOST);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function accommodations()
+    {
+        return $this->hasMany(Accommodation::class);
     }
 }

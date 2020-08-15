@@ -27,7 +27,8 @@ class AccommodationController extends Controller
         $user = Auth::user();
 
         return view('host.accommodation')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('accommodations', $user->accommodations());
     }
 
     /**
