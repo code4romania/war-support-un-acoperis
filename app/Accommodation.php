@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @package App
  *
  * @property int $id
+ * @property int $user_id
  * @property int $accommodation_type_id
  * @property int $ownership_type
  * @property boolean $is_fully_available
@@ -58,6 +59,14 @@ class Accommodation extends Model
             self::OWNERSHIP_TYPE_OWNED => __('Owned'),
             self::OWNERSHIP_TYPE_RENTAL => __('Rental')
         ];
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

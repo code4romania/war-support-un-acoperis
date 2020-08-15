@@ -97,7 +97,7 @@ return [
     'present' => 'The :attribute field must be present.',
     'regex' => 'Formatul câmpului :attribute este invalid.',
     'required' => 'Câmpul :attribute este obligatoriu.',
-    'required_if' => 'The :attribute field is required when :other is :value.',
+    'required_if' => 'Câmpul :attribute este obligatoriu când :other este :value.',
     'required_unless' => 'Câmpul :attribute este obligatoriu exceptând atunci când :other are una dintre următoarele valori :values.',
     'required_with' => 'Câmpul :attribute este obligatoriu cand :values este prezent.',
     'required_with_all' => 'The :attribute field is required when :values are present.',
@@ -206,7 +206,22 @@ return [
         'available_rooms' => 'numărul de camere',
         'available_bathrooms' => 'numărul de băi',
         'allow_kitchen' => 'folosirea bucatariei',
-        'allow_parking' => 'parcare'
+        'allow_parking' => 'parcare',
+        'street' => 'strada',
+        'building' => 'bloc',
+        'entrance' => 'scara',
+        'apartment' => 'apartament',
+        'floor' => 'etaj',
+        'postal_code' => 'cod postal',
+        'allow_smoking' => 'fumat',
+        'allow_pets' => 'animale',
+        'transport_subway_distance' => 'distanță metrou',
+        'transport_bus_distance' => 'distanță autobuz',
+        'transport_railway_distance' => 'distanță gară',
+        'general_fee' => 'suma estimativă',
+        'other_rules' => 'alte reguli',
+        'accommodation_fee' => 'costuri de cazare',
+        'paid' => 'platit'
     ],
     'dates' => [
         'today' => 'azi'

@@ -29,6 +29,7 @@ class AccommodationRequest extends FormRequest
      */
     public function rules()
     {
+//        dd(request()->all());
         return [
             'type' => ['required', 'exists:accommodation_types,id'],
             'owenership' => ['required', Rule::in(Accommodation::OWNERSHIP_TYPE_OWNED, Accommodation::OWNERSHIP_TYPE_RENTAL)],
@@ -39,23 +40,28 @@ class AccommodationRequest extends FormRequest
             'allow_kitchen' => ['required', Rule::in('yes', 'no')],
             'allow_parking' => ['required', Rule::in('yes', 'no')],
             'description' => ['nullable', 'string', 'max:5000'],
-            'general_facility' => '', // array
-            'general_facility.*' => '',
-            'special_facility' => '', // array
-            'special_facility.*' => '',
-            'other_facilities' => '',
-            'country' => '',
-            'city' => '',
-            'street' => '',
-            'building' => '',
-            'entrance' => '',
-            'apartment' => '',
-            'floor' => '',
-            'postal_code' => '',
-            'photos' => '',
-            'allow_smoking' => '',
-            'allow_pets' => '',
-            'other_rules' => ''
+            'general_facility' => ['nullable', 'array'],
+            'general_facility.*' => ['required', 'exists:facility_types,id'],
+            'special_facility' => ['nullable', 'array'],
+            'special_facility.*' => ['required', 'exists:facility_types,id'],
+            'other_facilities' => ['nullable', 'string', 'max:255'],
+            'country' => ['required', 'exists:countries,id'],
+            'city' => ['required', 'string', 'max:64'],
+            'street' => ['nullable', 'string', 'max:128'],
+            'building' => ['nullable', 'string', 'max:16'],
+            'entrance' => ['nullable', 'string', 'max:16'],
+            'apartment' => ['nullable', 'string', 'max:16'],
+            'floor' => ['nullable', 'string', 'max:16'],
+            'postal_code' => ['nullable', 'string', 'max:16'],
+//            'photos' => '',
+            'allow_smoking' => ['required', Rule::in('yes', 'no')],
+            'allow_pets' => ['required', Rule::in('yes', 'no')],
+            'other_rules' => ['nullable', 'string', 'max:255'],
+            'transport_subway_distance' => ['nullable', 'string', 'max:64'],
+            'transport_bus_distance' => ['nullable', 'string', 'max:64'],
+            'transport_railway_distance' => ['nullable', 'string', 'max:64'],
+            'accommodation_fee' => ['required', Rule::in('free', 'paid')],
+            'general_fee' => ['required_if:accommodation_fee,paid', 'nullable', 'string', 'max:64']
         ];
     }
 }

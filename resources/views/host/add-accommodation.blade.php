@@ -147,21 +147,20 @@
                 <h6 class="font-weight-600 text-primary mb-3">{{ __('Available facilities') }}</h6>
                 <div class="row my-3">
                     <div class="col-sm-6">
-                        <label for="" class="font-weight-600 mb-3 required">{{ __('What facilities does the accommodation have') }}?</label>
-
+                        <label for="" class="font-weight-600 mb-3">{{ __('What facilities does the accommodation have') }}?</label>
                         @foreach($generalFacilities as $generalFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ !empty(old('general_facility['.$generalFacility->id.']')) ? 'checked="checked"' : '' }} type="checkbox">
+                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ !empty(old('general_facility')[$generalFacility->id]) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="general_facility[{{ $generalFacility->id }}]">{{ __($generalFacility->name) }}</label>
                             </div>
                         @endforeach
                     </div>
                     <div class="col-sm-6">
-                        <label for="" class="font-weight-600 mb-3 required">{{ __('What special facilities does the accommodation space have') }}?</label>
+                        <label for="" class="font-weight-600 mb-3">{{ __('What special facilities does the accommodation space have') }}?</label>
 
                         @foreach($specialFacilities as $specialFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ !empty(old('general_facility['.$specialFacility->id.']')) ? 'checked="checked"' : '' }} type="checkbox">
+                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ !empty(old('special_facility')[$specialFacility->id]) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="special_facility[{{ $specialFacility->id }}]">{{ __($specialFacility->name) }}</label>
                             </div>
                         @endforeach
@@ -208,7 +207,7 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="street" class="font-weight-600 required">{{ __('Street') }}</label>
+                                <label for="street" class="font-weight-600">{{ __('Street') }}</label>
                                 <input type="text" class="form-control" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street') }}">
 
                                 @error('street')
@@ -222,7 +221,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="building" class="font-weight-600 required">{{ __('Building') }}</label>
+                                        <label for="building" class="font-weight-600">{{ __('Building') }}</label>
                                         <input type="text" class="form-control" name="building" id="building" placeholder="ex. 1A" value="{{ old('building') }}">
 
                                         @error('building')
@@ -233,7 +232,7 @@
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="entrance" class="font-weight-600 required">{{ __('Entrance') }}</label>
+                                        <label for="entrance" class="font-weight-600">{{ __('Entrance') }}</label>
                                         <input type="text" class="form-control" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance') }}">
 
                                         @error('entrance')
@@ -244,7 +243,7 @@
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="apartment" class="font-weight-600 required">{{ __('Apartment') }}</label>
+                                        <label for="apartment" class="font-weight-600">{{ __('Apartment') }}</label>
                                         <input type="text" class="form-control" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment') }}">
 
                                         @error('apartment')
@@ -255,7 +254,7 @@
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="floor" class="font-weight-600 required">{{ __('Floor') }}</label>
+                                        <label for="floor" class="font-weight-600">{{ __('Floor') }}</label>
                                         <input type="text" class="form-control" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor') }}">
 
                                         @error('floor')
@@ -267,7 +266,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="postal_code" class="font-weight-600 required">{{ __('Postal code') }}</label>
+                                <label for="postal_code" class="font-weight-600">{{ __('Postal code') }}</label>
                                 <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code') }}">
 
                                 @error('postal_code')
@@ -288,11 +287,11 @@
                             <label class="font-weight-600 mb-3">{{ __('Smoking is allowed in the house') }}?</label>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input name=allow_smoking" class="custom-control-input" id="allow_smoking_yes" value="yes" type="radio" {{ (in_array(old('allow_smoking'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
+                                <input name="allow_smoking" class="custom-control-input" id="allow_smoking_yes" value="yes" type="radio" {{ (in_array(old('allow_smoking'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_smoking_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name=allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ ('no' == old('allow_smoking')) ? 'checked="checked"' : '' }}>
+                                <input name="allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ ('no' == old('allow_smoking')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_smoking_no">{{ __('No') }}</label>
                             </div>
 
@@ -305,11 +304,11 @@
                             <label for="" class="font-weight-600 mb-3">{{ __('Pets are allowed in the house') }}?</label>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input name=allow_pets" class="custom-control-input" id="allow_pets_yes" value="yes" type="radio" {{ (in_array(old('allow_pets'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
+                                <input name="allow_pets" class="custom-control-input" id="allow_pets_yes" value="yes" type="radio" {{ (in_array(old('allow_pets'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_pets_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name=allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ ('no' == old('allow_pets')) ? 'checked="checked"' : '' }}>
+                                <input name="allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ ('no' == old('allow_pets')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_pets_no">{{ __('No') }}</label>
                             </div>
 
@@ -317,6 +316,7 @@
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="other_rules" class="font-weight-600">{{ __('Other house rules') }}</label>
@@ -365,7 +365,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="transport_other_details" class="font-weight-600">{{ __('Other transport specifications') }}:</label>
-                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_other_details') }}">
+                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control" placeholder="ex. în proximitatea spitalului" value="{{ old('transport_other_details') }}">
 
                                 @error('transport_other_details')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -437,11 +437,11 @@
                         <div class="col-sm-4">
                             <label for="" class="font-weight-600 mt-3 mb-3 required">{{ __('What are the accommodation costs') }}?</label>
                             <div class="custom-control custom-radio mb-2">
-                                <input name="accommodation_fee" class="custom-control-input" id="free" value="fully" type="radio" {{ (in_array(old('accommodation_fee'), [null, 'free'])) ? 'checked="checked"' : '' }}>
+                                <input name="accommodation_fee" class="custom-control-input" id="free" value="free" type="radio" {{ (in_array(old('accommodation_fee'), [null, 'free'])) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="free">{{ __('Free') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="partially" type="radio" {{ ('paid' == old('accommodation_fee')) ? 'checked="checked"' : '' }}>
+                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="paid" type="radio" {{ ('paid' == old('accommodation_fee')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="paid">{{ __('Paid') }}</label>
                             </div>
 
@@ -482,15 +482,14 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "00:00"
+                defaultDate: "10:00"
             });
             flatpickr("#timeEnd", {
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "00:00"
+                defaultDate: "18:00"
             });
-            // enable fileuploader plugin
             $('input[name="photos"]').fileuploader({
                 limit: 20,
                 maxSize: 50,
