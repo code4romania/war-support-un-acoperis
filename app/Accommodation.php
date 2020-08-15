@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Accommodation
@@ -89,5 +90,13 @@ class Accommodation extends Model
     public function accommodationfacilitytypes()
     {
         return $this->belongsToMany(AccommodationFacilityType::class, 'accommodation_facility_type', 'accommodation_id', 'facility_type_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function photos()
+    {
+        return $this->hasMany(AccommodationPhoto::class);
     }
 }
