@@ -225,5 +225,8 @@
     "Estimated amount charged per day / week / month if you apply for a financial benefit": "Suma estimativă percepută pe zi/săptămână/lună în cazul în care soliciți un beneficiu financiar",
 
     "Accommodation places": ":value spațiu de cazare|:value spații de cazare",
-    "You can add one or more accommodation to offer to people who need help!": "Poți adăuga unul sau mai multe spații de cazare pe care să le oferi persoanelor care au nevoie de ajutor!"
+    "You can add one or more accommodation to offer to people who need help!": "Poți adăuga unul sau mai multe spații de cazare pe care să le oferi persoanelor care au nevoie de ajutor!",
+    "Maximum accommodated persons": ":value persoană|:value persoane",
+    "Maximum accommodated rooms": ":value cameră|:value camere",
+    "Availability": "Disponibilitate"
 }

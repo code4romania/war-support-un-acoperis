@@ -116,9 +116,10 @@ class AccommodationController extends Controller
     }
 
     /**
+     * @param Accommodation $accommodation
      * @return View
      */
-    public function viewAccommodation()
+    public function viewAccommodation(Accommodation $accommodation)
     {
         /** @var User $user */
         $user = Auth::user();
@@ -128,9 +129,10 @@ class AccommodationController extends Controller
     }
 
     /**
+     * @param Accommodation $accommodation
      * @return View
      */
-    public function editAccommodation()
+    public function editAccommodation(Accommodation $accommodation)
     {
         /** @var User $user */
         $user = Auth::user();

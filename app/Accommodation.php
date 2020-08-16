@@ -73,7 +73,7 @@ class Accommodation extends Model
      */
     public function accommodationtype()
     {
-        return $this->belongsTo(AccommodationType::class);
+        return $this->belongsTo(AccommodationType::class,  'accommodation_type_id');
     }
 
     /**
@@ -81,7 +81,7 @@ class Accommodation extends Model
      */
     public function addresscountry()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, 'address_country_id');
     }
 
     /**

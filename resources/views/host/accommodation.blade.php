@@ -20,60 +20,35 @@
     </div>
 
     <div class="card-deck accomodation-list">
+        @foreach($accommodations->get() as $accommodation)
         <div class="card">
             <div class="card-body">
                 <div class="media">
                     <img src="https://img3.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356042_330x248.jpg" alt="" class="w-50 mr-4">
                     <div class="media-body">
                         <h6 class="text-primary font-weight-600 mb-1">
-                            <a href="" class="text-underline">Garsoniera</a>
+                            <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="text-underline">{{ $accommodation->accommodationtype->name }}</a>
                         </h6>
-                        <p>Spania, Madrid</p>
-                        <p>1 camera</p>
+                        <p>{{ $accommodation->address_city }}, {{ $accommodation->addresscountry->name }}</p>
+                        <p>{{ trans_choice('Maximum accommodated rooms', $accommodation->available_rooms, ['value' => $accommodation->available_rooms]) }}</p>
                         <div class="kv mb-2">
-                            <p>Indisponibilitate</p>
+                            <p>{{ __('Availability') }}</p> <strong>TODO</strong>
                             <p>18.08.2019 - 20.08.2019</p>
                         </div>
                         <div class="kv d-flex mb-0">
                             <p class="mr-3">Maxim</p>
-                            <p class="text-admin-blue">3 persoane</p>
+                            <p class="text-admin-blue">{{ trans_choice('Maximum accommodated persons', $accommodation->max_guests, ['value' => $accommodation->max_guests]) }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
+                <a href="{{ route('host.edit-accommodation', $accommodation->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">{{ __('Edit') }}</a>
+                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>
+                <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="media">
-                    <img src="https://img2.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356038_330x248.jpg" alt="" class="w-50 mr-4">
-                    <div class="media-body">
-                        <h6 class="text-primary font-weight-600 mb-1">
-                            <a href="" class="text-underline">Garsoniera</a>
-                        </h6>
-                        <p>Spania, Madrid</p>
-                        <p>1 camera</p>
-                        <div class="kv mb-2">
-                            <p>Indisponibilitate</p>
-                            <p>18.08.2019 - 20.08.2019</p>
-                        </div>
-                        <div class="kv d-flex mb-0">
-                            <p class="mr-3">Maxim</p>
-                            <p class="text-admin-blue">3 persoane</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
-                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
-            </div>
-        </div>
+        @endforeach
     </div>
 
 {{--    <div class="mt-4">--}}
