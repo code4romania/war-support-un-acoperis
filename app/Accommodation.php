@@ -42,6 +42,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $transport_other_details
  * @property string|null $checkin_time
  * @property string|null $checkout_time
+ * @property DateTime|null $unavailable_from_date
+ * @property DateTime|null $unavailable_to_date
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
@@ -50,6 +52,16 @@ class Accommodation extends Model
 {
     const OWNERSHIP_TYPE_OWNED = 'owned';
     const OWNERSHIP_TYPE_RENTAL = 'rental';
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'unavailable_from_date',
+        'unavailable_to_date'
+    ];
 
     /**
      * @return array

@@ -29,7 +29,7 @@ class CreateAccommodationsTable extends Migration
             $table->boolean('is_parking_available');
             $table->boolean('is_smoking_allowed');
             $table->boolean('is_pet_allowed');
-            $table->string('description', 5000);
+            $table->string('description', 5000)->nullable();
             $table->unsignedBigInteger('address_country_id');
             $table->string('address_city', 64);
             $table->string('address_street', 128)->nullable();
@@ -47,6 +47,8 @@ class CreateAccommodationsTable extends Migration
             $table->string('general_fee', 64)->nullable();
             $table->time('checkin_time')->nullable();
             $table->time('checkout_time')->nullable();
+            $table->timestamp('unavailable_from_date')->nullable();
+            $table->timestamp('unavailable_to_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

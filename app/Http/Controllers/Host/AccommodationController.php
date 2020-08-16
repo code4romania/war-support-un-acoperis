@@ -87,6 +87,8 @@ class AccommodationController extends Controller
         $accommodation->transport_other_details = $request->get('transport_other_details');
         $accommodation->checkin_time = $request->get('checkin_time');
         $accommodation->checkout_time = $request->get('checkout_time');
+        $accommodation->unavailable_from_date = $request->get('unavailable_from');
+        $accommodation->unavailable_to_date = $request->get('unavailable_to');
         $accommodation->save();
 
         if ($request->has('general_facility')) {

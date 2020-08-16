@@ -32,7 +32,7 @@
                         <p>{{ $accommodation->address_city }}, {{ $accommodation->addresscountry->name }}</p>
                         <p>{{ trans_choice('Maximum accommodated rooms', $accommodation->available_rooms, ['value' => $accommodation->available_rooms]) }}</p>
                         <div class="kv mb-2">
-                            <p>{{ __('Availability') }}</p> <strong>TODO</strong>
+                            <p>{{ __('Unavailability') }}</p>
                             <p>18.08.2019 - 20.08.2019</p>
                         </div>
                         <div class="kv d-flex mb-0">

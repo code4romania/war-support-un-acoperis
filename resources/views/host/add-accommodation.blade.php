@@ -20,7 +20,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
-                            <select class="form-control custom-select" name="type" id="type">
+                            <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
                             @foreach($types as $type)
                                 <option value="{{ $type->id }}" {{ (old('type') == $type->id) ? 'selected' : '' }}>{{ __($type->name) }}</option>
                             @endforeach
@@ -37,7 +37,7 @@
                             <label for="ownership" class="font-weight-600 required">
                                 {{ __('Ownership regime') }}
                             </label>
-                            <select class="form-control custom-select" name="ownership" id="ownership">
+                            <select class="form-control custom-select @error('ownership')is-invalid @enderror" name="ownership" id="ownership">
                             @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
                                 <option value="{{ $ownershipTypeId }}" {{ (old('ownership') == $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
                             @endforeach
@@ -70,7 +70,7 @@
                             <label for="max_guests" class="font-weight-600 required">
                                 {{ __('What is the maximum number of guests') }}?
                             </label>
-                            <input type="number" min="1" max="127" class="form-control" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
+                            <input type="number" min="1" max="127" class="form-control @error('max_guests')is-invalid @enderror" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
 
                             @error('max_guests')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -83,7 +83,7 @@
                             <label for="available_rooms" class="font-weight-600 required">
                                 {{ __('How many rooms can the hosts use') }}?
                             </label>
-                            <input type="number" min="1" max="127" class="form-control" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
+                            <input type="number" min="1" max="127" class="form-control @error('available_rooms')is-invalid @enderror" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
 
                             @error('available_rooms')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -96,7 +96,7 @@
                             <label for="available_bathrooms" class="font-weight-600 required">
                                 {{ __('How many bathrooms does the place have') }}?
                             </label>
-                            <input type="number" min="1" max="127" class="form-control" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms') }}">
+                            <input type="number" min="1" max="127" class="form-control @error('available_bathrooms')is-invalid @enderror" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms') }}">
 
                             @error('available_bathrooms')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -168,7 +168,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="other_facilities" class="font-weight-600">{{ __($otherFacilities->name) }}</label>
-                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities') }}" class="form-control" placeholder="{{ __('What other facilities does the accommodation have') }}?">
+                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities') }}" class="form-control @error('other_facilities')is-invalid @enderror" placeholder="{{ __('What other facilities does the accommodation have') }}?">
 
                             @error('other_facilities')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -182,7 +182,7 @@
                         <div class="col-6 col-sm-3">
                             <div class="form-group">
                                 <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
-                                <select class="form-control custom-select" name="country" id="country">
+                                <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">
                                     @foreach($countries as $country)
                                     <option value="{{ $country->id }}" {{ (old('country', 178) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
@@ -197,7 +197,7 @@
                         <div class="col-6 col-sm-3">
                             <div class="form-group">
                                 <label for="city" class="font-weight-600 required">{{ __('City') }}</label>
-                                <input type="text" class="form-control" name="city" id="city" placeholder="ex. Bucuresti" value="{{ old('city') }}">
+                                <input type="text" class="form-control @error('city')is-invalid @enderror" name="city" id="city" placeholder="ex. Bucuresti" value="{{ old('city') }}">
 
                                 @error('city')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -208,7 +208,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="street" class="font-weight-600">{{ __('Street') }}</label>
-                                <input type="text" class="form-control" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street') }}">
+                                <input type="text" class="form-control @error('street')is-invalid @enderror" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street') }}">
 
                                 @error('street')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -222,7 +222,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="building" class="font-weight-600">{{ __('Building') }}</label>
-                                        <input type="text" class="form-control" name="building" id="building" placeholder="ex. 1A" value="{{ old('building') }}">
+                                        <input type="text" class="form-control @error('building')is-invalid @enderror" name="building" id="building" placeholder="ex. 1A" value="{{ old('building') }}">
 
                                         @error('building')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -233,7 +233,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="entrance" class="font-weight-600">{{ __('Entrance') }}</label>
-                                        <input type="text" class="form-control" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance') }}">
+                                        <input type="text" class="form-control @error('entrance')is-invalid @enderror" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance') }}">
 
                                         @error('entrance')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -244,7 +244,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="apartment" class="font-weight-600">{{ __('Apartment') }}</label>
-                                        <input type="text" class="form-control" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment') }}">
+                                        <input type="text" class="form-control @error('apartment')is-invalid @enderror" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment') }}">
 
                                         @error('apartment')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -255,7 +255,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="floor" class="font-weight-600">{{ __('Floor') }}</label>
-                                        <input type="text" class="form-control" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor') }}">
+                                        <input type="text" class="form-control @error('floor')is-invalid @enderror" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor') }}">
 
                                         @error('floor')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -267,7 +267,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="postal_code" class="font-weight-600">{{ __('Postal code') }}</label>
-                                <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code') }}">
+                                <input type="text" class="form-control @error('postal_code')is-invalid @enderror" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code') }}">
 
                                 @error('postal_code')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -324,7 +324,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="other_rules" class="font-weight-600">{{ __('Other house rules') }}</label>
-                                <input type="text" name="other_rules" id="other_rules" class="form-control" placeholder="{{ __('What other rules are for accommodation') }}?" value="{{ old('other_rules') }}">
+                                <input type="text" name="other_rules" id="other_rules" class="form-control @error('other_rules')is-invalid @enderror" placeholder="{{ __('What other rules are for accommodation') }}?" value="{{ old('other_rules') }}">
 
                                 @error('other_rules')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -339,7 +339,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="transport_subway_distance" class="font-weight-600">{{ __('The nearest metro station') }}:</label>
-                                <input type="text" name="transport_subway_distance" id="transport_subway_distance" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_subway_distance') }}">
+                                <input type="text" name="transport_subway_distance" id="transport_subway_distance" class="form-control @error('transport_subway_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_subway_distance') }}">
 
                                 @error('transport_subway_distance')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -349,7 +349,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="transport_bus_distance" class="font-weight-600">{{ __('The nearest bus stop') }}:</label>
-                                <input type="text" name="transport_bus_distance" id="transport_bus_distance" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_bus_distance') }}">
+                                <input type="text" name="transport_bus_distance" id="transport_bus_distance" class="form-control @error('transport_bus_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_bus_distance') }}">
 
                                 @error('transport_bus_distance')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -359,7 +359,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="transport_railway_distance" class="font-weight-600">{{ __('Nearest train station') }}:</label>
-                                <input type="text" name="transport_railway_distance" id="transport_railway_distance" class="form-control" placeholder="ex. 500 metri" value="{{ old('transport_railway_distance') }}">
+                                <input type="text" name="transport_railway_distance" id="transport_railway_distance" class="form-control @error('transport_railway_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_railway_distance') }}">
 
                                 @error('transport_railway_distance')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -369,7 +369,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="transport_other_details" class="font-weight-600">{{ __('Other transport specifications') }}:</label>
-                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control" placeholder="ex. în proximitatea spitalului" value="{{ old('transport_other_details') }}">
+                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control @error('transport_other_details')is-invalid @enderror" placeholder="ex. în proximitatea spitalului" value="{{ old('transport_other_details') }}">
 
                                 @error('transport_other_details')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -389,7 +389,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
                                     </div>
-                                    <input id="checkin_time" name="checkin_time" class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Time') }}" />
+                                    <input id="checkin_time" name="checkin_time" class="flatpickr flatpickr-input form-control @error('checkin_time')is-invalid @enderror" type="text" placeholder="{{ __('Select Time') }}" value="{{ old('checkin_time') }}" />
                                 </div>
 
                                 @error('checkin_time')
@@ -404,7 +404,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
                                     </div>
-                                    <input id="checkout_time" name="checkout_time" class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Time') }}" />
+                                    <input id="checkout_time" name="checkout_time" class="flatpickr flatpickr-input form-control @error('checkout_time')is-invalid @enderror" type="text" placeholder="{{ __('Select Time') }}" value="{{ old('checkout_time') }}" />
                                 </div>
 
                                 @error('checkout_time')
@@ -420,23 +420,31 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Data start:</label>
+                                <label for="unavailable_from" class="font-weight-600">{{ __('Unavailable from') }}:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Date') }}" />
+                                    <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from') }}" />
+
+                                    @error('unavailable_from')
+                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Data end:</label>
+                                <label for="unavailable_to" class="font-weight-600">{{ __('Unavailable to') }}:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Date') }}" />
+                                    <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to') }}" />
+
+                                    @error('unavailable_to')
+                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -464,7 +472,7 @@
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <label for="general_fee" class="font-weight-600">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}:</label>
-                                <input type="text" name="general_fee" id="general_fee" class="form-control" placeholder="ex. 100 RON" value="{{ old('general_fee') }}">
+                                <input type="text" name="general_fee" id="general_fee" class="form-control @error('general_fee')is-invalid @enderror" placeholder="ex. 100 RON" value="{{ old('general_fee') }}">
 
                                 @error('general_fee')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -494,14 +502,14 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "10:00",
+                defaultDate: "{{ old('checkin_time', '10:00') }}",
                 time_24hr: true
             });
             flatpickr("#checkout_time", {
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "18:00",
+                defaultDate: "{{ old('checkout_time', '19:00') }}",
                 time_24hr: true
             });
             $('input[name="photos"]').fileuploader({

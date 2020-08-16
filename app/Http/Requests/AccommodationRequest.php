@@ -64,6 +64,8 @@ class AccommodationRequest extends FormRequest
             'general_fee' => ['required_if:accommodation_fee,paid', 'nullable', 'string', 'max:64'],
             'checkin_time' => ['required', 'date_format:H:i'],
             'checkout_time' => ['required', 'date_format:H:i', 'after:checkin_time'],
+            'unavailable_from' => ['nullable', 'required_with:unavailable_to', 'date'],
+            'unavailable_to' => ['nullable', 'required_with:unavailable_from', 'date', 'after:unavailable_from'],
         ];
     }
 }

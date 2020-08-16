@@ -232,5 +232,8 @@
     "Availability": "Disponibilitate",
     "Maximum": "Maxim",
     "Checkin time": "Cazarea se face după ora",
-    "Checkout time": "Decazarea se face înainte de ora"
+    "Checkout time": "Decazarea se face înainte de ora",
+    "Unavailable from": "Indisponibil de la data",
+    "Unavailable to": "Indisponibil pana la data",
+    "Unavailability": "Indisponibilitate"
 }
