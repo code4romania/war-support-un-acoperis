@@ -50,11 +50,11 @@
             </h5>
             <div class="kv border-bottom pb-4 mb-0">
                 <p>Tip de ajutor oferit</p>
-                <b>Transport</b>
+                <b>{{ $helpResourceType->resourcetype->name }} @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif</b>
             </div>
-            <div class="border-bottom py-4">
-                <h6 class="font-weight-600 mb-3">Note</h6>
-                <div class="note p-3">
+            <div class="border-bottom py-4" id="noteContainer">
+                <h6 class="font-weight-600 mb-3">{{ __('Notes') }}</h6>
+                <div class="note p-3" id="note-container-{{ /* $helpRequestNote->id */ }}">
                     <div class="row align-items-sm-center">
                         <div class="col-sm-9 mb-4 mb-sm-0">
                             <p class="mb-1">Acest beneficiar nu ne-a mai cerut ajutor in trecut</p>
