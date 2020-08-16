@@ -8,9 +8,12 @@
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                {{ $helpResourceType->resourcetype->name }} - {{ $helpResourceType->helpresource->full_name }}
+                {{ $helpResourceType->resourcetype->name }}
+                @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif
+                -
+                {{ $helpResourceType->helpresource->full_name }}
             </h6>
-            <a class="btn btn-white text-danger btn-sm px-4" href="#">{{ __('Delete') }}</a>
+            <a class="btn btn-white text-danger btn-sm px-4" href="#" id="delete-request-button">{{ __('Delete') }}</a>
         </div>
         <div class="card-body">
             <h5 class="text-primary font-weight-600 mb-4">
@@ -75,20 +78,46 @@
             </div>
         </div>
     </div>
+
+    <!-- Confirmare stergere cerere -->
+    <div class="modal fade bd-example-modal-sm" id="deleteRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete resource') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this resource') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteRequest">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $('#delete-request-button').on('click', function() {
+            $('#deleteRequestModal').modal('show');
+        });
+
         $('#proceedDeleteRequest').on('click', function() {
             axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
             axios
-                .delete('/admin/ajax/help-request/{{ 0 }}')
+                .delete('/admin/ajax/resources/{{ $helpResourceType->id }}')
                 .then(response => {
                     $('#deleteRequestModal').modal('hide');
-                    window.location.replace('{{ route('admin.help-list') }}');
+                    window.location.replace('{{ route('admin.resource-list') }}');
                 })
                 .catch(error => {
                     console.log(error);
