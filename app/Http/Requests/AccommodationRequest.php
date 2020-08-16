@@ -61,7 +61,9 @@ class AccommodationRequest extends FormRequest
             'transport_bus_distance' => ['nullable', 'string', 'max:64'],
             'transport_railway_distance' => ['nullable', 'string', 'max:64'],
             'accommodation_fee' => ['required', Rule::in('free', 'paid')],
-            'general_fee' => ['required_if:accommodation_fee,paid', 'nullable', 'string', 'max:64']
+            'general_fee' => ['required_if:accommodation_fee,paid', 'nullable', 'string', 'max:64'],
+            'checkin_time' => ['required', 'date_format:H:i'],
+            'checkout_time' => ['required', 'date_format:H:i', 'after:checkin_time'],
         ];
     }
 }

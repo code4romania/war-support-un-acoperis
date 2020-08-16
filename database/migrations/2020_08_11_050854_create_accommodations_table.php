@@ -45,6 +45,8 @@ class CreateAccommodationsTable extends Migration
             $table->string('transport_railway_distance', 64)->nullable();
             $table->string('transport_other_details', 64)->nullable();
             $table->string('general_fee', 64)->nullable();
+            $table->time('checkin_time')->nullable();
+            $table->time('checkout_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

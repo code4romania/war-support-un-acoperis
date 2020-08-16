@@ -21,6 +21,7 @@
     "County": "Județ",
     "Select County": "Selectati Județul",
     "Select Date": "Selectati data",
+    "Select Time": "Selectati ora și minutele",
     "City": "Localitate",
     "Select City": "Selectează Localitatea",
     "School": "Școală",
@@ -228,5 +229,8 @@
     "You can add one or more accommodation to offer to people who need help!": "Poți adăuga unul sau mai multe spații de cazare pe care să le oferi persoanelor care au nevoie de ajutor!",
     "Maximum accommodated persons": ":value persoană|:value persoane",
     "Maximum accommodated rooms": ":value cameră|:value camere",
-    "Availability": "Disponibilitate"
+    "Availability": "Disponibilitate",
+    "Maximum": "Maxim",
+    "Checkin time": "Cazarea se face după ora",
+    "Checkout time": "Decazarea se face înainte de ora"
 }

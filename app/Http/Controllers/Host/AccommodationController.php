@@ -85,6 +85,8 @@ class AccommodationController extends Controller
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance');
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
         $accommodation->transport_other_details = $request->get('transport_other_details');
+        $accommodation->checkin_time = $request->get('checkin_time');
+        $accommodation->checkout_time = $request->get('checkout_time');
         $accommodation->save();
 
         if ($request->has('general_facility')) {

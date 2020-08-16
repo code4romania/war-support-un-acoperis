@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $transport_bus_distance
  * @property string|null $transport_railway_distance
  * @property string|null $transport_other_details
+ * @property string|null $checkin_time
+ * @property string|null $checkout_time
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at

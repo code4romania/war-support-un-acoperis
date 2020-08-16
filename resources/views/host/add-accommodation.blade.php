@@ -384,24 +384,32 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Cazarea se face dupa ora:</label>
+                                <label for="checkin_time" class="font-weight-600">{{ __('Checkin time') }}:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
                                     </div>
-                                    <input id="timeStart" class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Date') }}" />
+                                    <input id="checkin_time" name="checkin_time" class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Time') }}" />
                                 </div>
+
+                                @error('checkin_time')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class="font-weight-600">Decazarea se face inainte de ora:</label>
+                                <label for="checkout_time" class="font-weight-600">{{ __('Checkout time') }}:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
                                     </div>
-                                    <input id="timeEnd" class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Date') }}" />
+                                    <input id="checkout_time" name="checkout_time" class="flatpickr flatpickr-input form-control" type="text" placeholder="{{ __('Select Time') }}" />
                                 </div>
+
+                                @error('checkout_time')
+                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -482,17 +490,19 @@
             selector: '#description'
         });
         $(document).ready(function () {
-            flatpickr("#timeStart", {
+            flatpickr("#checkin_time", {
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "10:00"
+                defaultDate: "10:00",
+                time_24hr: true
             });
-            flatpickr("#timeEnd", {
+            flatpickr("#checkout_time", {
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "18:00"
+                defaultDate: "18:00",
+                time_24hr: true
             });
             $('input[name="photos"]').fileuploader({
                 captions: $('html').attr('lang'),

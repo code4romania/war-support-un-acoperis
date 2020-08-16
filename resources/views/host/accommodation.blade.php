@@ -36,7 +36,7 @@
                             <p>18.08.2019 - 20.08.2019</p>
                         </div>
                         <div class="kv d-flex mb-0">
-                            <p class="mr-3">Maxim</p>
+                            <p class="mr-3">{{ __('Maximum') }}</p>
                             <p class="text-admin-blue">{{ trans_choice('Maximum accommodated persons', $accommodation->max_guests, ['value' => $accommodation->max_guests]) }}</p>
                         </div>
                     </div>
@@ -75,4 +75,3 @@
 {{--        </nav>--}}
 {{--    </div>--}}
 @endsection
-
