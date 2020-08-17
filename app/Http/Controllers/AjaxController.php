@@ -130,7 +130,7 @@ class AjaxController extends Controller
      * @param int $entityType
      * @return JsonResponse
      */
-    public function createNote(int $entityId, int $entityType)
+    public function createNote(int $entityType, int $entityId)
     {
         /** @var User $user */
         $user = Auth::user();

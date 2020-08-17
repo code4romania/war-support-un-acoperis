@@ -234,7 +234,7 @@
         };
 
         $('#addNote').on('click', function() {
-            axios.post('{{ @route('ajax.create-note', ['entityId' => $helpResourceType->helpresource->id, 'entityType' => \App\Note::TYPE_HELP_RESOURCE]) }}', {
+            axios.post('{{ @route('ajax.create-note', ['entityType' => \App\Note::TYPE_HELP_RESOURCE, 'entityId' => $helpResourceType->helpresource->id]) }}', {
                 _token: "{{ csrf_token() }}",
                 message: tinymce.get('note-message').getContent()
             }).then(response => {
