@@ -384,7 +384,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="checkin_time" class="font-weight-600">{{ __('Checkin time') }}:</label>
+                                <label for="checkin_time" class="font-weight-600 required">{{ __('Checkin time') }}:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
@@ -399,7 +399,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="checkout_time" class="font-weight-600">{{ __('Checkout time') }}:</label>
+                                <label for="checkout_time" class="font-weight-600 required">{{ __('Checkout time') }}:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-clock-o"></i></span>

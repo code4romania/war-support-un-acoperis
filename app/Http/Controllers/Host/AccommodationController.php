@@ -120,11 +120,18 @@ class AccommodationController extends Controller
     }
 
     /**
-     * @param Accommodation $accommodation
+     * @param int $id
      * @return View
      */
-    public function viewAccommodation(Accommodation $accommodation)
+    public function viewAccommodation(int $id)
     {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
         /** @var User $user */
         $user = Auth::user();
 
@@ -133,15 +140,29 @@ class AccommodationController extends Controller
     }
 
     /**
-     * @param Accommodation $accommodation
+     * @param int $id
      * @return View
      */
-    public function editAccommodation(Accommodation $accommodation)
+    public function editAccommodation(int $id)
     {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
         /** @var User $user */
         $user = Auth::user();
 
         return view('host.edit-accommodation')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('accommodation', $accommodation)
+            ->with('types', AccommodationType::all())
+            ->with('ownershipTypes', Accommodation::getOwnershipTypes())
+            ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
+            ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
+            ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
+            ->with('countries', Country::all());
     }
 }

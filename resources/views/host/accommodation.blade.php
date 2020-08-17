@@ -27,7 +27,7 @@
                     <img src="https://img3.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356042_330x248.jpg" alt="" class="w-50 mr-4">
                     <div class="media-body">
                         <h6 class="text-primary font-weight-600 mb-1">
-                            <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="text-underline">{{ $accommodation->accommodationtype->name }}</a>
+                            <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="text-underline">{{ __($accommodation->accommodationtype->name) }}</a>
                         </h6>
                         <p>{{ $accommodation->address_city }}, {{ $accommodation->addresscountry->name }}</p>
                         <p>{{ trans_choice('Maximum accommodated rooms', $accommodation->available_rooms, ['value' => $accommodation->available_rooms]) }}</p>
