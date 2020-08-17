@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Clinic;
+use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,6 +23,9 @@ class ClinicController extends Controller
         /** @var Collection $clinicList */
         $clinicList = Clinic::with('specialities')->get();
 
+        /** @var Collection $clinicList */
+        $specialities = Speciality::whereNull('parent_id')->with('children')->get();
+
         // set up filters
         $specialityList = new Collection();
         $countryList = new Collection();
@@ -38,6 +42,7 @@ class ClinicController extends Controller
 
         return view('frontend.clinic-list')
             ->with('clinicList', $clinicList)
+            ->with('specialities',  $specialities)
             ->with('specialityList', $specialityList)
             ->with('countryList', $countryList)
             ->with('cityList', $cityList)
