@@ -27,7 +27,7 @@ class DropHelpRequestNotesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('help_request_id');
             $table->text('message');
-            $table->unsignedBigInteger('user_id')->after('message')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

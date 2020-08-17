@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Clinic;
 use App\HelpRequest;
-use App\HelpRequestNote;
 use App\HelpRequestType;
 use App\HelpResource;
 use App\HelpResourceType;

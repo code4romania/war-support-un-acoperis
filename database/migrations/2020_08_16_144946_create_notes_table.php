@@ -1,9 +1,9 @@
 <?php
 
-use App\HelpRequestNote;
 use App\Note;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateNotesTable extends Migration
@@ -29,15 +29,13 @@ class CreateNotesTable extends Migration
                 ->on('users');
         });
 
-        $helpRequestNoteList = HelpRequestNote::all();
-        foreach ($helpRequestNoteList as $helpRequestNote) {
-            $note = new Note();
-            $note->entity_id = $helpRequestNote->help_request_id;
-            $note->entity_type = Note::TYPE_HELP_REQUEST;
-            $note->message = $helpRequestNote->message;
-            $note->user_id = $helpRequestNote->user_id;
-            $note->save();
-        }
+        DB::statement("
+            INSERT INTO notes (id, entity_id, entity_type, message, user_id, created_at, updated_at, deleted_at)
+            SELECT
+                id, help_request_id, " . Note::TYPE_HELP_REQUEST . ", message, user_id, created_at, updated_at, deleted_at
+            FROM
+                `help_request_notes`
+        ");
     }
 
     /**
