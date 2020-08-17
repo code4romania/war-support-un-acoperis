@@ -221,9 +221,13 @@ return [
         'general_fee' => 'suma estimativă',
         'other_rules' => 'alte reguli',
         'accommodation_fee' => 'costuri de cazare',
-        'paid' => 'contra-cost',
         'unavailable_from' => 'indisponibil de la data',
         'unavailable_to' => 'indisponibil pana la data'
+    ],
+    'values' => [
+        'accommodation_fee' => [
+            'paid' => 'contra-cost'
+        ]
     ],
     'dates' => [
         'today' => 'azi'

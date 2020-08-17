@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Host;
 
 use App\Accommodation;
+use App\AccommodationPhoto;
 use App\AccommodationType;
 use App\Country;
 use App\FacilityType;
@@ -10,7 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -57,6 +62,8 @@ class AccommodationController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
+
+        DB::beginTransaction();
 
         $accommodation = new Accommodation();
         $accommodation->user_id = $user->id;
@@ -113,9 +120,28 @@ class AccommodationController extends Controller
             }
         }
 
-        if ($request->has('photos')) {
-            // TODO: store photos to storage and DB
+        try {
+            if (!empty($request->file('photos'))) {
+                /** @var UploadedFile $file */
+                foreach ($request->file('photos') as $file) {
+                    $fileName = sha1((string)microtime() . $file->getClientOriginalName()) . $file->getClientOriginalExtension();
+
+                    /** @var string $path */
+                    $path = Storage::disk('private')->putFile('accommodation/' . $accommodation->id . '/' . $fileName, $file);
+
+                    $accommodationPhoto = new AccommodationPhoto();
+                    $accommodationPhoto->accommodation_id = $accommodation->id;
+                    $accommodationPhoto->path = $path;
+                    $accommodationPhoto->save();
+                }
+            }
+        } catch (\Throwable $throwable) {
+            DB::rollBack();
+
+            return Redirect::back()->withInput()->withErrors(['photos' => $throwable->getMessage()]);
         }
+
+        DB::commit();
 
         return redirect()->route('host.accommodation');
     }
