@@ -104,7 +104,7 @@ class AccommodationController extends Controller
             }
         }
 
-        if ($request->has('other_facilities')) {
+        if ($request->has('other_facilities') && !is_null($request->get('other_facilities'))) {
             /** @var FacilityType|null $otherFacilityType */
             $otherFacilityType = FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first();
 
@@ -212,6 +212,29 @@ class AccommodationController extends Controller
         $accommodation->unavailable_from_date = $request->get('unavailable_from', $accommodation->unavailable_from_date);
         $accommodation->unavailable_to_date = $request->get('unavailable_to', $accommodation->unavailable_to_date);
         $accommodation->save();
+
+        $accommodation->accommodationfacilitytypes()->detach();
+
+        if ($request->has('general_facility')) {
+            foreach ($request->get('general_facility') as $key => $value) {
+                $accommodation->accommodationfacilitytypes()->attach($value);
+            }
+        }
+
+        if ($request->has('special_facility')) {
+            foreach ($request->get('special_facility') as $key => $value) {
+                $accommodation->accommodationfacilitytypes()->attach($value);
+            }
+        }
+
+        if ($request->has('other_facilities') && !is_null($request->get('other_facilities'))) {
+            /** @var FacilityType|null $otherFacilityType */
+            $otherFacilityType = FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first();
+
+            if (!empty($otherFacilityType)) {
+                $accommodation->accommodationfacilitytypes()->attach($otherFacilityType->id, ['message' => $request->get('other_facilities')]);
+            }
+        }
 
         if ($request->has('photos')) {
             // TODO: store photos to storage and DB

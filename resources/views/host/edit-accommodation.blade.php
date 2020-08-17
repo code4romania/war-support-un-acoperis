@@ -168,7 +168,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="other_facilities" class="font-weight-600">{{ __($otherFacilities->name) }}</label>
-                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities') }}" class="form-control @error('other_facilities')is-invalid @enderror" placeholder="{{ __('What other facilities does the accommodation have') }}?">
+                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities', !empty($accommodation->accommodationfacilitytypes()->where('facility_type_id', $otherFacilities->id)->count()) ? $accommodation->accommodationfacilitytypes()->where('facility_type_id', $otherFacilities->id)->first()->pivot->message : null) }}" class="form-control @error('other_facilities')is-invalid @enderror" placeholder="{{ __('What other facilities does the accommodation have') }}?">
 
                             @error('other_facilities')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
