@@ -150,7 +150,7 @@
                         <label for="" class="font-weight-600 mb-3">{{ __('What facilities does the accommodation have') }}?</label>
                         @foreach($generalFacilities as $generalFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ !empty(old('general_facility')[$generalFacility->id]) ? 'checked="checked"' : '' }} type="checkbox">
+                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ (!empty(old('general_facility')[$generalFacility->id]) || !empty($accommodation->accommodationfacilitytypes()->where('facility_type_id', $generalFacility->id)->count())) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="general_facility[{{ $generalFacility->id }}]">{{ __($generalFacility->name) }}</label>
                             </div>
                         @endforeach
@@ -160,7 +160,7 @@
 
                         @foreach($specialFacilities as $specialFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ !empty(old('special_facility')[$specialFacility->id]) ? 'checked="checked"' : '' }} type="checkbox">
+                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ (!empty(old('special_facility')[$specialFacility->id]) || !empty($accommodation->accommodationfacilitytypes()->where('facility_type_id', $specialFacility->id)->count())) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="special_facility[{{ $specialFacility->id }}]">{{ __($specialFacility->name) }}</label>
                             </div>
                         @endforeach

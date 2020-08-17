@@ -213,6 +213,10 @@ class AccommodationController extends Controller
         $accommodation->unavailable_to_date = $request->get('unavailable_to', $accommodation->unavailable_to_date);
         $accommodation->save();
 
+        if ($request->has('photos')) {
+            // TODO: store photos to storage and DB
+        }
+
         return redirect()->route('host.accommodation');
     }
 }

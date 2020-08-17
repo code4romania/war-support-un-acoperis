@@ -20,6 +20,8 @@ class CreateAccommodationFacilityTypesTable extends Migration
             $table->string('message', 255)->nullable();
             $table->timestamps();
 
+            $table->unique(['accommodation_id', 'facility_type_id'], 'accommodation_id_facility_type_id_unique');
+
             $table->foreign('accommodation_id')
                 ->references('id')
                 ->on('accommodations');

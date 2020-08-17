@@ -103,7 +103,7 @@ class Accommodation extends Model
      */
     public function accommodationfacilitytypes()
     {
-        return $this->belongsToMany(AccommodationFacilityType::class, 'accommodation_facility_type', 'accommodation_id', 'facility_type_id');
+        return $this->belongsToMany(FacilityType::class, 'accommodation_facility_type', 'accommodation_id', 'facility_type_id');
     }
 
     /**
