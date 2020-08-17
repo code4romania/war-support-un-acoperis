@@ -436,7 +436,7 @@
             });
 
             $('#addNote').on('click', function() {
-                axios.post('/admin/ajax/help-request/{{ $helpRequest->id }}/note', {
+                axios.post('{{ @route('ajax.create-note', ['entityId' => $helpRequest->id, 'entityType' => \App\Note::TYPE_HELP_REQUEST]) }}', {
                     _token: "{{ csrf_token() }}",
                     message: tinymce.get('note-message').getContent()
                 }).then(response => {
@@ -469,9 +469,9 @@
             $('body').on('click', '#editNote', function() {
                 let noteId = $(this).data('note-id');
                 let noteMessage = tinymce.get('edit-note-message').getContent();
-
+                let route = '{{ @route('ajax.update-note', ['id' => ':::d-_-b:::']) }}';
                 axios
-                .put('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + noteId, {
+                .put(route.replace(':::d-_-b:::', noteId), {
                     _token: "{{ csrf_token() }}",
                     message: noteMessage
                 })
@@ -487,8 +487,10 @@
             $('#proceedDeleteNote').on('click', function() {
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
+                let route = '{{ @route('ajax.delete-note', ['id' => ':::d-_-b:::']) }}';
+
                 axios
-                .delete('/admin/ajax/help-request/{{ $helpRequest->id }}/note/' + deleteNoteId)
+                .delete(route.replace(':::d-_-b:::', deleteNoteId))
                 .then(response => {
                     $('#note-container-' + deleteNoteId).remove();
                     $('#deleteNoteModal').modal('hide');

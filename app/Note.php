@@ -5,6 +5,7 @@ namespace App;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Note
@@ -22,8 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Note extends Model
 {
+    use SoftDeletes;
+
     const TYPE_HELP_REQUEST = '1';
-    const TYPE_HELP_RESPONSE = '2';
+    const TYPE_HELP_RESOURCE = '2';
 
     /**
      * @return BelongsTo

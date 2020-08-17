@@ -46,6 +46,16 @@ class HelpResource extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function notes()
+    {
+        return $this
+            ->hasMany(Note::class, 'entity_id')
+            ->where('notes.entity_type', '=', Note::TYPE_HELP_RESOURCE);
+    }
+
+    /**
      * Get the indexable data array for the model.
      *
      * @return array
