@@ -8,7 +8,7 @@
             </div>
         @endif
         <h1 class="display-3 title mb-4 text-primary">{{ __('Get Involved') }}</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>
+        <p>{{ __('Get Involved Description') }}</p>
     </div>
     <section class="bg-light-green py-5">
         <div class="container">
@@ -17,7 +17,7 @@
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary">
                     <h6 class="mb-0 text-white font-weight-600">
-                        Informatii generale
+                        {{ __('General info') }}
                     </h6>
                 </div>
                 <div class="card-body py-5">
@@ -25,7 +25,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="name">{{ __("Name and surname") }}:</label>
-                                <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
+                                <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
 
                                 @error('full-name')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>
                                         <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
-                                            <option>Select country</option>
+                                            <option>{{ __("Select country") }}</option>
                                             @foreach ($countries as $country)
                                             <option value="{{ $country->id }}"{{ old('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
                                             @endforeach
@@ -54,7 +54,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                                        <input type="text" placeholder="Viena" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
+                                        <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
 
                                         @error('city')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -66,9 +66,9 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="font-weight-600" for="address">{{ __('Address') }}:</label>
-                                <input type="text" placeholder="Street name, no, etc" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
+                                <input type="text" placeholder="{{ __('Address placeholder') }}" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
 
-                                @error('city')
+                                @error('address')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -78,7 +78,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                                <input type="tel" placeholder="+40 760 000 000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+                                <input type="tel" placeholder="{{ __('Phone placeholder') }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
 
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -88,7 +88,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="email">{{ __("E-Mail Address") }}:</label>
-                                <input type="email" placeholder="ana.iordache@gmail.com" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
+                                <input type="email" placeholder="{{ __('Email placeholder') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -99,12 +99,12 @@
                     <div clas="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="" class="font-weight-600 mb-3 mt-3 d-block required">Ce tip de ajutor doresti sa oferi?</label>
+                                <label for="" class="font-weight-600 mb-3 mt-3 d-block required">{{ __('Help type') }}</label>
                                 <div class="form-check form-check-inline mb-3">
                                     @foreach ($resourceTypes as $resourceType)
                                         <div class="custom-control custom-checkbox mr-4 mb-3">
                                             <input {{ in_array($resourceType->id, (array)old('help')) ? 'checked' : '' }} class="custom-control-input @error('help') is-invalid @enderror" id="help{{ $loop->iteration }}" name="help[]" type="checkbox" value="{{ $resourceType->id }}">
-                                            <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ $resourceType->name }}</label>
+                                            <label class="custom-control-label" for="help{{ $loop->iteration }}">{{ __('resource_types.' . $resourceType->name) }}</label>
                                         </div>
                                     @endforeach
                                 </div>
@@ -117,8 +117,8 @@
                     <div class="row d-none" id="other-help">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="">Alt tip de ajutor</label>
-                                <input type="text" class="form-control" name="other" placeholder="Scrie aici ce tip de ajutor vrei sa oferi">
+                                <label for="">{{ __('Other type') }}</label>
+                                <input type="text" class="form-control" name="other" placeholder="{{ __('Other type placeholder') }}">
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                     <!-- Accomodation sign in alert -->
                     <div class="alert bg-light-green alert-general alert-secondary mb-0  align-items-sm-center d-none" role="alert" id="accomodation-alert">
                         <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
-                        <span class="alert-inner--text"><b>Ajutorul de cazare</b> poate fi gestionat prin intermediul unui cont pe platforma. In urma inregistrarii veti primi pe adresa dumneavoastra de email datele de logare si informatii suplimentare!</span>
+                        <span class="alert-inner--text">{!! __('Help type message') !!}</span>
                     </div>
 
                     <div class="border-top pt-5 mt-3 clearfix">

@@ -71,7 +71,9 @@ class HelpRequest extends Model
      */
     public function helprequestnotes()
     {
-        return $this->hasMany(HelpRequestNote::class);
+        return $this
+            ->hasMany(Note::class, 'entity_id')
+            ->where('notes.entity_type', '=', Note::TYPE_HELP_REQUEST);
     }
 
     /**

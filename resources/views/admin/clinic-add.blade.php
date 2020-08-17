@@ -32,7 +32,7 @@
                             <div class="@error('categories') is-invalid @enderror">
                                 <select class="form-control" data-trigger name="categories[]" id="categories" multiple>
                                     @foreach($specialities as $speciality)
-                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categories')) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, (array)old('categories')) ? 'selected' : '' }}>{{ $speciality->parent->name . ' > ' . $speciality->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
