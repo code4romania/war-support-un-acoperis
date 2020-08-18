@@ -1,7 +1,5 @@
 FROM citizennext/webserver:latest
 
-RUN apt-get update
-
 # install Nginx
 COPY config/nginx/default /etc/nginx/sites-available/default
 
@@ -14,5 +12,7 @@ RUN chown -R www-data:www-data /app
 EXPOSE 80
 
 VOLUME ["/app"]
+
+WORKDIR "/app"
 
 ENTRYPOINT ["/usr/bin/supervisord"]
