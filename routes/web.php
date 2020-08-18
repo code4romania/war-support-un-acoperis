@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/ro');
-Route::get('/health', 'HealthController@check');
+Route::get('/health', 'HealthController@check')->name('health.check');
 
 /**
  * Administration routes
