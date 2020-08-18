@@ -222,7 +222,8 @@ return [
         'other_rules' => 'alte reguli',
         'accommodation_fee' => 'costuri de cazare',
         'unavailable_from' => 'indisponibil de la data',
-        'unavailable_to' => 'indisponibil pana la data'
+        'unavailable_to' => 'indisponibil pana la data',
+        'photos' => 'poze'
     ],
     'values' => [
         'accommodation_fee' => [
