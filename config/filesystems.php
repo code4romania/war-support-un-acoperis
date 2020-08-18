@@ -47,33 +47,22 @@ return [
             'root' => storage_path('app'),
         ],
 
-//        'public' => [
-//            'driver' => 's3',
-//            'url' => env('AWS_CDN_URL'),
-//            'key' => env('AWS_ACCESS_KEY_ID'),
-//            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-//            'region' => env('AWS_DEFAULT_REGION'),
-//            'bucket' => env('AWS_PUBLIC_BUCKET'),
-//            'visibility' => 'public',
-//        ],
-//
-//        'private' => [
-//            'driver' => 's3',
-//            'key' => env('AWS_ACCESS_KEY_ID'),
-//            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-//            'region' => env('AWS_DEFAULT_REGION'),
-//            'bucket' => env('AWS_PRIVATE_BUCKET'),
-//            'url' => env('AWS_URL_IMPORTS'),
-//        ],
+        'public' => [
+            'driver' => 's3',
+            'url' => env('AWS_CDN_URL'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_PUBLIC_BUCKET'),
+            'visibility' => 'public',
+        ],
 
-        's3' => [ // TODO: do we need this??? To be checked!!! @andrei
+        'private' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
+            'bucket' => env('AWS_PRIVATE_BUCKET')
         ],
     ],
 
