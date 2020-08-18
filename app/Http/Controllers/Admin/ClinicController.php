@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicRequest;
 use App\Http\Requests\SpecialityRequest;
 use App\Speciality;
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -23,6 +24,14 @@ class ClinicController extends Controller
      */
     public function clinicList()
     {
+
+//        $headers = ['Referer' => 'helpforhealth.local'];
+//        $client = new Client([
+//            'headers' => $headers
+//        ]);
+//        $response = $client->get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDYTSM86Tny27GCwX11pxrVDJ32Wbyu4NE');
+//
+//        dd($response->getBody());
         /** @var Collection $clinicList */
         $clinicList = Clinic::with('specialities')->get();
 
