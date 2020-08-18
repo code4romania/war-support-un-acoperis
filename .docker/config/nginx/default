@@ -1,11 +1,5 @@
 server {
     listen 80;
-    server_name www.ajutordeurgenta.ro;
-    return 301 https://ajutordeurgenta.ro$request_uri;
-}
-
-server {
-    listen 80;
     server_name ajutordeurgenta.ro dev.ajutordeurgenta.ro;
     root /var/www/html/public;
 
