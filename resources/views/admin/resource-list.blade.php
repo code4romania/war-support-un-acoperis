@@ -27,7 +27,7 @@
                             <select name="statusFilter" id="statusFilter" class="custom-select form-control">
                                 <option value="" selected>Tipul de ajutor</option>
                                 @foreach ($resourceTypeList as $resourceType)
-                                    <option value="{{ $resourceType->id }}"{{ request()->get('statusFilter') == $resourceType->id ? ' selected' : '' }}>{{ $resourceType->name }}</option>
+                                    <option value="{{ $resourceType->id }}"{{ request()->get('statusFilter') == $resourceType->id ? ' selected' : '' }}>{{ __('resource_types.' . $resourceType->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -219,7 +219,7 @@
 
             $('.resultsPerPage').val(pageState.perPage);
 
-            let render = new ResourcesRenderer('{{ route('ajax.resources') }}', '{{ __('Delete') }}', '{{ __('See details') }}');
+            let render = new ResourcesRenderer('{{ route('ajax.resources') }}', '{{ __('Delete') }}', '{{ __('See details') }}', {!! $typeTranslations !!});
             console.log(render);
             render.renderHelpRequests(pageState);
 

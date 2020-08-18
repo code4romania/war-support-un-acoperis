@@ -8,27 +8,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class HelpRequestNote
+ * Class Note
  * @package App
  *
  * @property int $id
- * @property int $help_request_id
+ * @property int $entity_id
+ * @property int $entity_type
  * @property string $message
  * @property int|null $user_id
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property DateTime|null $deleted_at
+ *
  */
-class HelpRequestNote extends Model
+class Note extends Model
 {
     use SoftDeletes;
 
-    /**
-     * @return BelongsTo
-     */
-    public function helprequest()
-    {
-        return $this->belongsTo(HelpRequest::class);
-    }
+    const TYPE_HELP_REQUEST = '1';
+    const TYPE_HELP_RESOURCE = '2';
 
     /**
      * @return BelongsTo

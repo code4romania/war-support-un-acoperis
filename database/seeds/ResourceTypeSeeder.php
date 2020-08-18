@@ -13,13 +13,13 @@ class ResourceTypeSeeder extends Seeder
     public function run()
     {
         if (empty(ResourceType::all()->count())) {
-            ResourceType::create(['id' => 1, 'name' => 'Cazare', 'options' => ResourceType::OPTION_ALERT]);
-            ResourceType::create(['id' => 2, 'name' => 'Transport', 'options' => ResourceType::OPTION_NONE]);
-            ResourceType::create(['id' => 3, 'name' => 'Medicamente', 'options' => ResourceType::OPTION_NONE]);
-            ResourceType::create(['id' => 4, 'name' => 'Bunuri', 'options' => ResourceType::OPTION_NONE]);
-            ResourceType::create(['id' => 5, 'name' => 'Traduceri acte medicale', 'options' => ResourceType::OPTION_NONE]);
-            ResourceType::create(['id' => 6, 'name' => 'Servicii', 'options' => ResourceType::OPTION_NONE]);
-            ResourceType::create(['id' => 7, 'name' => 'Alte tipuri de ajutor', 'options' => ResourceType::OPTION_MESSAGE]);
+            ResourceType::create(['id' => 1, 'name' => 'accommodation', 'options' => ResourceType::OPTION_ALERT]);
+            ResourceType::create(['id' => 2, 'name' => 'transport', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 3, 'name' => 'meds', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 4, 'name' => 'goods', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 5, 'name' => 'translations', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 6, 'name' => 'services', 'options' => ResourceType::OPTION_NONE]);
+            ResourceType::create(['id' => 7, 'name' => 'other', 'options' => ResourceType::OPTION_MESSAGE]);
         }
     }
 }

@@ -1,8 +1,9 @@
 class ResourcesRenderer {
-    constructor(ajaxUrl, deleteText, detailsText) {
+    constructor(ajaxUrl, deleteText, detailsText, typeTranslations) {
         this.ajaxUrl = ajaxUrl;
         this.deleteText = deleteText;
         this.detailsText = detailsText;
+        this.typeTranslations = typeTranslations;
     }
 
     renderHelpRequests(pageState) {
@@ -36,7 +37,7 @@ class ResourcesRenderer {
         $.each(responseData, function(key, value) {
             let row = '<tr id="clinic-container-' + value.id + '">\n' +
                 '    <td><a href="/admin/resources/' + value.id + '">' + value.full_name + '</a></td>\n' +
-                '    <td>' + value.type + '</td>\n' +
+                '    <td>' + _this.typeTranslations[value.type] + '</td>\n' +
                 '    <td>' + value.country + '</td>\n' +
                 '    <td>' + value.city + '</td>\n' +
                 '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +

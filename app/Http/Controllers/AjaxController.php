@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Clinic;
 use App\HelpRequest;
-use App\HelpRequestNote;
 use App\HelpRequestType;
 use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Controllers\Host\ProfileController;
+use App\Note;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -126,18 +126,12 @@ class AjaxController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $entityId
+     * @param int $entityType
      * @return JsonResponse
      */
-    public function createHelpRequestNote($id)
+    public function createNote(int $entityType, int $entityId)
     {
-        /** @var HelpRequest|null $helpRequest */
-        $helpRequest = HelpRequest::find($id);
-
-        if (empty($helpRequest)) {
-            abort(404);
-        }
-
         /** @var User $user */
         $user = Auth::user();
 
@@ -145,53 +139,60 @@ class AjaxController extends Controller
             abort(403);
         }
 
+        $entity = null;
+        switch ($entityType) {
+            case Note::TYPE_HELP_REQUEST:
+                $entity = HelpRequest::find($entityId);
+                break;
+            case Note::TYPE_HELP_RESOURCE:
+                $entity = HelpResource::find($entityId);
+                break;
+            default:
+                abort('400');
+        }
+
+        if (empty($entity)) {
+            abort(400);
+        }
+
         if (!request()->has('message')) {
             abort(400);
         }
 
-        $helpRequestNote = new HelpRequestNote();
-        $helpRequestNote->help_request_id = $helpRequest->id;
-        $helpRequestNote->message = request()->get('message');
-        $helpRequestNote->user_id = $user->id;
-        $helpRequestNote->save();
+        $note = new Note();
+        $note->entity_id = $entity->id;
+        $note->entity_type = $entityType;
+        $note->message = request()->get('message');
+        $note->user_id = $user->id;
+        $note->save();
 
-        $helpRequestNote = HelpRequestNote::find($helpRequestNote->id);
+        $note = Note::find($note->id);
 
         return response()->json([
             'success' => 'true',
-            'helpRequestNoteId' => $helpRequestNote->id,
-            'helpRequestNoteDate' => formatDateTime($helpRequestNote->created_at),
-            'helpRequestNoteUser' => $helpRequestNote->user->name]
+            'helpRequestNoteId' => $note->id,
+            'helpRequestNoteDate' => formatDateTime($note->created_at),
+            'helpRequestNoteUser' => $note->user->name]
         );
     }
 
     /**
      * @param $id
-     * @param $noteId
      * @return JsonResponse
      */
-    public function updateHelpRequestNote($id, $noteId)
+    public function updateNote($id)
     {
-        /** @var HelpRequest|null $helpRequest */
-        $helpRequest = HelpRequest::find($id);
+        /** @var Note|null $note */
+        $note = Note::find($id);
 
-        if (empty($helpRequest)) {
-            abort(404);
-        }
-
-        /** @var HelpRequestNote|null $helpRequestNote */
-        $helpRequestNote = HelpRequestNote::where('help_request_id', '=', $helpRequest->id)
-            ->where('id', '=', $noteId)
-            ->first();
-
-        if (empty($helpRequestNote)) {
+        if (empty($note)) {
             abort(404);
         }
 
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user) || $user->id !== $helpRequestNote->user_id) {
+        if (empty($user) || $user->id !== $note->user_id) {
             abort(403);
         }
 
@@ -199,43 +200,33 @@ class AjaxController extends Controller
             abort(400);
         }
 
-        $helpRequestNote->message = request()->get('message');
-        $helpRequestNote->save();
+        $note->message = request()->get('message');
+        $note->save();
 
         return response()->json(['success' => 'true']);
     }
 
     /**
      * @param $id
-     * @param $noteId
      * @return JsonResponse
      */
-    public function deleteHelpRequestNote($id, $noteId)
+    public function deleteNote($id)
     {
-        /** @var HelpRequest|null $helpRequest */
-        $helpRequest = HelpRequest::find($id);
+        /** @var ?Note $note */
+        $note = Note::find($id);
 
-        if (empty($helpRequest)) {
-            abort(404);
-        }
-
-        /** @var HelpRequestNote|null $helpRequestNote */
-        $helpRequestNote = HelpRequestNote::where('help_request_id', '=', $helpRequest->id)
-            ->where('id', '=', $noteId)
-            ->first();
-
-        if (empty($helpRequestNote)) {
+        if (empty($note)) {
             abort(404);
         }
 
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user) || $user->id !== $helpRequestNote->user_id) {
+        if (empty($user) || $user->id !== $note->user_id) {
             abort(403);
         }
 
-        $helpRequestNote->delete();
+        $note->delete();
 
         return response()->json(['success' => 'true']);
     }

@@ -40,9 +40,10 @@
                             <label for="categoryFilter">{{ __('Speciality') }}</label>
                             <div>
                                 <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
-
-                                    @foreach($specialityList as $speciality)
-                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, explode("|", request()->get('categories'))) ? 'selected' : '' }}>{{ $speciality->name }}</option>
+                                    @foreach($specialities as $speciality)
+                                        @foreach($speciality->children as $child)
+                                            <option value="{{ $child->id }}" {{ in_array($child->id, explode("|", request()->get('categories'))) ? 'selected' : '' }}>{{ $speciality->name . ' > ' . $child->name }}</option>
+                                        @endforeach
                                     @endforeach
                                 </select>
                             </div>
@@ -135,7 +136,7 @@
     </div>
 
     <!-- Popup afectiuni -->
-    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" id="selectSpeciality" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -146,66 +147,27 @@
                 </div>
                 <div class="modal-body">
                    <div class="row mb-4">
-                       <div class="col-sm-6">
-                            <h6 class="font-weight-600">Oncologie</h6>
-                            <p>Centre, clinici si spitale care trateaza cancerul renal, cancerul pulmonar, cancerul pancreatic, cancerul uterin, cancerul-ovarian, cancerul vezicii urinare, cancerul esofagian, cancerul colorectal, cancerul prostatei, cancerul hepatic,cancerul gastric, cancerul cutanat, sarcomul osos, sarcomul tesuturilor moi, tumorile sistemului nervos (retinoblastoame, neuroblastoame, tumori cerebrale, meduloblastoame).</p>
-                           <div class="custom-control custom-checkbox mb-3">
-                               <input class="custom-control-input" id="customCheck1" type="checkbox">
-                               <label class="custom-control-label" for="customCheck1">Oncologie Adulți</label>
+                       @foreach($specialities as $speciality)
+                           <div class="col-sm-6 mb-4">
+                               <h6 class="font-weight-600">{{ $speciality->name }}</h6>
+                               <div>{!! $speciality->description !!}</div>
+                               @foreach($speciality->children as $child)
+                               <div class="custom-control custom-checkbox mb-3">
+                                   <input class="custom-control-input customCheck" id="customCheck{{ $child->id }}" type="checkbox" value="{{ $child->id }}">
+                                   <label class="custom-control-label" for="customCheck{{ $child->id }}">{{ $child->name }}</label>
+                               </div>
+                               @endforeach
                            </div>
-                           <div class="custom-control custom-checkbox mb-3">
-                               <input class="custom-control-input" id="customCheck2" type="checkbox">
-                               <label class="custom-control-label" for="customCheck2">Oncologie Pediatrie</label>
-                           </div>
-                       </div>
-                       <div class="col-sm-6">
-                           <h6 class="font-weight-600">Hematologie</h6>
-                           <p>Centre, clinici si spitale care trateaza anemiile aplastice, leucemiile acute, leucemiile cronice, limfoamele maligne Hodgkin, limfoamele non-Hodgkin, mielomul multiplu si alte tipuri de afectiuni grave ale sangelui.</p>
-                           <div class="custom-control custom-checkbox mb-3">
-                               <input class="custom-control-input" id="customCheck1" type="checkbox">
-                               <label class="custom-control-label" for="customCheck1">Hematologie Adulți</label>
-                           </div>
-                           <div class="custom-control custom-checkbox mb-3">
-                               <input class="custom-control-input" id="customCheck2" type="checkbox">
-                               <label class="custom-control-label" for="customCheck2">Hematologie Pediatrie</label>
-                           </div>
-                       </div>
-                   </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h6 class="font-weight-600">Radiografie</h6>
-                            <p>Centre, clinici si spitale care trateaza afectiunile oncologice si hematologice prin utilizarea radiatiilor ionizante in scop curativ, neoadjuvant, adjuvant, paliativ.</p>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="customCheck1" type="checkbox">
-                                <label class="custom-control-label" for="customCheck1">Radioterapie Adulți</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="customCheck2" type="checkbox">
-                                <label class="custom-control-label" for="customCheck2"> Radioterapie Pediatrie</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <h6 class="font-weight-600">Transplant medular</h6>
-                            <p>Centre, clinici si spitale care trateaza neoplaziile hematologice, bolile maligne ale ganglionilor limfatici si ale maduvei (mielom multiplu, limfom, leucemie) sau tumori solide, ca alternativa de tratament.</p>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="customCheck1" type="checkbox">
-                                <label class="custom-control-label" for="customCheck1">Transplant Adulți</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="customCheck2" type="checkbox">
-                                <label class="custom-control-label" for="customCheck2">Transplant Pediatrie</label>
-                            </div>
-                        </div>
+                       @endforeach
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Filtreaza</button>
+{{--                    <button type="button" class="btn btn-primary" data-dismiss="modal">Filtreaza</button>--}}
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('scripts')
@@ -275,7 +237,7 @@
                 render.renderHelpRequests(pageState);
             });
 
-            new Choices('#categoryFilter', {
+            var choices = new Choices('#categoryFilter', {
                 search: false,
                 delimiter: ',',
                 editItems: false,
@@ -284,11 +246,37 @@
                 placeholderValue: '{{ __('All specialities') }}'
             });
 
-            $( "#categoryFilter" ).change(function() {
-                const selectedCategories = $(this).children("option:selected").map(function(){ return this.value }).get().join("|");
+            $('.choices').on('click', function () {
+                _this = this;
+                delay(() => {
+                    choices.getValue().forEach(function(choice) {
+                        $('#customCheck' + choice.value).prop( "checked", true );
+                    })
+                    $('.choices__list--dropdown').removeClass('is-active');
+                    $('#selectSpeciality').modal('show');
+                }, 10);
+            });
+
+            $('.customCheck').on('click', function () {
+                const element = $(this);
+                if (element.prop('checked')) {
+                    choices.setChoiceByValue(element.val());
+                } else {
+                    choices.removeActiveItemsByValue(element.val());
+                }
+                console.table(choices.getValue());
+                categoryFilter(choices.getValue().map(value => value.value).join("|"));
+            })
+
+            const categoryFilter = (selectedOptions) => {
+                const selectedCategories = selectedOptions;
                 pageState.categories = selectedCategories;
                 $.SetQueryStringParameter('categories', pageState.categories);
                 render.renderHelpRequests(pageState);
+            }
+
+            $( "#categoryFilter" ).change(function() {
+                categoryFilter($(this).children("option:selected").map(function(){ return this.value }).get().join("|"));
             });
 
             $( "#countryFilter" ).change(function() {

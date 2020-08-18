@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Controllers\Controller;
+use App\ResourceType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 
@@ -34,11 +35,14 @@ class ResourceController extends Controller
         $countryList = $countryList->unique();
         $cityList = array_unique($cityList);
 
+        $typeTranslations = $this->getTypeTranslations();
+
         return view('admin.resource-list')
             ->with('resourceTypeList', $resourceTypeList)
             ->with('resourcesTypes', $resourcesTypes)
             ->with('countryList', $countryList)
-            ->with('cityList', $cityList);
+            ->with('cityList', $cityList)
+            ->with('typeTranslations', json_encode($typeTranslations));
     }
 
     /**
@@ -55,5 +59,16 @@ class ResourceController extends Controller
 
         return view('admin.resource-detail')
             ->with('helpResourceType', $helpResourceType);
+    }
+
+    private function getTypeTranslations() {
+        $resourceTypes = ResourceType::all();
+
+        $result = [];
+        foreach ($resourceTypes as $resourceType) {
+            $result[$resourceType->name] = trans('resource_types.' . $resourceType->name);
+        }
+
+        return $result;
     }
 }
