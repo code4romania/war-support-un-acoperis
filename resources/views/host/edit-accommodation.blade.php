@@ -497,6 +497,7 @@
         tinymce.init({
             selector: '#description'
         });
+
         $(document).ready(function () {
             flatpickr("#checkin_time", {
                 enableTime: true,
@@ -505,6 +506,7 @@
                 defaultDate: "{{ old('checkin_time', $accommodation->checkin_time) }}",
                 time_24hr: true
             });
+
             flatpickr("#checkout_time", {
                 enableTime: true,
                 noCalendar: true,
@@ -512,11 +514,12 @@
                 defaultDate: "{{ old('checkout_time', $accommodation->checkout_time) }}",
                 time_24hr: true
             });
+
             $('input[name="photos"]').fileuploader({
                 captions: $('html').attr('lang'),
                 limit: 20,
                 maxSize: 50,
-
+                files: {!! json_encode(collect($photoData)) !!},
                 extensions: null,
                 changeInput: ' ',
                 theme: 'thumbnails',

@@ -131,7 +131,11 @@ class AccommodationController extends Controller
 
                     $accommodationPhoto = new AccommodationPhoto();
                     $accommodationPhoto->accommodation_id = $accommodation->id;
+                    $accommodationPhoto->name = $file->getClientOriginalName();
                     $accommodationPhoto->path = $path;
+                    $accommodationPhoto->size = $file->getSize();
+                    $accommodationPhoto->extension = '.' . $file->getClientOriginalExtension();
+                    $accommodationPhoto->type = $file->getClientMimeType();
                     $accommodationPhoto->save();
                 }
             }
@@ -190,7 +194,34 @@ class AccommodationController extends Controller
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('countries', Country::all());
+            ->with('countries', Country::all())
+            ->with('photoData', $this->getPhotoData($accommodation));
+    }
+
+    /**
+     * @param Accommodation $accommodation
+     * @return array
+     */
+    public function getPhotoData(Accommodation $accommodation): array
+    {
+        $photoData = [];
+
+        /** @var AccommodationPhoto $photo */
+        foreach ($accommodation->photos()->get() as $photo) {
+            array_push($photoData, [
+                'file' => Storage::disk('private')->temporaryUrl(
+                    $photo->path,
+                    now()->addMinutes(1)
+                ),
+                'extension' => $photo->extension,
+                'name' => $photo->name,
+                'size' => $photo->size,
+                'title' => $photo->id,
+                'type' => $photo->type
+            ]);
+        }
+
+        return $photoData;
     }
 
     /**
