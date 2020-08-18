@@ -19,7 +19,7 @@ class CreateFacilityTypesTable extends Migration
             $table->string('name', 64);
             $table->timestamps();
 
-            $table->unique('type', 'name');
+            $table->unique(['type', 'name']);
         });
     }
 
