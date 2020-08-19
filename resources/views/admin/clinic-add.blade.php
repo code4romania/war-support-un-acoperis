@@ -47,6 +47,55 @@
 
                 <div class="row">
                     <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="required font-weight-600" for="country">Țara</label>
+                                    <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
+                                        <option>Selectati Țara</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country->id }}" {{ old('country') ? 'selected' : '' }}>{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('country')
+                                    <span class="invalid-feedback d-flex" role="alert">
+                                    {{ $message }}
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="required font-weight-600" for="city">Localitatea:</label>
+                                    <input type="text" placeholder="Viena" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
+
+                                    @error('city')
+                                    <span class="invalid-feedback d-flex" role="alert">
+                                    {{ $message }}
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="font-weight-600 required" for="address">Adresa:</label>
+                            <input type="text" placeholder="Strada, numarul, etc." class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
+
+                            @error('address')
+                            <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">Număr de telefon:</label>
                             <input type="tel" placeholder="+40760000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
@@ -68,83 +117,6 @@
                                 {{ $message }}
                             </span>
                             @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="py-3 mt-4 mb-4 border-top border-bottom">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="required font-weight-600" for="country">Țara</label>
-                                        <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
-                                            <option>Selectati Țara</option>
-                                            @foreach($countries as $country)
-                                                <option value="{{ $country->id }}" {{ old('country') ? 'selected' : '' }}>{{ $country->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        @error('country')
-                                        <span class="invalid-feedback d-flex" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="required font-weight-600" for="city">Localitatea:</label>
-                                        <input type="text" placeholder="Viena" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
-
-                                        @error('city')
-                                        <span class="invalid-feedback d-flex" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="font-weight-600 required" for="street">Strada:</label>
-                                <input type="text" placeholder="Strada" class="form-control @error('street') is-invalid @enderror" id="street" name="street" value="{{ old('street') }}" />
-
-                                @error('street')
-                                <span class="invalid-feedback d-flex" role="alert">
-                                {{ $message }}
-                            </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label class="font-weight-600 required" for="street_no">Numar:</label>
-                                <input type="text" placeholder="numarul" class="form-control @error('street_no') is-invalid @enderror" id="street_no" name="street_no" value="{{ old('street_no') }}" />
-
-                                @error('street_no')
-                                <span class="invalid-feedback d-flex" role="alert">
-                                {{ $message }}
-                            </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label class="font-weight-600 required" for="address">Adresa:</label>
-                                <input type="text" placeholder="Adresa" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
-
-                                @error('address')
-                                <span class="invalid-feedback d-flex" role="alert">
-                                {{ $message }}
-                            </span>
-                                @enderror
-                            </div>
                         </div>
                     </div>
                 </div>

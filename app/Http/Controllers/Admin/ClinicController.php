@@ -24,14 +24,9 @@ class ClinicController extends Controller
      */
     public function clinicList()
     {
+//        $a = $this->getCoordsByAddress("Bucuresti, Margelelor 69");
+//        dd($a);
 
-//        $headers = ['Referer' => 'helpforhealth.local'];
-//        $client = new Client([
-//            'headers' => $headers
-//        ]);
-//        $response = $client->get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDYTSM86Tny27GCwX11pxrVDJ32Wbyu4NE');
-//
-//        dd($response->getBody());
         /** @var Collection $clinicList */
         $clinicList = Clinic::with('specialities')->get();
 
@@ -54,6 +49,21 @@ class ClinicController extends Controller
             ->with('specialityList', $specialityList)
             ->with('countryList', $countryList)
             ->with('cityList', $cityList);
+    }
+
+    private function getCoordsByAddress(string $address)
+    {
+        $apiKey = config('maps.api_key');
+        $address = urlencode($address);
+
+        $client = new Client();
+        $result =(string) $client->get(
+            "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key={$apiKey}"
+        )->getBody();
+
+        $json =json_decode($result);
+
+        return $json->results[0]->geometry->location;
     }
 
     /**

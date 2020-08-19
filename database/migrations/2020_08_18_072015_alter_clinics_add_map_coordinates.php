@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterClinicsAddStreet extends Migration
+class AlterClinicsAddMapCoordinates extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class AlterClinicsAddStreet extends Migration
     public function up()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->string('street', 128);
-            $table->string('street_no', 128);
-            $table->string('address', 128)->nullable()->change();
+            $table->decimal('address_lat', 10, 6)->after('address');
+            $table->decimal('address_long', 10, 6)->after('address_lat');
         });
     }
 
@@ -28,9 +27,8 @@ class AlterClinicsAddStreet extends Migration
     public function down()
     {
         Schema::table('clinics', function(Blueprint $table) {
-            $table->dropColumn('street');
-            $table->dropColumn('street_no');
-            $table->string('address', 128)->change();
+            $table->dropColumn('address_lat');
+            $table->dropColumn('address_long');
         });
     }
 }

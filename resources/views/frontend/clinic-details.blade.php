@@ -96,6 +96,9 @@
         </div>
     </div>
     <section class="mb-0 clinic-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2488.2498838455936!2d0.08075301555663382!3d51.41683622514207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8abf1c408865d%3A0x5d04cbb01d3fa10c!2sUniversity%20College%20London%20Chislehurst%20Sports%20Ground%2C%20Chislehurst%2C%20Regatul%20Unit!5e0!3m2!1sro!2sro!4v1594827735342!5m2!1sro!2sro" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+{{--        <iframe src="https://www.google.com/maps/embed?q=1%20Grafton%20Street,%20Dublin,%20Ireland" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>--}}
+        <iframe width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"
+            src="https://maps.google.com/maps?height=450&amp;hl=en&amp;q={{ urlencode("{$clinic->country->name}, {$clinic->city}, {$clinic->address}") }}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+        ></iframe>
     </section>
 @endsection
