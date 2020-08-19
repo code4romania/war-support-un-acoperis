@@ -162,8 +162,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
-{{--                    <button type="button" class="btn btn-primary" data-dismiss="modal">Filtreaza</button>--}}
+{{--                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>--}}
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Filter') }}</button>
                 </div>
             </div>
         </div>

@@ -178,5 +178,8 @@
     "resource_types.goods": "Bunuri",
     "resource_types.translations": "Traduceri acte medicale",
     "resource_types.services": "Servicii",
-    "resource_types.other": "Alte tipuri de ajutor"
+    "resource_types.other": "Alte tipuri de ajutor",
+
+    "Select wanted domain": "Selecteaza specialitatea de care esti interesat",
+    "Filter": "Filtreaza"
 }
