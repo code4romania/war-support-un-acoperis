@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
          $this->call(HelpTypesSeeder::class);
          $this->call(AccomodationTypeSeeder::class);
          $this->call(FacilityTypeSeeder::class);
+         $this->call(ResourceTypeSeeder::class);
     }
 }
