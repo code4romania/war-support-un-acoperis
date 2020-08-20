@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Accommodation;
+use App\AccommodationPhoto;
 use App\City;
 use App\Clinic;
 use App\HelpRequest;
@@ -145,7 +147,7 @@ class AjaxController extends Controller
                 $entity = HelpRequest::find($entityId);
                 break;
             case Note::TYPE_HELP_RESOURCE:
-                $entity = HelpResource::find($entityId);
+                $entity = HelpResourceType::find($entityId);
                 break;
             default:
                 abort('400');
@@ -427,6 +429,59 @@ class AjaxController extends Controller
         $helpResource = HelpResource::find($helpResourceId);
         if (count($helpResource->helpresourcetypes) == 0) {
             $helpResource->delete();
+        }
+
+        return response()->json(['success' => 'true']);
+    }
+
+    public function getClinicsCitiesByCountryId(?int $countryId)
+    {
+        $cities = empty($countryId)
+            ? Clinic::all()->pluck('city')
+            : Clinic::where('country_id', "=", $countryId)->get()->pluck('city');
+
+        $cities = $cities->unique();
+
+        return response()->json([
+            'success' => 'true',
+            'cities' => $cities->toArray()
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteAccommodationPhoto(int $id, Request $request)
+    {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        /** @var AccommodationPhoto|null $photo */
+        $photo = $accommodation->photos()->where('name', '=', $request->get('name'))->first();
+
+        if (empty($photo)) {
+            abort(404);
+        }
+
+        $accommodation->photos()->where('name', '=', $request->get('name'))->delete();
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        try {
+            $photo->delete();
+        } catch (\Exception $exception) {
+            abort(400);
         }
 
         return response()->json(['success' => 'true']);

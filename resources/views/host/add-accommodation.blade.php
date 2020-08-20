@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600 mb-3">{{ __('Edit accommodation') }}</h6>
+        <h6 class="page-title font-weight-600 mb-3">{{ __('Add accommodation') }}</h6>
         <a href="{{ route('host.accommodation') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __('Back') }}</a>
     </section>
 
@@ -13,7 +13,7 @@
             </h6>
         </div>
         <div class="card-body pt-4">
-            <form action="{{ route('host.update-accommodation', $accommodation->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('host.create-accommodation') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <h6 class="font-weight-600 text-primary mb-3">{{ __('Hosting details') }}</h6>
                 <div class="row">
@@ -21,9 +21,9 @@
                         <div class="form-group">
                             <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                             <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
-                                @foreach($types as $type)
-                                    <option value="{{ $type->id }}" {{ (old('type', $accommodation->accommodationtype->id) == $type->id ? 'selected' : '') ? 'selected' : '' }}>{{ __($type->name) }}</option>
-                                @endforeach
+                            @foreach($types as $type)
+                                <option value="{{ $type->id }}" {{ (old('type') == $type->id) ? 'selected' : '' }}>{{ __($type->name) }}</option>
+                            @endforeach
                             </select>
 
                             @error('type')
@@ -38,9 +38,9 @@
                                 {{ __('Ownership regime') }}
                             </label>
                             <select class="form-control custom-select @error('ownership')is-invalid @enderror" name="ownership" id="ownership">
-                                @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
-                                    <option value="{{ $ownershipTypeId }}" {{ (old('ownership', $accommodation->ownership_type) == $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
-                                @endforeach
+                            @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
+                                <option value="{{ $ownershipTypeId }}" {{ (old('ownership') == $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
+                            @endforeach
                             </select>
 
                             @error('ownership')
@@ -52,11 +52,11 @@
                     <div class="col-sm-12 mb-3">
                         <label for="" class="font-weight-600 mt-3 mb-3 required">{{ __('The accommodation is independent or part of your home') }}?</label>
                         <div class="custom-control custom-radio mb-2">
-                            <input name="property_availability" class="custom-control-input" id="fully" value="fully" type="radio" {{ (in_array(old('property_availability'), [null, 'fully']) || 1 === $accommodation->is_fully_available) ? 'checked="checked"' : '' }}>
+                            <input name="property_availability" class="custom-control-input" id="fully" value="fully" type="radio" {{ (in_array(old('property_availability'), [null, 'fully'])) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="fully">{{ __('Full accommodation for guests') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="property_availability" class="custom-control-input" id="partially" value="partially" type="radio" {{ ('partially' == old('property_availability') || 0 === $accommodation->is_fully_available) ? 'checked="checked"' : '' }}>
+                            <input name="property_availability" class="custom-control-input" id="partially" value="partially" type="radio" {{ ('partially' == old('property_availability')) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="partially">{{ __('Accommodation with owner in the same premises') }}</label>
                         </div>
 
@@ -70,7 +70,7 @@
                             <label for="max_guests" class="font-weight-600 required">
                                 {{ __('What is the maximum number of guests') }}?
                             </label>
-                            <input type="number" min="1" max="127" class="form-control @error('max_guests')is-invalid @enderror" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests', $accommodation->max_guests) }}">
+                            <input type="number" min="1" max="127" class="form-control @error('max_guests')is-invalid @enderror" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
 
                             @error('max_guests')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -83,7 +83,7 @@
                             <label for="available_rooms" class="font-weight-600 required">
                                 {{ __('How many rooms can the hosts use') }}?
                             </label>
-                            <input type="number" min="1" max="127" class="form-control @error('available_rooms')is-invalid @enderror" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms', $accommodation->available_rooms) }}">
+                            <input type="number" min="1" max="127" class="form-control @error('available_rooms')is-invalid @enderror" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
 
                             @error('available_rooms')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -96,7 +96,7 @@
                             <label for="available_bathrooms" class="font-weight-600 required">
                                 {{ __('How many bathrooms does the place have') }}?
                             </label>
-                            <input type="number" min="1" max="127" class="form-control @error('available_bathrooms')is-invalid @enderror" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms', $accommodation->available_bathrooms) }}">
+                            <input type="number" min="1" max="127" class="form-control @error('available_bathrooms')is-invalid @enderror" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms') }}">
 
                             @error('available_bathrooms')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -109,11 +109,11 @@
                     <div class="col-sm-6">
                         <label for="allow_kitchen" class="font-weight-600 mb-3 required">{{ __('Allow the use of the kitchen of the accommodated guests') }}?</label>
                         <div class="custom-control custom-radio mb-2">
-                            <input name="allow_kitchen" class="custom-control-input" id="disallow_kitchen" value="yes" type="radio" {{ in_array(old('allow_kitchen', $accommodation->is_kitchen_available), [null, 'yes', 1]) ? 'checked="checked"' : '' }}>
+                            <input name="allow_kitchen" class="custom-control-input" id="disallow_kitchen" value="yes" type="radio" {{ (in_array(old('allow_kitchen'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="disallow_kitchen">{{ __('Yes, it is ready for guests') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="allow_kitchen" class="custom-control-input" id="allow_kitchen" value="no" type="radio" {{ in_array(old('allow_kitchen', $accommodation->is_kitchen_available), ['no', 0]) ? 'checked="checked"' : '' }}>
+                            <input name="allow_kitchen" class="custom-control-input" id="allow_kitchen" value="no" type="radio" {{ ('no' == old('allow_kitchen')) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="allow_kitchen">{{ __('No, the kitchen is not accessible') }}</label>
                         </div>
 
@@ -125,11 +125,11 @@
                     <div class="col-sm-6">
                         <label for="" class="font-weight-600 mb-3 required">{{ __('The hosts can benefit from a parking space') }}?</label>
                         <div class="custom-control custom-radio mb-2">
-                            <input name="allow_parking" class="custom-control-input" id="allow_parking_yes" value="yes" type="radio" {{ in_array(old('allow_parking', $accommodation->is_parking_available), [null, 'yes', 1]) ? 'checked="checked"' : '' }}>
+                            <input name="allow_parking" class="custom-control-input" id="allow_parking_yes" value="yes" type="radio" {{ (in_array(old('allow_parking'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="allow_parking_yes">{{ __('Yes') }}</label>
                         </div>
                         <div class="custom-control custom-radio mb-3">
-                            <input name="allow_parking" class="custom-control-input" id="allow_parking_no" value="no" type="radio" {{ in_array(old('allow_parking', $accommodation->is_parking_available), ['no', 0]) ? 'checked="checked"' : '' }}>
+                            <input name="allow_parking" class="custom-control-input" id="allow_parking_no" value="no" type="radio" {{ ('no' == old('allow_parking')) ? 'checked="checked"' : '' }}>
                             <label class="custom-control-label" for="allow_parking_no">{{ __('No') }}</label>
                         </div>
 
@@ -141,7 +141,7 @@
 
                 <div class="description border-bottom pb-4 mb-4">
                     <label for="description" class="font-weight-600 mb-3">{{ __('Add a property description') }}</label>
-                    <textarea id="description" class="form-control" name="description" cols="30" rows="10">{{ old('description', $accommodation->description) }}</textarea>
+                    <textarea id="description" class="form-control" name="description" cols="30" rows="10">{{ old('description') }}</textarea>
                 </div>
 
                 <h6 class="font-weight-600 text-primary mb-3">{{ __('Available facilities') }}</h6>
@@ -150,7 +150,7 @@
                         <label for="" class="font-weight-600 mb-3">{{ __('What facilities does the accommodation have') }}?</label>
                         @foreach($generalFacilities as $generalFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ (!empty(old('general_facility')[$generalFacility->id]) || !empty($accommodation->accommodationfacilitytypes()->where('facility_type_id', $generalFacility->id)->count())) ? 'checked="checked"' : '' }} type="checkbox">
+                                <input class="custom-control-input" id="general_facility[{{ $generalFacility->id }}]" name="general_facility[{{ $generalFacility->id }}]" value="{{ $generalFacility->id }}" {{ !empty(old('general_facility')[$generalFacility->id]) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="general_facility[{{ $generalFacility->id }}]">{{ __($generalFacility->name) }}</label>
                             </div>
                         @endforeach
@@ -160,7 +160,7 @@
 
                         @foreach($specialFacilities as $specialFacility)
                             <div class="custom-control custom-checkbox mb-3">
-                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ (!empty(old('special_facility')[$specialFacility->id]) || !empty($accommodation->accommodationfacilitytypes()->where('facility_type_id', $specialFacility->id)->count())) ? 'checked="checked"' : '' }} type="checkbox">
+                                <input class="custom-control-input" id="special_facility[{{ $specialFacility->id }}]" name="special_facility[{{ $specialFacility->id }}]" value="{{ $specialFacility->id }}" {{ !empty(old('special_facility')[$specialFacility->id]) ? 'checked="checked"' : '' }} type="checkbox">
                                 <label class="custom-control-label" for="special_facility[{{ $specialFacility->id }}]">{{ __($specialFacility->name) }}</label>
                             </div>
                         @endforeach
@@ -168,7 +168,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="other_facilities" class="font-weight-600">{{ __($otherFacilities->name) }}</label>
-                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities', !empty($accommodation->accommodationfacilitytypes()->where('facility_type_id', $otherFacilities->id)->count()) ? $accommodation->accommodationfacilitytypes()->where('facility_type_id', $otherFacilities->id)->first()->pivot->message : null) }}" class="form-control @error('other_facilities')is-invalid @enderror" placeholder="{{ __('What other facilities does the accommodation have') }}?">
+                            <input type="text" name="other_facilities" id="other_facilities" value="{{ old('other_facilities') }}" class="form-control @error('other_facilities')is-invalid @enderror" placeholder="{{ __('What other facilities does the accommodation have') }}?">
 
                             @error('other_facilities')
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -184,7 +184,7 @@
                                 <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
                                 <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">
                                     @foreach($countries as $country)
-                                        <option value="{{ $country->id }}" {{ (old('country', $accommodation->address_country_id) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country', 178) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -197,7 +197,7 @@
                         <div class="col-6 col-sm-3">
                             <div class="form-group">
                                 <label for="city" class="font-weight-600 required">{{ __('City') }}</label>
-                                <input type="text" class="form-control @error('city')is-invalid @enderror" name="city" id="city" placeholder="ex. Bucuresti" value="{{ old('city', $accommodation->address_city) }}">
+                                <input type="text" class="form-control @error('city')is-invalid @enderror" name="city" id="city" placeholder="ex. Bucuresti" value="{{ old('city') }}">
 
                                 @error('city')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -208,7 +208,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="street" class="font-weight-600">{{ __('Street') }}</label>
-                                <input type="text" class="form-control @error('street')is-invalid @enderror" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street', $accommodation->address_street) }}">
+                                <input type="text" class="form-control @error('street')is-invalid @enderror" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street') }}">
 
                                 @error('street')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -222,7 +222,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="building" class="font-weight-600">{{ __('Building') }}</label>
-                                        <input type="text" class="form-control @error('building')is-invalid @enderror" name="building" id="building" placeholder="ex. 1A" value="{{ old('building', $accommodation->address_building) }}">
+                                        <input type="text" class="form-control @error('building')is-invalid @enderror" name="building" id="building" placeholder="ex. 1A" value="{{ old('building') }}">
 
                                         @error('building')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -233,7 +233,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="entrance" class="font-weight-600">{{ __('Entrance') }}</label>
-                                        <input type="text" class="form-control @error('entrance')is-invalid @enderror" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance', $accommodation->address_entry) }}">
+                                        <input type="text" class="form-control @error('entrance')is-invalid @enderror" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance') }}">
 
                                         @error('entrance')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -244,7 +244,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="apartment" class="font-weight-600">{{ __('Apartment') }}</label>
-                                        <input type="text" class="form-control @error('apartment')is-invalid @enderror" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment', $accommodation->address_apartment) }}">
+                                        <input type="text" class="form-control @error('apartment')is-invalid @enderror" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment') }}">
 
                                         @error('apartment')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -255,7 +255,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="floor" class="font-weight-600">{{ __('Floor') }}</label>
-                                        <input type="text" class="form-control @error('floor')is-invalid @enderror" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor', $accommodation->address_floor) }}">
+                                        <input type="text" class="form-control @error('floor')is-invalid @enderror" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor') }}">
 
                                         @error('floor')
                                         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -267,7 +267,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="postal_code" class="font-weight-600">{{ __('Postal code') }}</label>
-                                <input type="text" class="form-control @error('postal_code')is-invalid @enderror" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code', $accommodation->address_postal_code) }}">
+                                <input type="text" class="form-control @error('postal_code')is-invalid @enderror" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code') }}">
 
                                 @error('postal_code')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -280,7 +280,7 @@
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation photos') }}</h6>
                     <input type="file" name="photos" id="photos">
 
-                    @error('photos.*')
+                    @error('photos')
                     <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                     @enderror
                 </div>
@@ -291,11 +291,11 @@
                             <label class="font-weight-600 mb-3">{{ __('Smoking is allowed in the house') }}?</label>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input name="allow_smoking" class="custom-control-input" id="allow_smoking_yes" value="yes" type="radio" {{ in_array(old('allow_smoking', $accommodation->is_smoking_allowed), [null, 'yes', 1]) ? 'checked="checked"' : '' }}>
+                                <input name="allow_smoking" class="custom-control-input" id="allow_smoking_yes" value="yes" type="radio" {{ (in_array(old('allow_smoking'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_smoking_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ in_array(old('allow_smoking', $accommodation->is_smoking_allowed), ['no', 0]) ? 'checked="checked"' : '' }}>
+                                <input name="allow_smoking" class="custom-control-input" id="allow_smoking_no" value="no" type="radio" {{ ('no' == old('allow_smoking')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_smoking_no">{{ __('No') }}</label>
                             </div>
 
@@ -308,11 +308,11 @@
                             <label for="" class="font-weight-600 mb-3">{{ __('Pets are allowed in the house') }}?</label>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input name="allow_pets" class="custom-control-input" id="allow_pets_yes" value="yes" type="radio" {{ in_array(old('allow_pets', $accommodation->is_pet_allowed), [null, 'yes', 1]) ? 'checked="checked"' : '' }}>
+                                <input name="allow_pets" class="custom-control-input" id="allow_pets_yes" value="yes" type="radio" {{ (in_array(old('allow_pets'), [null, 'yes'])) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_pets_yes">{{ __('Yes') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ in_array(old('allow_pets', $accommodation->is_pet_allowed), ['no', 0]) ? 'checked="checked"' : '' }}>
+                                <input name="allow_pets" class="custom-control-input" id="allow_pets_no" value="no" type="radio" {{ ('no' == old('allow_pets')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="allow_pets_no">{{ __('No') }}</label>
                             </div>
 
@@ -324,7 +324,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="other_rules" class="font-weight-600">{{ __('Other house rules') }}</label>
-                                <input type="text" name="other_rules" id="other_rules" class="form-control @error('other_rules')is-invalid @enderror" placeholder="{{ __('What other rules are for accommodation') }}?" value="{{ old('other_rules', $accommodation->other_rules) }}">
+                                <input type="text" name="other_rules" id="other_rules" class="form-control @error('other_rules')is-invalid @enderror" placeholder="{{ __('What other rules are for accommodation') }}?" value="{{ old('other_rules') }}">
 
                                 @error('other_rules')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -339,7 +339,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="transport_subway_distance" class="font-weight-600">{{ __('The nearest metro station') }}:</label>
-                                <input type="text" name="transport_subway_distance" id="transport_subway_distance" class="form-control @error('transport_subway_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_subway_distance', $accommodation->transport_subway_distance) }}">
+                                <input type="text" name="transport_subway_distance" id="transport_subway_distance" class="form-control @error('transport_subway_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_subway_distance') }}">
 
                                 @error('transport_subway_distance')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -349,7 +349,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="transport_bus_distance" class="font-weight-600">{{ __('The nearest bus stop') }}:</label>
-                                <input type="text" name="transport_bus_distance" id="transport_bus_distance" class="form-control @error('transport_bus_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_bus_distance', $accommodation->transport_bus_distance) }}">
+                                <input type="text" name="transport_bus_distance" id="transport_bus_distance" class="form-control @error('transport_bus_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_bus_distance') }}">
 
                                 @error('transport_bus_distance')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -359,7 +359,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="transport_railway_distance" class="font-weight-600">{{ __('Nearest train station') }}:</label>
-                                <input type="text" name="transport_railway_distance" id="transport_railway_distance" class="form-control @error('transport_railway_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_railway_distance', $accommodation->transport_railway_distance) }}">
+                                <input type="text" name="transport_railway_distance" id="transport_railway_distance" class="form-control @error('transport_railway_distance')is-invalid @enderror" placeholder="ex. 500 metri" value="{{ old('transport_railway_distance') }}">
 
                                 @error('transport_railway_distance')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -369,7 +369,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="transport_other_details" class="font-weight-600">{{ __('Other transport specifications') }}:</label>
-                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control @error('transport_other_details')is-invalid @enderror" placeholder="ex. în proximitatea spitalului" value="{{ old('transport_other_details', $accommodation->transport_other_details) }}">
+                                <input type="text" name="transport_other_details" id="transport_other_details" class="form-control @error('transport_other_details')is-invalid @enderror" placeholder="ex. în proximitatea spitalului" value="{{ old('transport_other_details') }}">
 
                                 @error('transport_other_details')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -425,7 +425,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from', $accommodation->unavailable_from_date) }}" />
+                                    <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from') }}" />
 
                                     @error('unavailable_from')
                                     <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -440,7 +440,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to', $accommodation->unavailable_to_date) }}" />
+                                    <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to') }}" />
 
                                     @error('unavailable_to')
                                     <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -457,11 +457,11 @@
                         <div class="col-sm-4">
                             <label for="" class="font-weight-600 mt-3 mb-3 required">{{ __('What are the accommodation costs') }}?</label>
                             <div class="custom-control custom-radio mb-2">
-                                <input name="accommodation_fee" class="custom-control-input" id="free" value="free" type="radio" {{ in_array(old('accommodation_fee', $accommodation->is_free), [null, 'free', 1]) ? 'checked="checked"' : '' }}>
+                                <input name="accommodation_fee" class="custom-control-input" id="free" value="free" type="radio" {{ (in_array(old('accommodation_fee'), [null, 'free'])) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="free">{{ __('Free') }}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="paid" type="radio" {{ in_array(old('accommodation_fee', $accommodation->is_free), ['paid', 0]) ? 'checked="checked"' : '' }}>
+                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="paid" type="radio" {{ ('paid' == old('accommodation_fee')) ? 'checked="checked"' : '' }}>
                                 <label class="custom-control-label" for="paid">{{ __('Paid') }}</label>
                             </div>
 
@@ -469,10 +469,10 @@
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-sm-8 {{ $accommodation->is_free ? 'd-none' : '' }}" id="feeSection">
+                        <div class="col-sm-8 d-none" id="feeSection">
                             <div class="form-group">
                                 <label for="general_fee" class="font-weight-600">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}:</label>
-                                <input type="text" name="general_fee" id="general_fee" class="form-control @error('general_fee')is-invalid @enderror" placeholder="ex. 100 RON" value="{{ old('general_fee', $accommodation->general_fee) }}">
+                                <input type="text" name="general_fee" id="general_fee" class="form-control @error('general_fee')is-invalid @enderror" placeholder="ex. 100 RON" value="{{ old('general_fee') }}">
 
                                 @error('general_fee')
                                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -497,7 +497,6 @@
         tinymce.init({
             selector: '#description'
         });
-
         $(document).ready(function () {
             $('input[name=accommodation_fee]').on('change', function() {
                 if ('free' === this.value) {
@@ -511,23 +510,21 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "{{ old('checkin_time', $accommodation->checkin_time) }}",
+                defaultDate: "{{ old('checkin_time', '15:00') }}",
                 time_24hr: true
             });
-
             flatpickr("#checkout_time", {
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "{{ old('checkout_time', $accommodation->checkout_time) }}",
+                defaultDate: "{{ old('checkout_time', '12:00') }}",
                 time_24hr: true
             });
-
             $('input[name="photos"]').fileuploader({
                 captions: $('html').attr('lang'),
                 limit: 20,
                 maxSize: 50,
-                files: {!! json_encode(collect($photoData)) !!},
+
                 extensions: ['png', 'jpg', 'jpeg'],
                 changeInput: ' ',
                 theme: 'thumbnails',
@@ -612,25 +609,73 @@
 
                     api.getOptions().dragDrop.container = plusInput;
                 },
-                onRemove: function(item) {
-                    axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
-                    axios
-                    .delete(
-                        '/host/ajax/accommodation/{{ $accommodation->id }}/photo', {
-                            data: {
-                                'name': item.name
-                            }
+                /*
+                // while using upload option, please set
+                // startImageRenderer: false
+                // for a better effect
+                upload: {
+                    url: './php/upload_file.php',
+                    data: null,
+                    type: 'POST',
+                    enctype: 'multipart/form-data',
+                    start: true,
+                    synchron: true,
+                    beforeSend: null,
+                    onSuccess: function(result, item) {
+                        var data = {};
+
+                        if (result && result.files)
+                            data = result;
+                        else
+                            data.hasWarnings = true;
+
+                        // if success
+                        if (data.isSuccess && data.files.length) {
+                            item.name = data.files[0].name;
+                            item.html.find('.content-holder > h5').text(item.name).attr('title', item.name);
                         }
-                    )
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.log(error);
+
+                        // if warnings
+                        if (data.hasWarnings) {
+                            for (var warning in data.warnings) {
+                                alert(data.warnings[warning]);
+                            }
+
+                            item.html.removeClass('upload-successful').addClass('upload-failed');
+                            return this.onError ? this.onError(item) : null;
+                        }
+
+                        item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
+
+                        setTimeout(function() {
+                            item.html.find('.progress-holder').hide();
+                            item.renderThumbnail();
+
+                            item.html.find('.fileuploader-action-popup, .fileuploader-item-image').show();
+                        }, 400);
+                    },
+                    onError: function(item) {
+                        item.html.find('.progress-holder, .fileuploader-action-popup, .fileuploader-item-image').hide();
+                    },
+                    onProgress: function(data, item) {
+                        var progressBar = item.html.find('.progress-holder');
+
+                        if(progressBar.length > 0) {
+                            progressBar.show();
+                            progressBar.find('.fileuploader-progressbar .bar').width(data.percentage + "%");
+                        }
+
+                        item.html.find('.fileuploader-action-popup, .fileuploader-item-image').hide();
+                    }
+                },
+                onRemove: function(item) {
+                    $.post('php/upload_remove.php', {
+                        file: item.name
                     });
                 }
-            })
-        })
+                */
+            });
+        });
     </script>
 @endsection

@@ -116,7 +116,7 @@
                     <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu
                     </a>
-                    <a href="{{ route('host.accommodation') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.accommodation', 'host.create-accommodation', 'host.view-accommodation', 'host.edit-accommodation']) ? 'active' : '' }}">
+                    <a href="{{ route('host.accommodation') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.accommodation', 'host.add-accommodation', 'host.view-accommodation', 'host.edit-accommodation']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Cazare
                     </a>
                 @endif
@@ -137,6 +137,7 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/argon-design-system.js')}}"></script>
     <script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.sticky-sidebar.min.js') }}" defer></script>
     @yield('scripts')
 </body>
 </html>

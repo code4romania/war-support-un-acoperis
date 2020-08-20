@@ -90,7 +90,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 2 spatii de cazare
             </h6>
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.create-accommodation') }}">Adauga cazare</a>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.add-accommodation') }}">Adauga cazare</a>
         </div>
     </div>
 
@@ -117,9 +117,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="{{ route('host.edit-accommodation', 1) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
                 <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
+                <a href="{{ route('host.view-accommodation', 1) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
         <div class="card">
@@ -144,9 +144,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('host.edit-accommodation') }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
+                <a href="{{ route('host.edit-accommodation', 1) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">Editeaza Cazare</a>
                 <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">Sterge Cazare</a>
-                <a href="{{ route('host.view-accommodation') }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
+                <a href="{{ route('host.view-accommodation', 1) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">Vizualizeaza</a>
             </div>
         </div>
     </div>

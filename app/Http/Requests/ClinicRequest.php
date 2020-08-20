@@ -37,7 +37,7 @@ class ClinicRequest extends FormRequest
             'categories.*' => ['required', 'exists:specialities,id'],
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
-            'address' => ['required', 'string', 'min:5', 'max:256'],
+            'address' => ['required', 'string', 'min:5', 'max:128'],
             'phone' => ['required', 'string', 'max:64'],
             'website' => ['required', 'url', 'max:256'],
             'contact_name' => ['required', 'string', 'min:2', 'max:64'],

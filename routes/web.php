@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/ro');
-Route::get('/health', 'HealthController@check');
+Route::get('/health', 'HealthController@check')->name('health.check');
 
 /**
  * Administration routes
@@ -82,15 +82,25 @@ Route::middleware([SetLanguage::class, Host::class])
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
 
         Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
-        Route::get('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
-        Route::get('/accommodation/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
-        Route::get('/accommodation/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
+        Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
+        Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
+        Route::get('/accommodation/{id}', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
+        Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
+        Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
+        Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');
+
+        /**
+         * Ajax routes (host)
+         */
+        Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+
     });
 
 /**
  * Ajax routes
  */
 Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
 /**

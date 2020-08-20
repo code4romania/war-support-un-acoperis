@@ -1,4 +1,5 @@
 .admin-area {
+    line-height: 1.2;
     background:$light-blue;
     overflow-x:hidden;
     .navbar-brand {
@@ -185,3 +186,25 @@ p.smaller {
         background: $form-feedback-icon-invalid no-repeat center right 1.75rem/calc(0.75em + 0.625rem) calc(0.75em + 0.625rem);
     }
 }
+
+.sidebar-dash{
+    will-change: min-height;
+    .sidebar__inner{
+        transform: translate(0, 0); /* For browsers don't support translate3d. */
+        transform: translate3d(0, 0, 0);
+        will-change: position, transform;
+    }
+    .card {
+        h1 {
+            line-height: 1;
+            margin-bottom:10px;
+            i{
+                position: absolute;
+                right: 25px;
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+

@@ -54,14 +54,14 @@
                                     <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
                                         <option>Selectati Țara</option>
                                         @foreach($countries as $country)
-                                        <option value="{{ $country->id }}" {{ old('country') ? 'selected' : '' }}>{{ $country->name }}</option>
+                                            <option value="{{ $country->id }}" {{ old('country') ? 'selected' : '' }}>{{ $country->name }}</option>
                                         @endforeach
                                     </select>
 
                                     @error('country')
                                     <span class="invalid-feedback d-flex" role="alert">
-                                        {{ $message }}
-                                    </span>
+                                    {{ $message }}
+                                </span>
                                     @enderror
                                 </div>
                             </div>
@@ -73,8 +73,8 @@
 
                                     @error('city')
                                     <span class="invalid-feedback d-flex" role="alert">
-                                        {{ $message }}
-                                    </span>
+                                    {{ $message }}
+                                </span>
                                     @enderror
                                 </div>
                             </div>
@@ -87,12 +87,13 @@
 
                             @error('address')
                             <span class="invalid-feedback d-flex" role="alert">
-                                {{ $message }}
-                            </span>
+                            {{ $message }}
+                        </span>
                             @enderror
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -119,6 +120,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="py-3 mt-4 mb-4 border-top border-bottom">
                     <div class="row">
                         <div class="col-sm-6">

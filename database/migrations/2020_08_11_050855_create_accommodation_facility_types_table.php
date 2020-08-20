@@ -13,12 +13,14 @@ class CreateAccommodationFacilityTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('accommodation_facility_types', function (Blueprint $table) {
+        Schema::create('accommodation_facility_type', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('accommodation_id');
             $table->unsignedBigInteger('facility_type_id');
             $table->string('message', 255)->nullable();
             $table->timestamps();
+
+            $table->unique(['accommodation_id', 'facility_type_id'], 'accommodation_id_facility_type_id_unique');
 
             $table->foreign('accommodation_id')
                 ->references('id')
@@ -37,6 +39,6 @@ class CreateAccommodationFacilityTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accommodation_facility_types');
+        Schema::dropIfExists('accommodation_facility_type');
     }
 }

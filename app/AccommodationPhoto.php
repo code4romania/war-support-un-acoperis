@@ -12,7 +12,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int $id
  * @property int $accommodation_id
+ * @property string $name
  * @property string $path
+ * @property int $size
+ * @property string|null $extension
+ * @property string|null $type
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
