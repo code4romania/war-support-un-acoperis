@@ -132,7 +132,7 @@
             <div class="border-top pt-3 mt-4">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('House rules') }}</h5>
+                        <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation availability') }}</h5>
                         <div class="kv">
                             <h6 class="font-weight-600 mb-1">{{ __('Checkin time') }}:</h6>
                             <p>{{ $accommodation->checkin_time }}</p>
@@ -141,6 +141,7 @@
                             <h6 class="font-weight-600 mb-1">{{ __('Checkout time') }}:</h6>
                             <p>{{ $accommodation->checkout_time }}</p>
                         </div>
+                        @if(!empty($accommodation->unavailable_from_date))
                         <div class="kv">
                             <h6 class="font-weight-600 mb-1">{{ __('Unavailability') }}</h6>
                             <p>
@@ -149,6 +150,7 @@
                                 {{ $accommodation->unavailable_to_date }}
                             </p>
                         </div>
+                        @endif
                     </div>
                     <div class="col-sm-6">
                         <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Fees') }}</h5>
@@ -156,10 +158,12 @@
                             <h6 class="font-weight-600 mb-1">{{ __('What are the accommodation costs') }}?</h6>
                             <p>{{ $accommodation->is_free ? __('Free') : __('Paid') }}</p>
                         </div>
+                        @if (!$accommodation->is_free)
                         <div class="kv">
                             <h6 class="font-weight-600 mb-1">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}</h6>
                             <p>{{ $accommodation->general_fee ?? '-' }}</p>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
