@@ -22,7 +22,7 @@
     <div class="card-deck accomodation-list row rows-2">
         @foreach($accommodations->get() as $accommodation)
         <div class="col-12 col-sm-6 mb-4">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="media">
                         <img src="{{ \Illuminate\Support\Facades\Storage::disk('private')->temporaryUrl($accommodation->photos()->first()->path, now()->addMinutes(1)) }}" alt="" class="w-50 mr-4">
@@ -47,9 +47,9 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>
                     <a href="{{ route('host.edit-accommodation', $accommodation->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">{{ __('Edit') }}</a>
                     <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>
-                    <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>
                 </div>
             </div>
         </div>
@@ -79,4 +79,25 @@
 {{--            </ul>--}}
 {{--        </nav>--}}
 {{--    </div>--}}
+
+    <!-- Confirmare stergere cazare -->
+    <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete accommodation') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this accommodation') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteRequest">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -84,14 +84,15 @@ Route::middleware([SetLanguage::class, Host::class])
         Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
         Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
         Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
-        Route::get('/accommodation/view/{id}', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
-        Route::get('/accommodation/edit/{id}', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
-        Route::post('/accommodation/edit/{id}', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
+        Route::get('/accommodation/{id}', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
+        Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
+        Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
 
         /**
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/photo/{id}', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+        Route::delete('/ajax//accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.delete-accommodation');
     });
 
 /**

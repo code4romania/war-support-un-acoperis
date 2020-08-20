@@ -605,17 +605,16 @@
                     api.getOptions().dragDrop.container = plusInput;
                 },
                 onRemove: function(item) {
-                    //console.log(item); // TODO:
+                    console.log(item); // TODO
 
-                    $.ajax({
-                        url: '/ajax/accommodation/photo/' + item.id,
-                        type: 'DELETE',
-                        success: function (data, textStatus, xhr) {
-                            console.log(data);
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            console.log('Error in Operation');
-                        }
+                    axios.delete('/ajax/accommodation/photo/' + item.id, {
+                        _token: "{{ csrf_token() }}",
+                        approvalStatus: selectedHelpTypeStatus
+                    }).then(response => {
+                        // TODO
+                    })
+                    .catch(error => {
+                        console.log(error);
                     });
                 }
             })

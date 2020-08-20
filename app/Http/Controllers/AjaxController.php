@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Accommodation;
 use App\AccommodationPhoto;
 use App\City;
 use App\Clinic;
@@ -435,10 +436,10 @@ class AjaxController extends Controller
 
     /**
      * @param int $id
+     * @return JsonResponse
      */
     public function deleteAccommodationPhoto(int $id)
     {
-        return response()->json(['success' => 'true']);
         /** @var AccommodationPhoto|null $photo */
         $photo = AccommodationPhoto::find($id);
 
@@ -456,5 +457,33 @@ class AjaxController extends Controller
         $photo->delete();
 
         return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function deleteAccommodation(int $id)
+    {
+        /** @var Accommodation $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        try {
+            $accommodation->delete();
+            return response()->json(['success' => 'true']);
+        } catch (\Throwable $throwable) {
+            return response()->json(['success' => 'false']);
+        }
     }
 }

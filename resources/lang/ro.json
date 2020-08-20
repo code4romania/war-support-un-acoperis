@@ -132,6 +132,7 @@
     "Edit note": "Editează notă",
     "Delete note": "Sterge notă",
     "Are you sure you want to delete this note": "Sigur vrei sa ștergi această notă",
+    "Are you sure you want to delete this accommodation": "Sigur vrei sa ștergi această cazare",
     "Cancel": "Renunță",
     "Yes": "Da",
     "No": "Nu",
@@ -205,6 +206,7 @@
 
     "Accommodation": "Cazare",
     "Add accommodation": "Adaugă cazare",
+    "Delete accommodation": "Șterge cazare",
     "Accommodation details": "Detalii cazare",
     "Hosting details": "Detalii găzduire",
     "Accommodation Type": "Tip de cazare",

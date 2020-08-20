@@ -147,7 +147,7 @@ class AccommodationController extends Controller
 
         DB::commit();
 
-        return redirect()->route('host.accommodation');
+        return redirect()->route('host.view-accommodation', $accommodation->id);
     }
 
     /**
@@ -338,6 +338,6 @@ class AccommodationController extends Controller
             }
         }
 
-        return redirect()->route('host.accommodation');
+        return redirect()->route('host.view-accommodation', $accommodation->id);
     }
 }
