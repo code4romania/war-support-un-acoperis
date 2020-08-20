@@ -38,6 +38,7 @@
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label for="categoryFilter">{{ __('Speciality') }}</label>
+                            <div id="categoryFilterButton">{{ __('Add') }}</div>
                             <div>
                                 <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
                                     @foreach($specialities as $speciality)
@@ -249,12 +250,17 @@
             $('.choices').on('click', function () {
                 _this = this;
                 delay(() => {
+                    $('.customCheck').prop("checked", false);
                     choices.getValue().forEach(function(choice) {
                         $('#customCheck' + choice.value).prop( "checked", true );
                     })
                     $('.choices__list--dropdown').removeClass('is-active');
                     $('#selectSpeciality').modal('show');
                 }, 10);
+            });
+
+            $('#categoryFilterButton').on('click', function () {
+                $('.choices').click();
             });
 
             $('.customCheck').on('click', function () {

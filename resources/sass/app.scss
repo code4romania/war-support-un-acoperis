@@ -6,3 +6,18 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+#categoryFilterButton {
+    position: absolute;
+    background: #28AEE4;
+    color: #fff;
+    right: 0;
+    border-right: 1px solid #28AEE4;
+    border-radius: 4px;
+    height: calc(1.5em + 1.25rem - 1px);
+    padding: 0.625rem 0.75rem;
+    line-height: 1.5;
+    z-index: 1000;
+    cursor: pointer;
+    margin-right: 1em;
+}
