@@ -54,7 +54,7 @@
             </div>
             <div class="border-bottom py-4" id="noteContainer">
                 <h6 class="font-weight-600 mb-3">{{ __('Notes') }}</h6>
-                @foreach($helpResourceType->helpresource->notes as $note)
+                @foreach($helpResourceType->notes as $note)
                     <div class="note p-3" id="note-container-{{ $note->id }}">
                         <div class="row align-items-sm-center">
                             <div class="col-sm-9 mb-4 mb-sm-0">
@@ -234,7 +234,7 @@
         };
 
         $('#addNote').on('click', function() {
-            axios.post('{{ @route('ajax.create-note', ['entityType' => \App\Note::TYPE_HELP_RESOURCE, 'entityId' => $helpResourceType->helpresource->id]) }}', {
+            axios.post('{{ @route('ajax.create-note', ['entityType' => \App\Note::TYPE_HELP_RESOURCE, 'entityId' => $helpResourceType->id]) }}', {
                 _token: "{{ csrf_token() }}",
                 message: tinymce.get('note-message').getContent()
             }).then(response => {

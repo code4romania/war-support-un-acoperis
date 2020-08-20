@@ -5,6 +5,7 @@ namespace App;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -37,5 +38,15 @@ class HelpResourceType extends Model
     public function resourcetype()
     {
         return $this->belongsTo(ResourceType::class, 'resource_type_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function notes()
+    {
+        return $this
+            ->hasMany(Note::class, 'entity_id')
+            ->where('notes.entity_type', '=', Note::TYPE_HELP_RESOURCE);
     }
 }

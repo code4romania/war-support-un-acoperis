@@ -147,7 +147,7 @@ class AjaxController extends Controller
                 $entity = HelpRequest::find($entityId);
                 break;
             case Note::TYPE_HELP_RESOURCE:
-                $entity = HelpResource::find($entityId);
+                $entity = HelpResourceType::find($entityId);
                 break;
             default:
                 abort('400');
