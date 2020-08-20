@@ -11,8 +11,8 @@
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
-            Dacă ai nevoie de sprijin în a lua legătura cu această clinică, sau ai nevoie de cazare în Londra te rugăm să ne scrii un mesaj folosind
-            <a href="#">acest formular</a>.
+            {{ __("Clinics list front description") }}
+            <a href="{{ route('request-services') }}">{{ __("this form") }}</a>.
         </div>
     </section>
     <div class="container py-5">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="extra-info">
-                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional informations') }}</h4>
+                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional information') }}</h4>
                     <div>
                         {!! $clinic->additional_information !!}
                     </div>

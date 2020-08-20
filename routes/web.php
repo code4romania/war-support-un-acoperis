@@ -91,6 +91,7 @@ Route::middleware([SetLanguage::class, Host::class])
  * Ajax routes
  */
 Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
 /**

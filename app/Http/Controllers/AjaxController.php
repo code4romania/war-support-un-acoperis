@@ -431,4 +431,18 @@ class AjaxController extends Controller
 
         return response()->json(['success' => 'true']);
     }
+
+    public function getClinicsCitiesByCountryId(?int $countryId)
+    {
+        $cities = empty($countryId)
+            ? Clinic::all()->pluck('city')
+            : Clinic::where('country_id', "=", $countryId)->get()->pluck('city');
+
+        $cities = $cities->unique();
+
+        return response()->json([
+            'success' => 'true',
+            'cities' => $cities->toArray()
+        ]);
+    }
 }
