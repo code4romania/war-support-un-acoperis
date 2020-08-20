@@ -469,7 +469,7 @@
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-8 {{ $accommodation->is_free ? 'd-none' : '' }}" id="feeSection">
                             <div class="form-group">
                                 <label for="general_fee" class="font-weight-600">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}:</label>
                                 <input type="text" name="general_fee" id="general_fee" class="form-control @error('general_fee')is-invalid @enderror" placeholder="ex. 100 RON" value="{{ old('general_fee', $accommodation->general_fee) }}">
@@ -499,6 +499,14 @@
         });
 
         $(document).ready(function () {
+            $('input[name=accommodation_fee]').on('change', function() {
+                if ('free' === this.value) {
+                    $('#feeSection').addClass('d-none');
+                } else {
+                    $('#feeSection').removeClass('d-none');
+                }
+            });
+
             flatpickr("#checkin_time", {
                 enableTime: true,
                 noCalendar: true,

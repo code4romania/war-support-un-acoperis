@@ -18,6 +18,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ ucwords(__('Accommodation details')) }}
             </h6>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.edit-accommodation', $accommodation->id) }}">{{ __('Edit accommodation') }}</a>
         </div>
         <div class="card-body pt-4">
             <div class="row">
@@ -133,7 +134,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Description') }}</h5>
                     <p>{!! $accommodation->description ?? 'N/A' !!}</p>
                 </div>
