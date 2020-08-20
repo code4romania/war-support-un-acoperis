@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Accommodation
@@ -50,6 +51,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Accommodation extends Model
 {
+    use SoftDeletes;
+
     const OWNERSHIP_TYPE_OWNED = 'owned';
     const OWNERSHIP_TYPE_RENTAL = 'rental';
 

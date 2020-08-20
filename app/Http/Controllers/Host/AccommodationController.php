@@ -34,7 +34,7 @@ class AccommodationController extends Controller
 
         return view('host.accommodation')
             ->with('user', $user)
-            ->with('accommodations', $user->accommodations());
+            ->with('accommodations', $user->accommodations()->orderBy('id', 'desc'));
     }
 
     /**
@@ -339,5 +339,34 @@ class AccommodationController extends Controller
         }
 
         return redirect()->route('host.view-accommodation', $accommodation->id);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteAccommodation(int $id)
+    {
+        /** @var Accommodation $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        try {
+            $accommodation->delete();
+
+            return redirect()->route('host.accommodation');
+        } catch (\Throwable $throwable) {
+            dd($throwable->getMessage());
+            abort(500);
+        }
     }
 }

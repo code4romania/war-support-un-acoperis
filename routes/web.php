@@ -87,12 +87,13 @@ Route::middleware([SetLanguage::class, Host::class])
         Route::get('/accommodation/{id}', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
         Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
         Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
+        Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');
 
         /**
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/photo/{id}', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
-        Route::delete('/ajax//accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.delete-accommodation');
+
     });
 
 /**

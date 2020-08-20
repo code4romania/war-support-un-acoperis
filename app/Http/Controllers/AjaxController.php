@@ -472,32 +472,4 @@ class AjaxController extends Controller
 
         return response()->json(['success' => 'true']);
     }
-
-    /**
-     * @param int $id
-     * @return JsonResponse
-     */
-    public function deleteAccommodation(int $id)
-    {
-        /** @var Accommodation $accommodation */
-        $accommodation = Accommodation::find($id);
-
-        if (empty($accommodation)) {
-            abort(404);
-        }
-
-        /** @var User $user */
-        $user = Auth::user();
-
-        if (empty($user)) {
-            abort(403);
-        }
-
-        try {
-            $accommodation->delete();
-            return response()->json(['success' => 'true']);
-        } catch (\Throwable $throwable) {
-            return response()->json(['success' => 'false']);
-        }
-    }
 }

@@ -49,7 +49,7 @@
                 <div class="card-footer">
                     <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>
                     <a href="{{ route('host.edit-accommodation', $accommodation->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">{{ __('Edit') }}</a>
-                    <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>
+                    <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-accommodation" data-id="{{ $accommodation->id }}">{{ __('Delete') }}</a>
                 </div>
             </div>
         </div>
@@ -95,9 +95,29 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
-                    <button type="button" class="btn btn-secondary" id="proceedDeleteRequest">{{ __('Yes') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteAccommodation">{{ __('Yes') }}</button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            let selectedAccommodation = null;
+
+            $('.delete-accommodation').on('click', function(event) {
+                event.preventDefault();
+                selectedAccommodation = $(this).data('id');
+                $('#deleteAccommodationModal').modal('show');
+            });
+
+            $('#proceedDeleteAccommodation').on('click', function() {
+                $('#deleteAccommodationModal').modal('hide');
+                window.location.href = '/host/accommodation/'+selectedAccommodation+'/delete';
+            });
+        });
+    </script>
+@endsection
+
