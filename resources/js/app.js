@@ -1,5 +1,7 @@
 require('./bootstrap');
 require("flatpickr");
+window.StickySidebar = require('sticky-sidebar');
+
 import { Romanian } from "flatpickr/dist/l10n/ro.js"
 
 (function($) {
