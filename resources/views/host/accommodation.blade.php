@@ -25,7 +25,9 @@
             <div class="card h-100">
                 <div class="card-body">
                     <div class="media">
+                        @if (!empty($accommodation->photos()->count()))
                         <img src="{{ \Illuminate\Support\Facades\Storage::disk('private')->temporaryUrl($accommodation->photos()->first()->path, now()->addMinutes(1)) }}" alt="" class="w-50 mr-4">
+                        @endif
                         <div class="media-body">
                             <h6 class="text-primary font-weight-600 mb-1">
                                 <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="text-underline">{{ __($accommodation->accommodationtype->name) }}</a>
@@ -45,6 +47,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('host.view-accommodation', $accommodation->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>

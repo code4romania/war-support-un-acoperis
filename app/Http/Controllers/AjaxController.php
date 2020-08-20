@@ -450,16 +450,26 @@ class AjaxController extends Controller
 
     /**
      * @param int $id
+     * @param Request $request
      * @return JsonResponse
      */
-    public function deleteAccommodationPhoto(int $id)
+    public function deleteAccommodationPhoto(int $id, Request $request)
     {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
         /** @var AccommodationPhoto|null $photo */
-        $photo = AccommodationPhoto::find($id);
+        $photo = $accommodation->photos()->where('name', '=', $request->get('name'))->first();
 
         if (empty($photo)) {
             abort(404);
         }
+
+        $accommodation->photos()->where('name', '=', $request->get('name'))->delete();
 
         /** @var User $user */
         $user = Auth::user();
@@ -468,7 +478,11 @@ class AjaxController extends Controller
             abort(403);
         }
 
-        $photo->delete();
+        try {
+            $photo->delete();
+        } catch (\Exception $exception) {
+            abort(400);
+        }
 
         return response()->json(['success' => 'true']);
     }

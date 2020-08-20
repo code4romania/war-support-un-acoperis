@@ -75,6 +75,8 @@
                             </a>
                         @endforeach
                     </div>
+                    @else
+                        N/A
                     @endif
                     <h5 class="font-weight-600 text-primary mb-4">{{ __('Available facilities') }}</h5>
                     @if (!empty($generalFacilities->count()))

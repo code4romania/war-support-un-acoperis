@@ -92,7 +92,7 @@ Route::middleware([SetLanguage::class, Host::class])
         /**
          * Ajax routes (host)
          */
-        Route::delete('/ajax/accommodation/photo/{id}', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+        Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
 
     });
 

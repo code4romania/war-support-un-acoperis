@@ -605,13 +605,18 @@
                     api.getOptions().dragDrop.container = plusInput;
                 },
                 onRemove: function(item) {
-                    console.log(item); // TODO
+                    axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
-                    axios.delete('/ajax/accommodation/photo/' + item.id, {
-                        _token: "{{ csrf_token() }}",
-                        approvalStatus: selectedHelpTypeStatus
-                    }).then(response => {
-                        // TODO
+                    axios
+                    .delete(
+                        '/host/ajax/accommodation/{{ $accommodation->id }}/photo', {
+                            data: {
+                                'name': item.name
+                            }
+                        }
+                    )
+                    .then(response => {
+                        console.log(response);
                     })
                     .catch(error => {
                         console.log(error);
