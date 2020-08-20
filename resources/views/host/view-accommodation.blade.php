@@ -98,7 +98,6 @@
                     </div>
                     @endif
                     @if (!empty($otherFacilities))
-{{--                        {{ dd($accommodation->accommodationfacilitytypes) }}--}}
                         <div class="kv">
                             <h6 class="font-weight-600 mb-2">{{ __('What other facilities does the accommodation have') }}?</h6>
                             <ul class="list-unstyled list-custom gray-bullets">
@@ -106,10 +105,10 @@
                             </ul>
                         </div>
                     @endif
-                    <h5 class="font-weight-600 text-primary mb-4 mt-4">Adresa locuintei</h5>
+                    <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation address') }}</h5>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Adresa exacta</h6>
-                        <p>Str. St. Fernando, Bl. C19, Sc. B, Ap. 88, Etaj 9, Madrid, Spania, Cod postal 28010</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Accommodation exact address') }}</h6>
+                        <p>{{ $composedAddress }}</p>
                     </div>
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">Accesibilitate transport (distanta in metri)</h5>
                     <div class="kv">
