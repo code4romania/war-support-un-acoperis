@@ -154,7 +154,7 @@
     "Clinic details": "Detalii clinică",
     "Back": "Înapoi",
     "Clinic contact person": "Persoana de contact",
-    "Clinic additional informations": "Informatii suplimentare",
+    "Clinic additional information": "Informatii suplimentare",
     "Clinic transport": "Modalități de transport",
     "Description": "Descriere",
 
@@ -184,6 +184,10 @@
     "resource_types.translations": "Traduceri acte medicale",
     "resource_types.services": "Servicii",
     "resource_types.other": "Alte tipuri de ajutor",
+
+    "Select wanted domain": "Selecteaza specialitatea de care esti interesat",
+    "Filter": "Filtreaza",
+    "Add": "Adauga",
     "Delete resource": "Ștergere resursă",
 
     "Studio": "Garsonieră",

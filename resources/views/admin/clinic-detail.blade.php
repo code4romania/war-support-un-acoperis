@@ -72,7 +72,7 @@
                     <div>
                         {!! $clinic->description !!}
                     </div>
-                    <h4 class="font-weight-600 text-primary mt-5">{{ __('Clinic additional informations') }}</h4>
+                    <h4 class="font-weight-600 text-primary mt-5">{{ __('Clinic additional information') }}</h4>
                     <div>
                         {!! $clinic->additional_information !!}
                     </div>

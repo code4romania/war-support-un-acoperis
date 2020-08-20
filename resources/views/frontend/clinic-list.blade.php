@@ -38,6 +38,7 @@
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label for="categoryFilter">{{ __('Speciality') }}</label>
+                            <div id="categoryFilterButton">{{ __('Add') }}</div>
                             <div>
                                 <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
                                     @foreach($specialities as $speciality)
@@ -162,8 +163,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>
-{{--                    <button type="button" class="btn btn-primary" data-dismiss="modal">Filtreaza</button>--}}
+{{--                    <button type="button" class="btn btn-link text-gray-dark" data-dismiss="modal">Close</button>--}}
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Filter') }}</button>
                 </div>
             </div>
         </div>
@@ -249,12 +250,17 @@
             $('.choices').on('click', function () {
                 _this = this;
                 delay(() => {
+                    $('.customCheck').prop("checked", false);
                     choices.getValue().forEach(function(choice) {
                         $('#customCheck' + choice.value).prop( "checked", true );
                     })
                     $('.choices__list--dropdown').removeClass('is-active');
                     $('#selectSpeciality').modal('show');
                 }, 10);
+            });
+
+            $('#categoryFilterButton').on('click', function () {
+                $('.choices').click();
             });
 
             $('.customCheck').on('click', function () {
@@ -269,8 +275,7 @@
             })
 
             const categoryFilter = (selectedOptions) => {
-                const selectedCategories = selectedOptions;
-                pageState.categories = selectedCategories;
+                pageState.categories = selectedOptions;
                 $.SetQueryStringParameter('categories', pageState.categories);
                 render.renderHelpRequests(pageState);
             }
@@ -279,7 +284,45 @@
                 categoryFilter($(this).children("option:selected").map(function(){ return this.value }).get().join("|"));
             });
 
+            let getCitiesByCountry = function () {
+                let country = $("#countryFilter");
+                let city = $("#cityFilter");
+                let selectedCountry = country.val();
+                let selectedCity = city.val();
+
+                if (!selectedCountry.length) {
+                    selectedCountry = 0;
+                }
+
+                let route = '{{ @route('ajax.cities-by-country', [':::d-_-b:::']) }}';
+
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+                axios
+                    .get(route.replace(':::d-_-b:::', selectedCountry))
+                    .then(response => {
+                        city.find("option").remove();
+                        city.append("<option value=\"\">{{ __('All cities') }}</option>")
+
+                        response.data.cities.forEach(function(entry) {
+                            city.append("<option value=\"" + entry + "\">" + entry + "</option>")
+                        });
+
+                        if (response.data.cities.indexOf(selectedCity) > -1) {
+                            city.val(selectedCity);
+                        }
+                        pageState.city = city.val();
+                        $.SetQueryStringParameter('city', pageState.city);
+                        render.renderHelpRequests(pageState);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+
+            getCitiesByCountry();
+
             $( "#countryFilter" ).change(function() {
+                getCitiesByCountry();
                 pageState.country = $(this).val();
                 $.SetQueryStringParameter('country', pageState.country);
                 render.renderHelpRequests(pageState);
