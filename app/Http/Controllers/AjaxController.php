@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AccommodationPhoto;
 use App\City;
 use App\Clinic;
 use App\HelpRequest;
@@ -428,6 +429,31 @@ class AjaxController extends Controller
         if (count($helpResource->helpresourcetypes) == 0) {
             $helpResource->delete();
         }
+
+        return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteAccommodationPhoto(int $id)
+    {
+        return response()->json(['success' => 'true']);
+        /** @var AccommodationPhoto|null $photo */
+        $photo = AccommodationPhoto::find($id);
+
+        if (empty($photo)) {
+            abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $photo->delete();
 
         return response()->json(['success' => 'true']);
     }

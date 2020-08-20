@@ -13,9 +13,9 @@
             </h6>
         </div>
         <div class="card-body pt-4">
-            <form action="{{ route('host.update-accommodation', $accommodation->id) }}" method="post">
+            <form action="{{ route('host.update-accommodation', $accommodation->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <h6 class="font-weight-600 text-primary mb-3">{{ __('Hostinf details') }}</h6>
+                <h6 class="font-weight-600 text-primary mb-3">{{ __('Hosting details') }}</h6>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -604,73 +604,21 @@
 
                     api.getOptions().dragDrop.container = plusInput;
                 },
-
-                /*
-                // while using upload option, please set
-                // startImageRenderer: false
-                // for a better effect
-                upload: {
-                    url: './php/upload_file.php',
-                    data: null,
-                    type: 'POST',
-                    enctype: 'multipart/form-data',
-                    start: true,
-                    synchron: true,
-                    beforeSend: null,
-                    onSuccess: function(result, item) {
-                        var data = {};
-
-                        if (result && result.files)
-                            data = result;
-                        else
-                            data.hasWarnings = true;
-
-                        // if success
-                        if (data.isSuccess && data.files.length) {
-                            item.name = data.files[0].name;
-                            item.html.find('.content-holder > h5').text(item.name).attr('title', item.name);
-                        }
-
-                        // if warnings
-                        if (data.hasWarnings) {
-                            for (var warning in data.warnings) {
-                                alert(data.warnings[warning]);
-                            }
-
-                            item.html.removeClass('upload-successful').addClass('upload-failed');
-                            return this.onError ? this.onError(item) : null;
-                        }
-
-                        item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
-
-                        setTimeout(function() {
-                            item.html.find('.progress-holder').hide();
-                            item.renderThumbnail();
-
-                            item.html.find('.fileuploader-action-popup, .fileuploader-item-image').show();
-                        }, 400);
-                    },
-                    onError: function(item) {
-                        item.html.find('.progress-holder, .fileuploader-action-popup, .fileuploader-item-image').hide();
-                    },
-                    onProgress: function(data, item) {
-                        var progressBar = item.html.find('.progress-holder');
-
-                        if(progressBar.length > 0) {
-                            progressBar.show();
-                            progressBar.find('.fileuploader-progressbar .bar').width(data.percentage + "%");
-                        }
-
-                        item.html.find('.fileuploader-action-popup, .fileuploader-item-image').hide();
-                    }
-                },
                 onRemove: function(item) {
-                    $.post('php/upload_remove.php', {
-                        file: item.name
+                    //console.log(item); // TODO:
+
+                    $.ajax({
+                        url: '/ajax/accommodation/photo/' + item.id,
+                        type: 'DELETE',
+                        success: function (data, textStatus, xhr) {
+                            console.log(data);
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            console.log('Error in Operation');
+                        }
                     });
                 }
-                */
-            });
-        });
+            })
+        })
     </script>
 @endsection

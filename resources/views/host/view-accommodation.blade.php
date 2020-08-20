@@ -4,99 +4,108 @@
     <section class="mb-5">
         <nav aria-label="breadcrumb" role="navigation">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="{{ route('host.accommodation') }}">Cazare</a></li>
-                <li class="breadcrumb-item active text-dark" aria-current="page">Garsoniera, Spania, Madrid</li>
+                <li class="breadcrumb-item"><a href="{{ route('host.accommodation') }}">{{ __('Accommodation') }}</a></li>
+                <li class="breadcrumb-item active text-dark" aria-current="page">
+                    {{ __($accommodation->accommodationtype->name) }},
+                    {{ $accommodation->addresscountry->name }},
+                    {{ $accommodation->address_city }}
+                </li>
             </ol>
         </nav>
     </section>
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                Detalii Cazare
+                {{ ucwords(__('Accommodation details')) }}
             </h6>
         </div>
         <div class="card-body pt-4">
             <div class="row">
                 <div class="col-sm-6">
-                    <h5 class="font-weight-600 text-primary mb-4">Detalii gazduire</h5>
+                    <h5 class="font-weight-600 text-primary mb-4">{{ __('Hosting details') }}</h5>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Tip de cazare</h6>
-                        <p>Garsoniera</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Accommodation Type') }}</h6>
+                        <p>{{ __($accommodation->accommodationtype->name) }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Regimul proprietatii</h6>
-                        <p>Proprietate personala</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Ownership regime') }}</h6>
+                        <p>{{ \App\Accommodation::getOwnershipTypes()[$accommodation->ownership_type] }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Regimul de cazare</h6>
-                        <p>Cazare integral pentru oaspeți</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Hosting regime') }}</h6>
+                        <p>{{ $accommodation->is_fully_available ? __('Full accommodation for guests') : __('The accommodation is independent or part of your home') }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Numar maxim de persoane</h6>
-                        <p>3</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Maximum guests number') }}</h6>
+                        <p>{{ $accommodation->max_guests }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Numar paturi</h6>
-                        <p>3</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Available rooms') }}</h6>
+                        <p>{{ $accommodation->available_rooms }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Numar bai</h6>
-                        <p>1</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Available bathrooms') }}</h6>
+                        <p>{{ $accommodation->available_bathrooms }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Se permite folosirea bucatariei persoanelor cazate?</h6>
-                        <p>Da</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Allow the use of the kitchen of the accommodated guests') }}?</h6>
+                        <p>{{ $accommodation->is_kitchen_available ? __('Yes') : __('No') }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Persoanele cazate beneficiaza de loc de parcare?</h6>
-                        <p>Da</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('The hosts can benefit from a parking space') }}?</h6>
+                        <p>{{ $accommodation->is_parking_available ? __('Yes') : __('No') }}</p>
                     </div>
-                    <h5 class="font-weight-600 text-primary mb-4 mt-4">Regulile casei</h5>
+                    <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('House rules') }}</h5>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Este permis fumatul in locuinta?</h6>
-                        <p>Nu</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Smoking is allowed in the house') }}?</h6>
+                        <p>{{ $accommodation->is_smoking_allowed ? __('Yes') : __('No') }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Se accepta animale in locuinta?</h6>
-                        <p>Nu</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Pets are allowed in the house') }}?</h6>
+                        <p>{{ $accommodation->is_pet_allowed ? __('Yes') : __('No') }}</p>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <h5 class="font-weight-600 text-primary mb-4">Poze locuinta</h5>
+                    <h5 class="font-weight-600 text-primary mb-4">{{ __('Accommodation photos') }}</h5>
+                    @if(!empty($photos))
                     <div class="gallery d-flex flex-wrap mb-4">
-                        <a href="https://img2.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356032.jpg" data-toggle="lightbox" data-gallery="example-gallery">
-                            <img src="https://img2.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356032_330x248.jpg" alt="">
-                        </a>
-                        <a href="https://img3.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356042.jpg" data-toggle="lightbox" data-gallery="example-gallery">
-                            <img src="https://img3.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356042_330x248.jpg" alt="">
-                        </a>
-                        <a href="https://img2.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356038.jpg" data-toggle="lightbox" data-gallery="example-gallery">
-                            <img src="https://img2.imonet.ro/XAG0/AG000JTPP5C/apartament-de-vanzare-2-camere-bucuresti-drumul-taberei-135356038_330x248.jpg" alt="">
-                        </a>
+                        @foreach($photos as $photo)
+                            <a href="{{ $photo }}" data-toggle="lightbox" data-gallery="example-gallery">
+                                <img src="{{ $photo }}" alt="photo">
+                            </a>
+                        @endforeach
                     </div>
-                    <h5 class="font-weight-600 text-primary mb-4">Dotari cazare</h5>
+                    @endif
+                    <h5 class="font-weight-600 text-primary mb-4">{{ __('Available facilities') }}</h5>
+                    @if (!empty($generalFacilities->count()))
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-2">Ce dotari are spatiul de cazare?</h6>
+                        <h6 class="font-weight-600 mb-2">{{ __('What facilities does the accommodation have') }}?</h6>
                         <ul class="list-unstyled list-custom gray-bullets">
-                            <li>
-                                Dotari esentiale (prosoape, lenjerie de pat, sapun, hartie igienica, perne)
-                            </li>
-                            <li>
-                                Aer conditionat
-                            </li>
-                            <li>
-                                Dulapuri/sertare
-                            </li>
+                            @foreach($generalFacilities as $generalFacility)
+                            <li>{{ __($generalFacility->name) }}</li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
+                    @if (!empty($specialFacilities->count()))
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-2">Ce dotari speciale are spatiul de cazare?</h6>
+                        <h6 class="font-weight-600 mb-2">{{ __('What special facilities does the accommodation space have') }}?</h6>
                         <ul class="list-unstyled list-custom gray-bullets">
-                            <li>Detector de fum</li>
-                            <li>Detector de gaze</li>
-                            <li>Incuietoare la usa dormitorului</li>
+                            @foreach($specialFacilities as $specialFacility)
+                            <li>{{ __($specialFacility->name) }}</li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
+                    @if (!empty($otherFacilities))
+{{--                        {{ dd($accommodation->accommodationfacilitytypes) }}--}}
+                        <div class="kv">
+                            <h6 class="font-weight-600 mb-2">{{ __('What other facilities does the accommodation have') }}?</h6>
+                            <ul class="list-unstyled list-custom gray-bullets">
+                                <li>{{ __('test') }}</li>
+                            </ul>
+                        </div>
+                    @endif
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">Adresa locuintei</h5>
                     <div class="kv">
                         <h6 class="font-weight-600 mb-1">Adresa exacta</h6>

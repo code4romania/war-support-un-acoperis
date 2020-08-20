@@ -166,8 +166,22 @@ class AccommodationController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        $photos = [];
+
+        foreach ($accommodation->photos()->get() as $photo) {
+            $photos[] = Storage::disk('private')->temporaryUrl(
+                $photo->path,
+                now()->addMinutes(30)
+            );
+        }
+
         return view('host.view-accommodation')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('accommodation', $accommodation)
+            ->with('photos', $photos)
+            ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
+            ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
+            ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first());
     }
 
     /**
@@ -213,6 +227,7 @@ class AccommodationController extends Controller
                     $photo->path,
                     now()->addMinutes(1)
                 ),
+//                'id' => $photo->id,
                 'extension' => $photo->extension,
                 'name' => $photo->name,
                 'size' => $photo->size,
@@ -294,7 +309,22 @@ class AccommodationController extends Controller
         }
 
         if ($request->has('photos')) {
-            // TODO: store photos to storage and DB
+            /** @var UploadedFile $file */
+            foreach ($request->file('photos') as $file) {
+                $fileName = sha1((string)microtime() . $file->getClientOriginalName()) . $file->getClientOriginalExtension();
+
+                /** @var string $path */
+                $path = Storage::disk('private')->putFile('accommodation/' . $accommodation->id . '/' . $fileName, $file);
+
+                $accommodationPhoto = new AccommodationPhoto();
+                $accommodationPhoto->accommodation_id = $accommodation->id;
+                $accommodationPhoto->name = $file->getClientOriginalName();
+                $accommodationPhoto->path = $path;
+                $accommodationPhoto->size = $file->getSize();
+                $accommodationPhoto->extension = '.' . $file->getClientOriginalExtension();
+                $accommodationPhoto->type = $file->getClientMimeType();
+                $accommodationPhoto->save();
+            }
         }
 
         return redirect()->route('host.accommodation');
