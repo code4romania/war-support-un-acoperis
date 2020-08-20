@@ -238,7 +238,6 @@ class AccommodationController extends Controller
                     $photo->path,
                     now()->addMinutes(1)
                 ),
-//                'id' => $photo->id,
                 'extension' => $photo->extension,
                 'name' => $photo->name,
                 'size' => $photo->size,

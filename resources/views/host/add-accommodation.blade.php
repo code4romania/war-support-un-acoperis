@@ -517,7 +517,7 @@
                 limit: 20,
                 maxSize: 50,
 
-                extensions: null,
+                extensions: ['png', 'jpg', 'jpeg'],
                 changeInput: ' ',
                 theme: 'thumbnails',
                 enableApi: true,

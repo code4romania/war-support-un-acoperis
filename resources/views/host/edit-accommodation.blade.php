@@ -280,7 +280,7 @@
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation photos') }}</h6>
                     <input type="file" name="photos" id="photos">
 
-                    @error('photos')
+                    @error('photos.*')
                     <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                     @enderror
                 </div>
@@ -520,7 +520,7 @@
                 limit: 20,
                 maxSize: 50,
                 files: {!! json_encode(collect($photoData)) !!},
-                extensions: null,
+                extensions: ['png', 'jpg', 'jpeg'],
                 changeInput: ' ',
                 theme: 'thumbnails',
                 enableApi: true,

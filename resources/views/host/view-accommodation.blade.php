@@ -135,7 +135,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Description') }}</h5>
-                    <p>{!! $accommodation->description !!}</p>
+                    <p>{!! $accommodation->description ?? 'N/A' !!}</p>
                 </div>
             </div>
 

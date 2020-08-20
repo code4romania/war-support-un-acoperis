@@ -24,8 +24,6 @@ class CreateAccommodationPhotosTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['accommodation_id', 'name']);
-
             $table->foreign('accommodation_id')
                 ->references('id')
                 ->on('accommodations');
