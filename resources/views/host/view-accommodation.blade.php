@@ -110,47 +110,55 @@
                         <h6 class="font-weight-600 mb-1">{{ __('Accommodation exact address') }}</h6>
                         <p>{{ $composedAddress }}</p>
                     </div>
-                    <h5 class="font-weight-600 text-primary mb-4 mt-4">Accesibilitate transport (distanta in metri)</h5>
+                    <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Transport accessibility (distance in meters)') }}</h5>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Cea mai apropiata statie de metrou:</h6>
-                        <p>500 m</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('The nearest metro station') }}:</h6>
+                        <p>{{ $accommodation->transport_subway_distance ?? 'N/A' }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Cea mai apropiata statie de autobuz:</h6>
-                        <p>200 m</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('The nearest bus stop') }}:</h6>
+                        <p>{{ $accommodation->transport_bus_distance ?? 'N/A' }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">Cea mai apropiata gara de trenuri:</h6>
-                        <p>2500 m</p>
+                        <h6 class="font-weight-600 mb-1">{{ __('Nearest train station') }}:</h6>
+                        <p>{{ $accommodation->transport_railway_distance ?? 'N/A' }}</p>
+                    </div>
+                    <div class="kv">
+                        <h6 class="font-weight-600 mb-1">{{ __('Other transport specifications') }}:</h6>
+                        <p>{{ $accommodation->transport_other_details ?? 'N/A' }}</p>
                     </div>
                 </div>
             </div>
             <div class="border-top pt-3 mt-4">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h5 class="font-weight-600 text-primary mb-4 mt-4">Regulile casei</h5>
+                        <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('House rules') }}</h5>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Cazarea se face dupa ora:</h6>
-                            <p>18:00</p>
+                            <h6 class="font-weight-600 mb-1">{{ __('Checkin time') }}:</h6>
+                            <p>{{ $accommodation->checkin_time }}</p>
                         </div>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Decazarea se face inainte de ora:</h6>
-                            <p>09:00</p>
+                            <h6 class="font-weight-600 mb-1">{{ __('Checkout time') }}:</h6>
+                            <p>{{ $accommodation->checkout_time }}</p>
                         </div>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Indisponibilitate</h6>
-                            <p>20.10.2015 - 28.10.2015</p>
+                            <h6 class="font-weight-600 mb-1">{{ __('Unavailability') }}</h6>
+                            <p>
+                                {{ $accommodation->unavailable_from_date }}
+                                -
+                                {{ $accommodation->unavailable_to_date }}
+                            </p>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <h5 class="font-weight-600 text-primary mb-4 mt-4">Costuri</h5>
+                        <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Fees') }}</h5>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Care sunt costurile de cazare?</h6>
-                            <p>Totul este gratuit</p>
+                            <h6 class="font-weight-600 mb-1">{{ __('What are the accommodation costs') }}?</h6>
+                            <p>{{ $accommodation->is_free ? __('Free') : __('Paid') }}</p>
                         </div>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Suma estimata</h6>
-                            <p>0 Lei</p>
+                            <h6 class="font-weight-600 mb-1">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}</h6>
+                            <p>{{ $accommodation->general_fee ?? '-' }}</p>
                         </div>
                     </div>
                 </div>
