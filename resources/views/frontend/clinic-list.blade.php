@@ -294,7 +294,7 @@
                     selectedCountry = 0;
                 }
 
-                let route = '{{ @route('ajax.cities-by-country', [':::d-_-b:::']) }}';
+                let route = '{{ @route('ajax.clinics-cities-by-country', [':::d-_-b:::']) }}';
 
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
                 axios

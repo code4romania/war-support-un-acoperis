@@ -448,6 +448,20 @@ class AjaxController extends Controller
         ]);
     }
 
+    public function getResourcesCitiesByCountryId(?int $countryId)
+    {
+        $cities = empty($countryId)
+            ? HelpResource::all()->pluck('city')
+            : HelpResource::where('country_id', "=", $countryId)->get()->pluck('city');
+
+        $cities = $cities->unique();
+
+        return response()->json([
+            'success' => 'true',
+            'cities' => $cities->toArray()
+        ]);
+    }
+
     /**
      * @param int $id
      * @param Request $request
