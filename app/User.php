@@ -17,9 +17,13 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string $email
  * @property DateTime|null $email_verified_at
  * @property string|null $password
- * @property string|null $remember_token
+ * @property string|null $remember_toekn
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property int $country_id
+ * @property string|null $city
+ * @property string|null $address
+ * @property string|null $phone_number
  */
 class User extends Authenticatable
 {

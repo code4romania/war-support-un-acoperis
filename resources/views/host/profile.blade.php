@@ -9,17 +9,17 @@
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                Informatii Personale
+                {{ __("Personal information") }}
             </h6>
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.edit-profile') }}">Editeaza profil</a>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.edit-profile') }}">{{ __("Profile edit") }}</a>
         </div>
         <div class="card-body pt-4">
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Nume si prenume:
+                    {{ __("Full Name") }}:
                 </b>
                 <p>
-                    Teodora Munteanu
+                    @if ($user->name) {{ $user->name }} @else - @endif
                 </p>
             </div>
             <div class="kv d-flex">
