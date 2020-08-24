@@ -83,7 +83,9 @@ Route::middleware([SetLanguage::class, Host::class])
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
         Route::post('/profile/reset-password', 'Host\ProfileController@saveResetPassword')->name('host.save-reset-password');
 
-        Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')->name('host.accommodation');
+        Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')
+            ->where('page', '[0-9]+')
+            ->name('host.accommodation');
         Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
         Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
         Route::get('/accommodation/{id}/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
