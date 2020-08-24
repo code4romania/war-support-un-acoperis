@@ -3,6 +3,7 @@
 namespace App;
 
 use DateTime;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -82,5 +83,13 @@ class User extends Authenticatable
     public function accommodations()
     {
         return $this->hasMany(Accommodation::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function county()
+    {
+        return $this->belongsTo(County::class);
     }
 }

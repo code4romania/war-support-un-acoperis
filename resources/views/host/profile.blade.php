@@ -24,42 +24,42 @@
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Tara:
+                    {{ __("Country") }}:
                 </b>
                 <p>
-                    Spania
+                    @if ($user->country) {{ $user->country->name }} @else - @endif
                 </p>
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                   Oras:
+                    {{ __("City") }}:
                 </b>
                 <p>
-                   Madrid
+                    @if ($user->city) {{ $user->city }} @else - @endif
                 </p>
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Adresa:
+                    {{ __("Address") }}:
                 </b>
                 <p>
-                    Strada Fernando Astoria
+                    @if ($user->address) {{ $user->address }} @else - @endif
                 </p>
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Telefon:
+                    {{ __("Phone Number") }}:
                 </b>
                 <p>
-                    0762 567 976
+                    @if ($user->phone_number) {{ $user->phone_number }} @else - @endif
                 </p>
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Email:
+                    {{ __("E-Mail Address") }}:
                 </b>
                 <p>
-                    teodora.munteanu@gmail.com
+                    {{ $user->email }}
                 </p>
             </div>
         </div>
@@ -67,22 +67,22 @@
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                Date de logare in cont
+                {{ __("Account information") }}
             </h6>
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.reset-password') }}">Reseteaza parola</a>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.reset-password') }}">{{ __("Reset password") }}</a>
         </div>
         <div class="card-body pt-4">
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Email:
+                    {{ __("E-Mail Address") }}::
                 </b>
                 <p>
-                    teodora.munteanu@gmail.com
+                    {{ $user->email }}
                 </p>
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                    Parola
+                    {{ __("Password") }}
                 </b>
                 <p>
                     ************
