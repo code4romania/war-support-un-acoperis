@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title mb-3 font-weight-600">Edit Profile</h6>
+        <h6 class="page-title mb-3 font-weight-600">{{ __("Profile edit") }}</h6>
         <a href="{{ route('host.profile') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __("Back") }}</a>
     </section>
 
@@ -13,22 +13,25 @@
             </h6>
         </div>
         <div class="card-body pt-4">
-            <form action="">
+            <form action="{{ @route('host.save-profile') }}" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="required font-weight-600">{{ __("Full Name") }}</label>
-                            <input type="text" class="form-control" placeholder="{{ __("Full Name") }}">
+                            <label for="name" class="required font-weight-600">{{ __("Full Name") }}</label>
+                            <input name="name" id="name" type="text" class="form-control" placeholder="{{ __("Full Name") }}">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>
+                            <label class="required font-weight-600" for="country">{{ __('Country') }}:</label>
                             <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
-                                <option>Select country</option>
-                                <option value="Tara 1">Tara 1</option>
+                                <option value="">{{ __("Select country") }}</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                @endforeach
                             </select>
 
                             @error('country')
@@ -39,7 +42,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                            <input type="text" placeholder="Viena" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
+                            <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
 
                             @error('city')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -49,7 +52,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="font-weight-600" for="address">{{ __('Address') }}:</label>
-                            <input type="text" placeholder="Street name, no, etc" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
+                            <input type="text" placeholder="{{ __("Address placeholder") }}" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
 
                             @error('address')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -61,7 +64,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                            <input type="tel" placeholder="+40 760 000 000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+                            <input type="tel" placeholder="{{ __("Phone placeholder") }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
 
                             @error('phone')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -71,7 +74,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="email">Email:</label>
-                            <input type="email" placeholder="ana.iordache@gmail.com" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
+                            <input type="email" placeholder="{{ __("Email placeholder") }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>

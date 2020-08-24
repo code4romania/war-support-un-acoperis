@@ -79,6 +79,7 @@ Route::middleware([SetLanguage::class, Host::class])
     ->group(function () {
         Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
+        Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
 
         Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
