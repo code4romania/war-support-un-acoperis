@@ -261,5 +261,12 @@
     "Profile edit": "Profile edit",
     "Address": "Address",
     "Account information": "Account information",
-    "Reset password": "Reset password"
+    "Reset password": "Reset password",
+    "Current password": "Current password",
+    "Current password placeholder": "Current password placeholder",
+    "New password": "New password",
+    "New password placeholder": "New password placeholder",
+    "Retype new password": "Retype new password",
+    "Retype new password placeholder": "Retype new password placeholder",
+    "Incorrect password": "Incorrect password"
 }
