@@ -81,10 +81,10 @@ Route::middleware([SetLanguage::class, Host::class])
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
 
-        Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
+        Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')->name('host.accommodation');
         Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
         Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
-        Route::get('/accommodation/{id}', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
+        Route::get('/accommodation/{id}/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
         Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
         Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
         Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');

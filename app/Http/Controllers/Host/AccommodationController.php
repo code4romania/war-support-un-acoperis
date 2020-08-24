@@ -12,6 +12,7 @@ use App\Http\Requests\AccommodationRequest;
 use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -24,17 +25,27 @@ use Illuminate\View\View;
  */
 class AccommodationController extends Controller
 {
+    const PER_PAGE = 6;
+
     /**
+     * @param int $page
      * @return View
      */
-    public function accommodation()
+    public function accommodation(int $page = 1)
     {
         /** @var User $user */
         $user = Auth::user();
 
+        /** @var LengthAwarePaginator $accommodations */
+        $accommodations = $user->accommodations()->orderBy('id', 'desc')->paginate(self::PER_PAGE, ['*'], 'page', $page);
+
+        if ($page > 1 && empty($accommodations->count())) {
+            abort(404);
+        }
+
         return view('host.accommodation')
             ->with('user', $user)
-            ->with('accommodations', $user->accommodations()->orderBy('id', 'desc'));
+            ->with('accommodations', $accommodations);
     }
 
     /**
