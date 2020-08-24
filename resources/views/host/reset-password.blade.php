@@ -1,42 +1,62 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="mb-5 d-flex align-items-center">
-        <a href="{{ route('host.profile') }}" class="btn btn-sm btn-outline-primary mr-3">Inapoi</a>
-        <h6 class="page-title mb-0 font-weight-600">Reset password</h6>
+    <section class="mb-5">
+        <h6 class="page-title mb-3 font-weight-600">{{ __("Reset password") }}</h6>
+        <a href="{{ route('host.profile') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __("Back") }}</a>
     </section>
 
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                Date de logare in cont
+                {{ __("Account information") }}
             </h6>
         </div>
         <div class="card-body pt-4">
-            <form action="">
+            <form action="{{ @route('host.save-reset-password') }}" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="required font-weight-600">Parola curenta:</label>
+                            <label for="" class="required font-weight-600">{{ __("Current password") }}:</label>
                             <div class="pwd-container">
-                                <input type="password" id="currentPwd" class="form-control" placeholder="Introdu parola curenta">
-                                <i class="fa fa-eye" id="revealCurrentPass"></i>
+                                <input type="password" name="currentPassword" id="currentPassword" class="form-control @error('currentPassword') is-invalid @enderror" placeholder="{{ __("Current password placeholder") }}">
+                                @error('currentPassword')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="" class="required font-weight-600">Parola noua:</label>
+                            <label for="" class="required font-weight-600">{{ __("New password") }}:</label>
                             <div class="pwd-container">
-                                <input type="password" id="newPwd" class="form-control" placeholder="Introdu parola noua">
-                                <i class="fa fa-eye" id="revealNewPass"></i>
+                                <input type="password" name="newPassword" id="newPassword" class="form-control @error('newPassword') is-invalid @enderror" placeholder="{{ __("New password placeholder") }}">
+                                @error('newPassword')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="" class="required font-weight-600">{{ __("Retype new password") }}:</label>
+                            <div class="pwd-container">
+                                <input type="password" name="retypeNewPassword" id="retypeNewPassword" class="form-control @error('retypeNewPassword') is-invalid @enderror" placeholder="{{ __("Retype new password placeholder") }}">
+                                @error('retypeNewPassword')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="border-top pt-4 pb-3 mt-5 clearfix">
                     <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                        <span class="btn-inner--text">Salveaza</span>
+                        <span class="btn-inner--text">{{ __("Save") }}</span>
                     </button>
                 </div>
             </form>

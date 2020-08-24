@@ -226,7 +226,45 @@
                 render.renderHelpRequests(pageState);
             });
 
+            let getCitiesByCountry = function () {
+                let country = $("#countryFilter");
+                let city = $("#cityFilter");
+                let selectedCountry = country.val();
+                let selectedCity = city.val();
+
+                if (!selectedCountry.length) {
+                    selectedCountry = 0;
+                }
+
+                let route = '{{ @route('ajax.clinics-cities-by-country', [':::d-_-b:::']) }}';
+
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+                axios
+                    .get(route.replace(':::d-_-b:::', selectedCountry))
+                    .then(response => {
+                        city.find("option").remove();
+                        city.append("<option value=\"\">{{ __('All cities') }}</option>")
+
+                        response.data.cities.forEach(function(entry) {
+                            city.append("<option value=\"" + entry + "\">" + entry + "</option>")
+                        });
+
+                        if (response.data.cities.indexOf(selectedCity) > -1) {
+                            city.val(selectedCity);
+                        }
+                        pageState.city = city.val();
+                        $.SetQueryStringParameter('city', pageState.city);
+                        render.renderHelpRequests(pageState);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+
+            getCitiesByCountry();
+
             $( "#countryFilter" ).change(function() {
+                getCitiesByCountry();
                 pageState.country = $(this).val();
                 $.SetQueryStringParameter('country', pageState.country);
                 render.renderHelpRequests(pageState);

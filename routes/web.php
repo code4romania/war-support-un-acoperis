@@ -79,7 +79,9 @@ Route::middleware([SetLanguage::class, Host::class])
     ->group(function () {
         Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
+        Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
+        Route::post('/profile/reset-password', 'Host\ProfileController@saveResetPassword')->name('host.save-reset-password');
 
         Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')->name('host.accommodation');
         Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
@@ -100,7 +102,8 @@ Route::middleware([SetLanguage::class, Host::class])
  * Ajax routes
  */
 Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
-Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.cities-by-country');
+Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.clinics-cities-by-country');
+Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
 /**
