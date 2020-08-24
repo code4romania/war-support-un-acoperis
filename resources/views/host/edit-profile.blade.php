@@ -19,7 +19,11 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="required font-weight-600">{{ __("Full Name") }}</label>
-                            <input name="name" id="name" type="text" class="form-control" placeholder="{{ __("Full Name") }}">
+                            <input value="{{ old('name', $user->name) }}" name="name" id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="{{ __("Full Name") }}">
+
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -30,7 +34,7 @@
                             <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
                                 <option value="">{{ __("Select country") }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}"{{ old('country', $user->country_id) == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
                                 @endforeach
                             </select>
 
@@ -42,7 +46,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                            <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
+                            <input value="{{ old('city', $user->city) }}" type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
 
                             @error('city')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -52,7 +56,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="font-weight-600" for="address">{{ __('Address') }}:</label>
-                            <input type="text" placeholder="{{ __("Address placeholder") }}" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
+                            <input value="{{ old('address', $user->address) }}" type="text" placeholder="{{ __("Address placeholder") }}" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
 
                             @error('address')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -64,7 +68,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                            <input type="tel" placeholder="{{ __("Phone placeholder") }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+                            <input value="{{ old('phone', $user->phone_number) }}" type="tel" placeholder="{{ __("Phone placeholder") }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
 
                             @error('phone')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -74,7 +78,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="email">Email:</label>
-                            <input type="email" placeholder="{{ __("Email placeholder") }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
+                            <input value="{{ old('email', $user->email) }}" type="email" placeholder="{{ __("Email placeholder") }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>

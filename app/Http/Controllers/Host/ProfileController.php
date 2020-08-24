@@ -24,6 +24,10 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        if (empty($user)) {
+            abort(403);
+        }
+
         return view('host.profile')
             ->with('user', $user);
     }
@@ -36,6 +40,10 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        if (empty($user)) {
+            abort(403);
+        }
+
         /** @var Collection $countries */
         $countries = Country::all();
 
@@ -44,10 +52,27 @@ class ProfileController extends Controller
             ->with('countries', $countries);
     }
 
-
+    /**
+     * @param EditProfileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function saveProfile(EditProfileRequest $request)
     {
-        dd($request);
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $user->name = $request->post('name');
+        $user->email = $request->post('email');
+        $user->country_id = $request->post('country');
+        $user->city = $request->post('city');
+        $user->address = $request->post('address');
+        $user->phone_number = $request->post('phone');
+        $user->save();
+
+        return redirect()->route('host.profile');
     }
 
     /**
@@ -57,6 +82,10 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
 
         return view('host.reset-password')
             ->with('user', $user);

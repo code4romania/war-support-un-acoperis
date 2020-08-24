@@ -88,8 +88,8 @@ class User extends Authenticatable
     /**
      * @return BelongsTo
      */
-    public function county()
+    public function country()
     {
-        return $this->belongsTo(County::class);
+        return $this->belongsTo(Country::class);
     }
 }
