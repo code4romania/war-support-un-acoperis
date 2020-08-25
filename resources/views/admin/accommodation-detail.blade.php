@@ -207,7 +207,6 @@
                 {{ __('Notes and reviews') }}
             </h5>
             <div class="border-bottom py-4" id="noteContainer">
-                <h6 class="font-weight-600 mb-3">{{ __('Notes') }}</h6>
                 @foreach($accommodation->notes as $note)
                     <div class="note p-3" id="note-container-{{ $note->id }}">
                         <div class="row align-items-sm-center">
@@ -307,7 +306,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('scripts')

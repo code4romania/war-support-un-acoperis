@@ -115,8 +115,28 @@
             <p class="mb-0 text-muted">{{ __('Try clearing some filters or perform another search.') }}</p>
         </div>
     </section>
-@endsection
 
+    <!-- Confirmare stergere cazare -->
+    <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete accommodation') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this accommodation') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteAccommodation">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
 @section('scripts')
     <script type="text/javascript">
@@ -154,13 +174,13 @@
                 this.emptyTable();
 
                 $.each(responseData, function(key, value) {
-                    let row = '<tr id="clinic-container-' + value.id + '">\n' +
+                    let row = '<tr id="accommodation-container-' + value.id + '">\n' +
                         '    <td><a href="/admin/accommodation/' + value.id + '">' + $.TranslateRequestStatus(value.type) + '</a></td>\n' +
                         '    <td>' + value.owner + '</td>\n' +
                         '    <td>' + value.country + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
                         '    <td class="text-right">\n' +
-                        '        <a href="/admin/accommodation/' + value.id + '/delete" class="btn btn-sm btn-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>\n' +
+                        '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-accommodation" data-id=' + value.id + '>{{ __('Delete') }}</a>\n' +
                         '        <a href="/admin/accommodation/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('Accommodation details') }}</a>\n' +
                         '    </td>\n' +
                         '</tr>';
@@ -226,6 +246,8 @@
             pageState.page = 1;
             pageState.perPage = 15;
 
+            let selectedAccommodation = null;
+
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
             }
@@ -254,6 +276,26 @@
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
                 render.renderAccommodations(pageState);
+            });
+
+            $('body').on('click', '.delete-accommodation', function(event) {
+                event.preventDefault();
+                selectedAccommodation = $(this).data('id');
+                $('#deleteAccommodationModal').modal('show');
+            });
+
+            $('#proceedDeleteAccommodation').on('click', function() {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios
+                    .delete('/admin/ajax/accommodation/' + selectedAccommodation)
+                    .then(response => {
+                        $('#accommodation-container-' + selectedAccommodation).remove();
+                        $('#deleteAccommodationModal').modal('hide');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             });
         });
     </script>

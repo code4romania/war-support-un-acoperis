@@ -72,6 +72,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::delete('/ajax/resources/{id}', 'AjaxController@deleteResource')->name('ajax.delete-request');
 
         Route::get('/ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
+        Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
     });
 
 /**

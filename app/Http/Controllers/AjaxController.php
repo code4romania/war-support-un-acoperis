@@ -240,6 +240,24 @@ class AjaxController extends Controller
      * @param $id
      * @return JsonResponse
      */
+    public function deleteAccommodation($id)
+    {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        $accommodation->delete();
+
+        return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function deleteHelpRequestType($id)
     {
         /** @var HelpRequest|null $helpRequest */
