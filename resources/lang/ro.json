@@ -167,7 +167,8 @@
     "Get Involved Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.",
     "General info": "Informatii generale",
     "Full name placeholder": "Ana-Maria Vasile",
-    "Select country": "Selecteaza tara",
+    "Select country": "Selectează țara",
+    "Select city": "Selectează localitatea",
     "City placeholder": "Viena",
     "Address placeholder": "Strada, nr, etc",
     "Phone placeholder": "+40 760 000 000",
@@ -214,6 +215,7 @@
     "Accommodation details": "Detalii cazare",
     "Hosting details": "Detalii găzduire",
     "Accommodation Type": "Tip de cazare",
+    "Select accommodation type": "Selectează tipul de cazare",
     "Accommodation type": "Ce tip de cazare oferi",
     "Ownership regime": "Regimul proprietatii",
     "Hosting regime": "Regimul de cazare",
@@ -282,5 +284,9 @@
     "New password placeholder": "Introdu parola noua",
     "Retype new password": "Rescrie parola noua",
     "Retype new password placeholder": "Reintrodu parola noua",
-    "Incorrect password": "Parola incorecta"
+    "Incorrect password": "Parola incorecta",
+
+    "Accommodations": "Spații de cazare",
+    "Search for accommodations using the search field or filter the list of resources using the options available": "Caută spații de cazare folosind câmpul de căutare sau filtrează lista resursele cu ajutorul opțiunilor prezente",
+    "Owner": "Proprietar"
 }

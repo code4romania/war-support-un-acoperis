@@ -500,4 +500,35 @@ class AjaxController extends Controller
 
         return response()->json(['success' => 'true']);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function accommodationList(Request $request)
+    {
+        $query = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
+        $query->join('users', 'users.id', '=', 'accommodations.user_id');
+        $query->join('accommodation_types', 'accommodations.accommodation_type_id', '=', 'accommodation_types.id');
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 15, 25, 50, 100])) {
+            $perPage = $request->get('perPage');
+        }
+
+        $query->select([
+            'accommodations.id',
+            'accommodation_types.name as type',
+            'users.name as owner',
+            'countries.name as country',
+            'accommodations.address_city as city'
+        ]);
+
+        $query->orderBy('accommodations.id', 'desc');
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
+    }
 }
