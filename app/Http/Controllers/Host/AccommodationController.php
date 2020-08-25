@@ -375,7 +375,6 @@ class AccommodationController extends Controller
 
             return redirect()->route('host.accommodation');
         } catch (\Throwable $throwable) {
-            dd($throwable->getMessage());
             abort(500);
         }
     }

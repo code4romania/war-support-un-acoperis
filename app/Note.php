@@ -25,8 +25,9 @@ class Note extends Model
 {
     use SoftDeletes;
 
-    const TYPE_HELP_REQUEST = '1';
-    const TYPE_HELP_RESOURCE = '2';
+    const TYPE_HELP_REQUEST = 1;
+    const TYPE_HELP_RESOURCE = 2;
+    const TYPE_HELP_ACCOMMODATION = 3;
 
     /**
      * @return BelongsTo

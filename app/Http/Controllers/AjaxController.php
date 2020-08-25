@@ -149,6 +149,9 @@ class AjaxController extends Controller
             case Note::TYPE_HELP_RESOURCE:
                 $entity = HelpResourceType::find($entityId);
                 break;
+            case Note::TYPE_HELP_ACCOMMODATION:
+                $entity = Accommodation::find($entityId);
+                break;
             default:
                 abort('400');
         }
@@ -172,9 +175,9 @@ class AjaxController extends Controller
 
         return response()->json([
             'success' => 'true',
-            'helpRequestNoteId' => $note->id,
-            'helpRequestNoteDate' => formatDateTime($note->created_at),
-            'helpRequestNoteUser' => $note->user->name]
+            'noteId' => $note->id,
+            'noteDate' => formatDateTime($note->created_at),
+            'noteUser' => $note->user->name]
         );
     }
 

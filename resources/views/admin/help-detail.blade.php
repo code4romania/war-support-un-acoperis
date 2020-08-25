@@ -441,10 +441,10 @@
                     message: tinymce.get('note-message').getContent()
                 }).then(response => {
                     addNote(
-                        response.data.helpRequestNoteId,
+                        response.data.noteId,
                         tinymce.get('note-message').getContent(),
-                        response.data.helpRequestNoteUser,
-                        response.data.helpRequestNoteDate,
+                        response.data.noteUser,
+                        response.data.noteDate,
                     );
 
                     tinymce.get('note-message').setContent('');

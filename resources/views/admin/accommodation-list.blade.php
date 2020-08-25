@@ -155,13 +155,13 @@
 
                 $.each(responseData, function(key, value) {
                     let row = '<tr id="clinic-container-' + value.id + '">\n' +
-                        '    <td><a href="/' + value.id + '">' + value.type + '</a></td>\n' +
+                        '    <td><a href="/admin/accommodation/' + value.id + '">' + $.TranslateRequestStatus(value.type) + '</a></td>\n' +
                         '    <td>' + value.owner + '</td>\n' +
                         '    <td>' + value.country + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
                         '    <td class="text-right">\n' +
-                        '        <a href="/' + value.slug + '" class="btn btn-sm btn-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>\n' +
-                        '        <a href="/' + value.slug + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('Accommodation details') }}</a>\n' +
+                        '        <a href="/admin/accommodation/' + value.id + '/delete" class="btn btn-sm btn-danger mb-2 mb-sm-0">{{ __('Delete') }}</a>\n' +
+                        '        <a href="/admin/accommodation/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('Accommodation details') }}</a>\n' +
                         '    </td>\n' +
                         '</tr>';
                     $('#tableBody').append(row);

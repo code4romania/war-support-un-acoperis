@@ -170,6 +170,7 @@
     "Select country": "Selectează țara",
     "Select city": "Selectează localitatea",
     "City placeholder": "Viena",
+    "Location": "Locație",
     "Address placeholder": "Strada, nr, etc",
     "Phone placeholder": "+40 760 000 000",
     "Email placeholder": "ana.iordache@gmail.com",
@@ -210,6 +211,7 @@
     "Others facilities": "Alte dotări",
 
     "Accommodation": "Cazare",
+    "Accommodation resource": "Ajutor cazare",
     "Add accommodation": "Adaugă cazare",
     "Delete accommodation": "Șterge cazare",
     "Accommodation details": "Detalii cazare",
@@ -288,5 +290,7 @@
 
     "Accommodations": "Spații de cazare",
     "Search for accommodations using the search field or filter the list of resources using the options available": "Caută spații de cazare folosind câmpul de căutare sau filtrează lista resursele cu ajutorul opțiunilor prezente",
-    "Owner": "Proprietar"
+    "Owner": "Proprietar",
+    "Date": "Data",
+    "Notes and reviews": "Note si recenzii"
 }

@@ -52,10 +52,11 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/resources/{id}', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
 
         Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
-        Route::get('/accommodation/detail', 'Admin\AccommodationController@accommodationDetail')->name('admin.accommodation-detail');
+        Route::get('/accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
         Route::get('/host/detail', 'Admin\HostController@detail')->name('admin.host-detail');
+
 
         /**
          * Ajax routes (admin)

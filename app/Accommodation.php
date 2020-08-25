@@ -117,4 +117,14 @@ class Accommodation extends Model
     {
         return $this->hasMany(AccommodationPhoto::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function notes()
+    {
+        return $this
+            ->hasMany(Note::class, 'entity_id')
+            ->where('notes.entity_type', '=', Note::TYPE_HELP_ACCOMMODATION);
+    }
 }
