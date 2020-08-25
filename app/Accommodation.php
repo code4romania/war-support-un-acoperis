@@ -125,6 +125,7 @@ class Accommodation extends Model
     {
         return $this
             ->hasMany(Note::class, 'entity_id')
-            ->where('notes.entity_type', '=', Note::TYPE_HELP_ACCOMMODATION);
+            ->where('notes.entity_type', '=', Note::TYPE_HELP_ACCOMMODATION)
+            ->orderBy('created_at');
     }
 }

@@ -2,8 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600 mb-3">Host Profile Page</h6>
-        <p class="text-muted">Hello, {{ $user->name }} ({{ $user->email }})!</p>
+        <h6 class="page-title font-weight-600 mb-3">{{ __('My Profile') }}</h6>
     </section>
 
     <div class="card shadow">
@@ -74,7 +73,7 @@
         <div class="card-body pt-4">
             <div class="kv d-flex">
                 <b class="mr-3">
-                    {{ __("E-Mail Address") }}::
+                    {{ __("E-Mail Address") }}:
                 </b>
                 <p>
                     {{ $user->email }}
@@ -82,7 +81,7 @@
             </div>
             <div class="kv d-flex">
                 <b class="mr-3">
-                    {{ __("Password") }}
+                    {{ __("Password") }}:
                 </b>
                 <p>
                     ************
