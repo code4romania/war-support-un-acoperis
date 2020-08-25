@@ -10,7 +10,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Accommodation resource') }} - {{ $user->name }}
             </h6>
-            <a class="btn btn-white text-danger btn-sm px-4" href="#">{{ __('Delete') }}</a>
+            <a class="btn btn-white text-danger btn-sm px-4 delete-accommodation" href="#">{{ __('Delete') }}</a>
         </div>
         <div class="card-body">
             <h5 class="text-primary font-weight-600 mb-4">
@@ -306,6 +306,27 @@
             </div>
         </div>
     </div>
+
+    <!-- Confirmare stergere cazare -->
+    <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Delete accommodation') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this accommodation') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteAccommodation">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -418,6 +439,26 @@
             $('body').on('click', '.delete-note', function() {
                 deleteNoteId = $(this).data('note-id');
                 $('#deleteNoteModal').modal('show');
+            });
+
+            $('.delete-accommodation').on('click', function (event) {
+                event.preventDefault();
+                $('#deleteAccommodationModal').modal('show');
+            });
+
+            $('#proceedDeleteAccommodation').on('click', function() {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios
+                .delete('/admin/ajax/accommodation/{{ $accommodation->id }}')
+                .then(response => {
+                    $('#deleteAccommodationModal').modal('hide');
+
+                    window.location.replace('{{ route('admin.accommodation-list') }}');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             });
         });
     </script>
