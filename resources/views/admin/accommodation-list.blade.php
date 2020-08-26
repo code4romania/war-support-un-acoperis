@@ -20,25 +20,34 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">{{ __('Accommodation Type') }}</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                            <label for="accommodationType">{{ __('Accommodation Type') }}</label>
+                            <select name="accommodationType" id="accommodationType" class="custom-select form-control">
                                 <option value="" selected>{{ __('Select accommodation type') }}</option>
+                                @foreach($types as $key => $value)
+                                    <option value="{{ $key }}">{{ __($value) }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">{{ __('Country') }}</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                            <label for="accommodationCountry">{{ __('Country') }}</label>
+                            <select name="accommodationCountry" id="accommodationCountry" class="custom-select form-control">
                                 <option value="" selected>{{ __('Select country') }}</option>
+                                @foreach($countries as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">{{ __('City') }}</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                            <label for="accommodationCity">{{ __('City') }}</label>
+                            <select name="accommodationCity" id="accommodationCity" class="custom-select form-control">
                                 <option value="" selected>{{ __('Select city') }}</option>
+                                @foreach($cities as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -245,8 +254,26 @@
             let pageState = {};
             pageState.page = 1;
             pageState.perPage = 15;
+            pageState.type = null;
+            pageState.country = null;
+            pageState.city = null;
 
             let selectedAccommodation = null;
+
+            if (undefined !== $.QueryString.type) {
+                pageState.type = $.QueryString.type;
+                $('#accommodationType').val(pageState.type);
+            }
+
+            if (undefined !== $.QueryString.country) {
+                pageState.country = $.QueryString.country;
+                $('#accommodationCountry').val(pageState.country);
+            }
+
+            if (undefined !== $.QueryString.city) {
+                pageState.city = $.QueryString.city;
+                $('#accommodationCity').val(pageState.city);
+            }
 
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
@@ -288,14 +315,32 @@
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                    .delete('/admin/ajax/accommodation/' + selectedAccommodation)
-                    .then(response => {
-                        $('#accommodation-container-' + selectedAccommodation).remove();
-                        $('#deleteAccommodationModal').modal('hide');
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .delete('/admin/ajax/accommodation/' + selectedAccommodation)
+                .then(response => {
+                    $('#accommodation-container-' + selectedAccommodation).remove();
+                    $('#deleteAccommodationModal').modal('hide');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            });
+
+            $('#accommodationType').on('change', function (event) {
+                pageState.type = this.value;
+                $.SetQueryStringParameter('type', pageState.type);
+                render.renderAccommodations(pageState);
+            });
+
+            $('#accommodationCountry').on('change', function (event) {
+                pageState.country = this.value;
+                $.SetQueryStringParameter('country', pageState.country);
+                render.renderAccommodations(pageState);
+            });
+
+            $('#accommodationCity').on('change', function (event) {
+                pageState.city = this.value;
+                $.SetQueryStringParameter('city', pageState.city);
+                render.renderAccommodations(pageState);
             });
         });
     </script>

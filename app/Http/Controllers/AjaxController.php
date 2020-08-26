@@ -532,6 +532,18 @@ class AjaxController extends Controller
         $query->join('users', 'users.id', '=', 'accommodations.user_id');
         $query->join('accommodation_types', 'accommodations.accommodation_type_id', '=', 'accommodation_types.id');
 
+        if ($request->has('type') && !empty($request->get('type'))) {
+            $query->where('accommodations.accommodation_type_id', '=', $request->get('type'));
+        }
+
+        if ($request->has('country') && !empty($request->get('country'))) {
+            $query->where('accommodations.address_country_id', '=', $request->get('country'));
+        }
+
+        if ($request->has('city') && !empty($request->get('city'))) {
+            $query->where('accommodations.address_city', '=', $request->get('city'));
+        }
+
         $perPage = 10;
 
         if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 15, 25, 50, 100])) {
