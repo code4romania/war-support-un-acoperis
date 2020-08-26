@@ -21,6 +21,11 @@ Route::redirect('/', '/ro');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
 /**
+ * Accommodation pictures
+ */
+Route::get('/media/accommodation/{accommodationId}/{photoId}', 'MediaController@accommodationPhoto')->name('media.accommodation-photo');
+
+/**
  * Administration routes
  */
 Route::middleware([SetLanguage::class, Administration::class])

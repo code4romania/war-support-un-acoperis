@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Accommodation;
+use App\AccommodationPhoto;
 use App\AccommodationType;
 use App\FacilityType;
 use App\Http\Controllers\Controller;
@@ -47,11 +48,9 @@ class AccommodationController extends Controller
 
         $photos = [];
 
+        /** @var AccommodationPhoto $photo */
         foreach ($accommodation->photos()->get() as $photo) {
-            $photos[] = Storage::disk('private')->temporaryUrl(
-                $photo->path,
-                now()->addMinutes(30)
-            );
+            $photos[] = $photo->getPhotoUrl();
         }
 
         $addressComponents = [];

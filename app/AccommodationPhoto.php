@@ -30,4 +30,12 @@ class AccommodationPhoto extends Model
     {
         return $this->belongsTo(Accommodation::class);
     }
+
+    /**
+     * @return string
+     */
+    public function getPhotoUrl(): string
+    {
+        return route('media.accommodation-photo', ['accommodationId' => $this->accommodation_id, 'photoId' => $this->id]);
+    }
 }
