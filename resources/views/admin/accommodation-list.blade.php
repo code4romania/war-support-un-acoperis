@@ -250,6 +250,22 @@
             }
         }
 
+        let selectCountry = function(country, selectedCity) {
+            axios.get('/admin/ajax/accommodation/cities/' + country)
+                .then(response => {
+                    let citySelector = $('#accommodationCity');
+
+                    citySelector.find("option").remove();
+                    citySelector.append("<option value=\"\">{{ __('Select city') }}</option>");
+
+                    response.data.cities.forEach(function(entry) {
+                        citySelector.append("<option value=\"" + entry + "\">" + entry + "</option>")
+                    });
+
+                    citySelector.val(selectedCity);
+                });
+        }
+
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -265,14 +281,15 @@
                 $('#accommodationType').val(pageState.type);
             }
 
-            if (undefined !== $.QueryString.country) {
-                pageState.country = $.QueryString.country;
-                $('#accommodationCountry').val(pageState.country);
-            }
-
             if (undefined !== $.QueryString.city) {
                 pageState.city = $.QueryString.city;
                 $('#accommodationCity').val(pageState.city);
+            }
+
+            if (undefined !== $.QueryString.country) {
+                pageState.country = $.QueryString.country;
+                selectCountry(pageState.country, pageState.city);
+                $('#accommodationCountry').val(pageState.country);
             }
 
             if (undefined !== $.QueryString.page) {
@@ -335,6 +352,8 @@
                 pageState.country = this.value;
                 $.SetQueryStringParameter('country', pageState.country);
                 render.renderAccommodations(pageState);
+
+                selectCountry(pageState.country);
             });
 
             $('#accommodationCity').on('change', function (event) {

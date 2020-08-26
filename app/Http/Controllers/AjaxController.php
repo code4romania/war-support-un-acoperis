@@ -564,4 +564,24 @@ class AjaxController extends Controller
             $query->paginate($perPage)
         );
     }
+
+    /**
+     * @param int|null $country
+     * @return JsonResponse
+     */
+    public function accommodationCityList(int $country = null)
+    {
+        $cityList = Accommodation::all();
+
+        if (!empty($country)) {
+            $cityList = $cityList->where('address_country_id', '=', $country);
+        }
+
+        $cityList = $cityList->pluck('address_city');
+
+        return response()->json([
+            'success' => 'true',
+            'cities' => $cityList->toArray()
+        ]);
+    }
 }
