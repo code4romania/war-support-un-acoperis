@@ -36,6 +36,6 @@ class AccommodationPhoto extends Model
      */
     public function getPhotoUrl(): string
     {
-        return route('media.accommodation-photo', ['accommodationId' => $this->accommodation_id, 'photoId' => $this->id]);
+        return route('media.accommodation-photo', ['accommodationId' => $this->accommodation_id, 'photoId' => $this->id, 'extension' => $this->extension]);
     }
 }

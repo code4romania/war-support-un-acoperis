@@ -7,7 +7,6 @@ use App\AccommodationPhoto;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class MediaController
