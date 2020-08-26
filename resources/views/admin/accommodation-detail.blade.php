@@ -96,11 +96,9 @@
                     <h5 class="font-weight-600 text-primary mb-4">{{ __('Accommodation photos') }}</h5>
                     @if(!empty($photos))
                         <div class="gallery d-flex flex-wrap mb-4">
-                            @foreach($photos as $photo)
-                                <a href="{{ $photo }}" data-toggle="lightbox" data-gallery="example-gallery">
-                                    <img src="{{ $photo }}" alt="photo">
-                                </a>
-                            @endforeach
+                        @foreach($photos as $photo)
+                            <a href="{{ $photo }}" data-toggle="lightbox"><img src="{{ $photo }}" alt="photo" class="img-fluid"></a>
+                        @endforeach
                         </div>
                     @else
                         N/A

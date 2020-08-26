@@ -46,7 +46,8 @@ class MediaController extends Controller
 
         return response($photoContent, 200, [
             'Content-Type' => $photo->type,
-            'Content-Length' => $photo->size
+            'Content-Length' => $photo->size,
+            'Content-Disposition' => 'inline'
         ]);
     }
 }
