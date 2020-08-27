@@ -362,6 +362,7 @@ class AjaxController extends Controller
         /** @var Builder $query */
         $query = HelpResourceType::join('help_resources', 'help_resources.id', '=', 'help_resource_types.help_resource_id')
             ->join('countries', 'countries.id', '=', 'help_resources.country_id')
+            ->join('users', 'users.email', '=', 'help_resources.email')
             ->join('resource_types', 'resource_types.id', '=', 'help_resource_types.resource_type_id')
             ->orderBy('id', 'desc');
 
@@ -409,7 +410,8 @@ class AjaxController extends Controller
             'resource_types.name as type',
             'countries.name as country',
             'help_resources.city',
-            'help_resource_types.created_at'
+            'help_resource_types.created_at',
+            'users.id as user_id'
         ]);
 
         $perPage = 10;
