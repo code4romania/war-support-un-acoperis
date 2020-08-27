@@ -164,7 +164,7 @@
                 <div class="description mb-5">
                     <div class="form-group">
                         <label for="description" class="font-weight-600">Descriere:</label>
-                        <textarea name="description" id="description" class="form-control" rows="6">{{ old('description', $clinic->description) }}</textarea>
+                        <textarea name="description" id="description" class="form-control" rows="12">{{ old('description', $clinic->description) }}</textarea>
 
                         @error('description')
                         <span class="invalid-feedback d-flex" role="alert">
@@ -176,7 +176,7 @@
                 <div class="extra-info mb-5">
                     <div class="form-group">
                         <label for="extra_details" class="font-weight-600">Informații suplimentare:</label>
-                        <textarea name="extra_details" id="extra_details" class="form-control" rows="6">{{ old('extra_details', $clinic->additional_information) }}</textarea>
+                        <textarea name="extra_details" id="extra_details" class="form-control" rows="12">{{ old('extra_details', $clinic->additional_information) }}</textarea>
 
                         @error('extra_details')
                         <span class="invalid-feedback d-flex" role="alert">
@@ -188,7 +188,7 @@
                 <div class="transportation">
                     <div class="form-group">
                         <label for="transport_details" class="font-weight-600">Modalități de transport:</label>
-                        <textarea name="transport_details" id="transport_details" class="form-control" rows="6">{{ old('transport_details', $clinic->transport_details) }}</textarea>
+                        <textarea name="transport_details" id="transport_details" class="form-control" rows="12">{{ old('transport_details', $clinic->transport_details) }}</textarea>
 
                         @error('transport_details')
                         <span class="invalid-feedback d-flex" role="alert">
