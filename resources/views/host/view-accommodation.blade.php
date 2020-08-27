@@ -109,7 +109,7 @@
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation address') }}</h5>
                     <div class="kv">
                         <h6 class="font-weight-600 mb-1">{{ __('Accommodation exact address') }}</h6>
-                        <p>{{ $composedAddress }}</p>
+                        <p>{{ $accommodation->getDisplayedAddress() }}</p>
                     </div>
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Transport accessibility (distance in meters)') }}</h5>
                     <div class="kv">
@@ -177,10 +177,10 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
     <script>
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                //props
+        $(document).ready(function() {
+            $(body).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({});
             });
         });
     </script>

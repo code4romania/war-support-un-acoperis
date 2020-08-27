@@ -277,14 +277,14 @@
     "Save": "Salvează",
     "Profile edit": "Editează profil",
     "Address": "Adresa",
-    "Account information": "Date de logare in cont",
-    "Reset password": "Reseteaza parola",
+    "Account information": "Date de logare în cont",
+    "Reset password": "Resetează parola",
 
-    "Current password": "Parola curenta",
-    "Current password placeholder": "Introdu parola curenta",
-    "New password": "Parola noua",
-    "New password placeholder": "Introdu parola noua",
-    "Retype new password": "Rescrie parola noua",
+    "Current password": "Parola curentă",
+    "Current password placeholder": "Introdu parola curentă",
+    "New password": "Parola nouă",
+    "New password placeholder": "Introdu parola nouă",
+    "Retype new password": "Rescrie parola nouă",
     "Retype new password placeholder": "Reintrodu parola noua",
     "Incorrect password": "Parola incorecta",
 
@@ -292,5 +292,7 @@
     "Search for accommodations using the search field or filter the list of resources using the options available": "Caută spații de cazare folosind câmpul de căutare sau filtrează lista resursele cu ajutorul opțiunilor prezente",
     "Owner": "Proprietar",
     "Date": "Data",
-    "Notes and reviews": "Note si recenzii"
+    "Notes and reviews": "Note si recenzii",
+    "Data successfully saved!": "Datele au fost salvate cu succes!",
+    "Enter an explanatory note": "Introduceți o notă explicativă"
 }

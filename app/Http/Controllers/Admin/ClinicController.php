@@ -123,7 +123,9 @@ class ClinicController extends Controller
             $clinic->specialities()->attach($value);
         }
 
-        return redirect()->route('admin.clinic-list');
+        return redirect()
+            ->route('admin.clinic-list')
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -151,7 +153,9 @@ class ClinicController extends Controller
             $clinic->specialities()->attach($value);
         }
 
-        return redirect()->route('admin.clinic-list');
+        return redirect()
+            ->route('admin.clinic-list')
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -195,7 +199,9 @@ class ClinicController extends Controller
         $speciality->description = $request->get('description');
         $speciality->save();
 
-        return redirect()->route('admin.clinic-category-list');
+        return redirect()
+            ->route('admin.clinic-category-list')
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -238,7 +244,9 @@ class ClinicController extends Controller
         $speciality->description = $request->get('description');
         $speciality->save();
 
-        return redirect()->route('admin.clinic-category-list');
+        return redirect()
+            ->route('admin.clinic-category-list')
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**

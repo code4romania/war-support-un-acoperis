@@ -178,13 +178,12 @@
     <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
         class ResourcesRenderer extends TableDataRenderer {
-            constructor(ajaxUrl, editText, deleteText, detailsText) {
+            constructor(ajaxUrl, deleteText, detailsText, typeTranslations) {
                 super(ajaxUrl); // call parent constructor
 
-                this.ajaxUrl = ajaxUrl;
-                this.editText = editText;
                 this.deleteText = deleteText;
                 this.detailsText = detailsText;
+                this.typeTranslations = typeTranslations;
             }
 
             renderTable(responseData) {
