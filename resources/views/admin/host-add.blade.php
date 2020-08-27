@@ -20,7 +20,7 @@
                             <label class="required font-weight-600" for="name">{{ __("Name and surname") }}:</label>
                             <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
 
-                            @error('full-name')
+                            @error('name')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
