@@ -27,7 +27,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/images/', 'public/images/')
     .copy('resources/js/jquery.fileuploader.min.js', 'public/js/jquery.fileuploader.min.js')
     .copy('resources/js/jquery.sticky-sidebar.min.js', 'public/js/jquery.sticky-sidebar.min.js')
-    .copy('resources/js/clinics-front-renderer.js', 'public/js/clinics-front-renderer.min.js')
     .version()
 if (mix.inProduction()) {
     mix.version();
