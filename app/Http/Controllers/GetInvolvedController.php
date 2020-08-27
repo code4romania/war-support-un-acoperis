@@ -7,8 +7,13 @@ use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -58,6 +63,29 @@ class GetInvolvedController extends Controller
                 if ($resourceType->options == ResourceType::OPTION_MESSAGE) {
                     $helpResource->message = $request->get('other');
                     $helpResource->save();
+                }
+
+                if ($resourceType->options == ResourceType::OPTION_ALERT) {
+                    $user = User::where('email', '=', $request->get('email'))->first();
+                    if (empty($user)) {
+                        $password = Str::random(24);
+
+                        $host = User::create([
+                            'name' => $helpResource->full_name,
+                            'email' => $helpResource->email,
+                            'password' => Hash::make($password),
+                            'email_verified_at' => Carbon::now(),
+                            'country_id' => $helpResource->country_id,
+                            'city' => $helpResource->city,
+                            'address' => $helpResource->address,
+                            'phone_number' => $helpResource->phone_number,
+                        ]);
+
+                        $host->assignRole('host');
+
+                        Log::info($password);
+                        // TODO mail and verification
+                    }
                 }
 
                 $helpResourceType->save();

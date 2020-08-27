@@ -8,6 +8,7 @@ use App\HelpResourceType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
+use App\User;
 use Illuminate\View\View;
 
 /**
@@ -52,11 +53,19 @@ class HostController extends Controller
     }
 
     /**
+     * @param int $id
      * @return View
      */
-    public function detail()
+    public function detail(int $id)
     {
-        return view('admin.host-detail');
+        $user = User::find($id);
+
+        if (empty($user)) {
+            abort(404);
+        }
+
+        return view('admin.host-detail')
+            ->with('user', $user);
     }
 
 }

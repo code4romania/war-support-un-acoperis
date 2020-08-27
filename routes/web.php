@@ -63,7 +63,7 @@ Route::middleware([SetLanguage::class, Administration::class])
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
         Route::post('/host/store', 'Admin\HostController@store')->name('admin.host-store');
-        Route::get('/host/detail', 'Admin\HostController@detail')->name('admin.host-detail');
+        Route::get('/host/detail/{id}', 'Admin\HostController@detail')->name('admin.host-detail');
 
 
         /**
