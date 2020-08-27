@@ -152,8 +152,41 @@
 
 @section('scripts')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script type="text/javascript" src="{{ mix('js/clinics-renderer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
+        class ClinicsRenderer extends TableDataRenderer {
+            constructor(ajaxUrl, editText, deleteText, detailsText) {
+                super(ajaxUrl); // call parent constructor
+
+                this.ajaxUrl = ajaxUrl;
+                this.editText = editText;
+                this.deleteText = deleteText;
+                this.detailsText = detailsText;
+            }
+
+            renderTable(responseData) {
+                this.emptyTable();
+
+                const _this = this
+                $.each(responseData, function(key, value) {
+                    let row = '<tr id="clinic-container-' + value.id + '">\n' +
+                        '    <td><a href="/admin/clinic/' + value.id + '">' + value.name + '</a></td>\n' +
+                        '    <td>' + value.country + '</td>\n' +
+                        '    <td>' + value.city + '</td>\n' +
+                        '    <td class="text-right">\n' +
+                        '        <a href="/admin/clinic/edit/' + value.id + '" class="btn btn-secondary btn-icon btn-sm" data-original-title="' + _this.editText + '" title="' + _this.editText + '">\n' +
+                        '            ' + _this.editText + '\n' +
+                        '        </a>\n' +
+                        '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-clinic" data-id=' + value.id + '>' + _this.deleteText + '</a>\n' +
+                        '        <a href="/admin/clinic/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">' + _this.detailsText + '</a>\n' +
+                        '    </td>\n' +
+                        '</tr>';
+
+                    $('#tableBody').append(row);
+                });
+            }
+        }
+
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -186,8 +219,8 @@
             $('.resultsPerPage').val(pageState.perPage);
 
             let deleteClinicId = null;
-            let render = new ClinicsRenderer('{{ route('ajax.clinic-list') }}', '{{ __('Edit') }}', '{{ __('Delete') }}', '{{ __('See details') }}');
-            render.renderHelpRequests(pageState);
+            let renderer = new ClinicsRenderer('{{ route('ajax.clinic-list') }}', '{{ __('Edit') }}', '{{ __('Delete') }}', '{{ __('See details') }}');
+            renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {
                 delay(() => {
@@ -196,7 +229,7 @@
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.searchFilter = searchQuery;
                         $.SetQueryStringParameter('searchFilter', pageState.searchFilter);
-                        render.renderHelpRequests(pageState);
+                        renderer.renderData(pageState);
                     }
                 }, 500);
             });
@@ -208,14 +241,14 @@
                 pageState.page = 1;
                 $.SetQueryStringParameter('page', pageState.page);
 
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', 'a.page-link', function(event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
 
@@ -223,19 +256,57 @@
                 const selectedCategories = $(this).children("option:selected").map(function(){ return this.value }).get().join("|");
                 pageState.categories = selectedCategories;
                 $.SetQueryStringParameter('categories', pageState.categories);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
+            let getCitiesByCountry = function () {
+                let country = $("#countryFilter");
+                let city = $("#cityFilter");
+                let selectedCountry = country.val();
+                let selectedCity = city.val();
+
+                if (!selectedCountry.length) {
+                    selectedCountry = 0;
+                }
+
+                let route = '{{ @route('ajax.clinics-cities-by-country', [':::d-_-b:::']) }}';
+
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+                axios
+                    .get(route.replace(':::d-_-b:::', selectedCountry))
+                    .then(response => {
+                        city.find("option").remove();
+                        city.append("<option value=\"\">{{ __('All cities') }}</option>")
+
+                        response.data.cities.forEach(function(entry) {
+                            city.append("<option value=\"" + entry + "\">" + entry + "</option>")
+                        });
+
+                        if (response.data.cities.indexOf(selectedCity) > -1) {
+                            city.val(selectedCity);
+                        }
+                        pageState.city = city.val();
+                        $.SetQueryStringParameter('city', pageState.city);
+                        renderer.renderData(pageState);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+
+            getCitiesByCountry();
+
             $( "#countryFilter" ).change(function() {
+                getCitiesByCountry();
                 pageState.country = $(this).val();
                 $.SetQueryStringParameter('country', pageState.country);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $( "#cityFilter" ).change(function() {
                 pageState.city = $(this).val();
                 $.SetQueryStringParameter('city', pageState.city);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             new Choices('#categoryFilter', {

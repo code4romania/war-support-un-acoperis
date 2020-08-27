@@ -12,6 +12,7 @@ use App\Http\Requests\AccommodationRequest;
 use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -24,17 +25,27 @@ use Illuminate\View\View;
  */
 class AccommodationController extends Controller
 {
+    const PER_PAGE = 6;
+
     /**
+     * @param int $page
      * @return View
      */
-    public function accommodation()
+    public function accommodation(int $page = 1)
     {
         /** @var User $user */
         $user = Auth::user();
 
+        /** @var LengthAwarePaginator $accommodations */
+        $accommodations = $user->accommodations()->orderBy('id', 'desc')->paginate(self::PER_PAGE, ['*'], 'page', $page);
+
+        if ($page > 1 && empty($accommodations->count())) {
+            abort(404);
+        }
+
         return view('host.accommodation')
             ->with('user', $user)
-            ->with('accommodations', $user->accommodations()->orderBy('id', 'desc'));
+            ->with('accommodations', $accommodations);
     }
 
     /**
@@ -168,11 +179,9 @@ class AccommodationController extends Controller
 
         $photos = [];
 
+        /** @var AccommodationPhoto $photo */
         foreach ($accommodation->photos()->get() as $photo) {
-            $photos[] = Storage::disk('private')->temporaryUrl(
-                $photo->path,
-                now()->addMinutes(30)
-            );
+            $photos[] = $photo->getPhotoUrl();
         }
 
         $addressComponents = [];
@@ -234,10 +243,7 @@ class AccommodationController extends Controller
         /** @var AccommodationPhoto $photo */
         foreach ($accommodation->photos()->get() as $photo) {
             array_push($photoData, [
-                'file' => Storage::disk('private')->temporaryUrl(
-                    $photo->path,
-                    now()->addMinutes(1)
-                ),
+                'file' => $photo->getPhotoUrl(),
                 'extension' => $photo->extension,
                 'name' => $photo->name,
                 'size' => $photo->size,
@@ -342,6 +348,7 @@ class AccommodationController extends Controller
 
     /**
      * @param int $id
+     * @return RedirectResponse
      */
     public function deleteAccommodation(int $id)
     {
@@ -364,7 +371,6 @@ class AccommodationController extends Controller
 
             return redirect()->route('host.accommodation');
         } catch (\Throwable $throwable) {
-            dd($throwable->getMessage());
             abort(500);
         }
     }

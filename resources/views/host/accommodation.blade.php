@@ -8,7 +8,7 @@
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center rounded">
             <h6 class="font-weight-600 text-white mb-0">
-                {{ trans_choice('Accommodation places', $accommodations->count(), ['value' => $accommodations->count()]) }}
+                {{ trans_choice('Accommodation places', $accommodations->total(), ['value' => $accommodations->total()]) }}
             </h6>
             <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.add-accommodation') }}">{{ __('Add accommodation') }}</a>
         </div>
@@ -20,13 +20,13 @@
     </div>
 
     <div class="card-deck accomodation-list row rows-2">
-        @foreach($accommodations->get() as $accommodation)
+        @foreach($accommodations->items() as $accommodation)
         <div class="col-12 col-sm-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="media">
                         @if (!empty($accommodation->photos()->count()))
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('private')->temporaryUrl($accommodation->photos()->first()->path, now()->addMinutes(1)) }}" alt="" class="w-50 mr-4">
+                        <img src="{{ $accommodation->photos()->first()->getPhotoUrl() }}" alt="" class="w-50 mr-4">
                         @endif
                         <div class="media-body">
                             <h6 class="text-primary font-weight-600 mb-1">
@@ -59,29 +59,11 @@
         @endforeach
     </div>
 
-{{--    <div class="mt-4">--}}
-{{--        <nav aria-label="...">--}}
-{{--            <ul class="pagination justify-content-center mb-0">--}}
-{{--                <li class="page-item disabled">--}}
-{{--                    <a class="page-link" href="#" tabindex="-1">--}}
-{{--                        <i class="fa fa-angle-left"></i>--}}
-{{--                        <span class="sr-only">Previous</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
-{{--                <li class="page-item active">--}}
-{{--                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>--}}
-{{--                </li>--}}
-{{--                <li class="page-item"><a class="page-link" href="#">3</a></li>--}}
-{{--                <li class="page-item">--}}
-{{--                    <a class="page-link" href="#">--}}
-{{--                        <i class="fa fa-angle-right"></i>--}}
-{{--                        <span class="sr-only">Next</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
-{{--        </nav>--}}
-{{--    </div>--}}
+    <div class="mt-4">
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center mb-0"></ul>
+        </nav>
+    </div>
 
     <!-- Confirmare stergere cazare -->
     <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -107,7 +89,64 @@
 
 @section('scripts')
     <script>
+        class AccommodationRenderer {
+            renderPagination(response) {
+                $('.pagination li').remove();
+
+                if (1 === response.last_page) {
+                    return;
+                }
+
+                let morePages = '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+
+                let currentPage = '<li class="page-item active"><a class="page-link" data-page="' + response.current_page + '" href="{{ route('host.accommodation') }}/'+response.current_page+'">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
+
+                let firstPage = '';
+                if (response.current_page > 1) {
+                    firstPage = '<li class="page-item"><a class="page-link" data-page="1" href="{{ route('host.accommodation') }}/1">1</a></li>';
+                }
+
+                let step = response.current_page
+                let counter = 0;
+
+                let previousPages = '';
+                while(step > 2 && 2 > counter) {
+                    counter++;
+                    step--;
+                    previousPages = '<li class="page-item"><a class="page-link" data-page="' + step + '" href="{{ route('host.accommodation') }}/'+ step +'">' + step + '</a></li>' + previousPages;
+                }
+
+                if (response.current_page > 4) {
+                    previousPages = morePages + previousPages;
+                }
+
+                step = response.current_page;
+                counter = 0;
+
+                let nextPages = '';
+                while(step < response.last_page - 1 && 2 > counter) {
+                    counter++;
+                    step++;
+                    nextPages += '<li class="page-item"><a class="page-link" data-page="' + step + '" href="{{ route('host.accommodation') }}/'+ step +'">' + step + '</a></li>';
+                }
+
+                if ((response.last_page - response.current_page) > 3) {
+                    nextPages += morePages;
+                }
+
+                let lastPage = '';
+                if (response.current_page < response.last_page) {
+                    lastPage = '<li class="page-item"><a class="page-link" data-page="' + response.last_page + '" href="{{ route('host.accommodation') }}/'+response.last_page+'">' + response.last_page + '</a></li>';
+                }
+
+                $('.pagination').append(firstPage).append(previousPages).append(currentPage).append(nextPages).append(lastPage);
+            }
+        }
+
         $(document).ready(function () {
+            renderer = new AccommodationRenderer;
+            renderer.renderPagination({!! json_encode($accommodations->toArray()) !!});
+
             let selectedAccommodation = null;
 
             $('.delete-accommodation').on('click', function(event) {
@@ -123,4 +162,3 @@
         });
     </script>
 @endsection
-

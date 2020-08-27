@@ -21,6 +21,13 @@ Route::redirect('/', '/ro');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
 /**
+ * Accommodation pictures
+ */
+Route::get('/media/accommodation/{accommodationId}/{photoId}{extension}', 'MediaController@accommodationPhoto')
+    ->where('photoId', '[0-9]+')
+    ->name('media.accommodation-photo');
+
+/**
  * Administration routes
  */
 Route::middleware([SetLanguage::class, Administration::class])
@@ -52,10 +59,11 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/resources/{id}', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
 
         Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
-        Route::get('/accommodation/detail', 'Admin\AccommodationController@accommodationDetail')->name('admin.accommodation-detail');
+        Route::get('/accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
         Route::get('/host/detail', 'Admin\HostController@detail')->name('admin.host-detail');
+
 
         /**
          * Ajax routes (admin)
@@ -69,6 +77,12 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::delete('/ajax/clinic/{id}', 'AjaxController@deleteClinic')->name('ajax.delete-clinic');
         Route::get('/ajax/resources', 'AjaxController@helpResources')->name('ajax.resources');
         Route::delete('/ajax/resources/{id}', 'AjaxController@deleteResource')->name('ajax.delete-request');
+
+        Route::get('/ajax/accommodation/cities/{country?}', 'AjaxController@accommodationCityList')->name('ajax.accommodation-city-list');
+        Route::get('/ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
+        Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
+
+
     });
 
 /**
@@ -79,12 +93,16 @@ Route::middleware([SetLanguage::class, Host::class])
     ->group(function () {
         Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
+        Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
+        Route::post('/profile/reset-password', 'Host\ProfileController@saveResetPassword')->name('host.save-reset-password');
 
-        Route::get('/accommodation', 'Host\AccommodationController@accommodation')->name('host.accommodation');
+        Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')
+            ->where('page', '[0-9]+')
+            ->name('host.accommodation');
         Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
         Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
-        Route::get('/accommodation/{id}', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
+        Route::get('/accommodation/{id}/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
         Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
         Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
         Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');
@@ -100,7 +118,8 @@ Route::middleware([SetLanguage::class, Host::class])
  * Ajax routes
  */
 Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
-Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.cities-by-country');
+Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.clinics-cities-by-country');
+Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
 /**

@@ -149,6 +149,9 @@ class AjaxController extends Controller
             case Note::TYPE_HELP_RESOURCE:
                 $entity = HelpResourceType::find($entityId);
                 break;
+            case Note::TYPE_HELP_ACCOMMODATION:
+                $entity = Accommodation::find($entityId);
+                break;
             default:
                 abort('400');
         }
@@ -172,9 +175,9 @@ class AjaxController extends Controller
 
         return response()->json([
             'success' => 'true',
-            'helpRequestNoteId' => $note->id,
-            'helpRequestNoteDate' => formatDateTime($note->created_at),
-            'helpRequestNoteUser' => $note->user->name]
+            'noteId' => $note->id,
+            'noteDate' => formatDateTime($note->created_at),
+            'noteUser' => $note->user->name]
         );
     }
 
@@ -229,6 +232,24 @@ class AjaxController extends Controller
         }
 
         $note->delete();
+
+        return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteAccommodation($id)
+    {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        $accommodation->delete();
 
         return response()->json(['success' => 'true']);
     }
@@ -448,6 +469,20 @@ class AjaxController extends Controller
         ]);
     }
 
+    public function getResourcesCitiesByCountryId(?int $countryId)
+    {
+        $cities = empty($countryId)
+            ? HelpResource::all()->pluck('city')
+            : HelpResource::where('country_id', "=", $countryId)->get()->pluck('city');
+
+        $cities = $cities->unique();
+
+        return response()->json([
+            'success' => 'true',
+            'cities' => $cities->toArray()
+        ]);
+    }
+
     /**
      * @param int $id
      * @param Request $request
@@ -485,5 +520,68 @@ class AjaxController extends Controller
         }
 
         return response()->json(['success' => 'true']);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function accommodationList(Request $request)
+    {
+        $query = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
+        $query->join('users', 'users.id', '=', 'accommodations.user_id');
+        $query->join('accommodation_types', 'accommodations.accommodation_type_id', '=', 'accommodation_types.id');
+
+        if ($request->has('type') && !empty($request->get('type'))) {
+            $query->where('accommodations.accommodation_type_id', '=', $request->get('type'));
+        }
+
+        if ($request->has('country') && !empty($request->get('country'))) {
+            $query->where('accommodations.address_country_id', '=', $request->get('country'));
+        }
+
+        if ($request->has('city') && !empty($request->get('city'))) {
+            $query->where('accommodations.address_city', '=', $request->get('city'));
+        }
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 15, 25, 50, 100])) {
+            $perPage = $request->get('perPage');
+        }
+
+        $query->select([
+            'accommodations.id',
+            'accommodation_types.name as type',
+            'users.name as owner',
+            'countries.name as country',
+            'accommodations.address_city as city'
+        ]);
+
+        $query->orderBy('accommodations.id', 'desc');
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
+    }
+
+    /**
+     * @param int|null $country
+     * @return JsonResponse
+     */
+    public function accommodationCityList(int $country = null)
+    {
+        $cityList = Accommodation::all();
+
+        if (!empty($country)) {
+            $cityList = $cityList->where('address_country_id', '=', $country);
+        }
+
+        $cityList = $cityList->pluck('address_city');
+
+        return response()->json([
+            'success' => 'true',
+            'cities' => $cityList->toArray()
+        ]);
     }
 }

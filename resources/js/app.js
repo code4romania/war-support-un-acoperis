@@ -39,7 +39,22 @@ import { Romanian } from "flatpickr/dist/l10n/ro.js"
 })(jQuery);
 
 (function($) {
-    $.TranslateRequestStatus = function(status) {
+    $.TranslateRequestStatus = function(type) {
+        switch (type) {
+            case 'Studio':
+                return 'Garsonieră';
+            case 'Apartment':
+                return 'Apartment';
+            case 'House':
+                return 'Casă';
+            default:
+                return type;
+        }
+    }
+})(jQuery);
+
+(function($) {
+    $.TranslateAccommodationType = function(status) {
         switch (status) {
             case 'new':
                 return 'Nouă';
