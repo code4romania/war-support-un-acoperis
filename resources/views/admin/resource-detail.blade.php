@@ -53,12 +53,14 @@
                 <b>{{ $helpResourceType->resourcetype->name }} @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif</b>
             </div>
         </div>
+    </div>
 
-        @include('partials.notes', [
-            'notes' => $helpResourceType->notes,
-            'entityType' => \App\Note::TYPE_HELP_RESOURCE,
-            'entityId' => $helpResourceType->id
-        ])
+    <div class="card shadow">
+    @include('partials.notes', [
+        'notes' => $helpResourceType->notes,
+        'entityType' => \App\Note::TYPE_HELP_RESOURCE,
+        'entityId' => $helpResourceType->id
+    ])
     </div>
 
     <!-- Confirmare stergere cerere -->
