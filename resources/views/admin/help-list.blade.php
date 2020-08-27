@@ -188,8 +188,8 @@
                 $('#endDateFilter').val(pageState.endDate);
             }
 
-            let render = new HelpRequestRenderer('{{ route('ajax.help-requests') }}');
-            render.renderData(pageState);
+            let renderer = new HelpRequestRenderer('{{ route('ajax.help-requests') }}');
+            renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {
                 delay(() => {
@@ -198,7 +198,7 @@
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.searchFilter = searchQuery;
                         $.SetQueryStringParameter('query', pageState.searchFilter);
-                        render.renderData(pageState);
+                        renderer.renderData(pageState);
                     }
                 }, 500);
             });
@@ -206,19 +206,19 @@
             $('#statusFilter').on('change', function () {
                 pageState.status = this.value;
                 $.SetQueryStringParameter('status', pageState.status);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('#startDateFilter').on('change', function() {
                 pageState.startDate = $('#startDateFilter').val();
                 $.SetQueryStringParameter('startDate', pageState.startDate);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('#endDateFilter').on('change', function() {
                 pageState.endDate = $('#endDateFilter').val();
                 $.SetQueryStringParameter('endDate', pageState.endDate);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('.resultsPerPage').on('change', function () {
@@ -228,14 +228,14 @@
                 pageState.page = 1;
                 $.SetQueryStringParameter('page', pageState.page);
 
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', 'a.page-link', function(event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
         });
 

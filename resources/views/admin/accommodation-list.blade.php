@@ -222,8 +222,8 @@
 
             $('.resultsPerPage').val(pageState.perPage);
 
-            let render = new AccommodationRenderer('{{ route('ajax.accommodation-list') }}');
-            render.renderData(pageState);
+            let renderer = new AccommodationRenderer('{{ route('ajax.accommodation-list') }}');
+            renderer.renderData(pageState);
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value);
@@ -232,14 +232,14 @@
                 pageState.page = 1;
                 $.SetQueryStringParameter('page', pageState.page);
 
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', 'a.page-link', function(event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', '.delete-accommodation', function(event) {
@@ -265,13 +265,13 @@
             $('#accommodationType').on('change', function (event) {
                 pageState.type = this.value;
                 $.SetQueryStringParameter('type', pageState.type);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
 
             $('#accommodationCountry').on('change', function (event) {
                 pageState.country = this.value;
                 $.SetQueryStringParameter('country', pageState.country);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
 
                 if ('' === pageState.country) {
                     $('#accommodationCity').val('').trigger('change');
@@ -283,7 +283,7 @@
             $('#accommodationCity').on('change', function (event) {
                 pageState.city = this.value;
                 $.SetQueryStringParameter('city', pageState.city);
-                render.renderData(pageState);
+                renderer.renderData(pageState);
             });
         });
     </script>
