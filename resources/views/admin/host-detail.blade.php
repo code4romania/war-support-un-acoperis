@@ -10,6 +10,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __("Personal information") }}
             </h6>
+
             <a class="btn btn-secondary btn-sm px-4" href="{{ route('admin.host-edit', ['id' => $user->id]) }}">{{ __("Profile edit") }}</a>
         </div>
         <div class="card-body pt-4">
