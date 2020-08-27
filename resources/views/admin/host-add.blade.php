@@ -3,7 +3,6 @@
 @section('content')
     <section class="mb-5">
         <h6 class="page-title mb-3 font-weight-600">Adaugare gazda</h6>
-        <a class="btn btn-default" href="{{ route('admin.host-detail') }}">Host detail page</a>
     </section>
 
     <div class="card shadow">
