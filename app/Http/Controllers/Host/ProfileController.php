@@ -8,6 +8,7 @@ use App\Http\Requests\EditProfileRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
@@ -56,7 +57,7 @@ class ProfileController extends Controller
 
     /**
      * @param EditProfileRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function saveProfile(EditProfileRequest $request)
     {
@@ -74,7 +75,9 @@ class ProfileController extends Controller
         $user->phone_number = $request->post('phone');
         $user->save();
 
-        return redirect()->route('host.profile');
+        return redirect()
+            ->route('host.profile')
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -95,7 +98,7 @@ class ProfileController extends Controller
 
     /**
      * @param ResetPasswordRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function saveResetPassword(ResetPasswordRequest $request)
     {
@@ -108,6 +111,8 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->post('newPassword'));
         $user->save();
 
-        return redirect()->route('host.profile');
+        return redirect()
+            ->route('host.profile')
+            ->withSuccess(__('Data successfully saved!'));
     }
 }

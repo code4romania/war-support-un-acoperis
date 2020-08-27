@@ -158,7 +158,9 @@ class AccommodationController extends Controller
 
         DB::commit();
 
-        return redirect()->route('host.view-accommodation', $accommodation->id);
+        return redirect()
+            ->route('host.view-accommodation', $accommodation->id)
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -343,7 +345,9 @@ class AccommodationController extends Controller
             }
         }
 
-        return redirect()->route('host.view-accommodation', $accommodation->id);
+        return redirect()
+            ->route('host.view-accommodation', $accommodation->id)
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -369,7 +373,9 @@ class AccommodationController extends Controller
         try {
             $accommodation->delete();
 
-            return redirect()->route('host.accommodation');
+            return redirect()
+                ->route('host.accommodation')
+                ->withSuccess(__('Data successfully saved!'));
         } catch (\Throwable $throwable) {
             abort(500);
         }
