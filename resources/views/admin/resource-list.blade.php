@@ -191,7 +191,15 @@
                 const _this = this;
                 $.each(responseData, function(key, value) {
                     let row = '<tr id="clinic-container-' + value.id + '">\n' +
-                        '    <td><a href="/admin/resources/' + value.id + '">' + value.full_name + '</a></td>\n' +
+                        '    <td>';
+                    if (value.type == "accommodation") {
+                        row += '<a href="/admin/host/detail/' + value.user_id + '">';
+                    }
+                    row += value.full_name;
+                    if (value.type == "accommodation") {
+                        row += '</a>';
+                    }
+                    row += '</td>\n' +
                         '    <td>' + _this.typeTranslations[value.type] + '</td>\n' +
                         '    <td>' + value.country + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
