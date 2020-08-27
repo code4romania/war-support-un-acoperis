@@ -103,7 +103,7 @@ return [
     'required_with_all' => 'The :attribute field is required when :values are present.',
     'required_without' => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same' => 'The :attribute and :other must match.',
+    'same' => 'Câmpul :attribute și :other trebuie sa fie identice.',
     'size' => [
         'numeric' => 'The :attribute must be :size.',
         'file' => 'The :attribute must be :size kilobytes.',
@@ -223,7 +223,10 @@ return [
         'accommodation_fee' => 'costuri de cazare',
         'unavailable_from' => 'indisponibil de la data',
         'unavailable_to' => 'indisponibil pana la data',
-        'photos' => 'poze'
+        'photos' => 'poze',
+        'currentPassword' => 'parolă curentă',
+        'newPassword' => 'parolă nouă',
+        'retypeNewPassword' => 'rescrie parolă nouă'
     ],
     'values' => [
         'accommodation_fee' => [
