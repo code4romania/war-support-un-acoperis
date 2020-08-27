@@ -103,6 +103,7 @@
 </div>
 
 @section('scripts')
+    @parent
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(document).ready(function() {
