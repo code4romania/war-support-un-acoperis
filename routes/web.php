@@ -60,13 +60,18 @@ Route::middleware([SetLanguage::class, Administration::class])
 
         Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
         Route::get('/accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
+        Route::get('/accommodation/{id}/edit', 'Admin\AccommodationController@edit')->name('admin.accommodation-edit');
 
-        Route::get('/host/detail/{id}', 'Admin\HostController@detail')->name('admin.host-detail');
+        Route::get('/host/detail/{id}/{page?}', 'Admin\HostController@detail')
+            ->where('page', '[0-9]+')
+            ->name('admin.host-detail');
+
+        Route::get('/accommodation/{id}/delete', 'Admin\AccommodationController@delete')->name('admin.accommodation-delete');
+
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
         Route::post('/host/store', 'Admin\HostController@store')->name('admin.host-store');
         Route::get('/host/edit/{id}', 'Admin\HostController@edit')->name('admin.host-edit');
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
-
 
         /**
          * Ajax routes (admin)
@@ -85,7 +90,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
         Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
 
-
+        Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.admin-delete-accommodation-photo');
     });
 
 /**

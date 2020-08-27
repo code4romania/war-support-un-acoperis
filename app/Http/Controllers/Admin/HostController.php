@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
 use App\User;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 
 /**
@@ -17,6 +18,8 @@ use Illuminate\View\View;
  */
 class HostController extends Controller
 {
+    const PER_PAGE = 6;
+
     /**
      * @return View
      */
@@ -54,18 +57,27 @@ class HostController extends Controller
 
     /**
      * @param int $id
+     * @param int $page
      * @return View
      */
-    public function detail(int $id)
+    public function detail(int $id, int $page = 1)
     {
+        /** @var User|null $user */
         $user = User::find($id);
 
         if (empty($user)) {
             abort(404);
         }
 
-        return view('admin.host-detail')
-            ->with('user', $user);
-    }
+        /** @var LengthAwarePaginator $accommodations */
+        $accommodations = $user->accommodations()->orderBy('id', 'desc')->paginate(self::PER_PAGE, ['*'], 'page', $page);
 
+        if ($page > 1 && empty($accommodations->count())) {
+            abort(404);
+        }
+
+        return view('admin.host-detail')
+            ->with('user', $user)
+            ->with('accommodations', $accommodations);
+    }
 }

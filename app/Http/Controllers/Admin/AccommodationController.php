@@ -8,7 +8,7 @@ use App\AccommodationType;
 use App\FacilityType;
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 /**
@@ -60,5 +60,29 @@ class AccommodationController extends Controller
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first());
+    }
+
+    /**
+     * @param int $id
+     * @return Redirect
+     */
+    public function delete(int $id)
+    {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        try {
+            $accommodation->delete();
+        } catch (\Exception $e) {
+            abort(400);
+        }
+
+        return redirect()
+            ->back()
+            ->withSuccess(__('Data successfully saved!'));
     }
 }
