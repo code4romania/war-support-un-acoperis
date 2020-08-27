@@ -109,7 +109,7 @@
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation address') }}</h5>
                     <div class="kv">
                         <h6 class="font-weight-600 mb-1">{{ __('Accommodation exact address') }}</h6>
-                        <p>{{ $composedAddress }}</p>
+                        <p>{{ $accommodation->getDisplayedAddress() }}</p>
                     </div>
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Transport accessibility (distance in meters)') }}</h5>
                     <div class="kv">

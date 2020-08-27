@@ -128,4 +128,22 @@ class Accommodation extends Model
             ->where('notes.entity_type', '=', Note::TYPE_HELP_ACCOMMODATION)
             ->orderBy('created_at');
     }
+
+    /**
+     * @return string
+     */
+    public function getDisplayedAddress(): string
+    {
+        $addressComponents = [];
+        if (!empty($this->address_street)) $addressComponents[] = 'Str. ' . $this->address_street;
+        if (!empty($this->address_building)) $addressComponents[] = 'Bl. ' . $this->address_building;
+        if (!empty($this->address_entry)) $addressComponents[] = 'Sc. ' . $this->address_entry;
+        if (!empty($this->address_apartment)) $addressComponents[] = 'Ap. ' . $this->address_apartment;
+        if (!empty($this->address_floor)) $addressComponents[] = 'Et. ' . $this->address_floor;
+        $addressComponents[] = $this->addresscountry->name;
+        $addressComponents[] = $this->address_city;
+        if (!empty($this->address_postal_code)) $addressComponents[] = 'Cod Postal ' . $this->address_postal_code;
+
+        return implode(', ', $addressComponents);
+    }
 }

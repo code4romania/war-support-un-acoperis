@@ -16,20 +16,20 @@
             <h5 class="text-primary font-weight-600 mb-4">
                 {{ $user->name }}
             </h5>
-            <div class="row  pb-3">
+            <div class="row pb-3">
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-map-marker mr-2"></i> {{ __('Location') }}: <span class="font-weight-600">{{ implode(', ', array_filter([$user->country->name, $user->city])) }}</span>
+                        <i class="fa fa-map-marker mr-2"></i> {{ __('Location') }}: <span class="font-weight-600">{{ $accommodation->getDisplayedAddress() }}</span>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-phone mr-2"></i> {{ __('Phone Number') }}: <span class="font-weight-600">{{ $user->phone_number }}</span>
+                        <i class="fa fa-phone mr-2"></i> {{ __('Phone Number') }}: <span class="font-weight-600">{{ $user->phone_number ?? 'N/A' }}</span>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-envelope mr-2"></i> {{ __('Email') }}: <a href="mailto:dan.vintu@gmail.com" class="font-weight-600">{{ $user->email }}</a>
+                        <i class="fa fa-envelope mr-2"></i> {{ __('Email') }}: <a href="mailto:dan.vintu@gmail.com" class="font-weight-600">{{ $user->email ?? 'N/A' }}</a>
                     </p>
                 </div>
                 <div class="col-sm">
@@ -135,7 +135,7 @@
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation address') }}</h5>
                     <div class="kv">
                         <h6 class="font-weight-600 mb-1">{{ __('Accommodation exact address') }}</h6>
-                        <p>{{ $composedAddress }}</p>
+                        <p>{{ $accommodation->getDisplayedAddress() }}</p>
                     </div>
                     <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Transport accessibility (distance in meters)') }}</h5>
                     <div class="kv">
