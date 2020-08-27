@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Controllers\Controller;
 use App\ResourceType;
@@ -46,6 +45,7 @@ class ResourceController extends Controller
     }
 
     /**
+     * @param $id
      * @return View
      */
     public function resourceDetail($id)
@@ -61,7 +61,11 @@ class ResourceController extends Controller
             ->with('helpResourceType', $helpResourceType);
     }
 
-    private function getTypeTranslations() {
+    /**
+     * @return array
+     */
+    private function getTypeTranslations(): array
+    {
         $resourceTypes = ResourceType::all();
 
         $result = [];
