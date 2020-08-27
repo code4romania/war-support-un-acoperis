@@ -18,10 +18,9 @@ use Illuminate\View\View;
 class GetInvolvedController extends Controller
 {
     /**
-     * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index()
     {
         $countries = Country::all();
         $resourceTypes = ResourceType::all();
