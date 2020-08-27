@@ -56,7 +56,7 @@
         </div>
     </section>
 
-    <section class="shadow-sm">
+    <section>
             <div class="row align-items-center mb-4">
                 <div class="col">
                     <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
