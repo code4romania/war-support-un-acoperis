@@ -90,7 +90,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ trans_choice('Accommodation places', $accommodations->total(), ['value' => $accommodations->total()]) }}
             </h6>
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.add-accommodation') }}">{{ __('Add accommodation') }}</a>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('admin.accommodation-add', ['userId' => $user->id]) }}">{{ __('Add accommodation') }}</a>
         </div>
     </div>
 
