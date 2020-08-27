@@ -179,7 +179,6 @@
             constructor(ajaxUrl, detailsText, locale) {
                 super(ajaxUrl);
 
-                this.ajaxUrl = ajaxUrl;
                 this.detailsText = detailsText;
                 this.locale = locale;
             }
