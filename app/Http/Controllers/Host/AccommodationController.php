@@ -158,7 +158,9 @@ class AccommodationController extends Controller
 
         DB::commit();
 
-        return redirect()->route('host.view-accommodation', $accommodation->id);
+        return redirect()
+            ->route('host.view-accommodation', $accommodation->id)
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
@@ -179,11 +181,9 @@ class AccommodationController extends Controller
 
         $photos = [];
 
+        /** @var AccommodationPhoto $photo */
         foreach ($accommodation->photos()->get() as $photo) {
-            $photos[] = Storage::disk('private')->temporaryUrl(
-                $photo->path,
-                now()->addMinutes(30)
-            );
+            $photos[] = $photo->getPhotoUrl();
         }
 
         $addressComponents = [];
@@ -245,10 +245,7 @@ class AccommodationController extends Controller
         /** @var AccommodationPhoto $photo */
         foreach ($accommodation->photos()->get() as $photo) {
             array_push($photoData, [
-                'file' => Storage::disk('private')->temporaryUrl(
-                    $photo->path,
-                    now()->addMinutes(1)
-                ),
+                'file' => $photo->getPhotoUrl(),
                 'extension' => $photo->extension,
                 'name' => $photo->name,
                 'size' => $photo->size,
@@ -348,11 +345,14 @@ class AccommodationController extends Controller
             }
         }
 
-        return redirect()->route('host.view-accommodation', $accommodation->id);
+        return redirect()
+            ->route('host.view-accommodation', $accommodation->id)
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     /**
      * @param int $id
+     * @return RedirectResponse
      */
     public function deleteAccommodation(int $id)
     {
@@ -373,7 +373,9 @@ class AccommodationController extends Controller
         try {
             $accommodation->delete();
 
-            return redirect()->route('host.accommodation');
+            return redirect()
+                ->route('host.accommodation')
+                ->withSuccess(__('Data successfully saved!'));
         } catch (\Throwable $throwable) {
             abort(500);
         }

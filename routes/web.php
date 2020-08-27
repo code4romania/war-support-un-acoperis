@@ -21,6 +21,13 @@ Route::redirect('/', '/ro');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
 /**
+ * Accommodation pictures
+ */
+Route::get('/media/accommodation/{accommodationId}/{photoId}{extension}', 'MediaController@accommodationPhoto')
+    ->where('photoId', '[0-9]+')
+    ->name('media.accommodation-photo');
+
+/**
  * Administration routes
  */
 Route::middleware([SetLanguage::class, Administration::class])
@@ -72,8 +79,11 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/ajax/resources', 'AjaxController@helpResources')->name('ajax.resources');
         Route::delete('/ajax/resources/{id}', 'AjaxController@deleteResource')->name('ajax.delete-request');
 
+        Route::get('/ajax/accommodation/cities/{country?}', 'AjaxController@accommodationCityList')->name('ajax.accommodation-city-list');
         Route::get('/ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
         Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
+
+
     });
 
 /**

@@ -175,8 +175,38 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ mix('js/resources-renderer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
+        class ResourcesRenderer extends TableDataRenderer {
+            constructor(ajaxUrl, deleteText, detailsText, typeTranslations) {
+                super(ajaxUrl); // call parent constructor
+
+                this.deleteText = deleteText;
+                this.detailsText = detailsText;
+                this.typeTranslations = typeTranslations;
+            }
+
+            renderTable(responseData) {
+                this.emptyTable();
+                const _this = this;
+                $.each(responseData, function(key, value) {
+                    let row = '<tr id="clinic-container-' + value.id + '">\n' +
+                        '    <td><a href="/admin/resources/' + value.id + '">' + value.full_name + '</a></td>\n' +
+                        '    <td>' + _this.typeTranslations[value.type] + '</td>\n' +
+                        '    <td>' + value.country + '</td>\n' +
+                        '    <td>' + value.city + '</td>\n' +
+                        '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
+                        '    <td class="text-right">\n' +
+                        '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-resource" data-id=' + value.id + '>' + _this.deleteText + '</a>\n' +
+                        '        <a href="/admin/resources/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">' + _this.detailsText + '</a>\n' +
+                        '    </td>\n' +
+                        '</tr>';
+
+                    $('#tableBody').append(row);
+                });
+            }
+        }
+
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -219,9 +249,8 @@
 
             $('.resultsPerPage').val(pageState.perPage);
 
-            let render = new ResourcesRenderer('{{ route('ajax.resources') }}', '{{ __('Delete') }}', '{{ __('See details') }}', {!! $typeTranslations !!});
-            console.log(render);
-            render.renderHelpRequests(pageState);
+            let renderer = new ResourcesRenderer('{{ route('ajax.resources') }}', '{{ __('Delete') }}', '{{ __('See details') }}', {!! $typeTranslations !!});
+            renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {
                 delay(() => {
@@ -230,7 +259,7 @@
                     if (searchQuery.length > 1 || searchQuery.length === 0) {
                         pageState.searchFilter = searchQuery;
                         $.SetQueryStringParameter('searchFilter', pageState.searchFilter);
-                        render.renderHelpRequests(pageState);
+                        renderer.renderData(pageState);
                     }
                 }, 500);
             });
@@ -242,14 +271,14 @@
                 pageState.page = 1;
                 $.SetQueryStringParameter('page', pageState.page);
 
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', 'a.page-link', function(event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             let getCitiesByCountry = function () {
@@ -280,7 +309,7 @@
                         }
                         pageState.city = city.val();
                         $.SetQueryStringParameter('city', pageState.city);
-                        render.renderHelpRequests(pageState);
+                        renderer.renderData(pageState);
                     })
                     .catch(error => {
                         console.log(error);
@@ -293,31 +322,31 @@
                 getCitiesByCountry();
                 pageState.country = $(this).val();
                 $.SetQueryStringParameter('country', pageState.country);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $( "#cityFilter" ).change(function() {
                 pageState.city = $(this).val();
                 $.SetQueryStringParameter('city', pageState.city);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $( "#statusFilter" ).change(function() {
                 pageState.statusFilter = $(this).val();
                 $.SetQueryStringParameter('statusFilter', pageState.statusFilter);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $('#startDateFilter').on('change', function() {
                 pageState.startDate = $('#startDateFilter').val();
                 $.SetQueryStringParameter('startDate', pageState.startDate);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $('#endDateFilter').on('change', function() {
                 pageState.endDate = $('#endDateFilter').val();
                 $.SetQueryStringParameter('endDate', pageState.endDate);
-                render.renderHelpRequests(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', '.delete-resource', function() {

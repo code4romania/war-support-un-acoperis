@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Accommodation;
+use App\AccommodationPhoto;
+use App\AccommodationType;
 use App\FacilityType;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -20,7 +22,12 @@ class AccommodationController extends Controller
      */
     public function accommodationList()
     {
-        return view('admin.accommodation-list');
+        $countries = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
+
+        return view('admin.accommodation-list')
+            ->with('types', AccommodationType::all()->pluck('name', 'id'))
+            ->with('countries', $countries->get(['countries.id', 'countries.name'])->pluck('name', 'id')->toArray())
+            ->with('cities', Accommodation::all()->pluck('address_city', 'address_city'));
     }
 
     /**
@@ -41,11 +48,9 @@ class AccommodationController extends Controller
 
         $photos = [];
 
+        /** @var AccommodationPhoto $photo */
         foreach ($accommodation->photos()->get() as $photo) {
-            $photos[] = Storage::disk('private')->temporaryUrl(
-                $photo->path,
-                now()->addMinutes(30)
-            );
+            $photos[] = $photo->getPhotoUrl();
         }
 
         $addressComponents = [];

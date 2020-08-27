@@ -124,6 +124,22 @@
             </div>
             <div class="page-wrapper">
                 <main class="pt-4 p-sm-5">
+                    @if(Session::has('success'))
+                    <div class="alert alert-secondary d-flex align-items-center">
+                        <i class="fa fa-check text-white mr-3"></i>
+                        <h6 class="mb-0 font-weight-600 text-white">
+                            {{ Session::get('success') }}
+                        </h6>
+                    </div>
+                    @elseif(Session::has('fail'))
+                        <div class="alert alert-danger d-flex align-items-center">
+                            <i class="fa fa-check text-white mr-3"></i>
+                            <h6 class="mb-0 font-weight-600 text-white">
+                                {{ Session::get('fail') }}
+                            </h6>
+                        </div>
+                    @endif
+
                     <div class="container-fluid">
                         @yield('content')
                     </div>

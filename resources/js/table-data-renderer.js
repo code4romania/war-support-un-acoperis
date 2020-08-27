@@ -1,17 +1,15 @@
-class ClinicsFrontRenderer {
-    constructor(ajaxUrl, detailsText, locale) {
+class TableDataRenderer {
+    constructor(ajaxUrl) {
         this.ajaxUrl = ajaxUrl;
-        this.detailsText = detailsText;
-        this.locale = locale;
     }
 
-    renderHelpRequests(pageState) {
+    renderData(pageState) {
         axios.get(this.ajaxUrl, {params: pageState})
-    .then(res => {
-            this.updateResultsCount(res.data.total);
-            this.renderTable(res.data.data);
-            this.renderPagination(res.data);
-        });
+            .then(res => {
+                this.updateResultsCount(res.data.total);
+                this.renderTable(res.data.data);
+                this.renderPagination(res.data);
+            });
     }
 
     emptyTable() {
@@ -32,33 +30,16 @@ class ClinicsFrontRenderer {
 
     renderTable(responseData) {
         this.emptyTable();
-        const _this = this
+
+        alert('TODO: extend and implement TableDataRenderer::renderTable according to your needs!');
+
         $.each(responseData, function(key, value) {
-            let row = '<tr id="clinic-container-' + value.id + '">\n' +
-                '    <td><a href="/' + _this.locale + '/clinics/' + value.slug + '">' + value.name + '</a></td>\n' +
-                '    <td>' + value.country + '</td>\n' +
-                '    <td>' + value.city + '</td>\n' +
+            let row = '<tr id="accommodation-container-' + value.id + '">\n' +
                 '    <td class="text-right">\n' +
-                '        <a href="/' + _this.locale + '/clinics/' + value.slug + '" class="btn btn-sm btn-info mb-2 mb-sm-0">' + _this.detailsText + '</a>\n' +
+                '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-accommodation" data-id=' + value.id + '>Delete</a>\n' +
+                '        <a href="#" class="btn btn-sm btn-info mb-2 mb-sm-0" data-id=' + value.id + '>Details</a>\n' +
                 '    </td>\n' +
                 '</tr>';
-            $('#tableBody').append(row);
-        });
-    }
-
-    renderFrontTable(responseData) {
-        this.emptyTable();
-        const _this = this
-        $.each(responseData, function(key, value) {
-            let row = '<tr id="clinic-container-' + value.id + '">\n' +
-                '    <td><a href="/' + _this.locale + '/clinic/' + value.slug + '">' + value.name + '</a></td>\n' +
-                '    <td>' + value.country + '</td>\n' +
-                '    <td>' + value.city + '</td>\n' +
-                '    <td class="text-right">\n' +
-                '        <a href="/' + _this.locale + '/clinic/' + value.slug + '" class="btn btn-sm btn-info mb-2 mb-sm-0">' + _this.detailsText + '</a>\n' +
-            '    </td>\n' +
-            '</tr>';
-
             $('#tableBody').append(row);
         });
     }

@@ -20,25 +20,34 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">{{ __('Accommodation Type') }}</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                            <label for="accommodationType">{{ __('Accommodation Type') }}</label>
+                            <select name="accommodationType" id="accommodationType" class="custom-select form-control">
                                 <option value="" selected>{{ __('Select accommodation type') }}</option>
+                                @foreach($types as $key => $value)
+                                    <option value="{{ $key }}">{{ __($value) }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">{{ __('Country') }}</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                            <label for="accommodationCountry">{{ __('Country') }}</label>
+                            <select name="accommodationCountry" id="accommodationCountry" class="custom-select form-control">
                                 <option value="" selected>{{ __('Select country') }}</option>
+                                @foreach($countries as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="status">{{ __('City') }}</label>
-                            <select name="statusFilter" id="statusFilter" class="custom-select form-control">
+                            <label for="accommodationCity">{{ __('City') }}</label>
+                            <select name="accommodationCity" id="accommodationCity" class="custom-select form-control">
                                 <option value="" selected>{{ __('Select city') }}</option>
+                                @foreach($cities as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -47,7 +56,7 @@
         </div>
     </section>
 
-    <section class="shadow-sm">
+    <section>
             <div class="row align-items-center mb-4">
                 <div class="col">
                     <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
@@ -139,37 +148,9 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
-        class AccommodationRenderer {
-            constructor(ajaxUrl) {
-                this.ajaxUrl = ajaxUrl;
-            }
-
-            renderAccommodations(pageState) {
-                axios.get(this.ajaxUrl, {params: pageState})
-                    .then(res => {
-                        this.updateResultsCount(res.data.total);
-                        this.renderTable(res.data.data);
-                        this.renderPagination(res.data);
-                    });
-            }
-
-            emptyTable() {
-                $('#tableBody tr').remove();
-            }
-
-            updateResultsCount(count) {
-                $('#totalResults').text(count);
-
-                if (0 === count) {
-                    $('.no-results').removeClass('d-none').addClass('d-flex');
-                    $('.details').addClass('d-none');
-                } else {
-                    $('.no-results').removeClass('d-flex').addClass('d-none');
-                    $('.details').removeClass('d-none');
-                }
-            }
-
+        class AccommodationRenderer extends TableDataRenderer {
             renderTable(responseData) {
                 this.emptyTable();
 
@@ -187,66 +168,49 @@
                     $('#tableBody').append(row);
                 });
             }
+        }
 
-            renderPagination(response) {
-                $('.pagination li').remove();
+        let selectCountry = function(country, selectedCity) {
+            axios.get('/admin/ajax/accommodation/cities/' + country)
+                .then(response => {
+                    let citySelector = $('#accommodationCity');
 
-                if (1 === response.last_page) {
-                    return;
-                }
+                    citySelector.find("option").remove();
+                    citySelector.append("<option value=\"\">{{ __('Select city') }}</option>");
 
-                let morePages = '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+                    response.data.cities.forEach(function(entry) {
+                        citySelector.append("<option value=\"" + entry + "\">" + entry + "</option>")
+                    });
 
-                let currentPage = '<li class="page-item active"><a class="page-link" data-page="' + response.current_page + '" href="#">' + response.current_page + ' <span class="sr-only">(current)</span></a></li>';
-
-                let firstPage = '';
-                if (response.current_page > 1) {
-                    firstPage = '<li class="page-item"><a class="page-link" data-page="1" href="#">1</a></li>';
-                }
-
-                let step = response.current_page
-                let counter = 0;
-
-                let previousPages = '';
-                while(step > 2 && 2 > counter) {
-                    counter++;
-                    step--;
-                    previousPages = '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>' + previousPages;
-                }
-
-                if (response.current_page > 4) {
-                    previousPages = morePages + previousPages;
-                }
-
-                step = response.current_page;
-                counter = 0;
-
-                let nextPages = '';
-                while(step < response.last_page - 1 && 2 > counter) {
-                    counter++;
-                    step++;
-                    nextPages += '<li class="page-item"><a class="page-link" data-page="' + step + '" href="#">' + step + '</a></li>';
-                }
-
-                if ((response.last_page - response.current_page) > 3) {
-                    nextPages += morePages;
-                }
-
-                let lastPage = '';
-                if (response.current_page < response.last_page) {
-                    lastPage = '<li class="page-item"><a class="page-link" data-page="' + response.last_page + '" href="#">' + response.last_page + '</a></li>';
-                }
-
-                $('.pagination').append(firstPage).append(previousPages).append(currentPage).append(nextPages).append(lastPage);
-            }
+                    citySelector.val(selectedCity);
+                });
         }
 
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
             pageState.perPage = 15;
+            pageState.type = null;
+            pageState.country = null;
+            pageState.city = null;
 
             let selectedAccommodation = null;
+
+            if (undefined !== $.QueryString.type) {
+                pageState.type = $.QueryString.type;
+                $('#accommodationType').val(pageState.type);
+            }
+
+            if (undefined !== $.QueryString.city) {
+                pageState.city = $.QueryString.city;
+                $('#accommodationCity').val(pageState.city);
+            }
+
+            if (undefined !== $.QueryString.country) {
+                pageState.country = $.QueryString.country;
+                selectCountry(pageState.country, pageState.city);
+                $('#accommodationCountry').val(pageState.country);
+            }
 
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
@@ -258,8 +222,8 @@
 
             $('.resultsPerPage').val(pageState.perPage);
 
-            let render = new AccommodationRenderer('{{ route('ajax.accommodation-list') }}');
-            render.renderAccommodations(pageState);
+            let renderer = new AccommodationRenderer('{{ route('ajax.accommodation-list') }}');
+            renderer.renderData(pageState);
 
             $('.resultsPerPage').on('change', function () {
                 $('.resultsPerPage').val(this.value);
@@ -268,14 +232,14 @@
                 pageState.page = 1;
                 $.SetQueryStringParameter('page', pageState.page);
 
-                render.renderAccommodations(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', 'a.page-link', function(event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
-                render.renderAccommodations(pageState);
+                renderer.renderData(pageState);
             });
 
             $('body').on('click', '.delete-accommodation', function(event) {
@@ -288,14 +252,38 @@
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                    .delete('/admin/ajax/accommodation/' + selectedAccommodation)
-                    .then(response => {
-                        $('#accommodation-container-' + selectedAccommodation).remove();
-                        $('#deleteAccommodationModal').modal('hide');
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .delete('/admin/ajax/accommodation/' + selectedAccommodation)
+                .then(response => {
+                    $('#accommodation-container-' + selectedAccommodation).remove();
+                    $('#deleteAccommodationModal').modal('hide');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            });
+
+            $('#accommodationType').on('change', function (event) {
+                pageState.type = this.value;
+                $.SetQueryStringParameter('type', pageState.type);
+                renderer.renderData(pageState);
+            });
+
+            $('#accommodationCountry').on('change', function (event) {
+                pageState.country = this.value;
+                $.SetQueryStringParameter('country', pageState.country);
+                renderer.renderData(pageState);
+
+                if ('' === pageState.country) {
+                    $('#accommodationCity').val('').trigger('change');
+                }
+
+                selectCountry(pageState.country);
+            });
+
+            $('#accommodationCity').on('change', function (event) {
+                pageState.city = this.value;
+                $.SetQueryStringParameter('city', pageState.city);
+                renderer.renderData(pageState);
             });
         });
     </script>

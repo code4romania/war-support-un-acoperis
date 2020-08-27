@@ -268,14 +268,5 @@
     "New password placeholder": "New password placeholder",
     "Retype new password": "Retype new password",
     "Retype new password placeholder": "Retype new password placeholder",
-    "Incorrect password": "Incorrect password",
-    "Select city": "Select city",
-    "Location": "Location",
-    "Accommodation resource": "Accommodation resource",
-    "Select accommodation type": "Select accommodation type",
-    "Accommodations": "Accommodations",
-    "Search for accommodations using the search field or filter the list of resources using the options available": "Search for accommodations using the search field or filter the list of resources using the options available",
-    "Owner": "Owner",
-    "Date": "Date",
-    "Notes and reviews": "Notes and reviews"
+    "Incorrect password": "Incorrect password"
 }

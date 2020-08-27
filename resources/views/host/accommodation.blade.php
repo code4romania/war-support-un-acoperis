@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="media">
                         @if (!empty($accommodation->photos()->count()))
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('private')->temporaryUrl($accommodation->photos()->first()->path, now()->addMinutes(1)) }}" alt="" class="w-50 mr-4">
+                        <img src="{{ $accommodation->photos()->first()->getPhotoUrl() }}" alt="" class="w-50 mr-4">
                         @endif
                         <div class="media-body">
                             <h6 class="text-primary font-weight-600 mb-1">
