@@ -61,6 +61,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
         Route::get('/accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
         Route::get('/accommodation/{id}/edit', 'Admin\AccommodationController@edit')->name('admin.accommodation-edit');
+        Route::post('/accommodation/{id}/edit', 'Admin\AccommodationController@update')->name('admin.accommodation-update');
 
         Route::get('/host/detail/{id}/{page?}', 'Admin\HostController@detail')
             ->where('page', '[0-9]+')
