@@ -11,14 +11,11 @@ use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
 use App\Services\UserService;
 use App\User;
+use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use Illuminate\Mail\Message;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -165,13 +162,17 @@ class HostController extends Controller
 
     public function reset(int $id)
     {
+        /** @var User $user */
         $user = User::find($id);
 
         if (empty($user)) {
             abort(404);
         }
 
-        $this->sendResetNotification($user);
+        /** @var PasswordBroker $broker */
+        $broker = Password::broker();
+
+        $broker->sendResetLink(['id' => $user->id]);
 
         return redirect()
             ->route('admin.host-detail', ['id' => $user->id])
