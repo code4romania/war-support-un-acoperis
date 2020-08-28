@@ -65,26 +65,23 @@
         </div>
     </div>
 
+    @if (!$user->email_verified_at)
     <div class="alert alert-secondary d-flex justify-content-between align-items-center">
         <h6 class="mb-0 font-weight-600 text-white">
             Valideaza gazda si trimite optiunea de a reseta parola Contului
         </h6>
-        <a class="btn btn-white text-secondary px-4 ml-3" href="#">Trimite</a>
+        <a class="btn btn-white text-secondary px-4 ml-3" href="{{ route('admin.host-activate-and-reset', ['id' => $user->id]) }}">Trimite</a>
     </div>
+    @else
+        <div class="alert alert-white d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 font-weight-600 text-dark">
+                Trimite optiune de resetare parola in cazul in care a uitat parola initiala
+            </h6>
+            <a class="btn btn-secondary px-4 ml-3" href="{{ route('admin.host-reset', ['id' => $user->id]) }}">Trimite</a>
+        </div>
+    @endif
 
-    <div class="alert alert-secondary d-flex align-items-center">
-        <i class="fa fa-check text-white mr-3"></i>
-        <h6 class="mb-0 font-weight-600 text-white">
-            Optiunea de resetare a parolei a fost trimisa cu succes
-        </h6>
-    </div>
 
-    <div class="alert alert-white d-flex justify-content-between align-items-center">
-        <h6 class="mb-0 font-weight-600 text-dark">
-            Trimite optiune de resetare parola in cazul in care a uitat parola initiala
-        </h6>
-        <a class="btn btn-secondary px-4 ml-3" href="#">Trimite</a>
-    </div>
 
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center rounded">

@@ -5,6 +5,8 @@ namespace App\Services;
 
 
 use App\User;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -30,13 +32,11 @@ class UserService
         string $city,
         string $phone_number,
         string $address = ""
-    ) {
-        $password = Str::random(24);
+    ): User {
 
         $host = User::create([
             'name' => $name,
             'email' => $email,
-            'password' => Hash::make($password),
             'country_id' => $country_id,
             'city' => $city,
             'address' => $address,
@@ -45,6 +45,11 @@ class UserService
 
         $host->assignRole('host');
 
-        Log::info($password);
+        return $host;
+    }
+
+    public function generateToken(User $user)
+    {
+        return app('auth.password.tokens')->create($user);
     }
 }

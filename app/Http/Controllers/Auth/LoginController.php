@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -48,5 +49,25 @@ class LoginController extends Controller
         }
 
         return route('home');
+    }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+
+         $loginResult = $this->guard()->attempt(
+                $this->credentials($request), $request->filled('remember')
+            );
+
+        if ($loginResult && !is_null($this->guard()->user())) {
+            return !is_null($this->guard()->user()->email_verified_at);
+        }
+
+        return false;
     }
 }

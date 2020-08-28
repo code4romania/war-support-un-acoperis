@@ -11,6 +11,14 @@ use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
 use App\Services\UserService;
 use App\User;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -69,7 +77,7 @@ class HostController extends Controller
 
         $user = User::where('email', '=', $request->get('email'))->first();
         if (empty($user)) {
-            $this->userService->createUser(
+            $user = $this->userService->createUser(
                 $helpResource->full_name,
                 $helpResource->email,
                 $helpResource->country_id,
@@ -79,7 +87,7 @@ class HostController extends Controller
             );
         }
 
-        return redirect()->route('admin.host-detail', ['id' => $helpResource->id]);
+        return redirect()->route('admin.host-detail', ['id' => $user->id]);
     }
 
     /**
@@ -110,7 +118,7 @@ class HostController extends Controller
 
     /**
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @return View
      */
     public function edit(int $id)
     {
@@ -128,6 +136,11 @@ class HostController extends Controller
             ->with('countries', $countries);
     }
 
+    /**
+     * @param int $id
+     * @param EditProfileRequest $request
+     * @return mixed
+     */
     public function update(int $id, EditProfileRequest $request)
     {
         $user = User::find($id);
@@ -144,8 +157,50 @@ class HostController extends Controller
         $user->phone_number = $request->post('phone');
         $user->save();
 
+
         return redirect()
             ->route('admin.host-detail', ['id' => $user->id])
             ->withSuccess(__('Data successfully saved!'));
     }
+
+    public function reset(int $id)
+    {
+        $user = User::find($id);
+
+        if (empty($user)) {
+            abort(404);
+        }
+
+        $this->sendResetNotification($user);
+
+        return redirect()
+            ->route('admin.host-detail', ['id' => $user->id])
+            ->withSuccess(__('Optiunea de resetare a parolei a fost trimisa cu succes'));
+    }
+
+    public function activateAndReset(int $id)
+    {
+        /** @var User $user */
+        $user = User::find($id);
+
+        if (empty($user)) {
+            abort(404);
+        }
+
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
+        $this->sendResetNotification($user);
+
+        return redirect()
+            ->route('admin.host-detail', ['id' => $user->id])
+            ->withSuccess(__('Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes'));
+    }
+
+    private function sendResetNotification(User $user)
+    {
+        $user->sendPasswordResetNotification('parola');
+    }
+
+
 }
