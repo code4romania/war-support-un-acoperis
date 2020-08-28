@@ -169,10 +169,7 @@ class HostController extends Controller
             abort(404);
         }
 
-        /** @var PasswordBroker $broker */
-        $broker = Password::broker();
-
-        $broker->sendResetLink(['id' => $user->id]);
+        $this->sendResetNotification($user);
 
         return redirect()
             ->route('admin.host-detail', ['id' => $user->id])
@@ -200,7 +197,12 @@ class HostController extends Controller
 
     private function sendResetNotification(User $user)
     {
-        $user->sendPasswordResetNotification('parola');
+        /** @var PasswordBroker $broker */
+        $broker = Password::broker();
+
+        $response = $broker->sendResetLink(['id' => $user->id]);
+
+        return $response == PasswordBroker::RESET_LINK_SENT;
     }
 
 
