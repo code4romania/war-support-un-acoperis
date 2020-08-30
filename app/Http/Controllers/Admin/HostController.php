@@ -53,6 +53,10 @@ class HostController extends Controller
             ->with('resourceType', $resourceType);
     }
 
+    /**
+     * @param HelpResourceRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(HelpResourceRequest $request)
     {
         /** @var ResourceType $resourceType */
@@ -160,6 +164,10 @@ class HostController extends Controller
             ->withSuccess(__('Data successfully saved!'));
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function reset(int $id)
     {
         /** @var User $user */
@@ -176,6 +184,10 @@ class HostController extends Controller
             ->withSuccess(__('Optiunea de resetare a parolei a fost trimisa cu succes'));
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function activateAndReset(int $id)
     {
         /** @var User $user */
@@ -195,15 +207,18 @@ class HostController extends Controller
             ->withSuccess(__('Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes'));
     }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     private function sendResetNotification(User $user)
     {
         /** @var PasswordBroker $broker */
         $broker = Password::broker();
 
-        $response = $broker->sendResetLink(['id' => $user->id]);
+        $response =
+            $broker->sendResetLink(['id' => $user->id]);
 
         return $response == PasswordBroker::RESET_LINK_SENT;
     }
-
-
 }
