@@ -143,6 +143,7 @@ class AccommodationController extends Controller
                     $accommodationPhoto = new AccommodationPhoto();
                     $accommodationPhoto->accommodation_id = $accommodation->id;
                     $accommodationPhoto->name = $file->getClientOriginalName();
+                    $accommodationPhoto->identifier = sha1($path);
                     $accommodationPhoto->path = $path;
                     $accommodationPhoto->size = $file->getSize();
                     $accommodationPhoto->extension = '.' . $file->getClientOriginalExtension();
@@ -326,6 +327,7 @@ class AccommodationController extends Controller
                 $accommodationPhoto = new AccommodationPhoto();
                 $accommodationPhoto->accommodation_id = $accommodation->id;
                 $accommodationPhoto->name = $file->getClientOriginalName();
+                $accommodationPhoto->identifier = sha1($path);
                 $accommodationPhoto->path = $path;
                 $accommodationPhoto->size = $file->getSize();
                 $accommodationPhoto->extension = '.' . $file->getClientOriginalExtension();
