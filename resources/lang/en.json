@@ -283,5 +283,14 @@
     "Request Services Description": "Request Services Description",
     "Caretaker full name": "Caretaker full name",
     "Caretaker phone": "Caretaker phone",
-    "Caretaker email": "Caretaker email"
+    "Caretaker email": "Caretaker email",
+    "Patient full name": "Patient full name",
+    "Patient phone": "Patient phone",
+    "Patient email": "Patient email",
+    "Patient address": "Patient address",
+    "Period": "Period",
+    "Request help": "Request help",
+    "Request help greeting": "Request help greeting",
+    "Details": "Details",
+    "Help types": "Help types"
 }
