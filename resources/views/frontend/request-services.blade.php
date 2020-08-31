@@ -9,7 +9,7 @@
         @endif
         <h1 class="display-3 title mb-4 text-primary">{{ __('Request Services') }}</h1>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.
+            {{ __("Request Services Description") }}
         </p>
     </div>
     <div class="alert bg-light-green alert-general alert-secondary font-weight-600 mb-0" role="alert">
@@ -53,7 +53,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-name">Numele si prenumele persoanei care completeaza formularul:</label>
+                                                        <label class="required font-weight-600" for="caretaker-name">{{ __("Caretaker full name") }}:</label>
                                                         <input type="text" placeholder="Ioan Vasile" class="form-control @error('caretaker-name') is-invalid @enderror" name="caretaker-name" id="caretaker-name" value="{{ old('caretaker-name') }}" />
 
                                                         @error('caretaker-name')
@@ -75,7 +75,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-phone">Telefonul persoanei care completeaza formularul:</label>
+                                                        <label class="required font-weight-600" for="caretaker-phone">{{ __("Caretaker phone") }}:</label>
                                                         <input type="tel" placeholder="0700000001" class="form-control @error('caretaker-phone') is-invalid @enderror" name="caretaker-phone" id="caretaker-phone" value="{{ old('caretaker-phone') }}" />
 
                                                         @error('caretaker-phone')
@@ -97,7 +97,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-email">E-mailul persoanei care completeaza formularul:</label>
+                                                        <label class="required font-weight-600" for="caretaker-email">{{ __("Caretaker email") }}:</label>
                                                         <input type="email" placeholder="ioan.vasile@provider.tld" class="form-control @error('caretaker-email') is-invalid @enderror" name="caretaker-email" id="caretaker-email" value="{{ old('caretaker-email') }}" />
 
                                                         @error('caretaker-email')

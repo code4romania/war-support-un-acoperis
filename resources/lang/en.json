@@ -279,5 +279,9 @@
     "Date": "Date",
     "Notes and reviews": "Notes and reviews",
     "Data successfully saved!": "Data successfully saved!",
-    "Enter an explanatory note": "Enter an explanatory note"
+    "Enter an explanatory note": "Enter an explanatory note",
+    "Request Services Description": "Request Services Description",
+    "Caretaker full name": "Caretaker full name",
+    "Caretaker phone": "Caretaker phone",
+    "Caretaker email": "Caretaker email"
 }

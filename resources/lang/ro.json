@@ -294,5 +294,10 @@
     "Date": "Data",
     "Notes and reviews": "Note și recenzii",
     "Data successfully saved!": "Datele au fost salvate cu succes!",
-    "Enter an explanatory note": "Introduceți o notă explicativă"
+    "Enter an explanatory note": "Introduceți o notă explicativă",
+
+    "Request Services Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl metus, posuere et velit ac, ullamcorper gravida mi. Quisque porttitor viverra est, et blandit magna maximus non.",
+    "Caretaker full name": "Numele si prenumele persoanei care completeaza formularul",
+    "Caretaker phone": "Telefonul persoanei care completeaza formularul",
+    "Caretaker email": "E-mailul persoanei care completeaza formularul"
 }
