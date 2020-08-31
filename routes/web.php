@@ -25,7 +25,8 @@ Route::get('/health', 'HealthController@check')->name('health.check');
  */
 Route::get('/media/accommodation/{accommodationId}/{photoId}{extension}', 'MediaController@accommodationPhoto')
     ->where('photoId', '[0-9]+')
-    ->name('media.accommodation-photo');
+    ->name('media.accommodation-photo')
+    ->middleware('auth');
 
 /**
  * Administration routes
