@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $accommodation_id
  * @property string $name
+ * @property string $identifier
  * @property string $path
  * @property int $size
  * @property string|null $extension
@@ -36,6 +37,6 @@ class AccommodationPhoto extends Model
      */
     public function getPhotoUrl(): string
     {
-        return route('media.accommodation-photo', ['accommodationId' => $this->accommodation_id, 'photoId' => $this->id, 'extension' => $this->extension]);
+        return route('media.accommodation-photo', ['accommodationId' => $this->accommodation_id, 'identifier' => $this->identifier, 'extension' => substr($this->extension, 1)]);
     }
 }

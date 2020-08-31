@@ -23,8 +23,8 @@ Route::get('/health', 'HealthController@check')->name('health.check');
 /**
  * Accommodation pictures
  */
-Route::get('/media/accommodation/{accommodationId}/{photoId}{extension}', 'MediaController@accommodationPhoto')
-    ->where('photoId', '[0-9]+')
+Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'MediaController@accommodationPhoto')
+    ->where('accommodationId', '[0-9]+')
     ->name('media.accommodation-photo')
     ->middleware('auth');
 
