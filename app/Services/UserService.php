@@ -38,6 +38,7 @@ class UserService
             'name' => $name,
             'email' => $email,
             'country_id' => $country_id,
+            'password' => Str::random(16),
             'city' => $city,
             'address' => $address,
             'phone_number' => $phone_number,
