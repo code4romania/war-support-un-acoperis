@@ -16,10 +16,10 @@ class MediaController extends Controller
 {
     /**
      * @param int $accommodationId
-     * @param int $photoId
+     * @param string $identifier
      * @return Response
      */
-    public function accommodationPhoto(int $accommodationId, int $photoId)
+    public function accommodationPhoto(int $accommodationId, string $identifier)
     {
         /** @var Accommodation|null $accommodation */
         $accommodation = Accommodation::find($accommodationId);
@@ -30,7 +30,7 @@ class MediaController extends Controller
 
         /** @var AccommodationPhoto|null $photo */
         $photo = AccommodationPhoto::where('accommodation_id', '=', $accommodationId)
-            ->where('id', '=', $photoId)
+            ->where('identifier', '=', $identifier)
             ->first();
 
         if (empty($photo)) {

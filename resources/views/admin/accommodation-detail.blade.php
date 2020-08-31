@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <h5 class="text-primary font-weight-600 mb-4">
-                {{ $user->name }}
+                <a href="{{ route('admin.host-detail', ['id' => $user->id]) }}">{{ $user->name }}</a>
             </h5>
             <div class="row pb-3">
                 <div class="col-sm">
