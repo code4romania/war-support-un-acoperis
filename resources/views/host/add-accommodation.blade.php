@@ -417,34 +417,16 @@
                         <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
                         <span class="alert-inner--text">Este important să știm dacă în următoarea perioadă sunt și intervale de timp în care cazarea este complet indisponibilă pentru a nu te deranja cu solicitări și pentru a ne ajuta și pe noi să găsim soluții pentru pacienți cât mai rapid.</span>
                     </div>
+
+                    <div id="unavailability_container"></div>
+
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col">
                             <div class="form-group">
-                                <label for="unavailable_from" class="font-weight-600">{{ __('Unavailable from') }}:</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from') }}" />
-
-                                    @error('unavailable_from')
-                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="unavailable_to" class="font-weight-600">{{ __('Unavailable to') }}:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to') }}" />
-
-                                    @error('unavailable_to')
-                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                    @enderror
+                                    <button type="button" id="add-interval" class="btn btn-secondary btn-lg text-nowra">
+                                        <span class="btn-inner--text">Adauga perioada</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -610,6 +592,8 @@
                     api.getOptions().dragDrop.container = plusInput;
                 },
 
+
+
                 /*
                 // while using upload option, please set
                 // startImageRenderer: false
@@ -676,6 +660,68 @@
                 }
                 */
             });
+
+            $("#add-interval").on('click', function() {
+                addInterval();
+            });
+
+            addInterval();
         });
+
+        const addInterval = function() {
+            let intervalCounter = $("#unavailability_container>.row").length;
+            console.log(intervalCounter);
+
+            let content = $("#unavailability_interval").html().trim();
+            console.log(content);
+
+            $("#unavailability_container").append(content);
+        };
     </script>
+@endsection
+
+@section('templates')
+    <template id="unavailability_interval">
+        <div class="row" id="unavailability_interval_row_##index##">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="unavailable_from" class="font-weight-600">{{ __('Unavailable from') }}:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                        </div>
+                        <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from') }}" />
+
+                        @error('unavailable_from')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="unavailable_to" class="font-weight-600">{{ __('Unavailable to') }}:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                        </div>
+                        <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to') }}" />
+
+                        @error('unavailable_to')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-danger btn-lg text-nowrap delete-period btn-block">
+                            <span class="btn-inner--text">Sterge perioada</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 @endsection

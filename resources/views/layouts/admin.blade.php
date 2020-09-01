@@ -155,5 +155,7 @@
     <script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.sticky-sidebar.min.js') }}" defer></script>
     @yield('scripts')
+
+    @yield('templates')
 </body>
 </html>
