@@ -145,6 +145,26 @@ Route::middleware([SetLanguage::class])
         Auth::routes(['verify' => true]);
 
         /**
+         * 2FA
+         */
+        Route::group(['prefix'=>'2fa'], function(){
+            Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form');
+            Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+            Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
+            Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
+
+            // 2fa middleware
+            Route::post('/2faVerify', function () {
+                return redirect(URL()->previous());
+            })->name('2faVerify')->middleware('2fa');
+        });
+
+        // test middleware
+        Route::get('/test_middleware', function () {
+            return "2FA middleware work!";
+        })->middleware(['auth', '2fa']);
+
+        /**
          * Header
          */
         Route::get('/', 'StaticPagesController@home')->name('home');

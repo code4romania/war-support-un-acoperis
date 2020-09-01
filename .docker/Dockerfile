@@ -80,6 +80,8 @@ ENV SESSION_DRIVER=${SESSION_DRIVER}
 # copy application file
 COPY . /var/www/html
 
+RUN apt-get install --no-install-recommends -y php7.4-intl php7.4-imagick
+
 # create application environment file
 RUN cp .env.example .env
 
