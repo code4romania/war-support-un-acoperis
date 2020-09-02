@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Host;
 use App\Accommodation;
 use App\AccommodationPhoto;
 use App\AccommodationType;
+use App\AccomodationsUnavailableInterval;
 use App\Country;
 use App\FacilityType;
 use App\Http\Controllers\Controller;
@@ -74,6 +75,8 @@ class AccommodationController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+//        dd($request);
+
         DB::beginTransaction();
 
         $accommodation = new Accommodation();
@@ -106,8 +109,8 @@ class AccommodationController extends Controller
         $accommodation->transport_other_details = $request->get('transport_other_details');
         $accommodation->checkin_time = $request->get('checkin_time');
         $accommodation->checkout_time = $request->get('checkout_time');
-        $accommodation->unavailable_from_date = $request->get('unavailable_from');
-        $accommodation->unavailable_to_date = $request->get('unavailable_to');
+//        $accommodation->unavailable_from_date = $request->get('unavailable_from');
+//        $accommodation->unavailable_to_date = $request->get('unavailable_to');
         $accommodation->save();
 
         if ($request->has('general_facility')) {
@@ -129,6 +132,14 @@ class AccommodationController extends Controller
             if (!empty($otherFacilityType)) {
                 $accommodation->accommodationfacilitytypes()->attach($otherFacilityType->id, ['message' => $request->get('other_facilities')]);
             }
+        }
+
+        foreach ($request->get("unavailable_from") as $key => $value) {
+            $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+            $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
+            $accomodationsUnavailableInterval->from_date = $request->get("unavailable_from")[0];
+            $accomodationsUnavailableInterval->to_date = $request->get("unavailable_to")[0];
+            $accomodationsUnavailableInterval->save();
         }
 
         try {
@@ -193,7 +204,8 @@ class AccommodationController extends Controller
             ->with('photos', $photos)
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
-            ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first());
+            ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
+            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get());
     }
 
     /**
@@ -220,6 +232,7 @@ class AccommodationController extends Controller
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
+            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get())
             ->with('countries', Country::all())
             ->with('photoData', $this->getPhotoData($accommodation));
     }

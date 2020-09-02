@@ -26,7 +26,7 @@ class CreateAccomodationsUnavailableIntervals extends Migration
             INSERT INTO accomodations_unavailable_intervals
                 (accommodation_id, from_date, to_date, created_at)
             SELECT id, unavailable_from_date, unavailable_to_date, NOW()
-            FROM accommodations
+            FROM accommodations WHERE unavailable_from_date IS NOT NULL AND unavailable_to_date IS NOT NULL
         ");
     }
 
