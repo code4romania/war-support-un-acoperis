@@ -44,7 +44,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (empty($user)) {
-            abort(403);
+            abort(404);
         }
 
         /** @var Collection $countries */
@@ -64,7 +64,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (empty($user)) {
-            abort(403);
+            abort(404);
         }
 
         $user->name = $request->post('name');

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\HelpRequest;
+use App\HelpType;
 use App\Http\Controllers\Controller;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\View\View;
 
 /**
@@ -32,6 +34,7 @@ class HelpRequestController extends Controller
         if (empty($helpRequest)) {
             abort(404);
         }
+
 
         return view('admin.help-detail')
             ->with('helpRequest', $helpRequest);

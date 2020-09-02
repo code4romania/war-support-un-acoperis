@@ -13,6 +13,7 @@ use App\HelpType;
 use App\Http\Requests\ServiceRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 /**
@@ -113,6 +114,9 @@ class RequestServicesController extends Controller
             $helpRequestAccommodationDetails->special_request = $request->get('accommodation-special-request');
             $helpRequestAccommodationDetails->save();
         }
+
+        Notification::route('mail', $helpRequest->caretaker_email)
+            ->notify(new \App\Notifications\HelpRequest($helpRequest));
 
         return redirect()->route('request-services-thanks');
     }

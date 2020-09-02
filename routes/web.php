@@ -23,9 +23,10 @@ Route::get('/health', 'HealthController@check')->name('health.check');
 /**
  * Accommodation pictures
  */
-Route::get('/media/accommodation/{accommodationId}/{photoId}{extension}', 'MediaController@accommodationPhoto')
-    ->where('photoId', '[0-9]+')
-    ->name('media.accommodation-photo');
+Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'MediaController@accommodationPhoto')
+    ->where('accommodationId', '[0-9]+')
+    ->name('media.accommodation-photo')
+    ->middleware('auth');
 
 /**
  * Administration routes
@@ -75,6 +76,8 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/host/store', 'Admin\HostController@store')->name('admin.host-store');
         Route::get('/host/edit/{id}', 'Admin\HostController@edit')->name('admin.host-edit');
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
+        Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
+        Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
 
         /**
          * Ajax routes (admin)

@@ -28,7 +28,7 @@
                                 <select class="form-control" data-trigger name="categoryFilter[]" id="categoryFilter" placeholder="{{ __('All specialities') }}" multiple>
 
                                     @foreach($specialityList as $speciality)
-                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, explode("|", request()->get('categories'))) ? 'selected' : '' }}>{{ $speciality->parent->name . ' > ' . $speciality->name }}</option>
+                                        <option value="{{ $speciality->id }}" {{ in_array($speciality->id, explode("|", request()->get('categories'))) ? 'selected' : '' }}>{{ $speciality->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

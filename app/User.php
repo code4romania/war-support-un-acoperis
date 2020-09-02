@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\UserCreatedMessage;
 use DateTime;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -66,7 +67,7 @@ class User extends Authenticatable
      */
     public function isAdministrator(): bool
     {
-        return $this->hasRole(self::ROLE_ADMINISTRATOR);
+        return $this->hasRole(self::ROLE_ADMINISTRATOR) && $this->email_verified_at;
     }
 
     /**
@@ -74,7 +75,7 @@ class User extends Authenticatable
      */
     public function isHost(): bool
     {
-        return $this->hasRole(self::ROLE_HOST);
+        return $this->hasRole(self::ROLE_HOST) && $this->email_verified_at;
     }
 
     /**

@@ -7,6 +7,7 @@ use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Requests\HelpResourceRequest;
 use App\ResourceType;
+use App\Services\UserService;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -22,6 +23,15 @@ use Illuminate\View\View;
  */
 class GetInvolvedController extends Controller
 {
+    /**
+     * @var UserService
+     */
+    private UserService $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * @return View
      */
@@ -68,31 +78,20 @@ class GetInvolvedController extends Controller
                 if ($resourceType->options == ResourceType::OPTION_ALERT) {
                     $user = User::where('email', '=', $request->get('email'))->first();
                     if (empty($user)) {
-                        $password = Str::random(24);
-
-                        $host = User::create([
-                            'name' => $helpResource->full_name,
-                            'email' => $helpResource->email,
-                            'password' => Hash::make($password),
-                            'email_verified_at' => Carbon::now(),
-                            'country_id' => $helpResource->country_id,
-                            'city' => $helpResource->city,
-                            'address' => $helpResource->address,
-                            'phone_number' => $helpResource->phone_number,
-                        ]);
-
-                        $host->assignRole('host');
-
-                        Log::info($password);
-                        // TODO mail and verification
+                        $this->userService->createUser(
+                            $helpResource->full_name,
+                            $helpResource->email,
+                            $helpResource->country_id,
+                            $helpResource->city,
+                            $helpResource->phone_number,
+                            $helpResource->address
+                        );
                     }
                 }
 
                 $helpResourceType->save();
             }
         }
-
-//        dd([$resourceTypes, $request]);
 
         return redirect()->route('get-involved-confirmation');
     }

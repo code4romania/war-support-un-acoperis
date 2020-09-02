@@ -39,8 +39,8 @@
     "German": "Germană",
     "Hungarian": "Maghiară",
     "About Help For Health": "Despre Ajutor de Urgență",
-    "Media" : "Media",
-    "News" : "Știri",
+    "Media": "Media",
+    "News": "Știri",
     "If you need help please contact Asociația MAME": "Dacă ai nevoie de ajutor contactează Asociația MAME",
     "Support this project": "Susține proiectul",
     "About the project": "Despre proiect",
@@ -52,7 +52,6 @@
     "project released by": "proiect lansat de",
     "project incubated in": "proiect incubat în",
     "project financed by": "proiect finanțat de",
-
     "Information and guidance to hospitals in the country": "Informare și îndrumare către spitalele din țară",
     "Information and guidance to hospitals abroad": "Informare și îndrumare către spitalele din străinatate",
     "Translation of medical documents": "Traduceri ale documentelor medicale",
@@ -61,7 +60,6 @@
     "Support to find accommodation options near the hospital": "Sprijin pentru a găsi optiuni de cazare lângă spital",
     "Support to find the medications you need": "Sprijin pentru a găsi medicamentele de care ai nevoie",
     "Solving other needs": "Soluționarea altor nevoi",
-
     "All information provided using the application form is confidential.": "Toate informațiile furnizate cu ajutorul formularului de solicitare sunt confidențiale.",
     "General information": "Informații generale",
     "Patient's full name": "Numele și prenumele pacientului",
@@ -84,11 +82,10 @@
     "Starting with what date you need accommodation": "Incepand cu ce data ai nevoie de cazare",
     "Until when do you need accommodation": "Până când ai nevoie de cazare",
     "Detail here if you need special accommodation conditions": "Detaliază aici dacă ai nevoie de condiții speciale de cazare",
-    "Thank you!" : "Iți mulțumim!",
+    "Thank you!": "Iți mulțumim!",
     "Your form has been submitted to the MAME Association. As soon as possible you will be contacted by someone from the organization so that we can help you with everything you need.": "Formularul tău a fost transmis către Asociația MAME. În cel mai scurt timp posibil vei fi contactat de cineva din partea organizației pentru a putea să te ajutăm cu toate cele necesare.",
     "If you want to communicate other information that has not already been sent through the form, you can contact us at": "Dacă vrei să ne comunici și alte informații care nu au fost transmise deja prin formular ne poti contacta la adresa ",
     "You will also receive the confirmation of sending the request form to the email address entered!": "Confirmarea trimiterii formularului de solicitare o veti primi si pe adresa de email introdusă!",
-
     "Name and surname": "Nume și prenume",
     "Country": "Țara",
     "Street": "Strada",
@@ -97,11 +94,9 @@
     "Floor": "Etaj",
     "Postal code": "Cod poștal",
     "Message": "Mesaj",
-
     "Status New": "Nouă",
     "Status In Progress": "În progres",
     "Status Completed": "Finalizată",
-
     "Search": "Caută",
     "Delete": "Șterge",
     "See details": "Vezi detalii",
@@ -157,12 +152,10 @@
     "Clinic additional information": "Informatii suplimentare",
     "Clinic transport": "Modalități de transport",
     "Description": "Descriere",
-
     "Clinics list front description": "Caută clinica de care ai nevoie pentru diagnosticul tău și ia legătura cu ei pentru a putea beneficia de serviciile lor. Dacă ai nevoie de sprijin în a identifica o clinică potrivită și/sau în relația cu o clinică sau alta, te rugăm să ne scrii un mesaj folosind",
     "this form": "acest formular",
     "Clinics": "Clinici",
     "Clinics subtitle": "Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente",
-
     "Are you sure you want to delete this resource": "Sigur vrei să ștergi această ofertă de ajutor",
     "Get Involved Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.",
     "General info": "Informatii generale",
@@ -178,7 +171,6 @@
     "Other type": "Alt tip de ajutor",
     "Other type placeholder": "Scrie aici ce tip de ajutor vrei sa oferi",
     "Help type message": "<b>Ajutorul de cazare</b> poate fi gestionat prin intermediul unui cont pe platforma. In urma inregistrarii veti primi pe adresa dumneavoastra de email datele de logare si informatii suplimentare!",
-
     "resource_types.accommodation": "Cazare",
     "resource_types.transport": "Transport",
     "resource_types.meds": "Medicamente",
@@ -186,16 +178,13 @@
     "resource_types.translations": "Traduceri acte medicale",
     "resource_types.services": "Servicii",
     "resource_types.other": "Alte tipuri de ajutor",
-
     "Select wanted domain": "Selecteaza specialitatea de care esti interesat",
     "Filter": "Filtreaza",
     "Add": "Adauga",
     "Delete resource": "Ștergere resursă",
-
     "Studio": "Garsonieră",
     "Apartment": "Apartment",
     "House": "Casă",
-
     "Essential needs (towels, bad sheets, soap, toilet paper, pillows)": "Dotări esentiale (prosoape, lenjerie de pat, săpun, hârtie igienică, perne)",
     "Wi-Fi": "Wi-Fi",
     "TV": "Televizor",
@@ -209,7 +198,6 @@
     "Lock on the bedroom door": "Incuietoare la ușa dormitorului",
     "Elevator for people with disabilities": "Lift pentru persoane cu dizabilități",
     "Others facilities": "Alte dotări",
-
     "Accommodation": "Cazare",
     "Accommodation resource": "Ajutor cazare",
     "Add accommodation": "Adaugă cazare",
@@ -260,7 +248,6 @@
     "Free": "Gratuit",
     "Paid": "Contra-cost",
     "Estimated amount charged per day / week / month if you apply for a financial benefit": "Suma estimativă percepută pe zi/săptămână/lună în cazul în care soliciți un beneficiu financiar",
-
     "Accommodation places": ":value spațiu de cazare|:value spații de cazare",
     "You can add one or more accommodation to offer to people who need help!": "Poți adăuga unul sau mai multe spații de cazare pe care să le oferi persoanelor care au nevoie de ajutor!",
     "Maximum accommodated persons": ":value persoană|:value persoane",
@@ -279,7 +266,6 @@
     "Address": "Adresa",
     "Account information": "Date de logare în cont",
     "Reset password": "Resetează parola",
-
     "Current password": "Parola curentă",
     "Current password placeholder": "Introdu parola curentă",
     "New password": "Parola nouă",
@@ -287,12 +273,24 @@
     "Retype new password": "Rescrie parola nouă",
     "Retype new password placeholder": "Reintrodu parola noua",
     "Incorrect password": "Parola incorecta",
-
     "Accommodations": "Spații de cazare",
     "Search for accommodations using the search field or filter the list of resources using the options available": "Caută spații de cazare folosind câmpul de căutare sau filtrează lista resursele cu ajutorul opțiunilor prezente",
     "Owner": "Proprietar",
     "Date": "Data",
     "Notes and reviews": "Note și recenzii",
     "Data successfully saved!": "Datele au fost salvate cu succes!",
-    "Enter an explanatory note": "Introduceți o notă explicativă"
+    "Enter an explanatory note": "Introduceți o notă explicativă",
+    "Request Services Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl metus, posuere et velit ac, ullamcorper gravida mi. Quisque porttitor viverra est, et blandit magna maximus non.",
+    "Patient full name": "Numele și prenumele pacientului",
+    "Patient phone": "Telefonul pacientului",
+    "Patient email": "E-mailul pacientului",
+    "Patient address": "Adresa pacientului",
+    "Caretaker full name": "Numele si prenumele persoanei care completeaza formularul",
+    "Caretaker phone": "Telefonul persoanei care completeaza formularul",
+    "Caretaker email": "E-mailul persoanei care completeaza formularul",
+    "Period": "Perioada",
+    "Request help": "Solicitare servicii",
+    "Request help greeting": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis dolor eu blandit auctor.",
+    "Details": "Detalii",
+    "Help types": "Tipuri de ajutor solicitate"
 }
