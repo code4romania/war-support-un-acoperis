@@ -68,11 +68,12 @@
                     </div>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'about' ? 'active' : '' }}" href="{{ route('about') }}">
-                                {{ __('About the project') }}
-                            </a>
-                        </li>
+                        @foreach ($headerNavigation as $navigation)
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::current()->parameter('slug') == $navigation->getSlug() ? 'active' : '' }}"
+                                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $navigation->getSlug()]) }}">{{ $navigation->title }}</a>
+                            </li>
+                        @endforeach
 
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">

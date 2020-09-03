@@ -41,7 +41,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "area17/twill"
+            ]
         }
     },
     "autoload": {
