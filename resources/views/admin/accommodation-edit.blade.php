@@ -417,34 +417,15 @@
                         <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
                         <span class="alert-inner--text">Este important să știm dacă în următoarea perioadă sunt și intervale de timp în care cazarea este complet indisponibilă pentru a nu te deranja cu solicitări și pentru a ne ajuta și pe noi să găsim soluții pentru pacienți cât mai rapid.</span>
                     </div>
+                    <div id="unavailability_container"></div>
+
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col">
                             <div class="form-group">
-                                <label for="unavailable_from" class="font-weight-600">{{ __('Unavailable from') }}:</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from', $accommodation->unavailable_from_date) }}" />
-
-                                    @error('unavailable_from')
-                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="unavailable_to" class="font-weight-600">{{ __('Unavailable to') }}:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to', $accommodation->unavailable_to_date) }}" />
-
-                                    @error('unavailable_to')
-                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                    @enderror
+                                    <button type="button" id="add-interval" class="btn btn-secondary btn-lg text-nowra">
+                                        <span class="btn-inner--text">Adauga perioada</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -485,6 +466,11 @@
                     <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
                         <span class="btn-inner--text">Salveaza</span>
                     </button>
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div>{{$error}}</div>
+                        @endforeach
+                    @endif
                 </div>
             </form>
         </div>
@@ -634,3 +620,8 @@
         })
     </script>
 @endsection
+
+@section('templates')
+    @include('partials.unavailability')
+@endsection
+
