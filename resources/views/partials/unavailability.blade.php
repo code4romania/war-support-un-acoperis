@@ -9,7 +9,7 @@
                     </div>
                     <input
                         placeholder="{{ __('Unavailable from') }}"
-                        name="unavailable_from[]"
+                        name="unavailable[##index##][from]"
                         class="unavailable_from_##index## unavailable_##index## flatpickr flatpickr-input form-control"
                         type="text"
                         value="##from##"
@@ -27,7 +27,7 @@
                     </div>
                     <input
                         placeholder="{{ __('Unavailable to') }}"
-                        name="unavailable_to[]"
+                        name="unavailable[##index##][to]"
                         class="unavailable_to_##index## unavailable_##index## flatpickr flatpickr-input form-control"
                         type="text"
                         value="##to##"
@@ -59,21 +59,21 @@
         let errorTo = {};
 
         @foreach ($errors->getMessages() as $key => $error)
-            @if (strpos($key, 'unavailable_from.') == 0)
+            @if (strpos($key, 'unavailable.') == 0 && strpos($key, '.from') > -1)
                 errorFrom['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '');
             @endif
-            @if (strpos($key, 'unavailable_to.') == 0)
-                errorTo['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '');
+            @if (strpos($key, 'unavailable.') == 0 && strpos($key, '.to') > -1)
+                errorTo['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '').replace(/unavailable.(\d)+.from/, '{{ __("interval start") }}');
             @endif
         @endforeach
 
-        @if (old('unavailable_from'))
-            @foreach (old('unavailable_from') as $key => $unavailableFrom)
+        @if (old('unavailable'))
+            @foreach (old('unavailable') as $key => $unavailable)
                 addInterval(
-                    '{{ $unavailableFrom }}',
-                    '{{ old('unavailable_to')[$key] }}',
-                    errorFrom.hasOwnProperty('unavailable_from.' + maxValue) ? errorFrom['unavailable_from.' + maxValue] : null,
-                    errorTo.hasOwnProperty('unavailable_to.' + maxValue) ? errorTo['unavailable_to.' + maxValue] : null
+                    '{{ $unavailable['from'] }}',
+                    '{{ $unavailable['to'] }}',
+                    errorFrom.hasOwnProperty('unavailable.' + maxValue + '.from') ? errorFrom['unavailable.' + maxValue + '.from'] : null,
+                    errorTo.hasOwnProperty('unavailable.' + maxValue + '.to') ? errorTo['unavailable.' + maxValue + '.to'] : null
                 );
             @endforeach
         @else

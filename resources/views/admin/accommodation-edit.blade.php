@@ -466,11 +466,6 @@
                     <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
                         <span class="btn-inner--text">Salveaza</span>
                     </button>
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div>{{$error}}</div>
-                        @endforeach
-                    @endif
                 </div>
             </form>
         </div>
