@@ -2,7 +2,8 @@
     'name' => 'title',
     'label' => 'Title',
     'required' => true,
-    'maxlength' => 100
+    'maxlength' => 100,
+    'translated' => true,
 ])
 @formField('browser', [
     'label' => 'Partners',

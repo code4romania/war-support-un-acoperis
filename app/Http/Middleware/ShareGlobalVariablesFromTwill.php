@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use A17\Twill\Models\Block;
 use App\Repositories\PageRepository;
 use Closure;
 use A17\Twill\Repositories\SettingRepository;
@@ -63,8 +64,11 @@ class ShareGlobalVariablesFromTwill
             $footer[] = $this->pageRepository->find($footerId);
         }
 
+        $partnersBlock = Block::where('type', '=', 'homepage-partners')->first();
+
         $this->view->share('headerNavigation', $header);
         $this->view->share('footerNavigation', $footer);
+        $this->view->share('partnersBlock', $partnersBlock);
 
         return $next($request);
     }

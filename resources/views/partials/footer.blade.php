@@ -1,26 +1,7 @@
 <!-- Footer -->
 <footer class="footer pt-0 bg-brand-blue text-white">
     <div class="container pt-4">
-        <ul class="d-flex list-unstyled flex-column flex-sm-row justify-content-center align-items-center mt-3 mb-6">
-            <li class="mx-5">
-                <a href="#" class="nav-link text-white d-flex align-items-center mb-4 mb-sm-0">
-                   {{ __("project released by") }}
-                    <img src="/images/logo-mame-white.svg" height="34" alt="" class="ml-3 align-middle">
-                </a>
-            </li>
-            <li class="mx-5">
-                <a href="#" class="nav-link text-white d-flex align-items-center mb-4 mb-sm-0">
-                    {{ __("project incubated in") }}
-                    <img src="/images/logo-civiclabs-white.svg" height="20" alt="" class="ml-3 align-middle">
-                </a>
-            </li>
-            <li class="mx-5">
-                <a href="#" class="nav-link text-white d-flex align-items-center mb-4 mb-sm-0">
-                    {{ __("project financed by") }}
-                    <img src="/images/logo-fvr-white.svg" height="40" alt="" class="ml-3 align-middle">
-                </a>
-            </li>
-        </ul>
+        @include('site.blocks.homepage-partners')
 
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row pb-4 border-bottom border-bottom-dark">
             <li>

@@ -1,13 +1,16 @@
 @if ($partnersBlock)
-<div class="d-flex justify-content-center align-items-center partners-logos justify-content-around flex-wrap flex-sm-nowrap">
+<ul class="d-flex list-unstyled flex-column flex-sm-row justify-content-center align-items-center mt-3 mb-6">
     @php
         $partners = \App\Models\Partner::whereIn('id', $partnersBlock->browserIds('partners'))->orderBy('position')->get();
     @endphp
     @foreach ($partners as $partner)
-        <div class="homepage-partner-card">
-            <h5 class="homepage-partner-title" >{{ $partner->homepage_title }}</h5>
-            <a href="{{ $partner->url }}" title="{{ $partner->title }}" target="_blank"><img class="fvr-logo" src="{{ $partner->image('logo', 'desktop') }}" alt="{{ $partner->title }}"></a>
-        </div>
+    <li class="mx-5">
+        <a href="{{ $partner->url }}" class="nav-link text-white d-flex align-items-center mb-4 mb-sm-0" title="{{ $partner->title }}">
+            {{ $partner->homepage_title }}
+            <img src="{{ $partner->image('logo', 'desktop') }}" height="34" alt="{{ $partner->title }}" class="ml-3 align-middle">
+        </a>
+    </li>
     @endforeach
-</div>
+
+</ul>
 @endif

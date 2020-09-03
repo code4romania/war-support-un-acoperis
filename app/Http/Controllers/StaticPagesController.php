@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use A17\Twill\Models\Block;
+use A17\Twill\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -15,9 +17,10 @@ class StaticPagesController extends Controller
      * @param Request $request
      * @return View
      */
-    public function home(Request $request)
+    public function home(Request $request, SettingRepository $settingRepository)
     {
-        return view('frontend.home');
+        return view('frontend.home')
+            ->with('homepageMessage', $settingRepository->byKey('homepage_message'));
     }
 
     /**
