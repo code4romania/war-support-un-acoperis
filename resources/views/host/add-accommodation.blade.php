@@ -660,75 +660,10 @@
                 }
                 */
             });
-
-            $("#add-interval").on('click', function() {
-                addInterval();
-            });
         });
-
-        let maxValue = 0;
-
-        const deleteInterval = function(object) {
-            $("#unavailability_interval_" + object.dataset.indexNumber).remove();
-        }
-
-        const addInterval = function() {
-
-            let content = $("#unavailability_interval").html().replace(/##index##/g, ++maxValue);
-
-            $("#unavailability_container").append(content);
-
-            flatpickr('.unavailable_' + maxValue);
-
-            $('.delete-period').on('click', function() {
-                deleteInterval(this);
-            });
-        };
     </script>
 @endsection
 
 @section('templates')
-    <template id="unavailability_interval">
-        <div class="row" id="unavailability_interval_##index##">
-            <div class="col-xl-5 col-md-12">
-                <div class="form-group">
-{{--                    <label for="unavailable_from" class="font-weight-600">{{ __('Unavailable from') }}:</label>--}}
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                        </div>
-                        <input placeholder="{{ __('Unavailable from') }}" name="unavailable_from[]" class="unavailable_##index## flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" value="{{ old('unavailable_from') }}" />
-
-                        @error('unavailable_from')
-                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-5 col-md-12">
-                <div class="form-group">
-{{--                    <label for="unavailable_to" class="font-weight-600">{{ __('Unavailable to') }}:</label>--}}
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                        </div>
-                        <input placeholder="{{ __('Unavailable to') }}" name="unavailable_to[]" class="unavailable_##index## flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" value="{{ old('unavailable_to') }}" />
-
-                        @error('unavailable_to')
-                        <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-12 delete-period-col">
-                <div class="form-group">
-                    <div class="input-group">
-                        <button type="button" class="btn btn-danger btn-md text-nowrap delete-period btn-block" data-index-number="##index##">
-                            <span class="btn-inner--text" >Sterge</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
+    @include('partials.unavailability')
 @endsection
