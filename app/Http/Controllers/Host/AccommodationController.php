@@ -137,8 +137,8 @@ class AccommodationController extends Controller
         foreach ($request->get("unavailable_from") as $key => $value) {
             $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
             $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-            $accomodationsUnavailableInterval->from_date = $request->get("unavailable_from")[0];
-            $accomodationsUnavailableInterval->to_date = $request->get("unavailable_to")[0];
+            $accomodationsUnavailableInterval->from_date = $request->get("unavailable_from")[$key];
+            $accomodationsUnavailableInterval->to_date = $request->get("unavailable_to")[$key];
             $accomodationsUnavailableInterval->save();
         }
 
@@ -333,8 +333,8 @@ class AccommodationController extends Controller
         foreach ($request->get("unavailable_from") as $key => $value) {
             $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
             $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-            $accomodationsUnavailableInterval->from_date = $request->get("unavailable_from")[0];
-            $accomodationsUnavailableInterval->to_date = $request->get("unavailable_to")[0];
+            $accomodationsUnavailableInterval->from_date = $request->get("unavailable_from")[$key];
+            $accomodationsUnavailableInterval->to_date = $request->get("unavailable_to")[$key];
             $accomodationsUnavailableInterval->save();
         }
 
