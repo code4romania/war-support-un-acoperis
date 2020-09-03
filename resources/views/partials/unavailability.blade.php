@@ -76,6 +76,15 @@
                     errorTo.hasOwnProperty('unavailable_to.' + maxValue) ? errorTo['unavailable_to.' + maxValue] : null
                 );
             @endforeach
+        @else
+            @isset ($unavailableIntervals)
+                @foreach($unavailableIntervals as $unavailableInterval)
+                addInterval(
+                    '{{ $unavailableInterval->from_date }}',
+                    '{{ $unavailableInterval->to_date }}'
+                );
+                @endforeach
+            @endisset
         @endif
     });
 
@@ -88,6 +97,8 @@
     const addInterval = function(from, to, errorFrom, errorTo) {
         from = typeof from !== 'undefined' ? from : '';
         to = typeof to !== 'undefined' ? to : '';
+        errorFrom = typeof errorFrom !== 'undefined' ? errorFrom : null;
+        errorTo = typeof errorTo !== 'undefined' ? errorTo : null;
 
         $("#unavailability_container").append(
             $("#unavailability_interval").html()
