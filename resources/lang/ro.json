@@ -292,5 +292,6 @@
     "Request help": "Solicitare servicii",
     "Request help greeting": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis dolor eu blandit auctor.",
     "Details": "Detalii",
-    "Help types": "Tipuri de ajutor solicitate"
+    "Help types": "Tipuri de ajutor solicitate",
+    "interval start": "inceputul intervalului"
 }

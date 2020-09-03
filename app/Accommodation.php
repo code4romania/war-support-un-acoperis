@@ -121,6 +121,14 @@ class Accommodation extends Model
     /**
      * @return HasMany
      */
+    public function unavailableIntervals()
+    {
+        return $this->hasMany(AccomodationsUnavailableInterval::class);
+    }
+
+    /**
+     * @return HasMany
+     */
     public function notes()
     {
         return $this
