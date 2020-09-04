@@ -293,5 +293,10 @@
     "Request help greeting": "Request help greeting",
     "Details": "Details",
     "Help types": "Help types",
-    "interval start": "interval start"
+    "interval start": "interval start",
+    "Validate host and reset password": "Validate host and reset password",
+    "Reset password in case you forgot it": "Reset password in case you forgot it",
+    "Send": "Send",
+    "Activate host": "Activate host",
+    "Reset host password": "Reset host password"
 }

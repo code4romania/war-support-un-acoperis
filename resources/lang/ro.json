@@ -293,5 +293,10 @@
     "Request help greeting": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis dolor eu blandit auctor.",
     "Details": "Detalii",
     "Help types": "Tipuri de ajutor solicitate",
-    "interval start": "inceputul intervalului"
+    "interval start": "inceputul intervalului",
+    "Validate host and reset password": "Valideaza gazda si trimite optiunea de a reseta parola Contului",
+    "Reset password in case you forgot it": "Trimite optiune de resetare parola in cazul in care a uitat parola initiala",
+    "Send": "Trimite",
+    "Activate host": "Activare gazda",
+    "Reset host password": "Resetare parola gazda"
 }
