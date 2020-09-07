@@ -299,5 +299,13 @@
     "Send": "Trimite",
     "Activate host": "Activare gazda",
     "Reset host password": "Resetare parola gazda",
-    "Overlapping intervals": "Intervale suprapuse"
+    "Overlapping intervals": "Intervale suprapuse",
+
+    "Reset Password Notification": "Notificare resetare parola",
+    "You are receiving this email because we received a password reset request for your account.": "Primiti acest email pentru ca ai cerut sa iti fie resetata parola contului.",
+    "This password reset link will expire in :count minutes.": "Acest link de resetare parola va expira in :count minute",
+    "If you did not request a password reset, no further action is required.": "Daca nu ai cerut sa resetezi parola nu trebuie sa faci nici o actiune.",
+    "Hello!": "Salut!",
+    "Regards": "Salutari",
+    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Daca aveti probleme sa apasati pe butonul \":actionText\", copiati textul urmator si si accesati in browser:"
 }
