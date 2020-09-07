@@ -65,7 +65,7 @@ class LoginController extends Controller
             );
 
         if ($loginResult && !is_null($this->guard()->user())) {
-            return !is_null($this->guard()->user()->email_verified_at);
+            return !is_null($this->guard()->user()->approved_at);
         }
 
         return false;

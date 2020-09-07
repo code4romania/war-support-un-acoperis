@@ -197,7 +197,7 @@ class HostController extends Controller
             abort(404);
         }
 
-        $user->email_verified_at = Carbon::now();
+        $user->approved_at = Carbon::now();
         $user->save();
 
         $this->sendResetNotification($user);

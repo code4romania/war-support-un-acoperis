@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    @if (!$user->email_verified_at)
+    @if (!$user->approved_at)
     <div class="alert alert-secondary d-flex justify-content-between align-items-center">
         <h6 class="mb-0 font-weight-600 text-white">
             {{ __("Validate host and reset password") }}
