@@ -298,5 +298,6 @@
     "Reset password in case you forgot it": "Reset password in case you forgot it",
     "Send": "Send",
     "Activate host": "Activate host",
-    "Reset host password": "Reset host password"
+    "Reset host password": "Reset host password",
+    "Overlapping intervals": "Overlapping intervals"
 }

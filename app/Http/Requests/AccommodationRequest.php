@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Accommodation;
+use App\Rules\DateIntervals;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -66,6 +67,7 @@ class AccommodationRequest extends FormRequest
             'checkout_time' => ['required', 'date_format:H:i'],
             'unavailable.*.from' => ['required', 'date', 'date_format:Y-m-d', 'after:yesterday'],
             'unavailable.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:unavailable.*.from'],
+            'unavailable' => ['nullable', new DateIntervals()],
         ];
     }
 }

@@ -65,6 +65,9 @@
             @if (strpos($key, 'unavailable.') == 0 && strpos($key, '.to') > -1)
                 errorTo['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '').replace(/unavailable.(\d)+.from/, '{{ __("interval start") }}');
             @endif
+            @if ($key === 'unavailable')
+                errorFrom['unavailable.0.from'] = '{{ $error[0] }}';
+            @endif
         @endforeach
 
         @if (old('unavailable'))

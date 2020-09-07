@@ -298,5 +298,6 @@
     "Reset password in case you forgot it": "Trimite optiune de resetare parola in cazul in care a uitat parola initiala",
     "Send": "Trimite",
     "Activate host": "Activare gazda",
-    "Reset host password": "Resetare parola gazda"
+    "Reset host password": "Resetare parola gazda",
+    "Overlapping intervals": "Intervale suprapuse"
 }
