@@ -21,6 +21,7 @@
                         <div class="form-group">
                             <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                             <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
+                                    <option value="">{{ _("Select accomodation type") }}</option>
                                 @foreach($types as $type)
                                     <option value="{{ $type->id }}" {{ (old('type', $accommodation->accommodationtype->id) == $type->id ? 'selected' : '') ? 'selected' : '' }}>{{ __($type->name) }}</option>
                                 @endforeach
@@ -38,6 +39,7 @@
                                 {{ __('Ownership regime') }}
                             </label>
                             <select class="form-control custom-select @error('ownership')is-invalid @enderror" name="ownership" id="ownership">
+                                    <option value="">{{ __("Select property type") }}</option>
                                 @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
                                     <option value="{{ $ownershipTypeId }}" {{ (old('ownership', $accommodation->ownership_type) == $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
                                 @endforeach
@@ -183,6 +185,7 @@
                             <div class="form-group">
                                 <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
                                 <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">
+                                    <option value="">{{ __("Select country") }}</option>
                                     @foreach($countries as $country)
                                         <option value="{{ $country->id }}" {{ (old('country', $accommodation->address_country_id) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
