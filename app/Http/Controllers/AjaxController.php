@@ -541,18 +541,18 @@ class AjaxController extends Controller
         $query->join('users', 'users.id', '=', 'accommodations.user_id');
         $query->join('accommodation_types', 'accommodations.accommodation_type_id', '=', 'accommodation_types.id');
 
-        if (!empty($startDate) && !empty($endDate)) {
+        if (!empty($startDate) && !empty($endDate) && $startDate <= $endDate) {
             $query->leftJoin('accomodations_unavailable_intervals', function($join) use ($startDate, $endDate) {
                 $join->on('accomodations_unavailable_intervals.accommodation_id', '=', 'accommodations.id');
                 $join->where(function($where) use ($startDate, $endDate) {
                     $where->where(function ($where2) use ($startDate, $endDate) {
                         $where2->where('accomodations_unavailable_intervals.from_date', '>=', $startDate);
-                        $where2->where('accomodations_unavailable_intervals.to_date', '<=', $startDate);
+                        $where2->where('accomodations_unavailable_intervals.from_date', '<', $endDate);
                     });
 
                     $where->orWhere(function ($where3)  use ($startDate, $endDate) {
-                        $where3->where('accomodations_unavailable_intervals.from_date', '>=', $endDate);
-                        $where3->where('accomodations_unavailable_intervals.to_date', '<=', $endDate);
+                        $where3->where('accomodations_unavailable_intervals.to_date', '>=', $startDate);
+                        $where3->where('accomodations_unavailable_intervals.to_date', '<', $endDate);
                     });
                 });
             });
