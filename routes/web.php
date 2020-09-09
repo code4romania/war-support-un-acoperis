@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/ro');
+Route::get('/', 'StaticPagesController@redirectToLocale');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
 /**
@@ -37,7 +37,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         /**
          * Administrator routes
          */
-        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
+        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');;
 
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
@@ -105,7 +105,7 @@ Route::middleware([SetLanguage::class, Administration::class])
 Route::middleware([SetLanguage::class, Host::class])
     ->prefix('host')
     ->group(function () {
-        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile');
+        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');;
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
         Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
@@ -148,21 +148,15 @@ Route::middleware([SetLanguage::class])
          * 2FA
          */
         Route::group(['prefix'=>'2fa'], function(){
-            Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form');
+            Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
+            Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
             Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
             Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
             Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
 
             // 2fa middleware
-            Route::post('/2faVerify', function () {
-                return redirect(URL()->previous());
-            })->name('2faVerify')->middleware('2fa');
+            Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
         });
-
-        // test middleware
-        Route::get('/test_middleware', function () {
-            return "2FA middleware work!";
-        })->middleware(['auth', '2fa']);
 
         /**
          * Header

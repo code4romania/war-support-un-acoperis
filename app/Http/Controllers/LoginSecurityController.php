@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LoginSecurity;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -100,5 +101,27 @@ class LoginSecurityController extends Controller
         $user->loginSecurity->google2fa_enable = 0;
         $user->loginSecurity->save();
         return Redirect::route('2fa.form', ['success' => '2FA is now disabled.']);
+    }
+
+    /**
+     * @return RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function afterLoginCheck() {
+        return redirect(route('home', ['locale' => app()->getLocale()]));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function verify(Request $request)
+    {
+        $destination = $request->session()->pull('2fa-destination');
+
+        if (is_null($destination)) {
+            return redirect()->back();
+        }
+
+        return redirect($destination);
     }
 }

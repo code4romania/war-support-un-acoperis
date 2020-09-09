@@ -22,6 +22,13 @@ class LoginSecurityMiddleware
             return $next($request);
         }
 
+        $previousUrl = url()->previous();
+        $currentUrl = url()->current();
+
+        if ($previousUrl !== $currentUrl) {
+            $request->session()->put('2fa-destination', $previousUrl);
+        }
+
         return $authenticator->makeRequestOneTimePasswordResponse();
     }
 }
