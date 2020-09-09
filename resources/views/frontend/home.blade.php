@@ -10,8 +10,8 @@
         <div class="d-flex align-items-sm-center flex-column flex-sm-row">
             <img src="/images/banner-homepage.png" alt="Help for Health" srcset="/images/banner-homepage@2x.png 2x" class="w-100">
             <div class="banner-content ml-sm-5 mt-3 mt-sm-0">
-                <h1 class="text-primary font-weight-600 mb-sm-4 mb-2">Bine ai venit!</h1>
-                <p class="mb-sm-5 mb-3">{{ $homepageMessage }}</p>
+                <h1 class="text-primary font-weight-600 mb-sm-4 mb-2">{{ $welcomeTitle }}</h1>
+                <p class="mb-sm-5 mb-3">{!! $welcomeBody !!}</p>
                 <a href="{{ route('request-services') }}" class="btn btn-lg btn-primary mr-3 px-sm-5">Solicita servicii</a>
                 <a href="{{ route('get-involved') }}" class="btn btn-lg btn-secondary px-sm-5">Implica-te</a>
             </div>
@@ -19,34 +19,34 @@
     </div>
     <div class="bg-homepage-section-1 my-2 py-5">
         <div class="container">
-            <h2 class="text-center font-weight-600 mb-5">Cu ce te putem ajuta</h2>
+            <h2 class="text-center font-weight-600 mb-5">{{ $helpTitle }}</h2>
             <div class="card-deck how-can-we-help">
                 <div class="card text-center shadow-sm">
                     <img src="/images/homepage-icon-1.svg" height="100" class="card-img-top mt-4" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title font-weight-600">Consultanta in strangerea de fonduri</h5>
-                        <p class="card-text mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>
+                        <h5 class="card-title font-weight-600">{{ $helpBlock1Title }}</h5>
+                        <p class="card-text mb-3">{!! $helpBlock1Body !!}</p>
                     </div>
                 </div>
                 <div class="card text-center shadow-sm">
                     <img src="/images/homepage-icon-2.svg" height="100" class="card-img-top mt-4" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title font-weight-600">Accesarea serviciilor medicale potrivite</h5>
-                        <p class="card-text mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>
+                        <h5 class="card-title font-weight-600">{{ $helpBlock2Title }}</h5>
+                        <p class="card-text mb-3">{!! $helpBlock2Body !!}</p>
                     </div>
                 </div>
                 <div class="card text-center shadow-sm">
                     <img src="/images/homepage-icon-3.svg" height="100" class="card-img-top mt-4" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title font-weight-600">Solutionarea altor nevoi</h5>
-                        <p class="card-text mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>
+                        <h5 class="card-title font-weight-600">{{ $helpBlock3Title }}</h5>
+                        <p class="card-text mb-3">{!! $helpBlock3Body !!}</p>
                     </div>
                 </div>
                 <div class="card text-center shadow-sm">
                     <img src="/images/homepage-icon-4.svg" height="100" class="card-img-top mt-4" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title font-weight-600">Sprijin pentru a găsi cazare</h5>
-                        <p class="card-text mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>
+                        <h5 class="card-title font-weight-600">{{ $helpBlock4Title }}</h5>
+                        <p class="card-text mb-3">{!! $helpBlock4Body !!}</p>
                     </div>
                 </div>
             </div>
@@ -54,15 +54,10 @@
     </div>
     <div class="py-5">
         <div class="container">
-            <h2 class="text-primary font-weight-600 mb-5">Despre proiect</h2>
+            <h2 class="text-primary font-weight-600 mb-5">{{ $aboutTitle }}</h2>
             <div class="row">
                 <div class="col-sm-8">
-                    <p class="mb-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.
-                    </p>
+                    <p>{!! $aboutBody !!}</p>
                 </div>
                 <div class="col-sm-4 px-sm-5">
                     <img src="/images/logo-hfh.svg" class="w-100" alt="">
@@ -75,17 +70,17 @@
             <div class="row d-flex align-items-stretch">
                 <div class="col-sm-6">
                     <div class="strech-bg py-5 pr-sm-6">
-                        <h2 class="text-white font-weight-600 mb-4">Solicita servicii</h2>
+                        <h2 class="text-white font-weight-600 mb-4">{{ $askServicesTitle }}</h2>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.
+                            {!! $askServicesBody !!}
                         </p>
                         <a href="{{ route('request-services') }}" class="btn btn-white text-secondary btn-lg px-6 mt-4">Solicita aici</a>
                     </div>
                 </div>
                 <div class="col-sm-6 py-5 pl-sm-6">
-                    <h2 class="text-white font-weight-600 mb-4">Devino gazda</h2>
+                    <h2 class="text-white font-weight-600 mb-4">{{ $becomeHostTitle }}</h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.
+                        {!! $becomeHostBody !!}
                     </p>
                     <a href="{{ route('get-involved') }}" class="btn btn-white text-primary btn-lg px-6 mt-4">Implica-te</a>
                 </div>
@@ -95,15 +90,15 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-sm-6">
-                <h2 class="text-primary font-weight-600 mb-4">Lorem ipsum</h2>
+                <h2 class="text-primary font-weight-600 mb-4">{{ $footerBlock1Title }}</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.
+                    {!! $footerBlock1Body !!}
                 </p>
             </div>
             <div class="col-sm-6">
-                <h2 class="text-primary font-weight-600 mb-4">Lorem ipsum</h2>
+                <h2 class="text-primary font-weight-600 mb-4">{{ $footerBlock2Title }}</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.
+                    {!! $footerBlock2Body !!}
                 </p>
             </div>
         </div>

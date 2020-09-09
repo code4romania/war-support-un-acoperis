@@ -4,7 +4,7 @@
 -- https://tableplus.com/
 --
 -- Database: helpforhealth
--- Generation Time: 2020-09-03 13:05:50.7120
+-- Generation Time: 2020-09-09 22:38:07.9740
 -- -------------------------------------------------------------
 
 
@@ -138,11 +138,11 @@ CREATE TABLE `partner_translations` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `locale` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `locale` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `title` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `homepage_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `homepage_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `partner_id_locale_unique` (`partner_id`,`locale`),
   KEY `partner_translations_locale_index` (`locale`),
@@ -157,17 +157,17 @@ CREATE TABLE `partners` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '0',
   `position` int unsigned DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `related`;
 CREATE TABLE `related` (
   `subject_id` int unsigned DEFAULT NULL,
-  `subject_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `related_id` int unsigned DEFAULT NULL,
-  `related_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `browser_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `related_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `browser_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int unsigned NOT NULL,
   UNIQUE KEY `related_unique` (`subject_id`,`subject_type`,`related_id`,`related_type`,`browser_name`),
   KEY `related_browser_name_index` (`browser_name`)
@@ -187,7 +187,7 @@ CREATE TABLE `setting_translations` (
   UNIQUE KEY `setting_id_locale_unique` (`setting_id`,`locale`),
   KEY `setting_translations_locale_index` (`locale`),
   CONSTRAINT `fk_setting_translations_setting_id` FOREIGN KEY (`setting_id`) REFERENCES `settings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
@@ -200,7 +200,7 @@ CREATE TABLE `settings` (
   PRIMARY KEY (`id`),
   KEY `settings_key_index` (`key`),
   KEY `settings_section_index` (`section`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `blocks` (`id`, `blockable_id`, `blockable_type`, `position`, `content`, `type`, `child_key`, `parent_id`) VALUES
 ('14', '1', 'App\\Models\\Page', '1', '{\"paragraph\": {\"en\": \"<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem <strong>accusantium</strong> doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>\", \"ro\": \"<p>Sed ut <strong>perspiciatis</strong> unde omnis iste natus error sit voluptatem <strong>accusantium</strong> doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>\"}}', 'paragraph', NULL, NULL),
@@ -308,10 +308,73 @@ INSERT INTO `related` (`subject_id`, `subject_type`, `related_id`, `related_type
 
 INSERT INTO `setting_translations` (`id`, `setting_id`, `deleted_at`, `created_at`, `updated_at`, `locale`, `active`, `value`) VALUES
 ('1', '1', NULL, '2020-09-03 10:03:16', '2020-09-03 10:03:36', 'ro', '1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.'),
-('2', '1', NULL, '2020-09-03 10:03:16', '2020-09-03 10:03:36', 'en', '1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.');
+('2', '1', NULL, '2020-09-03 10:03:16', '2020-09-03 10:03:36', 'en', '1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.'),
+('3', '2', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Bine ai venit!'),
+('4', '2', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('5', '3', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.</p>'),
+('6', '3', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('7', '4', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Cu ce te putem ajuta'),
+('8', '4', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('9', '5', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Consultanta in strangerea de fonduri'),
+('10', '5', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('11', '6', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('12', '6', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('13', '7', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Accesarea serviciilor medicale potrivite'),
+('14', '7', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('15', '8', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('16', '8', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('17', '9', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Solutionarea altor nevoi'),
+('18', '9', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('19', '10', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('20', '10', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('21', '11', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Sprijin pentru a găsi cazare'),
+('22', '11', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('23', '12', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('24', '12', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('25', '13', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Despre proiect'),
+('26', '13', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('27', '14', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.</p>'),
+('28', '14', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('31', '16', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('32', '16', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('33', '17', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Devino gazda'),
+('34', '17', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('35', '18', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('36', '18', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('37', '19', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Footer block 1'),
+('38', '19', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('39', '20', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('40', '20', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('41', '21', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', 'Footer block 2'),
+('42', '21', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('43', '22', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('44', '22', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
+('45', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'ro', '1', 'Solicita servicii'),
+('46', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'en', '1', NULL);
 
 INSERT INTO `settings` (`id`, `created_at`, `updated_at`, `deleted_at`, `key`, `section`) VALUES
-('1', '2020-09-03 10:03:16', '2020-09-03 10:03:16', NULL, 'homepage_message', 'home');
+('1', '2020-09-03 10:03:16', '2020-09-03 10:03:16', NULL, 'homepage_message', 'home'),
+('2', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'welcome_title', 'home'),
+('3', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'welcome_body', 'home'),
+('4', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_title', 'home'),
+('5', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_1_title', 'home'),
+('6', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_1_body', 'home'),
+('7', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_2_title', 'home'),
+('8', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_2_body', 'home'),
+('9', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_3_title', 'home'),
+('10', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_3_body', 'home'),
+('11', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_4_title', 'home'),
+('12', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'help_block_4_body', 'home'),
+('13', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'about_title', 'home'),
+('14', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'about_body', 'home'),
+('16', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'ask_services_body', 'home'),
+('17', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'become_host_title', 'home'),
+('18', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'become_host_body', 'home'),
+('19', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_1_title', 'home'),
+('20', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_1_body', 'home'),
+('21', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_2_title', 'home'),
+('22', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_2_body', 'home'),
+('23', '2020-09-09 19:35:56', '2020-09-09 19:35:56', NULL, 'ask_services_title', 'home');
 
 
 
