@@ -152,9 +152,13 @@
                         </div>
                         <div class="kv">
                             <h6 class="font-weight-600 mb-1">{{ __('Unavailability') }}</h6>
+                            @forelse ($unavailableIntervals as $unavailableInterval)
                             <p>
-                                {{ !empty($accommodation->unavailable_from_date) ? ($accommodation->unavailable_from_date->format('Y-m-d') . ' - ' . $accommodation->unavailable_to_date->format('Y-m-d')) : 'N/A' }}
+                                {{ substr($unavailableInterval->from_date, 0, 10) . ' - ' . substr($unavailableInterval->to_date, 0, 10) }}
                             </p>
+                            @empty
+                            <p>N/A</p>
+                            @endforelse
                         </div>
                     </div>
                     <div class="col-sm-6">

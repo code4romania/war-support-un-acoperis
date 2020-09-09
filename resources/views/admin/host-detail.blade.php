@@ -65,19 +65,19 @@
         </div>
     </div>
 
-    @if (!$user->email_verified_at)
+    @if (!$user->approved_at)
     <div class="alert alert-secondary d-flex justify-content-between align-items-center">
         <h6 class="mb-0 font-weight-600 text-white">
-            Valideaza gazda si trimite optiunea de a reseta parola Contului
+            {{ __("Validate host and reset password") }}
         </h6>
-        <a class="btn btn-white text-secondary px-4 ml-3" href="{{ route('admin.host-activate-and-reset', ['id' => $user->id]) }}">Trimite</a>
+        <a class="btn btn-white text-secondary px-4 ml-3" id="validateAccount" href="{{ route('admin.host-activate-and-reset', ['id' => $user->id]) }}">{{ __("Send") }}</a>
     </div>
     @else
         <div class="alert alert-white d-flex justify-content-between align-items-center">
             <h6 class="mb-0 font-weight-600 text-dark">
-                Trimite optiune de resetare parola in cazul in care a uitat parola initiala
+                {{ __("Reset password in case you forgot it") }}
             </h6>
-            <a class="btn btn-secondary px-4 ml-3" href="{{ route('admin.host-reset', ['id' => $user->id]) }}">Trimite</a>
+            <a class="btn btn-secondary px-4 ml-3" id="resetAccount" href="{{ route('admin.host-reset', ['id' => $user->id]) }}">{{ __("Send") }}</a>
         </div>
     @endif
 
@@ -163,6 +163,48 @@
             </div>
         </div>
     </div>
+
+    <!-- Confirmare activare si resetare parola host -->
+    <div class="modal fade bd-example-modal-sm" id="activateHostAndResetPassword" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __("Activate host") }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __("Validate host and reset password") }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-danger" id="proceedActivateHostAndResetPassword">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmare activare si resetare parola host -->
+    <div class="modal fade bd-example-modal-sm" id="resetPassword" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __("Reset host password") }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __("Reset password in case you forgot it") }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-danger" id="proceedResetPassword">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -236,6 +278,24 @@
             $('#proceedDeleteAccommodation').on('click', function() {
                 $('#deleteAccommodationModal').modal('hide');
                 window.location.href = '/admin/accommodation/'+selectedAccommodation+'/delete';
+            });
+
+            $('#validateAccount').on('click', function (event) {
+                event.preventDefault();
+                $('#activateHostAndResetPassword').modal('show');
+                const url = this.href;
+                $('#proceedActivateHostAndResetPassword').on('click', function () {
+                    window.location.href = url;
+                });
+            });
+
+            $('#resetAccount').on('click', function (event) {
+                event.preventDefault();
+                $('#resetPassword').modal('show');
+                const url = this.href;
+                $('#proceedResetPassword').on('click', function () {
+                    window.location.href = url;
+                });
             });
         });
     </script>

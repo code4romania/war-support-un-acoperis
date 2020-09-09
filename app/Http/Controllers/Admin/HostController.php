@@ -181,7 +181,7 @@ class HostController extends Controller
 
         return redirect()
             ->route('admin.host-detail', ['id' => $user->id])
-            ->withSuccess(__('Optiunea de resetare a parolei a fost trimisa cu succes'));
+            ->withSuccess(__("Reset password option was successfully sent"));
     }
 
     /**
@@ -197,14 +197,14 @@ class HostController extends Controller
             abort(404);
         }
 
-        $user->email_verified_at = Carbon::now();
+        $user->approved_at = Carbon::now();
         $user->save();
 
         $this->sendResetNotification($user);
 
         return redirect()
             ->route('admin.host-detail', ['id' => $user->id])
-            ->withSuccess(__('Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes'));
+            ->withSuccess(__("User was activated and reset password option was successfully sent"));
     }
 
     /**
