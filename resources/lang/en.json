@@ -310,5 +310,23 @@
     "Select accomodation type": "Select accomodation type",
     "Select property type": "Select property type",
     "Reset password option was successfully sent": "Reset password option was successfully sent",
-    "User was activated and reset password option was successfully sent": "User was activated and reset password option was successfully sent"
+    "User was activated and reset password option was successfully sent": "User was activated and reset password option was successfully sent",
+
+    "2FA": "Two-factor authentication",
+    "2FA Setup": "Setup two-factor authentication",
+    "2FA Description": "Activate two factor authentication for better security.",
+    "Generate Secret Key to Enable 2FA": "Generate Secret Key to Enable 2FA",
+    "Scan this QR code with your Google Authenticator App. Alternatively, you can use the code:": "Scan this QR code with your Google Authenticator App. Alternatively, you can use the code:",
+    "Enter the pin from Google Authenticator app": "Enter the pin from Google Authenticator app",
+    "Authenticator Code": "Authenticator Code",
+    "Enable 2FA": "Enable 2FA",
+    "Disable 2FA": "Disable 2FA",
+    "2FA is currently <strong>enabled</strong> on your account.": "2FA is currently <strong>enabled</strong> on your account.",
+    "If you are looking to disable two-factor authentication, please confirm your password and Click Disable 2FA Button.": "If you are looking to disable two-factor authentication, please confirm your password and Click Disable 2FA Button.",
+    "Authenticate": "Authenticate",
+    "Or skip": "Or skip",
+    "The 'One Time Password' typed was wrong." : "The 'One Time Password' typed was wrong.",
+    "One Time Password cannot be empty.": "One Time Password cannot be empty.",
+    "An unknown error has occurred. Please try again.": "An unknown error has occurred. Please try again.",
+    "Verify two-factor authentication code" : "Verify two-factor authentication code"
 }

@@ -6,6 +6,7 @@ use App\LoginSecurity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginSecurityController extends Controller
 {
@@ -30,7 +31,7 @@ class LoginSecurityController extends Controller
         if($user->loginSecurity()->exists()){
             $google2fa = (new \PragmaRX\Google2FAQRCode\Google2FA());
             $google2fa_url = $google2fa->getQRCodeInline(
-                'MyNotePaper Demo',
+                env('APP_NAME'),
                 $user->email,
                 $user->loginSecurity->google2fa_secret
             );
@@ -61,7 +62,7 @@ class LoginSecurityController extends Controller
         $login_security->google2fa_secret = $google2fa->generateSecretKey();
         $login_security->save();
 
-        return redirect('/2fa')->with('success',"Secret key is generated.");
+        return Redirect::route('2fa.form', ['success' => 'Secret key is generated']);
     }
 
     /**
@@ -74,12 +75,12 @@ class LoginSecurityController extends Controller
         $secret = $request->input('secret');
         $valid = $google2fa->verifyKey($user->loginSecurity->google2fa_secret, $secret);
 
-        if($valid){
+        if ($valid) {
             $user->loginSecurity->google2fa_enable = 1;
             $user->loginSecurity->save();
-            return redirect('2fa')->with('success',"2FA is enabled successfully.");
-        }else{
-            return redirect('2fa')->with('error',"Invalid verification Code, Please try again.");
+            return Redirect::route('2fa.form', ['success' => '2FA is enabled successfully.']);
+        } else {
+            return Redirect::route('2fa.form', ['error' => 'Invalid verification Code, Please try again.']);
         }
     }
 
@@ -98,6 +99,6 @@ class LoginSecurityController extends Controller
         $user = Auth::user();
         $user->loginSecurity->google2fa_enable = 0;
         $user->loginSecurity->save();
-        return redirect('/2fa')->with('success',"2FA is now disabled.");
+        return Redirect::route('2fa.form', ['success' => '2FA is now disabled.']);
     }
 }
