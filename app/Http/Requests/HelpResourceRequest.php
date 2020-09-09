@@ -34,7 +34,7 @@ class HelpResourceRequest extends FormRequest
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
             'phone' => ['required', 'phone:RO', 'string', 'max:16'],
-            'email' => ['required', 'email', 'min:5', 'max:64'],
+            'email' => ['required', 'email', 'min:5', 'max:64', 'unique:users,email'],
             'help' => ['required'],
             'other' => ['nullable', 'string', 'min:2', 'max:256'],
         ];

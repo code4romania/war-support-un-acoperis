@@ -31,7 +31,7 @@ class UserService
         int $country_id,
         string $city,
         string $phone_number,
-        string $address = ""
+        string $address = null
     ): User {
 
         $host = User::create([

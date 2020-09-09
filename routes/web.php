@@ -75,7 +75,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/accommodation/{id}/delete', 'Admin\AccommodationController@delete')->name('admin.accommodation-delete');
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
-        Route::post('/host/store', 'Admin\HostController@store131nochila')->name('admin.host-store');
+        Route::post('/host/store', 'Admin\HostController@store')->name('admin.host-store');
         Route::get('/host/edit/{id}', 'Admin\HostController@edit')->name('admin.host-edit');
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
         Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');

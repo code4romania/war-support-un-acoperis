@@ -21,6 +21,7 @@
                         <div class="form-group">
                             <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                             <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
+                                <option value="">{{ _("Select accomodation type") }}</option>
                             @foreach($types as $type)
                                 <option value="{{ $type->id }}" {{ (old('type') == $type->id) ? 'selected' : '' }}>{{ __($type->name) }}</option>
                             @endforeach
@@ -38,6 +39,7 @@
                                 {{ __('Ownership regime') }}
                             </label>
                             <select class="form-control custom-select @error('ownership')is-invalid @enderror" name="ownership" id="ownership">
+                                <option value="">{{ __("Select property type") }}</option>
                             @foreach($ownershipTypes as $ownershipTypeId => $ownershipTypeValue)
                                 <option value="{{ $ownershipTypeId }}" {{ (old('ownership') == $ownershipTypeId) ? 'selected' : '' }}>{{ __($ownershipTypeValue) }}</option>
                             @endforeach
@@ -183,8 +185,9 @@
                             <div class="form-group">
                                 <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
                                 <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">
+                                    <option value="">{{ __("Select country") }}</option>
                                     @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" {{ (old('country', 178) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -417,34 +420,15 @@
                         <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
                         <span class="alert-inner--text">Este important să știm dacă în următoarea perioadă sunt și intervale de timp în care cazarea este complet indisponibilă pentru a nu te deranja cu solicitări și pentru a ne ajuta și pe noi să găsim soluții pentru pacienți cât mai rapid.</span>
                     </div>
+                    <div id="unavailability_container"></div>
+
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col">
                             <div class="form-group">
-                                <label for="unavailable_from" class="font-weight-600">{{ __('Unavailable from') }}:</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input name="unavailable_from" id="unavailable_from" class="flatpickr flatpickr-input form-control @error('unavailable_from')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_from') }}" />
-
-                                    @error('unavailable_from')
-                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="unavailable_to" class="font-weight-600">{{ __('Unavailable to') }}:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input name="unavailable_to" id="unavailable_to" class="flatpickr flatpickr-input form-control @error('unavailable_to')is-invalid @enderror" type="text" placeholder="{{ __('Select Date') }}" value="{{ old('unavailable_to') }}" />
-
-                                    @error('unavailable_to')
-                                    <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                    @enderror
+                                    <button type="button" id="add-interval" class="btn btn-secondary btn-lg text-nowra">
+                                        <span class="btn-inner--text">Adauga perioada</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -679,3 +663,8 @@
         });
     </script>
 @endsection
+
+@section('templates')
+    @include('partials.unavailability')
+@endsection
+

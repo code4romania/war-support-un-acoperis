@@ -38,8 +38,8 @@ class ResetPasswordRequest extends FormRequest
 
                 return true;
             }],
-            'newPassword' => ['required', 'string', 'min:6', 'max:64'],
-            'retypeNewPassword' => ['required', 'string', 'min:6', 'max:64', 'same:newPassword'],
+            'newPassword' => ['required', 'string', 'min:9', 'max:64'],
+            'retypeNewPassword' => ['required', 'string', 'min:9', 'max:64', 'same:newPassword'],
         ];
     }
 }
