@@ -48,7 +48,7 @@ class LoginController extends Controller
             return route('host.profile');
         }
 
-        return route('home');
+        return route('2fa.login.check', ['locale' => app()->getLocale()]);
     }
 
     /**
