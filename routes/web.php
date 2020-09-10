@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'StaticPagesController@redirectToLocale');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
+Route::name('twill.admin.dashboard')->get('/admin-dashboard', 'Admin\TwillProxyController@dashboard');
+
 /**
  * Accommodation pictures
  */
@@ -162,7 +164,6 @@ Route::middleware([SetLanguage::class])
          * Header
          */
         Route::get('/', 'StaticPagesController@home')->name('home');
-        Route::get('/about', 'StaticPagesController@about')->name('about');
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
         Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
         Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
@@ -180,9 +181,14 @@ Route::middleware([SetLanguage::class])
         /**
          * Footer
          */
-        Route::get('/partners', 'StaticPagesController@partners')->name('partners');
-        Route::get('/media', 'StaticPagesController@media')->name('media');
-        Route::get('/news', 'StaticPagesController@news')->name('news');
-        Route::get('/privacy-policy', 'StaticPagesController@privacyPolicy')->name('privacy-policy');
-        Route::get('/terms-and-conditions', 'StaticPagesController@termsAndConditions')->name('terms-and-conditions');
+//        Route::get('/about', 'StaticPagesController@about')->name('about');
+//        Route::get('/partners', 'StaticPagesController@partners')->name('partners');
+//        Route::get('/media', 'StaticPagesController@media')->name('media');
+//        Route::get('/news', 'StaticPagesController@news')->name('news');
+//        Route::get('/privacy-policy', 'StaticPagesController@privacyPolicy')->name('privacy-policy');
+//        Route::get('/terms-and-conditions', 'StaticPagesController@termsAndConditions')->name('terms-and-conditions');
+
+        Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });
+
+Route::get('/pages/{slug}', 'PageController@show');

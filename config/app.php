@@ -169,6 +169,8 @@ return [
         /*
          * Package Service Providers...
          */
+        \A17\Twill\TwillServiceProvider::class,
+        \App\Providers\TwillExtended\TwillExtendedServiceProvider::class,
 
         /*
          * Application Service Providers...

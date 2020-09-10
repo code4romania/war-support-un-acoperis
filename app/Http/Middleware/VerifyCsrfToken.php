@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -17,6 +19,17 @@ class VerifyCsrfToken extends Middleware
         //
     ];
 
+    /**
+     * VerifyCsrfToken constructor.
+     * @param Application $app
+     * @param Encrypter $encrypter
+     */
+    public function __construct(Application $app, Encrypter $encrypter)
+    {
+        $this->exceptTwillOnLocal();
+
+        parent::__construct($app, $encrypter);
+    }
     /**
      * Overwrite parent method to set HttpOnly with config value
      *
@@ -42,5 +55,25 @@ class VerifyCsrfToken extends Middleware
         );
 
         return $response;
+    }
+
+    /**
+     * Build $except entry to skip Twill Admin pages
+     */
+    private function exceptTwillOnLocal()
+    {
+        $twillUrlBits = array_filter(array_map(function ($item) {
+            return trim($item, '/'); // Remove extra /
+        }, [
+            env('ADMIN_APP_URL'),
+            env('ADMIN_APP_PATH'),
+            '*' // Wildcard for all admin subpages
+        ]));
+
+        // Build url
+        $twillUrl = request()->getScheme() . '://' . implode('/', $twillUrlBits);
+
+        // Append to except list
+        $this->except[] = $twillUrl;
     }
 }
