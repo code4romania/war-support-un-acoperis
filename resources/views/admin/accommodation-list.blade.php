@@ -326,7 +326,7 @@
 
                 endDateFilter.set("minDate", new Date(year, month - 1, day));
 
-                if (undefined === pageState.endDate || pageState.startDate > pageState.endDate) {
+                if (undefined === pageState.endDate || pageState.startDate >= pageState.endDate) {
                     var endDate = (
                         new Date(((new Date(year, month - 1, day)).getTime() + 129600000))
                     );
