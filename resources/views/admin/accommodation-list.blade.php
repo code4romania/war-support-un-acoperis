@@ -14,7 +14,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="2020-08-01" id="startDateFilter" name="startDateFilter" />
+                                <input class="flatpickr-input form-control" type="text" placeholder="2020-08-01" id="startDateFilter" name="startDateFilter" style="background-color: #fff" />
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control" type="text" placeholder="2020-08-31" id="endDateFilter" name="endDateFilter" />
+                                <input class="flatpickr-input form-control" type="text" placeholder="2020-08-31" id="endDateFilter" name="endDateFilter" style="background-color: #fff" />
                             </div>
                         </div>
                     </div>
@@ -223,6 +223,9 @@
                 });
         }
 
+        let startDateFilter = null;
+        let endDateFilter = null;
+
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -230,6 +233,9 @@
             pageState.type = null;
             pageState.country = null;
             pageState.city = null;
+
+            startDateFilter = flatpickr('#startDateFilter', { minDate: "today" });
+            endDateFilter = flatpickr('#endDateFilter', { minDate: "today" });
 
             let selectedAccommodation = null;
 
@@ -313,6 +319,8 @@
                 pageState.startDate = $('#startDateFilter').val();
                 $.SetQueryStringParameter('startDate', pageState.startDate);
                 renderer.renderData(pageState);
+
+                endDateFilter.set("minDate", pageState.startDate);
             });
 
             $('#endDateFilter').on('change', function() {

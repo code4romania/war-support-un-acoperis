@@ -310,5 +310,16 @@
     "Select accomodation type": "Selectează tip carare",
     "Select property type": "Selectează Regimul proprietații",
     "Reset password option was successfully sent": "Optiunea de resetare a parolei a fost trimisa cu succes",
-    "User was activated and reset password option was successfully sent": "Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes"
+    "User was activated and reset password option was successfully sent": "Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes",
+    "Contact": "Contact",
+    "Contact Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac arcu in erat vestibulum mollis at id enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Your message": "Mesajul dumneavoastră",
+    "I agree with <a href=\":url\">GDPR</a> terms.": "Sunt de acord cu <a href=\":url\">GDPR</a>.",
+    "Your message was successfully sent.": "Mesajul dumneavoastră a fost trimis cu succes.",
+    "Message from :name": "Mesaj de la :name",
+    "Message from: :name": "Mesaj de la: :name",
+    "Phone: :phone": "Telefon: :phone",
+    "Email: :email": "Email: :email",
+    "Message: :message": "Mesaj: :message",
+    "GDPR Content": "GDPR content"
 }

@@ -310,5 +310,16 @@
     "Select accomodation type": "Select accomodation type",
     "Select property type": "Select property type",
     "Reset password option was successfully sent": "Reset password option was successfully sent",
-    "User was activated and reset password option was successfully sent": "User was activated and reset password option was successfully sent"
+    "User was activated and reset password option was successfully sent": "User was activated and reset password option was successfully sent",
+    "Contact": "Contact",
+    "Contact Description": "Contact Description",
+    "Your message": "Your message",
+    "I agree with <a href=\":url\">GDPR<\/a> terms.": "I agree with <a href=\":url\">GDPR<\/a> terms.",
+    "Your message was successfully sent.": "Your message was successfully sent.",
+    "Message from :name": "Message from :name",
+    "Message from: :name": "Message from: :name",
+    "Phone: :phone": "Phone: :phone",
+    "Email: :email": "Email: :email",
+    "Message: :message": "Message: :message",
+    "GDPR Content": "GDPR Content"
 }

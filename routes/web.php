@@ -158,6 +158,10 @@ Route::middleware([SetLanguage::class])
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');
         Route::get('/donate', 'DonateController@index')->name('donate');
+        Route::get('/contact', 'ContactController@contact')->name('contact');
+        Route::post('/send-contact', 'ContactController@sendContact')->name('send-contact');
+        Route::get('/contact-confirmation', 'ContactController@contactConfirmation')->name('contact-confirmation');
+        Route::get('/gdpr', 'StaticPagesController@gdpr')->name('gdpr');
 
         /**
          * Footer
