@@ -79,6 +79,7 @@ class StaticPagesController extends Controller
     {
         $locale = app()->getLocale();
         return redirect()->route('home', ['locale' => $locale]);
+    }
 
     public function gdpr()
     {
