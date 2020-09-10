@@ -74,10 +74,14 @@ class StaticPagesController extends Controller
         return view('frontend.terms-and-conditions');
     }
 
+
     public function redirectToLocale()
     {
         $locale = app()->getLocale();
-
         return redirect()->route('home', ['locale' => $locale]);
+
+    public function gdpr()
+    {
+        return view('frontend.gdpr');
     }
 }

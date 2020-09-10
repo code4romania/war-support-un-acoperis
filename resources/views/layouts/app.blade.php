@@ -97,6 +97,12 @@
                                 {{ __('Donate') }}
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link{{ Route::currentRouteName() == 'contact' ? ' active' : '' }}" href="{{ route('contact') }}">
+                                {{ __('Contact') }}
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

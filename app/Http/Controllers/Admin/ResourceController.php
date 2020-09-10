@@ -57,8 +57,11 @@ class ResourceController extends Controller
             abort(404);
         }
 
+        $typeTranslation = $this->getTypeTranslations()[$helpResourceType->resourcetype->name];
+
         return view('admin.resource-detail')
-            ->with('helpResourceType', $helpResourceType);
+            ->with('helpResourceType', $helpResourceType)
+            ->with('typeTranslation', $typeTranslation);
     }
 
     /**

@@ -311,7 +311,6 @@
     "Select property type": "Selectează Regimul proprietații",
     "Reset password option was successfully sent": "Optiunea de resetare a parolei a fost trimisa cu succes",
     "User was activated and reset password option was successfully sent": "Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes",
-
     "2FA": "Autentificare în doi pași",
     "2FA Setup": "Configurează autentificarea în doi pași",
     "2FA Description": "Îmbunătătește securitatea contului tău prin activarea autentificării în 2 pași (2FA — Two Factor Authentication)",
@@ -328,5 +327,16 @@
     "The 'One Time Password' typed was wrong." : "Codul introdus este incorect.",
     "One Time Password cannot be empty.": "Codul nu poate fi gol.",
     "An unknown error has occurred. Please try again.": "A apărut o eroare necunoscută. Te rugăm să reîncerci.",
-    "Verify two-factor authentication code" : "Verifică codul de autentificare în doi pași"
+    "Verify two-factor authentication code" : "Verifică codul de autentificare în doi pași",
+    "Contact": "Contact",
+    "Contact Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac arcu in erat vestibulum mollis at id enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Your message": "Mesajul dumneavoastră",
+    "I agree with <a href=\":url\">GDPR</a> terms.": "Sunt de acord cu <a href=\":url\">GDPR</a>.",
+    "Your message was successfully sent.": "Mesajul dumneavoastră a fost trimis cu succes.",
+    "Message from :name": "Mesaj de la :name",
+    "Message from: :name": "Mesaj de la: :name",
+    "Phone: :phone": "Telefon: :phone",
+    "Email: :email": "Email: :email",
+    "Message: :message": "Mesaj: :message",
+    "GDPR Content": "GDPR content"
 }

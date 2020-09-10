@@ -311,7 +311,6 @@
     "Select property type": "Select property type",
     "Reset password option was successfully sent": "Reset password option was successfully sent",
     "User was activated and reset password option was successfully sent": "User was activated and reset password option was successfully sent",
-
     "2FA": "Two-factor authentication",
     "2FA Setup": "Setup two-factor authentication",
     "2FA Description": "Activate two factor authentication for better security.",
@@ -328,5 +327,17 @@
     "The 'One Time Password' typed was wrong." : "The 'One Time Password' typed was wrong.",
     "One Time Password cannot be empty.": "One Time Password cannot be empty.",
     "An unknown error has occurred. Please try again.": "An unknown error has occurred. Please try again.",
-    "Verify two-factor authentication code" : "Verify two-factor authentication code"
+    "Verify two-factor authentication code" : "Verify two-factor authentication code",
+    "Contact": "Contact",
+    "Contact Description": "Contact Description",
+    "Your message": "Your message",
+    "I agree with <a href=\":url\">GDPR<\/a> terms.": "I agree with <a href=\":url\">GDPR<\/a> terms.",
+    "Your message was successfully sent.": "Your message was successfully sent.",
+    "Message from :name": "Message from :name",
+    "Message from: :name": "Message from: :name",
+    "Phone: :phone": "Phone: :phone",
+    "Email: :email": "Email: :email",
+    "Message: :message": "Message: :message",
+    "GDPR Content": "GDPR Content"
 }
+
