@@ -98,7 +98,7 @@
     <section class="mb-0 clinic-map">
 {{--        <iframe src="https://www.google.com/maps/embed?q=1%20Grafton%20Street,%20Dublin,%20Ireland" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>--}}
         <iframe width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"
-            src="https://maps.google.com/maps?height=450&amp;hl=en&amp;q={{ urlencode("{$clinic->country->name}, {$clinic->city}, {$clinic->address}") }}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            src="https://maps.google.com/maps?height=450&amp;hl={{ request()->route()->parameters['locale'] }}&amp;q={{ urlencode("{$clinic->country->name}, {$clinic->city}, {$clinic->address}") }}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
         ></iframe>
     </section>
 @endsection

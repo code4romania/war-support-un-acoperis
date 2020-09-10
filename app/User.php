@@ -26,6 +26,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $city
  * @property string|null $address
  * @property string|null $phone_number
+ * @property ?DateTime $approved_at
  */
 class User extends Authenticatable
 {
@@ -41,7 +42,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'email_verified_at', 'country_id', 'city', 'address', 'phone_number',
+        'name', 'email', 'password', 'email_verified_at', 'country_id', 'city', 'address', 'phone_number', 'approved_at'
     ];
 
     /**
@@ -67,7 +68,7 @@ class User extends Authenticatable
      */
     public function isAdministrator(): bool
     {
-        return $this->hasRole(self::ROLE_ADMINISTRATOR) && $this->email_verified_at;
+        return $this->hasRole(self::ROLE_ADMINISTRATOR) && $this->approved_at;
     }
 
     /**
@@ -75,7 +76,7 @@ class User extends Authenticatable
      */
     public function isHost(): bool
     {
-        return $this->hasRole(self::ROLE_HOST) && $this->email_verified_at;
+        return $this->hasRole(self::ROLE_HOST) && $this->approved_at;
     }
 
     /**

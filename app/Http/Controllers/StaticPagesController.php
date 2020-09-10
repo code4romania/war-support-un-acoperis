@@ -73,4 +73,9 @@ class StaticPagesController extends Controller
     {
         return view('frontend.terms-and-conditions');
     }
+
+    public function gdpr()
+    {
+        return view('frontend.gdpr');
+    }
 }

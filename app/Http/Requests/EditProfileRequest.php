@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EditProfileRequest extends FormRequest
 {
@@ -23,9 +24,15 @@ class EditProfileRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->route('id')) {
+            $userId = $this->route('id');
+        } else {
+            $userId = Auth::user()->id;
+        }
+
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,id'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],

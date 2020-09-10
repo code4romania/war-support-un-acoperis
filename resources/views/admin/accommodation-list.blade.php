@@ -7,14 +7,25 @@
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <label for="searchFilter">{{ __('Search') }}</label>
-                        <div class="form-group mb-0">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
                             <div class="input-group">
-                                <input id="searchFilter" name="searchFilter" class="form-control" placeholder="{{ __('Search') }}" type="text" value="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
+                                <input class="flatpickr-input form-control" type="text" placeholder="2020-08-01" id="startDateFilter" name="startDateFilter" style="background-color: #fff" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="" for="endDateFilter">{{ __('Until') }}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="flatpickr-input form-control" type="text" placeholder="2020-08-31" id="endDateFilter" name="endDateFilter" style="background-color: #fff" />
                             </div>
                         </div>
                     </div>
@@ -167,6 +178,32 @@
                         '</tr>';
                     $('#tableBody').append(row);
                 });
+
+                if (undefined !== $.QueryString.startDate) {
+                    if (undefined === $.QueryString.endDate) {
+                        $('#endDateFilter').addClass('is-invalid')
+                    } else {
+                        $('#endDateFilter').removeClass('is-invalid')
+                    }
+                }
+
+                if (undefined !== $.QueryString.endDate) {
+                    if (undefined === $.QueryString.startDate) {
+                        $('#startDateFilter').addClass('is-invalid')
+                    } else {
+                        $('#startDateFilter').removeClass('is-invalid')
+                    }
+                }
+
+                if (undefined !== $.QueryString.startDate && undefined !== $.QueryString.endDate) {
+                    if ($.QueryString.endDate < $.QueryString.startDate) {
+                        $('#startDateFilter').addClass('is-invalid')
+                        $('#endDateFilter').addClass('is-invalid')
+                    } else {
+                        $('#startDateFilter').removeClass('is-invalid')
+                        $('#endDateFilter').removeClass('is-invalid')
+                    }
+                }
             }
         }
 
@@ -186,6 +223,9 @@
                 });
         }
 
+        let startDateFilter = null;
+        let endDateFilter = null;
+
         $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
@@ -193,6 +233,9 @@
             pageState.type = null;
             pageState.country = null;
             pageState.city = null;
+
+            startDateFilter = flatpickr('#startDateFilter', { minDate: "today" });
+            endDateFilter = flatpickr('#endDateFilter', { minDate: "today" });
 
             let selectedAccommodation = null;
 
@@ -218,6 +261,16 @@
 
             if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["1", "15", "50", "100"])) {
                 pageState.perPage = $.QueryString.perPage;
+            }
+
+            if (undefined !== $.QueryString.startDate) {
+                pageState.startDate = $.QueryString.startDate;
+                $('#startDateFilter').val(pageState.startDate);
+            }
+
+            if (undefined !== $.QueryString.endDate) {
+                pageState.endDate = $.QueryString.endDate;
+                $('#endDateFilter').val(pageState.endDate);
             }
 
             $('.resultsPerPage').val(pageState.perPage);
@@ -260,6 +313,20 @@
                 .catch(error => {
                     console.log(error);
                 });
+            });
+
+            $('#startDateFilter').on('change', function() {
+                pageState.startDate = $('#startDateFilter').val();
+                $.SetQueryStringParameter('startDate', pageState.startDate);
+                renderer.renderData(pageState);
+
+                endDateFilter.set("minDate", pageState.startDate);
+            });
+
+            $('#endDateFilter').on('change', function() {
+                pageState.endDate = $('#endDateFilter').val();
+                $.SetQueryStringParameter('endDate', pageState.endDate);
+                renderer.renderData(pageState);
             });
 
             $('#accommodationType').on('change', function (event) {
