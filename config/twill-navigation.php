@@ -21,6 +21,11 @@ return [
                 'route' => 'admin.settings',
                 'params' => ['section' => 'home']
             ],
+            'contact' => [
+                'title' => 'Contact page',
+                'route' => 'admin.settings',
+                'params' => ['section' => 'contact']
+            ],
 //            'home-boxes' => [
 //                'title' => 'Home page boxes',
 //                'route' => 'admin.settings',

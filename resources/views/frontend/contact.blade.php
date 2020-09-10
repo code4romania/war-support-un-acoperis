@@ -8,7 +8,7 @@
             </div>
         @endif
         <h1 class="display-3 title mb-4 text-primary">{{ __('Contact') }}</h1>
-        <p>{{ __('Contact Description') }}</p>
+        <p>{!! $description !!}</p>
     </div>
     <section class="bg-light-green py-5">
         <div class="container">

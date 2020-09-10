@@ -4,7 +4,7 @@
 -- https://tableplus.com/
 --
 -- Database: helpforhealth
--- Generation Time: 2020-09-09 22:38:07.9740
+-- Generation Time: 2020-09-10 14:26:02.1450
 -- -------------------------------------------------------------
 
 
@@ -187,7 +187,7 @@ CREATE TABLE `setting_translations` (
   UNIQUE KEY `setting_id_locale_unique` (`setting_id`,`locale`),
   KEY `setting_translations_locale_index` (`locale`),
   CONSTRAINT `fk_setting_translations_setting_id` FOREIGN KEY (`setting_id`) REFERENCES `settings` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
@@ -200,7 +200,7 @@ CREATE TABLE `settings` (
   PRIMARY KEY (`id`),
   KEY `settings_key_index` (`key`),
   KEY `settings_section_index` (`section`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `blocks` (`id`, `blockable_id`, `blockable_type`, `position`, `content`, `type`, `child_key`, `parent_id`) VALUES
 ('14', '1', 'App\\Models\\Page', '1', '{\"paragraph\": {\"en\": \"<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem <strong>accusantium</strong> doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>\", \"ro\": \"<p>Sed ut <strong>perspiciatis</strong> unde omnis iste natus error sit voluptatem <strong>accusantium</strong> doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>\"}}', 'paragraph', NULL, NULL),
@@ -350,7 +350,9 @@ INSERT INTO `setting_translations` (`id`, `setting_id`, `deleted_at`, `created_a
 ('43', '22', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
 ('44', '22', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'en', '1', NULL),
 ('45', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'ro', '1', 'Solicita servicii'),
-('46', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'en', '1', NULL);
+('46', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'en', '1', NULL),
+('47', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac arcu in erat vestibulum mollis at id enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p><p><br></p>'),
+('48', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'en', '1', NULL);
 
 INSERT INTO `settings` (`id`, `created_at`, `updated_at`, `deleted_at`, `key`, `section`) VALUES
 ('1', '2020-09-03 10:03:16', '2020-09-03 10:03:16', NULL, 'homepage_message', 'home'),
@@ -374,7 +376,8 @@ INSERT INTO `settings` (`id`, `created_at`, `updated_at`, `deleted_at`, `key`, `
 ('20', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_1_body', 'home'),
 ('21', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_2_title', 'home'),
 ('22', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_2_body', 'home'),
-('23', '2020-09-09 19:35:56', '2020-09-09 19:35:56', NULL, 'ask_services_title', 'home');
+('23', '2020-09-09 19:35:56', '2020-09-09 19:35:56', NULL, 'ask_services_title', 'home'),
+('24', '2020-09-10 11:22:35', '2020-09-10 11:22:35', NULL, 'contact_description', 'contact');
 
 
 
