@@ -98,6 +98,12 @@
                                 {{ __('Donate') }}
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link{{ Route::currentRouteName() == 'contact' ? ' active' : '' }}" href="{{ route('contact') }}">
+                                {{ __('Contact') }}
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -123,6 +129,10 @@
                                             <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
                                     @endif
+
+                                    <a class="dropdown-item" href="{{ route('2fa.form', ['locale' => app()->getLocale()]) }}">
+                                        <i class="fa fa-lock"></i> {{ __('2FA') }}
+                                    </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

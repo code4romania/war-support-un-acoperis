@@ -8,7 +8,7 @@
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
-                {{ $helpResourceType->resourcetype->name }}
+                {{ $typeTranslation }}
                 @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif
                 -
                 {{ $helpResourceType->helpresource->full_name }}
@@ -50,7 +50,7 @@
             </h5>
             <div class="kv border-bottom pb-4 mb-0">
                 <p>Tip de ajutor oferit</p>
-                <b>{{ $helpResourceType->resourcetype->name }} @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif</b>
+                <b>{{ $typeTranslation }} @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif</b>
             </div>
         </div>
     </div>
