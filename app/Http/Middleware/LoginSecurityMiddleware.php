@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Support\Google2FAAuthenticator;
+use Closure;
+
+class LoginSecurityMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        $authenticator = app(Google2FAAuthenticator::class)->boot($request);
+
+        if ($authenticator->isAuthenticated()) {
+            return $next($request);
+        }
+
+        $previousUrl = url()->previous();
+        $currentUrl = url()->current();
+
+        if ($previousUrl !== $currentUrl) {
+            $request->session()->put('2fa-destination', $previousUrl);
+        }
+
+        return $authenticator->makeRequestOneTimePasswordResponse();
+    }
+}
