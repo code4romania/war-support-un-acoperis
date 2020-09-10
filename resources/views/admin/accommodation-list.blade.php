@@ -319,17 +319,18 @@
                 pageState.startDate = $('#startDateFilter').val();
                 $.SetQueryStringParameter('startDate', pageState.startDate);
 
+                var [year, month, day] = pageState.startDate.split("-");
+
+                month = month.replace(/^0/, "");
+                day = day.replace(/^0/, "");
+
+                endDateFilter.set("minDate", new Date(year, month - 1, day));
+
                 if (undefined === pageState.endDate || pageState.startDate > pageState.endDate) {
-                    var [year, month, day] = pageState.startDate.split("-");
-
-                    month = month.replace(/^0/, "");
-                    day = day.replace(/^0/, "");
-
                     var endDate = (
                         new Date(((new Date(year, month - 1, day)).getTime() + 129600000))
                     );
 
-                    endDateFilter.set("minDate", new Date(year, month - 1, day));
                     endDateFilter.setDate(endDate);
 
                     pageState.endDate = endDate.toISOString().slice(0, 10);

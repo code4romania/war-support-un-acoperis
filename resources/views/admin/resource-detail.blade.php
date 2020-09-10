@@ -50,7 +50,7 @@
             </h5>
             <div class="kv border-bottom pb-4 mb-0">
                 <p>Tip de ajutor oferit</p>
-                <b>{{ $helpResourceType->resourcetype->name }} @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif</b>
+                <b>{{ $typeTranslation }} @if ($helpResourceType->resourcetype->options == \App\ResourceType::OPTION_MESSAGE) ({{ $helpResourceType->helpresource->message }}) @endif</b>
             </div>
         </div>
     </div>
