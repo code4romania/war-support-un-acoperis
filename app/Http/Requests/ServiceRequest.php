@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class ServiceRequest
@@ -66,6 +67,10 @@ class ServiceRequest extends FormRequest
             $rules['accommodation-guests-number'] = ['required', 'numeric', 'max:255'];
             $rules['accommodation-start-date'] = ['required', 'date'];
             $rules['accommodation-end-date'] = ['required', 'date', 'after_or_equal:accommodation-start-date'];
+        }
+
+        if (Route::currentRouteName() == 'request-services-submit') {
+            $validatorRules['g-recaptcha-response'] = ['required', 'captcha'];
         }
 
         return $rules;

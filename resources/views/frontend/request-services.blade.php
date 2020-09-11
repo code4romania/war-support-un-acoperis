@@ -21,12 +21,16 @@
     <section class="py-5 bg-light-blue">
         <div class="container">
             <div class="accordion-1 request-services">
-                <form method="POST" action="{{ route('request-services-submit') }}">
+                <form method="POST" action="{{ route('request-services-submit') }}" id="sendRequest">
                 @csrf
                 <div class="row">
                     <div class="col-md-12 ml-auto">
                         <div class="accordion my-3" id="requestForm">
-
+                            {!! NoCaptcha::displaySubmit(
+                                'sendRequest',
+                                "<span class=\"btn-inner--text\">" . __('Send request') . "</span><span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>",
+                                ['type' => 'submit',  "id" => "submit-button", 'class' => 'btn btn-secondary pull-right btn-lg px-6']
+                            ) !!}
                             <div class="card shadow mb-4">
                                 <div class="card-header">
                                     <h5 class="mb-0">
@@ -210,10 +214,13 @@
                                                     </div>
 
                                                     <div class="border-top pt-5 mt-3 clearfix">
-                                                        <button type="submit" id="submit-button-1" class="btn btn-secondary pull-right btn-lg px-6">
-                                                            <span class="btn-inner--text">{{ __('Send request') }}</span>
-                                                            <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
-                                                        </button>
+
+                                                        @error('g-recaptcha-response')
+                                                        <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                                                        @enderror
+
+                                                        <div id="submit-button-container-1">
+                                                        </div>
 
                                                         <button style="display: none;" type="button" id="next-step-button-1" class="btn btn-secondary pull-right btn-lg px-6 hide" data-toggle="collapse" data-target="#smsDetails" aria-expanded="false">
                                                             <span class="btn-inner--text">{{ __('Next step') }}</span>
@@ -308,10 +315,13 @@
                                             </div>
                                         </div>
                                         <div class="border-top pt-5 mt-3 clearfix">
-                                            <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                                                <span class="btn-inner--text">{{ __('Send request') }}</span>
-                                                <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
-                                            </button>
+
+                                            @error('g-recaptcha-response')
+                                            <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                                            @enderror
+
+                                            <div id="submit-button-container-2">
+                                            </div>
 
                                             <button style="display: none;" id="next-step-button-2" type="button" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="collapse" data-target="#accommodationDetails" aria-expanded="false" aria-controls="accommodationDetails">
                                                 <span class="btn-inner--text">{{ __('Next step') }}</span>
@@ -426,10 +436,12 @@
                                             <textarea id="accommodation-special-request" name="accommodation-special-request" rows="5" class="form-control" placeholder="">{{ old('accommodation-special-request') }}</textarea>
                                         </div>
                                         <div class="pt-5 clearfix">
-                                            <button type="submit" class="btn btn-secondary pull-right btn-lg px-6">
-                                                <span class="btn-inner--text">{{ __('Send request') }}</span>
-                                                <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
-                                            </button>
+                                            @error('g-recaptcha-response')
+                                            <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                                            @enderror
+
+                                            <div id="submit-button-container-3">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -444,6 +456,7 @@
 @endsection
 
 @section('scripts')
+    {!! NoCaptcha::renderJs(request()->route()->parameters['locale']) !!}
     <script>
         $(document).ready(function () {
             $('select[name=patient-county]').on('change', function () {
@@ -490,27 +503,37 @@
                 toggleSubmitButtons();
             });
 
+            let prev = null;
+            let submitButton = null;
+
             function toggleSubmitButtons() {
                 if (
                     false === $('#help-type-5').is(':checked') &&
                     false === $('#help-type-6').is(':checked')
                 ) {
-                    $('#submit-button-1').show();
+                    prev = $('#submit-button').prev().detach();
+                    submitButton = $('#submit-button').detach();
+                    prev.appendTo('#submit-button-container-1')
+                    submitButton.appendTo('#submit-button-container-1')
                     $('#next-step-button-1').hide();
-                } else {
-                    $('#submit-button-1').hide();
-                    $('#next-step-button-1').show();
-                }
-
-                if (
-                    true === $('#help-type-5').is(':checked') &&
-                    true === $('#help-type-6').is(':checked')
-                ) {
-                    $('#submit-button-2').hide();
-                    $('#next-step-button-2').show();
-                } else {
-                    $('#submit-button-2').show();
                     $('#next-step-button-2').hide();
+                } else if (
+                    true === $('#help-type-5').is(':checked') &&
+                    false === $('#help-type-6').is(':checked')
+                ){
+                    prev = $('#submit-button').prev().detach();
+                    submitButton = $('#submit-button').detach();
+                    prev.appendTo('#submit-button-container-2')
+                    submitButton.appendTo('#submit-button-container-2')
+                    $('#next-step-button-1').show();
+                    $('#next-step-button-2').hide();
+                } else {
+                    prev = $('#submit-button').prev().detach();
+                    submitButton = $('#submit-button').detach();
+                    prev.appendTo('#submit-button-container-3')
+                    submitButton.appendTo('#submit-button-container-3')
+                    $('#next-step-button-1').show();
+                    $('#next-step-button-2').show();
                 }
             }
 

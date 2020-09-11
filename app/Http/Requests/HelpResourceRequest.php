@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class HelpResourceRequest
@@ -28,7 +29,7 @@ class HelpResourceRequest extends FormRequest
     public function rules()
     {
 
-        return [
+        $validatorRules = [
             'name' => ['required', 'string', 'min:3', 'max:128'],
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
@@ -38,5 +39,12 @@ class HelpResourceRequest extends FormRequest
             'help' => ['required'],
             'other' => ['nullable', 'string', 'min:2', 'max:256'],
         ];
+
+
+        if (Route::currentRouteName() == 'store-get-involved') {
+            $validatorRules['g-recaptcha-response'] = ['required', 'captcha'];
+        }
+
+        return $validatorRules;
     }
 }
