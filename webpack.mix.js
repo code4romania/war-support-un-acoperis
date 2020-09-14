@@ -15,7 +15,8 @@ mix.js('resources/js/app.js', 'public/js')
     .extract(['jquery', 'axios', 'lodash', 'bootstrap', 'popper.js',
         'perfect-scrollbar',
         'headroom.js',
-        'choices.js', '@glidejs/glide', 'nouislider', 'flatpickr'
+        'choices.js', '@glidejs/glide', 'nouislider', 'flatpickr',
+        'chart.js'
     ])
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/argon-design-system-pro/scss/argon-design-system.scss', 'public/css')

@@ -7,26 +7,7 @@
 
     <div class="row" id="main-content">
         <div id="content" class="col-sm-9">
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de gazde inregistrate pe platforma
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
+            @include('partials.aria-graph')
 
             <div class="card shadow-sm">
                 <div class="card-header d-sm-flex align-items-center justify-content-between">
