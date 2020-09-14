@@ -32,32 +32,37 @@ class ChartService
 
     private function getDateListByInterval(string $interval)
     {
+        $date = new DateTime();
+
         switch ($interval) {
             case 'weeks':
                 $format = 'Y-W';
                 $interval = 'P12W';
                 $step = 'P1W';
+                $endDate = $date->format('Y-m-d');
                 break;
             case 'months':
                 $format = 'Y-m';
                 $interval = 'P12M';
                 $step = 'P1M';
+                $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
                 break;
             case 'years':
                 $format = 'Y';
                 $interval = 'P10Y';
                 $step = 'P1Y';
+                $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
+
                 break;
             default:
                 $format = 'Y-m-d';
                 $interval = 'P30D';
                 $step = 'P1D';
+                $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
+
                 break;
         }
 
-        $date = new DateTime();
-
-        $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
         $startDate = $date->sub(new DateInterval($interval))->format('Y-m-d');
 
         $period = new DatePeriod(
