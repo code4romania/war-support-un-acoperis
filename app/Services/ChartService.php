@@ -52,14 +52,12 @@ class ChartService
                 $interval = 'P10Y';
                 $step = 'P1Y';
                 $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
-
                 break;
             default:
                 $format = 'Y-m-d';
                 $interval = 'P30D';
                 $step = 'P1D';
                 $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
-
                 break;
         }
 
@@ -181,6 +179,7 @@ class ChartService
                 {$groupBy} label,
                 COUNT(*) val
             FROM help_requests
+            JOIN help_request_types ON help_request_types.help_request_id = help_requests.id
             WHERE help_requests.deleted_at IS NULL
             GROUP BY {$groupBy}
         ");
