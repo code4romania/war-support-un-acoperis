@@ -20,7 +20,7 @@ class ChartService
         'accomodationsApproved',
         'fundRaisingApproved',
         'infosApproved',
-
+        'othersApproved',
     ];
 
     const AVAILABLE_INTERVALS = [
