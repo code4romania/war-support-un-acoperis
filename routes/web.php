@@ -81,6 +81,12 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
         Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
 
+        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');;
+        Route::get('/profile/edit', 'Admin\ProfileController@editProfile')->name('admin.edit-profile');
+        Route::post('/profile/edit', 'Admin\ProfileController@saveProfile')->name('admin.save-profile');
+        Route::get('/profile/reset-password', 'Admin\ProfileController@resetPassword')->name('admin.reset-password');
+        Route::post('/profile/reset-password', 'Admin\ProfileController@saveResetPassword')->name('admin.save-reset-password');
+
         /**
          * Ajax routes (admin)
          */

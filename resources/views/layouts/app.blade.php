@@ -124,15 +124,18 @@
                                         <a class="dropdown-item" href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}">
                                             <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('admin.profile') }}">
+                                            {{ __('My profile') }}
+                                        </a>
                                     @elseif (Auth::user()->isHost())
                                         <a class="dropdown-item" href="{{ route('host.profile', ['locale' => app()->getLocale()]) }}">
                                             <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('host.profile') }}">
+                                            {{ __('My profile') }}
+                                        </a>
                                     @endif
 
-                                    <a class="dropdown-item" href="{{ route('2fa.form', ['locale' => app()->getLocale()]) }}">
-                                        <i class="fa fa-lock"></i> {{ __('2FA') }}
-                                    </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

@@ -338,6 +338,9 @@
     "Phone: :phone": "Phone: :phone",
     "Email: :email": "Email: :email",
     "Message: :message": "Message: :message",
-    "GDPR Content": "GDPR Content"
+    "GDPR Content": "GDPR Content",
+    "Disabled": "Disabled",
+    "Enabled": "Enabled",
+    "2FA settings": "2FA settings"
 }
 
