@@ -105,6 +105,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
 
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.admin-delete-accommodation-photo');
+        Route::get('/ajax/dashboard/chart', 'AjaxController@chartData')->name('ajax.chart');
     });
 
 /**

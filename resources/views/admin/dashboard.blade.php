@@ -7,112 +7,12 @@
 
     <div class="row" id="main-content">
         <div id="content" class="col-sm-9">
-            @include('partials.aria-graph')
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numar solicitari de ajutor inregistrate pe platforma
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de cazare
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de consultanta strangere fonduri
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de informare si indrumare medicala
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm mb-0">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de alte servicii
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
+            @include('partials.aria-graph', ['id' => 1, 'type' => 'registredHosts', 'title' => 'Numarul de gazde inregistrate pe platforma'])
+            @include('partials.aria-graph', ['id' => 2, 'type' => 'registredHelpRequest', 'title' => 'Numar solicitari de ajutor inregistrate pe platforma'])
+            @include('partials.aria-graph', ['id' => 3, 'type' => 'accomodationsApproved', 'title' => 'Numarul de persoane care au beneficiat de cazare'])
+            @include('partials.aria-graph', ['id' => 4, 'type' => 'fundRaisingApproved', 'title' => 'Numarul de persoane care au beneficiat de consultanta strangere fonduri'])
+            @include('partials.aria-graph', ['id' => 5, 'type' => 'infosApproved', 'title' => 'Numarul de persoane care au beneficiat de informare si indrumare medicala'])
+            @include('partials.aria-graph', ['id' => 6, 'type' => 'othersApproved', 'title' => 'Numarul de persoane care au beneficiat de alte servicii', 'last' => true])
         </div>
         <div class="col-sm-3">
             <div id="sidebar" class="sidebar-dash" >

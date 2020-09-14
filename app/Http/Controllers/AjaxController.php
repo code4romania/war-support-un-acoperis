@@ -12,6 +12,7 @@ use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Controllers\Host\ProfileController;
 use App\Note;
+use App\Services\ChartService;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -26,6 +27,19 @@ use Illuminate\Support\Facades\DB;
  */
 class AjaxController extends Controller
 {
+    /**
+     * @var ChartService
+     */
+    private ChartService $chartService;
+
+    /**
+     * @param ChartService $chartService
+     */
+    public function __construct(ChartService $chartService)
+    {
+        $this->chartService = $chartService;
+    }
+
     /**
      * @param int $countyId
      * @return JsonResponse
@@ -610,6 +624,20 @@ class AjaxController extends Controller
         return response()->json([
             'success' => 'true',
             'cities' => $cityList->toArray()
+        ]);
+    }
+
+    public function chartData(Request $request)
+    {
+        $type = $request->get('type');
+        $interval = $request->get('interval');
+
+        $results = $this->chartService->handleChart($type, $interval);
+
+        return response()->json([
+            'success' => 'true',
+            'labels' => array_keys($results),
+            'values' => array_values($results),
         ]);
     }
 }
