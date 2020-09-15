@@ -32,7 +32,6 @@
                         datasets: [{
                             backgroundColor: [ 'rgba(40, 174, 228, .3)' ],
                             borderColor: [ 'rgb(40, 174, 228)' ],
-                            label: 'CEVA',
                             fill: 'start'
                         }]
                     },
