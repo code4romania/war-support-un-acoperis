@@ -20,7 +20,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">56</span>
+                                <span class="count">{{ $hostsStats->totalHosts }}</span>
                                 <i class="ni ni-badge"></i>
                             </h1>
                             <small class="text-muted">Numar total gazde</small>
@@ -29,7 +29,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">344</span>
+                                <span class="count">{{ $helpRequestsStats->registredHelpRequest }}</span>
                                 <i class="ni ni-archive-2"></i>
                             </h1>
                             <small class="text-muted">Numar total solicitari</small>
@@ -38,7 +38,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">87</span>
+                                <span class="count">{{ $helpRequestsStats->accomodationsApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de cazare</small>
@@ -47,7 +47,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">422</span>
+                                <span class="count">{{ $helpRequestsStats->fundRaisingApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de consultanta strangere fonduri</small>
@@ -56,7 +56,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">322</span>
+                                <span class="count">{{ $helpRequestsStats->infosApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de informare si indrumare medicala</small>
@@ -65,7 +65,7 @@
                     <div class="card shadow-sm mb-0">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">124</span>
+                                <span class="count">{{ $helpRequestsStats->othersApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de alte servicii</small>
