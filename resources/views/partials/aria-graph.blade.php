@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="card-body">
-        <canvas id="myChart" width="100%" height="20"></canvas>
+        <canvas id="myChart" width="100%" height="25" class="img-fluid"></canvas>
     </div>
 </div>
 
@@ -24,65 +24,7 @@
     @parent
     <script type="text/javascript">
         $(document).ready(function() {
-            const initChart = function () {
-                var ctx = $('#Chart{{ $id }} #myChart');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        datasets: [{
-                            backgroundColor: [ 'rgba(40, 174, 228, .3)' ],
-                            borderColor: [ 'rgb(40, 174, 228)' ],
-                            fill: 'start'
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: true,
-                        spanGaps: false,
-                        elements: {
-                            line: {
-                                tension: 0.000001
-                            }
-                        },
-                        plugins: {
-                            filler: {
-                                propagate: false
-                            }
-                        },
-                        scales: {
-                            xAxes: [{
-                                ticks: {
-                                    autoSkip: false
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    userCallback: function(label, index, labels) {
-                                        // when the floored value is the same as the value we have a whole number
-                                        if (Math.floor(label) === label) {
-                                            return label;
-                                        }
-
-                                    },
-                                }
-                            }]
-                        },
-                        legend: {
-                            display: false
-                        }
-                    }
-                });
-
-                return myChart;
-            };
-
-            const updateChart = function (chart, labels, values) {
-                chart.data.labels = labels;
-                chart.data.datasets[0].data = values;
-                chart.update();
-            }
-
-            let theChart = initChart();
+            let theChart = initChart('{{ $id }}');
 
             $('#Chart{{ $id }} .interval-select').on('change', function() {
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
