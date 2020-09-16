@@ -6,10 +6,9 @@
         <div class="actions text-sm-right w-50">
             <div class="form-group d-inline-block mr-2 mb-sm-0">
                 <select class="interval-select custom-select form-control form-control-sm">
-                    <option value="days" selected>last days</option>
-                    <option value="weeks">last weeks</option>
-                    <option value="months">last months</option>
-                    <option value="years">last years</option>
+                    <option value="days" selected>last 14 days</option>
+                    <option value="mixed">anul curent</option>
+                    <option value="months">ultimul an</option>
                 </select>
             </div>
 {{--            <a href="" class="btn btn-sm btn-primary">Export Raport</a>--}}

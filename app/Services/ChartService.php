@@ -25,9 +25,8 @@ class ChartService
 
     const AVAILABLE_INTERVALS = [
         'days',
-        'weeks',
+        'mixed',
         'months',
-        'years',
     ];
 
     private function getDateListByInterval(string $interval)
@@ -35,33 +34,44 @@ class ChartService
         $date = new DateTime();
 
         switch ($interval) {
-            case 'weeks':
-                $format = 'Y-W';
-                $interval = 'P12W';
-                $step = 'P1W';
+            case 'mixed':
                 $endDate = $date->format('Y-m-d');
+                $startDate = (new DateTime($date->format('Y-01-01')))->format('Y-m-d');
+
+                $diff = date_diff(new DateTime($endDate), new DateTime($startDate));
+
+                $days = $diff->format("%a");
+
+                if ($days < 15) {
+                    $format = 'Y-m-d';
+                    $step = 'P1D';
+                    $newInterval = 'days';
+                } elseif ($days < 71) {
+                    $format = 'Y-W';
+                    $step = 'P1W';
+                    $newInterval = 'weeks';
+                } else {
+                    $format = 'Y-m';
+                    $step = 'P1M';
+                    $newInterval = 'months';
+                }
+
                 break;
             case 'months':
                 $format = 'Y-m';
-                $interval = 'P12M';
+                $dateInterval = 'P12M';
                 $step = 'P1M';
                 $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
-                break;
-            case 'years':
-                $format = 'Y';
-                $interval = 'P10Y';
-                $step = 'P1Y';
-                $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
+                $startDate = $date->sub(new DateInterval($dateInterval))->format('Y-m-d');
                 break;
             default:
                 $format = 'Y-m-d';
-                $interval = 'P30D';
+                $dateInterval = 'P14D';
                 $step = 'P1D';
                 $endDate = $date->add(new DateInterval($step))->format('Y-m-d');
+                $startDate = $date->sub(new DateInterval($dateInterval))->format('Y-m-d');
                 break;
         }
-
-        $startDate = $date->sub(new DateInterval($interval))->format('Y-m-d');
 
         $period = new DatePeriod(
             new DateTime($startDate),
@@ -74,7 +84,7 @@ class ChartService
             $results[] = $value->format($format);
         }
 
-        return $results;
+        return [$newInterval ?? $interval, $results];
     }
 
     /**
@@ -92,7 +102,7 @@ class ChartService
             throw new ChartServiceException('Invalid interval type');
         }
 
-        $intervalArray = $this->getDateListByInterval($interval);
+        list($interval, $intervalArray) = $this->getDateListByInterval($interval);
 
         switch ($type) {
             case 'registredHosts':
@@ -134,9 +144,6 @@ class ChartService
                 break;
             case 'months':
                 $groupBy = "DATE_FORMAT({$field}, '%Y-%m')";
-                break;
-            case 'years':
-                $groupBy = "YEAR({$field})";
                 break;
             default:
                 $groupBy = "DATE({$field})";
