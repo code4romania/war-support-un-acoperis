@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $special_request
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property ?int $accommodation_id
  */
 class HelpRequestAccommodationDetail extends Model
 {
@@ -36,7 +37,7 @@ class HelpRequestAccommodationDetail extends Model
      */
     public function helprequest()
     {
-        return $this->belongsTo(HelpRequest::class);
+        return $this->belongsTo(HelpRequest::class, 'help_request_id', 'id');
     }
 
     /**

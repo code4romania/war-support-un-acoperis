@@ -70,7 +70,8 @@ class AccommodationController extends Controller
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get());
+            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get())
+            ->with('bookings', $accommodation->bookings()->get());
     }
 
     /**
@@ -385,31 +386,5 @@ class AccommodationController extends Controller
         return redirect()
             ->route('admin.host-detail', $accommodation->user_id)
             ->withSuccess(__('Data successfully saved!'));
-    }
-
-    /**
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function startAccommodation(int $id)
-    {
-        /** @var HelpRequestAccommodationDetail $helpRequestAccommodationDetail */
-        $helpRequestAccommodationDetail = HelpRequestAccommodationDetail::find($id);
-
-        if (empty($helpRequestAccommodationDetail)) {
-            abort(404);
-        }
-
-        session(['helpRequestAccommodationDetail' => [
-            'id' => $id,
-            'startDate' => $helpRequestAccommodationDetail->start_date->format('Y-m-d'),
-            'endDate' => $helpRequestAccommodationDetail->end_date->format('Y-m-d'),
-        ]]);
-
-        return redirect()
-            ->route('admin.accommodation-list', [
-                'startDate' => $helpRequestAccommodationDetail->start_date->format('Y-m-d'),
-                'endDate' => $helpRequestAccommodationDetail->end_date->format('Y-m-d')
-            ]);
     }
 }

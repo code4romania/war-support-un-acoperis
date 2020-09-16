@@ -200,6 +200,48 @@
                     </div>
                 </div>
             </div>
+
+            <div class="border-top pt-3 mt-4">
+                <h5 class="font-weight-600 text-primary mb-4 mt-4">Rezervari</h5>
+                @forelse($bookings as $booking)
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="kv">
+                            <h6 class="font-weight-600 mb-1">Pacient:</h6>
+                            <p>{{ $booking->helprequest->patient_full_name }}</p>
+                        </div>
+                        <div class="kv">
+                            <h6 class="font-weight-600 mb-1">Responsabil:</h6>
+                            <p>{{ $booking->helprequest->caretaker_full_name }}</p>
+                        </div>
+                        <div class="kv">
+                            <h6 class="font-weight-600 mb-1">Nr persoane:</h6>
+                            <p>{{ $booking->guests_number }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="kv">
+                            <h6 class="font-weight-600 mb-1">{{ __('Starting with') }}</h6>
+                            <p>{{ formatDate($booking->start_date) }}</p>
+                        </div>
+                        <div class="kv">
+                            <h6 class="font-weight-600 mb-1">{{ __('Until') }}</h6>
+                            <p>{{ formatDate($booking->end_date) }}</p>
+                        </div>
+                        <div class="kv">
+                            <a
+                                href="{{ @route('admin.help-detail', ['id' => $booking->helprequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}"
+                                class="font-weight-600 btn text-white btn-warning btn-md">
+                                {{ __('Cancel Booking') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                    <p>N/A</p>
+                @endforelse
+            </div>
         </div>
     </div>
 
