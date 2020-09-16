@@ -28,7 +28,7 @@ class BookAccommodationRequest extends FormRequest
     public function rules()
     {
         return [
-            'accommodation_id' => ['required', 'exists:accommodations,id'],
+            'accommodation_id' => ['required', 'exists:accommodations,id,deleted_at,NULL'],
         ];
     }
 }
