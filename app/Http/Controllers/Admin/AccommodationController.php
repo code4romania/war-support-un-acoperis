@@ -8,10 +8,12 @@ use App\AccommodationType;
 use App\AccomodationsUnavailableInterval;
 use App\Country;
 use App\FacilityType;
+use App\HelpRequestAccommodationDetail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -383,5 +385,31 @@ class AccommodationController extends Controller
         return redirect()
             ->route('admin.host-detail', $accommodation->user_id)
             ->withSuccess(__('Data successfully saved!'));
+    }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function startAccommodation(int $id)
+    {
+        /** @var HelpRequestAccommodationDetail $helpRequestAccommodationDetail */
+        $helpRequestAccommodationDetail = HelpRequestAccommodationDetail::find($id);
+
+        if (empty($helpRequestAccommodationDetail)) {
+            abort(404);
+        }
+
+        session(['helpRequestAccommodationDetail' => [
+            'id' => $id,
+            'startDate' => $helpRequestAccommodationDetail->start_date->format('Y-m-d'),
+            'endDate' => $helpRequestAccommodationDetail->end_date->format('Y-m-d'),
+        ]]);
+
+        return redirect()
+            ->route('admin.accommodation-list', [
+                'startDate' => $helpRequestAccommodationDetail->start_date->format('Y-m-d'),
+                'endDate' => $helpRequestAccommodationDetail->end_date->format('Y-m-d')
+            ]);
     }
 }

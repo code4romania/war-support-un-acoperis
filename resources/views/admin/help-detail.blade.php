@@ -177,6 +177,15 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        @if (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                        <div class="form-group">
+                            <label for="change-approval-{{ $helpType->id }}">Nivel de aprobare:</label>
+                            <a href="{{ @route('start.acc', ['id' => $helpRequest->helprequestaccommodationdetail()->first()->id]) }}" class="form-control font-weight-600 btn btn-secondary btn-md">
+                                {{ __('Book Accommodation') }} ({{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->start_date) }} - {{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->end_date) }})
+                            </a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

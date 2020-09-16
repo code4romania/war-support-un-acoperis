@@ -320,14 +320,14 @@
     "Authenticator Code": "Authenticator Code",
     "Enable 2FA": "Enable 2FA",
     "Disable 2FA": "Disable 2FA",
-    "2FA is currently <strong>enabled</strong> on your account.": "2FA is currently <strong>enabled</strong> on your account.",
+    "2FA is currently <strong>enabled<\/strong> on your account.": "2FA is currently <strong>enabled<\/strong> on your account.",
     "If you are looking to disable two-factor authentication, please confirm your password and Click Disable 2FA Button.": "If you are looking to disable two-factor authentication, please confirm your password and Click Disable 2FA Button.",
     "Authenticate": "Authenticate",
     "Or skip": "Or skip",
-    "The 'One Time Password' typed was wrong." : "The 'One Time Password' typed was wrong.",
+    "The 'One Time Password' typed was wrong.": "The 'One Time Password' typed was wrong.",
     "One Time Password cannot be empty.": "One Time Password cannot be empty.",
     "An unknown error has occurred. Please try again.": "An unknown error has occurred. Please try again.",
-    "Verify two-factor authentication code" : "Verify two-factor authentication code",
+    "Verify two-factor authentication code": "Verify two-factor authentication code",
     "Contact": "Contact",
     "Contact Description": "Contact Description",
     "Your message": "Your message",
@@ -341,6 +341,6 @@
     "GDPR Content": "GDPR Content",
     "Disabled": "Disabled",
     "Enabled": "Enabled",
-    "2FA settings": "2FA settings"
+    "2FA settings": "2FA settings",
+    "Book Accommodation": "Book Accommodation"
 }
-
