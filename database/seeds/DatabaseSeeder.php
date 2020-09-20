@@ -14,15 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(SirutaImportSeeder::class);
-         $this->call(CountriesTableSeeder::class);
-         $this->call(CountiesTableSeeder::class);
-         $this->call(CitiesTableSeeder::class);
-         $this->call(PermissionTableSeeder::class);
-         $this->call(AdminUserSeeder::class);
-         $this->call(HelpTypesSeeder::class);
-         $this->call(AccomodationTypeSeeder::class);
-         $this->call(FacilityTypeSeeder::class);
-         $this->call(ResourceTypeSeeder::class);
+        $this->call(SirutaImportSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(CountiesTableSeeder::class);
+        $this->call(CitiesTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(AdminUserSeeder::class);
+        $this->call(HelpTypesSeeder::class);
+        $this->call(AccomodationTypeSeeder::class);
+        $this->call(FacilityTypeSeeder::class);
+        $this->call(ResourceTypeSeeder::class);
+        $this->call(TwillSeeder::class);
     }
 }

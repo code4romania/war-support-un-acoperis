@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'StaticPagesController@redirectToLocale');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
+Route::name('twill.admin.dashboard')->get('/admin', 'Admin\TwillProxyController@dashboard');
+
 /**
  * Accommodation pictures
  */
@@ -79,6 +81,12 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
         Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
 
+        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');;
+        Route::get('/profile/edit', 'Admin\ProfileController@editProfile')->name('admin.edit-profile');
+        Route::post('/profile/edit', 'Admin\ProfileController@saveProfile')->name('admin.save-profile');
+        Route::get('/profile/reset-password', 'Admin\ProfileController@resetPassword')->name('admin.reset-password');
+        Route::post('/profile/reset-password', 'Admin\ProfileController@saveResetPassword')->name('admin.save-reset-password');
+
         /**
          * Ajax routes (admin)
          */
@@ -97,6 +105,10 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
 
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.admin-delete-accommodation-photo');
+        Route::get('/ajax/dashboard/chart', 'AjaxController@chartData')->name('ajax.chart');
+
+        Route::put('/ajax/bookAccommodation/{helpRequestAccommodationDetailId}/', 'AjaxController@bookAccommodation')->name('ajax.book-acc');
+        Route::put('/ajax/unbookAccommodation/{helpRequestAccommodationDetailId}/', 'AjaxController@unbookAccommodation')->name('ajax.unbook-acc');
     });
 
 /**
@@ -162,7 +174,6 @@ Route::middleware([SetLanguage::class])
          * Header
          */
         Route::get('/', 'StaticPagesController@home')->name('home');
-        Route::get('/about', 'StaticPagesController@about')->name('about');
         Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
         Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
         Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
@@ -180,9 +191,14 @@ Route::middleware([SetLanguage::class])
         /**
          * Footer
          */
-        Route::get('/partners', 'StaticPagesController@partners')->name('partners');
-        Route::get('/media', 'StaticPagesController@media')->name('media');
-        Route::get('/news', 'StaticPagesController@news')->name('news');
-        Route::get('/privacy-policy', 'StaticPagesController@privacyPolicy')->name('privacy-policy');
-        Route::get('/terms-and-conditions', 'StaticPagesController@termsAndConditions')->name('terms-and-conditions');
+//        Route::get('/about', 'StaticPagesController@about')->name('about');
+//        Route::get('/partners', 'StaticPagesController@partners')->name('partners');
+//        Route::get('/media', 'StaticPagesController@media')->name('media');
+//        Route::get('/news', 'StaticPagesController@news')->name('news');
+//        Route::get('/privacy-policy', 'StaticPagesController@privacyPolicy')->name('privacy-policy');
+//        Route::get('/terms-and-conditions', 'StaticPagesController@termsAndConditions')->name('terms-and-conditions');
+
+        Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });
+
+Route::get('/pages/{slug}', 'PageController@show');

@@ -34,6 +34,7 @@ class ContactRequest extends FormRequest
             'email' => ['required', 'email', 'min:5', 'max:64'],
             'message' => ['required', 'string', 'min:5', 'max:10000'],
             'gdpr' => ['required'],
+            'g-recaptcha-response' => ['required', 'captcha'],
         ];
     }
 }

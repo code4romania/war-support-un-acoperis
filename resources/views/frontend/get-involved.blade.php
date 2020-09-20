@@ -12,7 +12,7 @@
     </div>
     <section class="bg-light-green py-5">
         <div class="container">
-            <form method="POST" action="{{ route('store-get-involved') }}">
+            <form method="POST" action="{{ route('store-get-involved') }}" id="sendGetInvolved">
             @csrf
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary">
@@ -130,10 +130,14 @@
                     </div>
 
                     <div class="border-top pt-5 mt-3 clearfix">
-                        <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                            <span class="btn-inner--text">{{ __('Send request') }}</span>
-                            <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
-                        </button>
+                        <div class="border-top pt-5 mt-3 clearfix">
+                            @error('g-recaptcha-response')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                            @enderror
+
+                            {!! NoCaptcha::displaySubmit('sendGetInvolved', "<span class=\"btn-inner--text\">" . __('Send request') . "</span>
+                                <span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary pull-right btn-lg px-6']) !!}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,6 +147,7 @@
 @endsection
 
 @section('scripts')
+    {!! NoCaptcha::renderJs(request()->route()->parameters['locale']) !!}
     <script>
         $(document).ready(function () {
             @foreach ($resourceTypes as $resourceType)

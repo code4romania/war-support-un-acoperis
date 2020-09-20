@@ -65,7 +65,7 @@ class HelpRequest extends Notification
 
 
         foreach ($helpRequest->helptypes as $helptype) {
-            $mail->line($helptype->name);
+            $mail->line(__($helptype->name));
 
             if ($helptype->pivot->help_type_id == HelpType::TYPE_SMS && $helpRequest->helprequestsmsdetail[0]) {
                 $mail->line("- " . __("Estimated amount required for treatment / surgery") . ": " . $helpRequest->helprequestsmsdetail[0]->amount);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use A17\Twill\Repositories\SettingRepository;
 use App\Http\Requests\ContactRequest;
 use App\Notifications\ContactMail;
 use Illuminate\Support\Facades\Notification;
@@ -12,9 +13,10 @@ class ContactController extends Controller
     /**
      * @return View
      */
-    public function contact()
+    public function contact(SettingRepository $settingRepository)
     {
-        return view('frontend.contact');
+        return view('frontend.contact')
+            ->with('description', $settingRepository->byKey('contact_description'));
     }
 
     public function sendContact(ContactRequest $request)

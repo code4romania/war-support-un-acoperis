@@ -17,3 +17,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /storage/*.index
+.DS_Store
+composer.phar

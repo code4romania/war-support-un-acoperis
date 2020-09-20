@@ -8,11 +8,11 @@
             </div>
         @endif
         <h1 class="display-3 title mb-4 text-primary">{{ __('Contact') }}</h1>
-        <p>{{ __('Contact Description') }}</p>
+        <p>{!! $description !!}</p>
     </div>
     <section class="bg-light-green py-5">
         <div class="container">
-            <form method="POST" action="{{ route('send-contact') }}">
+            <form method="POST" action="{{ route('send-contact') }}" id="sendContact">
             @csrf
             <div class="card shadow mb-4">
 
@@ -93,14 +93,20 @@
                     </div>
 
                     <div class="border-top pt-5 mt-3 clearfix">
-                        <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                            <span class="btn-inner--text">{{ __('Send request') }}</span>
-                            <span class="btn-inner--icon ml-2"><i class="fa fa-arrow-right"></i></span>
-                        </button>
+                        @error('g-recaptcha-response')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                        @enderror
+
+                        {!! NoCaptcha::displaySubmit('sendContact', "<span class=\"btn-inner--text\">" . __('Send request') . "</span>
+                            <span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary pull-right btn-lg px-6']) !!}
                     </div>
                 </div>
             </div>
             </form>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    {!! NoCaptcha::renderJs(request()->route()->parameters['locale']) !!}
 @endsection

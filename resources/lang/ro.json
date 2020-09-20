@@ -338,5 +338,11 @@
     "Phone: :phone": "Telefon: :phone",
     "Email: :email": "Email: :email",
     "Message: :message": "Mesaj: :message",
-    "GDPR Content": "GDPR content"
+    "GDPR Content": "GDPR content",
+    "Disabled": "Activat",
+    "Enabled": "Dezactivat",
+    "2FA settings": "Setări 2FA",
+    "Book Accommodation": "Rezerva cazare",
+    "Accommodation No": "Cazare Nr",
+    "Cancel Booking": "Anuleaza rezervarea"
 }

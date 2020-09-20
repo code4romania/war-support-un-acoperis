@@ -91,7 +91,7 @@
 
     </div>
     @foreach($helpRequest->helptypes as $helpType)
-        <div class="card">
+        <div class="card" id="helpTypeCard{{ $helpType->id }}">
             <div class="card-body">
                 <h5 class="font-weight-600 text-primary mb-4">{{ __($helpType->name) }}</h5>
                 <div class="row">
@@ -177,11 +177,131 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        @if (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                        <div class="form-group">
+                            @if (empty($helpRequest->helprequestaccommodationdetail()->first()->accommodation_id))
+                            <button id="accBookAction" class="form-control font-weight-600 btn btn-secondary btn-md">
+                                {{ __('Book Accommodation') }}
+                            </button>
+                            @else
+                                <button id="accCancelBookAction" class="form-control font-weight-600 btn text-white btn-warning btn-md">
+                                    {{ __('Cancel Booking') }}
+                                </button>
+
+                                <div class="row mt-4">
+                                    <div class="col">
+                                        <b>Cazare</b>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{@route('admin.accommodation-detail', ['id' => $helpRequest->helprequestaccommodationdetail()->first()->accommodation_id])}}">
+                                            Aici
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Pacient</b>
+                                    </div>
+                                    <div class="col">
+                                        {{ $helpRequest->patient_full_name }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Responsabil</b>
+                                    </div>
+                                    <div class="col">
+                                        {{ $helpRequest->caretaker_full_name }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <b>{{ __('Starting with') }}</b>
+                                    </div>
+                                    <div class="col">
+                                        {{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->start_date) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <b>{{ __('Until') }}</b>
+                                    </div>
+                                    <div class="col">
+                                        {{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->end_date) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Nr persoane</b>
+                                    </div>
+                                    <div class="col">
+                                        {{ $helpRequest->helprequestaccommodationdetail()->first()->guests_number }}
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
+
+    @if ($helpRequest->helprequestaccommodationdetail()->first())
+    <!-- Accommodation book modal -->
+    <div class="modal fade bd-example-modal-sm" id="accommodationBookModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-content="{{ $helpRequest->helprequestaccommodationdetail()->first()->id }}">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Book Accommodation') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="accommodationId">Introdu "{{ __("Accommodation No") }}" pentru a face asocierea.</label>
+
+                        <input id="accommodationId" type="number" class="form-control font-weight-600">
+
+                        <span class="invalid-feedback d-flex d-none" role="alert" id="accommodationBookError"></span>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedAssocAccommodation">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accommodation cancel book modal -->
+    <div class="modal fade bd-example-modal-sm" id="accommodationCancelBookModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-content="{{ $helpRequest->helprequestaccommodationdetail()->first()->id }}">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Anuleaza rezervarea</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="accommodationId">Anulezi rezervarea?</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeassocAccommodation">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
     <!-- Confirmation modal -->
     <div class="modal fade bd-example-modal-sm" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -393,6 +513,50 @@
                 .catch(error => {
                     console.log(error);
                 });
+            });
+
+            $('#accBookAction').on('click', function() {
+                $('#accommodationBookModal').modal('show');
+            });
+
+            $('#accCancelBookAction').on('click', function() {
+                $('#accommodationCancelBookModal').modal('show');
+            });
+
+            $('#proceedDeassocAccommodation').on('click', function() {
+                let route = '{{ @route('ajax.unbook-acc', ['helpRequestAccommodationDetailId' => ':::d-_-b:::']) }}';
+                const helpRequestAccommodationDetailId = $("#accommodationBookModal").data('content');
+
+                axios
+                    .put(route.replace(':::d-_-b:::', helpRequestAccommodationDetailId), {
+                        _token: "{{ csrf_token() }}"
+                    })
+                    .then(response => {
+                        window.location.href = '{{ @route('admin.help-detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                    });
+            });
+
+            $('#proceedAssocAccommodation').on('click', function() {
+                let route = '{{ @route('ajax.book-acc', ['helpRequestAccommodationDetailId' => ':::d-_-b:::']) }}';
+                const helpRequestAccommodationDetailId = $("#accommodationBookModal").data('content');
+                const accommodationId = $("#accommodationId").val();
+
+                axios
+                    .put(route.replace(':::d-_-b:::', helpRequestAccommodationDetailId), {
+                        _token: "{{ csrf_token() }}",
+                        accommodation_id: accommodationId,
+                    })
+                    .then(response => {
+                        window.location.href = '{{ @route('admin.help-detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        $("#accommodationBookError").text('Introduceti Numarul cazarii corect!');
+                        $("#accommodationBookError").show();
+                    });
             });
         });
     </script>

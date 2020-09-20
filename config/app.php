@@ -169,6 +169,8 @@ return [
         /*
          * Package Service Providers...
          */
+        \A17\Twill\TwillServiceProvider::class,
+        \App\Providers\TwillExtended\TwillExtendedServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -187,6 +189,8 @@ return [
 
         Laravel\Scout\ScoutServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
+
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
     ],
 
     /*
@@ -239,6 +243,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ],
 
 ];

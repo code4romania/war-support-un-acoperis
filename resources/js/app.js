@@ -1,6 +1,7 @@
 require('./bootstrap');
 require("flatpickr");
 window.StickySidebar = require('sticky-sidebar');
+var Chart = require('chart.js');
 
 import { Romanian } from "flatpickr/dist/l10n/ro.js"
 

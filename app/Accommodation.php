@@ -118,6 +118,11 @@ class Accommodation extends Model
         return $this->hasMany(AccommodationPhoto::class);
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(HelpRequestAccommodationDetail::class, 'accommodation_id', 'id');
+    }
+
     /**
      * @return HasMany
      */

@@ -8,10 +8,12 @@ use App\AccommodationType;
 use App\AccomodationsUnavailableInterval;
 use App\Country;
 use App\FacilityType;
+use App\HelpRequestAccommodationDetail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -68,7 +70,8 @@ class AccommodationController extends Controller
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get());
+            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get())
+            ->with('bookings', $accommodation->bookings()->get());
     }
 
     /**

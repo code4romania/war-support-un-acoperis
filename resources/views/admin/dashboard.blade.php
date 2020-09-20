@@ -7,131 +7,12 @@
 
     <div class="row" id="main-content">
         <div id="content" class="col-sm-9">
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de gazde inregistrate pe platforma
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numar solicitari de ajutor inregistrate pe platforma
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de cazare
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de consultanta strangere fonduri
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de informare si indrumare medicala
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="card shadow-sm mb-0">
-                <div class="card-header d-sm-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">
-                        Numarul de persoane care au beneficiat de alte servicii
-                    </h6>
-                    <div class="actions text-sm-right w-50">
-                        <div class="form-group d-inline-block mr-2 mb-sm-0">
-                            <select name="" id="" class="custom-select form-control form-control-sm">
-                                <option value="" selected>12 luni</option>
-                                <option value="">1 an</option>
-                                <option value="">1 deceniu</option>
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-sm btn-primary">Export Raport</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="/images/graph.png" alt="" class="img-fluid">
-                </div>
-            </div>
+            @include('partials.aria-graph', ['id' => 1, 'type' => 'registredHosts', 'title' => 'Numarul de gazde inregistrate pe platforma'])
+            @include('partials.aria-graph', ['id' => 2, 'type' => 'registredHelpRequest', 'title' => 'Numar solicitari de ajutor inregistrate pe platforma'])
+            @include('partials.aria-graph', ['id' => 3, 'type' => 'accomodationsApproved', 'title' => 'Numarul de persoane care au beneficiat de cazare'])
+            @include('partials.aria-graph', ['id' => 4, 'type' => 'fundRaisingApproved', 'title' => 'Numarul de persoane care au beneficiat de consultanta strangere fonduri'])
+            @include('partials.aria-graph', ['id' => 5, 'type' => 'infosApproved', 'title' => 'Numarul de persoane care au beneficiat de informare si indrumare medicala'])
+            @include('partials.aria-graph', ['id' => 6, 'type' => 'othersApproved', 'title' => 'Numarul de persoane care au beneficiat de alte servicii', 'last' => true])
         </div>
         <div class="col-sm-3">
             <div id="sidebar" class="sidebar-dash" >
@@ -139,7 +20,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">56</span>
+                                <span class="count">{{ $hostsStats->totalHosts }}</span>
                                 <i class="ni ni-badge"></i>
                             </h1>
                             <small class="text-muted">Numar total gazde</small>
@@ -148,7 +29,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">344</span>
+                                <span class="count">{{ $helpRequestsStats->registredHelpRequest }}</span>
                                 <i class="ni ni-archive-2"></i>
                             </h1>
                             <small class="text-muted">Numar total solicitari</small>
@@ -157,7 +38,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">87</span>
+                                <span class="count">{{ $helpRequestsStats->accomodationsApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de cazare</small>
@@ -166,7 +47,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">422</span>
+                                <span class="count">{{ $helpRequestsStats->fundRaisingApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de consultanta strangere fonduri</small>
@@ -175,7 +56,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">322</span>
+                                <span class="count">{{ $helpRequestsStats->infosApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de informare si indrumare medicala</small>
@@ -184,7 +65,7 @@
                     <div class="card shadow-sm mb-0">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">124</span>
+                                <span class="count">{{ $helpRequestsStats->othersApproved }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">Numar total beneficiari de alte servicii</small>
@@ -199,12 +80,14 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#sidebar').stickySidebar({
-                containerSelector: '#main-content',
-                innerWrapperSelector: '.sidebar__inner',
-                topSpacing: 20,
-                bottomSpacing: 20
-            });
+            setTimeout(function(){
+                $('#sidebar').stickySidebar({
+                    containerSelector: '#main-content',
+                    innerWrapperSelector: '.sidebar__inner',
+                    topSpacing: 20,
+                    bottomSpacing: 20
+                });
+            }, 300);
 
             $('.count').each(function () {
                 $(this).prop('Counter',0).animate({
@@ -218,5 +101,63 @@
                 });
             })
         });
+
+        const initChart = function (id) {
+            var ctx = $('#Chart' + id + ' #myChart');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        backgroundColor: [ 'rgba(40, 174, 228, .3)' ],
+                        borderColor: [ 'rgb(40, 174, 228)' ],
+                        fill: 'start'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: true,
+                    spanGaps: false,
+                    elements: {
+                        line: {
+                            tension: 0.000001
+                        }
+                    },
+                    plugins: {
+                        filler: {
+                            propagate: false
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+
+                                },
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+
+            return myChart;
+        };
+
+        const updateChart = function (chart, labels, values) {
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update();
+        };
     </script>
 @endsection

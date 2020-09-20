@@ -12,7 +12,7 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('login') }}" id="loginForm">
                             @csrf
 
                             <div class="form-group">
@@ -48,10 +48,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-primary btn-block w-100 mb-3">
-                                    {{ __('Login') }}
-                                </button>
+                            <div class="form-group mb-0 @if ($errors->has('g-recaptcha-response')) is-invalid @endif">
+                                @error('g-recaptcha-response')
+                                    <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                                @enderror
+
+                                {!! NoCaptcha::displaySubmit('loginForm', __('Login'), ['type' => 'submit', 'class' => 'btn btn-primary btn-block w-100 mb-3']) !!}
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link btn-block w-100" href="{{ route('password.request') }}">
@@ -67,3 +69,8 @@
     </div>
 </section>
 @endsection
+
+@section('scripts')
+    {!! NoCaptcha::renderJs(request()->route()->parameters['locale']) !!}
+@endsection
+

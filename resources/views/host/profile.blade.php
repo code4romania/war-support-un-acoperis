@@ -89,5 +89,24 @@
             </div>
         </div>
     </div>
+
+    <div class="card shadow">
+        <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
+            <h6 class="font-weight-600 text-white mb-0">
+                {{ __("2FA") }}
+            </h6>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('2fa.form') }}">{{ ! $user->has2faActivated() ? __("Enable 2FA") : __('Disable 2FA') }}</a>
+        </div>
+        <div class="card-body pt-4">
+            <div class="kv d-flex">
+                <b class="mr-3">
+                    {{ __("Status") }}:
+                </b>
+                <p>
+                    {{ ! $user->has2faActivated() ? __('Enabled') : __('Disabled') }}
+                </p>
+            </div>
+        </div>
+    </div>
 @endsection
 

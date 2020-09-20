@@ -112,6 +112,9 @@
                         <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
                     <a href="{{ route('admin.host-add') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.host-add', 'admin.host-detail']) ? 'active' : '' }}">
                         <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
+                    <a href="{{ route('admin.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.profile', 'admin.edit-profile', 'admin.reset-password']) ? 'active' : '' }}">
+                        <i class="fa fa-user mr-3"></i>Profilul meu
+                    </a>
                 @elseif (Auth::user()->isHost())
                     <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu

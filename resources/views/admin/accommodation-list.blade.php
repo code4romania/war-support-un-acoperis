@@ -95,6 +95,7 @@
                 <table class="table table-striped w-100 mb-0">
                     <thead class="thead-dark">
                     <tr>
+                        <th>{{ __('Accommodation No') }}</th>
                         <th>{{ __('Accommodation Type') }}</th>
                         <th>{{ __('Owner') }}</th>
                         <th>{{ __('Country') }}</th>
@@ -167,6 +168,7 @@
 
                 $.each(responseData, function(key, value) {
                     let row = '<tr id="accommodation-container-' + value.id + '">\n' +
+                        '    <td>#' + value.id + '</td>\n' +
                         '    <td><a href="/admin/accommodation/' + value.id + '">' + $.TranslateRequestStatus(value.type) + '</a></td>\n' +
                         '    <td>' + value.owner + '</td>\n' +
                         '    <td>' + value.country + '</td>\n' +
@@ -326,7 +328,7 @@
 
                 endDateFilter.set("minDate", new Date(year, month - 1, day));
 
-                if (undefined === pageState.endDate || pageState.startDate > pageState.endDate) {
+                if (undefined === pageState.endDate || pageState.startDate >= pageState.endDate) {
                     var endDate = (
                         new Date(((new Date(year, month - 1, day)).getTime() + 129600000))
                     );

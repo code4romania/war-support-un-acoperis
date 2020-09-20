@@ -103,4 +103,16 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\LoginSecurity');
     }
+
+    /**
+     * @return bool
+     */
+    public function has2faActivated(): bool
+    {
+        if (! is_null($this->loginSecurity) && $this->loginSecurity->google2fa_enable === 1) {
+            return true;
+        }
+
+        return false;
+    }
 }

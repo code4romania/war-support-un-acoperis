@@ -68,11 +68,12 @@
                     </div>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'about' ? 'active' : '' }}" href="{{ route('about') }}">
-                                {{ __('About the project') }}
-                            </a>
-                        </li>
+                        @foreach ($headerNavigation as $navigation)
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::current()->parameter('slug') == $navigation->getSlug() ? 'active' : '' }}"
+                                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $navigation->getSlug()]) }}">{{ $navigation->title }}</a>
+                            </li>
+                        @endforeach
 
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">
@@ -123,15 +124,18 @@
                                         <a class="dropdown-item" href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}">
                                             <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('admin.profile') }}">
+                                            {{ __('My profile') }}
+                                        </a>
                                     @elseif (Auth::user()->isHost())
                                         <a class="dropdown-item" href="{{ route('host.profile', ['locale' => app()->getLocale()]) }}">
                                             <i class="fa fa-wrench"></i> {{ __('Administration Panel') }}
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('host.profile') }}">
+                                            {{ __('My profile') }}
+                                        </a>
                                     @endif
 
-                                    <a class="dropdown-item" href="{{ route('2fa.form', ['locale' => app()->getLocale()]) }}">
-                                        <i class="fa fa-lock"></i> {{ __('2FA') }}
-                                    </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
