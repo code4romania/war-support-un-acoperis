@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'StaticPagesController@redirectToLocale');
 Route::get('/health', 'HealthController@check')->name('health.check');
 
-Route::name('twill.admin.dashboard')->get('/admin-dashboard', 'Admin\TwillProxyController@dashboard');
+Route::name('twill.admin.dashboard')->get('/admin', 'Admin\TwillProxyController@dashboard');
 
 /**
  * Accommodation pictures
