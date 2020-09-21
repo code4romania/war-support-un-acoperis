@@ -187,7 +187,7 @@
                                 <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">
                                     <option value="">{{ __("Select country") }}</option>
                                     @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" {{ (old('country', 178) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 

@@ -71,7 +71,6 @@ jobs:
           --build-arg MAIL_USERNAME=${{ secrets.MAIL_USERNAME}} \
           --build-arg MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}} \
           --build-arg MAIL_CONTACT_TO=${{ secrets.MAIL_CONTACT_TO}} \
-          --build-arg ADMIN_APP_URL=${{ secrets.PROD_ADMIN_APP_URL}} \
           --build-arg ADMIN_APP_PATH=${{ secrets.ADMIN_APP_PATH}} \
           --build-arg S3_KEY=${{ secrets.PROD_AWS_ACCESS_KEY_ID}} \
           --build-arg S3_SECRET=${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}} \
