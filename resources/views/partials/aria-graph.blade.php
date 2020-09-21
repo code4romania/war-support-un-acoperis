@@ -6,9 +6,9 @@
         <div class="actions text-sm-right w-50">
             <div class="form-group d-inline-block mr-2 mb-sm-0">
                 <select class="interval-select custom-select form-control form-control-sm">
-                    <option value="days" selected>last 14 days</option>
-                    <option value="mixed">anul curent</option>
-                    <option value="months">ultimul an</option>
+                    <option value="days" selected>ultimele 14 zile</option>
+                    <option value="mixed">anul curent (YTD)</option>
+                    <option value="months">ultimele 12 luni</option>
                 </select>
             </div>
 {{--            <a href="" class="btn btn-sm btn-primary">Export Raport</a>--}}
