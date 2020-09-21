@@ -76,8 +76,8 @@ jobs:
           --build-arg S3_SECRET=${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}} \
           --build-arg S3_BUCKET=${{ secrets.PROD_AWS_PUBLIC_BUCKET}} \
           --build-arg APP_HOST=${{ secrets.PROD_APP_HOST}} \
-          --build-arg NOCAPTCHA_SITEKEY=${{ secrets.PROD_NOCAPTCHA_SITEKEY}} \
-          --build-arg NOCAPTCHA_SECRET=${{ secrets.PROD_NOCAPTCHA_SECRET}} \
+          --build-arg NOCAPTCHA_SITEKEY=${{ secrets.NOCAPTCHA_SITEKEY}} \
+          --build-arg NOCAPTCHA_SECRET=${{ secrets.NOCAPTCHA_SECRET}} \
           -t ${{ github.repository }}:${{ github.sha }} \
           -t ${{ secrets.PROD_AWS_ECR_REPOSITORY }}:${{ github.sha }} .
 
