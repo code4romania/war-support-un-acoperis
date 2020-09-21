@@ -22,7 +22,7 @@ Route::get('/health', 'HealthController@check')->name('health.check');
 
 Route::get('/ad', function () {
     return redirect()->route('admin.dashboard');
-})->name('this.is.crazy');
+})->name('admin.dashboard.proxy');
 
 /**
  * Accommodation pictures

@@ -60,6 +60,6 @@ return [
     ],
     'static' => [
         'title' => 'Dashboard',
-        'route' => 'this.is.crazy',
+        'route' => 'admin.dashboard.proxy',
     ],
 ];
