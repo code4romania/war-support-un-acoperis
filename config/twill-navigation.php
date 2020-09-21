@@ -60,6 +60,6 @@ return [
     ],
     'static' => [
         'title' => 'Dashboard',
-        'route' => 'twill.admin.dashboard',
+        'route' => 'this.is.crazy',
     ],
 ];

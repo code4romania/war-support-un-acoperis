@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'admin_app_url' => null,
+    'admin_app_path' => env('ADMIN_APP_PATH', ''),
+
     'enabled' => [
         'users-oauth' => false,
         'twill-navigation' => false,
