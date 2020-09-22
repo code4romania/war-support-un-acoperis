@@ -193,6 +193,10 @@ class AccommodationController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        if (empty($user) || $accommodation->user_id != $user->id) {
+            abort(403);
+        }
+
         $photos = [];
 
         /** @var AccommodationPhoto $photo */
@@ -225,6 +229,10 @@ class AccommodationController extends Controller
 
         /** @var User $user */
         $user = Auth::user();
+
+        if (empty($user) || $accommodation->user_id != $user->id) {
+            abort(403);
+        }
 
         return view('host.edit-accommodation')
             ->with('user', $user)
@@ -274,6 +282,13 @@ class AccommodationController extends Controller
 
         if (empty($accommodation)) {
             abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user) || $accommodation->user_id != $user->id) {
+            abort(403);
         }
 
         $accommodation->accommodation_type_id = $request->get('type', $accommodation->accommodation_type_id);
