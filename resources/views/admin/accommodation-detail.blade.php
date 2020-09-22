@@ -201,68 +201,7 @@
                 </div>
             </div>
 
-            <div class="border-top pt-3">
-                <h5 class="font-weight-600 text-primary mb-4 mt-4">Rezervari</h5>
-                <div class="row align-items-center mb-4">
-                    <div class="col">
-                        <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
-                    </div>
-                    <div class="col d-none d-sm-block">
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-center mb-0"></ul>
-                        </nav>
-                    </div>
-                    <div class="col d-none d-sm-block">
-                        <div class="form-inline justify-content-end">
-                            <div class="form-group">
-                                <label class="mr-3">{{ __('Results per page') }}</label>
-                                <select class="custom-select form-control form-control-sm resultsPerPage">
-                                    <option value="1">1</option>
-                                    <option value="15">15</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-responsive shadow-sm mb-4">
-                    <table class="table table-striped w-100 mb-0">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>Pacient</th>
-                            <th>Responsabil</th>
-                            <th>Nr persoane</th>
-                            <th>{{ __('Starting with') }}</th>
-                            <th>{{ __('Until') }}</th>
-                            <th class="text-right">{{ __('Actions') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
-                    <div class="col offset-sm-4 mb-4 mb-sm-0">
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-center mb-0"></ul>
-                        </nav>
-                    </div>
-                    <div class="col">
-                        <div class="form-inline justify-content-center justify-content-sm-end">
-                            <div class="form-group">
-                                <label for="" class="mr-3">{{ __('Results per page') }}</label>
-                                <select name="" id="" class="custom-select form-control form-control-sm resultsPerPage">
-                                    <option value="1">1</option>
-                                    <option value="15">15</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -272,6 +211,71 @@
         'entityType' => \App\Note::TYPE_HELP_ACCOMMODATION,
         'entityId' => $accommodation->id
     ])
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="font-weight-600 text-primary mb-4">Rezervari</h5>
+            <div class="row align-items-center mb-4">
+                <div class="col">
+                    <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
+                </div>
+                <div class="col d-none d-sm-block">
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-center mb-0"></ul>
+                    </nav>
+                </div>
+                <div class="col d-none d-sm-block">
+                    <div class="form-inline justify-content-end">
+                        <div class="form-group">
+                            <label class="mr-3">{{ __('Results per page') }}</label>
+                            <select class="custom-select form-control form-control-sm resultsPerPage">
+                                <option value="1">1</option>
+                                <option value="15">15</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive shadow-sm mb-4">
+                <table class="table table-striped w-100 mb-0">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Pacient</th>
+                        <th>Responsabil</th>
+                        <th>Nr persoane</th>
+                        <th>{{ __('Starting with') }}</th>
+                        <th>{{ __('Until') }}</th>
+                        <th class="text-right">{{ __('Actions') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
+                <div class="col offset-sm-4 mb-4 mb-sm-0">
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-center mb-0"></ul>
+                    </nav>
+                </div>
+                <div class="col">
+                    <div class="form-inline justify-content-center justify-content-sm-end">
+                        <div class="form-group">
+                            <label for="" class="mr-3">{{ __('Results per page') }}</label>
+                            <select name="" id="" class="custom-select form-control form-control-sm resultsPerPage">
+                                <option value="1">1</option>
+                                <option value="15">15</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Confirmare stergere cazare -->
@@ -312,7 +316,7 @@
                         '    <td>' + value.start_date + '</td>\n' +
                         '    <td>' + value.end_date + '</td>\n' +
                         '    <td class="text-right">\n' +
-                        '        <a href="/admin/help/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-danger mb-2 mb-sm-0" >{{ __('Cancel Booking') }}</a>\n' +
+                        '        <a href="/admin/help/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-info mb-2 mb-sm-0" >Detalii cerere de ajutor</a>\n' +
                         '    </td>\n' +
                         '</tr>';
                     $('#tableBody').append(row);

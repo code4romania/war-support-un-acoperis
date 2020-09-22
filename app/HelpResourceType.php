@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $help_resource_id
  * @property int $resource_type_id
+ * @property HelpResource $helpresource
+ * @property ResourceType $resourcetype
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at

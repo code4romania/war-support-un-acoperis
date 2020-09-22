@@ -68,7 +68,7 @@ class ProfileController extends Controller
         }
 
         $user->name = $request->post('name');
-        $user->email = $request->post('email');
+//        $user->email = $request->post('email');
         $user->country_id = $request->post('country');
         $user->city = $request->post('city');
         $user->address = $request->post('address');

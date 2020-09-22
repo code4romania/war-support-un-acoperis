@@ -30,7 +30,7 @@ class AccommodationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
             'type' => ['required', 'exists:accommodation_types,id'],
             'ownership' => ['required', Rule::in(Accommodation::OWNERSHIP_TYPE_OWNED, Accommodation::OWNERSHIP_TYPE_RENTAL)],
             'property_availability' => ['required', Rule::in('fully', 'partially')],
@@ -65,9 +65,15 @@ class AccommodationRequest extends FormRequest
             'general_fee' => ['required_if:accommodation_fee,paid', 'nullable', 'string', 'max:64'],
             'checkin_time' => ['required', 'date_format:H:i'],
             'checkout_time' => ['required', 'date_format:H:i'],
-            'unavailable.*.from' => ['required', 'date', 'date_format:Y-m-d', 'after:yesterday'],
+            'unavailable.*.from' => ['required', 'date', 'date_format:Y-m-d'],
             'unavailable.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:unavailable.*.from'],
             'unavailable' => ['nullable', new DateIntervals()],
         ];
+
+        if (empty($this->id)) {
+            $rules['unavailable.*.from'][] = 'after:yesterday';
+        }
+
+        return $rules;
     }
 }

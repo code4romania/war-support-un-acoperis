@@ -86,6 +86,10 @@ class HostController extends Controller
                 $helpResource->phone_number,
                 $helpResource->address
             );
+            $user->approved_at = Carbon::now();
+            $user->save();
+
+            $this->sendResetNotification($user);
         }
 
         return redirect()->route('admin.host-detail', ['id' => $user->id]);

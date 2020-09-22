@@ -220,12 +220,14 @@ class AccommodationController extends Controller
         }
 
         $accommodation->unavailableIntervals()->delete();
-        foreach ($request->get("unavailable") as $key => $value) {
-            $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
-            $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-            $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-            $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
-            $accomodationsUnavailableInterval->save();
+        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
+            foreach ($request->get("unavailable") as $key => $value) {
+                $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+                $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
+                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
+                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
+                $accomodationsUnavailableInterval->save();
+            }
         }
 
         if ($request->has('photos')) {
@@ -347,12 +349,14 @@ class AccommodationController extends Controller
             }
         }
 
-        foreach ($request->get("unavailable") as $key => $value) {
-            $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
-            $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-            $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-            $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
-            $accomodationsUnavailableInterval->save();
+        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
+            foreach ($request->get("unavailable") as $key => $value) {
+                $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+                $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
+                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
+                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
+                $accomodationsUnavailableInterval->save();
+            }
         }
 
         try {

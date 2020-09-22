@@ -720,7 +720,7 @@ class AjaxController extends Controller
             'help_request_accommodation_details.end_date',
         ]);
 
-        $query->orderBy('help_request_accommodation_details.id');
+        $query->orderBy('help_request_accommodation_details.start_date', 'desc');
 
         return response()->json(
             $query->paginate($perPage)

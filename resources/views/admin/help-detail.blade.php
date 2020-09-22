@@ -181,7 +181,7 @@
                         @if (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
                         <div class="form-group">
                             @if (empty($helpRequest->helprequestaccommodationdetail()->first()->accommodation_id))
-                            <button id="accBookAction" class="form-control font-weight-600 btn btn-secondary btn-md">
+                            <button id="accBookAction" class="form-control font-weight-600 btn btn-secondary text-white btn-md">
                                 {{ __('Book Accommodation') }}
                             </button>
                             @else
@@ -189,55 +189,12 @@
                                     {{ __('Cancel Booking') }}
                                 </button>
 
-                                <div class="row mt-4">
-                                    <div class="col">
-                                        <b>Cazare</b>
-                                    </div>
-                                    <div class="col">
-                                        <a href="{{@route('admin.accommodation-detail', ['id' => $helpRequest->helprequestaccommodationdetail()->first()->accommodation_id])}}">
-                                            Aici
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <b>Pacient</b>
-                                    </div>
-                                    <div class="col">
-                                        {{ $helpRequest->patient_full_name }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <b>Responsabil</b>
-                                    </div>
-                                    <div class="col">
-                                        {{ $helpRequest->caretaker_full_name }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <b>{{ __('Starting with') }}</b>
-                                    </div>
-                                    <div class="col">
-                                        {{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->start_date) }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <b>{{ __('Until') }}</b>
-                                    </div>
-                                    <div class="col">
-                                        {{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->end_date) }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <b>Nr persoane</b>
-                                    </div>
-                                    <div class="col">
-                                        {{ $helpRequest->helprequestaccommodationdetail()->first()->guests_number }}
-                                    </div>
+
+
+                                <div class="mt-4">
+                                    <a class="form-control font-weight-600 btn btn-info text-white btn-md" href="{{@route('admin.accommodation-detail', ['id' => $helpRequest->helprequestaccommodationdetail()->first()->accommodation_id])}}">
+                                        Vezi detalii cazare
+                                    </a>
                                 </div>
                             @endif
                         </div>

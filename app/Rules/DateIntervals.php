@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class DateIntervals implements Rule
 {
@@ -31,6 +32,8 @@ class DateIntervals implements Rule
                 if ($dateInterval['from'] < $checkedInterval['to'] && $dateInterval['from'] >= $checkedInterval['from']) {
                     return false;
                 } elseif ($dateInterval['to'] > $checkedInterval['from'] && $dateInterval['to'] <= $checkedInterval['to']) {
+                    return false;
+                } elseif ($dateInterval['from'] <= $checkedInterval['from'] && $dateInterval['to'] >= $checkedInterval['to']) {
                     return false;
                 }
             }
