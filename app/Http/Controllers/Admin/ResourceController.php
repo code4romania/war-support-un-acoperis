@@ -48,6 +48,7 @@ class ResourceController extends Controller
 
     /**
      * @param $id
+     * @param int $page
      * @return View
      */
     public function resourceDetail($id, int $page = 1)
@@ -74,7 +75,7 @@ class ResourceController extends Controller
                 abort(404);
             }
         }
-        
+
         return view('admin.resource-detail')
             ->with('helpResourceType', $helpResourceType)
             ->with('typeTranslation', $typeTranslation)
