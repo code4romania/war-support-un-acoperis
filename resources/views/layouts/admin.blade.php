@@ -69,6 +69,20 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if (Auth::user()->isAdministrator())
+                                    <a class="dropdown-item" href="{{ route('admin.profile') }}">
+                                        {{ __('My profile') }}
+                                    </a>
+                                @elseif (Auth::user()->isHost())
+                                    <a class="dropdown-item" href="{{ route('host.profile') }}">
+                                        {{ __('My profile') }}
+                                    </a>
+                                @endif
+
+                                <a class="dropdown-item" href="{{ route('2fa.form') }}">
+                                    {{ __('2FA') }}
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
