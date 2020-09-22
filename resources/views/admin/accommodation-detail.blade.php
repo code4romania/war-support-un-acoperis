@@ -201,46 +201,67 @@
                 </div>
             </div>
 
-            <div class="border-top pt-3 mt-4">
+            <div class="border-top pt-3">
                 <h5 class="font-weight-600 text-primary mb-4 mt-4">Rezervari</h5>
-                @forelse($bookings as $booking)
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Pacient:</h6>
-                            <p>{{ $booking->helprequest->patient_full_name }}</p>
-                        </div>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Responsabil:</h6>
-                            <p>{{ $booking->helprequest->caretaker_full_name }}</p>
-                        </div>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">Nr persoane:</h6>
-                            <p>{{ $booking->guests_number }}</p>
-                        </div>
+                <div class="row align-items-center mb-4">
+                    <div class="col">
+                        <h6 class="font-weight-600 mb-0">{{ __('Total Results') }}: <span id="totalResults"></span></h6>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Starting with') }}</h6>
-                            <p>{{ formatDate($booking->start_date) }}</p>
-                        </div>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Until') }}</h6>
-                            <p>{{ formatDate($booking->end_date) }}</p>
-                        </div>
-                        <div class="kv">
-                            <a
-                                href="{{ @route('admin.help-detail', ['id' => $booking->helprequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}"
-                                class="font-weight-600 btn text-white btn-warning btn-md">
-                                {{ __('Cancel Booking') }}
-                            </a>
+                    <div class="col d-none d-sm-block">
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-center mb-0"></ul>
+                        </nav>
+                    </div>
+                    <div class="col d-none d-sm-block">
+                        <div class="form-inline justify-content-end">
+                            <div class="form-group">
+                                <label class="mr-3">{{ __('Results per page') }}</label>
+                                <select class="custom-select form-control form-control-sm resultsPerPage">
+                                    <option value="1">1</option>
+                                    <option value="15">15</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                @empty
-                    <p>N/A</p>
-                @endforelse
+                <div class="table-responsive shadow-sm mb-4">
+                    <table class="table table-striped w-100 mb-0">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Pacient</th>
+                            <th>Responsabil</th>
+                            <th>Nr persoane</th>
+                            <th>{{ __('Starting with') }}</th>
+                            <th>{{ __('Until') }}</th>
+                            <th class="text-right">{{ __('Actions') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row align-items-center mb-4 flex-column flex-sm-row text-center text-sm-left">
+                    <div class="col offset-sm-4 mb-4 mb-sm-0">
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-center mb-0"></ul>
+                        </nav>
+                    </div>
+                    <div class="col">
+                        <div class="form-inline justify-content-center justify-content-sm-end">
+                            <div class="form-group">
+                                <label for="" class="mr-3">{{ __('Results per page') }}</label>
+                                <select name="" id="" class="custom-select form-control form-control-sm resultsPerPage">
+                                    <option value="1">1</option>
+                                    <option value="15">15</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -276,9 +297,63 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
     <script>
+        class AccommodationRenderer extends TableDataRenderer {
+            renderTable(responseData) {
+                this.emptyTable();
+
+                $.each(responseData, function(key, value) {
+                    let row = '<tr>\n' +
+                        '    <td>' + value.patient_full_name + '</td>\n' +
+                        '    <td>' + value.caretaker_full_name + '</td>\n' +
+                        '    <td>' + value.guests_number + '</td>\n' +
+                        '    <td>' + value.start_date + '</td>\n' +
+                        '    <td>' + value.end_date + '</td>\n' +
+                        '    <td class="text-right">\n' +
+                        '        <a href="/admin/help/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-danger mb-2 mb-sm-0" >{{ __('Cancel Booking') }}</a>\n' +
+                        '    </td>\n' +
+                        '</tr>';
+                    $('#tableBody').append(row);
+                });
+            }
+        }
         $(document).ready(function() {
+            let pageState = {};
+            pageState.page = 1;
+            pageState.perPage = 15;
+
+            if (undefined !== $.QueryString.page) {
+                pageState.page = $.QueryString.page;
+            }
+
+            if (undefined !== $.QueryString.perPage && -1 !== $.inArray($.QueryString.perPage, ["1", "15", "50", "100"])) {
+                pageState.perPage = $.QueryString.perPage;
+            }
+
+            $('.resultsPerPage').val(pageState.perPage);
+
+            let renderer = new AccommodationRenderer('{{ route('ajax.accommodation-requests', [ 'id' => $accommodation->id ]) }}');
+            renderer.renderData(pageState);
+
+            $('.resultsPerPage').on('change', function () {
+                $('.resultsPerPage').val(this.value);
+                pageState.perPage = this.value;
+                $.SetQueryStringParameter('perPage', pageState.perPage);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', pageState.page);
+
+                renderer.renderData(pageState);
+            });
+
+            $('body').on('click', 'a.page-link', function(event) {
+                event.preventDefault();
+                pageState.page = $(this).data('page');
+                $.SetQueryStringParameter('page', pageState.page);
+                renderer.renderData(pageState);
+            });
+
             $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
                 $(this).ekkoLightbox({});

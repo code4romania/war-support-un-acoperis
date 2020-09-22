@@ -109,6 +109,8 @@ Route::middleware([SetLanguage::class, Administration::class])
 
         Route::put('/ajax/bookAccommodation/{helpRequestAccommodationDetailId}/', 'AjaxController@bookAccommodation')->name('ajax.book-acc');
         Route::put('/ajax/unbookAccommodation/{helpRequestAccommodationDetailId}/', 'AjaxController@unbookAccommodation')->name('ajax.unbook-acc');
+
+        Route::get('/ajax/accommodation/{id}/requests', 'AjaxController@accommodationRequestsList')->name('ajax.accommodation-requests');
     });
 
 /**
