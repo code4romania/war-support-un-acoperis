@@ -129,11 +129,12 @@ Route::middleware([SetLanguage::class, Host::class])
 
         Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')
             ->where('page', '[0-9]+')
-            ->name('host.accommodation');
-        Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation');
+            ->name('host.accommodation')
+            ->middleware('2fa');
+        Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('host.add-accommodation')->middleware('2fa');
         Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('host.create-accommodation');
         Route::get('/accommodation/{id}/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
-        Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation');
+        Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation')->middleware('2fa');
         Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
         Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');
 
