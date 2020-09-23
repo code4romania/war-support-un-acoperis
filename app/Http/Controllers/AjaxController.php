@@ -692,4 +692,38 @@ class AjaxController extends Controller
             'success' => 'true',
         ]);
     }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function accommodationRequestsList(int $id, Request $request)
+    {
+        /** @var Accommodation|null $query */
+        $query = Accommodation::join('help_request_accommodation_details', 'help_request_accommodation_details.accommodation_id', '=', 'accommodations.id')
+            ->join('help_requests', 'help_request_accommodation_details.help_request_id', '=', 'help_requests.id')
+            ->where('accommodations.id', '=', $id);
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 15, 25, 50, 100])) {
+            $perPage = $request->get('perPage');
+        }
+
+        $query->select([
+            'help_requests.id',
+            'help_requests.patient_full_name',
+            'help_requests.caretaker_full_name',
+            'help_request_accommodation_details.guests_number',
+            'help_request_accommodation_details.start_date',
+            'help_request_accommodation_details.end_date',
+        ]);
+
+        $query->orderBy('help_request_accommodation_details.start_date', 'desc');
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
+    }
 }

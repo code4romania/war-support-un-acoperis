@@ -78,7 +78,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="email">Email:</label>
-                            <input value="{{ old('email', $user->email) }}" type="email" placeholder="{{ __("Email placeholder") }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
+                            <input readonly="readonly" value="{{ old('email', $user->email) }}" type="email" placeholder="{{ __("Email placeholder") }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>

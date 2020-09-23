@@ -454,7 +454,7 @@
                             <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-sm-8 {{ $accommodation->is_free ? 'd-none' : '' }}" id="feeSection">
+                        <div class="col-sm-8 {{ old('accommodation_fee', $accommodation->is_free ? 'free' : 'paid') == 'free' ? 'd-none' : '' }}" id="feeSection">
                             <div class="form-group">
                                 <label for="general_fee" class="font-weight-600">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}:</label>
                                 <input type="text" name="general_fee" id="general_fee" class="form-control @error('general_fee')is-invalid @enderror" placeholder="ex. 100 RON" value="{{ old('general_fee', $accommodation->general_fee) }}">

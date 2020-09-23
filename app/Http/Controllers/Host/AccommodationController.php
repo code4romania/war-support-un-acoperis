@@ -134,12 +134,14 @@ class AccommodationController extends Controller
             }
         }
 
-        foreach ($request->get("unavailable") as $key => $value) {
-            $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
-            $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-            $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-            $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
-            $accomodationsUnavailableInterval->save();
+        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
+            foreach ($request->get("unavailable") as $key => $value) {
+                $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+                $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
+                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
+                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
+                $accomodationsUnavailableInterval->save();
+            }
         }
 
         try {
@@ -191,6 +193,10 @@ class AccommodationController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        if (empty($user) || $accommodation->user_id != $user->id) {
+            abort(403);
+        }
+
         $photos = [];
 
         /** @var AccommodationPhoto $photo */
@@ -223,6 +229,10 @@ class AccommodationController extends Controller
 
         /** @var User $user */
         $user = Auth::user();
+
+        if (empty($user) || $accommodation->user_id != $user->id) {
+            abort(403);
+        }
 
         return view('host.edit-accommodation')
             ->with('user', $user)
@@ -272,6 +282,13 @@ class AccommodationController extends Controller
 
         if (empty($accommodation)) {
             abort(404);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user) || $accommodation->user_id != $user->id) {
+            abort(403);
         }
 
         $accommodation->accommodation_type_id = $request->get('type', $accommodation->accommodation_type_id);
@@ -330,12 +347,14 @@ class AccommodationController extends Controller
         }
 
         $accommodation->unavailableIntervals()->delete();
-        foreach ($request->get("unavailable") as $key => $value) {
-            $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
-            $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-            $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-            $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
-            $accomodationsUnavailableInterval->save();
+        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
+            foreach ($request->get("unavailable") as $key => $value) {
+                $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+                $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
+                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
+                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
+                $accomodationsUnavailableInterval->save();
+            }
         }
 
         if ($request->has('photos')) {
@@ -379,7 +398,7 @@ class AccommodationController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user)) {
+        if (empty($user) || $accommodation->user_id != $user->id) {
             abort(403);
         }
 
