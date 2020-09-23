@@ -71,11 +71,11 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if (Auth::user()->isAdministrator())
                                     <a class="dropdown-item" href="{{ route('admin.profile') }}">
-                                        {{ __('My profile') }}
+                                        {{ __('My Profile') }}
                                     </a>
                                 @elseif (Auth::user()->isHost())
                                     <a class="dropdown-item" href="{{ route('host.profile') }}">
-                                        {{ __('My profile') }}
+                                        {{ __('My Profile') }}
                                     </a>
                                 @endif
 

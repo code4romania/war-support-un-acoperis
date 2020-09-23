@@ -211,7 +211,7 @@ class AccommodationController extends Controller
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get());
+            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->orderBy('from_date', 'desc')->get());
     }
 
     /**
