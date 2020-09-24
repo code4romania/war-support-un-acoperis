@@ -92,7 +92,9 @@ class HostController extends Controller
             $this->sendResetNotification($user);
         }
 
-        return redirect()->route('admin.host-detail', ['id' => $user->id]);
+        return redirect()
+            ->route('admin.host-detail', ['id' => $user->id])
+            ->withsuccess(__("User was activated and reset password option was successfully sent"));
     }
 
     /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e8e7a6ca6dd36dbfa84fb5ce70cebee",
+    "content-hash": "289144bec84385c0423a20fa692c8d8c",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -453,12 +453,6 @@
                 "bignum",
                 "brick",
                 "math"
-            ],
-            "funding": [
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/brick/math",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-08-18T23:57:15+00:00"
         },
@@ -1398,6 +1392,72 @@
                 }
             ],
             "time": "2020-04-28T08:47:37+00:00"
+        },
+        {
+            "name": "genealabs/laravel-maps",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeneaLabs/laravel-maps.git",
+                "reference": "4a14648f10457b9b311efb5eed5ff5c6ce4c8a4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeneaLabs/laravel-maps/zipball/4a14648f10457b9b311efb5eed5ff5c6ce4c8a4a",
+                "reference": "4a14648f10457b9b311efb5eed5ff5c6ce4c8a4a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0",
+                "orchestra/testbench-browser-kit": "^5.0",
+                "orchestra/testbench-dusk": "^5.0",
+                "php-coveralls/php-coveralls": "*",
+                "phpmd/phpmd": "^2.7",
+                "phpunit/phpunit": "^8.5",
+                "sebastian/phpcpd": "^5.0",
+                "symfony/thanks": "^1.2"
+            },
+            "suggest": {
+                "geocoder-php/GeocoderLaravel": "If you need to geocode addresses and don't already have marker coordinates, use this package. It provides geocoding functionality optimized for Laravel."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GeneaLabs\\LaravelMaps\\Providers\\Service"
+                    ],
+                    "aliases": {
+                        "Map": "GeneaLabs\\LaravelMaps\\Facades\\Map"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeneaLabs\\LaravelMaps\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Bronner",
+                    "email": "mike@genealabs.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Eay - peasy map integration for Laravel.",
+            "keywords": [
+                "biostall",
+                "googlemaps",
+                "laravel",
+                "phpgmaps"
+            ],
+            "time": "2020-02-29T21:44:49+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -2548,12 +2608,6 @@
                 "sftp",
                 "storage"
             ],
-            "funding": [
-                {
-                    "url": "https://offset.earth/frankdejonge",
-                    "type": "other"
-                }
-            ],
             "time": "2020-08-23T07:39:11+00:00"
         },
         {
@@ -2883,16 +2937,6 @@
                 }
             ],
             "description": "Mime-type detection for Flysystem",
-            "funding": [
-                {
-                    "url": "https://github.com/frankdejonge",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-08-09T10:34:01+00:00"
         },
         {
@@ -4566,12 +4610,6 @@
                 "guid",
                 "identifier",
                 "uuid"
-            ],
-            "funding": [
-                {
-                    "url": "https://github.com/ramsey",
-                    "type": "github"
-                }
             ],
             "time": "2020-08-18T17:17:46+00:00"
         },

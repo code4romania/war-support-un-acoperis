@@ -310,7 +310,7 @@
     "Select accomodation type": "Selectează tip carare",
     "Select property type": "Selectează regimul proprietații",
     "Reset password option was successfully sent": "Optiunea de resetare a parolei a fost trimisa cu succes",
-    "User was activated and reset password option was successfully sent": "Utilizatorul a fost activat si optiunea de resetare a parolei a fost trimisa cu succes",
+    "User was activated and reset password option was successfully sent": "Utilizatorul de tip gazdă a fost creat si activat. Un email cu un link pentru resetarea parolei a fost trimis către adresa de email completată în formular.",
     "2FA": "Autentificare în doi pași",
     "2FA Setup": "Configurează autentificarea în doi pași",
     "2FA Description": "Îmbunătătește securitatea contului tău prin activarea autentificării în 2 pași (2FA — Two Factor Authentication)",
