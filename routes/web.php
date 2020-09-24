@@ -191,17 +191,6 @@ Route::middleware([SetLanguage::class])
         Route::get('/contact', 'ContactController@contact')->name('contact');
         Route::post('/send-contact', 'ContactController@sendContact')->name('send-contact');
         Route::get('/contact-confirmation', 'ContactController@contactConfirmation')->name('contact-confirmation');
-        Route::get('/gdpr', 'StaticPagesController@gdpr')->name('gdpr');
-
-        /**
-         * Footer
-         */
-//        Route::get('/about', 'StaticPagesController@about')->name('about');
-//        Route::get('/partners', 'StaticPagesController@partners')->name('partners');
-//        Route::get('/media', 'StaticPagesController@media')->name('media');
-//        Route::get('/news', 'StaticPagesController@news')->name('news');
-//        Route::get('/privacy-policy', 'StaticPagesController@privacyPolicy')->name('privacy-policy');
-//        Route::get('/terms-and-conditions', 'StaticPagesController@termsAndConditions')->name('terms-and-conditions');
 
         Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });
