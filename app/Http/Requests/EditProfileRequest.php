@@ -26,8 +26,10 @@ class EditProfileRequest extends FormRequest
     {
         if ($this->route('id')) {
             $userId = $this->route('id');
+            $rulePhone = 'required';
         } else {
             $userId = Auth::user()->id;
+            $rulePhone = 'nullable';
         }
 
         return [
@@ -36,7 +38,7 @@ class EditProfileRequest extends FormRequest
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
-            'phone' => ['required', 'phone:RO', 'string', 'max:16']
+            'phone' => [$rulePhone, 'phone:RO', 'string', 'max:16']
         ];
     }
 }
