@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Clinic;
+use App\Services\MapV2;
 use App\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -56,7 +57,22 @@ class ClinicController extends Controller
      */
     public function show(string $locale, Clinic $clinic)
     {
+        $config['center'] = "{$clinic->country->name}, {$clinic->city}, {$clinic->address}";
+        $config['zoom'] = '15';
+        $config['height'] = '450px';
+        $config['apiKey'] = config('services.google.maps.api-key');
+        $config['language'] = $locale;
+
+        $map = new MapV2($config);
+        $map->add_marker([
+            'position' => $config['center'],
+            'title' => $clinic->name,
+        ]);
+        $renderedMap = $map->create_map();
+
+
         return view('frontend.clinic-details')
-            ->with('clinic', $clinic);
+            ->with('clinic', $clinic)
+            ->with('map', $renderedMap);
     }
 }
