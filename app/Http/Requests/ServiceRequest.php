@@ -31,8 +31,10 @@ class ServiceRequest extends FormRequest
         $rules = [
             'patient-name' => ['required', 'string', 'max:32'],
             'caretaker-name' => ['required', 'string', 'max:32'],
-            'patient-phone' => ['required', 'phone:RO', 'string', 'max:16'],
-            'caretaker-phone' => ['required', 'phone:RO', 'string', 'max:16'],
+            'patient-phonePrefix' => ['required', 'string'],
+            'patient-phone' => ['required', 'phone:' . $this->{'patient-phonePrefix'}, 'string', 'max:16'],
+            'caretaker-phonePrefix' => ['required', 'string'],
+            'caretaker-phone' => ['required', 'phone:' . $this->{'caretaker-phonePrefix'}, 'string', 'max:16'],
             'patient-email' => ['required', 'email', 'string', 'max:255'],
             'caretaker-email' => ['required', 'email', 'string', 'max:255'],
             'patient-county' => ['required', 'exists:counties,id'],

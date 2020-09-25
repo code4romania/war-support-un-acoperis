@@ -32,7 +32,7 @@
 
 @section('scripts')
     <script>
-        const updatePhone = function () {
+        const updatePhone{{ md5($controlName) }} = function () {
             let countryCode = $("#{{ $controlName }}Prefix").val();
             let phoneNumber = $("#{{ $controlName }}Local").val();
 
@@ -57,10 +57,10 @@
         }
 
         $(document).ready(function () {
-            updatePhone();
+            updatePhone{{ md5($controlName) }}();
 
-            $( "#{{ $controlName }}Local" ).keyup(updatePhone);
-            $( "#{{ $controlName }}Prefix" ).change(updatePhone);
+            $( "#{{ $controlName }}Local" ).keyup(updatePhone{{ md5($controlName) }});
+            $( "#{{ $controlName }}Prefix" ).change(updatePhone{{ md5($controlName) }});
 
         });
     </script>

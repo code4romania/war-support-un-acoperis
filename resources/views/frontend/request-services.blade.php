@@ -67,25 +67,13 @@
                                                 </div>
 
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="required font-weight-600" for="patient-phone">{{ __("Patient's phone number") }}:</label>
-                                                        <input type="tel" placeholder="0700000000" class="form-control @error('patient-phone') is-invalid @enderror" name="patient-phone" id="patient-phone" value="{{ old('patient-phone') }}" />
-
-                                                        @error('patient-phone')
-                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
+                                                    <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
+                                                    @include('partials.phone', ['controlName' => 'patient-phone', 'controlDefault' => '', 'prefixes' => $countries])
                                                 </div>
 
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-phone">{{ __("Caretaker phone") }}:</label>
-                                                        <input type="tel" placeholder="0700000001" class="form-control @error('caretaker-phone') is-invalid @enderror" name="caretaker-phone" id="caretaker-phone" value="{{ old('caretaker-phone') }}" />
-
-                                                        @error('caretaker-phone')
-                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
+                                                    <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
+                                                    @include('partials.phone', ['controlName' => 'caretaker-phone', 'controlDefault' => '', 'prefixes' => $countries])
                                                 </div>
 
                                                 <div class="col-sm-6">
