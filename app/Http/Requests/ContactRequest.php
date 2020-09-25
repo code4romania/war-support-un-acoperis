@@ -30,10 +30,11 @@ class ContactRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'min:3', 'max:128'],
-            'phone' => ['required', 'phone:RO', 'string', 'max:16'],
+            'phonePrefix' => ['required', 'string'],
+            'phone' => ['required', 'phone:' . $this->phonePrefix, 'string', 'max:16'],
             'email' => ['required', 'email', 'min:5', 'max:64'],
             'message' => ['required', 'string', 'min:5', 'max:10000'],
-            'gdpr' => ['required'],
+//            'gdpr' => ['required'],
             'g-recaptcha-response' => ['required', 'captcha'],
         ];
     }

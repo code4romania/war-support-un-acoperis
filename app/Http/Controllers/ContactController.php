@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use A17\Twill\Repositories\SettingRepository;
+use App\Country;
 use App\Http\Requests\ContactRequest;
 use App\Notifications\ContactMail;
 use Illuminate\Support\Facades\Notification;
@@ -15,7 +16,10 @@ class ContactController extends Controller
      */
     public function contact(SettingRepository $settingRepository)
     {
+        $countries = Country::all();
+
         return view('frontend.contact')
+            ->with('countries', $countries)
             ->with('description', $settingRepository->byKey('contact_description'));
     }
 
