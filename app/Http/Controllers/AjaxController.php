@@ -6,6 +6,7 @@ use App\Accommodation;
 use App\AccommodationPhoto;
 use App\City;
 use App\Clinic;
+use App\Country;
 use App\HelpRequest;
 use App\HelpRequestAccommodationDetail;
 use App\HelpRequestType;
@@ -22,6 +23,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumber;
+use libphonenumber\PhoneNumberUtil;
 
 /**
  * Class AjaxController
@@ -378,7 +382,7 @@ class AjaxController extends Controller
         /** @var Builder $query */
         $query = HelpResourceType::join('help_resources', 'help_resources.id', '=', 'help_resource_types.help_resource_id')
             ->join('countries', 'countries.id', '=', 'help_resources.country_id')
-            ->join('users', 'users.email', '=', 'help_resources.email')
+            ->leftJoin('users', 'users.email', '=', 'help_resources.email')
             ->join('resource_types', 'resource_types.id', '=', 'help_resource_types.resource_type_id')
             ->orderBy('id', 'desc');
 
@@ -480,10 +484,9 @@ class AjaxController extends Controller
             : Clinic::where('country_id', "=", $countryId)->get()->pluck('city');
 
         $cities = $cities->unique();
-
         return response()->json([
             'success' => 'true',
-            'cities' => $cities->toArray()
+            'cities' => array_values($cities->toArray())
         ]);
     }
 
@@ -497,7 +500,7 @@ class AjaxController extends Controller
 
         return response()->json([
             'success' => 'true',
-            'cities' => $cities->toArray()
+            'cities' => array_values($cities->toArray())
         ]);
     }
 
@@ -625,7 +628,7 @@ class AjaxController extends Controller
 
         return response()->json([
             'success' => 'true',
-            'cities' => $cityList->toArray()
+            'cities' => array_values($cityList->toArray())
         ]);
     }
 
@@ -725,5 +728,43 @@ class AjaxController extends Controller
         return response()->json(
             $query->paginate($perPage)
         );
+    }
+
+    public function checkPhone(Request $request)
+    {
+        $countryCode = $request->input('countryCode');
+        $phoneNumber = $request->input('phoneNumber');
+
+        $phoneUtil = PhoneNumberUtil::getInstance();
+
+        $localPhone = $intlPhone = $mask = null;
+
+        if (!empty($countryCode)) {
+            $mask = '0' . $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();;
+            if (!empty($phoneNumber)) {
+                try {
+                    /** @var PhoneNumber $parsedPhoneNumber */
+                    $parsedPhoneNumber = $phoneUtil->parse($phoneNumber, $countryCode);
+
+                    $country = Country::where('phone_prefix', '=', $parsedPhoneNumber->getCountryCode())->first();
+
+                    $localPhone = '0' . $parsedPhoneNumber->getNationalNumber();
+                    $intlPhone = '+' . $parsedPhoneNumber->getCountryCode() . $parsedPhoneNumber->getNationalNumber();
+                    $countryCode = !empty($country) ? $country->code : $countryCode;
+                } catch (NumberParseException $exception) {
+
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => 'true',
+            'data' => [
+                'localPhone' => $localPhone,
+                'intlPhone' => $intlPhone,
+                'mask' => $mask,
+                'countryCode' => $countryCode,
+            ]
+        ]);
     }
 }

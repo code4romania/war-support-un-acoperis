@@ -76,14 +76,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                                <input type="tel" placeholder="{{ __('Phone placeholder') }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
-
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => '+40727 999 888', 'prefixes' => $countries])
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
