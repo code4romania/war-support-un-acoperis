@@ -740,7 +740,7 @@ class AjaxController extends Controller
         $localPhone = $intlPhone = $mask = null;
 
         if (!empty($countryCode)) {
-            $mask = '0' . $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();;
+            $mask = $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();;
             if (!empty($phoneNumber)) {
                 try {
                     /** @var PhoneNumber $parsedPhoneNumber */
@@ -748,8 +748,8 @@ class AjaxController extends Controller
 
                     $country = Country::where('phone_prefix', '=', $parsedPhoneNumber->getCountryCode())->first();
 
-                    $localPhone = '0' . $parsedPhoneNumber->getNationalNumber();
-                    $intlPhone = '+' . $parsedPhoneNumber->getCountryCode() . $parsedPhoneNumber->getNationalNumber();
+                    $localPhone = $parsedPhoneNumber->getNationalNumber();
+                    $intlPhone = $parsedPhoneNumber->getCountryCode() . $parsedPhoneNumber->getNationalNumber();
                     $countryCode = !empty($country) ? $country->code : $countryCode;
                 } catch (NumberParseException $exception) {
 
