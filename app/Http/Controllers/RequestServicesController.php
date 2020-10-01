@@ -28,7 +28,7 @@ class RequestServicesController extends Controller
      */
     public function index(Request $request)
     {
-        $countries = Country::all(['id', 'name'])->sortBy('name');
+        $countries = Country::all()->sortBy('name');
 
         $counties = County::all(['id', 'name'])->sortBy('name');
 

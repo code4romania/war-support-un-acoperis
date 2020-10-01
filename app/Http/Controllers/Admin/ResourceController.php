@@ -37,7 +37,6 @@ class ResourceController extends Controller
         $cityList = array_unique($cityList);
 
         $typeTranslations = $this->getTypeTranslations();
-
         return view('admin.resource-list')
             ->with('resourceTypeList', $resourceTypeList)
             ->with('resourcesTypes', $resourcesTypes)

@@ -51,14 +51,9 @@
                         <div class="col-sm-2">
                         </div>
                         <div class="col-sm-8">
-                            <div class="form-group">
-                                <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                                <input type="tel" placeholder="{{ __('Phone placeholder') }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+                            <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => '', 'prefixes' => $countries])
 
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
                         </div>
                     </div>
 
@@ -77,20 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-2">
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="form-group">
-{{--                                <div class="form-check form-check-inline mb-3">--}}
-                                        <div class="custom-control custom-checkbox mr-4 mb-3">
-                                            <input {{ old('help') ? 'checked' : '' }} class="custom-control-input @error('gdpr') is-invalid @enderror" name="gdpr" id="gdpr" type="checkbox" value="1">
-                                            <label class="custom-control-label" for="gdpr">{!! __("I agree with <a href=\":url\">GDPR</a> terms.", ["url" => route("gdpr")]) !!}</label>
-                                        </div>
-{{--                                </div>--}}
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="border-top pt-5 mt-3 clearfix">
                         @error('g-recaptcha-response')

@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name ajutordeurgenta.ro dev.ajutordeurgenta.ro;
+    server_name impreunapentrusanatate.ro dev.impreunapentrusanatate.ro;
     root /var/www/html/public;
 
     index index.html index.htm index.php;

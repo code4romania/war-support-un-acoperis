@@ -344,5 +344,7 @@
     "2FA settings": "2FA settings",
     "Book Accommodation": "Book Accommodation",
     "Accommodation No": "Accommodation No",
-    "Cancel Booking": "Cancel Booking"
+    "Cancel Booking": "Cancel Booking",
+    "Select phone prefix": "Select phone prefix",
+    "Prefix": "Prefix"
 }
