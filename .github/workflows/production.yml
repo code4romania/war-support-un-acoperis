@@ -78,6 +78,7 @@ jobs:
           --build-arg APP_HOST=${{ secrets.PROD_APP_HOST}} \
           --build-arg NOCAPTCHA_SITEKEY=${{ secrets.NOCAPTCHA_SITEKEY}} \
           --build-arg NOCAPTCHA_SECRET=${{ secrets.NOCAPTCHA_SECRET}} \
+          --build-arg GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY}} \
           -t ${{ github.repository }}:${{ github.sha }} \
           -t ${{ secrets.PROD_AWS_ECR_REPOSITORY }}:${{ github.sha }} .
 
