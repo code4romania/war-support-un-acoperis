@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Accommodation;
 use App\Country;
 use App\HelpResource;
 use App\HelpResourceType;
@@ -17,6 +18,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
+use Faker\Generator as Faker;
 
 /**
  * Class HostController
@@ -211,6 +213,58 @@ class HostController extends Controller
         return redirect()
             ->route('admin.host-detail', ['id' => $user->id])
             ->withSuccess(__("User was activated and reset password option was successfully sent"));
+    }
+
+    public function delete(int $id, Faker $faker)
+    {
+        /** @var User $user */
+        $user = User::find($id);
+
+        if (empty($user)) {
+            abort(404);
+        }
+
+        $email = $faker->userName . '@example.com';
+        $deletedAt = new Carbon();
+        HelpResource::where('email', $user->email)
+            ->get()
+            ->each(function (HelpResource $helpResource) use ($email, $deletedAt) {
+                $helpResource->helpresourcetypes()->delete();
+
+                $helpResource->country_id = 1;
+                $helpResource->city = 'none';
+                $helpResource->address = null;
+                $helpResource->phone_number = null;
+                $helpResource->email = $email;
+                $helpResource->deleted_at = $deletedAt;
+                $helpResource->save();
+            });
+
+        $user->accommodations->each(function (Accommodation $accommodation) use ($deletedAt) {
+            $accommodation->address_country_id = 1;
+            $accommodation->address_city = 'none';
+            $accommodation->address_street = null;
+            $accommodation->address_building = null;
+            $accommodation->address_entry = null;
+            $accommodation->address_apartment = null;
+            $accommodation->address_floor = null;
+            $accommodation->address_postal_code = null;
+            $accommodation->deleted_at = $deletedAt;
+            $accommodation->save();
+        });
+
+        $user->email = $email;
+        $user->name = $faker->name;
+        $user->phone_number = '407' . $faker->numberBetween(10000000, 99999999);
+        $user->country_id = 1;
+        $user->city = 'None';
+        $user->address = null;
+        $user->deleted_at = $deletedAt;
+        $user->save();
+
+        return redirect()
+            ->route('admin.resource-list', ['id' => $user->id])
+            ->withSuccess(__("Host was deleted"));
     }
 
     /**
