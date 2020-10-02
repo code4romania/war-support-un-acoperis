@@ -42,9 +42,6 @@
                 phoneNumber: phoneNumber
             }).then(response => {
                 $("#{{ $controlName }}Local").attr("placeholder", response.data.data.mask);
-                if (response.data.data.localPhone) {
-                    $("#{{ $controlName }}Local").val(response.data.data.localPhone);
-                }
                 $("#{{ $controlName }}").val(response.data.data.intlPhone);
 
                 if (countryCode !== response.data.data.countryCode) {
