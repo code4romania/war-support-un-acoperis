@@ -157,7 +157,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{ __('Are you sure you want to delete this host?') }}?
+                    {{ __('Are you sure you want to delete this host?') }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
