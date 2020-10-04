@@ -346,5 +346,8 @@
     "Accommodation No": "Accommodation No",
     "Cancel Booking": "Cancel Booking",
     "Select phone prefix": "Select phone prefix",
-    "Prefix": "Prefix"
+    "Prefix": "Prefix",
+    "Delete host": "Delete host",
+    "Are you sure you want to delete this host?": "Are you sure you want to delete this host?",
+    "Host was deleted": "Host was deleted"
 }

@@ -11,7 +11,10 @@
                 {{ __("Personal information") }}
             </h6>
 
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('admin.host-edit', ['id' => $user->id]) }}">{{ __("Profile edit") }}</a>
+            <div>
+                <a href="#" class="btn btn-sm btn-danger px-4 delete-host" data-id="{{ $user->id }}">{{ __('Delete') }}</a>
+                <a class="btn btn-secondary btn-sm px-4" href="{{ route('admin.host-edit', ['id' => $user->id]) }}">{{ __("Profile edit") }}</a>
+            </div>
         </div>
         <div class="card-body pt-4">
             <div class="kv d-flex">
@@ -143,6 +146,27 @@
         </nav>
     </div>
 
+    <!-- Confirmare stergere gazda -->
+    <div class="modal fade bd-example-modal-sm" id="deleteHostModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('Delete host') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to delete this host?') }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary" id="proceedDeleteHost">{{ __('Yes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Confirmare stergere cazare -->
     <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -209,6 +233,18 @@
 
 @section('scripts')
     <script>
+        let selectedHost = null;
+
+        $('.delete-host').on('click', function(event) {
+            event.preventDefault();
+            selectedHost = $(this).data('id');
+            $('#deleteHostModal').modal('show');
+        });
+
+        $('#proceedDeleteHost').on('click', function() {
+            $('#deleteHostModal').modal('hide');
+            window.location.href = '/admin/host/'+selectedHost+'/delete';
+        });
         class AccommodationRenderer {
             renderPagination(response) {
                 $('.pagination li').remove();

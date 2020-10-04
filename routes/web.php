@@ -82,6 +82,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
         Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
         Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
+        Route::get('/host/{id}/delete', 'Admin\HostController@delete')->name('admin.host-delete');
 
         Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');;
         Route::get('/profile/edit', 'Admin\ProfileController@editProfile')->name('admin.edit-profile');

@@ -5,17 +5,16 @@
     @endphp
     @foreach ($partners as $partner)
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100 shadow-lg--hover">
-                <div class="logo-container bg-dark">
+            <div class="card shadow-lg--hover">
+                <div class="card-header logo-container">
                     <a href="{{ $partner->url }}" class="d-flex" style="height: 100px;">
-                        <img src="{{ $partner->image('logo', 'desktop') }}" class="mx-auto my-auto" alt="{{ $partner->title }}">
+                        <img src="{{ $partner->image('logo', 'desktop') }}" class="mx-auto my-auto" alt="{{ $partner->title }}" style="max-height: 115px;">
                     </a>
                 </div>
-                <div class="card-body">
-                    <h6 class="card-title font-weight-600 ">
-                        <a href="{{ $partner->url }}" class="text-black">{{ $partner->title }}</a>
+                <div class="card-footer py-2 px-4 bg-dark">
+                    <h6 class="card-title font-weight-600 m-0">
+                        <a href="{{ $partner->url }}" class="text-white">{{ $partner->title }}</a>
                     </h6>
-                    <p class="mb-0 text-muted">{!! $partner->description !!}</p>
                 </div>
             </div>
         </div>
