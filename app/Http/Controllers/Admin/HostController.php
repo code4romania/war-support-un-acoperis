@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Faker\Generator as Faker;
 
 /**
  * Class HostController
@@ -215,7 +215,7 @@ class HostController extends Controller
             ->withSuccess(__("User was activated and reset password option was successfully sent"));
     }
 
-    public function delete(int $id, Faker $faker)
+    public function delete(int $id)
     {
         /** @var User $user */
         $user = User::find($id);
@@ -224,7 +224,7 @@ class HostController extends Controller
             abort(404);
         }
 
-        $email = $faker->userName . '@example.com';
+        $email = 'deleted' . Str::random() . '@example.com';
         $deletedAt = new Carbon();
         HelpResource::where('email', $user->email)
             ->get()
@@ -254,8 +254,8 @@ class HostController extends Controller
         });
 
         $user->email = $email;
-        $user->name = $faker->name;
-        $user->phone_number = '407' . $faker->numberBetween(10000000, 99999999);
+        $user->name = 'deleted';
+        $user->phone_number = '407' . rand(10000000, 99999999);
         $user->country_id = 1;
         $user->city = 'None';
         $user->address = null;
