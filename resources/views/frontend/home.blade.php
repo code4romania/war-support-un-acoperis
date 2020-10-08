@@ -60,7 +60,7 @@
                     <p>{!! $aboutBody !!}</p>
                 </div>
                 <div class="col-sm-4 px-sm-5">
-                    <img src="/images/logo-hfh.svg" class="w-100" alt="">
+                    <img src="/images/logo-h4h.png" class="w-100" alt="">
                 </div>
             </div>
         </div>
