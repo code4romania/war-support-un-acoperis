@@ -47,7 +47,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/images/logo-hfh.svg" height="30" alt="{{ config('app.name', 'Laravel') }}">
+                    <img src="/images/logo-h4h.png" height="30" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
                 </a>
                 <h5 class="ml-4 font-weight-600 text-muted d-none d-sm-block">Help for Health Administration</h5>
                 <!-- Right Side Of Navbar -->
