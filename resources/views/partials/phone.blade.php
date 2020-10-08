@@ -19,7 +19,7 @@
     <div class="col-sm-8">
         <div class="form-group">
 
-            <input type="tel" placeholder="" class="form-control @error($controlName) is-invalid @enderror" name="{{ $controlName }}Local" id="{{ $controlName }}Local" value="{{ old($controlName . 'Local') }}" />
+            <input type="tel" placeholder="" class="form-control @error($controlName) is-invalid @enderror" name="{{ $controlName }}Local" id="{{ $controlName }}Local" value="{{ old($controlName . 'Local', $controlDefault) }}" />
             <input type="hidden" name="{{ $controlName }}" id="{{ $controlName }}" value="{{ old($controlName, $controlDefault) }}" />
 
             @error($controlName)
