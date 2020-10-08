@@ -97,7 +97,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">Număr de telefon:</label>
-                            <input type="tel" placeholder="+40760000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone', $clinic->phone_number) }}" />
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => $clinic->phone_number, 'prefixes' => $countries])
 
                             @error('phone')
                             <span class="invalid-feedback d-flex" role="alert">
@@ -124,7 +124,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="contact_name">Nume persoană de contact:</label>
-                                <input type="tel" placeholder="Johan Donald" class="form-control @error('contact_name') is-invalid @enderror" name="contact_name" id="contact_name" value="{{ old('contact_name', $clinic->contact_person_name) }}" />
+                                <input type="text" placeholder="Johan Donald" class="form-control @error('contact_name') is-invalid @enderror" name="contact_name" id="contact_name" value="{{ old('contact_name', $clinic->contact_person_name) }}" />
 
                                 @error('contact_name')
                                 <span class="invalid-feedback d-flex" role="alert">
@@ -138,7 +138,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="contact_phone">Telefon persoană de contact:</label>
-                                <input type="tel" placeholder="+40745000000" class="form-control @error('contact_phone') is-invalid @enderror" name="contact_phone" id="contact_phone" value="{{ old('contact_phone', $clinic->contact_person_phone) }}" />
+                                @include('partials.phone', ['controlName' => 'contact_phone', 'controlDefault' => $clinic->contact_person_phone, 'prefixes' => $countries])
 
                                 @error('contact_phone')
                                 <span class="invalid-feedback d-flex" role="alert">
