@@ -163,8 +163,8 @@
                                     $ro['locale'] = 'ro';
                                     $en['locale'] = 'en';
                                 @endphp
-                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
-                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
+                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($ro)) }}">RO</a>
+                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($en)) }}">EN</a>
                             </div>
                         </li>
                     </ul>
