@@ -16,9 +16,11 @@ use Laravel\Scout\Searchable;
  *
  * @property int $id
  * @property string $patient_full_name
+ * @property int|null $patient_phone_country_id
  * @property string|null $patient_phone_number
  * @property string|null $patient_email
  * @property string|null $caretaker_full_name
+ * @property int|null $caretaker_phone_country_id
  * @property string|null $caretaker_phone_number
  * @property string|null $caretaker_email
  * @property int $county_id

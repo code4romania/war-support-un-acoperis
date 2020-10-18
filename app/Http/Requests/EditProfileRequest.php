@@ -38,7 +38,8 @@ class EditProfileRequest extends FormRequest
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
-            'phone' => [$rulePhone, 'phone:RO', 'string', 'max:16']
+            'phonePrefix' => ['required', 'string'],
+            'phone' => [$rulePhone, 'phone:' . $this->phonePrefix, 'string', 'max:16']
         ];
     }
 }

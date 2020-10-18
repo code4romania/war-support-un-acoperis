@@ -68,12 +68,12 @@
 
                                                 <div class="col-sm-6">
                                                     <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
-                                                    @include('partials.phone', ['controlName' => 'patient-phone', 'controlDefault' => '', 'prefixes' => $countries])
+                                                    @include('partials.phone', ['controlName' => 'patient-phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixCode' => 'RO', 'prefixValue' => ''])
                                                 </div>
 
                                                 <div class="col-sm-6">
                                                     <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
-                                                    @include('partials.phone', ['controlName' => 'caretaker-phone', 'controlDefault' => '', 'prefixes' => $countries])
+                                                    @include('partials.phone', ['controlName' => 'caretaker-phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixCode' => 'RO', 'prefixValue' => ''])
                                                 </div>
 
                                                 <div class="col-sm-6">

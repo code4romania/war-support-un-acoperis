@@ -25,7 +25,7 @@ class AlterHelpResourceTypesDropMessage extends Migration
      */
     public function down()
     {
-        Schema::create('help_resource_types', function (Blueprint $table) {
+        Schema::table('help_resource_types', function (Blueprint $table) {
             $table->string('message', 5000)->nullable();
         });
     }

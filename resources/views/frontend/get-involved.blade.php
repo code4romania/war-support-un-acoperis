@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
-                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => '', 'prefixes' => $countries])
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixCode' => 'RO', 'prefixValue' => ''])
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">

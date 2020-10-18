@@ -67,11 +67,16 @@ class ProfileController extends Controller
             abort(404);
         }
 
+        $phoneCountryId = Country::where('code', $request->get('phonePrefix'))
+            ->first()
+            ->id;
+
         $user->name = $request->post('name');
 //        $user->email = $request->post('email');
         $user->country_id = $request->post('country');
         $user->city = $request->post('city');
         $user->address = $request->post('address');
+        $user->phone_country_id = $phoneCountryId;
         $user->phone_number = $request->post('phone');
         $user->save();
 
