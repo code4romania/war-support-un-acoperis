@@ -45,6 +45,6 @@ class CreateHelpRequestAccommodationDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('help_request_accomodation_details');
+        Schema::dropIfExists('help_request_accommodation_details');
     }
 }

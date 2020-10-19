@@ -59,11 +59,21 @@ class RequestServicesController extends Controller
      */
     public function submit(ServiceRequest $request)
     {
+        $phoneCountryId = Country::where('code', $request->get('patient-phonePrefix'))
+            ->first()
+            ->id;
+
+        $caretakerPhoneCountryId = Country::where('code', $request->get('caretaker-phonePrefix'))
+            ->first()
+            ->id;
+
         $helpRequest = new HelpRequest();
         $helpRequest->patient_full_name = $request->get('patient-name');
+        $helpRequest->patient_phone_country_id = $phoneCountryId;
         $helpRequest->patient_phone_number = $request->get('patient-phone');
         $helpRequest->patient_email = $request->get('patient-email');
         $helpRequest->caretaker_full_name = $request->get('caretaker-name');
+        $helpRequest->caretaker_phone_country_id = $caretakerPhoneCountryId;
         $helpRequest->caretaker_phone_number = $request->get('caretaker-phone');
         $helpRequest->caretaker_email = $request->get('caretaker-email');
         $helpRequest->county_id = $request->get('patient-county');

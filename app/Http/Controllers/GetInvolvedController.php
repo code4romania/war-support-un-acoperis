@@ -51,11 +51,15 @@ class GetInvolvedController extends Controller
      */
     public function store(HelpResourceRequest $request)
     {
+        $phoneCountryId = Country::where('code', $request->get('phonePrefix'))
+            ->first()
+            ->id;
         $helpResource = new HelpResource();
         $helpResource->full_name = $request->get('name');
         $helpResource->country_id = $request->get('country');
         $helpResource->city = $request->get('city');
         $helpResource->address = $request->get('address');
+        $helpResource->phone_country_id = $phoneCountryId;
         $helpResource->phone_number = $request->get('phone');
         $helpResource->email = $request->get('email');
         $helpResource->save();

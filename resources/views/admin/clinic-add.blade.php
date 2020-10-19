@@ -98,7 +98,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">Număr de telefon:</label>
-                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => '', 'prefixes' => $countries])
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixValue' => '', 'prefixCode' => 'RO'])
 
                             @error('phone')
                             <span class="invalid-feedback d-flex" role="alert">
@@ -140,7 +140,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="contact_phone">Telefon persoană de contact:</label>
-                                @include('partials.phone', ['controlName' => 'contact_phone', 'controlDefault' => '', 'prefixes' => $countries])
+                                @include('partials.phone', ['controlName' => 'contact_phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixValue' => '', 'prefixCode' => 'RO'])
 
                                 @error('contact_phone')
                                 <span class="invalid-feedback d-flex" role="alert">
