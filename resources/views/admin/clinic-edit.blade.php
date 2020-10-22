@@ -97,7 +97,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">Număr de telefon:</label>
-                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => $clinic->phone_number, 'prefixes' => $countries, 'prefixValue' => $clinic->phoneCountry->phone_prefix, 'prefixCode' => $clinic->phoneCountry->code])
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => $clinic->phone_number, 'prefixes' => $countries, 'prefixValue' => $clinic->phoneCountry ? $clinic->phoneCountry->phone_prefix : '', 'prefixCode' => $clinic->phoneCountry ? $clinic->phoneCountry->code : 'RO'])
 
                             @error('phone')
                             <span class="invalid-feedback d-flex" role="alert">
@@ -138,7 +138,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required font-weight-600" for="contact_phone">Telefon persoană de contact:</label>
-                                @include('partials.phone', ['controlName' => 'contact_phone', 'controlDefault' => $clinic->contact_person_phone, 'prefixes' => $countries, 'prefixValue' => $clinic->contactPhoneCountry->phone_prefix, 'prefixCode' => $clinic->contactPhoneCountry->code])
+                                @include('partials.phone', ['controlName' => 'contact_phone', 'controlDefault' => $clinic->contact_person_phone, 'prefixes' => $countries, 'prefixValue' => $clinic->contactPhoneCountry ? $clinic->contactPhoneCountry->phone_prefix : '', 'prefixCode' => $clinic->contactPhoneCountry ? $clinic->contactPhoneCountry->code : 'RO'])
 
                                 @error('contact_phone')
                                 <span class="invalid-feedback d-flex" role="alert">
