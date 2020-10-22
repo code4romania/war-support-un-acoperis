@@ -101,5 +101,5 @@
 @endsection
 
 @section('head-scripts')
-    {!! $map['js'] !!}
+    {!! str_replace(config('maps.api_key'), config('maps.js_api_key'), $map['js']) !!}
 @endsection
