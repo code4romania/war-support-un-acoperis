@@ -96,10 +96,40 @@
         </div>
     </div>
     <section class="mb-0 clinic-map">
-            {!! $map['html'] !!}
+        <div id="map" style="width:100%; height:450px;"></div>
     </section>
 @endsection
 
 @section('head-scripts')
-    {!! $map['js'] !!}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ config('maps.api_key') }}&callback=initMap&libraries=&v=weekly"
+        defer
+    ></script>
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: { lat: 0, lng: 0 },
+            });
+            const geocoder = new google.maps.Geocoder();
+            geocodeAddress(geocoder, map);
+        }
+
+        function geocodeAddress(geocoder, resultsMap) {
+            const address = '{{ $clinic->country->name }}, {{ $clinic->city }}, {{ $clinic->address }}';
+
+            geocoder.geocode({ address: address }, (results, status) => {
+                if (status === "OK") {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location,
+                    });
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+        }
+    </script>
 @endsection
