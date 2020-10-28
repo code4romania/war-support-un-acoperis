@@ -746,7 +746,8 @@ class AjaxController extends Controller
                     /** @var PhoneNumber $parsedPhoneNumber */
                     $parsedPhoneNumber = $phoneUtil->parse($phoneNumber, $countryCode);
 
-                    $country = Country::where('phone_prefix', '=', $parsedPhoneNumber->getCountryCode())->first();
+//                    $country = Country::where('phone_prefix', '=', (string) $parsedPhoneNumber->getCountryCode())->first();
+                    $country = Country::where('code', '=', (string) $countryCode)->first();
 
                     $localPhone = $parsedPhoneNumber->getNationalNumber();
                     $intlPhone = $parsedPhoneNumber->getCountryCode() . $parsedPhoneNumber->getNationalNumber();
