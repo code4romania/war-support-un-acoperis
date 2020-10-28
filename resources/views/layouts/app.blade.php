@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('/') }}">
-                                    <img src="/images/logo-hfh.svg" alt="{{ config('app.name') }}">
+                                    <img src="/images/logo-h4h.svg" alt="{{ config('app.name') }}">
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
