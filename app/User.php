@@ -27,6 +27,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property int $country_id
  * @property string|null $city
  * @property string|null $address
+ * @property int|null $phone_country_id
  * @property string|null $phone_number
  * @property ?DateTime $approved_at
  */
@@ -116,5 +117,10 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function phoneCountry()
+    {
+        return $this->belongsTo(Country::class, 'phone_country_id', 'id');
     }
 }

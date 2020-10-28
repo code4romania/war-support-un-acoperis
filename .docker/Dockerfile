@@ -86,8 +86,6 @@ ENV GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
 # copy application file
 COPY . /var/www/html
 
-RUN apt-get install --no-install-recommends -y php7.4-intl php7.4-imagick
-
 # create application environment file
 RUN cp .env.example .env
 

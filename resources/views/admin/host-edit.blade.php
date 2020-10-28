@@ -68,8 +68,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
-                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => $user->phone_number, 'prefixes' => $countries])
-
+                            @include('partials.phone', ['controlName' => 'phone', 'controlDefault' => $user->phone_number, 'prefixes' => $countries, 'prefixValue' => $user->phoneCountry ? $user->phoneCountry->phone_prefix : '', 'prefixCode' => $user->phoneCountry ? $user->phoneCountry->code : 'RO'])
                             @error('phone')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror

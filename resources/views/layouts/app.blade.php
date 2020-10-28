@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('/') }}">
-                                    <img src="/images/logo-hfh.svg" alt="{{ config('app.name') }}">
+                                    <img src="/images/logo-h4h.svg" alt="{{ config('app.name') }}">
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
@@ -163,8 +163,8 @@
                                     $ro['locale'] = 'ro';
                                     $en['locale'] = 'en';
                                 @endphp
-                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), $ro) }}">RO</a>
-                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), $en) }}">EN</a>
+                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($ro)) }}">RO</a>
+                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($en)) }}">EN</a>
                             </div>
                         </li>
                     </ul>

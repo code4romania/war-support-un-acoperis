@@ -4,7 +4,7 @@
             <select name="{{ $controlName }}Prefix" id="{{ $controlName }}Prefix" class="custom-select form-control @error($controlName.'Prefix') is-invalid @enderror">
                 @foreach ($prefixes as $country)
                     @if (!empty($country->phone_prefix))
-                        <option value="{{ $country->code }}"{{ old($controlName.'Prefix', 'RO') == $country->code ? ' selected' : '' }}>
+                        <option value="{{ $country->code }}"{{ old($controlName.'Prefix', $prefixCode ?? "ro") == $country->code ? ' selected' : '' }}>
                             {{ $country->name }} (+{{ $country->phone_prefix }})
                         </option>
                     @endif
@@ -19,7 +19,7 @@
     <div class="col-sm-8">
         <div class="form-group">
 
-            <input type="tel" placeholder="" class="form-control @error($controlName) is-invalid @enderror" name="{{ $controlName }}Local" id="{{ $controlName }}Local" value="{{ old($controlName . 'Local', $controlDefault) }}" />
+            <input type="tel" placeholder="742000000" class="form-control @error($controlName) is-invalid @enderror" name="{{ $controlName }}Local" id="{{ $controlName }}Local" value="{{ old($controlName . 'Local', str_replace($prefixValue ?? '', '', $controlDefault)) }}" />
             <input type="hidden" name="{{ $controlName }}" id="{{ $controlName }}" value="{{ old($controlName, $controlDefault) }}" />
 
             @error($controlName)
@@ -41,7 +41,7 @@
                 countryCode: countryCode,
                 phoneNumber: phoneNumber
             }).then(response => {
-                $("#{{ $controlName }}Local").attr("placeholder", response.data.data.mask);
+                {{--$("#{{ $controlName }}Local").attr("placeholder", response.data.data.mask);--}}
                 $("#{{ $controlName }}").val(response.data.data.intlPhone);
 
                 if (countryCode !== response.data.data.countryCode) {

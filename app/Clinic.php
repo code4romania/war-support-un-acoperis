@@ -24,9 +24,11 @@ use Spatie\Sluggable\SlugOptions;
  * @property int $country_id
  * @property string $city
  * @property string|null $address
+ * @property int|null $phone_country_id
  * @property string|null $phone_number
  * @property string|null $website
  * @property string|null $contact_person_name
+ * @property int|null $contact_phone_country_id
  * @property string|null $contact_person_phone
  * @property string|null $contact_person_email
  * @property DateTime|null $created_at
@@ -84,5 +86,15 @@ class Clinic extends Model
             'description' => $this->description,
             'additional_information' => $this->additional_information
         ];
+    }
+
+    public function phoneCountry()
+    {
+        return $this->belongsTo(Country::class, 'phone_country_id', 'id');
+    }
+
+    public function contactPhoneCountry()
+    {
+        return $this->belongsTo(Country::class, 'contact_phone_country_id', 'id');
     }
 }

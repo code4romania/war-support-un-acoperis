@@ -31,9 +31,9 @@ class AlterClinicsTextFields extends Migration
     public function down()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->text('description')->nullable();
-            $table->text('additional_information')->nullable();
-            $table->text('transport_details')->nullable();
+            $table->text('description')->nullable(false)->change();
+            $table->text('additional_information')->nullable(false)->change();
+            $table->text('transport_details')->nullable(false)->change();
         });
     }
 }
