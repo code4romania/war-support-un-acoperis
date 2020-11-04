@@ -2,6 +2,7 @@
     <div class="col-sm-4">
         <div class="form-group">
             <select name="{{ $controlName }}Prefix" id="{{ $controlName }}Prefix" class="custom-select form-control @error($controlName.'Prefix') is-invalid @enderror">
+                <option value="">Selectați Țara</option>
                 @foreach ($prefixes as $country)
                     @if (!empty($country->phone_prefix))
                         <option value="{{ $country->code }}"{{ old($controlName.'Prefix', $prefixCode ?? "ro") == $country->code ? ' selected' : '' }}>
