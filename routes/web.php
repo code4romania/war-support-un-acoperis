@@ -161,7 +161,7 @@ Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list
 Route::middleware([SetLanguage::class])
     ->prefix('{locale}')
     ->group(function () {
-        Auth::routes(['verify' => true]);
+        Auth::routes(['verify' => true, 'register' => false]);
 
         /**
          * 2FA
