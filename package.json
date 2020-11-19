@@ -32,6 +32,7 @@
     "dependencies": {
         "@popperjs/core": "^2.5.3",
         "chart.js": "^2.9.4",
+        "datatables.net-dt": "^1.10.22",
         "flatpickr": "^4.6.6",
         "sticky-sidebar": "^3.3.1"
     }
