@@ -351,6 +351,10 @@
     "Are you sure you want to delete this host?": "Ești sigur că vrei să ștergi această gazdă?",
     "Host was deleted": "Gazda a fost ștearsă",
 
+    "Login logs": "Loguri autentificare",
+    "Failed login attempts": "Încercări autentificare eșuate",
+    "Last login": "Ultima autentificare",
+
     "Audit logs": "Loguri de audit",
     "Audit log": "Log de audit",
     "User": "Utilizator",

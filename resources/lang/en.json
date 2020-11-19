@@ -351,6 +351,10 @@
     "Are you sure you want to delete this host?": "Are you sure you want to delete this host?",
     "Host was deleted": "Host was deleted",
 
+    "Login logs": "Login logs",
+    "Failed login attempts": "Failed login attempts",
+    "Last login": "Last login",
+
     "Audit logs": "Audit logs",
     "Audit log": "Audit log",
     "User": "User",

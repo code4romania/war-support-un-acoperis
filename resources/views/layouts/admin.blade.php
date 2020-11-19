@@ -112,7 +112,11 @@
                         <i class="fa fa-pie-chart mr-3"></i>Dashboard
                     </a>
                         <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.auditLogs.index', 'admin.auditLogs.show']) ? 'active' : '' }}" href="{{ route('admin.auditLogs.index') }}">
-                        <i class="fa fa-list mr-3"></i>{{ __('Audit logs') }}
+                            <i class="fa fa-list mr-3"></i>{{ __('Audit logs') }}
+                    </a>
+                    </a>
+                    <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.loginLogs.index']) ? 'active' : '' }}" href="{{ route('admin.loginLogs.index') }}">
+                        <i class="fa fa-list mr-3"></i>{{ __('Login logs') }}
                     </a>
                     <a href="{{ route('admin.clinic-list') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.clinic-list' ? 'active' : '' }}">
                         <i class="fa fa-plus-square mr-3"></i>Lista Clinici</a>
