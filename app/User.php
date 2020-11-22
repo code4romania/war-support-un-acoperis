@@ -43,6 +43,16 @@ class User extends Authenticatable implements Auditable
     public const ROLE_HOST = 'host';
 
     /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [
+        'password',
+        'remember_token'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
