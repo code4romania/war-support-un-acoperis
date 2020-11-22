@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -35,9 +36,10 @@ use Spatie\Sluggable\SlugOptions;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  */
-class Clinic extends Model
+class Clinic extends Model implements Auditable
 {
     use SoftDeletes, HasSlug, Searchable;
+    use \OwenIt\Auditing\Auditable;
 
     /**
      * @return string

@@ -28,6 +28,13 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/images/', 'public/images/')
     .copy('resources/js/jquery.fileuploader.min.js', 'public/js/jquery.fileuploader.min.js')
     .copy('resources/js/jquery.sticky-sidebar.min.js', 'public/js/jquery.sticky-sidebar.min.js')
+
+    .js('resources/js/admin.js', 'public/js')
+    .copy('resources/js/datatables', 'public/js/datatables')
+    .copy('node_modules/datatables.net-dt/js/dataTables.dataTables.js', 'public/js/jquery.dataTables.min.js')
+    .copy('node_modules/datatables.net-dt/css/jquery.dataTables.css', 'public/css/jquery.dataTables.css')
+    .copy('node_modules/datatables.net-dt/images', 'public/images')
+
     .version()
 if (mix.inProduction()) {
     mix.version();

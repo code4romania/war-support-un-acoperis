@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Class Accommodation
@@ -49,9 +50,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  */
-class Accommodation extends Model
+class Accommodation extends Model implements Auditable
 {
     use SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     const OWNERSHIP_TYPE_OWNED = 'owned';
     const OWNERSHIP_TYPE_RENTAL = 'rental';

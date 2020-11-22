@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Class HelpResource
@@ -25,9 +26,10 @@ use Laravel\Scout\Searchable;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  */
-class HelpResource extends Model
+class HelpResource extends Model implements Auditable
 {
     use SoftDeletes, Searchable;
+    use \OwenIt\Auditing\Auditable;
 
     /**
      * @return BelongsTo
