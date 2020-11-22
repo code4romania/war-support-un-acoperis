@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PasswordRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,10 +26,11 @@ class ResetPasswordRequest extends FormRequest
      */
     public function rules()
     {
+        $user = Auth::user();
+
         return [
-            'currentPassword' => ['required', function ($attribute, $value, $fail)
+            'currentPassword' => ['required', function ($attribute, $value, $fail) use ($user)
             {
-                $user = Auth::user();
 
                 if (!Hash::check($value, $user->password)) {
                     $fail(trans("Incorrect password"));
@@ -38,8 +40,7 @@ class ResetPasswordRequest extends FormRequest
 
                 return true;
             }],
-            'newPassword' => ['required', 'string', 'min:9', 'max:64'],
-            'retypeNewPassword' => ['required', 'string', 'min:9', 'max:64', 'same:newPassword'],
+            'password' => PasswordRules::changePassword($user->email, 'old_password'),
         ];
     }
 }
