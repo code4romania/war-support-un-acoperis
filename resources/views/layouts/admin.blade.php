@@ -129,6 +129,13 @@
                     <a href="{{ route('admin.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.profile', 'admin.edit-profile', 'admin.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu
                     </a>
+                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.auditLogs.index', 'admin.auditLogs.show']) ? 'active' : '' }}" href="{{ route('admin.auditLogs.index') }}">
+                            <i class="fa fa-list mr-3"></i>{{ __('Audit logs') }}
+                        </a>
+                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.loginLogs.index']) ? 'active' : '' }}" href="{{ route('admin.loginLogs.index') }}">
+                            <i class="fa fa-list mr-3"></i>{{ __('Login logs') }}
+                        </a>
+
                 @elseif (Auth::user()->isHost())
                     <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu
@@ -168,6 +175,8 @@
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/jquery.dataTables.min.js') }}" defer></script>
+    <script src="{{ mix('js/admin.js') }}" defer></script>
     <script src="{{ mix('js/argon-design-system.js')}}"></script>
     <script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.sticky-sidebar.min.js') }}" defer></script>

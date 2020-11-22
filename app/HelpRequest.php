@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Class HelpRequest
@@ -32,9 +33,10 @@ use Laravel\Scout\Searchable;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  */
-class HelpRequest extends Model
+class HelpRequest extends Model implements Auditable
 {
     use SoftDeletes, Searchable;
+    use \OwenIt\Auditing\Auditable;
 
     const STATUS_NEW = 'new';
     const STATUS_IN_PROGRESS = 'in-progress';

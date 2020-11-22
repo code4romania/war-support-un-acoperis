@@ -349,5 +349,21 @@
     "Prefix": "Prefix",
     "Delete host": "Delete host",
     "Are you sure you want to delete this host?": "Are you sure you want to delete this host?",
-    "Host was deleted": "Host was deleted"
+    "Host was deleted": "Host was deleted",
+
+    "Login logs": "Login logs",
+    "Failed login attempts": "Failed login attempts",
+    "Last login": "Last login",
+
+    "Audit logs": "Audit logs",
+    "Audit log": "Audit log",
+    "User": "User",
+    "Role": "Role",
+    "Event": "Event",
+    "Entity": "Entity",
+    "Old values": "Old values",
+    "New values": "New values",
+    "Column": "Column",
+    "Value": "Value",
+    "Password Help": "Minimum 8 characters. No consecutive characters. No repetitive characters. No dictionary words."
 }

@@ -90,6 +90,13 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/profile/reset-password', 'Admin\ProfileController@resetPassword')->name('admin.reset-password');
         Route::post('/profile/reset-password', 'Admin\ProfileController@saveResetPassword')->name('admin.save-reset-password');
 
+        Route::get('/login-logs', 'Admin\LoginLogController@index')->name('admin.loginLogs.index');
+        Route::get('/login-logs-search', 'Admin\LoginLogController@search')->name('admin.loginLogs.search');
+
+        Route::get('/audit-logs', 'Admin\AuditLogController@index')->name('admin.auditLogs.index');
+        Route::get('/audit-logs/{log}', 'Admin\AuditLogController@show')->name('admin.auditLogs.show');
+        Route::get('/audit-logs-search', 'Admin\AuditLogController@search')->name('admin.auditLogs.search');
+
         /**
          * Ajax routes (admin)
          */
@@ -161,7 +168,7 @@ Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list
 Route::middleware([SetLanguage::class])
     ->prefix('{locale}')
     ->group(function () {
-        Auth::routes(['verify' => true]);
+        Auth::routes(['verify' => true, 'register' => false]);
 
         /**
          * 2FA

@@ -21,6 +21,7 @@
                             <label for="" class="required font-weight-600">{{ __("Current password") }}:</label>
                             <div class="pwd-container">
                                 <input type="password" name="currentPassword" id="currentPassword" class="form-control @error('currentPassword') is-invalid @enderror" placeholder="{{ __("Current password placeholder") }}">
+                                @include('partials.password-help')
                                 @error('currentPassword')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
@@ -31,8 +32,8 @@
                         <div class="form-group">
                             <label for="" class="required font-weight-600">{{ __("New password") }}:</label>
                             <div class="pwd-container">
-                                <input type="password" name="newPassword" id="newPassword" class="form-control @error('newPassword') is-invalid @enderror" placeholder="{{ __("New password placeholder") }}">
-                                @error('newPassword')
+                                <input type="password" name="password" id="newPassword" class="form-control @error('password') is-invalid @enderror" placeholder="{{ __("New password placeholder") }}">
+                                @error('password')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -46,8 +47,8 @@
                         <div class="form-group">
                             <label for="" class="required font-weight-600">{{ __("Retype new password") }}:</label>
                             <div class="pwd-container">
-                                <input type="password" name="retypeNewPassword" id="retypeNewPassword" class="form-control @error('retypeNewPassword') is-invalid @enderror" placeholder="{{ __("Retype new password placeholder") }}">
-                                @error('retypeNewPassword')
+                                <input type="password" name="retypeNewPassword" id="retypeNewPassword" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="{{ __("Retype new password placeholder") }}">
+                                @error('password_confirmation')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>

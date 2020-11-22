@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -31,11 +32,12 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $phone_number
  * @property ?DateTime $approved_at
  */
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
     use Notifiable;
     use HasRoles;
     use SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     public const ROLE_ADMINISTRATOR = 'administrator';
     public const ROLE_HOST = 'host';
