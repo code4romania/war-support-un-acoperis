@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="" class="required font-weight-600">{{ __("Retype new password") }}:</label>
                             <div class="pwd-container">
-                                <input type="password" name="retypeNewPassword" id="retypeNewPassword" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="{{ __("Retype new password placeholder") }}">
+                                <input type="password" name="password_confirmation" id="retypeNewPassword" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="{{ __("Retype new password placeholder") }}">
                                 @error('password_confirmation')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
