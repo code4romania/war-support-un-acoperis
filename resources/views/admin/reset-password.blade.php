@@ -32,6 +32,7 @@
                             <label for="" class="required font-weight-600">{{ __("New password") }}:</label>
                             <div class="pwd-container">
                                 <input type="password" name="password" id="newPassword" class="form-control @error('password') is-invalid @enderror" placeholder="{{ __("New password placeholder") }}">
+                                @include('partials.password-help')
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror

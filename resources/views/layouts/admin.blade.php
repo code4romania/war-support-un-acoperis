@@ -111,13 +111,6 @@
                     <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                         <i class="fa fa-pie-chart mr-3"></i>Dashboard
                     </a>
-                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.auditLogs.index', 'admin.auditLogs.show']) ? 'active' : '' }}" href="{{ route('admin.auditLogs.index') }}">
-                            <i class="fa fa-list mr-3"></i>{{ __('Audit logs') }}
-                    </a>
-                    </a>
-                    <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.loginLogs.index']) ? 'active' : '' }}" href="{{ route('admin.loginLogs.index') }}">
-                        <i class="fa fa-list mr-3"></i>{{ __('Login logs') }}
-                    </a>
                     <a href="{{ route('admin.clinic-list') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.clinic-list' ? 'active' : '' }}">
                         <i class="fa fa-plus-square mr-3"></i>Lista Clinici</a>
                     <a href="{{ route('admin.clinic-add') }}" class="list-group-item list-group-item-action sub-list {{ Route::currentRouteName() == 'admin.clinic-add' ? 'active' : '' }}">
@@ -136,6 +129,13 @@
                     <a href="{{ route('admin.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.profile', 'admin.edit-profile', 'admin.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu
                     </a>
+                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.auditLogs.index', 'admin.auditLogs.show']) ? 'active' : '' }}" href="{{ route('admin.auditLogs.index') }}">
+                            <i class="fa fa-list mr-3"></i>{{ __('Audit logs') }}
+                        </a>
+                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.loginLogs.index']) ? 'active' : '' }}" href="{{ route('admin.loginLogs.index') }}">
+                            <i class="fa fa-list mr-3"></i>{{ __('Login logs') }}
+                        </a>
+
                 @elseif (Auth::user()->isHost())
                     <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu

@@ -20,6 +20,7 @@
                             <div class="form-group">
                                 <label for="email">{{ __('E-Mail Address') }}</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus placeholder="ex. ionescudiana@gmail.com">
+                                @include('partials.password-help')
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

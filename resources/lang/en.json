@@ -364,5 +364,6 @@
     "Old values": "Old values",
     "New values": "New values",
     "Column": "Column",
-    "Value": "Value"
+    "Value": "Value",
+    "Password Help": "Minimum 8 characters. No consecutive characters. No repetitive characters. No dictionary words."
 }

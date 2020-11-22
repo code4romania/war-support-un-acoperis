@@ -21,6 +21,7 @@
                             <label for="" class="required font-weight-600">{{ __("Current password") }}:</label>
                             <div class="pwd-container">
                                 <input type="password" name="currentPassword" id="currentPassword" class="form-control @error('currentPassword') is-invalid @enderror" placeholder="{{ __("Current password placeholder") }}">
+                                @include('partials.password-help')
                                 @error('currentPassword')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror

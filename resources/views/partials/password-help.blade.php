@@ -1,0 +1,1 @@
+<small id="passwordHelp" class="form-text text-muted">{{ __('Password Help') }}</small>
