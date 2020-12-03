@@ -19,7 +19,7 @@ class AuditLogController extends Controller
         return DataTables::eloquent($model)
             ->setTransformer(function ($item) {
                 return [
-                    $item->user ? $item->user->name : '',
+                    $item->user ? htmlentities($item->user->name, ENT_QUOTES | ENT_HTML5, 'UTF-8') : '',
                     $item->user ? $item->user->roles->pluck('name')->implode(', ') : '',
                     $item->event,
                     $item->auditable_type,

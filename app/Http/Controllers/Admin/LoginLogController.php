@@ -26,7 +26,7 @@ class LoginLogController extends Controller
             ->setTransformer(function ($item) {
                 return [
                     $item->user_id,
-                    $item->email_address,
+                    htmlentities($item->email_address, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
                     $item->failedLoginAttempts,
                     $item->lastLogin,
                 ];
