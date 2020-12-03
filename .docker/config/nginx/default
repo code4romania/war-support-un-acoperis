@@ -5,6 +5,9 @@ server {
 
     index index.html index.htm index.php;
 
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Frame-Option "sameorigin";
+
     charset utf-8;
 
     location /health {
