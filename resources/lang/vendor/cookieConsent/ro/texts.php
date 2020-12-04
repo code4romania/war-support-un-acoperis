@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'message' => 'Experiența ta pe acest site va fi îmbunătățită dacă acceptați folosirea de cookie-uri.',
+    'message' => 'Acest site foloseşte cookie-uri. Prin continuarea navigării, eşti de acord cu modul de utilizare a acestor informaţii.',
     'agree' => 'Acceptă cookie',
 ];
