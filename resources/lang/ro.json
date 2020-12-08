@@ -366,5 +366,7 @@
     "Column": "Coloana",
     "Value": "Valoare",
     "Password Help": "Minim 8 caractere, literă mare, litera mica, număr și caracter special. Nu sunt permise caractere consecutive, caractere repetitive sau cuvinte de dictionar.",
-    "The password must contain at least 3 of each of the following: uppercase letters, lowercase letters, numbers and special characters.": "Parola trebuia să conțină cel putin 3 caractere din următoarele: litere mari, litere mici, numere și caractere speciale."
+    "The password must contain at least 3 of each of the following: uppercase letters, lowercase letters, numbers and special characters.": "Parola trebuia să conțină cel putin 3 caractere din următoarele: litere mari, litere mici, numere și caractere speciale.",
+
+    "Find out more here.": "Află detalii aici."
 }

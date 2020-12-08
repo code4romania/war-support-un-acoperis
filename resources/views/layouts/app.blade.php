@@ -185,5 +185,6 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/argon-design-system.js')}}"></script>
     @yield('scripts')
+    @include('cookieConsent::index')
 </body>
 </html>
