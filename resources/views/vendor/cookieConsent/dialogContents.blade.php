@@ -4,9 +4,9 @@
         {!! trans('cookieConsent::texts.message') !!}
     </span>
 
-    <a href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[4]->getSlug()]) }}">{{ __('Află detalii aici.') }}</a>
+    <a href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[4]->getSlug()]) }}">{{ __('Find out more here.') }}</a>
 
-    <button class="js-cookie-consent-agree cookie-consent__agree btn btn-success">
+    <button class="js-cookie-consent-agree cookie-consent__agree btn btn-success ml-1">
         {{ trans('cookieConsent::texts.agree') }}
     </button>
 
