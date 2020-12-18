@@ -7,12 +7,11 @@
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-0 text-primary">{{ __('Clinic List') }}</h1>
+        <h1 class="display-3 title mb-0 text-primary">{{ __('Clinics and Hospitals') }}</h1>
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
             {{ __("Clinics list front description") }}
-            <a href="{{ route('request-services') }}">{{ __("this form") }}</a>.
         </div>
     </section>
     <section class="shadow-sm">

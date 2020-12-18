@@ -78,7 +78,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">
-                                {{ __('Request Services') }}
+                                {{ __('Request help') }}
                             </a>
                         </li>
 
@@ -90,7 +90,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link {{ in_array(Route::currentRouteName(), ['clinic-list', 'clinic-details']) ? 'active' : '' }}" href="{{ route('clinic-list') }}">
-                                {{ __('Clinic List') }}
+                                {{ __('Clinics and Hospitals') }}
                             </a>
                         </li>
 

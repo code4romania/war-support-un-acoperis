@@ -152,7 +152,7 @@
     "Clinic additional information": "Informatii suplimentare",
     "Clinic transport": "Modalități de transport",
     "Description": "Descriere",
-    "Clinics list front description": "Caută clinica de care ai nevoie pentru diagnosticul tău și ia legătura cu ei pentru a putea beneficia de serviciile lor. Dacă ai nevoie de sprijin în a identifica o clinică potrivită și/sau în relația cu o clinică sau alta, te rugăm să ne scrii un mesaj folosind",
+    "Clinics list front description": "Fie că ai fost diagnosticat cu cancer sau cu o altă boală gravă, aici poți consulta lista serviciilor medicale din țară și din străinătate, pentru a găsi informații despre aproximativ 400 de clinici și spitale din 21 de țări, de pe 3 continente. Vei avea, într-un singur loc, detalii legate de patologii tratate, medici și specialiști, date de contact, dar și informații despre transport sau cazare, totul pentru ca tu să afli răspunsul la întrebările tale și șansa de a beneficia de cel mai bun tratament!",
     "this form": "acest formular",
     "Clinics": "Clinici",
     "Clinics subtitle": "Caută o clinică folosind câmpul de căutare sau filtrează lista clinicilor cu ajutorul opțiunilor prezente",
@@ -280,7 +280,7 @@
     "Notes and reviews": "Note și recenzii",
     "Data successfully saved!": "Datele au fost salvate cu succes!",
     "Enter an explanatory note": "Introduceți o notă explicativă",
-    "Request Services Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl metus, posuere et velit ac, ullamcorper gravida mi. Quisque porttitor viverra est, et blandit magna maximus non.",
+    "Request Services Description": "Te rugăm să ne spui cu ce anume te putem ajuta, iar noi vom face tot posibilul pentru a reveni către tine cu un răspuns cât mai rapid, care să rezolve problema cu care te confrunți! Găsești mai jos o listă a principalelor tipuri de ajutor pe care ți le putem oferi, însă dacă solicitarea ta nu se încadrează în această listă, te rugăm să bifezi ultima opțiune și să ne dai cât mai multe detalii! Suntem aici pentru tine!",
     "Patient full name": "Numele și prenumele pacientului",
     "Patient phone": "Telefonul pacientului",
     "Patient email": "E-mailul pacientului",
@@ -289,7 +289,7 @@
     "Caretaker phone": "Telefonul persoanei care completeaza formularul",
     "Caretaker email": "E-mailul persoanei care completeaza formularul",
     "Period": "Perioada",
-    "Request help": "Solicitare servicii",
+    "Request help": "Solicitare ajutor",
     "Request help greeting": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis dolor eu blandit auctor.",
     "Details": "Detalii",
     "Help types": "Tipuri de ajutor solicitate",
@@ -368,5 +368,6 @@
     "Password Help": "Minim 8 caractere, literă mare, litera mica, număr și caracter special. Nu sunt permise caractere consecutive, caractere repetitive sau cuvinte de dictionar.",
     "The password must contain at least 3 of each of the following: uppercase letters, lowercase letters, numbers and special characters.": "Parola trebuia să conțină cel putin 3 caractere din următoarele: litere mari, litere mici, numere și caractere speciale.",
 
-    "Find out more here.": "Află detalii aici."
+    "Find out more here.": "Află detalii aici.",
+    "Clinics and Hospitals" : "Clinici și Spitale"
 }

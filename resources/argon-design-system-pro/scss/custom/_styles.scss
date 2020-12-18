@@ -14,7 +14,7 @@ body {
 
 .navbar-brand {
     img {
-        height:74px;
+        height:56px;
     }
 }
 
@@ -411,8 +411,11 @@ label.required {
 
 @include media-breakpoint-down(md) {
     .navbar-brand img {
-        height:50px;
+        height:45px;
         margin-left:10px;
+    }
+    .homepage-logo img {
+        display: none;
     }
 }
 
