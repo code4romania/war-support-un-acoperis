@@ -25,7 +25,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Run composer install and optimize autoloader
-        run: composer install --optimize-autoloader --no-dev
+        run: php7.4 `which composer` install --optimize-autoloader --no-dev
 
       - name: Cache node modules
         uses: actions/cache@v1
