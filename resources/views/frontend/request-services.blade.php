@@ -7,7 +7,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-4 text-primary">{{ __('Request Services') }}</h1>
+        <h1 class="display-3 title mb-4 text-primary">{{ __('Request help') }}</h1>
         <p>
             {{ __("Request Services Description") }}
         </p>
