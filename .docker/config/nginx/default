@@ -11,7 +11,10 @@ server {
     charset utf-8;
 
     location /health {
-        try_files $uri $uri/ /index.php?$query_string;
+       auth_basic  "Restricted Area";
+       auth_basic_user_file /etc/nginx/.htpasswd;
+
+       try_files $uri $uri/ /index.php?$query_string;
     }
 
     location / {

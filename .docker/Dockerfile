@@ -97,6 +97,7 @@ RUN chmod 777 /var/www/html/storage/logs/laravel.log
 RUN chown -R www-data:www-data /var/www/html
 
 # configure Ngnix
+COPY .docker/config/nginx/.htpasswd /etc/nginx/.htpasswd
 COPY .docker/config/nginx/default /etc/nginx/sites-available/default
 
 EXPOSE 80
