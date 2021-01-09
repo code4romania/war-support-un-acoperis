@@ -9,13 +9,13 @@
         @endif
         <h1 class="display-3 title mb-4 text-primary">{{ __('Request help') }}</h1>
         <p>
-            {{ __("Request Services Description") }}
+            {!! $description !!}
         </p>
     </div>
     <div class="alert bg-light-green alert-general alert-secondary font-weight-600 mb-0" role="alert">
         <div class="container">
             <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
-            <span class="alert-inner--text">{{ __('All information provided using the application form is confidential.') }}</span>
+            <span class="alert-inner--text">{{ $info }}</span>
         </div>
     </div>
     <section class="py-5 bg-light-blue">

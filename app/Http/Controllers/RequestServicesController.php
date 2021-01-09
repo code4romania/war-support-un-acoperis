@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use A17\Twill\Repositories\SettingRepository;
 use App\City;
 use App\Country;
 use App\County;
@@ -26,7 +27,7 @@ class RequestServicesController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(Request $request, SettingRepository $settingRepository)
     {
         $countries = Country::all()->sortBy('name');
 
@@ -46,6 +47,8 @@ class RequestServicesController extends Controller
         $secondRight = array_slice($helpTypes->toArray(), $helpTypes->count() / 2);
 
         return view('frontend.request-services')
+            ->with('description', $settingRepository->byKey('request_services_description') ?? '')
+            ->with('info', $settingRepository->byKey('request_services_info') ?? '')
             ->with('countries', $countries)
             ->with('counties', $counties)
             ->with('cities', $cities)

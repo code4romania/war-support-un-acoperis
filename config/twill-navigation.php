@@ -26,6 +26,21 @@ return [
                 'route' => 'admin.settings',
                 'params' => ['section' => 'contact']
             ],
+            'request-services' => [
+                'title' => 'Request Services page',
+                'route' => 'admin.settings',
+                'params' => ['section' => 'request-services']
+            ],
+            'get-involved' => [
+                'title' => 'Get Involved page',
+                'route' => 'admin.settings',
+                'params' => ['section' => 'get-involved']
+            ],
+            'clinics' => [
+                'title' => 'Clinics page',
+                'route' => 'admin.settings',
+                'params' => ['section' => 'clinics']
+            ],
 //            'home-boxes' => [
 //                'title' => 'Home page boxes',
 //                'route' => 'admin.settings',

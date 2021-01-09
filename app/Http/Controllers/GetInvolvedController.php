@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use A17\Twill\Repositories\SettingRepository;
 use App\Country;
 use App\HelpResource;
 use App\HelpResourceType;
@@ -35,13 +36,14 @@ class GetInvolvedController extends Controller
     /**
      * @return View
      */
-    public function index()
+    public function index(SettingRepository $settingRepository)
     {
         $countries = Country::all();
         $resourceTypes = ResourceType::all();
 
         return view('frontend.get-involved')
             ->with('countries', $countries)
+            ->with('description', $settingRepository->byKey('get_involved_description') ?? '')
             ->with('resourceTypes', $resourceTypes);
     }
 
