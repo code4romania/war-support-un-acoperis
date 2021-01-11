@@ -11,15 +11,15 @@
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
-            {{ __("Clinics list front description") }}
+            {!! $description !!}
         </div>
     </section>
     <section class="shadow-sm">
         <div class="container py-4">
             <div class="row align-items-end">
                 <div class="col-sm-8">
-                    <h4 class="font-weight-600">{{ __("Clinics") }}</h4>
-                    <p class="mb-sm-0">{{ __("Clinics subtitle") }}</p>
+                    <h4 class="font-weight-600">{{ $subtitle }}</h4>
+                    <p class="mb-sm-0">{!! $subtitleDescription !!}</p>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group mb-0">

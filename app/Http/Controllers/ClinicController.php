@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use A17\Twill\Repositories\SettingRepository;
 use App\Clinic;
 use App\Services\MapV2;
 use App\Speciality;
@@ -19,7 +20,7 @@ class ClinicController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(string $locale)
+    public function index(string $locale, SettingRepository $settingRepository)
     {
         /** @var Collection $clinicList */
         $clinicList = Clinic::with('specialities')->get();
@@ -42,6 +43,9 @@ class ClinicController extends Controller
         $cityList = array_unique($cityList);
 
         return view('frontend.clinic-list')
+            ->with('description', $settingRepository->byKey('clinics_description'))
+            ->with('subtitle', $settingRepository->byKey('clinics_subtitle'))
+            ->with('subtitleDescription', $settingRepository->byKey('clinics_subtitle_description'))
             ->with('clinicList', $clinicList)
             ->with('specialities',  $specialities)
             ->with('specialityList', $specialityList)

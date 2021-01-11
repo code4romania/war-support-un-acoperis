@@ -8,7 +8,9 @@
             </div>
         @endif
         <h1 class="display-3 title mb-4 text-primary">{{ __('Get Involved') }}</h1>
-        <p>{{ __('Get Involved Description') }}</p>
+        <p>
+            {!! $description !!}
+        </p>
     </div>
     <section class="bg-light-green py-5">
         <div class="container">
