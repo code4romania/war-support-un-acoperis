@@ -59,9 +59,10 @@ class ClinicController extends Controller
      * @param Clinic $clinic
      * @return View
      */
-    public function show(string $locale, Clinic $clinic)
+    public function show(string $locale, Clinic $clinic, SettingRepository $settingRepository)
     {
         return view('frontend.clinic-details')
+            ->with('description', $settingRepository->byKey('clinic_description'))
             ->with('clinic', $clinic);
     }
 }

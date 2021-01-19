@@ -11,8 +11,7 @@
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
-            {{ __("Clinics list front description") }}
-            <a href="{{ route('request-services') }}">{{ __("this form") }}</a>.
+            {!! $description !!}
         </div>
     </section>
     <div class="container py-5">
