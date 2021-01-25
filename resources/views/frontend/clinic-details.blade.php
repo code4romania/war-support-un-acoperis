@@ -34,64 +34,85 @@
                     <li class="d-flex">
                         <i class="fa fa-globe"></i>
                         <span>
-                            <a href="{{ $clinic->website }}">{{ $clinic->website }}</a>
+                            <a href="{{ $clinic->website }}" rel="noopener">Website</a>
+                            <i class="fa fa-external-link ml-1" style="font-size: 0.9rem;"></i>
                         </span>
                     </li>
                 </ul>
             </div>
+            @if ($clinic->contact_person_name || $clinic->contact_person_phone || $clinic->contact_person_email)
             <div class="col-sm-6 pl-lg-5">
                 <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic contact person') }}</h4>
                 <ul class="details-wrapper bordered-left list-unstyled">
+                    @if ($clinic->contact_person_name)
                     <li class="d-flex">
                         <i class="fa fa-user-circle"></i>
                         <span>
                             {{ $clinic->contact_person_name }}
                         </span>
                     </li>
+                    @endif
+                    @if ($clinic->contact_person_phone)
                     <li class="d-flex">
                         <i class="fa fa-phone"></i>
                         <span>
                             {{ $clinic->contact_person_phone }}
                         </span>
                     </li>
+                    @endif
+                    @if ($clinic->contact_person_email)
                     <li class="d-flex">
                         <i class="fa fa-envelope"></i>
                         <span>
                             {{ $clinic->contact_person_email }}
                         </span>
                     </li>
+                    @endif
                 </ul>
             </div>
+            @endif
         </div>
         <div class="row">
+            @if ($clinic->description || $clinic->additional_information)
             <div class="col-sm-6 pr-lg-5">
+                @if ($clinic->description)
                 <div class="description mb-6">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Description') }}</h4>
                     <div>
                         {!! $clinic->description !!}
                     </div>
                 </div>
+                @endif
+                @if ($clinic->additional_information)
                 <div class="extra-info">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional information') }}</h4>
                     <div>
                         {!! $clinic->additional_information !!}
                     </div>
                 </div>
+                @endif
             </div>
+            @endif
+            @if ($clinic->specialities || $clinic->transport_details)
             <div class="col-sm-6 pl-lg-5">
+                @if ($clinic->specialities)
                 <div class="mb-5">
-                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic details') }}</h4>
+                    <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic specialization') }}</h4>
                     <ul class="list-custom">
                         @foreach($clinic->specialities as $speciality)
                             <li>{{ $speciality->name }}</li>
                         @endforeach
                     </ul>
                 </div>
+                @endif
+                @if ($clinic->transport_details)
                 <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic transport') }}</h4>
                 <div>
                     {!! $clinic->transport_details !!}
                 </div>
+                @endif
             </div>
+            @endif
         </div>
     </div>
     <section class="mb-0 clinic-map">
