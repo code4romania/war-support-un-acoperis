@@ -32,7 +32,7 @@ class ClinicRequest extends FormRequest
         $uniqueName .= ',id,deleted_at,NULL'; // ignore soft deleted entries
 
         return [
-            'name' => ['required', 'string', $uniqueName, 'min:2', 'max:128'],
+            'name' => ['required', 'string', 'min:2', 'max:128'],
             'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['required', 'exists:specialities,id'],
             'country' => ['required', 'exists:countries,id'],
