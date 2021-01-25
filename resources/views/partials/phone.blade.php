@@ -20,7 +20,7 @@
     <div class="col-sm-8">
         <div class="form-group">
 
-            <input type="tel" placeholder="742000000" class="form-control @error($controlName) is-invalid @enderror" name="{{ $controlName }}Local" id="{{ $controlName }}Local" value="{{ old($controlName . 'Local', str_replace($prefixValue ?? '', '', $controlDefault)) }}" />
+            <input type="tel" placeholder="742000000" class="form-control @error($controlName) is-invalid @enderror" name="{{ $controlName }}Local" id="{{ $controlName }}Local" value="{{ old($controlName . 'Local', ltrim($controlDefault, $prefixValue ?? '')) }}" />
             <input type="hidden" name="{{ $controlName }}" id="{{ $controlName }}" value="{{ old($controlName, $controlDefault) }}" />
 
             @error($controlName)
