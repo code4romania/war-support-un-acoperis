@@ -41,6 +41,11 @@ return [
                 'route' => 'admin.settings',
                 'params' => ['section' => 'clinics']
             ],
+            'clinic' => [
+                'title' => 'Clinic page',
+                'route' => 'admin.settings',
+                'params' => ['section' => 'clinic']
+            ],
 //            'home-boxes' => [
 //                'title' => 'Home page boxes',
 //                'route' => 'admin.settings',
