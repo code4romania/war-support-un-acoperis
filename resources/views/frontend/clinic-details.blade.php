@@ -25,12 +25,14 @@
                             {{ $clinic->address }}<br>{{ $clinic->city }}<br> {{ $clinic->country->name }}
                         </span>
                     </li>
+                    @if($clinic->phone_number)
                     <li class="d-flex">
                         <i class="fa fa-phone"></i>
                         <span>
                             {{ $clinic->phone_number }}
                         </span>
                     </li>
+                    @if($clinic->website)
                     <li class="d-flex">
                         <i class="fa fa-globe"></i>
                         <span>
@@ -38,12 +40,15 @@
                             <i class="fa fa-external-link ml-1" style="font-size: 0.9rem;"></i>
                         </span>
                     </li>
+                    @endif
+                    @if ($clinic->office_email)
                     <li class="d-flex">
                         <i class="fa fa-envelope"></i>
                         <span>
                             <a href="mailto:{{ $clinic->office_email }}" rel="noopener">{{ $clinic->office_email }}</a>
                         </span>
                     </li>
+                    @endif
                 </ul>
             </div>
             @if ($clinic->contact_person_name || $clinic->contact_person_phone || $clinic->contact_person_email)
