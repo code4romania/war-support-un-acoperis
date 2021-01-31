@@ -32,6 +32,7 @@
                             {{ $clinic->phone_number }}
                         </span>
                     </li>
+                    @endif
                     @if($clinic->website)
                     <li class="d-flex">
                         <i class="fa fa-globe"></i>
