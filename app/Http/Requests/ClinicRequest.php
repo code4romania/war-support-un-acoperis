@@ -41,7 +41,7 @@ class ClinicRequest extends FormRequest
             'phonePrefix' => ['required', 'string'],
             'phone' => ['required', 'phone:' . $this->phonePrefix, 'string', 'max:16'],
             'website' => ['required', 'url', 'max:256'],
-            'office_email' => ['required', 'email', 'min:5', 'max:64'],
+            'office_email' => ['nullable', 'email', 'min:5', 'max:64'],
             'contact_name' => ['nullable','string', 'min:2', 'max:64'],
             'contact_phonePrefix' => ['nullable','string'],
             'contact_phone' => ['nullable','required_with:contact_phonePrefix|string', 'phone:' . $this->contact_phonePrefix, 'string', 'max:16'],

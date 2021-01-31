@@ -122,7 +122,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="font-weight-600 required" for="website">Adresă e-mail:</label>
+                            <label class="font-weight-600" for="website">Adresă e-mail:</label>
                             <input type="email" placeholder="office@clinic.com" class="form-control @error('office_email') is-invalid @enderror" name="office_email" id="website" value="{{ old('office_email', $clinic->office_email) }}" />
 
                             @error('office_email')

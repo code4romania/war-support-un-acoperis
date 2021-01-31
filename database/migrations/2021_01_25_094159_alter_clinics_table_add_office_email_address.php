@@ -14,7 +14,7 @@ class AlterClinicsTableAddOfficeEmailAddress extends Migration
     public function up()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->string('office_email', 64)
+            $table->string('office_email', 64)->nullable()
                 ->after('website');
         });
     }
