@@ -27,68 +27,90 @@
                             {{ $clinic->address }}<br>{{ $clinic->city }}<br> {{ $clinic->country->name }}
                         </span>
                         </li>
+                        @if($clinic->phone_number)
                         <li class="d-flex">
                             <i class="fa fa-phone"></i>
                             <span>
                             {{ $clinic->phone_number }}
                         </span>
                         </li>
+                        @endif
+                        @if($clinic->website)
                         <li class="d-flex">
                             <i class="fa fa-globe"></i>
                             <span>
                             <a href="{{ $clinic->website }}">{{ $clinic->website }}</a>
                         </span>
                         </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="col-6">
                     <h4 class="font-weight-600 text-primary mb-5">{{ __('Clinic contact person') }}</h4>
                     <ul class="details-wrapper bordered-left list-unstyled">
+                        @if($clinic->contact_person_name)
                         <li class="d-flex">
                             <i class="fa fa-user-circle"></i>
                             <span>
                             {{ $clinic->contact_person_name }}
                         </span>
                         </li>
+                        @endif
+                        @if($clinic->contact_person_phone)
                         <li class="d-flex">
                             <i class="fa fa-phone"></i>
                             <span>
                             {{ $clinic->contact_person_phone }}
                         </span>
                         </li>
-                        <li class="d-flex">
-                            <i class="fa fa-envelope"></i>
-                            <span>
-                            {{ $clinic->contact_person_email }}
-                        </span>
-                        </li>
+                        @endif
+                        @if($clinic->contact_person_email)
+                            <li class="d-flex">
+                                <i class="fa fa-envelope"></i>
+                                <span>
+                                {{ $clinic->contact_person_email }}
+                            </span>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
 
             <div class="row">
+                @if ($clinic->description || $clinic->additional_information)
                 <div class="col-6">
+                    @if($clinic->description)
                     <h4 class="font-weight-600 text-primary mt-5">Descriere</h4>
                     <div>
                         {!! $clinic->description !!}
                     </div>
+                    @endif
+                    @if($clinic->additional_information)
                     <h4 class="font-weight-600 text-primary mt-5">{{ __('Clinic additional information') }}</h4>
                     <div>
                         {!! $clinic->additional_information !!}
                     </div>
+                    @endif
                 </div>
+                @endif
+                @if ($clinic->specialities || $clinic->transport_details)
                 <div class="col-6">
+                    @if ($clinic->specialities)
                     <h4 class="font-weight-600 text-primary mt-5">Specializare</h4>
                     <ul class="list-custom">
                         @foreach($clinic->specialities as $speciality)
                             <li>{{ $speciality->name }}</li>
                         @endforeach
                     </ul>
+                    @endif
+                    @if ($clinic->transport_details)
                     <h4 class="font-weight-600 text-primary mt-5">{{ __('Clinic transport') }}</h4>
                     <div>
                         {!! $clinic->transport_details !!}
                     </div>
+                    @endif
                 </div>
+                @endif
             </div>
         </div>
     </div>
