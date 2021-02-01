@@ -302,6 +302,14 @@
     'translated' => true
     ])
 
+    @formField('input', [
+    'label' => 'Become a host link',
+    'name' => 'become_host_link',
+    'textLimit' => '135',
+    'note' => 'Limited to 135 characters',
+    'translated' => true
+    ])
+
     @formField('wysiwyg', [
     'label' => 'Become a host body',
     'name' => 'become_host_body',

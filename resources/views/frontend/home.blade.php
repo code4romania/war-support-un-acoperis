@@ -82,7 +82,7 @@
                     <p>
                         {!! $becomeHostBody !!}
                     </p>
-                    <a href="{{ route('get-involved') }}" class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Offer Help') }}</a>
+                    <a href="{{ $becomeHostLink }}" class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Partners List') }}</a>
                 </div>
             </div>
         </div>

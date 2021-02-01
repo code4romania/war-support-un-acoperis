@@ -39,6 +39,7 @@ class StaticPagesController extends Controller
             ->with('askServicesLink', $settingRepository->byKey('ask_services_link'))
             ->with('becomeHostTitle', $settingRepository->byKey('become_host_title'))
             ->with('becomeHostBody', $settingRepository->byKey('become_host_body'))
+            ->with('becomeHostLink', $settingRepository->byKey('become_host_link'))
             ->with('footerBlock1Title', $settingRepository->byKey('footer_block_1_title'))
             ->with('footerBlock1Body', $settingRepository->byKey('footer_block_1_body'))
             ->with('footerBlock2Title', $settingRepository->byKey('footer_block_2_title'))
