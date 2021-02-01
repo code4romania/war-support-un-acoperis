@@ -43,6 +43,14 @@
                         </span>
                         </li>
                         @endif
+                        @if ($clinic->office_email)
+                            <li class="d-flex">
+                                <i class="fa fa-envelope"></i>
+                                <span>
+                                    <a href="mailto:{{ $clinic->office_email }}" rel="noopener">{{ $clinic->office_email }}</a>
+                                </span>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="col-6">
