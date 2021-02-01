@@ -255,6 +255,14 @@
     'translated' => true
     ])
 
+    @formField('input', [
+        'label' => 'Ask for services link',
+        'name' => 'ask_services_link',
+        'textLimit' => '135',
+        'note' => 'Limited to 135 characters',
+        'translated' => true
+    ])
+
     @formField('wysiwyg', [
     'label' => 'Ask for services body',
     'name' => 'ask_services_body',

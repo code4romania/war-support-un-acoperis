@@ -209,7 +209,7 @@ body {
 //Homepage
 
 .bg-homepage-section-1 {
-    background:url("/images/bg-section-homepage.jpg") no-repeat center center;
+    background:url("/images/fundal-homepage.jpg") no-repeat center center;
     background-size:cover;
 }
 
@@ -481,4 +481,28 @@ label.required {
     color: #fff;
     background-color: #2574B8;
     border-color: #2574B8;
+}
+
+
+.bg-homepage-section-1 .card {
+    color: #FFF;
+}
+.bg-homepage-section-1 h5.card-title {
+    color: #FFF;
+}
+
+.bg-homepage-section-1 .card:nth-child(1) {
+    background-color: #de0124;
+}
+
+.bg-homepage-section-1 .card:nth-child(2) {
+    background-color: #f5541a;
+}
+
+.bg-homepage-section-1 .card:nth-child(3) {
+    background-color: #336cfe;
+}
+
+.bg-homepage-section-1 .card:nth-child(4) {
+    background-color: #7233e9;
 }
