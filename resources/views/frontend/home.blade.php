@@ -8,7 +8,7 @@
             </div>
         @endif
         <div class="d-flex align-items-sm-center flex-column flex-sm-row">
-            <img src="/images/banner-homepage.png" alt="Help for Health" srcset="/images/banner-homepage@2x.png 2x" class="w-100">
+            <img src="/images/banner-homepage-new.png" alt="Help for Health" srcset="/images/banner-homepage-new@2x.png 2x" class="w-100">
             <div class="banner-content ml-sm-5 mt-3 mt-sm-0">
                 <h1 class="text-primary font-weight-600 mb-sm-4 mb-2">{{ $welcomeTitle }}</h1>
                 <p class="mb-sm-5 mb-3">{!! $welcomeBody !!}</p>
