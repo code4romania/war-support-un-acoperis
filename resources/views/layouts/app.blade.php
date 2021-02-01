@@ -76,6 +76,11 @@
                             </li>
                         @endforeach
 
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">
+                                    {{ __('Donate') }}
+                                </a>
+                            </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">
                                 {{ __('Request help') }}
@@ -91,18 +96,6 @@
                         <li class="nav-item">
                             <a class="nav-link {{ in_array(Route::currentRouteName(), ['clinic-list', 'clinic-details']) ? 'active' : '' }}" href="{{ route('clinic-list') }}">
                                 {{ __('Clinics and Hospitals') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary text-underline {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">
-                                {{ __('Donate') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link{{ Route::currentRouteName() == 'contact' ? ' active' : '' }}" href="{{ route('contact') }}">
-                                {{ __('Contact') }}
                             </a>
                         </li>
                     </ul>
@@ -151,8 +144,15 @@
                             </li>
                         @endguest
 
+                        <li class="nav-item">
+                            <a class="nav-link{{ Route::currentRouteName() == 'contact' ? ' active' : '' }}" href="{{ route('contact') }}">
+                                {{ __('Contact') }}
+                            </a>
+                        </li>
+
                         <!-- Language switcher -->
                         <li class="nav-item dropdown">
+
                             <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span>{{ strtoupper(str_replace('_', '-', app()->getLocale())) }}</span>
                             </a>
