@@ -78,13 +78,13 @@
 
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'request-services' ? 'active' : '' }}" href="{{ route('request-services') }}">
-                                {{ __('Request help') }}
+                                {{ __('Request Help') }}
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'get-involved' ? 'active' : '' }}" href="{{ route('get-involved') }}">
-                                {{ __('Get Involved') }}
+                                {{ __('Offer Help') }}
                             </a>
                         </li>
 

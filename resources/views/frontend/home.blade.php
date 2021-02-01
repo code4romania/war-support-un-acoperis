@@ -13,7 +13,7 @@
                 <h1 class="text-primary font-weight-600 mb-sm-4 mb-2">{{ $welcomeTitle }}</h1>
                 <p class="mb-sm-5 mb-3">{!! $welcomeBody !!}</p>
                 <a href="{{ route('request-services') }}" class="btn btn-lg btn-primary mr-3 px-sm-5">Solicita servicii</a>
-                <a href="{{ route('get-involved') }}" class="btn btn-lg btn-secondary px-sm-5">Implica-te</a>
+                <a href="{{ route('get-involved') }}" class="btn btn-lg btn-secondary px-sm-5">{{ __('Offer Help') }}</a>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
                     <p>
                         {!! $becomeHostBody !!}
                     </p>
-                    <a href="{{ route('get-involved') }}" class="btn btn-white text-primary btn-lg px-6 mt-4">Implica-te</a>
+                    <a href="{{ route('get-involved') }}" class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Offer Help') }}</a>
                 </div>
             </div>
         </div>
