@@ -12,13 +12,13 @@
             {!! $description !!}
         </p>
     </div>
-    <div class="alert bg-light-green alert-general alert-secondary font-weight-600 mb-0" role="alert">
+    <div class="alert bg-h4h-blue alert-general white font-weight-600 mb-0" role="alert">
         <div class="container">
             <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
             <span class="alert-inner--text">{{ $info }}</span>
         </div>
     </div>
-    <section class="py-5 bg-light-blue">
+    <section class="py-5 bg-h4h-form">
         <div class="container">
             <div class="accordion-1 request-services">
                 <form method="POST" action="{{ route('request-services-submit') }}" id="sendRequest">
@@ -29,7 +29,7 @@
                             {!! NoCaptcha::displaySubmit(
                                 'sendRequest',
                                 "<span class=\"btn-inner--text\">" . __('Send request') . "</span><span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>",
-                                ['type' => 'submit',  "id" => "submit-button", 'class' => 'btn btn-secondary pull-right btn-lg px-6']
+                                ['type' => 'submit',  "id" => "submit-button", 'class' => 'btn btn-secondary btn-h4h-request-help pull-right btn-lg px-6']
                             ) !!}
                             <div class="card shadow mb-4">
                                 <div class="card-header">
@@ -57,7 +57,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-name">{{ __("Caretaker full name") }}:</label>
+                                                        <label class="font-weight-600" for="caretaker-name">{{ __("Caretaker full name") }}:</label>
                                                         <input type="text" placeholder="Ioan Vasile" class="form-control @error('caretaker-name') is-invalid @enderror" name="caretaker-name" id="caretaker-name" value="{{ old('caretaker-name') }}" />
 
                                                         @error('caretaker-name')
@@ -72,7 +72,7 @@
                                                 </div>
 
                                                 <div class="col-sm-6">
-                                                    <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
+                                                    <div><label class="font-weight-600" for="phone">{{ __("Caretaker phone") }}:</label></div>
                                                     @include('partials.phone', ['controlName' => 'caretaker-phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixCode' => 'RO', 'prefixValue' => ''])
                                                 </div>
 
@@ -89,7 +89,7 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600" for="caretaker-email">{{ __("Caretaker email") }}:</label>
+                                                        <label class="font-weight-600" for="caretaker-email">{{ __("Caretaker email") }}:</label>
                                                         <input type="email" placeholder="ioan.vasile@provider.tld" class="form-control @error('caretaker-email') is-invalid @enderror" name="caretaker-email" id="caretaker-email" value="{{ old('caretaker-email') }}" />
 
                                                         @error('caretaker-email')
