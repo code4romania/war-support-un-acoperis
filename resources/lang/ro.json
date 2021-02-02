@@ -41,7 +41,7 @@
     "About Help For Health": "Despre împreună pentru sănătate",
     "Media": "Media",
     "News": "Știri",
-    "If you need help please contact Asociația MAME": "Dacă ai nevoie de ajutor contactează Asociația MAME",
+    "For more details, contact Asociația MAME": "Pentru mai multe detalii, contactează Asociația M.A.M.E.",
     "Support this project": "Susține proiectul",
     "About the project": "Despre proiect",
     "Request Help": "Solicită ajutor",
@@ -367,6 +367,10 @@
     "Find out more here.": "Află detalii aici.",
     "Clinics and Hospitals" : "Clinici și Spitale",
     "Clinic specialization": "Specializare clinică",
+
     "Read More": "Citește mai mult",
-    "Partners List": "Listă parteneri"
+    "Partners List": "Listă parteneri",
+
+    "FAQ": "întrebări frecvente"
+
 }

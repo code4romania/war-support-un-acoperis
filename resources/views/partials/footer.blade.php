@@ -6,11 +6,11 @@
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row pb-4 border-bottom border-bottom-dark">
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[0]->getSlug()]) }}">{{ __('Partners') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[1]->getSlug()]) }}">{{ __('About the project') }}</a>
             </li>
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[1]->getSlug()]) }}">{{ __('About Help For Health') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[6]->getSlug()]) }}">{{ __('FAQ') }}</a>
             </li>
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
@@ -34,23 +34,23 @@
         </ul>
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row mb-3 small">
             <li>
-                <span class="nav-link text-white-50">
-                  {{ __('If you need help please contact Asociația MAME') }}
+                <span class="nav-link text-white">
+                  {{ __('For more details, contact Asociația MAME') }}
                 </span>
             </li>
             <li>
-                <span class="nav-link text-white-50">
-                   {{ __('Phone Number') }}: <a class="text-white-50" href="tel: (+40) 734.949.281">(+40) 734.949.281</a>
+                <span class="nav-link text-white">
+                   {{ __('Phone Number') }}: <a class="text-white" href="tel: (+40) 734.949.281">(+40) 734.949.281</a>
                 </span>
             </li>
             <li>
-                <span class="nav-link text-white-50">
-                    {{ __('Email') }}: <a class="text-white-50" href="mailto:ajutor@asociatiamame.com">ajutor@asociatiamame.com</a>
+                <span class="nav-link text-white">
+                    {{ __('Email') }}: <a class="text-white" href="mailto:ajutor@asociatiamame.com">ajutor@asociatiamame.com</a>
                 </span>
             </li>
             <li>
-                <span class="nav-link text-white-50">
-                    {{ __('Website') }}: <a class="text-white-50" href="https://asociatiamame.ro" target="_blank" rel="noopener">www.asociatiamame.ro</a>
+                <span class="nav-link text-white">
+                    {{ __('Website') }}: <a class="text-white" href="https://asociatiamame.ro" target="_blank" rel="noopener">www.asociatiamame.ro</a>
                 </span>
             </li>
         </ul>

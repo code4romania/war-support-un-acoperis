@@ -39,7 +39,7 @@
     "About Help For Health": "About Help For Health",
     "Media": "Media",
     "News": "News",
-    "If you need help please contact Asocia\u021bia MAME": "If you need help please contact Asocia\u021bia MAME",
+    "For more details, contact Asocia\u021bia MAME": "For more details, contact Asocia\u021bia MAME",
     "Support this project": "Support this project",
     "About the project": "About the project",
     "Request Help": "Request Help",
@@ -366,6 +366,10 @@
     "Find out more here.": "Find out more here.",
     "Clinics and Hospitals" : "Clinics and Hospitals",
     "Clinic specialization": "Clinic specialization",
+
     "Read More": "Read More",
-    "Partners List": "Partners List"
+    "Partners List": "Partners List",
+
+    "FAQ": "Frequently asked questions"
+
 }
