@@ -15,7 +15,7 @@
 
  */
 
-
+require("perfect-scrollbar");
 var transparent = true;
 var big_image;
 
