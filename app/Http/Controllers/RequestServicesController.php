@@ -66,9 +66,12 @@ class RequestServicesController extends Controller
             ->first()
             ->id;
 
-        $caretakerPhoneCountryId = Country::where('code', $request->get('caretaker-phonePrefix'))
-            ->first()
-            ->id;
+        $caretakerPhoneCountryId = null;
+        if ($request->get('caretaker-phonePrefix')) {
+            $caretakerPhoneCountryId = Country::where('code', $request->get('caretaker-phonePrefix'))
+                ->first()
+                ->id;
+        }
 
         $helpRequest = new HelpRequest();
         $helpRequest->patient_full_name = $request->get('patient-name');
