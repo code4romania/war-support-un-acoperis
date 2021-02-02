@@ -12,7 +12,7 @@
             {!! $description !!}
         </p>
     </div>
-    <section class="bg-light-green py-5">
+    <section class="bg-h4h-form py-5">
         <div class="container">
             <form method="POST" action="{{ route('store-get-involved') }}" id="sendGetInvolved">
             @csrf
@@ -132,7 +132,7 @@
                             @enderror
 
                             {!! NoCaptcha::displaySubmit('sendGetInvolved', "<span class=\"btn-inner--text\">" . __('Send request') . "</span>
-                                <span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary pull-right btn-lg px-6']) !!}
+                                <span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary btn-h4h-offer-help-submit pull-right btn-lg px-6']) !!}
                         </div>
                     </div>
                 </div>
