@@ -15,6 +15,8 @@
 
  */
 
+import PerfectScrollbar from "perfect-scrollbar";
+
 var transparent = true;
 var big_image;
 
@@ -266,7 +268,7 @@ function down(min) {
 
 var didScroll;
 
-ArgonKit = {
+let ArgonKit = {
   misc: {
     navbar_menu_visible: 0
   },
