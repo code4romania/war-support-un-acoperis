@@ -29,7 +29,7 @@
                    href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[5]->getSlug()]) }}">{{ __('Terms and conditions') }}</a>
             </li>
             <li>
-                <a class="text-white btn btn-secondary" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">{{ __('Support this project') }}</a>
+                <a class="text-white btn btn-primary" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">{{ __('Support this project') }}</a>
             </li>
         </ul>
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row mb-3 small">
