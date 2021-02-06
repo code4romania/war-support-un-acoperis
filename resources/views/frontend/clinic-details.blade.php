@@ -37,7 +37,7 @@
                     <li class="d-flex">
                         <i class="fa fa-globe"></i>
                         <span>
-                            <a href="{{ $clinic->website }}" rel="noopener">Website</a>
+                            <a href="{{ $clinic->website }}" rel="noopener" target="_blank">Website</a>
                             <i class="fa fa-external-link ml-1" style="font-size: 0.9rem;"></i>
                         </span>
                     </li>
