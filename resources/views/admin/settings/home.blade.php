@@ -255,6 +255,14 @@
     'translated' => true
     ])
 
+    @formField('input', [
+        'label' => 'Ask for services link',
+        'name' => 'ask_services_link',
+        'textLimit' => '135',
+        'note' => 'Limited to 135 characters',
+        'translated' => true
+    ])
+
     @formField('wysiwyg', [
     'label' => 'Ask for services body',
     'name' => 'ask_services_body',
@@ -289,6 +297,14 @@
     @formField('input', [
     'label' => 'Become a host title',
     'name' => 'become_host_title',
+    'textLimit' => '135',
+    'note' => 'Limited to 135 characters',
+    'translated' => true
+    ])
+
+    @formField('input', [
+    'label' => 'Become a host link',
+    'name' => 'become_host_link',
     'textLimit' => '135',
     'note' => 'Limited to 135 characters',
     'translated' => true

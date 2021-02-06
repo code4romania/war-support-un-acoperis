@@ -188,11 +188,11 @@ Route::middleware([SetLanguage::class])
          * Header
          */
         Route::get('/', 'StaticPagesController@home')->name('home');
-        Route::get('/request-services', 'RequestServicesController@index')->name('request-services');
-        Route::post('/request-services', 'RequestServicesController@submit')->name('request-services-submit');
-        Route::get('/request-services-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
-        Route::get('/get-involved', 'GetInvolvedController@index')->name('get-involved');
-        Route::get('/get-involved-confirmation', 'GetInvolvedController@confirmation')->name('get-involved-confirmation');
+        Route::get('/request-help', 'RequestServicesController@index')->name('request-services');
+        Route::post('/request-help', 'RequestServicesController@submit')->name('request-services-submit');
+        Route::get('/request-help-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
+        Route::get('/offer-help', 'GetInvolvedController@index')->name('get-involved');
+        Route::get('/offer-help-confirmation', 'GetInvolvedController@confirmation')->name('get-involved-confirmation');
         Route::post('/store-get-involved', 'GetInvolvedController@store')->name('store-get-involved');
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');
