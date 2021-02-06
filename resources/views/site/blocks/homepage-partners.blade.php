@@ -7,7 +7,7 @@
     <li class="mx-5">
         <a href="{{ $partner->url }}" class="nav-link text-white d-flex align-items-center mb-4 mb-sm-0" title="{{ $partner->title }}">
             {{ $partner->homepage_title }}
-            <img src="{{ $partner->image('logo', 'desktop') }}" height="34" alt="{{ $partner->title }}" class="ml-3 align-middle">
+            <img src="{{ $partner->image('logo', 'desktop') }}" height="@if($partner->id == 1 ) 36 @endif @if($partner->id == 2) 28 @endif @if($partner->id == 3) 36 @endif" alt="{{ $partner->title }}" class="ml-5 align-middle">
         </a>
     </li>
     @endforeach
