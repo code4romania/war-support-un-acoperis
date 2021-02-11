@@ -12,7 +12,7 @@ use LangleyFoxall\LaravelNISTPasswordRules\Rules\SequentialCharacters;
 
 class PasswordRules extends BasePasswordRules
 {
-    public static function register($username)
+    public static function register($username, $requireConfirmation = true)
     {
         return [
             'required',
