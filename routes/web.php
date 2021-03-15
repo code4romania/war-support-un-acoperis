@@ -173,16 +173,18 @@ Route::middleware([SetLanguage::class])
         /**
          * 2FA
          */
-        Route::group(['prefix'=>'2fa'], function(){
-            Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
-            Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
-            Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
-            Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
-            Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
+        Route::middleware(['throttle:60,1'])
+            ->prefix('2fa')
+            ->group(function(){
+                Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
+                Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
+                Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+                Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
+                Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
 
-            // 2fa middleware
-            Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
-        });
+                // 2fa middleware
+                Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
+            });
 
         /**
          * Header
