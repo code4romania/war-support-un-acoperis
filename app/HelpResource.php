@@ -62,4 +62,19 @@ class HelpResource extends Model implements Auditable
             'message' => $this->message
         ];
     }
+
+    public function getCityAttribute()
+    {
+        return htmlentities($this->attributes['city'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    public function getAddressAttribute()
+    {
+        return htmlentities($this->attributes['address'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    public function getMessageAttribute()
+    {
+        return htmlentities($this->attributes['message'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
 }

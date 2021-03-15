@@ -99,4 +99,9 @@ class Clinic extends Model implements Auditable
     {
         return $this->belongsTo(Country::class, 'contact_phone_country_id', 'id');
     }
+
+    public function getCityAttribute()
+    {
+        return htmlentities($this->attributes['city'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
 }
