@@ -91,7 +91,7 @@
                 <div class="description mb-6">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Description') }}</h4>
                     <div>
-                        {!! $clinic->description !!}
+                        {{ $clinic->description }}
                     </div>
                 </div>
                 @endif
@@ -99,7 +99,7 @@
                 <div class="extra-info">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional information') }}</h4>
                     <div>
-                        {!! $clinic->additional_information !!}
+                        {{ $clinic->additional_information }}
                     </div>
                 </div>
                 @endif
@@ -120,7 +120,7 @@
                 @if ($clinic->transport_details)
                 <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic transport') }}</h4>
                 <div>
-                    {!! $clinic->transport_details !!}
+                    {{ $clinic->transport_details }}
                 </div>
                 @endif
             </div>
