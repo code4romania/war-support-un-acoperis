@@ -306,6 +306,8 @@
 
             $( "#categoryFilter" ).change(function() {
                 categoryFilter($(this).children("option:selected").map(function(){ return this.value }).get().join("|"));
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', 1);
             });
 
             let getCitiesByCountry = function () {
@@ -349,12 +351,16 @@
                 getCitiesByCountry();
                 pageState.country = $(this).val();
                 $.SetQueryStringParameter('country', pageState.country);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', 1);
                 renderer.renderData(pageState);
             });
 
             $( "#cityFilter" ).change(function() {
                 pageState.city = $(this).val();
                 $.SetQueryStringParameter('city', pageState.city);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', 1);
                 renderer.renderData(pageState);
             });
         });
