@@ -7,6 +7,9 @@ server {
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header X-Frame-Option "sameorigin";
+    add_header Referrer-Policy "same-origin";
+    add_header X-Content-Type-Options "nosniff";
+    add_header Content-Security-Policy "default-src 'self' impreunapentrusanatate.ro *.impreunapentrusanatate.ro helpforhealth-public.s3.eu-central-1.amazonaws.com helpforhealth-public-dev.s3.eu-central-1.amazonaws.com";
 
     charset utf-8;
 

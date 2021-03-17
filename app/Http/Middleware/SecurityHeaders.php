@@ -25,11 +25,6 @@ class SecurityHeaders
         /** @var Response $response */
         $response = $next($request);
 
-        if (method_exists($response, 'header')) {
-            $response->header('X-Content-Type-Options', 'nosniff')
-                ->header('Referrer-Policy', 'same-origin');
-        }
-
         return $response;
     }
 }
