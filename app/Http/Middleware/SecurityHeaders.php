@@ -16,6 +16,12 @@ class SecurityHeaders
      */
     public function handle($request, Closure $next)
     {
+        $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro'];
+
+        if (! in_array($request->headers->get('host'), $allowedHosts)) {
+            abort(418);
+        }
+
         /** @var Response $response */
         $response = $next($request);
 
