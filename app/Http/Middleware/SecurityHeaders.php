@@ -25,6 +25,10 @@ class SecurityHeaders
         /** @var Response $response */
         $response = $next($request);
 
+        if (method_exists($response, 'header')) {
+            $response->headers->remove('x-cdn');
+        }
+
         return $response;
     }
 }
