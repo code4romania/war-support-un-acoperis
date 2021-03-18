@@ -18,7 +18,7 @@ class SecurityHeaders
     {
         $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
 
-        if (!in_array($request->headers->get('host'), $allowedHosts)) {
+        if (!in_array($request->headers->get('host'), $allowedHosts) && request()->path() !== 'health') {
             abort(418);
         }
 
@@ -30,9 +30,9 @@ class SecurityHeaders
             if (app()->environment(['production', 'development'])) {
                 $response->headers->add(
                     [
-                        'Content-Security-Policy' => "default-src fonts.googleapis.com *.amazonaws.com *.google.com impreunapentrusanatate.ro dev.impreunapentrusanatate.ro; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com www.gstatic.com polyfill.io maps.googleapis.com cdn.jsdelivr.net cdn.tiny.cloud; object-src 'none'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; img-src 'self' data: *.amazonaws.com maps.googleapis.com maps.gstatic.com; frame-src 'self' *.google.com; font-src 'self' fonts.googleapis.com fonts.gstatic.com;",
-                        'X-Content-Security-Policy' => "default-src fonts.googleapis.com *.amazonaws.com *.google.com impreunapentrusanatate.ro dev.impreunapentrusanatate.ro; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com www.gstatic.com polyfill.io maps.googleapis.com cdn.jsdelivr.net cdn.tiny.cloud; object-src 'none'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; img-src 'self' data: *.amazonaws.com maps.googleapis.com maps.gstatic.com; frame-src 'self' *.google.com; font-src 'self' fonts.googleapis.com fonts.gstatic.com",
-                        'X-WebKit-CSP' => "default-src fonts.googleapis.com *.amazonaws.com *.google.com helpforhealth.local impreunapentrusanatate.ro dev.impreunapentrusanatate.ro; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com www.gstatic.com polyfill.io maps.googleapis.com cdn.jsdelivr.net cdn.tiny.cloud; object-src 'none'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; img-src 'self' data: *.amazonaws.com maps.googleapis.com maps.gstatic.com; frame-src 'self' *.google.com; font-src 'self' fonts.googleapis.com fonts.gstatic.com"
+                        'Content-Security-Policy' => "default-src fonts.googleapis.com *.amazonaws.com *.google.com impreunapentrusanatate.ro dev.impreunapentrusanatate.ro; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com www.gstatic.com polyfill.io maps.googleapis.com cdn.jsdelivr.net cdn.tiny.cloud; object-src 'none'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com cdn.tiny.cloud; img-src 'self' data: *.amazonaws.com maps.googleapis.com maps.gstatic.com sp.tinymce.com; frame-src 'self' *.google.com; font-src 'self' fonts.googleapis.com fonts.gstatic.com;",
+                        'X-Content-Security-Policy' => "default-src fonts.googleapis.com *.amazonaws.com *.google.com impreunapentrusanatate.ro dev.impreunapentrusanatate.ro; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com www.gstatic.com polyfill.io maps.googleapis.com cdn.jsdelivr.net cdn.tiny.cloud; object-src 'none'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com cdn.tiny.cloud; img-src 'self' data: *.amazonaws.com maps.googleapis.com maps.gstatic.com sp.tinymce.com; frame-src 'self' *.google.com; font-src 'self' fonts.googleapis.com fonts.gstatic.com",
+                        'X-WebKit-CSP' => "default-src fonts.googleapis.com *.amazonaws.com *.google.com helpforhealth.local impreunapentrusanatate.ro dev.impreunapentrusanatate.ro; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com www.gstatic.com polyfill.io maps.googleapis.com cdn.jsdelivr.net cdn.tiny.cloud; object-src 'none'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com cdn.tiny.cloud; img-src 'self' data: *.amazonaws.com maps.googleapis.com maps.gstatic.com sp.tinymce.com; frame-src 'self' *.google.com; font-src 'self' fonts.googleapis.com fonts.gstatic.com"
                     ]
                 );
             }
