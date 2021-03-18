@@ -54,7 +54,7 @@ class AccommodationRequest extends FormRequest
             'floor' => ['nullable', 'string', 'max:16'],
             'postal_code' => ['nullable', 'string', 'max:16'],
             'photos' => ['nullable', 'array'],
-            'photos.*' => ['image'],
+            'photos.*' => ['mimes:jpg,jpeg,png'],
             'allow_smoking' => ['required', Rule::in('yes', 'no')],
             'allow_pets' => ['required', Rule::in('yes', 'no')],
             'other_rules' => ['nullable', 'string', 'max:255'],

@@ -255,6 +255,8 @@
                 const selectedCategories = $(this).children("option:selected").map(function(){ return this.value }).get().join("|");
                 pageState.categories = selectedCategories;
                 $.SetQueryStringParameter('categories', pageState.categories);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', 1);
                 renderer.renderData(pageState);
             });
 
@@ -299,12 +301,16 @@
                 getCitiesByCountry();
                 pageState.country = $(this).val();
                 $.SetQueryStringParameter('country', pageState.country);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', 1);
                 renderer.renderData(pageState);
             });
 
             $( "#cityFilter" ).change(function() {
                 pageState.city = $(this).val();
                 $.SetQueryStringParameter('city', pageState.city);
+                pageState.page = 1;
+                $.SetQueryStringParameter('page', 1);
                 renderer.renderData(pageState);
             });
 

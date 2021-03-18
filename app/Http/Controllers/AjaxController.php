@@ -343,8 +343,15 @@ class AjaxController extends Controller
             $perPage = $request->get('perPage');
         }
 
+        $response = $query->paginate($perPage);
+        $collection = $response->getCollection()
+            ->map(function ($item) {
+                $item->name = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                return $item;
+            });
+        $response->setCollection($collection);
         return response()->json(
-            $query->paginate($perPage)
+            $response
         );
     }
 
@@ -440,8 +447,16 @@ class AjaxController extends Controller
             $perPage = $request->get('perPage');
         }
 
+        $response = $query->paginate($perPage);
+        $collection = $response->getCollection()
+            ->map(function ($item) {
+                $item->name = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $item->city = htmlentities($item->city, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                return $item;
+            });
+        $response->setCollection($collection);
         return response()->json(
-            $query->paginate($perPage)
+            $response
         );
     }
 
@@ -607,8 +622,16 @@ class AjaxController extends Controller
 
         $query->orderBy('accommodations.id', 'desc');
 
+        $response = $query->paginate($perPage);
+        $collection = $response->getCollection()
+            ->map(function ($item) {
+                $item->owner = htmlentities($item->owner, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                return $item;
+            });
+        $response->setCollection($collection);
+
         return response()->json(
-            $query->paginate($perPage)
+            $response
         );
     }
 

@@ -135,4 +135,19 @@ class User extends Authenticatable implements Auditable
     {
         return $this->belongsTo(Country::class, 'phone_country_id', 'id');
     }
+
+    public function getNameAttribute()
+    {
+        return htmlentities($this->attributes['name'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    public function getCityAttribute()
+    {
+        return htmlentities($this->attributes['city'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    public function getAddressAttribute()
+    {
+        return htmlentities($this->attributes['address'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
 }

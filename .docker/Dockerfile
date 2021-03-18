@@ -99,6 +99,7 @@ RUN chown -R www-data:www-data /var/www/html
 # configure Ngnix
 COPY .docker/config/nginx/.htpasswd /etc/nginx/.htpasswd
 COPY .docker/config/nginx/default /etc/nginx/sites-available/default
+COPY .docker/config/nginx/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
