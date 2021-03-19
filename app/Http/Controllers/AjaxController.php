@@ -347,6 +347,7 @@ class AjaxController extends Controller
         $collection = $response->getCollection()
             ->map(function ($item) {
                 $item->name = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $item->city = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 return $item;
             });
         $response->setCollection($collection);
@@ -498,7 +499,11 @@ class AjaxController extends Controller
             ? Clinic::all()->pluck('city')
             : Clinic::where('country_id', "=", $countryId)->get()->pluck('city');
 
-        $cities = $cities->unique();
+        $cities = $cities->unique()
+            ->map(function ($city) {
+                return htmlentities($city, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            });
+
         return response()->json([
             'success' => 'true',
             'cities' => array_values($cities->toArray())
