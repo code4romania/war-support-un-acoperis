@@ -190,7 +190,7 @@
                 </div>
                 <div class="description mb-5">
                     <div class="form-group">
-                        <label for="description_english" class="font-weight-600">Descriere engleza:</label>
+                        <label for="description_english" class="font-weight-600">Descriere engleză:</label>
                         <textarea name="description_english" id="description_english" class="form-control" rows="6">{{ old('description_english') }}</textarea>
 
                         @error('description_english')
@@ -214,7 +214,7 @@
                 </div>
                 <div class="extra-info mb-5">
                     <div class="form-group">
-                        <label for="extra_details_english" class="font-weight-600">Informații suplimentare engleza:</label>
+                        <label for="extra_details_english" class="font-weight-600">Informații suplimentare engleză:</label>
                         <textarea name="extra_details_english" id="extra_details_english" class="form-control" rows="6">{{ old('extra_details_english') }}</textarea>
 
                         @error('extra_details_english')
@@ -238,7 +238,7 @@
                 </div>
                 <div class="transportation">
                     <div class="form-group">
-                        <label for="transport_details_english" class="font-weight-600">Modalități de transport engleza:</label>
+                        <label for="transport_details_english" class="font-weight-600">Modalități de transport engleză:</label>
                         <textarea name="transport_details_english" id="transport_details_english" class="form-control" rows="6">{{ old('transport_details_english') }}</textarea>
 
                         @error('transport_details_english')
