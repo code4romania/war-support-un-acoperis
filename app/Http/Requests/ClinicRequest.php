@@ -47,8 +47,11 @@ class ClinicRequest extends FormRequest
             'contact_phone' => ['nullable','required_with:contact_phonePrefix|string', 'phone:' . $this->contact_phonePrefix, 'string', 'max:16'],
             'contact_email' => ['nullable','email', 'min:5', 'max:64'],
             'description' => ['nullable', 'string', 'max:5000'],
+            'description_english' => ['nullable', 'string', 'max:5000'],
             'extra_details' => ['nullable', 'string', 'max:5000'],
-            'transport_details' => ['nullable', 'string', 'max:5000']
+            'extra_details_english' => ['nullable', 'string', 'max:5000'],
+            'transport_details' => ['nullable', 'string', 'max:5000'],
+            'transport_details_english' => ['nullable', 'string', 'max:5000'],
         ];
     }
 }

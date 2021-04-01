@@ -113,8 +113,11 @@ class ClinicController extends Controller
         }
         $clinic->name = $request->get('name', $clinic->name);
         $clinic->description = $request->get('description', $clinic->description);
+        $clinic->description_en = $request->get('description_english', $clinic->description_en);
         $clinic->additional_information = $request->get('extra_details', $clinic->additional_information);
+        $clinic->additional_information_en = $request->get('extra_details_english', $clinic->additional_information_en);
         $clinic->transport_details = $request->get('transport_details', $clinic->transport_details);
+        $clinic->transport_details_en = $request->get('transport_details_english', $clinic->transport_details_en);
         $clinic->country_id = $request->get('country', $clinic->country_id);
         $clinic->city = $request->get('city', $clinic->city);
         $clinic->address = $request->get('address', $clinic->address);
@@ -158,8 +161,11 @@ class ClinicController extends Controller
         $clinic = new Clinic();
         $clinic->name = $request->get('name');
         $clinic->description = $request->get('description');
+        $clinic->description_en = $request->get('description_english');
         $clinic->additional_information = $request->get('extra_details');
+        $clinic->additional_information_en = $request->get('extra_details_english');
         $clinic->transport_details = $request->get('transport_details');
+        $clinic->transport_details_en = $request->get('transport_details_english');
         $clinic->country_id = $request->get('country');
         $clinic->city = $request->get('city');
         $clinic->address = $request->get('address');

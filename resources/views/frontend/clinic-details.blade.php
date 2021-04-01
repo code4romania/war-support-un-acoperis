@@ -91,7 +91,11 @@
                 <div class="description mb-6">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Description') }}</h4>
                     <div>
-                        {!! $clinic->description !!}
+                        @if (app()->getLocale() === 'en')
+                            {!! $clinic->description_en !!}
+                        @else
+                            {!! $clinic->description !!}
+                        @endif
                     </div>
                 </div>
                 @endif
@@ -99,7 +103,11 @@
                 <div class="extra-info">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional information') }}</h4>
                     <div>
-                        {!! $clinic->additional_information !!}
+                        @if (app()->getLocale() === 'en')
+                            {!! $clinic->additional_information_en !!}
+                        @else
+                            {!! $clinic->additional_information !!}
+                        @endif
                     </div>
                 </div>
                 @endif
@@ -124,7 +132,11 @@
                 @if ($clinic->transport_details)
                 <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic transport') }}</h4>
                 <div>
-                    {!! $clinic->transport_details !!}
+                    @if (app()->getLocale() === 'en')
+                        {!! $clinic->transport_details_en !!}
+                    @else
+                        {!! $clinic->transport_details !!}
+                    @endif
                 </div>
                 @endif
             </div>

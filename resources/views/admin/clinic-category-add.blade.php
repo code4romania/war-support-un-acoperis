@@ -47,7 +47,7 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="name_english" class="required font-weight-600">Denumire categorie englezå:</label>
+                            <label for="name_english" class="required font-weight-600">Denumire categorie engleza:</label>
                             <input type="text" class="form-control" placeholder="ex. Oncology" name="name_english" id="name_english">
 
                             @error('name_english')

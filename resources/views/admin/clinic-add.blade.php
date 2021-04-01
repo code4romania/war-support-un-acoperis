@@ -188,6 +188,18 @@
                         @enderror
                     </div>
                 </div>
+                <div class="description mb-5">
+                    <div class="form-group">
+                        <label for="description_english" class="font-weight-600">Descriere engleza:</label>
+                        <textarea name="description_english" id="description_english" class="form-control" rows="6">{{ old('description_english') }}</textarea>
+
+                        @error('description_english')
+                        <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="extra-info mb-5">
                     <div class="form-group">
                         <label for="extra_details" class="font-weight-600">Informații suplimentare:</label>
@@ -200,12 +212,36 @@
                         @enderror
                     </div>
                 </div>
+                <div class="extra-info mb-5">
+                    <div class="form-group">
+                        <label for="extra_details_english" class="font-weight-600">Informații suplimentare engleza:</label>
+                        <textarea name="extra_details_english" id="extra_details_english" class="form-control" rows="6">{{ old('extra_details_english') }}</textarea>
+
+                        @error('extra_details_english')
+                        <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="transportation">
                     <div class="form-group">
                         <label for="transport_details" class="font-weight-600">Modalități de transport:</label>
                         <textarea name="transport_details" id="transport_details" class="form-control" rows="6">{{ old('transport_details') }}</textarea>
 
                         @error('transport_details')
+                        <span class="invalid-feedback d-flex" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="transportation">
+                    <div class="form-group">
+                        <label for="transport_details_english" class="font-weight-600">Modalități de transport engleza:</label>
+                        <textarea name="transport_details_english" id="transport_details_english" class="form-control" rows="6">{{ old('transport_details_english') }}</textarea>
+
+                        @error('transport_details_english')
                         <span class="invalid-feedback d-flex" role="alert">
                             {{ $message }}
                         </span>
@@ -229,6 +265,10 @@
         tinymce.init({selector: '#description'});
         tinymce.init({selector: '#extra_details'});
         tinymce.init({selector: '#transport_details'});
+
+        tinymce.init({selector: '#description_english'});
+        tinymce.init({selector: '#extra_details_english'});
+        tinymce.init({selector: '#transport_details_english'});
 
         new Choices('#categories', {
             search: false,
