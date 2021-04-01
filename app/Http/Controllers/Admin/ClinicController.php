@@ -219,6 +219,7 @@ class ClinicController extends Controller
     {
         $speciality = new Speciality();
         $speciality->name = $request->get('name');
+        $speciality->name_en = $request->get('name_english');
         $speciality->parent_id = $parent ?? $request->get('parent');
         $speciality->description = $request->get('description');
         $speciality->save();
@@ -264,6 +265,7 @@ class ClinicController extends Controller
         }
 
         $speciality->name = $request->get('name');
+        $speciality->name_en = $request->get('name_english');
         $speciality->parent_id = $request->get('parent');
         $speciality->description = $request->get('description');
         $speciality->save();

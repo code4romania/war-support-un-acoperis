@@ -112,7 +112,11 @@
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic specialization') }}</h4>
                     <ul class="list-custom">
                         @foreach($clinic->specialities as $speciality)
+                            @if (app()->getLocale() === 'en')
+                            <li>{{ $speciality->name_en }}</li>
+                            @else
                             <li>{{ $speciality->name }}</li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
