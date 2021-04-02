@@ -112,6 +112,7 @@ class ClinicController extends Controller
                 ->id;
         }
         $clinic->name = $request->get('name', $clinic->name);
+        $clinic->name_en = $request->get('name_english', $clinic->name_en);
         $clinic->description = $request->get('description', $clinic->description);
         $clinic->description_en = $request->get('description_english', $clinic->description_en);
         $clinic->additional_information = $request->get('extra_details', $clinic->additional_information);
@@ -160,6 +161,7 @@ class ClinicController extends Controller
         }
         $clinic = new Clinic();
         $clinic->name = $request->get('name');
+        $clinic->name_en = $request->get('name_english');
         $clinic->description = $request->get('description');
         $clinic->description_en = $request->get('description_english');
         $clinic->additional_information = $request->get('extra_details');

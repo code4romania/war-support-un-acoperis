@@ -33,6 +33,7 @@ class ClinicRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'min:2', 'max:128'],
+            'name_english' => ['required', 'string', 'min:2', 'max:128'],
             'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['required', 'exists:specialities,id'],
             'country' => ['required', 'exists:countries,id'],
