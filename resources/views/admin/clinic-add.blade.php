@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="required font-weight-600" for="name_english">Nume clinică engleză:</label>
+                            <label class="font-weight-600" for="name_english">Nume clinică engleză:</label>
                             <input type="text" placeholder="Vienna General Hospital" class="form-control @error('name_english') is-invalid @enderror" name="name_english" id="name_english" value="{{ old('name_english') }}" />
 
                             @error('name_english')
