@@ -40,8 +40,19 @@
     <script>
         $(document).ready(function() {
             $('#auditLogsTable').DataTable( {
-                "ajax": '{{ route('admin.auditLogs.search') }}'
-            } );
-        } );
-    </script>
+                "ajax": '{{ route('admin.auditLogs.search') }}',
+                "processing": true,
+                "serverSide": true,
+                "columns": [
+                    {data: 'user', name: 'user'},
+                    {data: 'role', name: 'role'},
+                    {data: 'event', name: 'event'},
+                    {data: 'type', name: 'type'},
+                    {data: 'url', name: 'url'},
+                    {data: 'created_at', name: 'created_at', searchable: false},
+                    {data: 'action', name: 'action', searchable: false}
+                ]
+  } );
+} );
+</script>
 @endsection

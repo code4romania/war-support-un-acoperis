@@ -31,8 +31,13 @@ class SpecialityRequest extends FormRequest
         $uniqueName .= ',' . (!empty($this->id) ? $this->id : 'NULL');
         $uniqueName .= ',id,deleted_at,NULL'; // ignore soft deleted entries
 
+        $uniqueNameEnglish = 'unique:specialities,name_en';
+        $uniqueNameEnglish .= ',' . (!empty($this->id) ? $this->id : 'NULL');
+        $uniqueNameEnglish .= ',id,deleted_at,NULL'; // ignore soft deleted entries
+
         return [
             'name' => ['required', $uniqueName, 'string', 'max:128'],
+            'name_english' => ['required', $uniqueNameEnglish, 'string', 'max:128'],
             'parent' => ['nullable', 'exists:specialities,id'],
             'description' => ['nullable', 'string', 'max:8192']
         ];

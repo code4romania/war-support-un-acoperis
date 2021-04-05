@@ -32,7 +32,15 @@
     <script>
         $(document).ready(function() {
             $('#auditLogsTable').DataTable( {
-                "ajax": '{{ route('admin.loginLogs.search') }}'
+                "ajax": '{{ route('admin.loginLogs.search') }}',
+                "processing": true,
+                "serverSide": true,
+                "columns": [
+                    {data: 'user_id', name: 'user_id', searchable: false},
+                    {data: 'email_address', name: 'email_address'},
+                    {data: 'failed_login_attempts', name: 'failed_login_attempts', searchable: false},
+                    {data: 'last_login', name: 'last_login', searchable: false}
+                ]
             } );
         } );
     </script>

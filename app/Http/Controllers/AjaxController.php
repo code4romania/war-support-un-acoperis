@@ -13,6 +13,7 @@ use App\HelpRequestType;
 use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Controllers\Host\ProfileController;
+use App\Http\Middleware\SetLanguage;
 use App\Http\Requests\BookAccommodationRequest;
 use App\Note;
 use App\Services\ChartService;
@@ -305,6 +306,13 @@ class AjaxController extends Controller
      */
     public function clinicList(Request $request)
     {
+        // Determine locale from referer url for toast messages
+        $referer = parse_url(request()->headers->get('referer'));
+        $path = array_values(array_filter(explode('/', $referer['path'])));
+        $locale = in_array($path[0] ?? '', SetLanguage::ACCEPTED_LANGUAGES) ?
+            $path[0] :
+            null;
+
         /** @var Builder $query */
         $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->with('specialities')->orderBy('clinics.id', 'desc');
 
@@ -332,6 +340,7 @@ class AjaxController extends Controller
         $query->select([
             'clinics.id',
             'clinics.name',
+            'clinics.name_en',
             'clinics.slug',
             'countries.name as country',
             'clinics.city'
@@ -345,9 +354,13 @@ class AjaxController extends Controller
 
         $response = $query->paginate($perPage);
         $collection = $response->getCollection()
-            ->map(function ($item) {
-                $item->name = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                $item->city = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            ->map(function ($item) use ($locale) {
+                if ($locale == 'en' && ! empty($item->name_en)) {
+                    $item->name = htmlentities($item->name_en, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                } else {
+                    $item->name = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                }
+                $item->city = htmlentities($item->city, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 return $item;
             });
         $response->setCollection($collection);

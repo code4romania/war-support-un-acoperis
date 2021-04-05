@@ -46,6 +46,18 @@
                         </div>
                     </div>
                     @endif
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name_english" class="required font-weight-600">Denumire categorie engleză:</label>
+                            <input type="text" class="form-control" placeholder="ex. Oncology" name="name_english" id="name_english" value="{{ $category->name_en }}">
+
+                            @error('name_english')
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="description" class="font-weight-600">Descriere:</label>

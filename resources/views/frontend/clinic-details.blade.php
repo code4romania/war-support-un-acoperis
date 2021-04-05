@@ -7,7 +7,13 @@
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-0 text-primary">{{ $clinic->name }}</h1>
+        <h1 class="display-3 title mb-0 text-primary">
+            @if (app()->getLocale() === 'en')
+                {{ $clinic->name_en }}
+            @else
+                {{ $clinic->name }}
+            @endif
+            </h1>
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
@@ -91,7 +97,11 @@
                 <div class="description mb-6">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Description') }}</h4>
                     <div>
-                        {!! $clinic->description !!}
+                        @if (app()->getLocale() === 'en')
+                            {!! $clinic->description_en !!}
+                        @else
+                            {!! $clinic->description !!}
+                        @endif
                     </div>
                 </div>
                 @endif
@@ -99,7 +109,11 @@
                 <div class="extra-info">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional information') }}</h4>
                     <div>
-                        {!! $clinic->additional_information !!}
+                        @if (app()->getLocale() === 'en')
+                            {!! $clinic->additional_information_en !!}
+                        @else
+                            {!! $clinic->additional_information !!}
+                        @endif
                     </div>
                 </div>
                 @endif
@@ -112,7 +126,11 @@
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic specialization') }}</h4>
                     <ul class="list-custom">
                         @foreach($clinic->specialities as $speciality)
+                            @if (app()->getLocale() === 'en')
+                            <li>{{ $speciality->name_en }}</li>
+                            @else
                             <li>{{ $speciality->name }}</li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
@@ -120,7 +138,11 @@
                 @if ($clinic->transport_details)
                 <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic transport') }}</h4>
                 <div>
-                    {!! $clinic->transport_details !!}
+                    @if (app()->getLocale() === 'en')
+                        {!! $clinic->transport_details_en !!}
+                    @else
+                        {!! $clinic->transport_details !!}
+                    @endif
                 </div>
                 @endif
             </div>

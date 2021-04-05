@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use OwenIt\Auditing\Models\Audit;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -15,18 +17,19 @@ class AuditLogController extends Controller
 
     public function search()
     {
-        $model = Audit::query();
-        return DataTables::eloquent($model)
-            ->setTransformer(function ($item) {
+        $model = DB::table('audits_view');
+
+        return DataTables::of($model)
+           ->setTransformer(function ($item) {
                 return [
-                    $item->user ? htmlentities($item->user->name, ENT_QUOTES | ENT_HTML5, 'UTF-8') : '',
-                    $item->user ? $item->user->roles->pluck('name')->implode(', ') : '',
-                    $item->event,
-                    $item->auditable_type,
-                    $item->url,
-                    $item->created_at->toDateTimeString(),
-                    '<td><a class="btn btn-primary btn-sm text-purple" href="'
-                    . route('admin.auditLogs.show', ['log' => $item])
+                    'user' => $item->user ? htmlentities($item->user, ENT_QUOTES | ENT_HTML5, 'UTF-8') : '',
+                    'role' => $item->role ? $item->role : '',
+                    'event' => $item->event,
+                    'type' => $item->type,
+                    'url' => $item->url,
+                    'created_at' => (new Carbon($item->created_at))->toDateTimeString(),
+                    'action' => '<td><a class="btn btn-primary btn-sm text-purple" href="'
+                    . route('admin.auditLogs.show', ['log' => Audit::find($item->id)])
                     . '">'
                     . __('Details')
                     . '</a></td>',
