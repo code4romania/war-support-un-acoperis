@@ -7,7 +7,13 @@
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-0 text-primary">{{ $clinic->name }}</h1>
+        <h1 class="display-3 title mb-0 text-primary">
+            @if (app()->getLocale() === 'en')
+                {{ $clinic->name_en }}
+            @else
+                {{ $clinic->name }}
+            @endif
+            </h1>
     </div>
     <section class="bg-light-blue py-4">
         <div class="container">
