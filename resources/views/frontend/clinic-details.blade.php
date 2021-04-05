@@ -9,7 +9,7 @@
         @endif
         <h1 class="display-3 title mb-0 text-primary">
             @if (app()->getLocale() === 'en')
-                {{ $clinic->name_en }}
+                {{ $clinic->name_en ?? $clinic->name }}
             @else
                 {{ $clinic->name }}
             @endif
@@ -91,9 +91,10 @@
             @endif
         </div>
         <div class="row">
-            @if ($clinic->description || $clinic->additional_information)
+            @if (($clinic->description || $clinic->additional_information)
+                || (app()->getLocale() === 'en' && ($clinic->description_en || $clinic->additional_information_en)))
             <div class="col-sm-6 pr-lg-5">
-                @if ($clinic->description)
+                @if ($clinic->description || (app()->getLocale() === 'en' && $clinic->description_en))
                 <div class="description mb-6">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Description') }}</h4>
                     <div>
@@ -105,7 +106,7 @@
                     </div>
                 </div>
                 @endif
-                @if ($clinic->additional_information)
+                @if ($clinic->additional_information || (app()->getLocale() === 'en' && $clinic->additional_information_en))
                 <div class="extra-info">
                     <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic additional information') }}</h4>
                     <div>
@@ -119,7 +120,8 @@
                 @endif
             </div>
             @endif
-            @if ($clinic->specialities || $clinic->transport_details)
+            @if (($clinic->specialities || $clinic->transport_details) ||
+                    (app()->getLocale() === 'en' && $clinic->transport_details_en))
             <div class="col-sm-6 pl-lg-5">
                 @if ($clinic->specialities)
                 <div class="mb-5">
@@ -135,7 +137,7 @@
                     </ul>
                 </div>
                 @endif
-                @if ($clinic->transport_details)
+                @if ($clinic->transport_details || (app()->getLocale() === 'en' && $clinic->transport_details_en))
                 <h4 class="text-primary mb-4 font-weight-600">{{ __('Clinic transport') }}</h4>
                 <div>
                     @if (app()->getLocale() === 'en')
