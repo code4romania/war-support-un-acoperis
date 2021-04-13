@@ -27,6 +27,7 @@ class SecurityHeaders
 
         if (method_exists($response, 'header')) {
             $response->headers->remove('x-cdn');
+            $response->headers->remove('X-CDN');
             if (app()->environment(['production', 'development'])) {
                 $response->headers->add(
                     [
