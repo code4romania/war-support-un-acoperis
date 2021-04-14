@@ -18,6 +18,13 @@ class LoginSecurityMiddleware
     {
         $authenticator = app(Google2FAAuthenticator::class)->boot($request);
 
+        if ($request->has(config('google2fa.otp_input'))) {
+            // This assumes that 2fa checks contain a captcha code as well
+            $request->validate([
+                'g-recaptcha-response' => 'required|captcha',
+            ]);
+        }
+
         if ($authenticator->isAuthenticated()) {
             return $next($request);
         }
