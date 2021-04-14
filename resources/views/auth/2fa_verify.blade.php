@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-body pt-4">
                         {{ __('Enter the pin from Google Authenticator app') }}<br/><br/>
-                        <form class="form-horizontal" action="{{ route('2faVerify') }}" method="POST">
+                        <form id="2faForm" class="form-horizontal" action="{{ route('2faVerify') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('one_time_password-code') ? ' has-error' : '' }}">
                                 <input id="one_time_password" name="one_time_password"  class="form-control col-md-4 @if ($errors->any()) is-invalid @endif"  type="text" required/>
@@ -35,10 +35,14 @@
                                     </span>
                                 @endif
                             </div>
-                            <button class="btn btn-primary" type="submit">{{ __('Authenticate') }}</button>
+                            {!! NoCaptcha::displaySubmit('2faForm', __('Authenticate'), ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                         </form>
                     </div>
                 </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    {!! NoCaptcha::renderJs(request()->route()->parameters['locale'] ?? app()->getLocale()) !!}
 @endsection
