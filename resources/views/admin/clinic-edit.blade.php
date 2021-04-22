@@ -172,7 +172,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="font-weight-600" for="contact_phone">Telefon persoană de contact:</label>
-                                <input type="tel" placeholder="742000000" class="form-control @error('contact_phone') is-invalid @enderror" name="contact_phone" id="contact_phone" value="{{ old('phone', $clinic->contact_person_phone) }}" />
+                                <input type="tel" placeholder="742000000" class="form-control @error('contact_phone') is-invalid @enderror" name="contact_phone" id="contact_phone" value="{{ old('contact_phone', $clinic->contact_person_phone) }}" />
 
                                 @error('contact_phone')
                                 <span class="invalid-feedback d-flex" role="alert">
