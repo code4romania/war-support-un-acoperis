@@ -102,15 +102,7 @@ class ClinicController extends Controller
         if (empty($clinic)) {
             abort(404);
         }
-        $phoneCountryId = Country::where('code', $request->get('phonePrefix'))
-            ->first()
-            ->id;
-        $contactPhoneCountryId = null;
-        if ($request->get('contact_phonePrefix')) {
-            $contactPhoneCountryId = Country::where('code', $request->get('contact_phonePrefix'))
-                ->first()
-                ->id;
-        }
+
         $clinic->name = $request->get('name', $clinic->name);
         $clinic->name_en = $request->get('name_english', $clinic->name_en);
         $clinic->description = $request->get('description', $clinic->description);
@@ -122,12 +114,10 @@ class ClinicController extends Controller
         $clinic->country_id = $request->get('country', $clinic->country_id);
         $clinic->city = $request->get('city', $clinic->city);
         $clinic->address = $request->get('address', $clinic->address);
-        $clinic->phone_country_id = $phoneCountryId;
         $clinic->phone_number = $request->get('phone', $clinic->phone_number);
         $clinic->website = $request->get('website', $clinic->website);
         $clinic->office_email = $request->get('office_email', $clinic->office_email);
         $clinic->contact_person_name = $request->get('contact_name', $clinic->contact_person_name);
-        $clinic->contact_phone_country_id = $contactPhoneCountryId;
         $clinic->contact_person_phone = $request->get('contact_phone', $clinic->contact_person_phone);
         $clinic->contact_person_email = $request->get('contact_email', $clinic->contact_person_email);
         $clinic->save();
@@ -150,15 +140,6 @@ class ClinicController extends Controller
     public function clinicCreate(ClinicRequest $request)
     {
 
-        $phoneCountryId = Country::where('code', $request->get('phonePrefix'))
-            ->first()
-            ->id;
-        $contactPhoneCountryId = null;
-        if ($request->get('contact_phonePrefix')) {
-            $contactPhoneCountryId = Country::where('code', $request->get('contact_phonePrefix'))
-                ->first()
-                ->id;
-        }
         $clinic = new Clinic();
         $clinic->name = $request->get('name');
         $clinic->name_en = $request->get('name_english');
@@ -171,12 +152,10 @@ class ClinicController extends Controller
         $clinic->country_id = $request->get('country');
         $clinic->city = $request->get('city');
         $clinic->address = $request->get('address');
-        $clinic->phone_country_id = $phoneCountryId;
         $clinic->phone_number = $request->get('phone');
         $clinic->website = $request->get('website');
         $clinic->office_email = $request->get('office_email');
         $clinic->contact_person_name = $request->get('contact_name');
-        $clinic->contact_phone_country_id = $contactPhoneCountryId;
         $clinic->contact_person_phone = $request->get('contact_phone');
         $clinic->contact_person_email = $request->get('contact_email');
         $clinic->save();
