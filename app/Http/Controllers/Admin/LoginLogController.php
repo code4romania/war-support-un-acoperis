@@ -26,7 +26,7 @@ class LoginLogController extends Controller
                 return [
                     'user_id' => $item->user_id,
                     'email_address' => htmlentities($item->email_address, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
-                    'failed_login_attempts' => $item->failed_attempts,
+                    'failed_attempts' => $item->failed_attempts,
                     'last_login' => $item->last_login
                 ];
             })

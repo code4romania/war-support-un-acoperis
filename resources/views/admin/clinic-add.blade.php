@@ -160,6 +160,18 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-600" for="contact_name_english">Nume persoană de contact engleză:</label>
+                                <input type="text" placeholder="Johan Donald" class="form-control @error('contact_name_english') is-invalid @enderror" name="contact_name_english" id="contact_name_english" value="{{ old('contact_name_english') }}" />
+
+                                @error('contact_name_english')
+                                <span class="invalid-feedback d-flex" role="alert">
+                                    {{ $message }}
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">

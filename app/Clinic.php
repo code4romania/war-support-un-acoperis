@@ -20,15 +20,20 @@ use Spatie\Sluggable\SlugOptions;
  * @property string $name
  * @property string $slug
  * @property string|null $description
+ * @property string|null $description_en
  * @property string|null $additional_information
+ * @property string|null $additional_information_en
  * @property string|null $transport_details
+ * @property string|null $transport_details_en
  * @property int $country_id
  * @property string $city
  * @property string|null $address
  * @property int|null $phone_country_id
  * @property string|null $phone_number
  * @property string|null $website
+ * @property string|null $office_email
  * @property string|null $contact_person_name
+ * @property string|null $contact_person_name_en
  * @property int|null $contact_phone_country_id
  * @property string|null $contact_person_phone
  * @property string|null $contact_person_email

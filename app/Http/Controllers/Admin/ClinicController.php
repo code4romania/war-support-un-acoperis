@@ -118,6 +118,7 @@ class ClinicController extends Controller
         $clinic->website = $request->get('website', $clinic->website);
         $clinic->office_email = $request->get('office_email', $clinic->office_email);
         $clinic->contact_person_name = $request->get('contact_name', $clinic->contact_person_name);
+        $clinic->contact_person_name_en = $request->get('contact_name_english', $clinic->contact_person_name_en);
         $clinic->contact_person_phone = $request->get('contact_phone', $clinic->contact_person_phone);
         $clinic->contact_person_email = $request->get('contact_email', $clinic->contact_person_email);
         $clinic->save();
@@ -156,6 +157,7 @@ class ClinicController extends Controller
         $clinic->website = $request->get('website');
         $clinic->office_email = $request->get('office_email');
         $clinic->contact_person_name = $request->get('contact_name');
+        $clinic->contact_person_name_en = $request->get('contact_name_english');
         $clinic->contact_person_phone = $request->get('contact_phone');
         $clinic->contact_person_email = $request->get('contact_email');
         $clinic->save();

@@ -84,8 +84,6 @@ class HelpRequest extends Notification
                 $mail->line("- " . __("Detail here if you need special accommodation conditions") . ": " . $helpRequest->helprequestaccommodationdetail[0]->special_request);
             }
 
-
-
             if ($helptype->pivot->help_type_id == HelpType::TYPE_OTHER_NEEDS) {
                 $mail->line("- " . $helptype->pivot->message);
             }
