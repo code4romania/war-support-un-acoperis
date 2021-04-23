@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\ResourceType;
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -35,11 +37,23 @@ class HelpResourceRequest extends FormRequest
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
             'phone' => ['required', 'string', 'max:16'],
-            'email' => ['required', 'email', 'min:5', 'max:64', 'unique:users,email'],
+            'email' => ['required', 'email', 'min:5', 'max:64', function ($attribute, $value, $fail) {
+                if (! is_null($this->request->get('help'))) {
+                    $resourceTypes = ResourceType::whereIn('id', $this->request->get('help'))
+                        ->get()
+                        ->pluck('name')
+                        ->toArray();
+
+                    if (in_array('accommodation', $resourceTypes)) {
+                        if (User::where('email', $value)->count() > 0) {
+                            $fail(__('This email is already used.')  );
+                        }
+                    }
+                }
+            },],
             'help' => ['required'],
             'other' => ['nullable', 'string', 'min:2', 'max:256'],
         ];
-
 
         if (Route::currentRouteName() == 'store-get-involved') {
             $validatorRules['g-recaptcha-response'] = ['required', 'captcha'];
