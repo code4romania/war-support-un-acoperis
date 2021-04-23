@@ -66,7 +66,7 @@
                                     <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
                                         <option>Selectați Țara</option>
                                         @foreach($countries as $country)
-                                        <option value="{{ $country->id }}" {{ old('country', $clinic->country_id) == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
+                                        <option value="{{ $country->id }}" {{ old('country', $clinic->country_id) == $country->id ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                                         @endforeach
                                     </select>
 
