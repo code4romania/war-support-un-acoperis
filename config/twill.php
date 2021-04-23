@@ -64,7 +64,6 @@ return [
         ],
         'footer' => [
             'partners' => 2,
-            'about' => 8,
             'media' => 3,
             'news' => 6,
             'gdpr' => 4,
