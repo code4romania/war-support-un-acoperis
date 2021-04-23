@@ -104,7 +104,7 @@
                 @if ($clinic->specialities || $clinic->transport_details)
                 <div class="col-6">
                     @if ($clinic->specialities)
-                    <h4 class="font-weight-600 text-primary mt-5">Specializare</h4>
+                    <h4 class="font-weight-600 text-primary mt-5">{{ __('Speciality') }}</h4>
                     <ul class="list-custom">
                         @foreach($clinic->specialities as $speciality)
                             <li>{{ $speciality->name }}</li>
