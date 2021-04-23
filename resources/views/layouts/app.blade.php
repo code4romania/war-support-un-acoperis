@@ -45,7 +45,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/images/logo-h4h.png" height="75" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
+                    <img src="/images/logo.png" height="75" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('/') }}">
-                                    <img src="/images/logo-h4h.svg" alt="{{ config('app.name') }}">
+                                    <img src="/images/logo.png" alt="{{ config('app.name') }}">
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">

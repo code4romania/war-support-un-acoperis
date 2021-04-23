@@ -66,7 +66,7 @@
                                     <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
                                         <option>Selectati Țara</option>
                                         @foreach($countries as $country)
-                                            <option value="{{ $country->id }}" {{ old('country') ? 'selected' : '' }}>{{ $country->name }}</option>
+                                            <option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -110,7 +110,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="required font-weight-600" for="phone">Număr de telefon:</label>
-                            <input type="tel" placeholder="742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+                            <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
 
                             @error('phone')
                             <span class="invalid-feedback d-flex" role="alert">
@@ -165,7 +165,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="font-weight-600" for="contact_phone">Telefon persoană de contact:</label>
-                                <input type="tel" placeholder="742000000" class="form-control @error('contact_phone') is-invalid @enderror" name="contact_phone" id="contact_phone" value="{{ old('contact_phone') }}" />
+                                <input type="tel" placeholder="0742000000" class="form-control @error('contact_phone') is-invalid @enderror" name="contact_phone" id="contact_phone" value="{{ old('contact_phone') }}" />
 
                                 @error('contact_phone')
                                 <span class="invalid-feedback d-flex" role="alert">
