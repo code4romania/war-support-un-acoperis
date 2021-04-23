@@ -75,6 +75,6 @@ class HelpResource extends Model implements Auditable
 
     public function getMessageAttribute()
     {
-        return htmlentities($this->attributes['message'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        return htmlentities($this->attributes['message'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 }
