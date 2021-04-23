@@ -6,27 +6,23 @@
         <ul class="d-flex justify-content-around list-unstyled align-items-center flex-column flex-sm-row pb-4 border-bottom border-bottom-dark">
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[1]->getSlug()]) }}">{{ __('About the project') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[5]->getSlug()]) }}">{{ __('FAQ') }}</a>
             </li>
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[6]->getSlug()]) }}">{{ __('FAQ') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[1]->getSlug()]) }}">{{ __('Media') }}</a>
             </li>
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[2]->getSlug()]) }}">{{ __('Media') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[2]->getSlug()]) }}">{{ __('News') }}</a>
             </li>
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[3]->getSlug()]) }}">{{ __('News') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[3]->getSlug()]) }}">{{ __('Confidentiality policy') }}</a>
             </li>
             <li>
                 <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[4]->getSlug()]) }}">{{ __('Confidentiality policy') }}</a>
-            </li>
-            <li>
-                <a class="nav-link text-white mb-2 mb-sm-0"
-                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[5]->getSlug()]) }}">{{ __('Terms and conditions') }}</a>
+                   href="{{ route('static.pages', ['locale' => app()->getLocale(), 'slug' => $footerNavigation[4]->getSlug()]) }}">{{ __('Terms and conditions') }}</a>
             </li>
             <li>
                 <a class="text-white btn btn-primary" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">{{ __('Support this project') }}</a>
