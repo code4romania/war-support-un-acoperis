@@ -43,6 +43,7 @@ class ClinicRequest extends FormRequest
             'website' => ['required', 'url', 'max:256'],
             'office_email' => ['nullable', 'email', 'min:5', 'max:64'],
             'contact_name' => ['nullable','string', 'min:2', 'max:64'],
+            'contact_name_english' => ['nullable', 'string', 'min:2', 'max:64'],
             'contact_phone' => ['nullable', 'string', 'max:16'],
             'contact_email' => ['nullable','email', 'min:5', 'max:64'],
             'description' => ['nullable', 'string', 'max:20000'],

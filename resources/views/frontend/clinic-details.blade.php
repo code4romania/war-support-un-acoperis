@@ -66,7 +66,11 @@
                     <li class="d-flex">
                         <i class="fa fa-user-circle"></i>
                         <span>
+                            @if (app()->getLocale() === 'en')
+                            {{ $clinic->contact_person_name_en ?? $clinic->contact_person_name }}
+                            @else
                             {{ $clinic->contact_person_name }}
+                            @endif
                         </span>
                     </li>
                     @endif
