@@ -179,6 +179,46 @@
 
         @include('partials.footer')
     </div>
+    <div class="modal fade" id="ie11Modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title mb-5">
+                        {{ __('IE11') }}
+                    </h5>
+
+                    <div class="card-columns">
+                        <div class="card shadow-none mb-0">
+                            <img class="card-img-top w-50 mx-auto d-block" src="/images/browsers/e.png" alt="Microsoft Edge">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Edge</h5>
+                                <p class="card-text small text-center">Microsoft</p>
+                                <a href="https://www.microsoft.com/edge" rel="noopener noreferrer" target="_blank" class="btn btn-primary mx-auto d-block">{{ __('Download') }}</a>
+                            </div>
+                        </div>
+                        <div class="card shadow-none mb-0">
+                            <img class="card-img-top w-50 mx-auto d-block" src="/images/browsers/c.png" alt="Microsoft Edge">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Chrome</h5>
+                                <p class="card-text small text-center">Google</p>
+                                <a href="https://www.google.com/chrome/browser/desktop/" rel="noopener noreferrer" target="_blank" class="btn btn-primary mx-auto d-block">{{ __('Download') }}</a>
+                            </div>
+                        </div>
+                        <div class="card shadow-none mb-0">
+                            <img class="card-img-top w-50 mx-auto d-block" src="/images/browsers/f.png" alt="Microsoft Edge">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Firefox</h5>
+                                <p class="card-text small text-center">Mozilla</p>
+                                <a href="https://www.mozilla.org/firefox/new" rel="noopener noreferrer" target="_blank" class="btn btn-primary mx-auto d-block">{{ __('Download') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>

@@ -1,12 +1,20 @@
 require('./bootstrap');
 require("flatpickr");
 require("perfect-scrollbar");
+const { detect } = require('detect-browser');
+
 window.StickySidebar = require('sticky-sidebar');
 var Chart = require('chart.js');
 
 import { Romanian } from "flatpickr/dist/l10n/ro.js"
 
 (function($) {
+    const browser = detect();
+
+    if (browser.name === 'ie' && browser.version.substring(0, 2) === '11') {
+        $('#ie11Modal').modal({show:true, backdrop: 'static', keyboard: false});
+    }
+
     $.QueryString = (function(paramsArray) {
         let params = {};
 
