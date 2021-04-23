@@ -25,7 +25,7 @@ class ContactController extends Controller
 
     public function sendContact(ContactRequest $request)
     {
-        Notification::route('mail', config('mail.from.address'))->notify(new ContactMail(
+        Notification::route('mail', env('MAIL_CONTACT_TO'))->notify(new ContactMail(
             $request->get('name'),
             $request->get('email'),
             $request->get('phone'),

@@ -131,8 +131,10 @@ class RequestServicesController extends Controller
             $helpRequestAccommodationDetails->save();
         }
 
-        Notification::route('mail', $helpRequest->caretaker_email)
+        Notification::route('mail', $helpRequest->caretaker_email ?? $helpRequest->patient_email )
             ->notify(new \App\Notifications\HelpRequest($helpRequest));
+        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
+            ->notify(new \App\Notifications\HelpRequestInfoAdminMail($helpRequest));
 
         return redirect()->route('request-services-thanks');
     }
