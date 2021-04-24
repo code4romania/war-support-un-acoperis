@@ -10,7 +10,7 @@ import { Romanian } from "flatpickr/dist/l10n/ro.js"
 
 (function($) {
     const browser = detect();
-
+    console.log(browser.name, browser.version);
     if (browser.name === 'ie' && browser.version.substring(0, 2) === '11') {
         $('#ie11Modal').modal({show:true, backdrop: 'static', keyboard: false});
     }
