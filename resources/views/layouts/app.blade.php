@@ -223,9 +223,10 @@
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             const browser = browserDetect();
-            console.log(browser.name, browser.version);
             if (browser.name === 'ie' && browser.version.substring(0, 2) === '11') {
-                $('#ie11Modal').modal({show:true, backdrop: 'static', keyboard: false});
+                let modal = document.getElementById('ie11Modal');
+                modal.classList.add('show');
+                modal.style.display = 'block';
             }
         });
     </script>
