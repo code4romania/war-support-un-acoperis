@@ -31,9 +31,9 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.9.2",
+        "browser-detect": "^0.2.28",
         "chart.js": "^2.9.4",
         "datatables.net-dt": "^1.10.24",
-        "detect-browser": "^5.2.0",
         "flatpickr": "^4.6.9",
         "sticky-sidebar": "^3.3.1"
     }

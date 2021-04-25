@@ -219,6 +219,17 @@
         </div>
     </div>
 
+    <script src="{{ mix('js/browser-detect.umd.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const browser = browserDetect();
+            if (browser.name === 'ie' && browser.version.substring(0, 2) === '11') {
+                let modal = document.getElementById('ie11Modal');
+                modal.classList.add('show');
+                modal.style.display = 'block';
+            }
+        });
+    </script>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>

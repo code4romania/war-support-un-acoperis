@@ -377,5 +377,6 @@
     "New help request with id #:id" : "Aveți o nouă cerere de ajutor cu id-ul #:id",
     "A new help request was submitted. Details can be seen to the url below:": "A sosit o nouă cerere de ajutor din platforma impreunapentrusanatate.ro. Mai multe detalii gasiti la linkul de mai jos:",
 
-    "This email is already used.": "Adresa de e-mail este deja folosită."
+    "This email is already used.": "Adresa de e-mail este deja folosită.",
+    "IE11": "Browser-ul tău (Internet Explorer) este învechit și nu permite navigarea pe acest site. Pentru a putea accesa siteul te rugăm să descarci un browser modern."
 }

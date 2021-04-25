@@ -34,7 +34,7 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('node_modules/datatables.net-dt/js/dataTables.dataTables.js', 'public/js/jquery.dataTables.min.js')
     .copy('node_modules/datatables.net-dt/css/jquery.dataTables.css', 'public/css/jquery.dataTables.css')
     .copy('node_modules/datatables.net-dt/images', 'public/images')
-
+    .copy('node_modules/browser-detect/dist/browser-detect.umd.js', 'public/js/browser-detect.umd.js')
     .version()
 if (mix.inProduction()) {
     mix.version();
