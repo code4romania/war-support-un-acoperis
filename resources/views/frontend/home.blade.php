@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="card text-center shadow-sm">
-                    <img src="/images/homepage-icon-3-1.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
+                    <img src="/images/homepage-icon-3.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
                     <div class="card-body">
                         <h5 class="card-title font-weight-600">{{ $helpBlock2Title }}</h5>
                         <p class="card-text mb-3">{!! $helpBlock2Body !!}</p>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="card text-center shadow-sm">
-                    <img src="/images/homepage-icon-2.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
+                    <img src="/images/homepage-icon-2-1.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
                     <div class="card-body">
                         <h5 class="card-title font-weight-600">{{ $helpBlock4Title }}</h5>
                         <p class="card-text mb-3">{!! $helpBlock4Body !!}</p>
