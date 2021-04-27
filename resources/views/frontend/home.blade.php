@@ -104,3 +104,6 @@
         </div>
     </div>
 @endsection
+@section('homepage-partners')
+    @include('site.blocks.homepage-partners')
+@endsection

@@ -25,3 +25,17 @@
 template {
     display: none;
 }
+
+@include media-breakpoint-down(sm) {
+  footer {
+    .social-buttons {
+      justify-content: center !important;
+    }
+    .footer-logos {
+      margin-top:1rem;
+      img {
+        max-height: 1.5rem;
+      }
+    }
+  }
+}
