@@ -7,7 +7,7 @@
 ])
 @formField('browser', [
     'label' => 'Partners',
-    'max' => 4,
+    'max' => 1000,
     'required' => true,
     'name' => 'partners',
     'moduleName' => 'partners'
