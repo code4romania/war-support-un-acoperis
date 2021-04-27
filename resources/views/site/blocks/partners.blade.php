@@ -8,7 +8,7 @@
             <div class="card shadow-lg--hover">
                 <div class="card-header logo-container">
                     <a href="{{ $partner->url }}" class="d-flex" style="height: 100px;">
-                        <img src="{{ $partner->image('logo', 'desktop') }}" class="mx-auto my-auto" alt="{{ $partner->title }}" style="max-height: 60px;">
+                        <img src="{{ $partner->image('logo', 'desktop') }}" class="mx-auto my-auto img-fluid" alt="{{ $partner->title }}">
                     </a>
                 </div>
                 <div class="card-footer py-2 px-4" style="background-color: #22B0E5;">
