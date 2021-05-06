@@ -22,14 +22,14 @@
             <h2 class="text-center font-weight-600 mb-5" style="color: #2574B8">{{ $helpTitle }}</h2>
             <div class="card-deck how-can-we-help">
                 <div class="card text-center shadow-sm">
-                    <img src="/images/homepage-icon-4.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
+                    <img src="/images/homepage-icon-4.1.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
                     <div class="card-body">
                         <h5 class="card-title font-weight-600">{{ $helpBlock1Title }}</h5>
                         <p class="card-text mb-3">{!! $helpBlock1Body !!}</p>
                     </div>
                 </div>
                 <div class="card text-center shadow-sm">
-                    <img src="/images/homepage-icon-3.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
+                    <img src="/images/homepage-icon-3.1.png"  class="card-img-top mt-4 w-75 mx-auto" alt="...">
                     <div class="card-body">
                         <h5 class="card-title font-weight-600">{{ $helpBlock2Title }}</h5>
                         <p class="card-text mb-3">{!! $helpBlock2Body !!}</p>
