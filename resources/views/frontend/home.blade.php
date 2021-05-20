@@ -69,7 +69,7 @@
         <div class="container text-white">
             <div class="row d-flex align-items-stretch">
                 <div class="col-sm-6">
-                    <div class="strech-bg py-5 pr-sm-6">
+                    <div class="strech-bg py-5 pr-sm-6 h-100">
                         <h2 class="text-white font-weight-600 mb-4">{{ $askServicesTitle }}</h2>
                         <p>
                             {!! $askServicesBody !!}
@@ -78,11 +78,13 @@
                     </div>
                 </div>
                 <div class="col-sm-6 py-5 pl-sm-6">
-                    <h2 class="text-white font-weight-600 mb-4">{{ $becomeHostTitle }}</h2>
-                    <p>
-                        {!! $becomeHostBody !!}
-                    </p>
-                    <a href="{{ $becomeHostLink }}" class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Partners List') }}</a>
+                    <div class="h-100">
+                        <h2 class="text-white font-weight-600 mb-4">{{ $becomeHostTitle }}</h2>
+                        <p>
+                            {!! $becomeHostBody !!}
+                        </p>
+                        <a href="{{ $becomeHostLink }}" class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Partners List') }}</a>
+                    </div>
                 </div>
             </div>
         </div>
