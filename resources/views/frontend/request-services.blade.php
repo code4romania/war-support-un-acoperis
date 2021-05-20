@@ -154,7 +154,7 @@
 
                                                 <div class="col-12 mt-4">
                                                     <div class="form-group">
-                                                        <label for="extra-details" class="font-weight-600">{{ __('Please provide us with more details regarding the case you are bringing to our attention') }}!</label>
+                                                        <label for="extra-details" class="font-weight-600">{{ __('Please provide us with more details regarding the case you are bringing to our attention') }}</label>
                                                         <textarea name="extra-details" id="extra-details" rows="5" class="form-control" placeholder="Detalii caz">{{ old('extra-details') }}</textarea>
 
                                                         @error('extra-details')
