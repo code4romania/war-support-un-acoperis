@@ -140,7 +140,7 @@
         <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">Selecteaza specialitatea de care esti interesat</h5>
+                    <h5 class="modal-title font-weight-600" id="exampleModalScrollableTitle">{{ __('Select the specialty you are interested in') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
