@@ -53,7 +53,6 @@
                         <div class="col-sm-8">
                             <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
                             <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
-
                         </div>
                     </div>
 
