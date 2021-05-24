@@ -276,9 +276,9 @@
                                                                 <option></option>
                                                                 @foreach ($countries as $country)
                                                                     @if (old('sms-clinic-country'))
-                                                                        <option value="{{ $country->id }}" {{ (old('sms-clinic-country') == $country->id ? 'selected' : '') }}>{{ $country->name }}</option>
+                                                                        <option value="{{ $country->id }}" {{ (old('sms-clinic-country') == $country->id ? 'selected' : '') }}>{{ __('countries.' . $country->name) }}</option>
                                                                     @else
-                                                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                                        <option value="{{ $country->id }}">{{ __('countries.' . $country->name) }}</option>
                                                                     @endif
                                                                 @endforeach
                                                             </select>
@@ -353,9 +353,9 @@
                                                         <option></option>
                                                         @foreach ($countries as $country)
                                                             @if (old('accommodation-country'))
-                                                                <option value="{{ $country->id }}" {{ (old('accommodation-country') == $country->id ? 'selected' : '') }}>{{ $country->name }}</option>
+                                                                <option value="{{ $country->id }}" {{ (old('accommodation-country') == $country->id ? 'selected' : '') }}>{{ __('countries.' . $country->name) }}</option>
                                                             @else
-                                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                                <option value="{{ $country->id }}">{{ __('countries.' . $country->name) }}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>

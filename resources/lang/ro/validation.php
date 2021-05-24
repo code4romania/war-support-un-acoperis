@@ -226,7 +226,8 @@ return [
         'photos' => 'poze',
         'currentPassword' => 'parolă curentă',
         'newPassword' => 'parolă nouă',
-        'retypeNewPassword' => 'rescrie parolă nouă'
+        'retypeNewPassword' => 'rescrie parolă nouă',
+        'message' => 'mesaj'
     ],
     'values' => [
         'accommodation_fee' => [
