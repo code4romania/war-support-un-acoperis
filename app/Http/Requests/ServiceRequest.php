@@ -31,8 +31,8 @@ class ServiceRequest extends FormRequest
         $rules = [
             'patient-name' => ['required', 'string', 'max:32'],
             'caretaker-name' => ['nullable', 'string', 'max:32'],
-            'patient-phone' => ['required', 'string', 'max:16'],
-            'caretaker-phone' => ['required', 'string', 'max:16'],
+            'patient-phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+            'caretaker-phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'patient-email' => ['required', 'email', 'string', 'max:255'],
             'caretaker-email' => ['nullable', 'email', 'string', 'max:255'],
             'patient-county' => ['required', 'exists:counties,id'],
