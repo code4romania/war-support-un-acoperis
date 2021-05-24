@@ -313,6 +313,12 @@ class AjaxController extends Controller
             $path[0] :
             null;
 
+        if ($request->get('locale')) {
+            $locale = $request->get('locale');
+        }
+
+        app()->setLocale($locale);
+
         /** @var Builder $query */
         $query = Clinic::join('countries', 'countries.id', '=', 'clinics.country_id')->with('specialities')->orderBy('clinics.id', 'desc');
 
@@ -360,6 +366,9 @@ class AjaxController extends Controller
                 } else {
                     $item->name = htmlentities($item->name, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 }
+
+                $item->country = __('countries.' . $item->country);
+
                 $item->city = htmlentities($item->city, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 return $item;
             });

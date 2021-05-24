@@ -68,12 +68,13 @@
 
                                                 <div class="col-sm-6">
                                                     <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
-                                                    @include('partials.phone', ['controlName' => 'patient-phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixCode' => 'RO', 'prefixValue' => ''])
+                                                    <input type="tel" placeholder="0742000000" class="form-control @error('patient-phone') is-invalid @enderror" name="patient-phone" id="patient-phone" value="{{ old('patient-phone') }}" />
                                                 </div>
 
                                                 <div class="col-sm-6">
                                                     <div><label class="font-weight-600" for="phone">{{ __("Caretaker phone") }}:</label></div>
-                                                    @include('partials.phone', ['controlName' => 'caretaker-phone', 'controlDefault' => '', 'prefixes' => $countries, 'prefixCode' => 'RO', 'prefixValue' => ''])
+                                                    <input type="tel" placeholder="0742000000" class="form-control @error('caretaker-phone') is-invalid @enderror" name="caretaker-phone" id="caretaker-phone" value="{{ old('patient-phone') }}" />
+
                                                 </div>
 
                                                 <div class="col-sm-6">
@@ -275,9 +276,9 @@
                                                                 <option></option>
                                                                 @foreach ($countries as $country)
                                                                     @if (old('sms-clinic-country'))
-                                                                        <option value="{{ $country->id }}" {{ (old('sms-clinic-country') == $country->id ? 'selected' : '') }}>{{ $country->name }}</option>
+                                                                        <option value="{{ $country->id }}" {{ (old('sms-clinic-country') == $country->id ? 'selected' : '') }}>{{ __('countries.' . $country->name) }}</option>
                                                                     @else
-                                                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                                        <option value="{{ $country->id }}">{{ __('countries.' . $country->name) }}</option>
                                                                     @endif
                                                                 @endforeach
                                                             </select>
@@ -352,9 +353,9 @@
                                                         <option></option>
                                                         @foreach ($countries as $country)
                                                             @if (old('accommodation-country'))
-                                                                <option value="{{ $country->id }}" {{ (old('accommodation-country') == $country->id ? 'selected' : '') }}>{{ $country->name }}</option>
+                                                                <option value="{{ $country->id }}" {{ (old('accommodation-country') == $country->id ? 'selected' : '') }}>{{ __('countries.' . $country->name) }}</option>
                                                             @else
-                                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                                <option value="{{ $country->id }}">{{ __('countries.' . $country->name) }}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>

@@ -55,7 +55,7 @@
                             <select name="countryFilter" id="countryFilter" class="custom-select form-control">
                                 <option value="">{{ __('All countries') }}</option>
                                 @foreach ($countryList as $country)
-                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}"{{ request()->get('country') == $country->id ? ' selected' : '' }}>{{ __('countries.' . $country->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -230,7 +230,7 @@
 
             $('.resultsPerPage').val(pageState.perPage);
 
-            let renderer = new ClinicsFrontRenderer('{{ route('ajax.clinic-list') }}', '{{ __('See details') }}', '{{ $locale }}');
+            let renderer = new ClinicsFrontRenderer('{{ route('ajax.clinic-list', ['locale' => $locale ]) }}', '{{ __('See details') }}', '{{ $locale }}');
             renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {

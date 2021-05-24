@@ -44,7 +44,7 @@
                                         <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">
                                             <option>{{ __("Select country") }}</option>
                                             @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}"{{ old('country') == $country->id ? ' selected' : '' }}>{{ $country->name }}</option>
+                                            <option value="{{ $country->id }}"{{ old('country') == $country->id ? ' selected' : '' }}>{{ __('countries.' . $country->name) }}</option>
                                             @endforeach
                                         </select>
 
