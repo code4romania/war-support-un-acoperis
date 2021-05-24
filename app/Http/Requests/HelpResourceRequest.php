@@ -36,7 +36,7 @@ class HelpResourceRequest extends FormRequest
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
-            'phone' => ['required', 'string', 'max:16'],
+            'phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'email' => ['required', 'email', 'min:5', 'max:64', function ($attribute, $value, $fail) {
                 if (! is_null($this->request->get('help'))) {
                     $resourceTypes = ResourceType::whereIn('id', $this->request->get('help'))

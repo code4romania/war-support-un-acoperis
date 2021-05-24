@@ -30,7 +30,7 @@ class ContactRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'min:3', 'max:128'],
-            'phone' => ['required', 'string', 'max:16'],
+            'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:18', 'min:10'],
             'email' => ['required', 'email', 'min:5', 'max:64'],
             'message' => ['required', 'string', 'min:5', 'max:10000'],
 //            'gdpr' => ['required'],

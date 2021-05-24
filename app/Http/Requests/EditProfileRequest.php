@@ -38,7 +38,7 @@ class EditProfileRequest extends FormRequest
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
-            'phone' => [$rulePhone, 'string', 'max:16']
+            'phone' => [$rulePhone, 'min:10', 'max:18', 'regex:/^([0-9\s\-\+\(\)]*)$/']
         ];
     }
 }
