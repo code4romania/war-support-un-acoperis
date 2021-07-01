@@ -41,6 +41,16 @@
     <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7C4LQK9PG1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-7C4LQK9PG1');
+    </script>
+
 </head>
 <body>
     <div id="app" class="admin-area">
