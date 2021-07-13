@@ -155,6 +155,8 @@
                     });
             });
 
+
+
             let body = $('body');
 
             body.on('click', '.edit-note', function() {
