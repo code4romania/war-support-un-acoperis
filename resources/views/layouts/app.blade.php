@@ -39,13 +39,13 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7C4LQK9PG1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-201038828-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-7C4LQK9PG1');
+        gtag('config', 'UA-201038828-1');
     </script>
 
     @yield('head-scripts')
