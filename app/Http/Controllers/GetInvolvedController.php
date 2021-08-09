@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -94,6 +95,9 @@ class GetInvolvedController extends Controller
                 $helpResourceType->save();
             }
         }
+
+        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
+            ->notify(new \App\Notifications\HelpResourceInfoAdminMail($helpResource));
 
         return redirect()->route('get-involved-confirmation');
     }
