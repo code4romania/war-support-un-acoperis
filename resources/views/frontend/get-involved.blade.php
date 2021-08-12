@@ -95,11 +95,11 @@
                             </div>
                         </div>
                     </div>
-                    <div clas="row">
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="" class="font-weight-600 mb-3 mt-3 d-block required">{{ __('Help type') }}</label>
-                                <div class="form-check form-check-inline mb-3">
+                                <div class="form-check form-check-inline mb-3 flex-column flex-sm-row align-items-start">
                                     @foreach ($resourceTypes as $resourceType)
                                         <div class="custom-control custom-checkbox mr-4 mb-3">
                                             <input {{ in_array($resourceType->id, (array)old('help')) ? 'checked' : '' }} class="custom-control-input @error('help') is-invalid @enderror" id="help{{ $loop->iteration }}" name="help[]" type="checkbox" value="{{ $resourceType->id }}">
@@ -110,7 +110,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <!-- Other help type -->
                     <div class="row d-none" id="other-help">
@@ -129,14 +128,12 @@
                     </div>
 
                     <div class="border-top pt-5 mt-3 clearfix">
-                        <div class="border-top pt-5 mt-3 clearfix">
-                            @error('g-recaptcha-response')
-                            <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
-                            @enderror
+                        @error('g-recaptcha-response')
+                        <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                        @enderror
 
-                            {!! NoCaptcha::displaySubmit('sendGetInvolved', "<span class=\"btn-inner--text\">" . __('Send request') . "</span>
-                                <span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary btn-h4h-offer-help-submit pull-right btn-lg px-6']) !!}
-                        </div>
+                        {!! NoCaptcha::displaySubmit('sendGetInvolved', "" . __('Send request') . "
+                            <i class=\"fa fa-arrow-right\"></i>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary btn-h4h-offer-help-submit pull-right btn-lg px-6']) !!}
                     </div>
                 </div>
             </div>
