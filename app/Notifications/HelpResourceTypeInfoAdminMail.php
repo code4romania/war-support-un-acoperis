@@ -3,25 +3,28 @@
 namespace App\Notifications;
 
 use App\HelpResource;
+use App\HelpResourceType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class HelpResourceInfoAdminMail extends Notification
+class HelpResourceTypeInfoAdminMail extends Notification
 {
     use Queueable;
 
-    private HelpResource $resource;
+    private HelpResource $resourceType;
+    private $cc;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(HelpResource $resource)
+    public function __construct(HelpResourceType $resourceType, string $cc = null)
     {
-        $this->resource = $resource;
+        $this->resourceType = $resourceType;
+        $this->cc = $cc;
     }
 
     /**
@@ -43,12 +46,18 @@ class HelpResourceInfoAdminMail extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject(__('New help resource with id #:id', ['id' => $this->resource->id]))
+        $mail = (new MailMessage)
+            ->subject(__('New help resource with id #:id', ['id' => $this->resourceType->id]))
             ->line(__("A new help resource was submitted. Details can be seen to the url below:"))
             ->line(__(":link", [
-                'link' => route('admin.resource-detail', ['id' => $this->resource->id])
+                'link' => route('admin.resource-detail', ['id' => $this->resourceType->id])
             ]));
+
+        if ($this->cc) {
+            $mail->cc($this->cc);
+        }
+
+        return $mail;
     }
 
     /**

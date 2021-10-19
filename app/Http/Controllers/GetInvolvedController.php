@@ -93,11 +93,15 @@ class GetInvolvedController extends Controller
                 }
 
                 $helpResourceType->save();
+
+                $notification = new \App\Notifications\HelpResourceTypeInfoAdminMail(
+                    $helpResourceType,
+                    env('CC_MAIL_TO_HELP_ADDRESS')
+                );
+                Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
+                    ->notify($notification);
             }
         }
-
-        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
-            ->notify(new \App\Notifications\HelpResourceInfoAdminMail($helpResource));
 
         return redirect()->route('get-involved-confirmation');
     }
