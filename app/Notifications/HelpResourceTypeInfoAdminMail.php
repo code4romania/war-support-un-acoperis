@@ -13,7 +13,7 @@ class HelpResourceTypeInfoAdminMail extends Notification
 {
     use Queueable;
 
-    private HelpResource $resourceType;
+    private $helpResourceTypeIds;
     private $cc;
 
     /**
@@ -21,9 +21,9 @@ class HelpResourceTypeInfoAdminMail extends Notification
      *
      * @return void
      */
-    public function __construct(HelpResourceType $resourceType, string $cc = null)
+    public function __construct(array $helpResourceTypeIds, string $cc = null)
     {
-        $this->resourceType = $resourceType;
+        $this->helpResourceTypeIds = $helpResourceTypeIds;
         $this->cc = $cc;
     }
 
@@ -46,12 +46,21 @@ class HelpResourceTypeInfoAdminMail extends Notification
      */
     public function toMail($notifiable)
     {
-        $mail = (new MailMessage)
-            ->subject(__('New help resource with id #:id', ['id' => $this->resourceType->id]))
-            ->line(__("A new help resource was submitted. Details can be seen to the url below:"))
-            ->line(__(":link", [
-                'link' => route('admin.resource-detail', ['id' => $this->resourceType->id])
+        $mail = (new MailMessage);
+        if (count($this->helpResourceTypeIds) == 1) {
+            $mail->subject(__('New help resource with id #:id', ['id' => $this->helpResourceTypeIds[0]]))
+                ->line(__("A new help resource was submitted. Details can be seen to the url below:"));
+        }
+        if (count($this->helpResourceTypeIds) > 1) {
+            $mail->subject(__('New help resources with ids #:ids', ['ids' => implode(', #', $this->helpResourceTypeIds)]))
+                ->line(__("New help resources were submitted. Details can be seen to the urls below:"));
+        }
+
+        foreach ($this->helpResourceTypeIds as $helpResourceTypeId) {
+            $mail->line(__(":link", [
+                'link' => route('admin.resource-detail', ['id' => $helpResourceTypeId])
             ]));
+        }
 
         if ($this->cc) {
             $mail->cc($this->cc);
