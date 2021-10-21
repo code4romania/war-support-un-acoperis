@@ -67,6 +67,7 @@ class GetInvolvedController extends Controller
         $helpTypes = $request->get('help');
 
 
+        $helpResourceTypeIds = [];
         foreach ($resourceTypes as $resourceType) {
             if (in_array($resourceType->id, $helpTypes)) {
                 $helpResourceType = new HelpResourceType();
@@ -93,11 +94,16 @@ class GetInvolvedController extends Controller
                 }
 
                 $helpResourceType->save();
+                $helpResourceTypeIds[] = $helpResourceType->id;
             }
         }
 
+        $notification = new \App\Notifications\HelpResourceTypeInfoAdminMail(
+            $helpResourceTypeIds,
+            env('CC_MAIL_TO_HELP_ADDRESS')
+        );
         Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
-            ->notify(new \App\Notifications\HelpResourceInfoAdminMail($helpResource));
+            ->notify($notification);
 
         return redirect()->route('get-involved-confirmation');
     }
