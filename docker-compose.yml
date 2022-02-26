@@ -10,10 +10,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: developer
     networks:
-      helpforhealth.local:
-        ipv4_address: 192.168.132.2
-        aliases:
-          - db.helpforhealth.local
+      - helpforhealth.local
     expose:
       - 3306
     ports:
@@ -23,7 +20,7 @@ services:
     container_name: helpforhealth_web
     build:
       dockerfile: .docker/dev/webserver/Dockerfile
-      context: .docker/dev/webserver
+      context: ./
     volumes:
       - ./:/app
     links:
@@ -42,10 +39,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: developer
     networks:
-      helpforhealth.local:
-        ipv4_address: 192.168.132.4
-        aliases:
-          - pma.helpforhealth.local
+      - helpforhealth.local
     links:
       - database:db
     expose:
