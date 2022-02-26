@@ -51,7 +51,7 @@ class StaticPagesController extends Controller
             ->with('footerBlock2Body', $settingRepository->byKey('footer_block_2_body'))
             ->with('helpRequests',$helpRequests)
             ->with('freeAccommodations',$freeAccommodations)
-            ->with('providedAccommodations',$providedAccommodations);;
+            ->with('providedAccommodations',$providedAccommodations);
     }
 
 
