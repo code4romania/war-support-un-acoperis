@@ -55,7 +55,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    @if (app()->getLocale() === 'ua' || app()->getLocale() === 'ru' || app()->getLocale() === 'en')
+                    @if (app()->getLocale() === 'ua' || app()->getLocale() === 'ru')
                         <img src="/images/logo-lang-ua.svg" alt="Prytulok u rumunii">
                     @else
                         <img src="/images/logo-lang-ro.svg" alt="Un acoperiș">
@@ -70,7 +70,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('/') }}">
-                                    @if (app()->getLocale() === 'ua' || app()->getLocale() === 'ru' || app()->getLocale() === 'en')
+                                    @if (app()->getLocale() === 'ua' || app()->getLocale() === 'ru')
                                         <img src="/images/logo-lang-ua.svg" alt="Prytulok u rumunii">
                                     @else
                                         <img src="/images/logo-lang-ro.svg" alt="Un acoperiș">
