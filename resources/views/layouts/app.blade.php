@@ -170,17 +170,14 @@
                                 @php
                                     $params = request()->route()->parameters();
                                     $en = $ro = $de = $hu = $ua = $ru = $params;
+                                    //@todo - improve this
                                     $en['locale'] = 'en';
                                     $ro['locale'] = 'ro';
-                                    $de['locale'] = 'de';
-                                    $hu['locale'] = 'hu';
                                     $ua['locale'] = 'ua';
                                     $ru['locale'] = 'ru';
                                 @endphp
                                 <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($en)) }}">EN</a>
                                 <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($ro)) }}">RO</a>
-                                <a class="dropdown-item de-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($de)) }}">DE</a>
-                                <a class="dropdown-item hu-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($hu)) }}">HU</a>
                                 <a class="dropdown-item ua-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($ua)) }}">UA</a>
                                 <a class="dropdown-item ru-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($ru)) }}">RU</a>
                             </div>
