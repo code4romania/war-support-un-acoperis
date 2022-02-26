@@ -22,5 +22,9 @@ if [ ! $(cat .env | grep NOCAPTCHA_SECRET | sed 's/NOCAPTCHA_SECRET=//') ]; then
   sed -i 's/NOCAPTCHA_SITEKEY=/NOCAPTCHA_SITEKEY=6LeHnKEeAAAAAOqo6kw0ksQESiPwic7KO1Ao_1tq/' .env
 fi
 
+# prepare Laravel log
+touch storage/logs/laravel.log
+chmod 777 storage/logs/laravel.log
+
 ## Start supervisord
 /usr/bin/supervisord

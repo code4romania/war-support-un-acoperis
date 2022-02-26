@@ -51,6 +51,8 @@ If you do not want to use the make util, you can still check the Makefile for co
 
 ### First start up
 
+Copy the .env.example to .env.
+
 In order to start the development environment, either use the make util to start (`make start`) or run `docker-compose up` in the project root directory.
 
 The only thing that should be triggered manually is the migrations & seeds commands after running the docker containers:
