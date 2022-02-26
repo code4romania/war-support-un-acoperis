@@ -28,10 +28,7 @@ services:
     links:
       - database
     networks:
-      helpforhealth.local:
-        ipv4_address: 192.168.132.3
-        aliases:
-          - helpforhealth.local
+      - helpforhealth.local
     expose:
       - 80
     ports:
