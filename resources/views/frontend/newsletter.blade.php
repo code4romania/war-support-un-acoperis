@@ -13,7 +13,7 @@
         <div class="container">
             <div id="mc_embed_signup">
                 {{-- TODO: replace the subscribe form URL --}}
-                <form class="mc-nl-subscribe" action="https://redecs.us8.list-manage.com/subscribe/post?u=ff2e2b20f5fa00ec343969c94&amp;id=98675ea750" method="post" target="_blank">
+                <form class="mc-nl-subscribe" action="{{ $formUrl }}" method="post" target="_blank">
                     <div class="card shadow mb-4 ps">
                         <div class="card-header bg-primary">
                             <h6 class="mb-0 text-white font-weight-600">{{ __('Subscribe to newsletter') }}</h6>

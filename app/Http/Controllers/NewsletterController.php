@@ -6,6 +6,7 @@ class NewsletterController extends Controller
 {
     public function newsletter()
     {
-        return view('frontend.newsletter');
+        $formUrl = config('newsletter.mc_form_url');
+        return view('frontend.newsletter')->with('formUrl', $formUrl);
     }
 }
