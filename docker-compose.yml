@@ -3,7 +3,9 @@ version: '3.8'
 services:
 
   database:
-    image: mysql:8
+    build:
+      context: .docker/mysql
+      dockerfile: Dockerfile
     container_name: helpforhealth_db
     command: --default-authentication-plugin=mysql_native_password
     environment:
@@ -23,8 +25,8 @@ services:
   webserver:
     container_name: helpforhealth_web
     build:
+      dockerfile: .docker/webserver/Dockerfile
       context: .docker/webserver
-      dockerfile: Dockerfile
     volumes:
       - ./:/app
     links:
