@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class SecurityHeaders
@@ -10,15 +11,13 @@ class SecurityHeaders
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
-
-        if (!in_array($request->headers->get('host'), $allowedHosts) && request()->path() !== 'health') {
+        if ($this->isAllowedHost($request) && $this->isNotHealthCheck() && $this->isProduction()) {
             abort(418);
         }
 
@@ -40,5 +39,33 @@ class SecurityHeaders
         }
 
         return $response;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProduction(): bool
+    {
+        return config('app.env') === 'production';
+    }
+
+    /**
+     * @param  Request  $request
+     *
+     * @return bool
+     */
+    public function isAllowedHost(Request $request): bool
+    {
+        $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
+
+        return !in_array($request->headers->get('host'), $allowedHosts);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotHealthCheck(): bool
+    {
+        return request()->path() !== 'health';
     }
 }

@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   database:
     build:
       context: .docker/dev/mysql
@@ -10,8 +9,6 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: developer
-    volumes:
-      - MySQLStorageHelpForHealth:/var/lib/mysql
     networks:
       helpforhealth.local:
         ipv4_address: 192.168.132.2
@@ -59,9 +56,3 @@ services:
 networks:
   helpforhealth.local:
     driver: bridge
-    ipam:
-      config:
-      - subnet: 192.168.132.0/24
-
-volumes:
-  MySQLStorageHelpForHealth:
