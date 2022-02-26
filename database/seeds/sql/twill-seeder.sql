@@ -357,7 +357,59 @@ INSERT INTO `setting_translations` (`id`, `setting_id`, `deleted_at`, `created_a
 ('45', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'ro', '1', 'Solicita servicii'),
 ('46', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'en', '1', NULL),
 ('47', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'ro', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac arcu in erat vestibulum mollis at id enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p><p><br></p>'),
-('48', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'en', '1', NULL);
+('48', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'en', '1', NULL),
+('50', '1', NULL, '2020-09-03 10:03:16', '2020-09-03 10:03:36', 'ua', '1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.'),
+('51', '2', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Bine ai venit!'),
+('52', '3', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.</p>'),
+('53', '4', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Cu ce te putem ajuta'),
+('54', '5', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Consultanta in strangerea de fonduri'),
+('55', '6', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('56', '7', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Accesarea serviciilor medicale potrivite'),
+('57', '8', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('58', '9', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Solutionarea altor nevoi'),
+('59', '10', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('60', '11', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Sprijin pentru a găsi cazare'),
+('61', '12', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('62', '13', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Despre proiect'),
+('63', '14', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.</p>'),
+('64', '16', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('65', '17', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Devino gazda'),
+('66', '18', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('67', '19', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Footer block 1'),
+('68', '20', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('69', '21', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', 'Footer block 2'),
+('70', '22', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('71', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'ua', '1', 'Solicita servicii'),
+('72', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'ua', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac arcu in erat vestibulum mollis at id enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p><p><br></p>');
+('73', '1', NULL, '2020-09-03 10:03:16', '2020-09-03 10:03:36', 'ru', '1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.'),
+('74', '2', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Bine ai venit!'),
+('75', '3', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci. Ridiculus facilisis curabitur bibendum ultricies lacus, sollicitudin id massa augue. Consequat ullamcorper semper nisl tristique habitant eu et ac. Auctor magna tellus cursus viverra tortor. Porttitor consequat.</p>'),
+('76', '4', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Cu ce te putem ajuta'),
+('77', '5', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Consultanta in strangerea de fonduri'),
+('78', '6', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('79', '7', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Accesarea serviciilor medicale potrivite'),
+('80', '8', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('81', '9', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Solutionarea altor nevoi'),
+('82', '10', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('83', '11', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Sprijin pentru a găsi cazare'),
+('84', '12', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam.</p>'),
+('85', '13', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Despre proiect'),
+('86', '14', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc vitae egestas fames risus. Tempus arcu, quis nec commodo habitasse dignissim donec mi. Cras viverra bibendum in tincidunt id ornare. Mi tincidunt euismod id lorem dictum. Morbi sit diam accumsan et convallis ut tellus ipsum nam. Neque pellentesque et orci, scelerisque tristique vulputate. Viverra pellentesque id dolor turpis platea sed.</p>'),
+('87', '16', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('88', '17', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Devino gazda'),
+('89', '18', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('90', '19', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Footer block 1'),
+('91', '20', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('92', '21', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', 'Footer block 2'),
+('93', '22', NULL, '2020-09-09 19:27:31', '2020-09-09 19:35:56', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed netus blandit mi non nunc. Ipsum aliquam fringilla sagittis, quis rutrum. Arcu imperdiet sem tellus accumsan urna orci.</p>'),
+('94', '23', NULL, '2020-09-09 19:35:56', '2020-09-09 19:35:56', 'ru', '1', 'Solicita servicii'),
+('95', '24', NULL, '2020-09-10 11:22:35', '2020-09-10 11:24:33', 'ru', '1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac arcu in erat vestibulum mollis at id enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p><p><br></p>');
+
+
+
+
+
+
 
 INSERT INTO `settings` (`id`, `created_at`, `updated_at`, `deleted_at`, `key`, `section`) VALUES
 ('1', '2020-09-03 10:03:16', '2020-09-03 10:03:16', NULL, 'homepage_message', 'home'),
@@ -383,7 +435,6 @@ INSERT INTO `settings` (`id`, `created_at`, `updated_at`, `deleted_at`, `key`, `
 ('22', '2020-09-09 19:27:31', '2020-09-09 19:27:31', NULL, 'footer_block_2_body', 'home'),
 ('23', '2020-09-09 19:35:56', '2020-09-09 19:35:56', NULL, 'ask_services_title', 'home'),
 ('24', '2020-09-10 11:22:35', '2020-09-10 11:22:35', NULL, 'contact_description', 'contact');
-
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

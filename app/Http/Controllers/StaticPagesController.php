@@ -17,6 +17,7 @@ class StaticPagesController extends Controller
     /**
      * @param Request $request
      * @return View
+     * @todo add return type
      */
     public function home(Request $request, SettingRepository $settingRepository)
     {
@@ -49,6 +50,7 @@ class StaticPagesController extends Controller
 
     public function redirectToLocale()
     {
+        //@to do change this based on env using config
         $locale = app()->getLocale();
         return redirect()->route('home', ['locale' => $locale]);
     }

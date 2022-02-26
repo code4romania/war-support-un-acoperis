@@ -16,7 +16,7 @@ class SecurityHeaders
      */
     public function handle($request, Closure $next)
     {
-        $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
+        $allowedHosts = ['helpforhealth.loc', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
 
         if (!in_array($request->headers->get('host'), $allowedHosts) && request()->path() !== 'health') {
             abort(418);

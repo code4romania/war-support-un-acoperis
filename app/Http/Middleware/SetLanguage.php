@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\URL;
  */
 class SetLanguage
 {
-    const ACCEPTED_LANGUAGES = ['ro', 'en', 'de', 'hu'];
+    const ACCEPTED_LANGUAGES = ['ro', 'en','ua', 'ru'];
 
     /**
      * Handle an incoming request.
@@ -22,10 +22,11 @@ class SetLanguage
      * @param Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request  $request, Closure $next)
     {
         $routeLocaleValue = $request->route('locale');
 
+        //@todo this needs to be testes if strict will affect
         if (!empty($routeLocaleValue) && in_array($routeLocaleValue, self::ACCEPTED_LANGUAGES)) {
             App::setLocale($routeLocaleValue);
         }
