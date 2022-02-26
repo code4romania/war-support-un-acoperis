@@ -259,6 +259,8 @@ INSERT INTO `page_slugs` (`id`, `page_id`, `deleted_at`, `created_at`, `updated_
 ('16', '6', NULL, NULL, NULL, 'news', 'en', '1'),
 ('17', '7', NULL, NULL, NULL, 'homepage-helper', 'ro', '1'),
 ('18', '7', NULL, NULL, NULL, 'homepage-helper', 'en', '1');
+('19', '9', NULL, NULL, NULL, 'faq', 'ro', '1');
+('20', '9', NULL, NULL, NULL, 'faq', 'en', '1');
 
 INSERT INTO `page_translations` (`id`, `page_id`, `deleted_at`, `created_at`, `updated_at`, `locale`, `active`, `title`) VALUES
 ('1', '1', NULL, '2020-09-02 14:59:20', '2020-09-03 09:08:37', 'ro', '1', 'Despre Help for Health'),
@@ -275,6 +277,8 @@ INSERT INTO `page_translations` (`id`, `page_id`, `deleted_at`, `created_at`, `u
 ('12', '6', NULL, '2020-09-03 09:06:02', '2020-09-03 09:06:02', 'en', '1', 'News'),
 ('13', '7', NULL, '2020-09-03 09:25:09', '2020-09-03 09:40:40', 'ro', '1', 'Homepage helper'),
 ('14', '7', NULL, '2020-09-03 09:25:09', '2020-09-03 09:40:40', 'en', '1', 'Homepage helper');
+('15', '9', NULL, '2020-09-03 09:25:09', '2020-09-03 09:40:40', 'ro', '1', 'faq');
+('16', '9', NULL, '2020-09-03 09:25:09', '2020-09-03 09:40:40', 'en', '1', 'faq');
 
 INSERT INTO `pages` (`id`, `deleted_at`, `created_at`, `updated_at`, `published`, `featured`) VALUES
 ('1', NULL, '2020-09-02 14:59:20', '2020-09-03 09:08:37', '1', '0'),
@@ -284,6 +288,7 @@ INSERT INTO `pages` (`id`, `deleted_at`, `created_at`, `updated_at`, `published`
 ('5', NULL, '2020-09-03 09:03:52', '2020-09-03 09:03:52', '1', '0'),
 ('6', NULL, '2020-09-03 09:06:02', '2020-09-03 09:06:02', '1', '0'),
 ('7', NULL, '2020-09-03 09:25:09', '2020-09-03 09:40:40', '1', '0');
+('9', NULL, '2020-09-03 09:25:09', '2020-09-03 09:40:40', '1', '0');
 
 INSERT INTO `partner_translations` (`id`, `partner_id`, `deleted_at`, `created_at`, `updated_at`, `locale`, `active`, `title`, `description`, `homepage_title`) VALUES
 ('1', '1', NULL, '2020-09-03 09:32:51', '2020-09-03 09:39:07', 'ro', '1', 'Asociatia M.A.M.E.', NULL, 'proiect lansat de'),
