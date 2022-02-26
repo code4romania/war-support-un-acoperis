@@ -87,7 +87,7 @@ ENV NOCAPTCHA_SITEKEY=${NOCAPTCHA_SITEKEY}
 ENV GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
 ENV CC_MAIL_TO_HELP_ADDRESS=${CC_MAIL_TO_HELP_ADDRESS}
 # copy application file
-COPY .. /var/www/html
+COPY . /var/www/html
 
 # create application environment file
 RUN cp .env.example .env
