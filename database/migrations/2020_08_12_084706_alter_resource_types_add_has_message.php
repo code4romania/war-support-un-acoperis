@@ -14,7 +14,7 @@ class AlterResourceTypesAddHasMessage extends Migration
     public function up()
     {
         Schema::table('resource_types', function (Blueprint $table) {
-            $table->tinyInteger('options');
+            $table->tinyInteger('options')->nullable();
         });
     }
 

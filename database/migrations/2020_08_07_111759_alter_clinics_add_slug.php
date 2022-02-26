@@ -16,7 +16,7 @@ class AlterClinicsAddSlug extends Migration
     public function up()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->string('slug', 128);
+            $table->string('slug', 128)->nullable();
         });
 
         $clinicList = Clinic::all();

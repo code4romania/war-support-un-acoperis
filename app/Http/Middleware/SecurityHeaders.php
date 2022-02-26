@@ -16,11 +16,11 @@ class SecurityHeaders
      */
     public function handle($request, Closure $next)
     {
-        $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
+        // $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
 
-        if (!in_array($request->headers->get('host'), $allowedHosts) && request()->path() !== 'health') {
-            abort(418);
-        }
+        // if (!in_array($request->headers->get('host'), $allowedHosts) && request()->path() !== 'health') {
+        //     abort(418);
+        // }
 
         /** @var Response $response */
         $response = $next($request);

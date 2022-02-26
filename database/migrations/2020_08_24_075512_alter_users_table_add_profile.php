@@ -14,8 +14,8 @@ class AlterUsersTableAddProfile extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('country_id');
-            $table->string('city', 64);
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->string('city', 64)->nullable();
             $table->string('address', 256)->nullable();
             $table->string('phone_number', 64)->nullable();
         });
