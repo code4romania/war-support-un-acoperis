@@ -1,0 +1,3 @@
+CREATE DATABASE helpforhealth;
+GRANT ALL ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
