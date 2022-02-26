@@ -412,11 +412,17 @@ label.required {
 
 @include media-breakpoint-down(md) {
     .navbar-brand img {
-        height:45px;
         margin-left:10px;
     }
     .homepage-logo img {
         display: none;
+    }
+    .navbar-collapse {
+        .collapse-brand {
+            img {
+                height: 25px;
+            }
+        }
     }
 }
 

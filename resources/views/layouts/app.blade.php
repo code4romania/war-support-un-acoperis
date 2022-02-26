@@ -79,7 +79,11 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/images/logo.png" height="75" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
+                    @if (app()->getLocale() === 'ua' || app()->getLocale() === 'ru')
+                        <img src="/images/logo-lang-ua.svg" alt="Prytulok u rumunii">
+                    @else
+                        <img src="/images/logo-lang-ro.svg" alt="Un acoperiș">
+                    @endif
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -90,7 +94,11 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('/') }}">
-                                    <img src="/images/logo.png" alt="{{ config('app.name') }}">
+                                    @if (app()->getLocale() === 'ua' || app()->getLocale() === 'ru')
+                                        <img src="/images/logo-lang-ua.svg" alt="Prytulok u rumunii">
+                                    @else
+                                        <img src="/images/logo-lang-ro.svg" alt="Un acoperiș">
+                                    @endif
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
