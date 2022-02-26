@@ -17,6 +17,34 @@
             </div>
         </div>
     </div>
+    <div class="container py-5">
+        <div class="row text-center">
+            <div class="col-sm ">
+                <div class=" p-4">
+            <img src="/images/helpRequests.png"  class="card-img-top w-25 mt-4 mb-2 mx-auto" alt="...">
+                <p class="h4">
+                  <b>  {{$helpRequests}} </b> Help requests
+                </p>
+</div>
+            </div>
+            <div class="col-sm  ">
+            <div class=" p-4 ">
+            <img src="/images/freeAccommodations.png"  class="card-img-top w-25 mt-4 mb-2 mx-auto" alt="...">
+                <p class="h4">
+                   <b> {{$freeAccommodations}}</b> Available accommodations
+                </p>
+                </div>
+            </div>
+            <div class="col-sm  ">
+            <div class=" p-4">
+            <img src="/images/providedAccommodations.png"  class="card-img-top w-25 mt-4 mb-2  mx-auto" alt="...">
+                <p class="h4">
+                   <b> {{$providedAccommodations}}</b> Fulfilled accommodations
+                </p>
+            </div>
+            </div>
+        </div>
+    </div>
     <div class="bg-homepage-section-1 mt-2 py-5">
         <div class="container">
             <h2 class="text-center font-weight-600 mb-5" style="color: #2574B8">{{ $helpTitle }}</h2>

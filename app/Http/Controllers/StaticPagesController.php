@@ -6,6 +6,8 @@ use A17\Twill\Models\Block;
 use A17\Twill\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Accommodation;
+use App\HelpRequest;
 
 /**
  *
@@ -20,6 +22,9 @@ class StaticPagesController extends Controller
      */
     public function home(Request $request, SettingRepository $settingRepository)
     {
+        $helpRequests = HelpRequest::all()->count();
+        $freeAccommodations = Accommodation::where('is_free', '1')->get()->count();
+        $providedAccommodations = HelpRequest::where('status','fulfilled')->get()->count();
         return view('frontend.home')
             ->with('welcomeTitle', $settingRepository->byKey('welcome_title'))
             ->with('welcomeBody', $settingRepository->byKey('welcome_body'))
@@ -43,7 +48,10 @@ class StaticPagesController extends Controller
             ->with('footerBlock1Title', $settingRepository->byKey('footer_block_1_title'))
             ->with('footerBlock1Body', $settingRepository->byKey('footer_block_1_body'))
             ->with('footerBlock2Title', $settingRepository->byKey('footer_block_2_title'))
-            ->with('footerBlock2Body', $settingRepository->byKey('footer_block_2_body'));
+            ->with('footerBlock2Body', $settingRepository->byKey('footer_block_2_body'))
+            ->with('helpRequests',$helpRequests)
+            ->with('freeAccommodations',$freeAccommodations)
+            ->with('providedAccommodations',$providedAccommodations);;
     }
 
 
