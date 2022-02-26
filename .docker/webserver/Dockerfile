@@ -16,4 +16,8 @@ VOLUME ["/app"]
 
 WORKDIR "/app"
 
+RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
+    && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer \
+    && php -r "unlink('/tmp/composer-setup.php');"
+
 ENTRYPOINT ["/usr/bin/supervisord"]
