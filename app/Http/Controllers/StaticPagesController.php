@@ -6,11 +6,6 @@ use A17\Twill\Models\Block;
 use A17\Twill\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\DB;
-
-
-
-
 
 /**
  *
@@ -19,16 +14,12 @@ use Illuminate\Support\Facades\DB;
  */
 class StaticPagesController extends Controller
 {
-    
     /**
      * @param Request $request
      * @return View
      */
     public function home(Request $request, SettingRepository $settingRepository)
     {
-         $helpRequests = DB::table('help_requests')->count();
-         $freeAccommodations = DB::table('accommodations')->where('is_free','1')->get()->count();
-        $providedAccommodations = DB::table('help_requests')->where('status','fulfilled')->count();
         return view('frontend.home')
             ->with('welcomeTitle', $settingRepository->byKey('welcome_title'))
             ->with('welcomeBody', $settingRepository->byKey('welcome_body'))
@@ -52,13 +43,9 @@ class StaticPagesController extends Controller
             ->with('footerBlock1Title', $settingRepository->byKey('footer_block_1_title'))
             ->with('footerBlock1Body', $settingRepository->byKey('footer_block_1_body'))
             ->with('footerBlock2Title', $settingRepository->byKey('footer_block_2_title'))
-            ->with('footerBlock2Body', $settingRepository->byKey('footer_block_2_body'))
-            ->with('helpRequests',$helpRequests)
-            ->with('freeAccommodations',$freeAccommodations)
-            ->with('providedAccommodations',$providedAccommodations);
+            ->with('footerBlock2Body', $settingRepository->byKey('footer_block_2_body'));
     }
 
-    
 
     public function redirectToLocale()
     {
