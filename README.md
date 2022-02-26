@@ -36,24 +36,22 @@ https://github.com/code4romania/war-support-un-acoperis
 
 See instruction from this [wiki page](https://github.com/code4romania/war-support-un-acoperis/wiki/Local-Development-Environment) [not available]
 
-[Docker](https://docs.docker.com/get-docker/) should be used on the development environment.
+[Docker](https://docs.docker.com/get-docker/) & [Docker-Compose](https://docs.docker.com/compose/install/) should be used on the development environment.
 
 ### Makefile
-You can run specific docker containers to spin them up or make use of the make shorthands. The Makefile can be found in the root of the repository, and it includes a set of common docker-compose commands. 
+You can use `docker` or `docker-compose` to start docker containers, or you make use of the `make` shorthands. The _Makefile_ can be found in the root of the repository, and it includes a set of common commands. 
 
-The make util can be used on unix based machines. It's a unix based uti and can be installed on unix based systems (mac, wsl, linux flavours)
+The `make` util can be used on unix based machines, and it can be installed by running `apt install make` for wsl or linux or `brew install make` for mac.
 
-In order to install make run `apt install make` for wsl or linux or `brew install make` for mac.
+After installing `make` you can run the commands defined in the Makefile (ex: `make start`). 
 
-After installing make you can run the commands defined in the make file (ex: `make start`). 
-
-If you do not want to use the make util, you can still check the Makefile for common used commands and execute them directly.
+If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
 
 ### First start up
 
 Copy the .env.example to .env.
 
-In order to start the development environment, either use the make util to start (`make start`) or run `docker-compose up` in the project root directory.
+In order to start the development environment, either use the `make` util to start (ex: `make start`) or run `docker-compose up` in the project root directory.
 
 The only thing that should be triggered manually is the migrations & seeds commands after running the docker containers:
 ```
