@@ -7,20 +7,12 @@ COPY .docker/webserver/config/nginx/default /etc/nginx/sites-available/default
 COPY .docker/webserver/config/supervisor/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 COPY .docker/webserver/config/nginx/nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir /app
 RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
     && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer \
     && php -r "unlink('/tmp/composer-setup.php');"
 
 EXPOSE 80
 
-COPY . /app
-RUN chown -R www-data:www-data /app
-
 WORKDIR "/app"
 
-
-RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
-    && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer \
-    && php -r "unlink('/tmp/composer-setup.php');"
 ENTRYPOINT ["/usr/bin/supervisord"]
