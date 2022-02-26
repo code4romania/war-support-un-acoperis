@@ -26,6 +26,7 @@ services:
     container_name: helpforhealth_web
     build:
       dockerfile: .docker/webserver/Dockerfile
+      context: .docker/webserver
     volumes:
       - ./:/app
     links:
