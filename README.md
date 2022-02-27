@@ -49,21 +49,12 @@ If you do not want to use the `make` util, you can still check the _Makefile_ fo
 
 ### First start up
 
-Copy the .env.example to .env.
+Run `make install` to build, start containers and run migration
 
-In order to start the development environment, either use the `make` util to start (ex: `make start`) or run `docker-compose up` in the project root directory.
+Run `npm install && npm run dev` to build assets
 
-The only thing that should be triggered manually is the migrations & seeds commands after running the docker containers:
-```
-### with make
-make migrate && make seed
+Add `<host-ip> un-acoperis.local` in host file (ex /etc/hosts)
 
-### without make
-docker exec -it helpforhealth_web bash
-
-#in the container
-php artisan php artisan migrate --seed
-```
 
 ### Access
 The main application can be accessed via http://localhost:80.

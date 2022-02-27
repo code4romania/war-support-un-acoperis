@@ -1,52 +1,41 @@
 version: '3.7'
 
 services:
+
+  nginx:
+    image: library/nginx:stable-alpine
+    volumes:
+      - ./public:/app/public:ro,delegated
+      - ./.docker/nginx/vhost.conf:/etc/nginx/conf.d/default.conf:ro,cached
+    ports:
+      - 80:80
+
+  php:
+    build:
+      dockerfile: .docker/php/Dockerfile
+      context: .
+      target: dev_stage
+    volumes:
+    - ./:/app
+    - ./.docker/php/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini:ro,cached
+    - ./.docker/php/zzz-opcache-dev.ini:/usr/local/etc/php/conf.d/zzz-opcache-dev.ini:ro,cache
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: developer
+    ports:
+      - 8080:80
+
   database:
     build:
       context: .docker/dev/mysql
       dockerfile: Dockerfile
-    container_name: helpforhealth_db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: developer
-    networks:
-      - helpforhealth.local
     expose:
       - 3306
     ports:
       - 33066:3306
-
-  webserver:
-    container_name: helpforhealth_web
-    build:
-      dockerfile: .docker/dev/webserver/Dockerfile
-      context: ./
-    volumes:
-      - ./:/app
-    links:
-      - database
-    networks:
-      - helpforhealth.local
-    expose:
-      - 80
-    ports:
-      - 80:80
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: helpforhealth_phpmyadmin
-    environment:
-      PMA_USER: root
-      PMA_PASSWORD: developer
-    networks:
-      - helpforhealth.local
-    links:
-      - database:db
-    expose:
-      - 80
-    ports:
-      - 8080:80
-
-networks:
-  helpforhealth.local:
-    driver: bridge
