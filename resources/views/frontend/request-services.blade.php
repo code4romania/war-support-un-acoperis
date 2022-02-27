@@ -29,7 +29,7 @@
                             {!! NoCaptcha::displaySubmit(
                                 'sendRequest',
                                 "<span class=\"btn-inner--text\">" . __('Send request') . "</span><span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>",
-                                ['type' => 'submit',  "id" => "submit-button", 'class' => 'btn btn-secondary btn-h4h-request-help pull-right btn-lg px-6']
+                                ['type' => 'submit',  "id" => "submit-button", 'class' => 'btn btn-secondary pull-right btn-lg px-6']
                             ) !!}
                             <div class="card shadow mb-4">
                                 <div class="card-header">

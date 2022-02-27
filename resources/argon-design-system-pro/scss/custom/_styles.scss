@@ -299,7 +299,7 @@ label.required {
         border-color: darken($primary, 20%);
     }
     box-shadow: none;
-    border-color:#28AEE4;
+    border-color:$info;
 }
 
 .custom-checkbox {
@@ -468,8 +468,8 @@ label.required {
 }
 
 .btn-h4h-offer-help-submit {
-    background-color: #2574B8;
-    border-color: #2574B8
+    background-color: $primary;
+    border-color: $primary;
 }
 
 .js-cookie-consent {
@@ -485,14 +485,14 @@ label.required {
 
 .btn-primary {
     color: #fff;
-    background-color: #AB1E2C;
-    border-color: #AB1E2C;
+    background-color: $secondary;
+    border-color: $secondary;
 }
 
 .btn-secondary {
     color: #fff;
-    background-color: #2574B8;
-    border-color: #2574B8;
+    background-color: $primary;
+    border-color: $primary;
 }
 
 
@@ -520,7 +520,7 @@ label.required {
 }
 
 .bg-h4h-blue {
-    background-color: #2574B8 !important;
+    background-color: $primary !important;
 }
 
 .bg-h4h-form {
@@ -528,20 +528,11 @@ label.required {
     background-size: cover;
 }
 
-.btn-h4h-request-help {
-    background-color: #AB1E2C !important;
-    border-color: #AB1E2C !important;
-}
-
 .bg-gray-100 {
     --tw-bg-opacity: 1;
     background-color: rgb(243 244 246/var(--tw-bg-opacity));
-  }
+}
   
-  .h6{
+.h6 {
     height: 1.5rem;
-  }
-  
-  .flex{
-    display: flex;
-  }
+}
