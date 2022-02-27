@@ -47,7 +47,7 @@ jobs:
 
       - name: Build and tag docker image
         run: |
-          docker build -f .docker/Dockerfile \
+          docker build -f .docker/dev/webserver/Dockerfile \
           --build-arg APP_ENV=${{ secrets.DEV_APP_ENV }} \
           --build-arg APP_KEY=${{ secrets.DEV_APP_KEY }} \
           --build-arg APP_URL=${{ secrets.DEV_APP_URL }} \
