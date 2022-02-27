@@ -63,6 +63,7 @@ return [
             'about' => 1,
         ],
         'footer' => [
+            'about' => 1,
             'partners' => 2,
             'media' => 3,
             'news' => 6,
