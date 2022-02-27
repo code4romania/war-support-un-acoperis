@@ -14,7 +14,6 @@
     </div>
     <div class="alert form-info-stripe alert-general white font-weight-600 mb-0 py-4" role="alert">
         <div class="container">
-            <!-- <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span> -->
             <img class="alert-inner--icon mr-3" src="/images/info-icon.svg" >
             <span class="alert-inner--text">{{ $info }}</span>
         </div>
