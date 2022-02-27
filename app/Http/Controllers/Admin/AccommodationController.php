@@ -30,14 +30,17 @@ class AccommodationController extends Controller
     /**
      * @return View
      */
-    public function accommodationList()
+    public function accommodationList(Request $request)
     {
         $countries = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
+        $counties = Accommodation::join('counties', 'counties.id', '=', 'accommodations.address_county_id');
 
         return view('admin.accommodation-list', )
             ->with('types', AccommodationType::all()->pluck('name', 'id'))
             ->with('countries', $countries->get(['countries.id', 'countries.name'])->pluck('name', 'id')->toArray())
-            ->with('cities', Accommodation::all()->pluck('address_city', 'address_city'));
+            ->with('counties', $counties->get(['counties.id', 'counties.name'])->pluck('name', 'id')->toArray())
+            ->with('cities', Accommodation::all()->pluck('address_city', 'address_city'))
+            ->with('approvalStatus', $request->get('status'));
     }
 
     /**
@@ -70,7 +73,7 @@ class AccommodationController extends Controller
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get())
+            ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
             ->with('bookings', $accommodation->bookings()->get());
     }
 
@@ -122,7 +125,7 @@ class AccommodationController extends Controller
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get())
+            ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
             ->with('countries', Country::all())
             ->with('photoData', $this->getPhotoData($accommodation));
     }
@@ -169,6 +172,7 @@ class AccommodationController extends Controller
         $accommodation->is_fully_available = in_array($request->get('property_availability', $accommodation->is_fully_available), ['fully', 1]) ? 1 : 0;
         $accommodation->max_guests = $request->get('max_guests', $accommodation->max_guests);
         $accommodation->available_rooms = $request->get('available_rooms', $accommodation->available_rooms);
+        $accommodation->available_beds = $request->get('available_beds', $accommodation->available_beds);
         $accommodation->available_bathrooms = $request->get('available_bathrooms', $accommodation->available_bathrooms);
         $accommodation->is_kitchen_available = in_array($request->get('allow_kitchen', $accommodation->is_kitchen_available), ['yes', 1]) ? 1 : 0;
         $accommodation->is_parking_available = in_array($request->get('allow_parking', $accommodation->is_parking_available), ['yes', 1]) ? 1 : 0;
@@ -176,6 +180,7 @@ class AccommodationController extends Controller
         $accommodation->is_pet_allowed = in_array($request->get('allow_pets', $accommodation->is_pet_allowed), ['yes', 1]) ? 1 : 0;
         $accommodation->description = $request->get('description', $accommodation->description);
         $accommodation->address_country_id = (int)$request->get('country', $accommodation->address_country_id);
+        $accommodation->address_county_id = (int)$request->get('county_id', $accommodation->address_county_id);
         $accommodation->address_city = $request->get('city', $accommodation->address_city);
         $accommodation->address_street = $request->get('street', $accommodation->address_street);
         $accommodation->address_building = $request->get('building', $accommodation->address_building);
@@ -184,16 +189,10 @@ class AccommodationController extends Controller
         $accommodation->address_floor = $request->get('floor', $accommodation->address_floor);
         $accommodation->address_postal_code = $request->get('postal_code', $accommodation->address_postal_code);
         $accommodation->other_rules = $request->get('other_rules', $accommodation->other_rules);
-        $accommodation->is_free = in_array($request->get('accommodation_fee', $accommodation->is_free), ['free', 1]);
-        $accommodation->general_fee = !empty($accommodation->is_free) ? null : $request->get('general_fee', $accommodation->general_fee);
         $accommodation->transport_subway_distance = $request->get('transport_subway_distance', $accommodation->transport_subway_distance);
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance', $accommodation->transport_bus_distance);
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance', $accommodation->transport_other_details);
         $accommodation->transport_other_details = $request->get('transport_other_details', $accommodation->transport_other_details);
-        $accommodation->checkin_time = $request->get('checkin_time', $accommodation->checkin_time);
-        $accommodation->checkout_time = $request->get('checkout_time', $accommodation->checkout_time);
-//        $accommodation->unavailable_from_date = $request->get('unavailable_from', $accommodation->unavailable_from_date);
-//        $accommodation->unavailable_to_date = $request->get('unavailable_to', $accommodation->unavailable_to_date);
         $accommodation->save();
 
         $accommodation->accommodationfacilitytypes()->detach();
@@ -219,14 +218,14 @@ class AccommodationController extends Controller
             }
         }
 
-        $accommodation->unavailableIntervals()->delete();
-        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
-            foreach ($request->get("unavailable") as $key => $value) {
-                $accomodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
-                $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
-                $accomodationsUnavailableInterval->save();
+        $accommodation->availabilityIntervals()->delete();
+        if ($request->has("available") && is_array($request->get("available"))) {
+            foreach ($request->get("available") as $key => $value) {
+                $accommodationsAvailabilityInterval = new AccommodationsAvailabilityIntervals();
+                $accommodationsAvailabilityInterval->accommodation_id = $accommodation->id;
+                $accommodationsAvailabilityInterval->from_date = $request->get("available")[$key]['from'];
+                $accommodationsAvailabilityInterval->to_date = $request->get("available")[$key]['to'];
+                $accommodationsAvailabilityInterval->save();
             }
         }
 
@@ -275,7 +274,8 @@ class AccommodationController extends Controller
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('countries', Country::all());
+            ->with('countries', Country::all())
+            ->with('counties', County::all());
     }
 
     /**
@@ -301,6 +301,7 @@ class AccommodationController extends Controller
         $accommodation->is_fully_available = ('fully' == $request->get('property_availability'));
         $accommodation->max_guests = $request->get('max_guests');
         $accommodation->available_rooms = $request->get('available_rooms');
+        $accommodation->available_beds = $request->get('available_beds');
         $accommodation->available_bathrooms = $request->get('available_bathrooms');
         $accommodation->is_kitchen_available = ('yes' == $request->get('allow_kitchen'));
         $accommodation->is_parking_available = ('yes' == $request->get('allow_parking'));
@@ -308,6 +309,7 @@ class AccommodationController extends Controller
         $accommodation->is_pet_allowed = ('yes' == $request->get('allow_pets'));
         $accommodation->description = $request->get('description');
         $accommodation->address_country_id = (int)$request->get('country');
+        $accommodation->address_county_id = (int)$request->get('county_id');
         $accommodation->address_city = $request->get('city');
         $accommodation->address_street = $request->get('street');
         $accommodation->address_building = $request->get('building');
@@ -316,16 +318,10 @@ class AccommodationController extends Controller
         $accommodation->address_floor = $request->get('floor');
         $accommodation->address_postal_code = $request->get('postal_code');
         $accommodation->other_rules = $request->get('other_rules');
-        $accommodation->is_free = ('free' == $request->get('accommodation_fee'));
-        $accommodation->general_fee = $request->get('general_fee');
         $accommodation->transport_subway_distance = $request->get('transport_subway_distance');
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance');
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
         $accommodation->transport_other_details = $request->get('transport_other_details');
-        $accommodation->checkin_time = $request->get('checkin_time');
-        $accommodation->checkout_time = $request->get('checkout_time');
-//        $accommodation->unavailable_from_date = $request->get('unavailable_from');
-//        $accommodation->unavailable_to_date = $request->get('unavailable_to');
         $accommodation->save();
 
         if ($request->has('general_facility')) {
@@ -349,13 +345,13 @@ class AccommodationController extends Controller
             }
         }
 
-        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
-            foreach ($request->get("unavailable") as $key => $value) {
-                $accomodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
-                $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
-                $accomodationsUnavailableInterval->save();
+        if ($request->has("available") && is_array($request->get("available"))) {
+            foreach ($request->get("available") as $key => $value) {
+                $accommodationsAvailabilityInterval = new AccommodationsAvailabilityIntervals();
+                $accommodationsAvailabilityInterval->accommodation_id = $accommodation->id;
+                $accommodationsAvailabilityInterval->from_date = $request->get("available")[$key]['from'];
+                $accommodationsAvailabilityInterval->to_date = $request->get("available")[$key]['to'];
+                $accommodationsAvailabilityInterval->save();
             }
         }
 
