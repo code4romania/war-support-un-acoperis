@@ -37,17 +37,17 @@ $grays: map-merge((
   "900": $gray-900
 ), $grays);
 
-$blue:    #5e72e4 !default;
-$indigo:  #5603ad !default;
+$blue:    #00478F !default;
+$indigo:  #1C1080 !default;
 $purple:  #352246 !default;
 $pink:    #f3a4b5 !default;
 $red:     #f5365c !default;
 $orange:  #fb6340 !default;
 $yellow:  #ffd600 !default;
-$green:   #2dce89 !default;
+$green:   #28AF60 !default;
 $teal:    #11cdef !default;
 $cyan:    #2bffc6 !default;
-$light-blue: #E9F6FB !default;
+$light-blue: #B6CADB !default;
 $brand-blue: #4175BE!default;
 $light-green: #DFF2E3!default;
 $admin-blue: #197398!default;
@@ -76,10 +76,12 @@ $colors: map-merge((
 ), $colors);
 
 $default:       #172b4d !default;
-$primary:       #2574B8 !default;
-$secondary:     #AB1E2C !default;
+// $primary:       #2574B8 !default;
+// $secondary:     #AB1E2C !default;
+$primary:       $green !default;
+$secondary:     $blue !default;
 $success:       $green !default;
-$info:          $teal !default;
+$info:          $light-blue !default;
 $warning:       $orange !default;
 $danger:        $red !default;
 $light:         $gray-500 !default;
@@ -529,7 +531,7 @@ $input-alternative-box-shadow:          0 1px 3px rgba(50,50,93,.15), 0 1px 0 rg
 $input-focus-alternative-box-shadow:    0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08);
 
 $input-color:                           $gray-600 !default;
-$input-border-color:                    #cad1d7 !default;
+$input-border-color:                    $info !default;
 $input-border-width:                    $input-btn-border-width !default;
 $input-box-shadow:                      none !default; // 0 1px 3px 0 $gray-400 !default;
 
