@@ -38,6 +38,9 @@
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet"/>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-201038828-1"></script>
     <script>
@@ -245,7 +248,10 @@
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/argon-design-system.js')}}"></script>
+    <script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
+
     @yield('scripts')
+    @yield('templates')
     @include('cookieConsent::index')
 </body>
 </html>
