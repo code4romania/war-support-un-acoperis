@@ -309,7 +309,7 @@ class AjaxController extends Controller
         // Determine locale from referer url for toast messages
         $referer = parse_url(request()->headers->get('referer'));
         $path = array_values(array_filter(explode('/', $referer['path'])));
-        $locale = in_array($path[0] ?? '', SetLanguage::ACCEPTED_LANGUAGES) ?
+        $locale = in_array($path[0] ?? '', config('translatable.locales') ) ?
             $path[0] :
             null;
 
