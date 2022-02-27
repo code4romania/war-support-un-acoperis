@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   database:
     build:
       context: .docker/mysql
@@ -25,7 +26,7 @@ services:
     container_name: helpforhealth_web
     build:
       dockerfile: .docker/webserver/Dockerfile
-      context: .docker/webserver
+      context: ./
     volumes:
       - ./:/app
     links:
