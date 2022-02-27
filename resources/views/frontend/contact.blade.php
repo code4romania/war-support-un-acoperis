@@ -22,8 +22,8 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
-                                <label class="required font-weight-600" for="name">{{ __("Name and surname") }}:</label>
-                                <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
+                                <label class="required font-weight-600" for="name">{{ __("Institution/Organisation name") }}:</label>
+                                <input type="text" placeholder="{{ __('Institution/Organisation name placeholder') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -33,6 +33,39 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="type">{{ __("Type: Institution / NGO") }}:</label>
+                                <!-- <input type="text" placeholder="{{ __('Institution/Organisation name placeholder') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" /> -->
+                                <select class="form-control @error('name') is-invalid @enderror" name="type" id="type" value="{{ old('type') }}" >
+                                    <option>{{ __("Public institution option") }}</option>
+                                    <option>{{ __("NGO option") }}</option>
+                                </select>
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="contact">{{ __("Contact person") }}:</label>
+                                <input type="text" placeholder="{{ __('Contact person placeholder') }}" class="form-control @error('contact') is-invalid @enderror" name="contact" id="contact" value="{{ old('contact') }}" />
+
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="row">
                         <div class="col-sm-2">
                         </div>
                         <div class="col-sm-8">
@@ -51,11 +84,29 @@
                         <div class="col-sm-2">
                         </div>
                         <div class="col-sm-8">
-                            <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
-                            <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
-                            @error('phone')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label>
+                                <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
+                            
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                     
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="legrep">{{ __("Legal representative name") }}:</label>
+                                <input type="text" placeholder="{{ __('Legal representative name placeholder') }}" class="form-control @error('legrep') is-invalid @enderror" name="legrep" id="legrep" value="{{ old('legrep') }}" />
+
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -64,10 +115,42 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
-                                <label class="required font-weight-600" for="email">{{ __("Your message") }}:</label>
-                                <textarea name="message" rows="5" class="form-control @error('message') is-invalid @enderror">{{ old('message') }}</textarea>
+                                <label class="required font-weight-600" for="idno">{{ __("Identification no") }}:</label>
+                                <input type="text" placeholder="CUI 1234567" class="form-control @error('idno') is-invalid @enderror" name="idno" id="idno" value="{{ old('idno') }}" />
 
-                                @error('message')
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="address">{{ __("Physical address") }}:</label>
+                                <input type="text" placeholder="{{ __('Physical address placeholder') }}" class="form-control @error('address') is-invalid @enderror" name="address" id="address" value="{{ old('address') }}" />
+
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="required font-weight-600" for="support_type">{{ __("Type of support: Offer housing / Request housing for refugees") }}:</label>
+                                <select multiple="multiple" class="form-control @error('support_type') is-invalid @enderror" name="support_type" id="support_type" value="{{ old('support_type') }}" >
+                                    <option>{{ __("Offer housing") }}</option>
+                                    <option>{{ __("Request housing for refugees") }}</option>
+                                </select>
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>

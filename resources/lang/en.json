@@ -374,5 +374,27 @@
     "Your form has been submitted to the M.A.M.E Association. As soon as possible you will be contacted by someone from the organization to discuss details about how you can get involved.": "Your form has been submitted to the M.A.M.E Association. As soon as possible you will be contacted by someone from the organization to discuss details about how you can get involved.",
 
     "This email is already used.": "This email already exists.",
-    "IE11": "Your browser (Internet Explorer) is old and doesn't perform well on this website. To access this site please download a modern browser."
+    "IE11": "Your browser (Internet Explorer) is old and doesn't perform well on this website. To access this site please download a modern browser.",
+
+    "Institution/Organisation name": "Institution/Organisation name",
+    
+    "Type: Institution / NGO": "Type: Institution / NGO",
+    "Public institution option": "Public institution",
+    "NGO option": "NGO",
+
+    "Contact person": "Contact person",
+    "Email address": "Email address",
+    "Phone number": "Phone number",
+    "Legal representative name": "Legal representative name",
+    "Identification no": "Identification no",
+    "Physical address": "Physical address",
+    
+    "Type of support: Offer housing / Request housing for refugees": "Type of support: Offer housing / Request housing for refugees",
+    "Offer housing": "Offer housing",
+    "Request housing for refugees": "Request housing for refugees",
+    
+    "Institution/Organisation name placeholder": "Code for Romania",
+    "Contact person placeholder": "Ana-Maria Vasile",
+    "Legal representative name placeholder": "Ionescu Ion",
+    "Physical address placeholder": "Str. Zambilelor, nr. 3"
 }
