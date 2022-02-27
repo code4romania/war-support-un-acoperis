@@ -17,6 +17,7 @@ use App\Http\Middleware\SetLanguage;
 use App\Http\Requests\BookAccommodationRequest;
 use App\Note;
 use App\Services\ChartService;
+use App\UaCity;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -55,6 +56,19 @@ class AjaxController extends Controller
     {
         return response()->json(
             City::where('county_id', '=', $countyId)->pluck('name', 'id')->all()
+        );
+    }
+
+    /**
+     * @param int $regionId
+     * @return JsonResponse
+     */
+    public function uaCities(int $regionId)
+    {
+        return response()->json(
+            UaCity::whereHas("region", function ($q) use($regionId){
+                $q->where("ua_regions.id", $regionId);
+            })->pluck('city_uk', 'id')->all()
         );
     }
 

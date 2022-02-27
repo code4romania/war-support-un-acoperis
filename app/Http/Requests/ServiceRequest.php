@@ -28,16 +28,26 @@ class ServiceRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        $rules=['request_services_step' => ['required']];
+        if (request()->has('request_services_step')){
+            switch ($this->request->get('request_services_step')){
+                case 2:
+                    $rules['patient-name'] = ['required', 'string', 'max:32'];
+                    $rules['patient-phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
+                    $rules['patient-email'] = ['required', 'email', 'string', 'max:255', 'unique:help_requests,patient_email'];
+                    $rules['patient-county'] = ['required', 'exists:ua_regions,id'];
+                    $rules['patient-city'] = ['required', 'exists:ua_cities,id'];
+                    break;
+            }
+        }
+ /*       $rules = [
             'patient-name' => ['required', 'string', 'max:32'],
             'caretaker-name' => ['nullable', 'string', 'max:32'],
             'patient-phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'caretaker-phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'patient-email' => ['required', 'email', 'string', 'max:255'],
             'caretaker-email' => ['nullable', 'email', 'string', 'max:255'],
-            'patient-county' => ['required', 'exists:counties,id'],
-            'patient-city' => ['required', 'exists:cities,id'],
-            'extra-details' => ['nullable'],
+             'extra-details' => ['nullable'],
             'patient-diagnostic' => ['required', 'string', 'max:128'],
 
             'help-type-1' => ['required_without_all:help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7,help-type-8'],
@@ -50,8 +60,8 @@ class ServiceRequest extends FormRequest
             'help-type-8' => ['required_without_all:help-type-1,help-type-2,help-type-3,help-type-4,help-type-5,help-type-6,help-type-7'],
 
             'request-other-message' => ['required_with:help-type-8']
-        ];
-
+        ];*/
+/*
         if (request()->has('help-type-5')) {
             $rules['sms-estimated-amount'] = ['required', 'string', 'max:32'];
             $rules['sms-purpose'] = ['required', 'string', 'max:128'];
@@ -68,10 +78,11 @@ class ServiceRequest extends FormRequest
             $rules['accommodation-start-date'] = ['required', 'date'];
             $rules['accommodation-end-date'] = ['required', 'date', 'after_or_equal:accommodation-start-date'];
         }
+*/
 
-        if (Route::currentRouteName() == 'request-services-submit') {
-            $validatorRules['g-recaptcha-response'] = ['required', 'captcha'];
-        }
+//        if (Route::currentRouteName() == 'request-services-submit') {
+//            $validatorRules['g-recaptcha-response'] = ['required', 'captcha'];
+//        }
 
         return $rules;
     }
