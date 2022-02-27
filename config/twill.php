@@ -2,7 +2,7 @@
 
 return [
     'admin_app_url' => null,
-    'admin_app_path' => env('ADMIN_APP_PATH', ''),
+    'admin_app_path' => 'cms',
 
     'enabled' => [
         'users-oauth' => false,
