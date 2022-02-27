@@ -48,6 +48,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  * @property DateTime|null $approved_at
+ * @property bool $is_free
  */
 class Accommodation extends Model implements Auditable
 {
@@ -65,6 +66,15 @@ class Accommodation extends Model implements Auditable
     protected $dates = [
         'available_from_date',
         'available_to_date'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_free' => 'boolean',
     ];
 
     /**
