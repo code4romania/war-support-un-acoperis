@@ -86,6 +86,7 @@ class AccommodationController extends Controller
         $accommodation->is_fully_available = ('fully' == $request->get('property_availability'));
         $accommodation->max_guests = $request->get('max_guests');
         $accommodation->available_rooms = $request->get('available_rooms');
+        $accommodation->available_beds = $request->get('available_beds');
         $accommodation->available_bathrooms = $request->get('available_bathrooms');
         $accommodation->is_kitchen_available = ('yes' == $request->get('allow_kitchen'));
         $accommodation->is_parking_available = ('yes' == $request->get('allow_parking'));
@@ -103,14 +104,10 @@ class AccommodationController extends Controller
         $accommodation->address_floor = $request->get('floor');
         $accommodation->address_postal_code = $request->get('postal_code');
         $accommodation->other_rules = $request->get('other_rules');
-        $accommodation->is_free = ('free' == $request->get('accommodation_fee'));
-        $accommodation->general_fee = $request->get('general_fee');
         $accommodation->transport_subway_distance = $request->get('transport_subway_distance');
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance');
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
         $accommodation->transport_other_details = $request->get('transport_other_details');
-        $accommodation->checkin_time = $request->get('checkin_time');
-        $accommodation->checkout_time = $request->get('checkout_time');
 //        $accommodation->unavailable_from_date = $request->get('unavailable_from');
 //        $accommodation->unavailable_to_date = $request->get('unavailable_to');
         $accommodation->save();
@@ -299,6 +296,7 @@ class AccommodationController extends Controller
         $accommodation->is_fully_available = in_array($request->get('property_availability', $accommodation->is_fully_available), ['fully', 1]) ? 1 : 0;
         $accommodation->max_guests = $request->get('max_guests', $accommodation->max_guests);
         $accommodation->available_rooms = $request->get('available_rooms', $accommodation->available_rooms);
+        $accommodation->available_beds = $request->get('available_beds', $accommodation->available_beds);
         $accommodation->available_bathrooms = $request->get('available_bathrooms', $accommodation->available_bathrooms);
         $accommodation->is_kitchen_available = in_array($request->get('allow_kitchen', $accommodation->is_kitchen_available), ['yes', 1]) ? 1 : 0;
         $accommodation->is_parking_available = in_array($request->get('allow_parking', $accommodation->is_parking_available), ['yes', 1]) ? 1 : 0;
@@ -315,14 +313,10 @@ class AccommodationController extends Controller
         $accommodation->address_floor = $request->get('floor', $accommodation->address_floor);
         $accommodation->address_postal_code = $request->get('postal_code', $accommodation->address_postal_code);
         $accommodation->other_rules = $request->get('other_rules', $accommodation->other_rules);
-        $accommodation->is_free = in_array($request->get('accommodation_fee', $accommodation->is_free), ['free', 1]);
-        $accommodation->general_fee = !empty($accommodation->is_free) ? null : $request->get('general_fee', $accommodation->general_fee);
         $accommodation->transport_subway_distance = $request->get('transport_subway_distance', $accommodation->transport_subway_distance);
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance', $accommodation->transport_bus_distance);
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance', $accommodation->transport_other_details);
         $accommodation->transport_other_details = $request->get('transport_other_details', $accommodation->transport_other_details);
-        $accommodation->checkin_time = $request->get('checkin_time', $accommodation->checkin_time);
-        $accommodation->checkout_time = $request->get('checkout_time', $accommodation->checkout_time);
 //        $accommodation->unavailable_from_date = $request->get('unavailable_from', $accommodation->unavailable_from_date);
 //        $accommodation->unavailable_to_date = $request->get('unavailable_to', $accommodation->unavailable_to_date);
         $accommodation->save();

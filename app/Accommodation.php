@@ -21,6 +21,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property boolean $is_fully_available
  * @property int $max_guests
  * @property int $available_rooms
+ * @property int $available_beds
  * @property int $available_bathrooms
  * @property bool $is_kitchen_available
  * @property boolean $is_parking_available
@@ -37,14 +38,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property string|null $address_floor
  * @property string|null $address_postal_code
  * @property string|null $other_rules
- * @property boolean $is_free
- * @property string|null $general_fee
  * @property string|null $transport_subway_distance
  * @property string|null $transport_bus_distance
  * @property string|null $transport_railway_distance
  * @property string|null $transport_other_details
- * @property string|null $checkin_time
- * @property string|null $checkout_time
  * @property DateTime|null $unavailable_from_date
  * @property DateTime|null $unavailable_to_date
  * @property DateTime|null $created_at

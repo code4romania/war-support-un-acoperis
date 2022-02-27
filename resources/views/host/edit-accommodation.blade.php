@@ -67,7 +67,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label for="max_guests" class="font-weight-600 required">
                                 {{ __('What is the maximum number of guests') }}?
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label for="available_rooms" class="font-weight-600 required">
                                 {{ __('How many rooms can the hosts use') }}?
@@ -93,7 +93,20 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="available_beds" class="font-weight-600 required">
+                                {{ __('Number of beds') }}?
+                            </label>
+                            <input type="number" min="1" max="127" class="form-control @error('available_beds')is-invalid @enderror" placeholder="ex. 1" name="available_beds" id="available_beds" value="{{ old('available_beds', $accommodation->available_beds) }}">
+
+                            @error('available_beds')
+                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label for="available_bathrooms" class="font-weight-600 required">
                                 {{ __('How many bathrooms does the place have') }}?
@@ -402,38 +415,6 @@
 
                 <div class="availability py-4 border-bottom">
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation availability') }}</h6>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="checkin_time" class="font-weight-600 required">{{ __('Checkin time') }}:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-                                    </div>
-                                    <input id="checkin_time" name="checkin_time" class="flatpickr flatpickr-input form-control @error('checkin_time')is-invalid @enderror" type="text" placeholder="{{ __('Select Time') }}" value="{{ old('checkin_time') }}" />
-                                </div>
-
-                                @error('checkin_time')
-                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="checkout_time" class="font-weight-600 required">{{ __('Checkout time') }}:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-                                    </div>
-                                    <input id="checkout_time" name="checkout_time" class="flatpickr flatpickr-input form-control @error('checkout_time')is-invalid @enderror" type="text" placeholder="{{ __('Select Time') }}" value="{{ old('checkout_time') }}" />
-                                </div>
-
-                                @error('checkout_time')
-                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
                     <div class="alert bg-light-blue text-dark d-flex align-items-center mb-3 mt-3">
                         <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
                         <span class="alert-inner--text">Este important să știm dacă în următoarea perioadă sunt și intervale de timp în care cazarea este complet indisponibilă pentru a nu te deranja cu solicitări și pentru a ne ajuta și pe noi să găsim soluții pentru pacienți cât mai rapid.</span>
@@ -454,36 +435,6 @@
                     </div>
                 </div>
 
-                <div class="cost py-4 border-bottom">
-                    <h6 class="font-weight-600 text-primary mb-3">{{ __('Fees') }}</h6>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label for="" class="font-weight-600 mt-3 mb-3 required">{{ __('What are the accommodation costs') }}?</label>
-                            <div class="custom-control custom-radio mb-2">
-                                <input name="accommodation_fee" class="custom-control-input" id="free" value="free" type="radio" {{ in_array(old('accommodation_fee', $accommodation->is_free), [null, 'free', 1]) ? 'checked="checked"' : '' }}>
-                                <label class="custom-control-label" for="free">{{ __('Free') }}</label>
-                            </div>
-                            <div class="custom-control custom-radio mb-3">
-                                <input name="accommodation_fee" class="custom-control-input" id="paid" value="paid" type="radio" {{ in_array(old('accommodation_fee', $accommodation->is_free), ['paid', 0]) ? 'checked="checked"' : '' }}>
-                                <label class="custom-control-label" for="paid">{{ __('Paid') }}</label>
-                            </div>
-
-                            @error('property_availability')
-                            <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-sm-8 {{ old('accommodation_fee', $accommodation->is_free ? 'free' : 'paid') == 'free' ? 'd-none' : '' }}" id="feeSection">
-                            <div class="form-group">
-                                <label for="general_fee" class="font-weight-600">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}:</label>
-                                <input type="text" name="general_fee" id="general_fee" class="form-control @error('general_fee')is-invalid @enderror" placeholder="ex. 100 RON" value="{{ old('general_fee', $accommodation->general_fee) }}">
-
-                                @error('general_fee')
-                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="clearfix pt-4">
                     <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
                         <span class="btn-inner--text">Salveaza</span>
