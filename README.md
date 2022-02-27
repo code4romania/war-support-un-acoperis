@@ -68,7 +68,9 @@ php artisan php artisan migrate --seed
 ### Access
 The main application can be accessed via http://localhost:80.
 
-PhpMyAdmin can be accessed via http://localhost:8080. 
+The CMS can be accessed via http://localhost:80/cms.
+
+PhpMyAdmin can be accessed via http://localhost:8080.
 
 If custom hosts are required in any way, you can add the following entries in your local hosts file and use them accordingly.
 
