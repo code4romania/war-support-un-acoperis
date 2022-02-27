@@ -50,10 +50,8 @@ If you do not want to use the `make` util, you can still check the _Makefile_ fo
 ### First start up
 
 Run `make install` to build, start containers and run migration
-
 Run `npm install && npm run dev` to build assets
 
-Add `<host-ip> un-acoperis.local` in host file (ex /etc/hosts)
 
 
 ### Access

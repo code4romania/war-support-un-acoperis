@@ -10,8 +10,8 @@ build:
 install:
 	docker-compose up -d
 	docker-compose exec php sh -c 'composer install'
-	docker-compose exec php sh -c 'artisan migrate --seed'
-	docker-compose exec php sh -c 'artisan key:generate'
+	docker-compose exec php sh -c 'php artisan migrate --seed'
+	docker-compose exec php sh -c 'php artisan key:generate'
 
 logs:
 	docker-compose logs -f
@@ -20,10 +20,10 @@ shell:
 	docker-compose exec php bash
 
 migrate:
-	docker-compose exec php -- php artisan migrate
+	docker-compose exec php sh -c 'php artisan migrate'
 
 seed:
-	docker-compose exec php -- php artisan db:seed
+	docker-compose exec php sh -c 'php artisan db:seed'
 
 cc:
-	docker-compose exec php -- php artisan ca:cl
+	docker-compose exec php sh -c 'php artisan ca:cl'

@@ -1,3 +1,3 @@
-CREATE DATABASE helpforhealth;
+CREATE DATABASE unacoperis;
 GRANT ALL ON *.* TO 'root'@'%';
 FLUSH PRIVILEGES;
