@@ -453,29 +453,6 @@
         });
 
         $(document).ready(function () {
-            $('input[name=accommodation_fee]').on('change', function() {
-                if ('free' === this.value) {
-                    $('#feeSection').addClass('d-none');
-                } else {
-                    $('#feeSection').removeClass('d-none');
-                }
-            });
-
-            flatpickr("#checkin_time", {
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-                defaultDate: "{{ old('checkin_time', $accommodation->checkin_time) }}",
-                time_24hr: true
-            });
-
-            flatpickr("#checkout_time", {
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-                defaultDate: "{{ old('checkout_time', $accommodation->checkout_time) }}",
-                time_24hr: true
-            });
 
             $('input[name="photos"]').fileuploader({
                 captions: $('html').attr('lang'),
