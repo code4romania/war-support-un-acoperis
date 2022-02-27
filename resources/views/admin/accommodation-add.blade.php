@@ -665,6 +665,6 @@
 @endsection
 
 @section('templates')
-    @include('partials.unavailability')
+    @include('partials.availability')
 @endsection
 

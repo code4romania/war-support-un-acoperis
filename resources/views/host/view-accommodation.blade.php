@@ -147,10 +147,10 @@
                     <div class="col-sm-6">
                         <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation availability') }}</h5>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Unavailability') }}</h6>
-                            @forelse ($unavailableIntervals as $unavailableInterval)
+                            <h6 class="font-weight-600 mb-1">{{ __('Availability') }}</h6>
+                            @forelse ($availabilityIntervals as $interval)
                             <p>
-                                {{ substr($unavailableInterval->from_date, 0, 10) . ' - ' . substr($unavailableInterval->to_date, 0, 10) }}
+                                {{ substr($interval->from_date, 0, 10) . ' - ' . substr($interval->to_date, 0, 10) }}
                             </p>
                             @empty
                             <p>N/A</p>

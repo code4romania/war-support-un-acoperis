@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Accommodation;
 use App\AccommodationPhoto;
 use App\AccommodationType;
-use App\AccomodationsUnavailableInterval;
+use App\AccommodationsAvailabilityIntervals;
 use App\Country;
 use App\FacilityType;
 use App\HelpRequestAccommodationDetail;
@@ -222,7 +222,7 @@ class AccommodationController extends Controller
         $accommodation->unavailableIntervals()->delete();
         if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
             foreach ($request->get("unavailable") as $key => $value) {
-                $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+                $accomodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
                 $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
                 $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
                 $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
@@ -351,7 +351,7 @@ class AccommodationController extends Controller
 
         if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
             foreach ($request->get("unavailable") as $key => $value) {
-                $accomodationsUnavailableInterval = new AccomodationsUnavailableInterval();
+                $accomodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
                 $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
                 $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
                 $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];

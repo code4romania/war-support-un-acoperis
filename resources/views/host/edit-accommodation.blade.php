@@ -417,17 +417,17 @@
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation availability') }}</h6>
                     <div class="alert bg-light-blue text-dark d-flex align-items-center mb-3 mt-3">
                         <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
-                        <span class="alert-inner--text">Este important să știm dacă în următoarea perioadă sunt și intervale de timp în care cazarea este complet indisponibilă pentru a nu te deranja cu solicitări și pentru a ne ajuta și pe noi să găsim soluții pentru pacienți cât mai rapid.</span>
+                        <span class="alert-inner--text">{{ __('Please mention if the availability is limited') }}</span>
                     </div>
 
-                    <div id="unavailability_container"></div>
+                    <div id="availability_container"></div>
 
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <div class="input-group">
                                     <button type="button" id="add-interval" class="btn btn-secondary btn-lg text-nowra">
-                                        <span class="btn-inner--text">Adauga perioada</span>
+                                        <span class="btn-inner--text">{{ __('Add interval') }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -437,7 +437,7 @@
 
                 <div class="clearfix pt-4">
                     <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
-                        <span class="btn-inner--text">Salveaza</span>
+                        <span class="btn-inner--text">{{ __('Save') }}</span>
                     </button>
                 </div>
             </form>
@@ -590,5 +590,5 @@
 @endsection
 
 @section('templates')
-    @include('partials.unavailability')
+    @include('partials.availability')
 @endsection
