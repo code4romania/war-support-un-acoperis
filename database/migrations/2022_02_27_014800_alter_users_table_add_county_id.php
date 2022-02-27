@@ -15,8 +15,7 @@ class AlterUsersTableAddCountyId extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('county_id')
-                ->after('country_id')
-                ->nullable();
+                ->after('country_id');
 
             $table->foreign('county_id')
                 ->references('id')

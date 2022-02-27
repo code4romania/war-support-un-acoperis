@@ -49,6 +49,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
+ * @property DateTime|null $approved_at
  */
 class Accommodation extends Model implements Auditable
 {
