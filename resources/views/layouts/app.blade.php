@@ -186,17 +186,14 @@
                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>{{ strtoupper(str_replace('_', '-', app()->getLocale())) }}</span>
+                                <span>{{ config('translatable.locales_name')[app()->getLocale()] ?? strtoupper(app()->getLocale()) }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-                                @php
-                                $params = request()->route()->parameters();
-                                $ro = $en = $params;
-                                $ro['locale'] = 'ro';
-                                $en['locale'] = 'en';
-                                @endphp
-                                <a class="dropdown-item ro-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($ro)) }}">RO</a>
-                                <a class="dropdown-item en-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug($en)) }}">EN</a>
+                                @foreach(config('translatable.locales') as $locale)
+                                    <a class="dropdown-item {{ $locale }}-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug([ 'locale' => $locale, 'slug' => Route::getCurrentRoute()->parameter("slug")])) }}">
+                                        {{ config('translatable.locales_name')[$locale] ?? strtoupper($locale) }}
+                                    </a>
+                                @endforeach
                             </div>
                         </li>
                     </ul>
