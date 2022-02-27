@@ -16,6 +16,7 @@ use App\Services\HostService;
 use App\Services\UserService;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -89,31 +90,25 @@ class GetInvolvedController extends Controller
 
     /**
      * @param HostRequest $request
-     * @return View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(HostRequest $request)
     {
         $hostService = new HostService();
         $hostUser = $hostService->createHost($request);
-
-        $request->session()->put(self::session_hostUserId, $hostUser->id);
-
+        Auth::login($hostUser);
         return redirect()->route('get-involved-add-accommodation-form');
     }
 
     public function displayAccommodationForm(Request $request)
     {
-        try
-        {
-            $user = $this->getUserFromSession($request);
-        }
-        catch (\Exception $e)
-        {
+        if (!Auth::check()) {
             redirect()->route('get-involved');
         }
 
         $accService = new AccommodationService();
-
+        /** @var User $user */
+        $user = Auth::user();
         return $accService->viewAddAccommodation($user, 'frontend.host.add-accommodation');
 
     }
@@ -122,7 +117,7 @@ class GetInvolvedController extends Controller
     {
         try
         {
-            $user = $this->getUserFromSession($request);
+            $user = $request->user();
 
             $accService = new AccommodationService();
             $accService->createAccommodation($request, $user);
@@ -146,28 +141,6 @@ class GetInvolvedController extends Controller
     {
         //@TODO: should we check some stuff here?
         return view('frontend.host.success');
-    }
-
-    /**
-     * @param Request $request
-     * @return User
-     * @throws \Exception
-     */
-    private function getUserFromSession(Request $request): User
-    {
-        $userId = $request->session()->get(self::session_hostUserId);
-        if (empty($userId))
-        {
-            throw new UserIdNotFoundInSession('User ID not found in session');
-        }
-
-        $user = User::find($userId);
-        if (empty($user))
-        {
-            throw new UserIdNotFoundInSession('User ID not found in session');
-        }
-
-        return $user;
     }
 
 }

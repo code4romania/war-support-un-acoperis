@@ -23,23 +23,17 @@ class HostRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
 
 
         $validatorRules = [
             'name' => ['required', 'string', 'min:3', 'max:128'],
-//            'country' => ['required', 'exists:countries,id'],
             'county_id' => ['required', 'exists:counties,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
             'phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\ \-\+\(\)]*)$/'],
-            'email' => ['required', 'email', 'min:5', 'max:64'],
+            'email' => ['required', 'email', 'min:5', 'max:64', 'unique:users'],
             'other' => ['nullable', 'string', 'min:2', 'max:256'],
         ];
 
