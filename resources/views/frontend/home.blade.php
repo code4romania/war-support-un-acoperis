@@ -21,7 +21,7 @@
         <div class="row text-center">
             <div class="col-sm ">
                 <div class=" p-4">
-            <img src="/images/helpRequests.png"  class="card-img-top w-25 mt-4 mb-2 mx-auto" alt="...">
+            <img src="/images/helpRequests.png"  class="card-img-top w-25 mt-4 mb-2 mx-auto" alt="Help requests">
                 <p class="h4">
                   <b>  {{$helpRequests}} </b> Help requests
                 </p>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm  ">
             <div class=" p-4 ">
-            <img src="/images/freeAccommodations.png"  class="card-img-top w-25 mt-4 mb-2 mx-auto" alt="...">
+            <img src="/images/freeAccommodations.png"  class="card-img-top w-25 mt-4 mb-2 mx-auto" alt="Available accommodations">
                 <p class="h4">
                    <b> {{$freeAccommodations}}</b> Available accommodations
                 </p>
@@ -37,7 +37,7 @@
             </div>
             <div class="col-sm  ">
             <div class=" p-4">
-            <img src="/images/providedAccommodations.png"  class="card-img-top w-25 mt-4 mb-2  mx-auto" alt="...">
+            <img src="/images/providedAccommodations.png"  class="card-img-top w-25 mt-4 mb-2  mx-auto" alt="Fulfilled accommodations">
                 <p class="h4">
                    <b> {{$providedAccommodations}}</b> Fulfilled accommodations
                 </p>
