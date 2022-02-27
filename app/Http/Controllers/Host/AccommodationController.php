@@ -60,7 +60,7 @@ class AccommodationController extends Controller
         $user = Auth::user();
         $accService = new AccommodationService();
 
-        return $accService->viewAddAccommodation($user, 'host.add-accommodation', route('host.create-accommodation'));
+        return $accService->viewAddAccommodation($user, 'host.add-accommodation');
     }
 
     /**
@@ -143,42 +143,11 @@ class AccommodationController extends Controller
             abort(403);
         }
 
-        return view('host.edit-accommodation')
-            ->with('user', $user)
-            ->with('accommodation', $accommodation)
-            ->with('types', AccommodationType::all())
-            ->with('ownershipTypes', Accommodation::getOwnershipTypes())
-            ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
-            ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
-            ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
-            ->with('countries', Country::all())
-            ->with('counties', County::all())
-            ->with('photoData', $this->getPhotoData($accommodation));
+        $accService = new AccommodationService();
+
+        return $accService->viewEditAccommodation($user, $accommodation, 'host.edit-accommodation');
     }
 
-    /**
-     * @param Accommodation $accommodation
-     * @return array
-     */
-    public function getPhotoData(Accommodation $accommodation): array
-    {
-        $photoData = [];
-
-        /** @var AccommodationPhoto $photo */
-        foreach ($accommodation->photos()->get() as $photo) {
-            array_push($photoData, [
-                'file' => $photo->getPhotoUrl(),
-                'extension' => $photo->extension,
-                'name' => $photo->name,
-                'size' => $photo->size,
-                'title' => $photo->id,
-                'type' => $photo->type
-            ]);
-        }
-
-        return $photoData;
-    }
 
     /**
      * @param int $id

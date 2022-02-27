@@ -12,19 +12,11 @@ use App\Http\Requests\AccommodationRequest;
 use App\Http\Requests\HostRequest;
 use App\ResourceType;
 use App\Services\AccommodationService;
+use App\Services\HostService;
 use App\Services\UserService;
 use App\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 
@@ -89,6 +81,7 @@ class GetInvolvedController extends Controller
         $counties = County::all();
 
         return view('frontend.host.signup-form')
+            ->with('formRoute', route('store-get-involved'))
             ->with('countries', $countries)
             ->with('counties', $counties)
             ->with('description', $settingRepository->byKey('get_involved_description') ?? '');
@@ -100,29 +93,10 @@ class GetInvolvedController extends Controller
      */
     public function store(HostRequest $request)
     {
-        $user = User::create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => Hash::make(Str::random(10)),
-            'remember_token' => Str::random(10),
-            //@TODO: should this be hardcoded? There is no country field in the UI
-            'country_id'=> DB::table('countries')->where('code', 'RO')->first()->id,
-            'county_id'  => $request->get('county_id'),
-            'city'  => $request->get('city'),
-            'address' => $request->get('address'),
-            'phone_number' => $request->get('phone'),
-            'approved_at' => now(),]);
-        $user->assignRole(User::ROLE_HOST);
+        $hostService = new HostService();
+        $hostUser = $hostService->createHost($request);
 
-//        Auth::loginUsingId($user->id);
-        $request->session()->put(self::session_hostUserId, $user->id);
-
-        $resetToken = Password::getRepository()->create($user);
-
-        $notification = new \App\Notifications\HostSignup($user, $resetToken);
-
-        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
-            ->notify($notification);
+        $request->session()->put(self::session_hostUserId, $hostUser->id);
 
         return redirect()->route('get-involved-add-accommodation-form');
     }
@@ -140,7 +114,7 @@ class GetInvolvedController extends Controller
 
         $accService = new AccommodationService();
 
-        return $accService->viewAddAccommodation($user, 'frontend.host.add-accommodation', route('get-involved-save-accommodation'));
+        return $accService->viewAddAccommodation($user, 'frontend.host.add-accommodation');
 
     }
 

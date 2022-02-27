@@ -115,11 +115,10 @@ class AccommodationService
         return $accommodation;
     }
 
-    public function viewAddAccommodation(User $user, string $view, string $formRoute)
+    public function viewAddAccommodation(User $user, string $view)
     {
         return view($view)
             ->with('user', $user)
-            ->with('formRoute', $formRoute)
             ->with('types', AccommodationType::all())
             ->with('ownershipTypes', Accommodation::getOwnershipTypes())
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
@@ -127,6 +126,47 @@ class AccommodationService
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
             ->with('countries', Country::all())
             ->with('counties', County::all());
+    }
+
+    public function viewEditAccommodation(User $user, Accommodation $accommodation, string $view)
+    {
+        return view($view)
+            ->with('user', $user)
+            ->with('accommodation', $accommodation)
+            ->with('types', AccommodationType::all())
+            ->with('ownershipTypes', Accommodation::getOwnershipTypes())
+            ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
+            ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
+            ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
+            ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
+            ->with('countries', Country::all())
+            ->with('counties', County::all())
+            ->with('photoData', $this->getPhotoData($accommodation));
 
     }
+
+    /**
+     * @param Accommodation $accommodation
+     * @return array
+     */
+    private function getPhotoData(Accommodation $accommodation): array
+    {
+        $photoData = [];
+
+        /** @var AccommodationPhoto $photo */
+        foreach ($accommodation->photos()->get() as $photo) {
+            array_push($photoData, [
+                'file' => $photo->getPhotoUrl(),
+                'extension' => $photo->extension,
+                'name' => $photo->name,
+                'size' => $photo->size,
+                'title' => $photo->id,
+                'type' => $photo->type
+            ]);
+        }
+
+        return $photoData;
+    }
+
 }
+
