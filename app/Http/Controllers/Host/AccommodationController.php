@@ -7,6 +7,7 @@ use App\AccommodationPhoto;
 use App\AccommodationType;
 use App\AccomodationsUnavailableInterval;
 use App\Country;
+use App\County;
 use App\FacilityType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
@@ -64,7 +65,8 @@ class AccommodationController extends Controller
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', FacilityType::where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('countries', Country::all());
+            ->with('countries', Country::all())
+            ->with('counties', County::all());
     }
 
     /**
@@ -74,8 +76,6 @@ class AccommodationController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-
-//        dd($request);
 
         DB::beginTransaction();
 
@@ -92,7 +92,9 @@ class AccommodationController extends Controller
         $accommodation->is_smoking_allowed = ('yes' == $request->get('allow_smoking'));
         $accommodation->is_pet_allowed = ('yes' == $request->get('allow_pets'));
         $accommodation->description = $request->get('description');
-        $accommodation->address_country_id = (int)$request->get('country');
+        //@TODO should this be hardcoded? There is no country field in the UI
+        $accommodation->address_country_id = DB::table('countries')->where('code', 'RO')->first()->id;
+        $accommodation->address_county_id = (int)$request->get('county_id');
         $accommodation->address_city = $request->get('city');
         $accommodation->address_street = $request->get('street');
         $accommodation->address_building = $request->get('building');

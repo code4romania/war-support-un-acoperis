@@ -28,6 +28,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property boolean $is_pet_allowed
  * @property string $description
  * @property int $address_country_id
+ * @property int $address_county_id
  * @property string $address_city
  * @property string $address_street
  * @property string|null $address_building

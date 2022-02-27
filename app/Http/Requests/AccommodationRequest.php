@@ -20,6 +20,7 @@ class AccommodationRequest extends FormRequest
      */
     public function authorize()
     {
+        //@TODO: should be authorized, right?
         return true;
     }
 
@@ -45,7 +46,8 @@ class AccommodationRequest extends FormRequest
             'special_facility' => ['nullable', 'array'],
             'special_facility.*' => ['required', 'exists:facility_types,id'],
             'other_facilities' => ['nullable', 'string', 'max:255'],
-            'country' => ['required', 'exists:countries,id'],
+//            'country' => ['required', 'exists:countries,id'],
+            'county_id' => ['required', 'exists:counties,id'],
             'city' => ['required', 'string', 'max:64'],
             'street' => ['nullable', 'string', 'max:128'],
             'building' => ['nullable', 'string', 'max:16'],
