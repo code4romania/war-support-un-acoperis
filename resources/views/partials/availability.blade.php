@@ -1,6 +1,6 @@
-<template id="unavailability_interval">
+<template id="availability_interval">
 
-    <div class="row" id="unavailability_interval_##index##">
+    <div class="row" id="availability_interval_##index##">
         <div class="col-xl-5 col-md-12">
             <div class="form-group">
                 <div class="input-group">
@@ -8,15 +8,15 @@
                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
                     <input
-                        placeholder="{{ __('Unavailable from') }}"
-                        name="unavailable[##index##][from]"
-                        class="unavailable_from_##index## unavailable_##index## flatpickr flatpickr-input form-control"
+                        placeholder="{{ __('Availability start date') }}"
+                        name="available[##index##][from]"
+                        class="available_from_##index## available_##index## flatpickr flatpickr-input form-control"
                         type="text"
                         value="##from##"
                     />
 
                 </div>
-                <span class="unavailable_from_error_##index## invalid-feedback d-flex" role="alert"></span>
+                <span class="available_from_error_##index## invalid-feedback d-flex" role="alert"></span>
             </div>
         </div>
         <div class="col-xl-5 col-md-12">
@@ -26,22 +26,22 @@
                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
                     <input
-                        placeholder="{{ __('Unavailable to') }}"
-                        name="unavailable[##index##][to]"
-                        class="unavailable_to_##index## unavailable_##index## flatpickr flatpickr-input form-control"
+                        placeholder="{{ __('Availability end date') }}"
+                        name="available[##index##][to]"
+                        class="available_to_##index## available_##index## flatpickr flatpickr-input form-control"
                         type="text"
                         value="##to##"
                     />
 
                 </div>
-                <span class="unavailable_to_error_##index## invalid-feedback d-flex" role="alert"></span>
+                <span class="available_to_error_##index## invalid-feedback d-flex" role="alert"></span>
             </div>
         </div>
         <div class="col-xl-2 col-md-12 delete-period-col">
             <div class="form-group">
                 <div class="input-group">
                     <button type="button" class="btn btn-danger btn-md text-nowrap delete-period btn-block" data-index-number="##index##">
-                        <span class="btn-inner--text" >Sterge</span>
+                        <span class="btn-inner--text" >{{ __('Delete') }}</span>
                     </button>
                 </div>
             </div>
@@ -59,32 +59,32 @@
         let errorTo = {};
 
         @foreach ($errors->getMessages() as $key => $error)
-            @if (strpos($key, 'unavailable.') == 0 && strpos($key, '.from') > -1)
+            @if (strpos($key, 'available.') == 0 && strpos($key, '.from') > -1)
                 errorFrom['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '');
             @endif
-            @if (strpos($key, 'unavailable.') == 0 && strpos($key, '.to') > -1)
-                errorTo['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '').replace(/unavailable.(\d)+.from/, '{{ __("interval start") }}');
+            @if (strpos($key, 'available.') == 0 && strpos($key, '.to') > -1)
+                errorTo['{{ $key }}'] = '{{ $error[0] }}'.replace('{{ $key }} ', '').replace(/available.(\d)+.from/, '{{ __("interval start") }}');
             @endif
-            @if ($key === 'unavailable')
-                errorFrom['unavailable.0.from'] = '{{ $error[0] }}';
+            @if ($key === 'available')
+                errorFrom['available.0.from'] = '{{ $error[0] }}';
             @endif
         @endforeach
 
-        @if (old('unavailable'))
-            @foreach (old('unavailable') as $key => $unavailable)
+        @if (old('available'))
+            @foreach (old('available') as $key => $available)
                 addInterval(
-                    '{{ $unavailable['from'] }}',
-                    '{{ $unavailable['to'] }}',
-                    errorFrom.hasOwnProperty('unavailable.' + maxValue + '.from') ? errorFrom['unavailable.' + maxValue + '.from'] : null,
-                    errorTo.hasOwnProperty('unavailable.' + maxValue + '.to') ? errorTo['unavailable.' + maxValue + '.to'] : null
+                    '{{ $available['from'] }}',
+                    '{{ $available['to'] }}',
+                    errorFrom.hasOwnProperty('available.' + maxValue + '.from') ? errorFrom['available.' + maxValue + '.from'] : null,
+                    errorTo.hasOwnProperty('available.' + maxValue + '.to') ? errorTo['available.' + maxValue + '.to'] : null
                 );
             @endforeach
         @else
-            @isset ($unavailableIntervals)
-                @foreach($unavailableIntervals as $unavailableInterval)
+            @isset ($availabilityIntervals)
+                @foreach($availabilityIntervals as $availableInterval)
                 addInterval(
-                    '{{ $unavailableInterval->from_date }}',
-                    '{{ $unavailableInterval->to_date }}'
+                    '{{ $availableInterval->from_date }}',
+                    '{{ $availableInterval->to_date }}'
                 );
                 @endforeach
             @endisset
@@ -94,7 +94,7 @@
     let maxValue = 0;
 
     const deleteInterval = function(object) {
-        $("#unavailability_interval_" + object.dataset.indexNumber).remove();
+        $("#availability_interval_" + object.dataset.indexNumber).remove();
     }
 
     const addInterval = function(from, to, errorFrom, errorTo) {
@@ -103,27 +103,27 @@
         errorFrom = typeof errorFrom !== 'undefined' ? errorFrom : null;
         errorTo = typeof errorTo !== 'undefined' ? errorTo : null;
 
-        $("#unavailability_container").append(
-            $("#unavailability_interval").html()
+        $("#availability_container").append(
+            $("#availability_interval").html()
                 .replace(/##index##/g, maxValue)
                 .replace(/##from##/g, from)
                 .replace(/##to##/g, to)
         );
 
-        flatpickr('.unavailable_' + maxValue);
+        flatpickr('.available_' + maxValue);
 
         if (errorFrom) {
-            $('.unavailable_from_error_' + maxValue).text(errorFrom);
-            $('.unavailable_from_' + maxValue).addClass('is-invalid');
+            $('.available_from_error_' + maxValue).text(errorFrom);
+            $('.available_from_' + maxValue).addClass('is-invalid');
         } else {
-            $('.unavailable_from_error_' + maxValue).remove();
+            $('.available_from_error_' + maxValue).remove();
         }
 
         if (errorTo) {
-            $('.unavailable_to_error_' + maxValue).text(errorTo);
-            $('.unavailable_to_' + maxValue).addClass('is-invalid');
+            $('.available_to_error_' + maxValue).text(errorTo);
+            $('.available_to_' + maxValue).addClass('is-invalid');
         } else {
-            $('.unavailable_to_error_' + maxValue).remove();
+            $('.available_to_error_' + maxValue).remove();
         }
 
         $('.delete-period').on('click', function() {

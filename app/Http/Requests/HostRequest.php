@@ -8,10 +8,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Class HelpResourceRequest
+ * Class HostRequest
  * @package App\Http\Requests
  */
-class HelpResourceRequest extends FormRequest
+class HostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,27 +31,15 @@ class HelpResourceRequest extends FormRequest
     public function rules()
     {
 
+
         $validatorRules = [
             'name' => ['required', 'string', 'min:3', 'max:128'],
-            'country' => ['required', 'exists:countries,id'],
+//            'country' => ['required', 'exists:countries,id'],
+            'county_id' => ['required', 'exists:counties,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
             'address' => ['nullable', 'string', 'min:5', 'max:256'],
-            'phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
-            'email' => ['required', 'email', 'min:5', 'max:64', function ($attribute, $value, $fail) {
-                if (! is_null($this->request->get('help'))) {
-                    $resourceTypes = ResourceType::whereIn('id', $this->request->get('help'))
-                        ->get()
-                        ->pluck('name')
-                        ->toArray();
-
-                    if (in_array('accommodation', $resourceTypes)) {
-                        if (User::where('email', $value)->count() > 0) {
-                            $fail(__('This email is already used.')  );
-                        }
-                    }
-                }
-            },],
-            'help' => ['required'],
+            'phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\ \-\+\(\)]*)$/'],
+            'email' => ['required', 'email', 'min:5', 'max:64'],
             'other' => ['nullable', 'string', 'min:2', 'max:256'],
         ];
 

@@ -7,7 +7,7 @@
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
                             <div class="input-group">
@@ -18,7 +18,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label class="" for="endDateFilter">{{ __('Until') }}</label>
                             <div class="input-group">
@@ -41,16 +41,28 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
+{{--                        <div class="form-group">--}}
+{{--                            <label for="accommodationCountry">{{ __('Country') }}</label>--}}
+{{--                            <select name="accommodationCountry" id="accommodationCountry" class="custom-select form-control">--}}
+{{--                                <option value="" selected>{{ __('Select country') }}</option>--}}
+{{--                                @foreach($countries as $key => $value)--}}
+{{--                                    <option value="{{ $key }}">{{ $value }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+
                         <div class="form-group">
-                            <label for="accommodationCountry">{{ __('Country') }}</label>
-                            <select name="accommodationCountry" id="accommodationCountry" class="custom-select form-control">
-                                <option value="" selected>{{ __('Select country') }}</option>
-                                @foreach($countries as $key => $value)
+                            <label for="accommodationCounty">{{ __('County') }}</label>
+                            <select name="accommodationCounty" id="accommodationCounty" class="custom-select form-control">
+                                <option value="" selected>{{ __('Select county') }}</option>
+                                @foreach($counties as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
+
                     </div>
+
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="accommodationCity">{{ __('City') }}</label>
@@ -59,6 +71,17 @@
                                 @foreach($cities as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="approvalStatus">{{ __('Status') }}</label>
+                            <select name="approvalStatus" id="approvalStatus" class="custom-select form-control">
+                                <option value="0" {{ $approvalStatus == 0 ? ' selected' : '' }}>{{ __('All') }}</option>
+                                <option value="1" {{ $approvalStatus == 1 ? ' selected' : '' }}>{{ __('Approved') }}</option>
+                                <option value="2" {{ $approvalStatus == 2 ? ' selected' : '' }}>{{ __('Disapproved') }}</option>
                             </select>
                         </div>
                     </div>
@@ -98,8 +121,9 @@
                         <th>{{ __('Accommodation No') }}</th>
                         <th>{{ __('Accommodation Type') }}</th>
                         <th>{{ __('Owner') }}</th>
-                        <th>{{ __('Country') }}</th>
+                        <th>{{ __('County') }}</th>
                         <th>{{ __('City') }}</th>
+                        <th>{{ __('Status') }}</th>
                         <th class="text-center">{{ __('Actions') }}</th>
                     </tr>
                     </thead>
@@ -171,8 +195,9 @@
                         '    <td>#' + value.id + '</td>\n' +
                         '    <td><a href="/admin/accommodation/' + value.id + '">' + $.TranslateRequestStatus(value.type) + '</a></td>\n' +
                         '    <td>' + value.owner + '</td>\n' +
-                        '    <td>' + value.country + '</td>\n' +
+                        '    <td>' + value.county + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
+                        '    <td>' + value.approval_status + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-accommodation" data-id=' + value.id + '>{{ __('Delete') }}</a>\n' +
                         '        <a href="/admin/accommodation/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('Accommodation details') }}</a>\n' +
@@ -209,7 +234,23 @@
             }
         }
 
-        let selectCountry = function(country, selectedCity) {
+        {{--let selectCountry = function(country, selectedCity) {--}}
+        {{--    axios.get('/admin/ajax/accommodation/cities/' + country)--}}
+        {{--        .then(response => {--}}
+        {{--            let citySelector = $('#accommodationCity');--}}
+
+        {{--            citySelector.find("option").remove();--}}
+        {{--            citySelector.append("<option value=\"\">{{ __('Select city') }}</option>");--}}
+
+        {{--            response.data.cities.forEach(function(entry) {--}}
+        {{--                citySelector.append("<option value=\"" + entry + "\">" + entry + "</option>")--}}
+        {{--            });--}}
+
+        {{--            citySelector.val(selectedCity);--}}
+        {{--        });--}}
+        {{--}--}}
+
+        let selectCounty = function(country, selectedCity) {
             axios.get('/admin/ajax/accommodation/cities/' + country)
                 .then(response => {
                     let citySelector = $('#accommodationCity');
@@ -234,7 +275,9 @@
             pageState.perPage = 15;
             pageState.type = null;
             pageState.country = null;
+            pageState.county = null;
             pageState.city = null;
+            pageState.status = null;
 
             startDateFilter = flatpickr('#startDateFilter', { minDate: "today" });
             endDateFilter = flatpickr('#endDateFilter', { minDate: "today" });
@@ -255,6 +298,16 @@
                 pageState.country = $.QueryString.country;
                 selectCountry(pageState.country, pageState.city);
                 $('#accommodationCountry').val(pageState.country);
+            }
+
+            if (undefined !== $.QueryString.county) {
+                pageState.county = $.QueryString.county;
+                selectCounty(pageState.county, pageState.city);
+                $('#accommodationCounty').val(pageState.county);
+            }
+
+            if (undefined !== $.QueryString.status) {
+                pageState.status = $.QueryString.status;
             }
 
             if (undefined !== $.QueryString.page) {
@@ -361,10 +414,22 @@
                 renderer.renderData(pageState);
 
                 if ('' === pageState.country) {
-                    $('#accommodationCity').val('').trigger('change');
+                    $('#accommodationCounty').val('').trigger('change');
                 }
 
                 selectCountry(pageState.country);
+            });
+
+            $('#accommodationCounty').on('change', function (event) {
+                pageState.county = this.value;
+                $.SetQueryStringParameter('county', pageState.county);
+                renderer.renderData(pageState);
+
+                if ('' === pageState.county) {
+                    $('#accommodationCity').val('').trigger('change');
+                }
+
+                selectCounty(pageState.county);
             });
 
             $('#accommodationCity').on('change', function (event) {
@@ -372,6 +437,13 @@
                 $.SetQueryStringParameter('city', pageState.city);
                 renderer.renderData(pageState);
             });
+
+            $('#approvalStatus').on('change', function (event) {
+                pageState.status = this.value;
+                $.SetQueryStringParameter('status', pageState.status);
+                renderer.renderData(pageState);
+            });
+
         });
     </script>
 @endsection

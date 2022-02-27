@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class HelpResourceRequest
  * @package App\Http\Requests
  */
 class ContactRequest extends FormRequest

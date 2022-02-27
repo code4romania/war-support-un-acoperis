@@ -34,6 +34,8 @@ use libphonenumber\PhoneNumberUtil;
  */
 class AjaxController extends Controller
 {
+    const STATUS_APPROVED = 1;
+    const STATUS_DISAPPROVED = 2;
     /**
      * @var ChartService
      */
@@ -599,27 +601,29 @@ class AjaxController extends Controller
 
         /** @var Builder $query */
         $query = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
+        $query->join('counties', 'counties.id', '=', 'accommodations.address_county_id');
         $query->join('users', 'users.id', '=', 'accommodations.user_id');
         $query->join('accommodation_types', 'accommodations.accommodation_type_id', '=', 'accommodation_types.id');
 
-        if (!empty($startDate) && !empty($endDate) && $startDate <= $endDate) {
-            $query->leftJoin('accomodations_unavailable_intervals', function($join) use ($startDate, $endDate) {
-                $join->on('accomodations_unavailable_intervals.accommodation_id', '=', 'accommodations.id');
-                $join->where(function($where) use ($startDate, $endDate) {
-                    $where->where(function ($where2) use ($startDate, $endDate) {
-                        $where2->where('accomodations_unavailable_intervals.from_date', '>=', $startDate);
-                        $where2->where('accomodations_unavailable_intervals.from_date', '<', $endDate);
-                    });
-
-                    $where->orWhere(function ($where3)  use ($startDate, $endDate) {
-                        $where3->where('accomodations_unavailable_intervals.to_date', '>=', $startDate);
-                        $where3->where('accomodations_unavailable_intervals.to_date', '<', $endDate);
-                    });
-                });
-            });
-
-            $query->whereNull('accomodations_unavailable_intervals.id');
-        }
+        //@TODO: redo the queries for availability
+//        if (!empty($startDate) && !empty($endDate) && $startDate <= $endDate) {
+//            $query->leftJoin('accommodations_availability_intervals', function($join) use ($startDate, $endDate) {
+//                $join->on('accommodations_availability_intervals.accommodation_id', '=', 'accommodations.id');
+//                $join->where(function($where) use ($startDate, $endDate) {
+//                    $where->where(function ($where2) use ($startDate, $endDate) {
+//                        $where2->where('accommodations_availability_intervals.from_date', '>=', $startDate);
+//                        $where2->where('accommodations_availability_intervals.from_date', '<', $endDate);
+//                    });
+//
+//                    $where->orWhere(function ($where3)  use ($startDate, $endDate) {
+//                        $where3->where('accommodations_availability_intervals.to_date', '>=', $startDate);
+//                        $where3->where('accommodations_availability_intervals.to_date', '<', $endDate);
+//                    });
+//                });
+//            });
+//
+//            $query->whereNull('accommodations_availability_intervals.id');
+//        }
 
         if ($request->has('type') && !empty($request->get('type'))) {
             $query->where('accommodations.accommodation_type_id', '=', $request->get('type'));
@@ -629,8 +633,31 @@ class AjaxController extends Controller
             $query->where('accommodations.address_country_id', '=', $request->get('country'));
         }
 
+        if ($request->has('county') && !empty($request->get('county'))) {
+            $query->where('accommodations.address_county_id', '=', $request->get('county'));
+        }
+
         if ($request->has('city') && !empty($request->get('city'))) {
             $query->where('accommodations.address_city', '=', $request->get('city'));
+        }
+
+        $approvalStatus = $request->get('status');
+        if (!empty($approvalStatus)) {
+
+            switch ($approvalStatus)
+            {
+                case self::STATUS_DISAPPROVED:
+                    $query->whereNull('accommodations.approved_at');
+                    break;
+
+                case self::STATUS_APPROVED:
+                    $query->whereNotNull('accommodations.approved_at');
+                    break;
+                default:
+                    throw new \Exception('Wrong approval status param value');
+
+            }
+
         }
 
         $perPage = 10;
@@ -644,7 +671,9 @@ class AjaxController extends Controller
             'accommodation_types.name as type',
             'users.name as owner',
             'countries.name as country',
-            'accommodations.address_city as city'
+            'counties.name as county',
+            'accommodations.address_city as city',
+            DB::raw('IF (accommodations.approved_at IS NULL, "Disapproved", "Approved") as approval_status')
         ]);
 
         $query->orderBy('accommodations.id', 'desc');
