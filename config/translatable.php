@@ -13,6 +13,15 @@ return [
     'locales' => [
         'ro',
         'en',
+        'uk',
+        'ru',
+    ],
+
+    'locales_name' => [
+        'uk' => 'Українська',
+        'ro' => 'Română',
+        'en' => 'English',
+        'ru' => 'Русский',
     ],
 
     /*
