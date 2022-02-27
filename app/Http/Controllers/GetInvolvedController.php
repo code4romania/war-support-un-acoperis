@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use A17\Twill\Repositories\SettingRepository;
 use App\Country;
 use App\County;
+use App\Exceptions\UserIdNotFoundInSession;
 use App\HelpResource;
 use App\HelpResourceType;
+use App\Http\Requests\AccommodationRequest;
 use App\Http\Requests\HostRequest;
 use App\ResourceType;
+use App\Services\AccommodationService;
 use App\Services\UserService;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,6 +22,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -30,6 +35,7 @@ use Illuminate\View\View;
 class GetInvolvedController extends Controller
 {
     const session_hostAgreedTermsAndConditions = 'hostAgreedTermsAndConditions';
+    const session_hostUserId = 'hostUserId';
 
     /**
      * @var UserService
@@ -108,9 +114,86 @@ class GetInvolvedController extends Controller
             'approved_at' => now(),]);
         $user->assignRole(User::ROLE_HOST);
 
-        Auth::loginUsingId($user->id);
+//        Auth::loginUsingId($user->id);
+        $request->session()->put(self::session_hostUserId, $user->id);
 
-        return redirect()->route('host.add-accommodation');
+        $resetToken = Password::getRepository()->create($user);
+
+        $notification = new \App\Notifications\HostSignup($user, $resetToken);
+
+        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
+            ->notify($notification);
+
+        return redirect()->route('get-involved-add-accommodation-form');
+    }
+
+    public function displayAccommodationForm(Request $request)
+    {
+        try
+        {
+            $user = $this->getUserFromSession($request);
+        }
+        catch (\Exception $e)
+        {
+            redirect()->route('get-involved');
+        }
+
+        $accService = new AccommodationService();
+
+        return $accService->viewAddAccommodation($user, 'frontend.host.add-accommodation', route('get-involved-save-accommodation'));
+
+    }
+
+    public function saveAccommodation(AccommodationRequest $request)
+    {
+        try
+        {
+            $user = $this->getUserFromSession($request);
+
+            $accService = new AccommodationService();
+            $accService->createAccommodation($request, $user);
+
+            return redirect()
+                ->route('get-involved-success');
+
+        }
+        catch (UserIdNotFoundInSession $e)
+        {
+            return redirect()->route('get-involved');
+        }
+        catch (\Throwable $throwable)
+        {
+            return Redirect::back()->withInput()->withErrors(['photos' => $throwable->getMessage()]);
+        }
+
+    }
+
+    public function accommodationSaved(Request $request)
+    {
+        //@TODO: should we check some stuff here?
+        return view('frontend.host.success');
+    }
+
+    /**
+     * @param Request $request
+     * @return User
+     * @throws \Exception
+     */
+    private function getUserFromSession(Request $request): User
+    {
+        $userId = $request->session()->get(self::session_hostUserId);
+        if (empty($userId))
+        {
+            throw new UserIdNotFoundInSession('User ID not found in session');
+        }
+
+        $user = User::find($userId);
+        if (empty($user))
+        {
+            throw new UserIdNotFoundInSession('User ID not found in session');
+        }
+
+        return $user;
     }
 
 }

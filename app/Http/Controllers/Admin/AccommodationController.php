@@ -167,6 +167,7 @@ class AccommodationController extends Controller
             abort(404);
         }
 
+        //@TODO: move this to AccommodationService
         $accommodation->accommodation_type_id = $request->get('type', $accommodation->accommodation_type_id);
         $accommodation->ownership_type = $request->get('ownership', $accommodation->ownership_type);
         $accommodation->is_fully_available = in_array($request->get('property_availability', $accommodation->is_fully_available), ['fully', 1]) ? 1 : 0;
