@@ -42,8 +42,8 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property string|null $transport_bus_distance
  * @property string|null $transport_railway_distance
  * @property string|null $transport_other_details
- * @property DateTime|null $unavailable_from_date
- * @property DateTime|null $unavailable_to_date
+ * @property DateTime|null $available_from_date
+ * @property DateTime|null $available_to_date
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
@@ -63,8 +63,8 @@ class Accommodation extends Model implements Auditable
      * @var array
      */
     protected $dates = [
-        'unavailable_from_date',
-        'unavailable_to_date'
+        'available_from_date',
+        'available_to_date'
     ];
 
     /**

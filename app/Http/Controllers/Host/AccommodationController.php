@@ -133,12 +133,12 @@ class AccommodationController extends Controller
             }
         }
 
-        if ($request->has("unavailable") && is_array($request->get("unavailable"))) {
-            foreach ($request->get("unavailable") as $key => $value) {
+        if ($request->has("available") && is_array($request->get("available"))) {
+            foreach ($request->get("available") as $key => $value) {
                 $accomodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
                 $accomodationsUnavailableInterval->accommodation_id = $accommodation->id;
-                $accomodationsUnavailableInterval->from_date = $request->get("unavailable")[$key]['from'];
-                $accomodationsUnavailableInterval->to_date = $request->get("unavailable")[$key]['to'];
+                $accomodationsUnavailableInterval->from_date = $request->get("available")[$key]['from'];
+                $accomodationsUnavailableInterval->to_date = $request->get("available")[$key]['to'];
                 $accomodationsUnavailableInterval->save();
             }
         }
