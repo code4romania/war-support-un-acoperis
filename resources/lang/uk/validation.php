@@ -1,184 +1,125 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
-    'accepted' => 'The :attribute must be accepted.',
-    'active_url' => 'The :attribute is not a valid URL.',
-    'after' => 'The :attribute must be a date after :date.',
-    'after_or_equal' => 'The :attribute must be a date after or equal to :date.',
-    'alpha' => 'The :attribute may only contain letters.',
-    'alpha_dash' => 'The :attribute may only contain letters, numbers, dashes and underscores.',
-    'alpha_num' => 'The :attribute may only contain letters and numbers.',
-    'array' => 'The :attribute must be an array.',
-    'before' => 'The :attribute must be a date before :date.',
-    'before_or_equal' => 'The :attribute must be a date before or equal to :date.',
-    'between' => [
-        'numeric' => 'The :attribute must be between :min and :max.',
-        'file' => 'The :attribute must be between :min and :max kilobytes.',
-        'string' => 'The :attribute must be between :min and :max characters.',
-        'array' => 'The :attribute must have between :min and :max items.',
+    'accepted'             => 'Ви повинні прийняти :attribute.',
+    'accepted_if'          => 'The :attribute must be accepted when :other is :value.',
+    'active_url'           => 'Поле :attribute не є правильним URL.',
+    'after'                => 'Поле :attribute має містити дату не раніше :date.',
+    'after_or_equal'       => 'Поле :attribute має містити дату не раніше, або дорівнюватися :date.',
+    'alpha'                => 'Поле :attribute має містити лише літери.',
+    'alpha_dash'           => 'Поле :attribute має містити лише літери, цифри, тире та підкреслення.',
+    'alpha_num'            => 'Поле :attribute має містити лише літери та цифри.',
+    'array'                => 'Поле :attribute має бути масивом.',
+    'before'               => 'Поле :attribute має містити дату не пізніше :date.',
+    'before_or_equal'      => 'Поле :attribute має містити дату не пізніше, або дорівнюватися :date.',
+    'between'              => [
+        'array'   => 'Поле :attribute має містити від :min до :max елементів.',
+        'file'    => 'Розмір файлу у полі :attribute має бути не менше :min та не більше :max кілобайт.',
+        'numeric' => 'Поле :attribute має бути між :min та :max.',
+        'string'  => 'Текст у полі :attribute має бути не менше :min та не більше :max символів.',
     ],
-    'boolean' => 'The :attribute field must be true or false.',
-    'confirmed' => 'The :attribute confirmation does not match.',
-    'date' => 'The :attribute is not a valid date.',
-    'date_equals' => 'The :attribute must be a date equal to :date.',
-    'date_format' => 'The :attribute does not match the format :format.',
-    'different' => 'The :attribute and :other must be different.',
-    'digits' => 'The :attribute must be :digits digits.',
-    'digits_between' => 'The :attribute must be between :min and :max digits.',
-    'dimensions' => 'The :attribute has invalid image dimensions.',
-    'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => 'The :attribute must be a valid email address.',
-    'ends_with' => 'The :attribute must end with one of the following: :values.',
-    'exists' => 'The selected :attribute is invalid.',
-    'file' => 'The :attribute must be a file.',
-    'filled' => 'The :attribute field must have a value.',
-    'gt' => [
-        'numeric' => 'The :attribute must be greater than :value.',
-        'file' => 'The :attribute must be greater than :value kilobytes.',
-        'string' => 'The :attribute must be greater than :value characters.',
-        'array' => 'The :attribute must have more than :value items.',
+    'boolean'              => 'Поле :attribute повинне містити логічний тип.',
+    'confirmed'            => 'Поле :attribute не збігається з підтвердженням.',
+    'current_password'     => 'The password is incorrect.',
+    'date'                 => 'Поле :attribute не є датою.',
+    'date_equals'          => 'Поле :attribute має бути датою рівною :date.',
+    'date_format'          => 'Поле :attribute не відповідає формату :format.',
+    'declined'             => 'The :attribute must be declined.',
+    'declined_if'          => 'The :attribute must be declined when :other is :value.',
+    'different'            => 'Поля :attribute та :other повинні бути різними.',
+    'digits'               => 'Довжина цифрового поля :attribute повинна дорівнювати :digits.',
+    'digits_between'       => 'Довжина цифрового поля :attribute повинна бути від :min до :max.',
+    'dimensions'           => 'Поле :attribute містить неприпустимі розміри зображення.',
+    'distinct'             => 'Поле :attribute містить значення, яке дублюється.',
+    'email'                => 'Поле :attribute повинне містити коректну електронну адресу.',
+    'ends_with'            => 'Поле :attribute має закінчуватися одним з наступних значень: :values',
+    'enum'                 => 'Вибране для :attribute значення не коректне.',
+    'exists'               => 'Вибране для :attribute значення не коректне.',
+    'file'                 => 'Поле :attribute має містити файл.',
+    'filled'               => 'Поле :attribute є обов\'язковим для заповнення.',
+    'gt'                   => [
+        'array'   => 'Поле :attribute має містити більше ніж :value елементів.',
+        'file'    => 'Поле :attribute має бути більше ніж :value кілобайт.',
+        'numeric' => 'Поле :attribute має бути більше ніж :value.',
+        'string'  => 'Поле :attribute має бути більше ніж :value символів.',
     ],
-    'gte' => [
-        'numeric' => 'The :attribute must be greater than or equal :value.',
-        'file' => 'The :attribute must be greater than or equal :value kilobytes.',
-        'string' => 'The :attribute must be greater than or equal :value characters.',
-        'array' => 'The :attribute must have :value items or more.',
+    'gte'                  => [
+        'array'   => 'Поле :attribute має містити :value чи більше елементів.',
+        'file'    => 'Поле :attribute має дорівнювати чи бути більше ніж :value кілобайт.',
+        'numeric' => 'Поле :attribute має дорівнювати чи бути більше ніж :value.',
+        'string'  => 'Поле :attribute має дорівнювати чи бути більше ніж :value символів.',
     ],
-    'image' => 'The :attribute must be an image.',
-    'in' => 'The selected :attribute is invalid.',
-    'in_array' => 'The :attribute field does not exist in :other.',
-    'integer' => 'The :attribute must be an integer.',
-    'ip' => 'The :attribute must be a valid IP address.',
-    'ipv4' => 'The :attribute must be a valid IPv4 address.',
-    'ipv6' => 'The :attribute must be a valid IPv6 address.',
-    'json' => 'The :attribute must be a valid JSON string.',
-    'lt' => [
-        'numeric' => 'The :attribute must be less than :value.',
-        'file' => 'The :attribute must be less than :value kilobytes.',
-        'string' => 'The :attribute must be less than :value characters.',
-        'array' => 'The :attribute must have less than :value items.',
+    'image'                => 'Поле :attribute має містити зображення.',
+    'in'                   => 'Вибране для :attribute значення не коректне.',
+    'in_array'             => 'Значення поля :attribute не міститься в :other.',
+    'integer'              => 'Поле :attribute має містити ціле число.',
+    'ip'                   => 'Поле :attribute має містити IP адресу.',
+    'ipv4'                 => 'Поле :attribute має містити IPv4 адресу.',
+    'ipv6'                 => 'Поле :attribute має містити IPv6 адресу.',
+    'json'                 => 'Дані поля :attribute мають бути у форматі JSON.',
+    'lt'                   => [
+        'array'   => 'Поле :attribute має містити менше ніж :value items.',
+        'file'    => 'Поле :attribute має бути менше ніж :value кілобайт.',
+        'numeric' => 'Поле :attribute має бути менше ніж :value.',
+        'string'  => 'Поле :attribute має бути менше ніж :value символів.',
     ],
-    'lte' => [
-        'numeric' => 'The :attribute must be less than or equal :value.',
-        'file' => 'The :attribute must be less than or equal :value kilobytes.',
-        'string' => 'The :attribute must be less than or equal :value characters.',
-        'array' => 'The :attribute must not have more than :value items.',
+    'lte'                  => [
+        'array'   => 'Поле :attribute має містити не більше ніж :value елементів.',
+        'file'    => 'Поле :attribute має дорівнювати чи бути менше ніж :value кілобайт.',
+        'numeric' => 'Поле :attribute має дорівнювати чи бути менше ніж :value.',
+        'string'  => 'Поле :attribute має дорівнювати чи бути менше ніж :value символів.',
     ],
-    'max' => [
-        'numeric' => 'The :attribute may not be greater than :max.',
-        'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
-        'array' => 'The :attribute may not have more than :max items.',
+    'mac_address'          => 'Поле :attribute має містити MAC адресу.',
+    'max'                  => [
+        'array'   => 'Поле :attribute повинне містити не більше :max елементів.',
+        'file'    => 'Файл в полі :attribute має бути не більше :max кілобайт.',
+        'numeric' => 'Поле :attribute має бути не більше :max.',
+        'string'  => 'Текст в полі :attribute повинен мати довжину не більшу за :max.',
     ],
-    'mimes' => 'The :attribute must be a file of type: :values.',
-    'mimetypes' => 'The :attribute must be a file of type: :values.',
-    'min' => [
-        'numeric' => 'The :attribute must be at least :min.',
-        'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
-        'array' => 'The :attribute must have at least :min items.',
+    'mimes'                => 'Поле :attribute повинне містити файл одного з типів: :values.',
+    'mimetypes'            => 'Поле :attribute повинне містити файл одного з типів: :values.',
+    'min'                  => [
+        'array'   => 'Поле :attribute повинне містити не менше :min елементів.',
+        'file'    => 'Розмір файлу у полі :attribute має бути не меншим :min кілобайт.',
+        'numeric' => 'Поле :attribute повинне бути не менше :min.',
+        'string'  => 'Текст у полі :attribute повинен містити не менше :min символів.',
     ],
-    'not_in' => 'The selected :attribute is invalid.',
-    'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
-    'password' => 'The password is incorrect.',
-    'present' => 'The :attribute field must be present.',
-    'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
-    'required_if' => 'The :attribute field is required when :other is :value.',
-    'required_unless' => 'The :attribute field is required unless :other is in :values.',
-    'required_with' => 'The :attribute field is required when :values is present.',
-    'required_with_all' => 'The :attribute field is required when :values are present.',
-    'required_without' => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same' => 'The :attribute and :other must match.',
-    'size' => [
-        'numeric' => 'The :attribute must be :size.',
-        'file' => 'The :attribute must be :size kilobytes.',
-        'string' => 'The :attribute must be :size characters.',
-        'array' => 'The :attribute must contain :size items.',
+    'multiple_of'          => 'Поле :attribute повинно містити декілька :value',
+    'not_in'               => 'Вибране для :attribute значення не коректне.',
+    'not_regex'            => 'Формат поля :attribute не вірний.',
+    'numeric'              => 'Поле :attribute повинно містити число.',
+    'password'             => 'Неправильний пароль.',
+    'present'              => 'Поле :attribute повинне бути присутнє.',
+    'prohibited'           => 'Поле :attribute заборонено.',
+    'prohibited_if'        => 'Поле :attribute заборонено, коли :other дорівнює :value.',
+    'prohibited_unless'    => 'Поле :attribute заборонено, якщо тільки :other не знаходиться в :values.',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
+    'regex'                => 'Поле :attribute має хибний формат.',
+    'required'             => 'Поле :attribute є обов\'язковим для заповнення.',
+    'required_array_keys'  => 'The :attribute field must contain entries for: :values.',
+    'required_if'          => 'Поле :attribute є обов\'язковим для заповнення, коли :other є рівним :value.',
+    'required_unless'      => 'Поле :attribute є обов\'язковим для заповнення, коли :other відрізняється від :values',
+    'required_with'        => 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
+    'required_with_all'    => 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
+    'required_without'     => 'Поле :attribute є обов\'язковим для заповнення, коли :values не вказано.',
+    'required_without_all' => 'Поле :attribute є обов\'язковим для заповнення, коли :values не вказано.',
+    'same'                 => 'Поля :attribute та :other мають збігатися.',
+    'size'                 => [
+        'array'   => 'Поле :attribute повинне містити :size елементів.',
+        'file'    => 'Файл у полі :attribute має бути розміром :size кілобайт.',
+        'numeric' => 'Поле :attribute має бути довжини :size.',
+        'string'  => 'Текст у полі :attribute повинен містити :size символів.',
     ],
-    'starts_with' => 'The :attribute must start with one of the following: :values.',
-    'string' => 'The :attribute must be a string.',
-    'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'The :attribute has already been taken.',
-    'uploaded' => 'The :attribute failed to upload.',
-    'url' => 'The :attribute format is invalid.',
-    'uuid' => 'The :attribute must be a valid UUID.',
-    'phone' => 'The phone number must be valid.',
-    'max_file_count' => 'Maximum :files files are allowed.',
-    'max_file_size' => 'File size cannot exceed :size.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom' => [
+    'starts_with'          => 'Поле :attribute повинне починатися з одного з наступних значень: :values',
+    'string'               => 'Поле :attribute повинне містити текст.',
+    'timezone'             => 'Поле :attribute повинне містити коректну часову зону.',
+    'unique'               => 'Вказане значення поля :attribute вже існує.',
+    'uploaded'             => 'Завантаження :attribute не вдалося.',
+    'url'                  => 'Формат поля :attribute хибний.',
+    'uuid'                 => 'Поле :attribute має бути коректним UUID ідентифікатором.',
+    'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'g-recaptcha-response' => [
-            'required' => 'Please verify that you are not a robot.',
-            'captcha' => 'Captcha error! try again later or contact site admin.',
-        ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
-    */
-
-    'attributes' => [
-        'patient-name' => 'patient name',
-        'patient-phone' => 'patient phone',
-        'patient-email' => 'patient email',
-        'patient-county' => 'patient county',
-        'patient-city' => 'patient city',
-        'patient-diagnostic' => 'patient diagnostic',
-        'caretaker-name' => 'caretaker name',
-        'caretaker-phone' => 'caretaker phone',
-        'caretaker-email' => 'caretaker email',
-
-        'sms-estimated-amount' => 'estimated amount',
-        'sms-purpose' => 'purpose',
-        'sms-clinic-name' => 'clinic name',
-        'sms-clinic-country' => 'clinic country',
-        'sms-clinic-city' => 'clinic city',
-
-        'accommodation-clinic-name' => 'clinic name',
-        'accommodation-country' => 'clinic country',
-        'accommodation-city' => 'clinic city',
-        'accommodation-guests-number' => 'guests number',
-        'accommodation-start-date' => 'start date',
-        'accommodation-end-date' => 'end date',
-
-        'request-other-message' => 'message',
-        'help-type-8' => 'other needs'
-    ],
-
 ];
