@@ -27,7 +27,7 @@ body {
 
 body {
     font-family: 'Titillium Web', sans-serif;
-    color:#2b2b2b;
+    color:$custom-gray;
 }
 
 .navbar-light {
@@ -311,7 +311,7 @@ label.required {
 }
 
 .alert-general {
-    color:$gray-900;
+    color:$custom-gray;
 }
 
 .table {
@@ -535,4 +535,30 @@ label.required {
   
 .h6 {
     height: 1.5rem;
+}
+
+.form-header{
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 600;
+    font-size: 36px;
+    color: #1C1080;
+}
+
+.form-description p{
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.form-info-stripe{
+    background-color: #DFF2E3;
+}
+
+@media (min-width: 576px){
+    .pt-sm-25, .py-sm-25{
+        padding-top: 2.5rem !important;
+    }
+    .pb-sm-25, .py-sm-25{
+        padding-bottom: 2.5rem !important;
+    }
 }
