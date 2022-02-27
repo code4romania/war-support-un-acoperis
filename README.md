@@ -1,10 +1,10 @@
 # Împreună pentru sănătate
 
-[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/impreuna-pentru-sanatate.svg?style=for-the-badge)](https://github.com/code4romania/impreuna-pentru-sanatate/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/impreuna-pentru-sanatate.svg?style=for-the-badge)](https://github.com/code4romania/impreuna-pentru-sanatate/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/war-support-un-acoperis.svg?style=for-the-badge)](https://github.com/code4romania/war-support-un-acoperis/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/war-support-un-acoperis.svg?style=for-the-badge)](https://github.com/code4romania/war-support-un-acoperis/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
-[See the project live](https://impreunapentrusanatate.ro/en)
+[See the project live](https://tbd/en)
 
-Together for Health is a platform developed by the M.A.M.E. Association with the support of the Vodafone Romania Foundation, with the aim of building the largest Solidarity Community. This will be a place of well-being, where we can bring those in need of help together with people who are able to help them. Therefore, if you are struggling with health concerns, this is where you can access important information regarding treatment and medical investigations, clinics and hospital here or abroad. You can also request help finding medicine, accommodation or about anything else you may be struggling with. And, if you want to get involved, here you can also offer help to those in need.
+TBD
 
 [Contributing](#contributing) | [Built with](#built-with) | [Repos and projects](#repos-and-projects) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
@@ -30,11 +30,51 @@ If you would like to suggest new functionality, open an Issue and mark it as a _
 ### Database technology & provider
 Mysql
 ## Repos and projects
-https://github.com/code4romania/impreuna-pentru-sanatate 
+https://github.com/code4romania/war-support-un-acoperis 
 
 ## Deployment
 
-See instruction from this [wiki page](https://github.com/code4romania/impreuna-pentru-sanatate/wiki/Local-Development-Environment)
+See instruction from this [wiki page](https://github.com/code4romania/war-support-un-acoperis/wiki/Local-Development-Environment) [not available]
+
+[Docker](https://docs.docker.com/get-docker/) & [Docker-Compose](https://docs.docker.com/compose/install/) should be used on the development environment.
+
+### Makefile
+You can use `docker` or `docker-compose` to start docker containers, or you make use of the `make` shorthands. The _Makefile_ can be found in the root of the repository, and it includes a set of common commands. 
+
+The `make` util can be used on unix based machines, and it can be installed by running `apt install make` for wsl or linux or `brew install make` for mac.
+
+After installing `make` you can run the commands defined in the Makefile (ex: `make start`). 
+
+If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
+
+### First start up
+
+Copy the .env.example to .env.
+
+In order to start the development environment, either use the `make` util to start (ex: `make start`) or run `docker-compose up` in the project root directory.
+
+The only thing that should be triggered manually is the migrations & seeds commands after running the docker containers:
+```
+### with make
+make migrate && make seed
+
+### without make
+docker exec -it helpforhealth_web bash
+
+#in the container
+php artisan php artisan migrate --seed
+```
+
+### Access
+The main application can be accessed via http://localhost:80.
+
+PhpMyAdmin can be accessed via http://localhost:8080. 
+
+If custom hosts are required in any way, you can add the following entries in your local hosts file and use them accordingly.
+
+```bash
+127.0.0.1  helpforhealth.local
+```
 
 ## Feedback
 
