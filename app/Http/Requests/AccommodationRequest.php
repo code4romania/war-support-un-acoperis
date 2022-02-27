@@ -64,13 +64,13 @@ class AccommodationRequest extends FormRequest
             'transport_subway_distance' => ['nullable', 'string', 'max:64'],
             'transport_bus_distance' => ['nullable', 'string', 'max:64'],
             'transport_railway_distance' => ['nullable', 'string', 'max:64'],
-            'unavailable.*.from' => ['required', 'date', 'date_format:Y-m-d'],
-            'unavailable.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:unavailable.*.from'],
-            'unavailable' => ['nullable', new DateIntervals()],
+            'available.*.from' => ['required', 'date', 'date_format:Y-m-d'],
+            'available.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:available.*.from'],
+            'available' => ['nullable', new DateIntervals()],
         ];
 
         if (empty($this->id)) {
-            $rules['unavailable.*.from'][] = 'after:yesterday';
+            $rules['available.*.from'][] = 'after:yesterday';
         }
 
         return $rules;
