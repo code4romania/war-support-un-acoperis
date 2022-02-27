@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   database:
@@ -25,7 +25,7 @@ services:
     container_name: helpforhealth_web
     build:
       dockerfile: .docker/webserver/Dockerfile
-      context: ./
+      context: .docker/webserver
     volumes:
       - ./:/app
     links:
@@ -63,7 +63,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.132.0/24
+      - subnet: 192.168.132.0/24
 
 volumes:
   MySQLStorageHelpForHealth:
