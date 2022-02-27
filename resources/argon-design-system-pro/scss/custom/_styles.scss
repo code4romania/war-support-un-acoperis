@@ -412,11 +412,17 @@ label.required {
 
 @include media-breakpoint-down(md) {
     .navbar-brand img {
-        height:45px;
         margin-left:10px;
     }
     .homepage-logo img {
         display: none;
+    }
+    .navbar-collapse {
+        .collapse-brand {
+            img {
+                height: 25px;
+            }
+        }
     }
 }
 
@@ -526,3 +532,16 @@ label.required {
     background-color: #AB1E2C !important;
     border-color: #AB1E2C !important;
 }
+
+.bg-gray-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246/var(--tw-bg-opacity));
+  }
+  
+  .h6{
+    height: 1.5rem;
+  }
+  
+  .flex{
+    display: flex;
+  }
