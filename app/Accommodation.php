@@ -106,6 +106,14 @@ class Accommodation extends Model implements Auditable
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function addresscounty()
+    {
+        return $this->belongsTo(County::class, 'address_county_id');
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function accommodationfacilitytypes()
@@ -159,6 +167,7 @@ class Accommodation extends Model implements Auditable
         if (!empty($this->address_floor)) $addressComponents[] = 'Et. ' . $this->address_floor;
         $addressComponents[] = $this->addresscountry->name;
         $addressComponents[] = $this->address_city;
+        $addressComponents[] = $this->addresscounty->name;
         if (!empty($this->address_postal_code)) $addressComponents[] = 'Cod Postal ' . $this->address_postal_code;
 
         return implode(', ', $addressComponents);

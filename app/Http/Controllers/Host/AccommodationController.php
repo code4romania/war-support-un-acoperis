@@ -246,6 +246,7 @@ class AccommodationController extends Controller
             ->with('otherFacilities', FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first())
             ->with('unavailableIntervals', $accommodation->unavailableIntervals()->get())
             ->with('countries', Country::all())
+            ->with('counties', County::all())
             ->with('photoData', $this->getPhotoData($accommodation));
     }
 
@@ -304,7 +305,8 @@ class AccommodationController extends Controller
         $accommodation->is_smoking_allowed = in_array($request->get('allow_smoking', $accommodation->is_smoking_allowed), ['yes', 1]) ? 1 : 0;
         $accommodation->is_pet_allowed = in_array($request->get('allow_pets', $accommodation->is_pet_allowed), ['yes', 1]) ? 1 : 0;
         $accommodation->description = $request->get('description', $accommodation->description);
-        $accommodation->address_country_id = (int)$request->get('country', $accommodation->address_country_id);
+//        $accommodation->address_country_id = (int)$request->get('country', $accommodation->address_country_id);
+        $accommodation->address_county_id = (int)$request->get('county_id', $accommodation->address_county_id);
         $accommodation->address_city = $request->get('city', $accommodation->address_city);
         $accommodation->address_street = $request->get('street', $accommodation->address_street);
         $accommodation->address_building = $request->get('building', $accommodation->address_building);

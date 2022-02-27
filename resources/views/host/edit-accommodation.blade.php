@@ -181,21 +181,39 @@
                 <div class="address py-4 border-top border-bottom">
                     <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation address') }}</h6>
                     <div class="row">
-                        <div class="col-6 col-sm-3">
+{{--                        <div class="col-6 col-sm-3">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>--}}
+{{--                                <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">--}}
+{{--                                    <option value="">{{ __("Select country") }}</option>--}}
+{{--                                    @foreach($countries as $country)--}}
+{{--                                        <option value="{{ $country->id }}" {{ (old('country', $accommodation->address_country_id) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+
+{{--                                @error('country')--}}
+{{--                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+                        {{-- @TODO: somehow duplicate code, see signup-form.blade.php and add-accommodation.blade.php. Someone with more Blade knowledge maybe knows how to do this better --}}
+                        <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="country" class="font-weight-600 required">{{ __('Country') }}</label>
-                                <select class="form-control custom-select @error('country')is-invalid @enderror" name="country" id="country">
-                                    <option value="">{{ __("Select country") }}</option>
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country->id }}" {{ (old('country', $accommodation->address_country_id) == $country->id) ? 'selected' : '' }}>{{ $country->name }}</option>
+                                <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
+                                <select name="county_id" id="county_id" class="custom-select form-control @error('county') is-invalid @enderror">
+                                    <option>{{ __("Select county") }}</option>
+                                    @foreach ($counties as $county)
+                                        <option value="{{ $county->id }}"{{ old('county_id', $accommodation->address_county_id) == $county->id ? ' selected' : '' }}>{{ $county->name }}</option>
                                     @endforeach
                                 </select>
 
-                                @error('country')
-                                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                                @error('county_id')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
+                        {{-- end duplicate --}}
 
                         <div class="col-6 col-sm-3">
                             <div class="form-group">
