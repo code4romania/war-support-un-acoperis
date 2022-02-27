@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container pt-sm-5 py-3">
+    <div class="container py-sm-25">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
@@ -12,7 +12,7 @@
             {!! $description !!}
         </div>
     </div>
-    <div class="alert form-info-stripe alert-general white font-weight-600 mb-0" role="alert">
+    <div class="alert form-info-stripe alert-general white font-weight-600 mb-0 py-4" role="alert">
         <div class="container">
             <!-- <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span> -->
             <img class="alert-inner--icon mr-3" src="/images/info-icon.svg" >
