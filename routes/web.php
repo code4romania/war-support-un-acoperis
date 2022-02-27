@@ -195,6 +195,8 @@ Route::middleware([SetLanguage::class])
         Route::get('/request-help-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/offer-help', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/offer-help-confirmation', 'GetInvolvedController@confirmation')->name('get-involved-confirmation');
+        Route::get('/host-signup-form', 'GetInvolvedController@displaySignupForm')->name('get-involved-display-signup-form');
+        Route::post('/store-hosts-terms-agreed', 'GetInvolvedController@storeTermsAndConditionsAgreement')->name('store-hosts-terms-agreed');
         Route::post('/store-get-involved', 'GetInvolvedController@store')->name('store-get-involved');
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');

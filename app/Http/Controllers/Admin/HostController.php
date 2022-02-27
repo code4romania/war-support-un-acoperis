@@ -8,7 +8,7 @@ use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
-use App\Http\Requests\HelpResourceRequest;
+use App\Http\Requests\HostRequest;
 use App\ResourceType;
 use App\Services\UserService;
 use App\User;
@@ -56,10 +56,10 @@ class HostController extends Controller
     }
 
     /**
-     * @param HelpResourceRequest $request
+     * @param HostRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(HelpResourceRequest $request)
+    public function store(HostRequest $request)
     {
         /** @var ResourceType $resourceType */
         $resourceType = ResourceType::find($request->get('help'));
