@@ -73,9 +73,7 @@ PhpMyAdmin can be accessed via http://localhost:8080.
 If custom hosts are required in any way, you can add the following entries in your local hosts file and use them accordingly.
 
 ```bash
-127.0.0.1  db.helpforhealth.local
 127.0.0.1  helpforhealth.local
-127.0.0.1  pma.helpforhealth.local
 ```
 
 ## Feedback
