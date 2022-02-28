@@ -1,3 +1,6 @@
+bootstrap: migrate seed
+	npm install && npm run dev
+
 start:
 	docker-compose up -d
 
@@ -21,3 +24,5 @@ seed:
 
 cc:
 	docker exec helpforhealth_web bash -c "php artisan ca:cl"
+
+.PHONY: bootstrap start stop build logs shell migrate seed cc

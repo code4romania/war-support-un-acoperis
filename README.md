@@ -47,22 +47,17 @@ After installing `make` you can run the commands defined in the Makefile (ex: `m
 
 If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
 
-### First start up
+### Bootstrap your development environment
 
-Copy the .env.example to .env.
+Copy the `.env.example` to `.env` and set the variables to their respective values. The `.env` file should not be in version control but present locally to setup the environment.
 
 In order to start the development environment, either use the `make` util to start (ex: `make start`) or run `docker-compose up` in the project root directory.
 
-The only thing that should be triggered manually is the migrations & seeds commands after running the docker containers:
+Some things will take some time to install (like `composer`), so sit tight and wait for the containers to finish checking `make logs`.
+
+The only thing that should be executed manually on the host is the DB migrations & seeds commands and building of the assets, _after_ running the docker containers:
 ```
-### with make
-make migrate && make seed
-
-### without make
-docker exec -it helpforhealth_web bash
-
-#in the container
-php artisan php artisan migrate --seed
+make bootstrap
 ```
 
 ### Access
