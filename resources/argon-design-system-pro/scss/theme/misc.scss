@@ -113,11 +113,16 @@
   }
 
   .flatpickr-day {
-    &.today,
     &.selected,
     &.startRange,
     &.endRange {
       background: $primary !important;
+      color: $white;
+      border: none;
+    }
+
+    &.today {
+      background: $secondary !important;
       color: $white;
       border: none;
     }
