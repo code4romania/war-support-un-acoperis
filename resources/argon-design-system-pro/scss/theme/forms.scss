@@ -1,7 +1,7 @@
 /* Form controls */
 
 label {
-    font-size: $font-size-sm;
+    font-size: $font-size-base;
 }
 
 .form-control {
@@ -9,6 +9,18 @@ label {
     transition: $transition-base;
 
     &:focus {
+        &::-webkit-input-placeholder {
+            color: $input-focus-placeholder-color;
+        }
+        &::-moz-placeholder {
+            color: $input-focus-placeholder-color;
+        }
+        &:-ms-input-placeholder {
+            color: $input-focus-placeholder-color;
+        }
+        &::-ms-input-placeholder {
+            color: $input-focus-placeholder-color;
+        }
         &::placeholder {
             color: $input-focus-placeholder-color;
         }
@@ -109,6 +121,18 @@ textarea[resize="horizontal"] {
     }
 
     // Placeholder
+    &::-webkit-input-placeholder {
+      color: $form-feedback-valid-color;
+    }
+    &::-moz-placeholder {
+      color: $form-feedback-valid-color;
+    }
+    &:-ms-input-placeholder {
+      color: $form-feedback-valid-color;
+    }
+    &::-ms-input-placeholder {
+      color: $form-feedback-valid-color;
+    }
     &::placeholder {
       color: $form-feedback-valid-color;
     }
@@ -129,6 +153,18 @@ textarea[resize="horizontal"] {
       }
 
       // Placeholder
+      &::-webkit-input-placeholder {
+        color: $form-feedback-invalid-color;
+      }
+      &::-moz-placeholder {
+        color: $form-feedback-invalid-color;
+      }
+      &:-ms-input-placeholder {
+        color: $form-feedback-invalid-color;
+      }
+      &::-ms-input-placeholder {
+        color: $form-feedback-invalid-color;
+      }
       &::placeholder {
         color: $form-feedback-invalid-color;
       }

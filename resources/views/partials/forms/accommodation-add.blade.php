@@ -1,8 +1,8 @@
 <form action="{{ $formRoute }}" method="post" enctype="multipart/form-data">
     @csrf
-    <h6 class="font-weight-600 text-primary mb-3">{{ __('Hosting details') }}</h6>
+    <h5 class="font-weight-600 mb-3">{{ __('Accommodation details') }}</h5>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-12 col-sm-6 col-md-3">
             <div class="form-group">
                 <label for="ownership" class="font-weight-600 required">
                     {{ __('Ownership regime') }}
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-12 col-sm-6 col-md-3">
             <div class="form-group">
                 <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                 <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
@@ -55,7 +55,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label for="max_guests" class="font-weight-600 required">
-                    {{ __('What is the maximum number of guests') }}?
+                    {{ __('Maximum guests number') }}?
                 </label>
                 <input type="number" min="1" max="127" class="form-control @error('max_guests')is-invalid @enderror" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
 
@@ -68,7 +68,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label for="available_rooms" class="font-weight-600 required">
-                    {{ __('How many rooms can the hosts use') }}?
+                    {{ __('Number of rooms for sleep') }}?
                 </label>
                 <input type="number" min="1" max="127" class="form-control @error('available_rooms')is-invalid @enderror" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
 
@@ -144,7 +144,7 @@
         <textarea id="description" class="form-control" name="description" cols="30" rows="10">{{ old('description') }}</textarea>
     </div>
 
-    <h6 class="font-weight-600 text-primary mb-3">{{ __('Available facilities') }}</h6>
+    <h5 class="font-weight-600 mb-3">{{ __('Accomodation facilities') }}</h5>
     <div class="row my-3">
         <div class="col-sm-6">
             <label for="" class="font-weight-600 mb-3">{{ __('What facilities does the accommodation have') }}?</label>
@@ -177,7 +177,7 @@
         </div>
     </div>
     <div class="address py-4 border-top border-bottom">
-        <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation address') }}</h6>
+        <h5 class="font-weight-600 mb-3">{{ __('Accommodation address') }}</h5>
         <div class="row">
             {{--                        <div class="col-6 col-sm-3">--}}
             {{--                            <div class="form-group">--}}
@@ -196,11 +196,12 @@
             {{--                        </div>--}}
 
             {{-- @TODO: duplicate code, see signup-form.blade.php. Someone with more Blade knowledge maybe knows how to do this better --}}
-            <div class="col-sm-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="form-group">
                     <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
-                    <select name="county_id" id="county_id" class="custom-select form-control @error('county_id') is-invalid @enderror">
-                        <option>{{ __("Select county") }}</option>
+
+                    <select name="county_id" id="county_id" class="custom-select form-control @error('county') is-invalid @enderror">
+                        <option>{{ __("Select County") }}</option>
                         @foreach ($counties as $county)
                             <option value="{{ $county->id }}"{{ old('county_id') == $county->id ? ' selected' : '' }}>{{ $county->name }}</option>
                         @endforeach
@@ -214,7 +215,7 @@
             {{-- end duplicate --}}
 
 
-            <div class="col-6 col-sm-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="form-group">
                     <label for="city" class="font-weight-600 required">{{ __('City') }}</label>
                     <input type="text" class="form-control @error('city')is-invalid @enderror" name="city" id="city" placeholder="ex. Bucuresti" value="{{ old('city') }}">
@@ -225,7 +226,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="form-group">
                     <label for="street" class="font-weight-600">{{ __('Street') }}</label>
                     <input type="text" class="form-control @error('street')is-invalid @enderror" name="street" id="street" placeholder="ex. Postei 114B" value="{{ old('street') }}">
@@ -237,9 +238,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-12 col-md-6">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-6 col-md-3">
                         <div class="form-group">
                             <label for="building" class="font-weight-600">{{ __('Building') }}</label>
                             <input type="text" class="form-control @error('building')is-invalid @enderror" name="building" id="building" placeholder="ex. 1A" value="{{ old('building') }}">
@@ -250,7 +251,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-6 col-md-3">
                         <div class="form-group">
                             <label for="entrance" class="font-weight-600">{{ __('Entrance') }}</label>
                             <input type="text" class="form-control @error('entrance')is-invalid @enderror" name="entrance" id="entrance" placeholder="ex. 2" value="{{ old('entrance') }}">
@@ -261,7 +262,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-6 col-md-3">
                         <div class="form-group">
                             <label for="apartment" class="font-weight-600">{{ __('Apartment') }}</label>
                             <input type="text" class="form-control @error('apartment')is-invalid @enderror" name="apartment" id="apartment" placeholder="ex. 6C" value="{{ old('apartment') }}">
@@ -272,7 +273,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-6 col-md-3">
                         <div class="form-group">
                             <label for="floor" class="font-weight-600">{{ __('Floor') }}</label>
                             <input type="text" class="form-control @error('floor')is-invalid @enderror" name="floor" id="floor" placeholder="ex. Parter" value="{{ old('floor') }}">
@@ -284,7 +285,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="form-group">
                     <label for="postal_code" class="font-weight-600">{{ __('Postal code') }}</label>
                     <input type="text" class="form-control @error('postal_code')is-invalid @enderror" name="postal_code" id="postal_code" placeholder="ex. 062132" value="{{ old('postal_code') }}">
@@ -297,7 +298,7 @@
         </div>
     </div>
     <div class="gallery py-4 border-bottom">
-        <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation photos') }}</h6>
+        <h5 class="font-weight-600 mb-3">{{ __('Accommodation photos') }} ({{ __('at least one phone required') }})</h5>
         <input type="file" name="photos" id="photos">
 
         @error('photos')
@@ -305,7 +306,7 @@
         @enderror
     </div>
     <div class="rules py-4 border-bottom">
-        <h6 class="font-weight-600 text-primary mb-3">{{ __('House rules') }}</h6>
+        <h5 class="font-weight-600 mb-3">{{ __('House rules') }}</h5>
         <div class="row">
             <div class="col-sm-6">
                 <label class="font-weight-600 mb-3">{{ __('Smoking is allowed in the house') }}?</label>
@@ -354,7 +355,7 @@
         </div>
     </div>
     <div class="transport py-4 border-bottom">
-        <h6 class="font-weight-600 text-primary mb-3">{{ __('Transport accessibility (distance in meters)') }}</h6>
+        <h5 class="font-weight-600 mb-3">{{ __('Transport accessibility (distance in meters)') }}</h5>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
@@ -400,7 +401,7 @@
     </div>
 
     <div class="availability py-4 border-bottom">
-        <h6 class="font-weight-600 text-primary mb-3">{{ __('Accommodation availability') }}</h6>
+        <h5 class="font-weight-600 mb-3">{{ __('Accommodation availability') }}</h5>
         <div class="alert bg-light-blue text-dark d-flex align-items-center mb-3 mt-3">
             <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
             <span class="alert-inner--text">{{ __('Please mention if the availability is limited') }}</span>
