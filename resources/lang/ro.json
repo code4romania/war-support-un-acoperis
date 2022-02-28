@@ -388,7 +388,7 @@
     "IE11": "Browser-ul tău (Internet Explorer) este învechit și nu permite navigarea pe acest site. Pentru a putea accesa siteul te rugăm să descarci un browser modern.",
 
     "Institution/Organisation name": "Nume instituție/organizație",
-    
+
     "Type: Institution / NGO": "Tipul solicitantului: Instituție publică / ONG",
     "Public institution option": "Instituție publică",
     "NGO option": "ONG",
@@ -399,11 +399,11 @@
     "Legal representative name": "Numele reprezentantului legal",
     "Identification no": "Identificator (CUI/Nr de inregistrare in Registrul Asociațiilor și Fundațiilor, după caz)",
     "Physical address": "Adresa fizica",
-    
+
     "Type of support: Offer housing / Request housing for refugees": "Tip de sprijin oferit: Spații de cazare / Solicitări pentru refugiați",
     "Offer housing": "Spații de cazare",
     "Request housing for refugees": "Solicitări cazare pentru refugiați",
-    
+
     "Institution/Organisation name placeholder": "Code for Romania",
     "Contact person placeholder": "Ana-Maria Vasile",
     "Legal representative name placeholder": "Ionescu Ion",
@@ -411,5 +411,33 @@
     "I want to help": "Vreau să ajut",
     "I offer accommodation": "Ofer cazare",
     "Add an accommodation unit": "Adaugă o unitate de cazare",
-    "Accommodation details": "Detalii cazare"
+    "I agree": "Sunt de acord",
+    "Create account": "Crează cont",
+    "Applicant's full name": "Numele și prenumele solicitantului",
+    "Applicant's phone number": "Telefonul solicitantului",
+    "Applicant's e-mail": "E-mailul solicitantului",
+    "Region of origin": "Regiunea de proveniență",
+    "City of origin": "Oraș de proveniență",
+    "Select region": "Selectează regiunea",
+    "Continue": "Continuă",
+    "not auth access page": "Nu ești autorizat să accesezi această pagină",
+    "Request accommodation": "Solicită cazare",
+    "Current approximate location": "Locația curentă aproximativă",
+    "Known languages": "Limbi cunoscute",
+    "Special needs": "Nevoi speciale",
+    "Special needs detailing": "Detaliere nevoi speciale",
+    "Special needs detailing expl": "Menționeaza dacă există nevoi speciale, cum ar fi necesar de medicamente, handicap, alte nevoi care necesită condiții speciale de cazare.",
+    "I have dependants or I am with family": "Am persoane în grijă sau sunt împreună cu familia",
+    "I have dependants expl": "Bifează căsuța dacă ești împreună cu familia, minori/bătrâni care necesită asistența ta, pentru a completa datele acestora și a prioritiza găsirea unei locuințe comune.",
+    "current_location_placeholder": "Botoșani, județ Botoșani, România",
+    "special_request_placeholder": "Scaun cu rotile, spațiu de cazare la parter",
+    "Please give us more details about the case you are bringing to our attention": "Te rugăm să ne oferi mai multe detalii referitoare la cazul pe care îl supui atenției noastre!",
+    "You can mention details such as ... and other information you consider relevant": "Poți menționa detalii precum ... și alte informații pe care le consideri relevante",
+    "Finalize": "Finalizează",
+    "Number of persons in care": "Număr de persoane în grijă",
+    "Age": "Vârsta",
+    "Mentions/Special needs": "Mențiuni/Nevoi speciale",
+    "I need transport": "Am nevoie de transport",
+    "I don't need transport - I have my own vehicle": "Nu am nevoie de transport - am vehicul propriu",
+    "I need special transport (e.g. car with wheelchair space)": "Am nevoie de transport special (ex. mașină cu spațiu pentru scaun cu rotile)"
 }
