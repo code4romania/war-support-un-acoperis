@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Country;
+use App\County;
 use App\Http\Requests\HostRequestCompany;
 use App\Http\Requests\HostRequestPerson;
 use App\User;
@@ -73,6 +75,16 @@ class HostService
             'address' => $request->get('address'),
             'phone_number' => $request->get('phone'),
             'approved_at' => now(),];
+    }
+
+    public function viewSignupForm(string $view, ?string $description = null)
+    {
+        return view($view)
+            ->with('hostType', old('host_type_copy'))
+            ->with('countries', Country::all())
+            ->with('counties', County::all())
+            ->with('description', $description);
+
     }
 
 }

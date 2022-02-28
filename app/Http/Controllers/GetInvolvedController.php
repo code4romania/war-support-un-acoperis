@@ -78,14 +78,8 @@ class GetInvolvedController extends Controller
             return redirect()->route('get-involved')->with('error', 'You have to accept terms and conditions first');
         }
 
-        $countries = Country::all();
-        $counties = County::all();
-
-        return view('frontend.host.signup-form')
-            ->with('hostType', old('host_type_copy'))
-            ->with('countries', $countries)
-            ->with('counties', $counties)
-            ->with('description', $settingRepository->byKey('get_involved_description') ?? '');
+        $hostService = new HostService();
+        return $hostService->viewSignupForm('frontend.host.signup-form', $settingRepository->byKey('get_involved_description') ?? '');
     }
 
     /**

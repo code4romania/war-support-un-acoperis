@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $formRoute }}" id="hostSignupPersonForm">
+<form method="POST" action="{{ $formRoutePerson }}" id="hostSignupPersonForm">
     @csrf
     <input type="hidden" name="host_type_copy" value="{{ $hostType }}" />
 

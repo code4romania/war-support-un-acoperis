@@ -12,8 +12,8 @@
 </div>
 
 
-@include('partials.forms.host-signup-person', ['formRoute' => route('create-host-person-account')])
-@include('partials.forms.host-signup-company', ['formRoute' => route('create-host-company-account')])
+@include('partials.forms.host-signup-person')
+@include('partials.forms.host-signup-company')
 
 @section('scripts')
 <script>

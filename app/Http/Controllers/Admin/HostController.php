@@ -8,6 +8,7 @@ use App\County;
 use App\HelpResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
+use App\Http\Requests\HostRequestCompany;
 use App\Http\Requests\HostRequestPerson;
 use App\ResourceType;
 use App\Services\HostService;
@@ -48,24 +49,34 @@ class HostController extends Controller
      */
     public function add()
     {
-        $resourceType = ResourceType::whereRaw("options & " . ResourceType::OPTION_ALERT . " = " . ResourceType::OPTION_ALERT)->first();
-
-        return view('admin.host-add')
-            ->with('formRoute', route('admin.host-store'))
-            ->with('countries', Country::all())
-            ->with('counties', County::all())
-            ->with('resourceType', $resourceType);
+        $hostService = new HostService();
+        return $hostService->viewSignupForm('admin.host-add');
     }
 
     /**
      * @param HostRequestPerson $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(HostRequestPerson $request)
+    public function storePerson(HostRequestPerson $request)
     {
 
         $hostService = new HostService();
         $hostUser = $hostService->createHostPerson($request);
+
+        return redirect()
+            ->route('admin.host-detail', ['id' => $hostUser->id])
+            ->withsuccess(__("User was activated and reset password option was successfully sent"));
+    }
+
+    /**
+     * @param HostRequestCompany $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeCompany(HostRequestCompany $request)
+    {
+
+        $hostService = new HostService();
+        $hostUser = $hostService->createHostCompany($request);
 
         return redirect()
             ->route('admin.host-detail', ['id' => $hostUser->id])
