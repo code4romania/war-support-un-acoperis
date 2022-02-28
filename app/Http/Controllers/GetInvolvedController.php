@@ -9,7 +9,8 @@ use App\Exceptions\UserIdNotFoundInSession;
 use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Requests\AccommodationRequest;
-use App\Http\Requests\HostRequest;
+use App\Http\Requests\HostRequestCompany;
+use App\Http\Requests\HostRequestPerson;
 use App\ResourceType;
 use App\Services\AccommodationService;
 use App\Services\HostService;
@@ -77,25 +78,36 @@ class GetInvolvedController extends Controller
             return redirect()->route('get-involved')->with('error', 'You have to accept terms and conditions first');
         }
 
-
         $countries = Country::all();
         $counties = County::all();
 
         return view('frontend.host.signup-form')
-            ->with('formRoute', route('store-get-involved'))
+            ->with('formRoute', )
             ->with('countries', $countries)
             ->with('counties', $counties)
             ->with('description', $settingRepository->byKey('get_involved_description') ?? '');
     }
 
     /**
-     * @param HostRequest $request
+     * @param HostRequestPerson $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(HostRequest $request)
+    public function storePersonAccount(HostRequestPerson $request)
     {
         $hostService = new HostService();
-        $hostUser = $hostService->createHost($request);
+        $hostUser = $hostService->createHostPerson($request);
+        Auth::login($hostUser);
+        return redirect()->route('get-involved-add-accommodation-form');
+    }
+
+    /**
+     * @param HostRequestCompany $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeCompanyAccount(HostRequestCompany $request)
+    {
+        $hostService = new HostService();
+        $hostUser = $hostService->createHostCompany($request);
         Auth::login($hostUser);
         return redirect()->route('get-involved-add-accommodation-form');
     }

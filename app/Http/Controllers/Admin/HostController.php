@@ -8,7 +8,7 @@ use App\County;
 use App\HelpResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
-use App\Http\Requests\HostRequest;
+use App\Http\Requests\HostRequestPerson;
 use App\ResourceType;
 use App\Services\HostService;
 use App\Services\UserService;
@@ -58,14 +58,14 @@ class HostController extends Controller
     }
 
     /**
-     * @param HostRequest $request
+     * @param HostRequestPerson $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(HostRequest $request)
+    public function store(HostRequestPerson $request)
     {
 
         $hostService = new HostService();
-        $hostUser = $hostService->createHost($request);
+        $hostUser = $hostService->createHostPerson($request);
 
         return redirect()
             ->route('admin.host-detail', ['id' => $hostUser->id])

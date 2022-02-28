@@ -200,7 +200,8 @@ Route::middleware([SetLanguage::class])
         Route::post('/save-accommodation', 'GetInvolvedController@saveAccommodation')->name('get-involved-save-accommodation');
         Route::get('/accommodation-saved', 'GetInvolvedController@accommodationSaved')->name('get-involved-success');
         Route::post('/store-hosts-terms-agreed', 'GetInvolvedController@storeTermsAndConditionsAgreement')->name('store-hosts-terms-agreed');
-        Route::post('/store-get-involved', 'GetInvolvedController@store')->name('store-get-involved');
+        Route::post('/create-host-person-account', 'GetInvolvedController@storePersonAccount')->name('create-host-person-account');
+        Route::post('/create-host-company-account', 'GetInvolvedController@storeCompanyAccount')->name('create-host-company-account');
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');
         Route::get('/contact', 'ContactController@contact')->name('contact');

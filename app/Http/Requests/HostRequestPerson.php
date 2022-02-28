@@ -8,10 +8,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Class HostRequest
+ * Class HostRequestPerson
  * @package App\Http\Requests
  */
-class HostRequest extends FormRequest
+class HostRequestPerson extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
