@@ -286,13 +286,13 @@
     <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
-        tinymce.init({selector: '#description'});
-        tinymce.init({selector: '#extra_details'});
-        tinymce.init({selector: '#transport_details'});
+        tinymce.init({selector: '#description', menubar: false });
+        tinymce.init({selector: '#extra_details', menubar: false });
+        tinymce.init({selector: '#transport_details', menubar: false });
 
-        tinymce.init({selector: '#description_english'});
-        tinymce.init({selector: '#extra_details_english'});
-        tinymce.init({selector: '#transport_details_english'});
+        tinymce.init({selector: '#description_english', menubar: false });
+        tinymce.init({selector: '#extra_details_english', menubar: false });
+        tinymce.init({selector: '#transport_details_english', menubar: false });
 
         new Choices('#categories', {
             search: false,

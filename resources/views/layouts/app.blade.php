@@ -39,18 +39,20 @@
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet" />
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-201038828-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
+    @if( env('APP_ENV') =='production' )
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECQQ08XFMQ"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+                gtag('config', 'G-ECQQ08XFMQ');
+            </script>
+    @endif
 
-        gtag('config', 'UA-201038828-1');
-    </script>
 
     @yield('head-scripts')
 </head>
@@ -135,13 +137,12 @@
                             </a>
                         </li>
 
-                        {{-- 
                         <li class="nav-item">
-                            <a class="nav-link {{ in_array(Route::currentRouteName(), ['clinic-list', 'clinic-details']) ? 'active' : '' }}" href="{{ route('clinic-list') }}">
-                                {{ __('Clinics and Hospitals') }}
+                            <a class="nav-link {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}" href="{{ route('contact') }}">
+                                {{ __('Contact') }}
                             </a>
-                        </li> 
-                        --}}
+                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -192,7 +193,7 @@
                             <a class="nav-link{{ Route::currentRouteName() == 'contact' ? ' active' : '' }}" href="{{ route('contact') }}">
                                 {{ __('Contact') }}
                             </a>
-                        </li> 
+                        </li>
                         --}}
 
                         <!-- Language switcher -->
@@ -277,7 +278,10 @@
     <script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/argon-design-system.js')}}"></script>
+    <script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
+
     @yield('scripts')
+    @yield('templates')
     @include('cookieConsent::index')
 </body>
 

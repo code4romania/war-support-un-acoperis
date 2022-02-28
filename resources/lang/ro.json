@@ -218,19 +218,22 @@
     "Available rooms": "Numărul de camere",
     "Available bathrooms": "Numărul de băi",
     "How many rooms can the hosts use": "Câte camere pot folosi persoanele cazate",
+    "Number of rooms for sleep": "Număr spații de dormit (camere)",
     "How many bathrooms does the place have": "Câte băi are locuința",
     "Allow the use of the kitchen of the accommodated guests": "Permiteți folosirea bucătăriei de către persoane cazate",
     "Yes, it is ready for guests": "Da, este pregatită pentru oaspeți",
     "No, the kitchen is not accessible": "Nu, bucataria nu este accesibilă",
     "The hosts can benefit from a parking space": "Persoanele cazate beneficiază de loc de parcare",
-    "Add a property description": "Adaugă o descriere a locuinîei",
+    "Add a property description": "Adaugă o descriere a locuinței",
     "Available facilities": "Dotări cazare",
+    "Accomodation facilities": "Dotări spațiu de cazare",
     "What other facilities does the accommodation have": "Ce alte dotări are spațiul de cazare",
     "What facilities does the accommodation have": "Ce dotări are spațiul de cazare",
     "What special facilities does the accommodation space have": "Ce dotări speciale are spațiul de cazare",
-    "Accommodation address": "Adresa locuinței",
+    "Accommodation address": "Adresă spațiu de cazare",
     "Accommodation exact address": "Adresa exactă",
     "Accommodation photos": "Poze locuință",
+    "at least one phone required": "obligatoriu cel puțin o fotografie",
     "House rules": "Regulile casei",
     "Smoking is allowed in the house": "Este permis fumatul în locuință",
     "Pets are allowed in the house": "Se acceptă animale în locuință",
@@ -384,6 +387,7 @@
     "This email is already used.": "Adresa de e-mail este deja folosită.",
     "IE11": "Browser-ul tău (Internet Explorer) este învechit și nu permite navigarea pe acest site. Pentru a putea accesa siteul te rugăm să descarci un browser modern.",
 
+
     "I agree": "Sunt de acord",
     "Create account": "Crează cont",
     "Applicant's full name": "Numele și prenumele solicitantului",
@@ -412,5 +416,31 @@
     "Mentions/Special needs": "Mențiuni/Nevoi speciale",
     "I need transport": "Am nevoie de transport",
     "I don't need transport - I have my own vehicle": "Nu am nevoie de transport - am vehicul propriu",
-    "I need special transport (e.g. car with wheelchair space)": "Am nevoie de transport special (ex. mașină cu spațiu pentru scaun cu rotile)"
+    "I need special transport (e.g. car with wheelchair space)": "Am nevoie de transport special (ex. mașină cu spațiu pentru scaun cu rotile)",
+    "Institution/Organisation name": "Nume instituție/organizație",
+    
+    "Type: Institution / NGO": "Tipul solicitantului: Instituție publică / ONG",
+    "Public institution option": "Instituție publică",
+    "NGO option": "ONG",
+
+    "Contact person": "Persoana de contact",
+    "Email address": "Adresa de email",
+    "Phone number": "Număr de telefon",
+    "Legal representative name": "Numele reprezentantului legal",
+    "Identification no": "Identificator (CUI/Nr de inregistrare in Registrul Asociațiilor și Fundațiilor, după caz)",
+    "Physical address": "Adresa fizica",
+    
+    "Type of support: Offer housing / Request housing for refugees": "Tip de sprijin oferit: Spații de cazare / Solicitări pentru refugiați",
+    "Offer housing": "Spații de cazare",
+    "Request housing for refugees": "Solicitări cazare pentru refugiați",
+    
+    "Institution/Organisation name placeholder": "Code for Romania",
+    "Contact person placeholder": "Ana-Maria Vasile",
+    "Legal representative name placeholder": "Ionescu Ion",
+    "Physical address placeholder": "Str. Zambilelor, nr. 3",
+    "I want to help": "Vreau să ajut",
+    "I offer accommodation": "Ofer cazare",
+    "Add an accommodation unit": "Adaugă o unitate de cazare",
+    "Accommodation details": "Detalii cazare"
+
 }

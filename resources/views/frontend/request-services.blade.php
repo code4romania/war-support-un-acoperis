@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container pt-sm-6 pb-sm-5 py-3">
+    <div class="container py-sm-25">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
             </div>
         @endif
-        <h1 class="display-3 title mb-4 text-primary">{{ __('Request Help') }}</h1>
-        <p>
+        <h1 class="display-3 title mb-4 form-header">{{ __('Request Help') }}</h1>
+        <div class="form-description">
             {!! $description !!}
-        </p>
+        </div>
     </div>
-    <div class="alert bg-h4h-blue alert-general white font-weight-600 mb-0" role="alert">
+    <div class="alert form-info-stripe alert-general white font-weight-600 mb-0 py-4" role="alert">
         <div class="container">
-            <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
+            <img class="alert-inner--icon mr-3" src="/images/info-icon.svg" >
             <span class="alert-inner--text">{{ $info }}</span>
         </div>
     </div>

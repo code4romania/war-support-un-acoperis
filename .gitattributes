@@ -3,3 +3,7 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+
+# Ensure all .sh and PHP files use LF.
+*.php eol=lf
+*.sh eol=lf

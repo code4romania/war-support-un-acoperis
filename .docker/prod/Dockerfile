@@ -100,12 +100,11 @@ RUN chmod 777 /var/www/html/storage/logs/laravel.log
 RUN chown -R www-data:www-data /var/www/html
 
 # configure Ngnix
-COPY .docker/config/nginx/default /etc/nginx/sites-available/default
-COPY .docker/config/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY .docker/prod/config/nginx/default /etc/nginx/sites-available/default
+COPY .docker/prod/config/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # configure php-fpm
-COPY .docker/config/php-fpm/www.conf /etc/php/7.4/fpm/pool.d/www.conf
-
+COPY .docker/prod/config/php-fpm/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 80
 

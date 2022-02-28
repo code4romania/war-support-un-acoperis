@@ -71,6 +71,10 @@
                         <p>{{ $accommodation->available_rooms }}</p>
                     </div>
                     <div class="kv">
+                        <h6 class="font-weight-600 mb-1">{{ __('Available beds') }}</h6>
+                        <p>{{ $accommodation->available_beds }}</p>
+                    </div>
+                    <div class="kv">
                         <h6 class="font-weight-600 mb-1">{{ __('Available bathrooms') }}</h6>
                         <p>{{ $accommodation->available_bathrooms }}</p>
                     </div>
@@ -169,33 +173,14 @@
                     <div class="col-sm-6">
                         <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Accommodation availability') }}</h5>
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Checkin time') }}:</h6>
-                            <p>{{ substr($accommodation->checkin_time, 0, 5) }}</p>
-                        </div>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Checkout time') }}:</h6>
-                            <p>{{ substr($accommodation->checkout_time, 0, 5) }}</p>
-                        </div>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Unavailability') }}</h6>
-                            @forelse ($unavailableIntervals as $unavailableInterval)
+                            <h6 class="font-weight-600 mb-1">{{ __('Availability') }}</h6>
+                            @forelse ($availabilityIntervals as $interval)
                                 <p>
-                                    {{ substr($unavailableInterval->from_date, 0, 10) . ' - ' . substr($unavailableInterval->to_date, 0, 10) }}
+                                    {{ substr($interval->from_date, 0, 10) . ' - ' . substr($interval->to_date, 0, 10) }}
                                 </p>
                             @empty
                                 <p>N/A</p>
                             @endforelse
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <h5 class="font-weight-600 text-primary mb-4 mt-4">{{ __('Fees') }}</h5>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('What are the accommodation costs') }}?</h6>
-                            <p>{{ $accommodation->is_free ? __('Free') : __('Paid') }}</p>
-                        </div>
-                        <div class="kv">
-                            <h6 class="font-weight-600 mb-1">{{ __('Estimated amount charged per day / week / month if you apply for a financial benefit') }}</h6>
-                            <p>{{ $accommodation->general_fee ?? 'N/A' }}</p>
                         </div>
                     </div>
                 </div>
