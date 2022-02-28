@@ -27,5 +27,6 @@ seed:
 
 cc:
 	docker-compose exec php sh -c 'php artisan ca:cl'
+
 npm-watch:
 	docker-compose exec nodejs sh -c 'npm run watch'
