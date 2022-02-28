@@ -8,6 +8,7 @@ use App\Country;
 use App\County;
 use App\HelpRequest;
 use App\HelpRequestAccommodationDetail;
+use App\HelpRequestDependant;
 use App\HelpRequestSmsDetails;
 use App\HelpRequestType;
 use App\HelpType;
