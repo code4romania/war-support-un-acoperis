@@ -77,7 +77,8 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/accommodation/{id}/delete', 'Admin\AccommodationController@delete')->name('admin.accommodation-delete');
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
-        Route::post('/host/store', 'Admin\HostController@store')->name('admin.host-store');
+        Route::post('/host/store-person', 'Admin\HostController@storePerson')->name('admin.store-host-person');
+        Route::post('/host/store-company', 'Admin\HostController@storeCompany')->name('admin.store-host-company');
         Route::get('/host/edit/{id}', 'Admin\HostController@edit')->name('admin.host-edit');
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
         Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
@@ -200,7 +201,8 @@ Route::middleware([SetLanguage::class])
         Route::post('/save-accommodation', 'GetInvolvedController@saveAccommodation')->name('get-involved-save-accommodation');
         Route::get('/accommodation-saved', 'GetInvolvedController@accommodationSaved')->name('get-involved-success');
         Route::post('/store-hosts-terms-agreed', 'GetInvolvedController@storeTermsAndConditionsAgreement')->name('store-hosts-terms-agreed');
-        Route::post('/store-get-involved', 'GetInvolvedController@store')->name('store-get-involved');
+        Route::post('/create-host-person-account', 'GetInvolvedController@storePersonAccount')->name('create-host-person-account');
+        Route::post('/create-host-company-account', 'GetInvolvedController@storeCompanyAccount')->name('create-host-company-account');
         Route::get('/clinics', 'ClinicController@index')->name('clinic-list');
         Route::get('/clinics/{clinic}', 'ClinicController@show')->name('clinic-details');
         Route::get('/contact', 'ContactController@contact')->name('contact');
