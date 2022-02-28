@@ -119,33 +119,28 @@
                 <div class="list-group list-group-flush mt-2 mt-sm-4">
                 @if (Auth::user()->isAdministrator())
                     <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
-                        <i class="fa fa-pie-chart mr-3"></i>Dashboard
+                        <i class="fa fa-bar-chart mr-3"></i>Dashboard
                     </a>
-                    <a href="{{ route('admin.clinic-list') }}" class="d-none list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.clinic-list' ? 'active' : '' }}">
-                        <i class="fa fa-plus-square mr-3"></i>Lista Clinici</a>
-                    <a href="{{ route('admin.clinic-add') }}" class="d-none list-group-item list-group-item-action sub-list {{ Route::currentRouteName() == 'admin.clinic-add' ? 'active' : '' }}">
-                        <i class="fa fa-plus-square invisible mr-3"></i>Adauga o clinica</a>
-                    <a href="{{ route('admin.clinic-category-list') }}" class="d-none list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.clinic-category-list', 'admin.clinic-category-add', 'admin.clinic-category-edit']) ? 'active' : '' }}">
-                        <i class="fa fa-plus-square invisible mr-3"></i>Categorii clinici</a>
-                    <a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.help-list', 'admin.help-detail']) ? 'active' : '' }}">
-                        <i class="fa fa-exclamation-triangle mr-3"></i>Cereri de ajutor</a>
-                    <a href="{{ route('admin.resource-list') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.resource-list', 'admin.resource-detail']) ? 'active' : '' }}">
-                        <i class="fa fa-book mr-3"></i>Resurse ajutor
+                    <!-- New buttons, routes need to be added, and also active checks, like for Dashboard -->
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-bed mr-3"></i>Oferte cazări
                     </a>
-                    <a href="{{ route('admin.accommodation-list') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.accommodation-list', 'admin.accommodation-detail']) ? 'active' : '' }}">
-                        <i class="fa fa-plus-square invisible mr-3"></i>Spatii de cazare</a>
-                    <a href="{{ route('admin.host-add') }}" class="list-group-item list-group-item-action sub-list {{ in_array(Route::currentRouteName(), ['admin.host-add', 'admin.host-detail']) ? 'active' : '' }}">
-                        <i class="fa fa-plus-square invisible mr-3"></i>Adauga o gazda</a>
-                    <a href="{{ route('admin.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.profile', 'admin.edit-profile', 'admin.reset-password']) ? 'active' : '' }}">
-                        <i class="fa fa-user mr-3"></i>Profilul meu
-                    </a>
-                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.auditLogs.index', 'admin.auditLogs.show']) ? 'active' : '' }}" href="{{ route('admin.auditLogs.index') }}">
-                            <i class="fa fa-list mr-3"></i>{{ __('Audit logs') }}
+                        <a href="#" class="list-group-item list-group-item-action sub-list ">
+                            <i class="fa fa-minus mx-3"></i>Aprobate
                         </a>
-                        <a class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['admin.loginLogs.index']) ? 'active' : '' }}" href="{{ route('admin.loginLogs.index') }}">
-                            <i class="fa fa-list mr-3"></i>{{ __('Login logs') }}
+                        <a href="#" class="list-group-item list-group-item-action sub-list ">
+                            <i class="fa fa-minus mx-3"></i>În curs de aprobare
                         </a>
-
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <img src="/images/hand-icon.svg" class="mr-3">Solicitări cazări
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-users mr-3"></i>Utilizatori
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-bell mr-3"></i>Notificări
+                    </a>
+                    <!-- New buttons end -->
                 @elseif (Auth::user()->isHost())
                     <a href="{{ route('host.profile') }}" class="list-group-item list-group-item-action {{ in_array(Route::currentRouteName(), ['host.profile', 'host.edit-profile', 'host.reset-password']) ? 'active' : '' }}">
                         <i class="fa fa-user mr-3"></i>Profilul meu
@@ -155,6 +150,25 @@
                     </a>
                 @endif
                 </div>
+                <!-- New buttons, routes need to be added, and also active checks, like for Dashboard -->
+                <div class="list-group list-group-flush list-group-bottom mt-2 mt-sm-4 pb-5">
+                    <span class="list-group-item list-group-header">
+                        {{ Auth::user()->name }}
+                    </span>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <i class="fa fa-user mr-3"></i>Contul meu
+                    </a>
+                    <a href="{{ route('logout') }}" class="list-group-item list-group-item-action "
+                        onclick="event.preventDefault(); 
+                        document.getElementById('logout-form').submit();">
+                        <i class="fa fa-power-off mr-3"></i>Ieși din cont
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+                <!-- New buttons end -->
             </div>
             <div class="page-wrapper">
                 <main class="pt-4 p-sm-5">
