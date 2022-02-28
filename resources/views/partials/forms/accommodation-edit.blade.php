@@ -199,7 +199,7 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
-                    <select name="county_id" id="county_id" class="custom-select form-control @error('county') is-invalid @enderror">
+                    <select name="county_id" id="county_id" class="custom-select form-control @error('county_id') is-invalid @enderror">
                         <option>{{ __("Select county") }}</option>
                         @foreach ($counties as $county)
                             <option value="{{ $county->id }}"{{ old('county_id', $accommodation->address_county_id) == $county->id ? ' selected' : '' }}>{{ $county->name }}</option>

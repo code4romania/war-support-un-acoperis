@@ -199,6 +199,7 @@
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="form-group">
                     <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
+
                     <select name="county_id" id="county_id" class="custom-select form-control @error('county') is-invalid @enderror">
                         <option>{{ __("Select County") }}</option>
                         @foreach ($counties as $county)
