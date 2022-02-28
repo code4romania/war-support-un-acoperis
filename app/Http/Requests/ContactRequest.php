@@ -24,15 +24,19 @@ class ContactRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
 
         return [
-            'name' => ['required', 'string', 'min:3', 'max:128'],
-            'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:18', 'min:10'],
+            'institution' => ['required', 'string', 'min:3', 'max:128'],
+            'institution_type' => ['required','in:public_institution,ngo'],
+            'contact_person_name' => ['required','string', 'min:3', 'max:128'],
             'email' => ['required', 'email', 'min:5', 'max:64'],
-            'message' => ['required', 'string', 'min:5', 'max:10000'],
-//            'gdpr' => ['required'],
+            'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:18', 'min:10'],
+            'legally_represented' => ['required','string'],
+            'company_identifier' => ['required','string'],
+            'address' => ['required','string'],
+            'gdpr' => ['required'],
             'g-recaptcha-response' => ['required', 'captcha'],
         ];
     }
