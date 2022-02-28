@@ -329,7 +329,6 @@
                 }
             });
             $("#person_in_care_count").keyup(function () {
-                // let person_in_care_count = parseInt($(this).val());
                 let person_in_care_count = parseInt(this.value);
                 if (!(person_in_care_count > 0)) {
                     person_in_care_count = 1;
