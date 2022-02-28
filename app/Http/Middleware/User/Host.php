@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\User;
 
 use App\User;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function route;
 
 /**
  * Class Host
@@ -27,7 +28,7 @@ class Host
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user) || !$user->isHost()) {
+        if (empty($user) || !$user->isAuthorized(User::ROLE_HOST)) {
             throw new AuthenticationException(
                 'Unauthenticated.',
                 [],

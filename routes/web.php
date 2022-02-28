@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Middleware\Administration;
-use App\Http\Middleware\Host;
 use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\User\Administration;
+use App\Http\Middleware\User\Host;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

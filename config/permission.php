@@ -1,6 +1,12 @@
 <?php
 
 return [
+    'types' => [
+        'administrator' => 'is administrator',
+        'trusted' => 'is trusted',
+        'host' => 'is host',
+        'refugee' => 'is refugee',
+    ],
 
     'models' => [
 

@@ -117,7 +117,7 @@
         <div class="d-flex">
             <div class="sidebar border-right">
                 <div class="list-group list-group-flush mt-2 mt-sm-4">
-                @if (Auth::user()->isAdministrator())
+                @if (Auth::user()->isAdministrator(App\User::ROLE_ADMINISTRATOR))
                     <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                         <i class="fa fa-pie-chart mr-3"></i>Dashboard
                     </a>
