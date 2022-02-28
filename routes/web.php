@@ -158,7 +158,10 @@ Route::middleware([SetLanguage::class, Host::class])
  * Ajax routes
  */
 Route::post('/ajax/phone/check', 'AjaxController@checkPhone')->name('ajax.phone');
-Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+Route::get('/ajax/county/{regionId}/city', 'AjaxController@cities')->name('ajax.cities');
+
+Route::get('/ajax/ua_region/{regionId}/city', 'AjaxController@uaCities')->name('ajax.cities');
+
 Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.clinics-cities-by-country');
 Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
@@ -192,7 +195,11 @@ Route::middleware([SetLanguage::class])
          */
         Route::get('/', 'StaticPagesController@home')->name('home');
         Route::get('/request-help', 'RequestServicesController@index')->name('request-services');
-        Route::post('/request-help', 'RequestServicesController@submit')->name('request-services-submit');
+        Route::post('/request-help-agreement', 'RequestServicesController@storeTermsAndConditionsAgreement')->name('request-services-submit-agreement');
+//        Route::post('/request-help', 'RequestServicesController@submit')->name('request-services-submit');
+        Route::post('/request-help-2', 'RequestServicesController@submitStep2')->name('request-services-submit-step2');
+        Route::get('/request-help-3', 'RequestServicesController@requestHelpStep3')->name('request-services-step3');
+        Route::post('/request-help-3', 'RequestServicesController@submitStep3')->name('request-services-submit-step3');
         Route::get('/request-help-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/offer-help', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/offer-help-confirmation', 'GetInvolvedController@confirmation')->name('get-involved-confirmation');

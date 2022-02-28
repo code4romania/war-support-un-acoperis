@@ -22,7 +22,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property ?int $accommodation_id
+ * @property string|null $current_location
+ * @property string|null $known_languages
+ * @property string|null $more_details
+ * @property boolean|null $need_transport
+ * @property boolean|null $dont_need_transport
+ * @property boolean|null $need_special_transport
  */
+
+
 class HelpRequestAccommodationDetail extends Model
 {
     /**

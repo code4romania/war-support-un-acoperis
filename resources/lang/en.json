@@ -378,9 +378,38 @@
 
     "This email is already used.": "This email already exists.",
     "IE11": "Your browser (Internet Explorer) is old and doesn't perform well on this website. To access this site please download a modern browser.",
+    "I agree": "I agree",
+    "Create account": "Create account",
+    "Applicant's full name": "Applicant's full name",
+    "Applicant's phone number": "Applicant's phone number",
+    "Applicant's e-mail": "Applicant's e-mail",
+    "Region of origin": "Region of origin",
+    "City of origin": "Region of origin",
+    "Select region": "Select region",
+    "Continue": "Continue",
+    "not auth access page": "You are not authorized to access this page",
+    "Request accommodation": "Request accommodation",
+    "Current approximate location": "Current approximate location",
+    "Known languages": "Known languages",
+    "Special needs": "Special needs",
+    "Special needs detailing": "Special needs detailing",
+    "Special needs detailing expl": "Mention if there are any special needs such as medication requirements, disability, other needs that require special accommodations.",
+    "I have dependants or I am with family": "I have dependants or I am with family",
+    "I have dependants expl": "Check the checkbox if you are with family, minors/elderly people who need your help, to fill in their details and give priority to finding shared accommodation.",
+    "current_location_placeholder": "Botoșani, județ Botoșani, România",
+    "special_request_placeholder": "Scaun cu rotile, spațiu de cazare la parter",
+    "Please give us more details about the case you are bringing to our attention": "Please give us more details about the case you are bringing to our attention!",
+    "You can mention details such as ... and other information you consider relevant": "You can mention details such as ... and other information you consider relevant",
+    "Finalize": "Finalize",
+    "Number of persons in care": "Number of persons in care",
+    "Age": "Age",
+    "Mentions/Special needs": "Mentions/Special needs",
+    "I need transport": "I need transport",
+    "I don't need transport - I have my own vehicle": "I don't need transport - I have my own vehicle",
+    "I need special transport (e.g. car with wheelchair space)": "I need special transport (e.g. car with wheelchair space)",
 
     "Institution/Organisation name": "Institution/Organisation name",
-    
+
     "Type: Institution / NGO": "Type: Institution / NGO",
     "Public institution option": "Public institution",
     "NGO option": "NGO",
@@ -391,11 +420,11 @@
     "Legal representative name": "Legal representative name",
     "Identification no": "Identification no",
     "Physical address": "Physical address",
-    
+
     "Type of support: Offer housing / Request housing for refugees": "Type of support: Offer housing / Request housing for refugees",
     "Offer housing": "Offer housing",
     "Request housing for refugees": "Request housing for refugees",
-    
+
     "Institution/Organisation name placeholder": "Code for Romania",
     "Contact person placeholder": "Ana-Maria Vasile",
     "Legal representative name placeholder": "Ionescu Ion",

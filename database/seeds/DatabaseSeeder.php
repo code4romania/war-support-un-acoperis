@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FacilityTypeSeeder::class);
         $this->call(ResourceTypeSeeder::class);
         $this->call(TwillSeeder::class);
+        $this->call(UaGeoSeeder::class);
+        $this->call(LanguagesSeeder::class);
     }
 }
