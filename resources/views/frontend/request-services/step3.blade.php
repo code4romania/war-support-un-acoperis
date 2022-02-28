@@ -221,7 +221,7 @@
 
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label class="required font-weight-600"
+                                                        <label class=" font-weight-600"
                                                                for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
                                                         <textarea name="more_details" id="more_details"
                                                                   class="form-control @error('more_details') is-invalid @enderror"
@@ -303,10 +303,10 @@
 
                 if (checked) {
                     $("#special_request_div").removeClass("d-none");
-                    $("input[data-required='1']", $("#special_request_div")).prop("required", true);
+                    $("input[data-required='1']", $("#special_request_div")).attr("required", true);
                 } else {
                     $("#special_request_div").addClass("d-none");
-                    $("input[required]", $("#special_request_div")).removeProp("required");
+                    $("input[required]", $("#special_request_div")).attr('required', false);
                 }
             });
 
@@ -315,10 +315,10 @@
 
                 if (checked) {
                     $("#dependants_family_details_div").removeClass("d-none");
-                    $("input[data-required='1']", $("#dependants_family_details_div")).prop("required", true);
+                    $("input[data-required='1']", $("#dependants_family_details_div")).attr("required", true);
                 } else {
                     $("#dependants_family_details_div").addClass("d-none");
-                    $("input[required]", $("#dependants_family_details_div")).removeProp("required");
+                    $("input[required]", $("#dependants_family_details_div")).attr('required', false);
                 }
             });
 
