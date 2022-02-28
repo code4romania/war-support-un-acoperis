@@ -18,6 +18,14 @@ RUN pecl -q install xdebug && \
     docker-php-ext-install -j$(nproc) opcache bcmath mysqli pdo pdo_mysql intl gd zip && \
     docker-php-ext-enable opcache bcmath mysqli pdo pdo_mysql intl gd zip
 
+RUN set -ex \
+    && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS imagemagick-dev libtool \
+    && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
+    && pecl install imagick-3.4.3 \
+    && docker-php-ext-enable imagick \
+    && apk add --no-cache --virtual .imagick-runtime-deps imagemagick \
+    && apk del .phpize-deps
+
 COPY .docker/php/zz-custom.ini /usr/local/etc/php/conf.d/zz-custom.ini
 COPY .docker/php/docker-entrypoint.sh /docker-entrypoint.sh
 COPY .docker/php/zzz-docker.conf /usr/local/etc/php-fpm.d/zzz-docker.conf

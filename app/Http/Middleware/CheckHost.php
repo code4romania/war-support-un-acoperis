@@ -29,7 +29,7 @@ class CheckHost
         }
 
         $host = $request->header('Host');
-        if ($host && !in_array($host, [env('APP_HOST'), 'www.impreunapentrusanatate.ro'])) {
+        if ($host && !in_array($host, config('app.allowed_domains'))) {
 //            app('sentry')->captureMessage('Host header injection attempt ' . $host); TODO activate when we add sentry
             abort('403');
         }
