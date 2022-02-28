@@ -14,7 +14,7 @@
         }
     }
     .sidebar {
-        background:$admin-blue;
+        background:$blue;
         min-height: 100vh;
         margin-left:-15rem;
         color:#fff;
@@ -31,19 +31,34 @@
                 background:transparent;
                 border:none;
                 color:#fff;
+                opacity: 0.5;
                 padding-left:30px;
-                border-left:3px solid transparent;
+                border-left:5px solid transparent;
                 &.sub-list {
-                    background: #196788;
+                    background: $dark-blue;
                 }
                 &.active {
-                    background:#478FAD;
+                    background:$lighter-blue;
                     border-color:$primary;
+                    opacity: 1;
                 }
                 &:hover {
-                    background:#478FAD;
+                    background:$lighter-blue;
+                    opacity: 0.75;
                 }
             }
+            .list-group-header{
+                opacity: 1;
+                &:hover {
+                    background: inherit;
+                    opacity: 1;
+                }
+            }
+        }
+        .list-group-bottom{
+            position: absolute;
+            bottom: 0;
+            background: $dark-blue;
         }
     }
     &.sidebar-visible {
