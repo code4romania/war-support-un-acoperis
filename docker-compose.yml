@@ -19,6 +19,13 @@ services:
     - ./.docker/php/dev/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini:ro,cached
     - ./.docker/php/dev/zzz-opcache-dev.ini:/usr/local/etc/php/conf.d/zzz-opcache-dev.ini:ro,cache
 
+  nodejs:
+    image: node:16-alpine
+    working_dir: /app
+    volumes:
+    - ./:/app
+    command: ["sleep", "infinity"]
+
   database:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password

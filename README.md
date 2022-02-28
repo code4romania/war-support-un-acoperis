@@ -47,12 +47,14 @@ After installing `make` you can run the commands defined in the Makefile (ex: `m
 
 If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
 
+Some of the available make commands:
+- `make install` - install everything for the application to run properly
+- `make start` - start an already installed application
+- `make shell` - open an bash inside the php container
+- `make npm-watch` - start npm hot-reloading for js files
+
 ### First start up
-
 Run `make install` to build, start containers and run migration
-Run `npm install && npm run dev` to build assets
-
-
 
 ### Access
 The main application can be accessed via http://localhost:80.
