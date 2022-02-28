@@ -23,7 +23,9 @@
                     </h6>
                 </div>
 
-                @include('frontend.host.signup-form-base')
+                <div class="card-body py-5">
+                    @include('frontend.host.signup-form-base')
+                </div>
 
             </div>
         </div>

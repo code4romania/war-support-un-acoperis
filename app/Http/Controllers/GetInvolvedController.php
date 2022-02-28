@@ -82,6 +82,7 @@ class GetInvolvedController extends Controller
         $counties = County::all();
 
         return view('frontend.host.signup-form')
+            ->with('hostType', old('host_type_copy'))
             ->with('countries', $countries)
             ->with('counties', $counties)
             ->with('description', $settingRepository->byKey('get_involved_description') ?? '');
