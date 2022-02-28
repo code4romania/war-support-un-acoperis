@@ -20,6 +20,7 @@ spec:
         - name: copy-public
           image: code4romania/un-acoperis
           imagePullPolicy: Always
+          command: ["cp", "-r", "./public/*", "/mnt/public/"]
           volumeMounts:
             - mountPath: /mnt/public
               name: public-dir
@@ -47,8 +48,8 @@ spec:
               protocol: TCP
           volumeMounts:
             - mountPath: /var/www/html/public
-              name: public
+              name: public-dir
       restartPolicy: Always
   selector:
     matchLabels:
-      app: un-acoperis-deploy
+      app: un-acoperis
