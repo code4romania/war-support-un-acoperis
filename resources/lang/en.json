@@ -398,5 +398,11 @@
     "special_request_placeholder": "Scaun cu rotile, spațiu de cazare la parter",
     "Please give us more details about the case you are bringing to our attention": "Please give us more details about the case you are bringing to our attention!",
     "You can mention details such as ... and other information you consider relevant": "You can mention details such as ... and other information you consider relevant",
-    "Finalize": "Finalize"
+    "Finalize": "Finalize",
+    "Number of persons in care": "Number of persons in care",
+    "Age": "Age",
+    "Mentions/Special needs": "Mentions/Special needs",
+    "I need transport": "I need transport",
+    "I don't need transport - I have my own vehicle": "I don't need transport - I have my own vehicle",
+    "I need special transport (e.g. car with wheelchair space)": "I need special transport (e.g. car with wheelchair space)"
 }

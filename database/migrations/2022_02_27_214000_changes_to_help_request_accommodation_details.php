@@ -20,6 +20,10 @@ class ChangesToHelpRequestAccommodationDetails extends Migration
             $table->string("known_languages")->nullable();
             $table->boolean("has_dependants_family")->nullable();
             $table->longText("more_details")->nullable();
+//            $table->longText("special_request")->nullable();
+            $table->boolean("need_transport")->nullable();
+            $table->boolean("dont_need_transport")->nullable();
+            $table->boolean("need_special_transport")->nullable();
          });
     }
 
@@ -37,6 +41,10 @@ class ChangesToHelpRequestAccommodationDetails extends Migration
             $table->dropColumn("known_languages");
             $table->dropColumn("has_dependants_family");
             $table->dropColumn("more_details");
+//            $table->dropColumn("special_request");
+            $table->dropColumn("need_transport");
+            $table->dropColumn("dont_need_transport");
+            $table->dropColumn("need_special_transport");
         });
     }
 }

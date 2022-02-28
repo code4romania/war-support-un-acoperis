@@ -78,7 +78,6 @@ class RequestServicesController extends Controller
      */
     public function requestHelpStep3(  Request $request, SettingRepository $settingRepository)
     {
-        $request->session()->put(self::session_currentRequestHelpId, 1);
         $requestHelpId = $request->session()->get(self::session_currentRequestHelpId, false);
         if($requestHelpId>0){
 
@@ -88,6 +87,7 @@ class RequestServicesController extends Controller
                 ->with('description', $settingRepository->byKey('request_services_description') ?? '')
                 ->with('info', $settingRepository->byKey('request_services_info') ?? '')
                 ->with('languages', $languages)
+                ->with('requestHelpId', $requestHelpId)
             ;
         }
         return redirect()->back()->withErrors([__("not auth access page")]);
@@ -207,6 +207,59 @@ class RequestServicesController extends Controller
             return redirect()->route('request-services-step3');
         }
         return redirect()->back()->withErrors([__("not auth access page")]);;
+    }
+
+    /**
+     * @param ServiceRequest $request
+     * @return RedirectResponse
+     */
+    public function submitStep3(ServiceRequest $request)
+    {
+        $request_services_step=$request->get("request_services_step", false);
+        if($request_services_step==3){
+            $requestHelpId = $request->get('requestHelpId', false);
+            if($requestHelpId>0){
+                $helpRequest = HelpRequest::find($requestHelpId);
+                if(($helpRequest) && $helpRequest->id>0){
+                    $help_request_accommodation_detail = $helpRequest->helprequestaccommodationdetail()->first();
+                    if(empty($help_request_accommodation_detail ?? false)){
+                        $help_request_accommodation_detail = new HelpRequestAccommodationDetail();
+                        $help_request_accommodation_detail->help_request_id = $requestHelpId;
+                    }
+                    $help_request_accommodation_detail->current_location = $request->get('current_location', "");
+                    $help_request_accommodation_detail->known_languages = implode(",", $request->get('known_languages', []));
+                    $help_request_accommodation_detail->more_details = $request->get('more_details', "");
+                    $help_request_accommodation_detail->special_request = $request->get('special_request', "");
+                    $help_request_accommodation_detail->need_transport = empty($request->get('need_transport', 0)?:0);
+                    $help_request_accommodation_detail->dont_need_transport =  empty($request->get('dont_need_transport', 0)?:0);
+                    $help_request_accommodation_detail->need_special_transport =  empty($request->get('need_special_transport', 0)?:0);
+                    $help_request_accommodation_detail->save();
+
+                    if($request->get("person_in_care_count", false)>0){
+                        $person_in_care_names = $request->get("person_in_care_name", []);
+                        $person_in_care_ages = $request->get("person_in_care_age", []);
+                        $person_in_care_mentions = $request->get("person_in_care_mentions", []);
+                        foreach ($person_in_care_names as $k=>$v){
+                            if(!empty($person_in_care_names[$k] ?? "")){
+                                $help_request_dependant = new HelpRequestDependant();
+                                $help_request_dependant->help_request_id = $requestHelpId;
+                                $help_request_dependant->full_name = ($person_in_care_names[$k] ?? "");
+                                $help_request_dependant->age = ($person_in_care_ages[$k] ?? "");
+                                $help_request_dependant->mentions = ($person_in_care_mentions[$k] ?? "");
+                                $help_request_dependant->save();
+                            }
+                        }
+                    }
+
+                    Notification::route('mail', $helpRequest->caretaker_email ?? $helpRequest->patient_email )
+                        ->notify(new \App\Notifications\HelpRequest($helpRequest));
+                    Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
+                        ->notify(new \App\Notifications\HelpRequestInfoAdminMail($helpRequest));
+                    return redirect()->route('request-services-thanks');
+                }
+            }
+        }
+        return redirect()->back()->withInput()->withErrors([__("not auth access page")]);
     }
 
     /**

@@ -97,6 +97,14 @@ class HelpRequest extends Model implements Auditable
     }
 
     /**
+     * @return HasMany
+     */
+    public function helpRequestDependants()
+    {
+        return $this->hasMany(HelpRequestDependant::class, "help_request_id");
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function helptypes()
