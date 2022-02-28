@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class AccomodationsUnavailableInterval
+ * Class AccommodationsAvailabilityIntervals
  * @package App
  *
  * @property int $id
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \DateTime $updated_at
  *
  */
-class AccomodationsUnavailableInterval extends Model
+class AccommodationsAvailabilityIntervals extends Model
 {
     //
 }

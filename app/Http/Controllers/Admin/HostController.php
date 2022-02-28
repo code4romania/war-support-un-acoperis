@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Accommodation;
 use App\Country;
+use App\County;
 use App\HelpResource;
-use App\HelpResourceType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
-use App\Http\Requests\HelpResourceRequest;
+use App\Http\Requests\HostRequest;
 use App\ResourceType;
+use App\Services\HostService;
 use App\Services\UserService;
 use App\User;
 use Illuminate\Auth\Passwords\PasswordBroker;
@@ -47,55 +48,27 @@ class HostController extends Controller
      */
     public function add()
     {
-        $countries = Country::all();
         $resourceType = ResourceType::whereRaw("options & " . ResourceType::OPTION_ALERT . " = " . ResourceType::OPTION_ALERT)->first();
 
         return view('admin.host-add')
-            ->with('countries', $countries)
+            ->with('formRoute', route('admin.host-store'))
+            ->with('countries', Country::all())
+            ->with('counties', County::all())
             ->with('resourceType', $resourceType);
     }
 
     /**
-     * @param HelpResourceRequest $request
+     * @param HostRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(HelpResourceRequest $request)
+    public function store(HostRequest $request)
     {
-        /** @var ResourceType $resourceType */
-        $resourceType = ResourceType::find($request->get('help'));
 
-        $helpResource = new HelpResource();
-        $helpResource->full_name = $request->get('name');
-        $helpResource->country_id = $request->get('country');
-        $helpResource->city = $request->get('city');
-        $helpResource->address = $request->get('address');
-        $helpResource->phone_number = $request->get('phone');
-        $helpResource->email = $request->get('email');
-        $helpResource->save();
-
-        $helpResourceType = new HelpResourceType();
-        $helpResourceType->resource_type_id = $resourceType->id;
-        $helpResourceType->help_resource_id = $helpResource->id;
-        $helpResourceType->save();
-
-        $user = User::where('email', '=', $request->get('email'))->first();
-        if (empty($user)) {
-            $user = $this->userService->createUser(
-                $helpResource->full_name,
-                $helpResource->email,
-                $helpResource->country_id,
-                $helpResource->city,
-                $helpResource->phone_number,
-                $helpResource->address
-            );
-            $user->approved_at = Carbon::now();
-            $user->save();
-
-            $this->sendResetNotification($user);
-        }
+        $hostService = new HostService();
+        $hostUser = $hostService->createHost($request);
 
         return redirect()
-            ->route('admin.host-detail', ['id' => $user->id])
+            ->route('admin.host-detail', ['id' => $hostUser->id])
             ->withsuccess(__("User was activated and reset password option was successfully sent"));
     }
 

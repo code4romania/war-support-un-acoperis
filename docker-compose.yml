@@ -1,22 +1,16 @@
-version: '3.8'
+version: '3.7'
 
 services:
-
   database:
     build:
-      context: .docker/mysql
+      context: .docker/dev/mysql
       dockerfile: Dockerfile
     container_name: helpforhealth_db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: developer
-    volumes:
-      - MySQLStorageHelpForHealth:/var/lib/mysql
     networks:
-      helpforhealth.local:
-        ipv4_address: 192.168.132.2
-        aliases:
-          - db.helpforhealth.local
+      - helpforhealth.local
     expose:
       - 3306
     ports:
@@ -25,17 +19,14 @@ services:
   webserver:
     container_name: helpforhealth_web
     build:
-      dockerfile: .docker/webserver/Dockerfile
+      dockerfile: .docker/dev/webserver/Dockerfile
       context: ./
     volumes:
       - ./:/app
     links:
       - database
     networks:
-      helpforhealth.local:
-        ipv4_address: 192.168.132.3
-        aliases:
-          - helpforhealth.local
+      - helpforhealth.local
     expose:
       - 80
     ports:
@@ -48,10 +39,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: developer
     networks:
-      helpforhealth.local:
-        ipv4_address: 192.168.132.4
-        aliases:
-          - pma.helpforhealth.local
+      - helpforhealth.local
     links:
       - database:db
     expose:
@@ -62,9 +50,3 @@ services:
 networks:
   helpforhealth.local:
     driver: bridge
-    ipam:
-      config:
-      - subnet: 192.168.132.0/24
-
-volumes:
-  MySQLStorageHelpForHealth:

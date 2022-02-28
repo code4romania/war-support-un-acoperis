@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use A17\Twill\Repositories\SettingRepository;
 use App\Country;
+use App\County;
+use App\Exceptions\UserIdNotFoundInSession;
 use App\HelpResource;
 use App\HelpResourceType;
-use App\Http\Requests\HelpResourceRequest;
+use App\Http\Requests\AccommodationRequest;
+use App\Http\Requests\HostRequest;
 use App\ResourceType;
+use App\Services\AccommodationService;
+use App\Services\HostService;
 use App\Services\UserService;
 use App\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+
 
 /**
  * Class GetInvolvedController
@@ -25,6 +27,9 @@ use Illuminate\View\View;
  */
 class GetInvolvedController extends Controller
 {
+    const session_hostAgreedTermsAndConditions = 'hostAgreedTermsAndConditions';
+    const session_hostUserId = 'hostUserId';
+
     /**
      * @var UserService
      */
@@ -34,86 +39,108 @@ class GetInvolvedController extends Controller
     {
         $this->userService = $userService;
     }
+
     /**
      * @return View
      */
     public function index(SettingRepository $settingRepository)
     {
-        $countries = Country::all();
-        $resourceTypes = ResourceType::all();
-
-        return view('frontend.get-involved')
-            ->with('countries', $countries)
+        //@TODO: insert records for termsAndConditionsForHosts in settings && setting_translations tables
+        return view('frontend.host.terms-and-conditions')
             ->with('description', $settingRepository->byKey('get_involved_description') ?? '')
-            ->with('resourceTypes', $resourceTypes);
+            ->with('termsAndConditionsForHosts', $settingRepository->byKey('termsAndConditionsForHosts') ?? '');
+    }
+
+
+    public function storeTermsAndConditionsAgreement(Request $request)
+    {
+        $request->session()->put(self::session_hostAgreedTermsAndConditions, 1);
+        return redirect()->route('get-involved-display-signup-form');
+    }
+
+    private function hostTermsAreAgreed(Request $request): bool
+    {
+        $sessionValue = $request->session()->get(self::session_hostAgreedTermsAndConditions);
+        return !empty($sessionValue);
     }
 
     /**
-     * @param HelpResourceRequest $request
      * @return View
      */
-    public function store(HelpResourceRequest $request)
+    public function displaySignupForm(Request $request, SettingRepository $settingRepository)
     {
-        $helpResource = new HelpResource();
-        $helpResource->full_name = $request->get('name');
-        $helpResource->country_id = $request->get('country');
-        $helpResource->city = $request->get('city');
-        $helpResource->address = $request->get('address');
-        $helpResource->phone_number = $request->get('phone');
-        $helpResource->email = $request->get('email');
-        $helpResource->save();
 
-        $resourceTypes = ResourceType::all();
-        $helpTypes = $request->get('help');
-
-
-        $helpResourceTypeIds = [];
-        foreach ($resourceTypes as $resourceType) {
-            if (in_array($resourceType->id, $helpTypes)) {
-                $helpResourceType = new HelpResourceType();
-                $helpResourceType->resource_type_id = $resourceType->id;
-                $helpResourceType->help_resource_id = $helpResource->id;
-
-                if ($resourceType->options == ResourceType::OPTION_MESSAGE) {
-                    $helpResource->message = $request->get('other');
-                    $helpResource->save();
-                }
-
-                if ($resourceType->options == ResourceType::OPTION_ALERT) {
-                    $user = User::where('email', '=', $request->get('email'))->first();
-                    if (empty($user)) {
-                        $this->userService->createUser(
-                            $helpResource->full_name,
-                            $helpResource->email,
-                            $helpResource->country_id,
-                            $helpResource->city,
-                            $helpResource->phone_number,
-                            $helpResource->address
-                        );
-                    }
-                }
-
-                $helpResourceType->save();
-                $helpResourceTypeIds[] = $helpResourceType->id;
-            }
+        if (!$this->hostTermsAreAgreed($request))
+        {
+            //@TODO: mesajul nu se afiseaza, why?
+            //@TODO: translate
+            return redirect()->route('get-involved')->with('error', 'You have to accept terms and conditions first');
         }
 
-        $notification = new \App\Notifications\HelpResourceTypeInfoAdminMail(
-            $helpResourceTypeIds,
-            env('CC_MAIL_TO_HELP_ADDRESS')
-        );
-        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
-            ->notify($notification);
 
-        return redirect()->route('get-involved-confirmation');
+        $countries = Country::all();
+        $counties = County::all();
+
+        return view('frontend.host.signup-form')
+            ->with('formRoute', route('store-get-involved'))
+            ->with('countries', $countries)
+            ->with('counties', $counties)
+            ->with('description', $settingRepository->byKey('get_involved_description') ?? '');
     }
 
     /**
-     * @param Request $request
-     * @return View
+     * @param HostRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function confirmation(Request $request)
+    public function store(HostRequest $request)
     {
-        return view('frontend.get-involved-confirmation');
+        $hostService = new HostService();
+        $hostUser = $hostService->createHost($request);
+        Auth::login($hostUser);
+        return redirect()->route('get-involved-add-accommodation-form');
     }
+
+    public function displayAccommodationForm(Request $request)
+    {
+        if (!Auth::check()) {
+            redirect()->route('get-involved');
+        }
+
+        $accService = new AccommodationService();
+        /** @var User $user */
+        $user = Auth::user();
+        return $accService->viewAddAccommodation($user, 'frontend.host.add-accommodation');
+
+    }
+
+    public function saveAccommodation(AccommodationRequest $request)
+    {
+        try
+        {
+            $user = $request->user();
+
+            $accService = new AccommodationService();
+            $accService->createAccommodation($request, $user);
+
+            return redirect()
+                ->route('get-involved-success');
+
+        }
+        catch (UserIdNotFoundInSession $e)
+        {
+            return redirect()->route('get-involved');
+        }
+        catch (\Throwable $throwable)
+        {
+            return Redirect::back()->withInput()->withErrors(['photos' => $throwable->getMessage()]);
+        }
+
+    }
+
+    public function accommodationSaved(Request $request)
+    {
+        //@TODO: should we check some stuff here?
+        return view('frontend.host.success');
+    }
+
 }

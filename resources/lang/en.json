@@ -212,6 +212,7 @@
     "Available rooms": "Available rooms",
     "Available bathrooms": "Available bathrooms",
     "How many rooms can the hosts use": "How many rooms can the hosts use",
+    "Number of rooms for sleep": "Number of rooms for sleep",
     "How many bathrooms does the place have": "How many bathrooms does the place have",
     "Allow the use of the kitchen of the accommodated guests": "Allow the use of the kitchen of the accommodated guests",
     "Yes, it is ready for guests": "Yes, it is ready for guests",
@@ -219,12 +220,14 @@
     "The hosts can benefit from a parking space": "The hosts can benefit from a parking space",
     "Add a property description": "Add a property description",
     "Available facilities": "Available facilities",
+    "Accomodation facilities": "Accomodation facilities",
     "What other facilities does the accommodation have": "What other facilities does the accommodation have",
     "What facilities does the accommodation have": "What facilities does the accommodation have",
     "What special facilities does the accommodation space have": "What special facilities does the accommodation space have",
     "Accommodation address": "Accommodation address",
     "Accommodation exact address": "Accommodation exact address",
     "Accommodation photos": "Accommodation photos",
+    "at least one phone required": "at least one phone required",
     "House rules": "House rules",
     "Smoking is allowed in the house": "Smoking is allowed in the house",
     "Pets are allowed in the house": "Pets are allowed in the house",
@@ -375,7 +378,6 @@
 
     "This email is already used.": "This email already exists.",
     "IE11": "Your browser (Internet Explorer) is old and doesn't perform well on this website. To access this site please download a modern browser.",
-
     "I agree": "I agree",
     "Create account": "Create account",
     "Applicant's full name": "Applicant's full name",
@@ -405,4 +407,31 @@
     "I need transport": "I need transport",
     "I don't need transport - I have my own vehicle": "I don't need transport - I have my own vehicle",
     "I need special transport (e.g. car with wheelchair space)": "I need special transport (e.g. car with wheelchair space)"
+
+    "Institution/Organisation name": "Institution/Organisation name",
+    
+    "Type: Institution / NGO": "Type: Institution / NGO",
+    "Public institution option": "Public institution",
+    "NGO option": "NGO",
+
+    "Contact person": "Contact person",
+    "Email address": "Email address",
+    "Phone number": "Phone number",
+    "Legal representative name": "Legal representative name",
+    "Identification no": "Identification no",
+    "Physical address": "Physical address",
+    
+    "Type of support: Offer housing / Request housing for refugees": "Type of support: Offer housing / Request housing for refugees",
+    "Offer housing": "Offer housing",
+    "Request housing for refugees": "Request housing for refugees",
+    
+    "Institution/Organisation name placeholder": "Code for Romania",
+    "Contact person placeholder": "Ana-Maria Vasile",
+    "Legal representative name placeholder": "Ionescu Ion",
+    "Physical address placeholder": "Str. Zambilelor, nr. 3",
+    "I want to help": "I want to help",
+    "I offer accommodation": "I offer accommodation",
+    "Add an accommodation unit": "Add an accommodation unit",
+    "Accommodation details": "Accommodation details"
+
 }

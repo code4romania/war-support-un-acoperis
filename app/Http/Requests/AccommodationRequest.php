@@ -20,6 +20,7 @@ class AccommodationRequest extends FormRequest
      */
     public function authorize()
     {
+        //@TODO: should be authorized, right?
         return true;
     }
 
@@ -36,6 +37,7 @@ class AccommodationRequest extends FormRequest
             'property_availability' => ['required', Rule::in('fully', 'partially')],
             'max_guests' => ['required', 'numeric', 'min:1', 'max:127'],
             'available_rooms' => ['required', 'numeric', 'min:1', 'max:127'],
+            'available_beds' => ['required', 'numeric', 'min:1', 'max:127'],
             'available_bathrooms' => ['required', 'numeric', 'min:1', 'max:127'],
             'allow_kitchen' => ['required', Rule::in('yes', 'no')],
             'allow_parking' => ['required', Rule::in('yes', 'no')],
@@ -45,7 +47,8 @@ class AccommodationRequest extends FormRequest
             'special_facility' => ['nullable', 'array'],
             'special_facility.*' => ['required', 'exists:facility_types,id'],
             'other_facilities' => ['nullable', 'string', 'max:255'],
-            'country' => ['required', 'exists:countries,id'],
+//            'country' => ['required', 'exists:countries,id'],
+            'county_id' => ['required', 'exists:counties,id'],
             'city' => ['required', 'string', 'max:64'],
             'street' => ['nullable', 'string', 'max:128'],
             'building' => ['nullable', 'string', 'max:16'],
@@ -61,17 +64,13 @@ class AccommodationRequest extends FormRequest
             'transport_subway_distance' => ['nullable', 'string', 'max:64'],
             'transport_bus_distance' => ['nullable', 'string', 'max:64'],
             'transport_railway_distance' => ['nullable', 'string', 'max:64'],
-            'accommodation_fee' => ['required', Rule::in('free', 'paid')],
-            'general_fee' => ['required_if:accommodation_fee,paid', 'nullable', 'string', 'max:64'],
-            'checkin_time' => ['required', 'date_format:H:i'],
-            'checkout_time' => ['required', 'date_format:H:i'],
-            'unavailable.*.from' => ['required', 'date', 'date_format:Y-m-d'],
-            'unavailable.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:unavailable.*.from'],
-            'unavailable' => ['nullable', new DateIntervals()],
+            'available.*.from' => ['required', 'date', 'date_format:Y-m-d'],
+            'available.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:available.*.from'],
+            'available' => ['nullable', new DateIntervals()],
         ];
 
         if (empty($this->id)) {
-            $rules['unavailable.*.from'][] = 'after:yesterday';
+            $rules['available.*.from'][] = 'after:yesterday';
         }
 
         return $rules;
