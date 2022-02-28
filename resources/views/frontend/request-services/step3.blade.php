@@ -221,8 +221,7 @@
 
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label class=" font-weight-600"
-                                                               for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
+                                                        <label class="font-weight-600" for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
                                                         <textarea name="more_details" id="more_details"
                                                                   class="form-control @error('more_details') is-invalid @enderror"
                                                                   rows="4">{!! old('more_details') !!}</textarea>
@@ -332,7 +331,6 @@
                 let person_in_care_count = parseInt(this.value);
                 if (!(person_in_care_count > 0)) {
                     person_in_care_count = 1;
-                    // $(this).val(1);
                 }
                 let the_div0 = $(".person_in_care[data-index='0']");
                 if ($(".person_in_care", $("#persons_in_care")).length > person_in_care_count) {
@@ -356,8 +354,6 @@
                     }
                 }
             })
-
-
         });
     </script>
 @endsection

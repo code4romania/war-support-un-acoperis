@@ -409,7 +409,7 @@
     "I need special transport (e.g. car with wheelchair space)": "I need special transport (e.g. car with wheelchair space)",
 
     "Institution/Organisation name": "Institution/Organisation name",
-    
+
     "Type: Institution / NGO": "Type: Institution / NGO",
     "Public institution option": "Public institution",
     "NGO option": "NGO",
@@ -420,11 +420,11 @@
     "Legal representative name": "Legal representative name",
     "Identification no": "Identification no",
     "Physical address": "Physical address",
-    
+
     "Type of support: Offer housing / Request housing for refugees": "Type of support: Offer housing / Request housing for refugees",
     "Offer housing": "Offer housing",
     "Request housing for refugees": "Request housing for refugees",
-    
+
     "Institution/Organisation name placeholder": "Code for Romania",
     "Contact person placeholder": "Ana-Maria Vasile",
     "Legal representative name placeholder": "Ionescu Ion",
@@ -433,5 +433,4 @@
     "I offer accommodation": "I offer accommodation",
     "Add an accommodation unit": "Add an accommodation unit",
     "Accommodation details": "Accommodation details"
-
 }
