@@ -18,9 +18,6 @@
         min-height: 100vh;
         margin-left:-15rem;
         color:#fff;
-        -webkit-transition: margin .25s ease-out;
-        -moz-transition: margin .25s ease-out;
-        -o-transition: margin .25s ease-out;
         transition: margin .25s ease-out;
         .sidebar-heading {
             padding: 0.875rem 1.25rem;
@@ -55,8 +52,8 @@
                 }
             }
         }
-        .list-group-bottom{
-            position: absolute;
+        .list-group-bottom {
+            position: fixed;
             bottom: 0;
             background: $dark-blue;
         }
@@ -182,7 +179,8 @@ p.smaller {
         position: relative;
         top:0;
         &:hover {
-            filter:brightness(120%);
+            -webkit-filter:brightness(120%);
+                    filter:brightness(120%);
             top:-2px;
             @extend .shadow;
             transition: all 0.2s ease;
