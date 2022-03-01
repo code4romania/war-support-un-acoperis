@@ -1,15 +1,23 @@
+# see http://editorconfig.org/ for docs on this file
 root = true
 
 [*]
 charset = utf-8
+# help with sharing files across os's (i.e. network share or through local vm)
 end_of_line = lf
 insert_final_newline = true
 indent_style = space
 indent_size = 4
+tab_width = 4
 trim_trailing_whitespace = true
 
-[*.md]
+[*.{md,markdown}]
+# trailing whitespace is significant in markdown (bad choice, bad!)
 trim_trailing_whitespace = false
 
 [*.{yml,yaml}]
 indent_size = 2
+
+[{Makefile,makefile}]
+# TAB characters are part of the Makefile format
+indent_style = tab
