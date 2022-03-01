@@ -1,6 +1,6 @@
 set -e
 
-cd ../..
+cd /home/ec2-user/app
 git reset --hard HEAD
 git pull
 
