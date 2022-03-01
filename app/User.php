@@ -25,6 +25,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $remember_toekn
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
+ * @property string|null company_name
+ * @property string|null $company_tax_id
+ * @property string|null $legal_representative_name
  * @property int $country_id
  * @property int $county_id
  * @property string|null $city
@@ -59,7 +62,7 @@ class User extends Authenticatable implements Auditable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'email_verified_at', 'country_id', 'county_id', 'city', 'address', 'phone_number', 'approved_at'
+        'name', 'email', 'password', 'email_verified_at', 'company_name', 'company_tax_id', 'legal_representative_name', 'country_id', 'county_id', 'city', 'address', 'phone_number', 'approved_at'
     ];
 
     /**

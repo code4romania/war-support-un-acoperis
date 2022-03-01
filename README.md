@@ -47,18 +47,14 @@ After installing `make` you can run the commands defined in the Makefile (ex: `m
 
 If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
 
-### Bootstrap your development environment
+Some of the available make commands:
+- `make install` - install everything for the application to run properly
+- `make start` - start an already installed application
+- `make shell` - open an bash inside the php container
+- `make npm-watch` - start npm hot-reloading for js files
 
-Copy the `.env.example` to `.env` and set the variables to their respective values. The `.env` file should not be in version control but present locally to setup the environment.
-
-In order to start the development environment, either use the `make` util to start (ex: `make start`) or run `docker-compose up` in the project root directory.
-
-Some things will take some time to install (like `composer`), so sit tight and wait for the containers to finish checking `make logs`.
-
-The only thing that should be executed manually on the host is the DB migrations & seeds commands and building of the assets, _after_ running the docker containers:
-```
-make bootstrap
-```
+### First start up
+Run `make install` to build, start containers and run migration
 
 ### Access
 The main application can be accessed via http://localhost:80.

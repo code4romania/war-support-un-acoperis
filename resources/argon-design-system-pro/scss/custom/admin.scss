@@ -14,13 +14,10 @@
         }
     }
     .sidebar {
-        background:$admin-blue;
+        background:$blue;
         min-height: 100vh;
         margin-left:-15rem;
         color:#fff;
-        -webkit-transition: margin .25s ease-out;
-        -moz-transition: margin .25s ease-out;
-        -o-transition: margin .25s ease-out;
         transition: margin .25s ease-out;
         .sidebar-heading {
             padding: 0.875rem 1.25rem;
@@ -31,19 +28,34 @@
                 background:transparent;
                 border:none;
                 color:#fff;
+                opacity: 0.5;
                 padding-left:30px;
-                border-left:3px solid transparent;
+                border-left:5px solid transparent;
                 &.sub-list {
-                    background: #196788;
+                    background: $dark-blue;
                 }
                 &.active {
-                    background:#478FAD;
+                    background:$lighter-blue;
                     border-color:$primary;
+                    opacity: 1;
                 }
                 &:hover {
-                    background:#478FAD;
+                    background:$lighter-blue;
+                    opacity: 0.75;
                 }
             }
+            .list-group-header{
+                opacity: 1;
+                &:hover {
+                    background: inherit;
+                    opacity: 1;
+                }
+            }
+        }
+        .list-group-bottom {
+            position: fixed;
+            bottom: 0;
+            background: $dark-blue;
         }
     }
     &.sidebar-visible {
@@ -167,7 +179,8 @@ p.smaller {
         position: relative;
         top:0;
         &:hover {
-            filter:brightness(120%);
+            -webkit-filter:brightness(120%);
+                    filter:brightness(120%);
             top:-2px;
             @extend .shadow;
             transition: all 0.2s ease;

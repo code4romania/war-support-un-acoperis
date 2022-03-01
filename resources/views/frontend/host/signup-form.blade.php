@@ -23,7 +23,12 @@
                     </h6>
                 </div>
 
-                @include('frontend.host.signup-form-base')
+                <div class="card-body py-5">
+                    @include('partials.forms.host-signup-base',
+                                ['formRoutePerson' => route('create-host-person-account'),
+                                'formRouteCompany' => route('create-host-company-account')]
+                                )
+                </div>
 
             </div>
         </div>
