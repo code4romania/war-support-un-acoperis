@@ -157,6 +157,7 @@
                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle language-switch" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="lang-icon"></i>
                                 <span>{{ config('translatable.locales_name')[app()->getLocale()] ?? strtoupper(app()->getLocale()) }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
