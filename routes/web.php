@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\User\Administration;
 use App\Http\Middleware\User\Host;
 use App\Http\Middleware\User\Refugee;
@@ -36,13 +36,13 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
 /**
  * Administration routes
  */
-Route::middleware([SetLanguage::class, Administration::class])
+Route::middleware([Administration::class])
     ->prefix('admin')
     ->group(function () {
         /**
          * Administrator routes
          */
-        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');;
+        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');
 
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
@@ -86,7 +86,7 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
         Route::get('/host/{id}/delete', 'Admin\HostController@delete')->name('admin.host-delete');
 
-        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');;
+        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Admin\ProfileController@editProfile')->name('admin.edit-profile');
         Route::post('/profile/edit', 'Admin\ProfileController@saveProfile')->name('admin.save-profile');
         Route::get('/profile/reset-password', 'Admin\ProfileController@resetPassword')->name('admin.reset-password');
@@ -128,10 +128,10 @@ Route::middleware([SetLanguage::class, Administration::class])
 /**
  * Host routes
  */
-Route::middleware([SetLanguage::class, Host::class])
+Route::middleware([Host::class])
     ->prefix('host')
     ->group(function () {
-        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');;
+        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
         Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
@@ -152,15 +152,14 @@ Route::middleware([SetLanguage::class, Host::class])
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
-
     });
 
 
 
-Route::middleware([SetLanguage::class, Refugee::class])
+Route::middleware([Refugee::class])
     ->prefix('refugee')
-    ->group(function(){
-        Route::get('/profile','Host\ProfileController@profile')->name('refugee.profile');
+    ->group(function () {
+        Route::get('/profile', 'Host\ProfileController@profile')->name('refugee.profile');
     });
 
 /**
@@ -178,8 +177,8 @@ Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list
 /**
  * Frontend routes
  */
-Route::middleware([SetLanguage::class])
-    ->prefix('{locale}')
+Route::middleware([SetLocale::class])
+    ->prefix('{locale?}')
     ->group(function () {
         Auth::routes(['verify' => true, 'register' => false]);
 
@@ -188,12 +187,12 @@ Route::middleware([SetLanguage::class])
          */
         Route::middleware(['throttle:60,1'])
             ->prefix('2fa')
-            ->group(function(){
-                Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
+            ->group(function () {
+                Route::get('/', 'LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
                 Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
-                Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
-                Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
-                Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
+                Route::post('/generateSecret', 'LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+                Route::post('/enable2fa', 'LoginSecurityController@enable2fa')->name('enable2fa');
+                Route::post('/disable2fa', 'LoginSecurityController@disable2fa')->name('disable2fa');
 
                 // 2fa middleware
                 Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
@@ -225,8 +224,5 @@ Route::middleware([SetLanguage::class])
         Route::get('/contact-confirmation', 'ContactController@contactConfirmation')->name('contact-confirmation');
         Route::get('/newsletter', 'NewsletterController@newsletter')->name('newsletter');
 
-
         Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });
-
-Route::get('/pages/{slug}', 'PageController@show');

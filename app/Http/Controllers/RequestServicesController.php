@@ -46,7 +46,7 @@ class RequestServicesController extends Controller
             return view('frontend.request-services.terms-and-conditions')
                 ->with('description', $settingRepository->byKey('request_services_description') ?? '')
                 ->with('info', $settingRepository->byKey('request_services_info') ?? '')
-                ->with('termsAndConditionsForSeekers', $settingRepository->byKey('termsAndConditionsForSeekers') ?? '');
+                ->with('termsAndConditionsForRefugees', $settingRepository->byKey('terms_and_conditions_for_refugees') ?? '');
         }
         $lang = App::getLocale() == 'ro' ? 'en' : App::getLocale();
         $counties = UaRegion::all(['id', 'region', 'region_' . $lang . ' as region'])->sortBy('region_' . $lang);
