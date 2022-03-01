@@ -7,17 +7,29 @@ stop:
 build:
 	docker-compose build
 
+install:
+	docker-compose up -d
+	docker-compose exec php sh -c 'composer install'
+	docker-compose exec php sh -c 'php artisan migrate --seed'
+	docker-compose exec nodejs sh -c 'npm ci && npm run dev'
+
 logs:
 	docker-compose logs -f
 
 shell:
-	docker exec -it helpforhealth_web bash
+	docker-compose exec php bash
 
 migrate:
-	docker exec helpforhealth_web bash -c "php artisan migrate"
+	docker-compose exec php sh -c 'php artisan migrate'
+
+migrate-f:
+	docker-compose exec php sh -c 'php artisan migrate --force'
 
 seed:
-	docker exec helpforhealth_web bash -c "php artisan db:seed"
+	docker-compose exec php sh -c 'php artisan db:seed'
 
 cc:
-	docker exec helpforhealth_web bash -c "php artisan ca:cl"
+	docker-compose exec php sh -c 'php artisan ca:cl'
+
+npm-watch:
+	docker-compose exec nodejs sh -c 'npm run watch'

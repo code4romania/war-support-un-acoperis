@@ -17,10 +17,6 @@ class SecurityHeaders
      */
     public function handle($request, Closure $next)
     {
-        if ($this->isAllowedHost($request) && $this->isNotHealthCheck() && $this->isProduction()) {
-            abort(418);
-        }
-
         /** @var Response $response */
         $response = $next($request);
 
@@ -39,33 +35,5 @@ class SecurityHeaders
         }
 
         return $response;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isProduction(): bool
-    {
-        return config('app.env') === 'production';
-    }
-
-    /**
-     * @param  Request  $request
-     *
-     * @return bool
-     */
-    public function isAllowedHost(Request $request): bool
-    {
-        $allowedHosts = ['helpforhealth.local', 'impreunapentrusanatate.ro', 'dev.impreunapentrusanatate.ro'];
-
-        return !in_array($request->headers->get('host'), $allowedHosts);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNotHealthCheck(): bool
-    {
-        return request()->path() !== 'health';
     }
 }

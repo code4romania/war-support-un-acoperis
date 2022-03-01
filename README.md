@@ -47,23 +47,14 @@ After installing `make` you can run the commands defined in the Makefile (ex: `m
 
 If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
 
+Some of the available make commands:
+- `make install` - install everything for the application to run properly
+- `make start` - start an already installed application
+- `make shell` - open an bash inside the php container
+- `make npm-watch` - start npm hot-reloading for js files
+
 ### First start up
-
-Copy the .env.example to .env.
-
-In order to start the development environment, either use the `make` util to start (ex: `make start`) or run `docker-compose up` in the project root directory.
-
-The only thing that should be triggered manually is the migrations & seeds commands after running the docker containers:
-```
-### with make
-make migrate && make seed
-
-### without make
-docker exec -it helpforhealth_web bash
-
-#in the container
-php artisan php artisan migrate --seed
-```
+Run `make install` to build, start containers and run migration
 
 ### Access
 The main application can be accessed via http://localhost:80.
