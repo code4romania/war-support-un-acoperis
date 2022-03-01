@@ -129,4 +129,14 @@ class User extends Authenticatable implements Auditable
 
         return false;
     }
+
+    public function isAdministrator()
+    {
+        $this->isAuthorized(self::ROLE_ADMINISTRATOR);
+    }
+
+    public function isHost()
+    {
+        $this->isAuthorized(self::ROLE_HOST);
+    }
 }
