@@ -25,7 +25,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property string|null $caretaker_phone_number
  * @property string|null $caretaker_email
  * @property int $county_id
- * @property int $city_id
+ * @property string $city
  * @property string|null $diagnostic
  * @property string|null $extra_details
  * @property string $status
@@ -59,16 +59,9 @@ class HelpRequest extends Model implements Auditable
      */
     public function county()
     {
-        return $this->belongsTo(County::class);
+        return $this->belongsTo(UaRegion::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
 
     /**
      * @return HasMany

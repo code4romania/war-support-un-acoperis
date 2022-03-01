@@ -49,13 +49,6 @@ class RequestServicesController extends Controller
         $countries = Country::all()->sortBy('name');
 
         $counties = UaRegion::all(['id', 'region', 'region_uk'])->sortBy('region_uk');
-        $oldCounty = $request->old('patient-county');
-
-        $cities = [];
-
-        if (!empty($oldCounty)) {
-            $cities = City::where('county_id', '=', $oldCounty)->get(['id', 'name'])->sortBy('name');
-        }
 
         $helpTypes = HelpType::all(['id', 'name'])->sortBy('id');
 
@@ -67,7 +60,6 @@ class RequestServicesController extends Controller
             ->with('info', $settingRepository->byKey('request_services_info') ?? '')
             ->with('countries', $countries)
             ->with('counties', $counties)
-            ->with('cities', $cities)
             ->with('helpTypesLeft', $firstLeft)
             ->with('helpTypesRight', $secondRight);
     }
@@ -199,7 +191,7 @@ class RequestServicesController extends Controller
         $helpRequest->patient_phone_number = $request->get('patient-phone');
         $helpRequest->patient_email = $request->get('patient-email');
         $helpRequest->county_id = $request->get('patient-county');
-        $helpRequest->city_id = $request->get('patient-city');
+        $helpRequest->city = $request->get('patient-city');
         $helpRequest->status = HelpRequest::STATUS_NEW;
         $helpRequest->save();
 

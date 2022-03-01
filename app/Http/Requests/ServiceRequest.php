@@ -36,13 +36,13 @@ class ServiceRequest extends FormRequest
                     $rules['patient-phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
                     $rules['patient-email'] = ['required', 'email', 'string', 'max:255', 'unique:help_requests,patient_email'];
                     $rules['patient-county'] = ['required', 'exists:ua_regions,id'];
-                    $rules['patient-city'] = ['required', 'exists:ua_cities,id'];
+                    $rules['patient-city'] = ['required', 'string', 'max:64'];
                     break;
                case 3:
                     $rules['requestHelpId'] = ['required', 'numeric', 'gt:0'  ];
                     $rules['current_location'] = ['required', 'string' ];
                     $rules['known_languages'] = ['required', 'array','min:1' ];
-                    $rules['more_details'] = [];
+                    $rules['more_details'] = ['nullable', 'string', 'max:5000'];
                     $rules['special_needs'] = [];
                     $rules['special_request'] = ['required_with:special_needs'];
                     $rules['has_dependants_family'] = [];

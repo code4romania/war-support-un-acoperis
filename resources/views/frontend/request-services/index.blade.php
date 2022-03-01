@@ -96,16 +96,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="required font-weight-600" for="patient-city">{{ __("City of origin") }}:</label>
-                                                                <select name="patient-city" id="patient-city" class="custom-select form-control @error('patient-city') is-invalid @enderror" required>
-                                                                    <option value="">{{( __("Select region")) }}</option>
-                                                                    @foreach ($cities as $cities)
-                                                                        @if (old('patient-city'))
-                                                                            <option value="{{ $cities->id }}" {{ (old('patient-city') == $cities->id ? 'selected' : '') }}>{{ $cities->name }}</option>
-                                                                        @else
-                                                                            <option value="{{ $cities->id }}">{{ $cities->name }}</option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </select>
+                                                                <input name="patient-city" id="patient-city" value="{{ old('patient-city') }}" class="form-control @error('patient-city') is-invalid @enderror" required>
 
                                                                 @error('patient-city')
                                                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -143,24 +134,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function () {
-            $('select[name=patient-county]').on('change', function () {
-                var cities = $('select[name=patient-city]');
-
-                cities.empty().append(new Option('-', null));
-
-                axios.get('/ajax/ua_region/' + this.value + '/city')
-                    .then(res => {
-                        cities.empty().append(new Option('-', null));
-                        $.each(res.data, function(key, value) {
-                            cities.append(new Option(value, key));
-                        });
-                    });
-            });
-        });
-    </script>
 @endsection
