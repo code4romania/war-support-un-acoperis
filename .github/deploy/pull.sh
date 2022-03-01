@@ -1,6 +1,6 @@
 set -e
 
-cd /home/ec2-user/war-support-un-acoperis
+cd ../..
 git reset --hard HEAD
 git pull
 
