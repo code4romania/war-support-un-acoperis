@@ -16,8 +16,8 @@ class HelpRequestService
         $helpRequest->special_needs = $data['special_needs'] ? $data['special_request'] : null;
         $helpRequest->with_peoples = $this->getPersonInCareJson($data);
         $helpRequest->more_details = $data['more_details'];
-        $helpRequest->need_car = (bool)$data['need_transport'];
-        $helpRequest->need_special_transport = (bool)$data['need_special_transport'];
+        $helpRequest->need_car = isset($data['need_transport'])?(bool)$data['need_transport']:null;
+        $helpRequest->need_special_transport = isset($data['need_special_transport']) ? (bool)$data['need_special_transport'] : null;
         $helpRequest->save();
         return $helpRequest;
     }
