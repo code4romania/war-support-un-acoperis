@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\User\Administration;
 use App\Http\Middleware\User\Host;
 use App\Http\Middleware\User\Refugee;
@@ -36,7 +36,7 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
 /**
  * Administration routes
  */
-Route::middleware([SetLanguage::class, Administration::class])
+Route::middleware([Administration::class])
     ->prefix('admin')
     ->group(function () {
         /**
@@ -128,7 +128,7 @@ Route::middleware([SetLanguage::class, Administration::class])
 /**
  * Host routes
  */
-Route::middleware([SetLanguage::class, Host::class])
+Route::middleware([Host::class])
     ->prefix('host')
     ->group(function () {
         Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');;
@@ -157,7 +157,7 @@ Route::middleware([SetLanguage::class, Host::class])
 
 
 
-Route::middleware([SetLanguage::class, Refugee::class])
+Route::middleware([Refugee::class])
     ->prefix('refugee')
     ->group(function(){
         Route::get('/profile','Host\ProfileController@profile')->name('refugee.profile');
@@ -178,8 +178,8 @@ Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list
 /**
  * Frontend routes
  */
-Route::middleware([SetLanguage::class])
-    ->prefix('{locale}')
+Route::middleware([SetLocale::class])
+    ->prefix('{locale?}')
     ->group(function () {
         Auth::routes(['verify' => true, 'register' => false]);
 
