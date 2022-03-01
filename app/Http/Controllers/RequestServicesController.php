@@ -14,6 +14,7 @@ use App\HelpRequestType;
 use App\HelpType;
 use App\Http\Requests\ServiceRequest;
 use App\Language;
+use App\Services\HelpRequestService;
 use App\Services\UserService;
 use App\UaRegion;
 use Illuminate\Http\RedirectResponse;
@@ -93,63 +94,9 @@ class RequestServicesController extends Controller
 
 
 
-    public function submit(ServiceRequest $request): RedirectResponse
+    public function submit(ServiRceRequest $request): RedirectResponse
     {
-        $helpRequest = new HelpRequest();
-        $helpRequest->patient_full_name = $request->get('patient-name');
-        $helpRequest->patient_phone_number = $request->get('patient-phone');
-        $helpRequest->patient_email = $request->get('patient-email');
-        $helpRequest->caretaker_full_name = $request->get('caretaker-name');
-        $helpRequest->caretaker_phone_number = $request->get('caretaker-phone');
-        $helpRequest->caretaker_email = $request->get('caretaker-email');
-        $helpRequest->county_id = $request->get('patient-county');
-        $helpRequest->city_id = $request->get('patient-city');
-        $helpRequest->diagnostic = $request->get('patient-diagnostic');
-        $helpRequest->extra_details = $request->get('extra-details');
-        $helpRequest->status = HelpRequest::STATUS_NEW;
-        $helpRequest->save();
-
-        $helpTypes = HelpType::all(['id', 'name'])->sortBy('id');
-
-        /** @var HelpType $helpType */
-        foreach ($helpTypes as $helpType) {
-            if ('on' === ($request->get('help-type-' . $helpType->id))) {
-                $helpRequestType = new HelpRequestType();
-                $helpRequestType->help_request_id = $helpRequest->id;
-                $helpRequestType->help_type_id = $helpType->id;
-                $helpRequestType->approve_status = HelpRequestType::APPROVE_STATUS_PENDING;
-
-                if (8 === $helpType->id) {
-                    $helpRequestType->message = $request->get('request-other-message');
-                }
-
-                $helpRequestType->save();
-            }
-        }
-
-        if ($request->has('help-type-5')) {
-            $helpRequestSmsDetails = new HelpRequestSmsDetails();
-            $helpRequestSmsDetails->help_request_id = $helpRequest->id;
-            $helpRequestSmsDetails->amount = $request->get('sms-estimated-amount');
-            $helpRequestSmsDetails->purpose = $request->get('sms-purpose');
-            $helpRequestSmsDetails->clinic = $request->get('sms-clinic-name');
-            $helpRequestSmsDetails->country_id = $request->get('sms-clinic-country');
-            $helpRequestSmsDetails->city = $request->get('sms-clinic-city');
-            $helpRequestSmsDetails->save();
-        }
-
-        if ($request->has('help-type-6')) {
-            $helpRequestAccommodationDetails = new HelpRequestAccommodationDetail();
-            $helpRequestAccommodationDetails->help_request_id = $helpRequest->id;
-            $helpRequestAccommodationDetails->clinic = $request->get('accommodation-clinic-name');
-            $helpRequestAccommodationDetails->country_id = $request->get('accommodation-country');
-            $helpRequestAccommodationDetails->city = $request->get('accommodation-city');
-            $helpRequestAccommodationDetails->guests_number = $request->get('accommodation-guests-number');
-            $helpRequestAccommodationDetails->start_date = $request->get('accommodation-start-date');
-            $helpRequestAccommodationDetails->end_date = $request->get('accommodation-end-date');
-            $helpRequestAccommodationDetails->special_request = $request->get('accommodation-special-request');
-            $helpRequestAccommodationDetails->save();
-        }
+        (new HelpRequestService())->create($request->validated());
 
         Notification::route('mail', $helpRequest->caretaker_email ?? $helpRequest->patient_email)
             ->notify(new \App\Notifications\HelpRequest($helpRequest));
@@ -165,6 +112,7 @@ class RequestServicesController extends Controller
      */
     public function submitStep2(ServiceRequest $request)
     {
+        dd($request);
         $user = (new UserService())->createRefugeeUser($request->validated());
         Auth::login($user);
         //TODO Send register email
@@ -177,6 +125,8 @@ class RequestServicesController extends Controller
      */
     public function submitStep3(ServiceRequest $request)
     {
+        dd(1)
+        (new HelpRequestService)->create($request->validated());
         $request_services_step = $request->get("request_services_step", false);
         if ($request_services_step != 3) {
             return $this->redirectBackWithInputAndErrors();

@@ -3,6 +3,7 @@
 use App\Http\Middleware\SetLanguage;
 use App\Http\Middleware\User\Administration;
 use App\Http\Middleware\User\Host;
+use App\Http\Middleware\User\Refugee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -154,6 +155,14 @@ Route::middleware([SetLanguage::class, Host::class])
 
     });
 
+
+
+Route::middleware([SetLanguage::class, Refugee::class])
+    ->prefix('refugee')
+    ->group(function(){
+        Route::get('/profile','Host\ProfileController@profile')->name('refugee.profile');
+    });
+
 /**
  * Ajax routes
  */
@@ -215,6 +224,7 @@ Route::middleware([SetLanguage::class])
         Route::post('/send-contact', 'ContactController@sendContact')->name('send-contact');
         Route::get('/contact-confirmation', 'ContactController@contactConfirmation')->name('contact-confirmation');
         Route::get('/newsletter', 'NewsletterController@newsletter')->name('newsletter');
+
 
         Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });

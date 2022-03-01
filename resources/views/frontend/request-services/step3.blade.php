@@ -1,5 +1,6 @@
 @extends('frontend.request-services.layout')
 @section('form-content')
+
     <section class="py-5 bg-h4h-form">
         <div class="container">
             <div class="accordion-1 request-services">
@@ -58,13 +59,8 @@
                                                                 class="custom-select form-control @error('known_languages') is-invalid @enderror"
                                                                 required multiple>
                                                             @foreach ($languages as $language)
-                                                                @if (old('known_languages'))
-                                                                    <option
-                                                                        value="{{ $language->endonym }}" {{ in_array($language->endonym, old('known_languages') ? 'selected' : '') }}>{{ $language->endonym }}</option>
-                                                                @else
                                                                     <option
                                                                         value="{{ $language->endonym }}">{{ $language->endonym }}</option>
-                                                                @endif
                                                             @endforeach
                                                         </select>
 

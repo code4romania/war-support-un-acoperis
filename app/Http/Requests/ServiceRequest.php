@@ -20,7 +20,7 @@ class ServiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -30,6 +30,7 @@ class ServiceRequest extends FormRequest
      */
     public function rules()
     {
+        dd(1);
         $rules=['request_services_step' => ['required']];
         if (request()->has('request_services_step')){
             switch ($this->request->get('request_services_step')){
@@ -41,7 +42,6 @@ class ServiceRequest extends FormRequest
                     $rules['city'] = ['required', 'string', 'max:64'];
                     break;
                case self::SERVICE:
-                    $rules['requestHelpId'] = ['required', 'numeric', 'gt:0'  ];
                     $rules['current_location'] = ['required', 'string' ];
                     $rules['known_languages'] = ['required', 'array','min:1' ];
                     $rules['more_details'] = ['nullable', 'string', 'max:5000'];
@@ -62,7 +62,7 @@ class ServiceRequest extends FormRequest
         }
 
         if (Route::currentRouteName() == 'request-services-submit') {
-            $rules['g-recaptcha-response'] = ['required', 'captcha'];
+//            $rules['g-recaptcha-response'] = ['required', 'captcha'];
         }
 
         return $rules;

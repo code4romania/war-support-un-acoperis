@@ -95,14 +95,6 @@ class User extends Authenticatable implements Auditable
     }
 
     /**
-     * @return bool
-     */
-    public function isHost(): bool
-    {
-        return $this->hasRole(self::ROLE_HOST) && $this->approved_at;
-    }
-
-    /**
      * @return HasMany
      */
     public function accommodations()

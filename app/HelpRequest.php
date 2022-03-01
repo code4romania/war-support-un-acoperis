@@ -73,52 +73,9 @@ class HelpRequest extends Model implements Auditable
             ->where('notes.entity_type', '=', Note::TYPE_HELP_REQUEST);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function helprequestsmsdetail()
-    {
-        return $this->hasMany(HelpRequestSmsDetails::class);
-    }
 
-    /**
-     * @return HasMany
-     */
-    public function helprequestaccommodationdetail()
-    {
-        return $this->hasMany(HelpRequestAccommodationDetail::class);
-    }
 
-    /**
-     * @return HasMany
-     */
-    public function helpRequestDependants()
-    {
-        return $this->hasMany(HelpRequestDependant::class, "help_request_id");
-    }
 
-    /**
-     * @return BelongsToMany
-     */
-    public function helptypes()
-    {
-        return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['id', 'approve_status', 'message']);
-    }
-
-    public function updateStatus()
-    {
-        $total = $this->helptypes()->count();
-
-        if (0 === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
-            $this->status = self::STATUS_COMPLETED;
-        } else if ($total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
-            $this->status = self::STATUS_NEW;
-        } else {
-            $this->status = self::STATUS_IN_PROGRESS;
-        }
-
-        $this->save();
-    }
 
     /**
      * Get the indexable data array for the model.

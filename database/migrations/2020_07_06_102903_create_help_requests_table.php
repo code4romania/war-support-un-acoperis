@@ -21,13 +21,13 @@ class CreateHelpRequestsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->enum('status',['padding','allocated','in_progress','fulfilled'])->default('padding');
             $table->string('current_location');
+            $table->unsignedInteger('guests_number')->default(1);
             $table->json('known_languages');
             $table->string('special_needs')->nullable();
             $table->json('with_peoples')->nullable();
             $table->text('more_details');
             $table->boolean('need_car')->default(false);
             $table->boolean('need_special_transport')->default(false);
-            $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
