@@ -137,6 +137,6 @@ class User extends Authenticatable implements Auditable
 
     public function isHost()
     {
-        $this->isAuthorized(self::ROLE_HOST);
+        return $this->isAuthorized(self::ROLE_HOST);
     }
 }
