@@ -67,6 +67,9 @@ RUN set -uex; umask 0002; \
 COPY --chown=www-data:www-data . .
 COPY --chown=www-data:www-data --from=assets_builder /app/public ./
 
+# create storage folder if not exists
+RUN mkdir -p storage
+
 RUN set -uex; umask 0002; \
 	composer dump-autoload --optimize && \
 #    php artisan route:cache && \
