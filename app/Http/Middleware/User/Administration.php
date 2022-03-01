@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\User;
 
 use App\User;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function route;
 
 /**
  * Class Administration
@@ -27,7 +28,7 @@ class Administration
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user) || !$user->isAdministrator()) {
+        if (empty($user) || !$user->isAuthorized(USER::ROLE_ADMINISTRATOR)) {
             throw new AuthenticationException(
                 'Unauthenticated.',
                 [],
