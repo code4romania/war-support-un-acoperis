@@ -29,7 +29,7 @@ services:
         rm -rf /mnt/public/* &&
         cp -r ./public /mnt/ &&
         php artisan config:cache &&
-        php artisan migrate -f &&
+        php artisan migrate --force &&
         php-fpm -F
       "
     depends_on:
