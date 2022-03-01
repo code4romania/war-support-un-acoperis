@@ -26,6 +26,9 @@ migrate:
 migrate-f:
 	docker-compose exec php sh -c 'php artisan migrate --force'
 
+migrate-stage:
+	docker-compose -f docker-compose.stage.yml exec php sh -c 'php artisan migrate --force'
+
 seed:
 	docker-compose exec php sh -c 'php artisan db:seed'
 
