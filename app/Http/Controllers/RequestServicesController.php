@@ -49,7 +49,7 @@ class RequestServicesController extends Controller
                 ->with('termsAndConditionsForSeekers', $settingRepository->byKey('termsAndConditionsForSeekers') ?? '');
         }
         $lang = App::getLocale() == 'ro' ? 'en' : App::getLocale();
-        $counties = UaRegion::all(['id', 'region', 'region_' . $lang.' as region'])->sortBy('region_' . $lang);
+        $counties = UaRegion::all(['id', 'region', 'region_' . $lang . ' as region'])->sortBy('region_' . $lang);
 
 
         return view('frontend.request-services.index')
@@ -93,8 +93,7 @@ class RequestServicesController extends Controller
     }
 
 
-
-    public function submit(ServiRceRequest $request): RedirectResponse
+    public function submit(ServiceRequest $request): RedirectResponse
     {
         (new HelpRequestService())->create($request->validated());
 
@@ -112,7 +111,7 @@ class RequestServicesController extends Controller
      */
     public function submitStep2(ServiceRequest $request)
     {
-        dd($request);
+
         $user = (new UserService())->createRefugeeUser($request->validated());
         Auth::login($user);
         //TODO Send register email
@@ -123,52 +122,11 @@ class RequestServicesController extends Controller
      * @param ServiceRequest $request
      * @return RedirectResponse
      */
-    public function submitStep3(ServiceRequest $request)
+    public function submitStep3(ServiceRequest $request): RedirectResponse
     {
-        dd(1)
-        (new HelpRequestService)->create($request->validated());
-        $request_services_step = $request->get("request_services_step", false);
-        if ($request_services_step != 3) {
-            return $this->redirectBackWithInputAndErrors();
-        }
 
-        $requestHelpId = $request->get('requestHelpId', false);
-        if (empty($requestHelpId)) {
-            return $this->redirectBackWithInputAndErrors();
-        }
-
-        $helpRequest = HelpRequest::find($requestHelpId);
-        if (empty($helpRequest)) {
-            return $this->redirectBackWithInputAndErrors();
-        }
-
-        $help_request_accommodation_detail = $helpRequest->helprequestaccommodationdetail()->first();
-        if (empty($help_request_accommodation_detail ?? false)) {
-            $help_request_accommodation_detail = new HelpRequestAccommodationDetail();
-            $help_request_accommodation_detail->help_request_id = $requestHelpId;
-        }
-
-        $help_request_accommodation_detail->current_location = $request->get('current_location', "");
-        $help_request_accommodation_detail->known_languages = implode(",", $request->get('known_languages', []));
-        $help_request_accommodation_detail->more_details = $request->get('more_details', "");
-        $help_request_accommodation_detail->special_request = $request->get('special_request', "");
-        $help_request_accommodation_detail->need_transport = empty($request->get('need_transport', 0) ?: 0);
-        $help_request_accommodation_detail->dont_need_transport = empty($request->get('dont_need_transport', 0) ?: 0);
-        $help_request_accommodation_detail->need_special_transport = empty($request->get('need_special_transport', 0) ?: 0);
-
-        //@TODO: try/catch maybe?
-        DB::beginTransaction();
-
-        $help_request_accommodation_detail->save();
-
-        if ($request->get("person_in_care_count", false) > 0) {
-            $this->saveHelpRequestDependents($requestHelpId, $request);
-        }
-
-        DB::commit();
-
-        Notification::route('mail', $helpRequest->caretaker_email ?? $helpRequest->patient_email)
-            ->notify(new \App\Notifications\HelpRequest($helpRequest));
+        $helpRequest = (new HelpRequestService)->create($request->validated());
+        Notification::route('mail', auth()->user()->email)->notify(new \App\Notifications\HelpRequest($helpRequest));
         Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))
             ->notify(new \App\Notifications\HelpRequestInfoAdminMail($helpRequest));
         return redirect()->route('request-services-thanks');

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\HelpType;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -47,16 +48,24 @@ class HelpRequest extends Notification
 
     private function getMail(\App\HelpRequest $helpRequest): MailMessage
     {
+        $user = User::find($helpRequest->user_id);
         $mail =  (new MailMessage)
             ->subject(__("Request help"))
             ->greeting(__("Request help greeting"))
             ->line('')
-            ->line(__("Full name") . ': '. $helpRequest->patient_full_name)
-            ->line(__("Phone") . ': '. $helpRequest->patient_phone_number)
-            ->line(__("Email") . ': '. $helpRequest->patient_email)
-            ->line(__("Address") . ': '. $helpRequest->county->region_uk . '(' . $helpRequest->county->region_en . '), ' . $helpRequest->city)
-            ->line('')
-            ->line(__("Details") . ': ' . $helpRequest->extra_details);
+            ->line(__("User Id") . ': '. $user->id)
+            ->line(__("Full name") . ': '. $user->name)
+            ->line(__("Phone") . ': '. $user->phone)
+            ->line(__("Email") . ': '. $user->emai);
+        $helpRequestFields = $helpRequest->toArray();
+        foreach ($helpRequestFields as $field=>$value) {
+            //TODO nice to have
+//            if (json_decode($value, true))
+//            {
+//                $this->addArrayField($field, $value);
+//            }
+            $mail->line(__($field) . ': '. $value);
+        }
 
         return $mail;
     }
@@ -73,4 +82,6 @@ class HelpRequest extends Notification
             //
         ];
     }
+
+
 }

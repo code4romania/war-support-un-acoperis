@@ -20,7 +20,7 @@ class ServiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ServiceRequest extends FormRequest
      */
     public function rules()
     {
-        dd(1);
+
         $rules=['request_services_step' => ['required']];
         if (request()->has('request_services_step')){
             switch ($this->request->get('request_services_step')){

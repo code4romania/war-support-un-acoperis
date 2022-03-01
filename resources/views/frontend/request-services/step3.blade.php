@@ -311,6 +311,7 @@
                 for (let i = 2; i <= q; i++) {
                     const newSet = fieldSet.clone();
                     newSet.attr('data-index', i);
+                    console.log(newSet.children());
                     newSet.appendTo($('#persons_in_care'))
                 }
             }
@@ -336,7 +337,7 @@
             $("#person_in_care_count").on('blur', function (e) {
                 if (!e.target.value) {
                     cleanupFields();
-                    renderFields(1, personFieldSet);
+                    renderFields(e.target.value, personFieldSet);
                 }
             })
         });

@@ -16,19 +16,16 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @package App
  *
  * @property int $id
- * @property string $patient_full_name
- * @property int|null $patient_phone_country_id
- * @property string|null $patient_phone_number
- * @property string|null $patient_email
- * @property string|null $caretaker_full_name
- * @property int|null $caretaker_phone_country_id
- * @property string|null $caretaker_phone_number
- * @property string|null $caretaker_email
- * @property int $county_id
- * @property string $city
- * @property string|null $diagnostic
- * @property string|null $extra_details
+ * @property int user_id
+ * @property string $current_location
+ * @property int $guests_number
+ * @property string $known_languages
+ * @property string|null $special_needs
+ * @property string|null $with_peoples
  * @property string $status
+ * @property string $more_details
+ * @property bool $need_car
+ * @property bool $need_special_transport
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
