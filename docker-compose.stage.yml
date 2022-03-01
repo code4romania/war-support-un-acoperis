@@ -14,7 +14,9 @@ services:
       - 81:80
 
   php:
-    image: ${PHP_DOCKER_IMAGE}:development
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
     restart: unless-stopped
     environment:
       APP_ENV: production
