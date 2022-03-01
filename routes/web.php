@@ -42,7 +42,7 @@ Route::middleware([Administration::class])
         /**
          * Administrator routes
          */
-        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');;
+        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');
 
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
@@ -86,7 +86,7 @@ Route::middleware([Administration::class])
         Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
         Route::get('/host/{id}/delete', 'Admin\HostController@delete')->name('admin.host-delete');
 
-        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');;
+        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Admin\ProfileController@editProfile')->name('admin.edit-profile');
         Route::post('/profile/edit', 'Admin\ProfileController@saveProfile')->name('admin.save-profile');
         Route::get('/profile/reset-password', 'Admin\ProfileController@resetPassword')->name('admin.reset-password');
@@ -131,7 +131,7 @@ Route::middleware([Administration::class])
 Route::middleware([Host::class])
     ->prefix('host')
     ->group(function () {
-        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');;
+        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
         Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
@@ -152,15 +152,14 @@ Route::middleware([Host::class])
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
-
     });
 
 
 
 Route::middleware([Refugee::class])
     ->prefix('refugee')
-    ->group(function(){
-        Route::get('/profile','Host\ProfileController@profile')->name('refugee.profile');
+    ->group(function () {
+        Route::get('/profile', 'Host\ProfileController@profile')->name('refugee.profile');
     });
 
 /**
@@ -188,12 +187,12 @@ Route::middleware([SetLocale::class])
          */
         Route::middleware(['throttle:60,1'])
             ->prefix('2fa')
-            ->group(function(){
-                Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
+            ->group(function () {
+                Route::get('/', 'LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
                 Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
-                Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
-                Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
-                Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
+                Route::post('/generateSecret', 'LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+                Route::post('/enable2fa', 'LoginSecurityController@enable2fa')->name('enable2fa');
+                Route::post('/disable2fa', 'LoginSecurityController@disable2fa')->name('disable2fa');
 
                 // 2fa middleware
                 Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
