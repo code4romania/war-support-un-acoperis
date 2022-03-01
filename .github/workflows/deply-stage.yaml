@@ -3,7 +3,7 @@ name: Deploy to staging env
 on:
   push:
     branches:
-      - 'develop'
+      - development
 
 jobs:
   deploy:
@@ -12,7 +12,6 @@ jobs:
 
     steps:
       - name: Executing remote SSH commands
-        if: github.ref == 'refs/heads/develop'
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEV_SERVER_IP }}
