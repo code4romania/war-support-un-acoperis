@@ -44,6 +44,12 @@ Route::middleware([SetLanguage::class, Administration::class])
          */
         Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');;
 
+        Route::get('/users', 'Admin\UserController@index')->name('admin.user-list');
+        Route::get('/user/add-trusted', 'Admin\UserController@addTrusted')->name('admin.trusted-user-add');
+        Route::post('/user/store-trusted-person', 'Admin\UserController@storeTrustedPerson')->name('admin.store-trusted-person');
+        Route::post('/user/store-trusted-company', 'Admin\UserController@storeTrustedCompany')->name('admin.store-trusted-company');
+
+
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');

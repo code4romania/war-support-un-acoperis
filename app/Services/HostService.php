@@ -16,27 +16,14 @@ use Illuminate\Support\Str;
 class HostService
 {
 
-    public function createHostPerson(HostRequestPerson $request): User
+    /**
+     * @param HostRequestPerson|HostRequestCompany $request
+     * @return User
+     */
+    public function createHost($request): User
     {
-        $user = User::create($this->prepareUserParams($request));
-        $user->assignRole(User::ROLE_HOST);
-
-        $this->generateResetTokenAndNotifyUser($user);
-
-        return $user;
-    }
-
-    public function createHostCompany(HostRequestCompany $request): User
-    {
-        $userParams = $this->prepareUserParams($request);
-
-        $userParams['legal_representative_name'] = $request->get('legal_representative_name');
-        $userParams['company_name'] = $request->get('company_name');
-        $userParams['company_tax_id'] = $request->get('company_tax_id');
-
-        $user = User::create($userParams);
-
-        $user->assignRole(User::ROLE_HOST);
+        $userService = new UserService();
+        $user = $userService->createHostUser($request);
 
         $this->generateResetTokenAndNotifyUser($user);
 
@@ -55,26 +42,6 @@ class HostService
 
         Notification::route('mail', $user->email)
             ->notify($notification);
-    }
-
-    /**
-     * @param HostRequestCompany|HostRequestPerson $request
-     * @return array
-     */
-    private function prepareUserParams($request): array
-    {
-        return [
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => Hash::make(Str::random(10)),
-            'remember_token' => Str::random(10),
-            //@TODO: should this be hardcoded? There is no country field in the UI
-            'country_id' => DB::table('countries')->where('code', 'RO')->first()->id,
-            'county_id' => $request->get('county_id'),
-            'city' => $request->get('city'),
-            'address' => $request->get('address'),
-            'phone_number' => $request->get('phone'),
-            'approved_at' => now(),];
     }
 
     public function viewSignupForm(string $view, ?string $description = null)
