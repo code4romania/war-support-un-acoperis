@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
  */
 class ServiceRequest extends FormRequest
 {
+    public const REGISTER = 2;
+    public const SERVICE = 3;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,14 +33,14 @@ class ServiceRequest extends FormRequest
         $rules=['request_services_step' => ['required']];
         if (request()->has('request_services_step')){
             switch ($this->request->get('request_services_step')){
-                case 2:
-                    $rules['patient-name'] = ['required', 'string', 'max:32'];
-                    $rules['patient-phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
-                    $rules['patient-email'] = ['required', 'email', 'string', 'max:255', 'unique:help_requests,patient_email'];
-                    $rules['patient-county'] = ['required', 'exists:ua_regions,id'];
-                    $rules['patient-city'] = ['required', 'string', 'max:64'];
+                case self::REGISTER:
+                    $rules['name'] = ['required', 'string', 'max:32'];
+                    $rules['phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
+                    $rules['email'] = ['required', 'email', 'string', 'max:255', 'unique:users'];
+                    $rules['county_id'] = ['required', 'exists:ua_regions,id'];
+                    $rules['city'] = ['required', 'string', 'max:64'];
                     break;
-               case 3:
+               case self::SERVICE:
                     $rules['requestHelpId'] = ['required', 'numeric', 'gt:0'  ];
                     $rules['current_location'] = ['required', 'string' ];
                     $rules['known_languages'] = ['required', 'array','min:1' ];
@@ -59,9 +61,9 @@ class ServiceRequest extends FormRequest
             }
         }
 
-//        if (Route::currentRouteName() == 'request-services-submit') {
-//            $validatorRules['g-recaptcha-response'] = ['required', 'captcha'];
-//        }
+        if (Route::currentRouteName() == 'request-services-submit') {
+            $rules['g-recaptcha-response'] = ['required', 'captcha'];
+        }
 
         return $rules;
     }

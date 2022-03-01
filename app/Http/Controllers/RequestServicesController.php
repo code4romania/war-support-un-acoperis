@@ -14,9 +14,12 @@ use App\HelpRequestType;
 use App\HelpType;
 use App\Http\Requests\ServiceRequest;
 use App\Language;
+use App\Services\UserService;
 use App\UaRegion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -38,51 +41,34 @@ class RequestServicesController extends Controller
      */
     public function index(Request $request, SettingRepository $settingRepository)
     {
-//        echo Session::get("i_agree_with_terms_and_conditions", false)+0;
-//        die();
         if (!$this->seekerTermsAreAgreed($request)) {
-            //@TODO: insert records for termsAndConditionsForSeekers in settings && setting_translations tables
             return view('frontend.request-services.terms-and-conditions')
                 ->with('description', $settingRepository->byKey('request_services_description') ?? '')
                 ->with('info', $settingRepository->byKey('request_services_info') ?? '')
                 ->with('termsAndConditionsForSeekers', $settingRepository->byKey('termsAndConditionsForSeekers') ?? '');
         }
-        $countries = Country::all()->sortBy('name');
+        $lang = App::getLocale() == 'ro' ? 'en' : App::getLocale();
+        $counties = UaRegion::all(['id', 'region', 'region_' . $lang.' as region'])->sortBy('region_' . $lang);
 
-        $counties = UaRegion::all(['id', 'region', 'region_uk'])->sortBy('region_uk');
-
-        $helpTypes = HelpType::all(['id', 'name'])->sortBy('id');
-
-        $firstLeft = array_slice($helpTypes->toArray(), 0, $helpTypes->count() / 2);
-        $secondRight = array_slice($helpTypes->toArray(), $helpTypes->count() / 2);
 
         return view('frontend.request-services.index')
             ->with('description', $settingRepository->byKey('request_services_description') ?? '')
             ->with('info', $settingRepository->byKey('request_services_info') ?? '')
-            ->with('countries', $countries)
-            ->with('counties', $counties)
-            ->with('helpTypesLeft', $firstLeft)
-            ->with('helpTypesRight', $secondRight);
+            ->with('counties', $counties);
     }
 
-    /**
-     * @param Request $request
-     */
     public function requestHelpStep3(Request $request, SettingRepository $settingRepository)
     {
-        $requestHelpId = $request->session()->get(self::session_currentRequestHelpId, false);
-        if ($requestHelpId > 0) {
-
-            $languages = Language::orderBy('position', 'asc')->orderBy('name', 'asc')->select('id', 'endonym')->get();
-
-            return view('frontend.request-services.step3')
-                ->with('description', $settingRepository->byKey('request_services_description') ?? '')
-                ->with('info', $settingRepository->byKey('request_services_info') ?? '')
-                ->with('languages', $languages)
-                ->with('requestHelpId', $requestHelpId);
+        if (!Auth::check()) {
+            return redirect()->back()->withErrors([__("not auth access page")]);
         }
-        return redirect()->back()->withErrors([__("not auth access page")]);
 
+        $languages = Language::orderBy('position', 'asc')->orderBy('name', 'asc')->select('id', 'endonym')->get();
+
+        return view('frontend.request-services.step3')
+            ->with('description', $settingRepository->byKey('request_services_description') ?? '')
+            ->with('info', $settingRepository->byKey('request_services_info') ?? '')
+            ->with('languages', $languages);
     }
 
     /**
@@ -106,11 +92,8 @@ class RequestServicesController extends Controller
     }
 
 
-    /**
-     * @param ServiceRequest $request
-     * @return RedirectResponse
-     */
-    public function submit(ServiceRequest $request)
+
+    public function submit(ServiceRequest $request): RedirectResponse
     {
         $helpRequest = new HelpRequest();
         $helpRequest->patient_full_name = $request->get('patient-name');
@@ -182,24 +165,10 @@ class RequestServicesController extends Controller
      */
     public function submitStep2(ServiceRequest $request)
     {
-        $request_services_step = $request->get("request_services_step", false);
-        if ($request_services_step != 2) {
-            return redirect()->back()->withErrors([__("not auth access page")]);
-        }
-
-        $helpRequest = new HelpRequest();
-        $helpRequest->patient_full_name = $request->get('patient-name');
-        $helpRequest->patient_phone_number = $request->get('patient-phone');
-        $helpRequest->patient_email = $request->get('patient-email');
-        $helpRequest->county_id = $request->get('patient-county');
-        $helpRequest->city = $request->get('patient-city');
-        $helpRequest->status = HelpRequest::STATUS_NEW;
-        $helpRequest->save();
-
-        $request->session()->put(self::session_currentRequestHelpId, $helpRequest->id);
-
+        $user = (new UserService())->createRefugeeUser($request->validated());
+        Auth::login($user);
+        //TODO Send register email
         return redirect()->route('request-services-step3');
-
     }
 
     /**

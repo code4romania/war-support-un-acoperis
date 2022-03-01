@@ -196,7 +196,6 @@ Route::middleware([SetLanguage::class])
         Route::get('/', 'StaticPagesController@home')->name('home');
         Route::get('/request-help', 'RequestServicesController@index')->name('request-services');
         Route::post('/request-help-agreement', 'RequestServicesController@storeTermsAndConditionsAgreement')->name('request-services-submit-agreement');
-//        Route::post('/request-help', 'RequestServicesController@submit')->name('request-services-submit');
         Route::post('/request-help-2', 'RequestServicesController@submitStep2')->name('request-services-submit-step2');
         Route::get('/request-help-3', 'RequestServicesController@requestHelpStep3')->name('request-services-step3');
         Route::post('/request-help-3', 'RequestServicesController@submitStep3')->name('request-services-submit-step3');

@@ -18,26 +18,20 @@ class CreateHelpRequestsTable extends Migration
     {
         Schema::create('help_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('patient_full_name', 64);
-            $table->string('patient_phone_number', 64)->nullable();
-            $table->string('patient_email', 64)->nullable();
-            $table->string('caretaker_full_name', 64)->nullable();
-            $table->string('caretaker_phone_number', 64)->nullable();
-            $table->string('caretaker_email', 64)->nullable();
-            $table->unsignedBigInteger('county_id');
-            $table->unsignedBigInteger('city_id');
-            $table->string('diagnostic', 128)->nullable();
-            $table->text('extra_details')->nullable();
-            $table->string('status', 16);
+            $table->unsignedBigInteger('user_id');
+            $table->enum('status',['padding','allocated','in_progress','fulfilled'])->default('padding');
+            $table->string('current_location');
+            $table->json('known_languages');
+            $table->string('special_needs')->nullable();
+            $table->json('with_peoples')->nullable();
+            $table->text('more_details');
+            $table->boolean('need_car')->default(false);
+            $table->boolean('need_special_transport')->default(false);
+            $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('county_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('counties');
-
-            $table->foreign('city_id')
-                ->references('id')
-                ->on('cities');
+                ->on('users');
         });
     }
 

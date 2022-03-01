@@ -45,6 +45,7 @@ class User extends Authenticatable implements Auditable
 
     public const ROLE_ADMINISTRATOR = 'administrator';
     public const ROLE_HOST = 'host';
+    public const ROLE_REFUGEE = 'refugee';
 
     /**
      * Attributes to exclude from the Audit.

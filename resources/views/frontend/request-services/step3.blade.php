@@ -1,33 +1,10 @@
-@extends('layouts.app')
-
-@section("head-scripts")
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-@endsection
-
-@section('content')
-    <div class="container pt-sm-6 pb-sm-5 py-3">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
-        <h1 class="display-3 title mb-4 text-primary">{{ __('Request Help') }}</h1>
-        <p>
-            {!! $description !!}
-        </p>
-    </div>
-    <div class="alert bg-h4h-blue alert-general white font-weight-600 mb-0" role="alert">
-        <div class="container">
-            <span class="alert-inner--icon mr-3"><i class="fa fa-info-circle"></i></span>
-            <span class="alert-inner--text">{{ $info }}</span>
-        </div>
-    </div>
+@extends('frontend.request-services.layout')
+@section('form-content')
     <section class="py-5 bg-h4h-form">
         <div class="container">
             <div class="accordion-1 request-services">
                 <form method="POST" action="{{ route('request-services-submit-step3') }}" id="sendRequest">
-                    <input type="hidden" name="request_services_step" value="3">
-                    <input type="hidden" name="requestHelpId" value="{!! $requestHelpId !!}">
+                    <input type="hidden" name="request_services_step" value="{{\App\Http\Requests\ServiceRequest::SERVICE}}">
                     @csrf
                     <div class="row">
                         <div class="col-md-12 ml-auto">
@@ -108,8 +85,9 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12  mt-4 @if(empty(old('special_needs'))) d-none @endif"
-                                                     id="special_request_div">
+                                                <div
+                                                    class="col-sm-12  mt-4 @if(empty(old('special_needs'))) d-none @endif"
+                                                    id="special_request_div">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600"
                                                                for="special_request">{{ __("Special needs detailing") }}
@@ -118,7 +96,7 @@
                                                                placeholder="@lang("special_request_placeholder")"
                                                                class="form-control @error('special_request') is-invalid @enderror"
                                                                name="special_request" id="special_request"
-                                                               value="{{ old('special_request') }}" data-required="1" />
+                                                               value="{{ old('special_request') }}" data-required="1"/>
                                                         @error('special_request')
                                                         <span class="invalid-feedback"
                                                               role="alert">{{ $message }}</span>
@@ -222,7 +200,8 @@
 
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label class="font-weight-600" for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
+                                                        <label class="font-weight-600"
+                                                               for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
                                                         <textarea name="more_details" id="more_details"
                                                                   class="form-control @error('more_details') is-invalid @enderror"
                                                                   rows="4">{!! old('more_details') !!}</textarea>
@@ -237,7 +216,8 @@
 
                                                 <div class="col-12">
                                                     <div class="border-top pt-5 mt-3 clearfix">
-                                                        <label class=" font-weight-600" >{{ __("resource_types.transport") }}</label>
+                                                        <label
+                                                            class=" font-weight-600">{{ __("resource_types.transport") }}</label>
                                                         <div class="custom-control custom-checkbox mb-3">
                                                             <input class="custom-control-input" id="need_transport"
                                                                    name="need_transport"
@@ -253,7 +233,8 @@
                                                                    for="dont_need_transport">{{ __("I don't need transport - I have my own vehicle") }}</label>
                                                         </div>
                                                         <div class="custom-control custom-checkbox mb-3">
-                                                            <input class="custom-control-input" id="need_special_transport"
+                                                            <input class="custom-control-input"
+                                                                   id="need_special_transport"
                                                                    name="need_special_transport"
                                                                    type="checkbox" {{ !empty(old('need_special_transport')) ? 'checked' : '' }}>
                                                             <label class="custom-control-label"
@@ -324,14 +305,14 @@
 
 
             /**
-                Script for "persons in care" form section
+             Script for "persons in care" form section
              */
-            function cleanupFields() {                
+            function cleanupFields() {
                 $(".person_in_care:not([data-index='1'])").remove();
             }
 
-            function renderFields(q, fieldSet) { 
-                for(let i = 2; i <= q; i++) {
+            function renderFields(q, fieldSet) {
+                for (let i = 2; i <= q; i++) {
                     const newSet = fieldSet.clone();
                     newSet.attr('data-index', i);
                     newSet.appendTo($('#persons_in_care'))
@@ -341,7 +322,7 @@
             let trackTimeoutId;
             const personFieldSet = $('.person_in_care[data-index="1"]');
 
-            $("#person_in_care_count").on('input, change, keyup', function(e) {                
+            $("#person_in_care_count").on('input, change, keyup', function (e) {
                 if (!e.target.value) {
                     return;
                 }
@@ -350,16 +331,16 @@
 
                 const timeoutId = setTimeout(() => {
                     cleanupFields();
-                    renderFields(e.target.value, personFieldSet);            
+                    renderFields(e.target.value, personFieldSet);
                 }, 500);
 
                 trackTimeoutId = timeoutId;
             });
 
-            $("#person_in_care_count").on('blur', function(e) {
+            $("#person_in_care_count").on('blur', function (e) {
                 if (!e.target.value) {
                     cleanupFields();
-                    renderFields(1, personFieldSet);    
+                    renderFields(1, personFieldSet);
                 }
             })
         });
