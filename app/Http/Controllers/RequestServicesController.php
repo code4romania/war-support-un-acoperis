@@ -18,6 +18,7 @@ use App\UaRegion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
@@ -235,11 +236,17 @@ class RequestServicesController extends Controller
         $help_request_accommodation_detail->need_transport = empty($request->get('need_transport', 0) ?: 0);
         $help_request_accommodation_detail->dont_need_transport = empty($request->get('dont_need_transport', 0) ?: 0);
         $help_request_accommodation_detail->need_special_transport = empty($request->get('need_special_transport', 0) ?: 0);
+
+        //@TODO: try/catch maybe?
+        DB::beginTransaction();
+
         $help_request_accommodation_detail->save();
 
         if ($request->get("person_in_care_count", false) > 0) {
             $this->saveHelpRequestDependents($requestHelpId, $request);
         }
+
+        DB::commit();
 
         Notification::route('mail', $helpRequest->caretaker_email ?? $helpRequest->patient_email)
             ->notify(new \App\Notifications\HelpRequest($helpRequest));
