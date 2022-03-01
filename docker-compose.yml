@@ -14,8 +14,6 @@ services:
       dockerfile: .docker/php/Dockerfile
       context: .
       target: dev_stage
-    environment:
-      APP_ENV: local
     volumes:
     - ./:/var/www/html
     - ./.docker/php/dev/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini:ro,cached
