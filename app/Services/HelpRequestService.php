@@ -37,9 +37,9 @@ class HelpRequestService
         $temp = [];
         for ($index = 0; $index < $data['person_in_care_count']; $index++) {
             $temp[] = [
-                'name' => $data['person_in_care_name'][$index] ?: null,
-                'age' => $data['person_in_care_age'][$index] ?: null,
-                'mentions' => $data['person_in_care_mentions'][$index] ?: null,
+                'name' => $data['person_in_care_name'][$index] ?? null,
+                'age' => $data['person_in_care_age'][$index] ?? null,
+                'mentions' => $data['person_in_care_mentions'][$index] ?? null,
             ];
         }
         return json_encode($temp);
