@@ -7,4 +7,4 @@ git pull
 docker-compose -f docker-compose.stage.yml build
 docker-compose -f docker-compose.stage.yml up -d
 
-make migrate-stage
+# make migrate-stage
