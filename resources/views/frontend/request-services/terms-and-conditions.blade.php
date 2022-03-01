@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <p>
-                                    {!! $termsAndConditionsForSeekers !!}
+                                    {!! $termsAndConditionsForRefugees !!}
                                 </p>
                             </div>
                         </div>

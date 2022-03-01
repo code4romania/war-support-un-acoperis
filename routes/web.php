@@ -225,8 +225,5 @@ Route::middleware([SetLanguage::class])
         Route::get('/contact-confirmation', 'ContactController@contactConfirmation')->name('contact-confirmation');
         Route::get('/newsletter', 'NewsletterController@newsletter')->name('newsletter');
 
-
         Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });
-
-Route::get('/pages/{slug}', 'PageController@show');
