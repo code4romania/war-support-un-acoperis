@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy to staging env
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Executing remote SSH commands
