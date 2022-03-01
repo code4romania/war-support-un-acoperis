@@ -6,7 +6,7 @@
             <div class="form-group">
                 <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                 <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
-                    <option value="">{{ _("Select accomodation type") }}</option>
+                    <option value="">{{ __("Select accomodation type") }}</option>
                     @foreach($types as $type)
                         <option value="{{ $type->id }}" {{ (old('type', $accommodation->accommodationtype->id) == $type->id ? 'selected' : '') ? 'selected' : '' }}>{{ __($type->name) }}</option>
                     @endforeach
