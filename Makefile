@@ -12,6 +12,7 @@ build:
 
 .PHONY: install
 install:
+	cp .env.example .env
 	docker-compose up -d
 	docker-compose exec php sh -c 'composer install'
 	docker-compose exec php sh -c 'php artisan migrate --seed'
@@ -32,6 +33,10 @@ migrate:
 .PHONY: migrate-f
 migrate-f:
 	docker-compose exec php sh -c 'php artisan migrate --force'
+
+.PHONY: migrate-stage
+migrate-stage:
+	docker-compose -f docker-compose.stage.yml exec php sh -c 'php artisan migrate --force'
 
 .PHONY: seed
 seed:

@@ -117,21 +117,21 @@
         <div class="d-flex">
             <div class="sidebar border-right">
                 <div class="list-group list-group-flush mt-2 mt-sm-4">
-                @if (Auth::user()->isAdministrator())
+                @if (Auth::user()->isAdministrator(App\User::ROLE_ADMINISTRATOR))
                     <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                         <i class="fa fa-bar-chart mr-3"></i>Dashboard
                     </a>
                     <!-- New buttons, routes need to be added, and also active checks, like for Dashboard -->
-                    <a href="#" class="list-group-item list-group-item-action ">
+                    <a href="{{ route('admin.accommodation-list') }}" class="list-group-item list-group-item-action ">
                         <i class="fa fa-bed mr-3"></i>Oferte cazări
                     </a>
-                        <a href="#" class="list-group-item list-group-item-action sub-list ">
+                        <a href="{{ route('admin.accommodation-list', ['status' => 1]) }}" class="list-group-item list-group-item-action sub-list ">
                             <i class="fa fa-minus mx-3"></i>Aprobate
                         </a>
                         <a href="#" class="list-group-item list-group-item-action sub-list ">
                             <i class="fa fa-minus mx-3"></i>În curs de aprobare
                         </a>
-                    <a href="#" class="list-group-item list-group-item-action ">
+                    <a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action ">
                         <img src="/images/hand-icon.svg" class="mr-3">Solicitări cazări
                     </a>
                     <a href="#" class="list-group-item list-group-item-action ">
@@ -159,7 +159,7 @@
                         <i class="fa fa-user mr-3"></i>Contul meu
                     </a>
                     <a href="{{ route('logout') }}" class="list-group-item list-group-item-action "
-                        onclick="event.preventDefault(); 
+                        onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         <i class="fa fa-power-off mr-3"></i>Ieși din cont
                     </a>

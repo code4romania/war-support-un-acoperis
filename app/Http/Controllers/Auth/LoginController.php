@@ -44,7 +44,7 @@ class LoginController extends Controller
 
         if ($user->isAdministrator()) {
             return route('admin.dashboard');
-        } else if ($user->isHost()) {
+        } elseif ($user->isHost()) {
             return route('host.profile');
         }
 
@@ -59,10 +59,10 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-
-         $loginResult = $this->guard()->attempt(
-                $this->credentials($request), $request->filled('remember')
-            );
+        $loginResult = $this->guard()->attempt(
+            $this->credentials($request),
+            $request->filled('remember')
+        );
 
         if ($loginResult && !is_null($this->guard()->user())) {
             return !is_null($this->guard()->user()->approved_at);
@@ -81,10 +81,15 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request)
     {
-        $request->validate([
-            $this->username() => 'required|string|email',
-            'password' => 'required|string',
-            'g-recaptcha-response' => 'required|captcha',
-        ]);
+        $rules = [
+            $this->username() => ['required','string','email'],
+            'password' => ['required', 'string'],
+        ];
+
+        if (! app()->environment('local')) {
+            $rules['g-recaptcha-response'] = ['required', 'captcha'];
+        }
+
+        $request->validate($rules);
     }
 }

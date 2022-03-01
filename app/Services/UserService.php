@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
  */
 class UserService
 {
+    const defaultCountryIdForRefugee = 224;
     /**
      * @param string $name
      * @param string $email
@@ -28,11 +29,12 @@ class UserService
     public function createUser(
         string $name,
         string $email,
-        int $country_id,
+        int    $country_id,
         string $city,
         string $phone_number,
         string $address = null
-    ): User {
+    ): User
+    {
 
         $host = User::create([
             'name' => $name,
@@ -52,5 +54,24 @@ class UserService
     public function generateToken(User $user)
     {
         return app('auth.password.tokens')->create($user);
+    }
+
+    public function createRefugeeUser($data): User
+    {
+        $user = User::create(
+            [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'county_id' => $data['county_id'],
+                'password' => Hash::make(Str::random(16)),
+                'country_id' => self::defaultCountryIdForRefugee,
+                'city' => $data['city'],
+                'address' => '',
+                'phone_number' => $data['phone'],
+            ]
+        );
+        $user->assignRole(User::ROLE_REFUGEE);
+        return $user;
+
     }
 }

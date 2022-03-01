@@ -41,7 +41,7 @@ FROM node:16-alpine as assets_builder
 
 COPY . /app
 RUN cd app && \
-    npm ci && \
+    npm ci --no-audit --ignore-scripts --no-fund && \
     npm run production
 
 
@@ -61,14 +61,14 @@ ENV APP_ENV=production
 COPY --chown=www-data:www-data composer.json composer.lock ./
 
 RUN set -uex; umask 0002; \
-	composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-suggest --no-dev && \
-	rm -rf /tmp/composer/cache
+    composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-suggest --no-dev && \
+    rm -rf /tmp/composer/cache
 
 COPY --chown=www-data:www-data . .
 COPY --chown=www-data:www-data --from=assets_builder /app/public/ ./public/
 
 RUN set -uex; umask 0002; \
-	composer dump-autoload --optimize && \
-#    php artisan route:cache && \
+    composer dump-autoload --optimize && \
+    #php artisan route:cache && \
     php artisan view:cache && \
     php artisan event:cache
