@@ -13,23 +13,26 @@ class PermissionTableSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws Exception
      */
     public function run()
     {
-        if (empty(Permission::all()->count())) {
-            // @see https://docs.spatie.be/laravel-permission/v3/advanced-usage/cache/#manual-cache-reset
-            app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        /** @var array $rolesWithPermission */
+        $rolesWithPermission = config('permission.types');
 
-            Permission::create(['name' => 'is administrator']);
-            Permission::create(['name' => 'is host']);
+        if (empty($rolesWithPermission)) {
+            throw new Exception('Permission types not found in permission config file');
+        }
 
-            /** @var Role $administrator */
-            $administrator = Role::create(['name' => 'administrator']);
-            $administrator->givePermissionTo('is administrator');
+        if (!empty(Permission::all()->count())) {
+            throw new Exception('Permission table is not empty');
+        }
 
-            /** @var Role $host */
-            $host = Role::create(['name' => 'host']);
-            $host->givePermissionTo('is host');
+        foreach ($rolesWithPermission as $role => $permission) {
+            Permission::create(['name' => $permission]);
+            /** @var Role $dbRole */
+            $dbRole = Role::create(['name' => $role]);
+            $dbRole->givePermissionTo($permission);
         }
     }
 }

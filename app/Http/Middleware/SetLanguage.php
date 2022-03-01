@@ -24,6 +24,8 @@ class SetLanguage
     {
         $routeLocaleValue = $request->route('locale');
 
+
+
         if (!empty($routeLocaleValue) && in_array($routeLocaleValue, config('translatable.locales'))) {
             App::setLocale($routeLocaleValue);
         }

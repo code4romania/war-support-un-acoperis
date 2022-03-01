@@ -37,22 +37,6 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
-                {{--                                <div class="col-sm-6">--}}
-                {{--                                    <div class="form-group">--}}
-                {{--                                        <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>--}}
-                {{--                                        <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">--}}
-                {{--                                            <option>{{ __("Select country") }}</option>--}}
-                {{--                                            @foreach ($countries as $country)--}}
-                {{--                                                <option value="{{ $country->id }}"{{ old('country') == $country->id ? ' selected' : '' }}>{{ __('countries.' . $country->name) }}</option>--}}
-                {{--                                            @endforeach--}}
-                {{--                                        </select>--}}
-
-                {{--                                        @error('country')--}}
-                {{--                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>--}}
-                {{--                                        @enderror--}}
-                {{--                                    </div>--}}
-                {{--                                </div>--}}
-
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
