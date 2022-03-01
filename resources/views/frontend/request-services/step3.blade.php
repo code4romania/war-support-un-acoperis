@@ -147,11 +147,12 @@
                                                                 <label class="required font-weight-600"
                                                                        for="person_in_care_count">{{ __("Number of persons in care") }}
                                                                     :</label>
-                                                                <input type="text" placeholder="1"
+                                                                <input type="number" placeholder="1"
                                                                        class="form-control @error('person_in_care_count') is-invalid @enderror"
                                                                        name="person_in_care_count"
                                                                        id="person_in_care_count"
                                                                        value="{{ old('person_in_care_count') }}"
+                                                                       min="1"
                                                                        data-required="1"/>
 
                                                                 @error('person_in_care_count')
@@ -162,7 +163,7 @@
                                                         </div>
                                                     </div>
                                                     <div id="persons_in_care">
-                                                        <div class="row person_in_care" data-index="0">
+                                                        <div class="row person_in_care" data-index="1">
                                                             <div class="col-sm-3">
                                                                 <div class="form-group">
                                                                     <label class="required font-weight-600"
@@ -321,37 +322,44 @@
                 }
             });
 
-            $("#person_in_care_count").change(function () {
-                let person_in_care_count = parseInt(this.value);
-                if (!(person_in_care_count > 0)) {
-                    $(this).val(1);
+
+            /**
+                Script for "persons in care" form section
+             */
+            function cleanupFields() {                
+                $(".person_in_care:not([data-index='1'])").remove();
+            }
+
+            function renderFields(q, fieldSet) { 
+                for(let i = 2; i <= q; i++) {
+                    const newSet = fieldSet.clone();
+                    newSet.attr('data-index', i);
+                    newSet.appendTo($('#persons_in_care'))
                 }
+            }
+
+            let trackTimeoutId;
+            const personFieldSet = $('.person_in_care[data-index="1"]');
+
+            $("#person_in_care_count").on('input, change, keyup', function(e) {                
+                if (!e.target.value) {
+                    return;
+                }
+
+                clearTimeout(trackTimeoutId);
+
+                const timeoutId = setTimeout(() => {
+                    cleanupFields();
+                    renderFields(e.target.value, personFieldSet);            
+                }, 500);
+
+                trackTimeoutId = timeoutId;
             });
-            $("#person_in_care_count").keyup(function () {
-                let person_in_care_count = parseInt(this.value);
-                if (!(person_in_care_count > 0)) {
-                    person_in_care_count = 1;
-                }
-                let the_div0 = $(".person_in_care[data-index='0']");
-                if ($(".person_in_care", $("#persons_in_care")).length > person_in_care_count) {
-                    $(".person_in_care", $("#persons_in_care")).each(function (index) {
-                        if (index > (person_in_care_count - 1)) {
-                            $(this).remove();
-                        }
-                    });
-                }
-                for (let i = 1; i < person_in_care_count; i++) {
-                    let the_div = $(".person_in_care[data-index='" + i + "']");
-                    if (!(the_div.length > 0)) {
-                        let the_div = the_div0.clone();
-                        $("input", the_div).val("");
-                        let the_div_html = the_div.html();
-                        the_div_html = the_div_html.replace(/_0/g, "_" + i);
-                        the_div_html = the_div_html.replace(/\.0/g, "." + i);
-                        the_div_html = the_div_html.replace(/\[0\]/g, "[" + i + "]");
-                        the_div.html(the_div_html);
-                        the_div.appendTo($("#persons_in_care"));
-                    }
+
+            $("#person_in_care_count").on('blur', function(e) {
+                if (!e.target.value) {
+                    cleanupFields();
+                    renderFields(1, personFieldSet);    
                 }
             })
         });
