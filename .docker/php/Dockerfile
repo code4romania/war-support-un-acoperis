@@ -65,10 +65,7 @@ RUN set -uex; umask 0002; \
 	rm -rf /tmp/composer/cache
 
 COPY --chown=www-data:www-data . .
-COPY --chown=www-data:www-data --from=assets_builder /app/public ./
-
-# create storage folder if not exists
-RUN mkdir -p storage
+COPY --chown=www-data:www-data --from=assets_builder /app/public/ ./public/
 
 RUN set -uex; umask 0002; \
 	composer dump-autoload --optimize && \
