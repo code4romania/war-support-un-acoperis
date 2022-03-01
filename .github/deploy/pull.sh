@@ -5,4 +5,6 @@ git reset --hard HEAD
 git pull
 
 docker-compose -f docker-compose.stage.yml build --build-arg ENVIRONMENT=production
-docker-compose up -d
+docker-compose -f docker-compose.stage.yml up -d
+
+make migrate
