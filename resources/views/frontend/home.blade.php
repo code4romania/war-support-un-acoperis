@@ -158,7 +158,7 @@
         </div>
     </div> --}}
 
-    <div class="container py-5">
+    {{-- <div class="container py-5">
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="text-secondary font-weight-600 mb-4">{{ $footerBlock1Title }}</h2>
@@ -173,8 +173,9 @@
                 </p>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
+
 @section('homepage-partners')
     @include('site.blocks.homepage-partners')
 @endsection
