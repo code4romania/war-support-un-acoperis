@@ -2,7 +2,7 @@
 
 set -e
 
-cd /home/ec2-user/app
+cd /home/ec2-user/war-support-un-acoperis
 git reset --hard HEAD
 git pull
 
