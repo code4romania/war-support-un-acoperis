@@ -18,8 +18,8 @@ mix.js('resources/js/app.js', 'public/js')
         'choices.js', '@glidejs/glide', 'nouislider', 'flatpickr',
         'chart.js'
     ])
-    .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/argon-design-system-pro/scss/argon-design-system.scss', 'public/css')
+    .sass('resources/sass/app.scss', 'public/css', { sassOptions: { quietDeps: true } })
+    .sass('resources/argon-design-system-pro/scss/argon-design-system.scss', 'public/css', { sassOptions: { quietDeps: true } })
     .js('resources/js/argon-design-system.js', 'public/js/argon-design-system.js')
     .copy('resources/js/moment-with-locales.min.js', 'public/js/moment-with-locales.min.js')
     .copy('resources/js/table-data-renderer.js', 'public/js/table-data-renderer.js')
