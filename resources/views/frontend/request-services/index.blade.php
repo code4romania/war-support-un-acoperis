@@ -46,8 +46,10 @@
                                                 </div>
 
                                                 <div class="col-sm-6">
-                                                    <div><label class="required font-weight-600" for="phone">{{ __("Applicant's phone number") }}:</label></div>
-                                                    <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" required />
+                                                    <div class="form-group">
+                                                        <label class="required font-weight-600" for="phone">{{ __("Applicant's phone number") }}:</label>
+                                                        <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" required />
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-sm-6">
