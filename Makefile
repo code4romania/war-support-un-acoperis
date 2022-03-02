@@ -12,7 +12,7 @@ build:
 
 .PHONY: install
 install:
-	cp .env.example .env
+	$(shell test ! -e .env && cp .env.example .env)
 	docker-compose up -d
 	docker-compose exec php sh -c 'composer install'
 	docker-compose exec php sh -c 'php artisan migrate --seed'
