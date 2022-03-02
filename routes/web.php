@@ -185,6 +185,23 @@ Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesBy
 Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
 
+
+/**
+ * 2FA
+ */
+Route::middleware(['throttle:60,1'])
+    ->prefix('2fa')
+    ->group(function () {
+        Route::get('/', 'LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
+        Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
+        Route::post('/generateSecret', 'LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+        Route::post('/enable2fa', 'LoginSecurityController@enable2fa')->name('enable2fa');
+        Route::post('/disable2fa', 'LoginSecurityController@disable2fa')->name('disable2fa');
+
+        // 2fa middleware
+        Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
+    });
+
 /**
  * Frontend routes
  */
@@ -192,22 +209,6 @@ Route::middleware([SetLocale::class])
     ->prefix('{locale?}')
     ->group(function () {
         Auth::routes(['verify' => true, 'register' => false]);
-
-        /**
-         * 2FA
-         */
-        Route::middleware(['throttle:60,1'])
-            ->prefix('2fa')
-            ->group(function () {
-                Route::get('/', 'LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
-                Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
-                Route::post('/generateSecret', 'LoginSecurityController@generate2faSecret')->name('generate2faSecret');
-                Route::post('/enable2fa', 'LoginSecurityController@enable2fa')->name('enable2fa');
-                Route::post('/disable2fa', 'LoginSecurityController@disable2fa')->name('disable2fa');
-
-                // 2fa middleware
-                Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
-            });
 
         /**
          * Header
