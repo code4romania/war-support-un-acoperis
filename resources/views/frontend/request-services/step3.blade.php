@@ -329,7 +329,7 @@
             let trackTimeoutId;
             const personFieldSet = $('.person_in_care[data-index="1"]');
 
-            $("#person_in_care_count").on('input, change, keyup, mouseup', function (e) {
+            $("#person_in_care_count").change(function (e) {
                 if (!e.target.value) {
                     return;
                 }
@@ -339,7 +339,7 @@
                 const timeoutId = setTimeout(() => {
                     cleanupFields();
                     renderFields(e.target.value, personFieldSet);
-                }, 500);
+                }, 250);
 
                 trackTimeoutId = timeoutId;
             });

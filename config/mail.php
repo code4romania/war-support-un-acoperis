@@ -107,5 +107,8 @@ return [
         ],
     ],
 
+    'contact' => [
+        'address' => env('MAIL_TO_CONTACT_ADDRESS'),
+    ],
 
 ];
