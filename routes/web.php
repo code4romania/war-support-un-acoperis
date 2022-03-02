@@ -48,7 +48,9 @@ Route::middleware([Administration::class])
         Route::get('/user/add-trusted', 'Admin\UserController@addTrusted')->name('admin.trusted-user-add');
         Route::post('/user/store-trusted-person', 'Admin\UserController@storeTrustedPerson')->name('admin.store-trusted-person');
         Route::post('/user/store-trusted-company', 'Admin\UserController@storeTrustedCompany')->name('admin.store-trusted-company');
-
+        Route::get('/user/{id}', 'Admin\UserController@userDetail')->name('admin.user-detail');
+        Route::get('/user/{id}/approve', 'Admin\UserController@approve')->name('admin.user-approve');
+        Route::get('/user/{id}/reset-password', 'Admin\UserController@resetPassword')->name('admin.user-password-reset');
 
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
@@ -88,8 +90,6 @@ Route::middleware([Administration::class])
         Route::post('/host/store-company', 'Admin\HostController@storeCompany')->name('admin.store-host-company');
         Route::get('/host/edit/{id}', 'Admin\HostController@edit')->name('admin.host-edit');
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
-        Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
-        Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
         Route::get('/host/{id}/delete', 'Admin\HostController@delete')->name('admin.host-delete');
 
         Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');
@@ -129,6 +129,8 @@ Route::middleware([Administration::class])
         Route::put('/ajax/unbookAccommodation/{helpRequestAccommodationDetailId}/', 'AjaxController@unbookAccommodation')->name('ajax.unbook-acc');
 
         Route::get('/ajax/accommodation/{id}/requests', 'AjaxController@accommodationRequestsList')->name('ajax.accommodation-requests');
+
+        Route::get('/ajax/user-list', 'AjaxController@userList')->name('ajax.user-list');
     });
 
 /**

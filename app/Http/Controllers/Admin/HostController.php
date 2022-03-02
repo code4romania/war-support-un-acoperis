@@ -154,48 +154,6 @@ class HostController extends Controller
             ->withSuccess(__('Data successfully saved!'));
     }
 
-    /**
-     * @param int $id
-     * @return mixed
-     */
-    public function reset(int $id)
-    {
-        /** @var User $user */
-        $user = User::find($id);
-
-        if (empty($user)) {
-            abort(404);
-        }
-
-        $this->sendResetNotification($user);
-
-        return redirect()
-            ->route('admin.host-detail', ['id' => $user->id])
-            ->withSuccess(__("Reset password option was successfully sent"));
-    }
-
-    /**
-     * @param int $id
-     * @return mixed
-     */
-    public function activateAndReset(int $id)
-    {
-        /** @var User $user */
-        $user = User::find($id);
-
-        if (empty($user)) {
-            abort(404);
-        }
-
-        $user->approved_at = Carbon::now();
-        $user->save();
-
-        $this->sendResetNotification($user);
-
-        return redirect()
-            ->route('admin.host-detail', ['id' => $user->id])
-            ->withSuccess(__("User was activated and reset password option was successfully sent"));
-    }
 
     public function delete(int $id)
     {
@@ -249,20 +207,6 @@ class HostController extends Controller
             ->withSuccess(__("Host was deleted"));
     }
 
-    /**
-     * @param User $user
-     * @return bool
-     */
-    private function sendResetNotification(User $user)
-    {
-        /** @var PasswordBroker $broker */
-        $broker = Password::broker();
-
-        $response =
-            $broker->sendResetLink(['id' => $user->id]);
-
-        return $response == PasswordBroker::RESET_LINK_SENT;
-    }
 
     /**
      * @param HostRequestPerson|HostRequestCompany $request

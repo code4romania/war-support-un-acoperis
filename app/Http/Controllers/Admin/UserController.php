@@ -8,11 +8,15 @@ use App\Http\Requests\HostRequestPerson;
 use App\Services\HostService;
 use App\Services\UserService;
 use App\User;
+use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $allowAccess = false;
         if (Auth::user()->isAdministrator() || Auth::user()->isTrusted())
@@ -23,7 +27,8 @@ class UserController extends Controller
         $allowAccess || abort(403);
 
         return view('admin.user-list')
-            ->with('users', User::all());
+            ->with('users', User::all())
+            ->with('approvalStatus', $request->get('status'));
 
     }
 
@@ -78,6 +83,76 @@ class UserController extends Controller
     public function storeTrustedCompany(HostRequestCompany $request)
     {
         return $this->storeTrustedUser($request);
+    }
+
+    public function userDetail(int $id)
+    {
+        $user = User::find($id);
+
+        if ($user->hasRole(User::ROLE_HOST))//can't use isHost() because the user might not be approved
+        {
+            return redirect()->route('admin.host-detail', ['id' => $user->id]);
+        }
+
+        return view('admin.user-detail')
+            ->with('user', $user);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function approve(int $id)
+    {
+        /** @var User $user */
+        $user = User::find($id);
+
+        if (empty($user)) {
+            abort(404);
+        }
+
+        $user->approved_at = Carbon::now();
+        $user->save();
+
+        return redirect()
+            ->route('admin.user-detail', ['id' => $user->id])
+            ->withSuccess(__("User was approved"));
+    }
+
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    private function sendResetNotification(User $user)
+    {
+        /** @var PasswordBroker $broker */
+        $broker = Password::broker();
+
+        $response =
+            $broker->sendResetLink(['id' => $user->id]);
+
+        return $response == PasswordBroker::RESET_LINK_SENT;
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function resetPassword(int $id)
+    {
+        /** @var User $user */
+        $user = User::find($id);
+
+        if (empty($user)) {
+            abort(404);
+        }
+
+        $this->sendResetNotification($user);
+
+        return redirect()
+            ->route('admin.host-detail', ['id' => $user->id])
+            ->withSuccess(__("Reset password option was successfully sent"));
     }
 
 }
