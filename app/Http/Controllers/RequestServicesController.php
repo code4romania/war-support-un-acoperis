@@ -85,7 +85,7 @@ class RequestServicesController extends Controller
 
         $helpRequest = (new HelpRequestService)->create($request->validated());
         Notification::route('mail', auth()->user()->email)->notify(new HelpRequest($helpRequest));
-        Notification::route('mail', config('mail.from.address'))->notify(new HelpRequestInfoAdminMail($helpRequest));
+        Notification::route('mail', config('mail.contact.address'))->notify(new HelpRequestInfoAdminMail($helpRequest));
         return redirect()->route('request-services-thanks');
 
     }
