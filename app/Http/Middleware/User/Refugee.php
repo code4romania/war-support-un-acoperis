@@ -14,12 +14,12 @@ class Refugee
     {
         /** @var User $user */
         $user = Auth::user();
-        dd($request);
 
         if (empty($user) || !$user->isAuthorized(User::ROLE_REFUGEE)) {
             throw new AuthenticationException(
                 'Unauthenticated.',
                 [],
+                // todo redirecting to the login page without any message is misleading
                 route('login', ['locale' => 'ro'])
             );
         }
