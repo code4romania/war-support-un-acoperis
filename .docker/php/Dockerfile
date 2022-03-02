@@ -5,6 +5,9 @@ ENV APP_ENV=local
 RUN apk update && apk upgrade && \
     apk add --no-cache git zip openssh autoconf g++ make openssl-dev icu-dev libpng-dev zlib-dev libzip-dev bash
 
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ gnu-libiconv=1.15-r3
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
 # avoid using home of the user for composer cache, may cause permission issues
 ENV COMPOSER_HOME=/tmp/composer
 ENV COMPOSER_MEMORY_LIMIT=-1
@@ -41,7 +44,7 @@ FROM node:16-alpine as assets_builder
 
 COPY . /app
 RUN cd app && \
-    npm ci && \
+    npm ci --no-audit --ignore-scripts --no-fund && \
     npm run production
 
 
@@ -61,14 +64,14 @@ ENV APP_ENV=production
 COPY --chown=www-data:www-data composer.json composer.lock ./
 
 RUN set -uex; umask 0002; \
-	composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-suggest --no-dev && \
-	rm -rf /tmp/composer/cache
+    composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-suggest --no-dev && \
+    rm -rf /tmp/composer/cache
 
 COPY --chown=www-data:www-data . .
 COPY --chown=www-data:www-data --from=assets_builder /app/public/ ./public/
 
 RUN set -uex; umask 0002; \
-	composer dump-autoload --optimize && \
-#    php artisan route:cache && \
+    composer dump-autoload --optimize && \
+    #php artisan route:cache && \
     php artisan view:cache && \
     php artisan event:cache

@@ -569,3 +569,10 @@ label.required {
         padding-bottom: 2.5rem !important;
     }
 }
+
+.person_in_care {
+    @media screen and (max-width: 768px) {
+        background: $gray-100;
+        margin-bottom: 20px;
+    }
+}

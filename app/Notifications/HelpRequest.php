@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\HelpType;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -47,45 +48,23 @@ class HelpRequest extends Notification
 
     private function getMail(\App\HelpRequest $helpRequest): MailMessage
     {
+        $user = User::find($helpRequest->user_id);
         $mail =  (new MailMessage)
             ->subject(__("Request help"))
+            ->greeting(__("Request help greeting"))
             ->line('')
-            ->line(__("Patient full name") . ': '. $helpRequest->patient_full_name)
-            ->line(__("Patient phone") . ': '. $helpRequest->patient_phone_number)
-            ->line(__("Patient email") . ': '. $helpRequest->patient_email)
-            ->line(__("Patient address") . ': '. $helpRequest->county->name . ", " . $helpRequest->city->name)
-            ->line('')
-            ->line(__("Caretaker full name") . ': ' . $helpRequest->caretaker_full_name)
-            ->line(__("Caretaker phone") . ': ' . $helpRequest->caretaker_phone_number)
-            ->line(__("Caretaker email") . ': ' . $helpRequest->caretaker_email)
-            ->line(__("Details") . ': ' . $helpRequest->extra_details)
-            ->line('')
-            ->line(__("Help types"))
-            ->greeting(__("Request help greeting"));
-
-        foreach ($helpRequest->helptypes as $helptype) {
-            $mail->line(__($helptype->name));
-
-            if ($helptype->pivot->help_type_id == HelpType::TYPE_SMS && $helpRequest->helprequestsmsdetail[0]) {
-                $mail->line("- " . __("Estimated amount required for treatment / surgery") . ": " . $helpRequest->helprequestsmsdetail[0]->amount);
-                $mail->line("- " . __("Destination of funds raised in the SMS campaign") . ": " . $helpRequest->helprequestsmsdetail[0]->purpose);
-                $mail->line("- " . __("Clinic / hospital name where the patient is accepted") . ": " . $helpRequest->helprequestsmsdetail[0]->clinic);
-                $mail->line("- " . __("Country") . ": " . $helpRequest->helprequestsmsdetail[0]->country->name);
-                $mail->line("- " . __("City") . ": " . $helpRequest->helprequestsmsdetail[0]->city);
-            }
-
-            if ($helptype->pivot->help_type_id == HelpType::TYPE_ACCOMMODATION && $helpRequest->helprequestaccommodationdetail[0]) {
-                $mail->line("- " . __("At which hospital will the medical investigations / treatment be performed") . ": " . $helpRequest->helprequestaccommodationdetail[0]->clinic);
-                $mail->line("- " . __("Country") . ": " . $helpRequest->helprequestaccommodationdetail[0]->country->name);
-                $mail->line("- " . __("City") . ": " . $helpRequest->helprequestaccommodationdetail[0]->city);
-                $mail->line("- " . __("For how many people do you need accommodation") . ": " . $helpRequest->helprequestaccommodationdetail[0]->guests_number);
-                $mail->line("- " . __("Period") . ": " . substr($helpRequest->helprequestaccommodationdetail[0]->start_date, 0, 10) . " - " . substr($helpRequest->helprequestaccommodationdetail[0]->end_date, 0, 10));
-                $mail->line("- " . __("Detail here if you need special accommodation conditions") . ": " . $helpRequest->helprequestaccommodationdetail[0]->special_request);
-            }
-
-            if ($helptype->pivot->help_type_id == HelpType::TYPE_OTHER_NEEDS) {
-                $mail->line("- " . $helptype->pivot->message);
-            }
+            ->line(__("User Id") . ': '. $user->id)
+            ->line(__("Full name") . ': '. $user->name)
+            ->line(__("Phone") . ': '. $user->phone)
+            ->line(__("Email") . ': '. $user->emai);
+        $helpRequestFields = $helpRequest->toArray();
+        foreach ($helpRequestFields as $field=>$value) {
+            //TODO nice to have
+//            if (json_decode($value, true))
+//            {
+//                $this->addArrayField($field, $value);
+//            }
+            $mail->line(__($field) . ': '. $value);
         }
 
         return $mail;
@@ -103,4 +82,6 @@ class HelpRequest extends Notification
             //
         ];
     }
+
+
 }

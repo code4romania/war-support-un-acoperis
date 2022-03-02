@@ -1,0 +1,20 @@
+name: Deploy to staging env
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    name: Deploy to staging env
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Executing remote SSH commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_SERVER_IP }}
+          username: ${{ secrets.DEV_SERVER_SSH_USERNAME }}
+          key: ${{ secrets.DEV_SERVER_SSH_KEY }}
+          script: "/home/ec2-user/app/.github/deploy/pull.sh"

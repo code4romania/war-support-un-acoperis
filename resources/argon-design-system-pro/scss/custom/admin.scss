@@ -1,12 +1,7 @@
 .admin-area {
     line-height: 1.2;
-    background:$light-blue;
+    background:#F5F5F5;
     overflow-x:hidden;
-    .navbar-brand {
-        img {
-            height: 50px;
-        }
-    }
     .nav-item {
         .dropdown-menu {
             position: absolute;

@@ -32,7 +32,7 @@ class ContactController extends Controller
 
     public function sendContact(ContactRequest $request)
     {
-        $to = config('app.help_address');
+        $to = config('app.to_help_address');
 
         $mail = new NewContactMail($request->validated());
 //        echo $mail->render(); die; // preview

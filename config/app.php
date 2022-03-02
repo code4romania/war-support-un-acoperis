@@ -248,5 +248,5 @@ return [
 
     'allowed_domains' => explode(',', env('ALLOWED_DOMAINS', 'www.unacoperis.ro')),
 
-    'help_address' => env('MAIL_TO_HELP_ADDRESS'),
+    'to_help_address' => env('MAIL_TO_HELP_ADDRESS'),
 ];

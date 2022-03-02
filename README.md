@@ -38,23 +38,31 @@ See instruction from this [wiki page](https://github.com/code4romania/war-suppor
 
 [Docker](https://docs.docker.com/get-docker/) & [Docker-Compose](https://docs.docker.com/compose/install/) should be used on the development environment.
 
-### Makefile
-You can use `docker` or `docker-compose` to start docker containers, or you make use of the `make` shorthands. The _Makefile_ can be found in the root of the repository, and it includes a set of common commands. 
+### MacOS & Linux
+Run `make install` to build, start containers and run migration
 
-The `make` util can be used on unix based machines, and it can be installed by running `apt install make` for wsl or linux or `brew install make` for mac.
-
-After installing `make` you can run the commands defined in the Makefile (ex: `make start`). 
-
-If you do not want to use the `make` util, you can still check the _Makefile_ for common used commands and execute them directly in your cli.
-
-Some of the available make commands:
-- `make install` - install everything for the application to run properly
+Some other useful make commands:
 - `make start` - start an already installed application
 - `make shell` - open an bash inside the php container
 - `make npm-watch` - start npm hot-reloading for js files
 
-### First start up
-Run `make install` to build, start containers and run migration
+### Windows
+You can install `make` on windows using [GNUWin32](http://gnuwin32.sourceforge.net/packages/make.htm) or you can use WSL(Windows Subsystem for Linux).
+Afterward you can use all the commands from the MacOS & Linux section
+
+The application can be installed without using `make` by running the following commands:
+```shell
+	cp .env.example .env
+	docker-compose up -d
+	docker-compose exec php sh -c 'composer install'
+	docker-compose exec php sh -c 'php artisan migrate --seed'
+	docker-compose exec nodejs sh -c 'npm ci && npm run dev'
+```
+
+Some other useful commands:
+- `docker-compose up -d` - start an already installed application
+- `docker-compose exec php bash` - open an bash inside the php container
+- `docker-compose exec nodejs sh -c 'npm run watch'` - start npm hot-reloading for js files
 
 ### Access
 The main application can be accessed via http://localhost:80.
@@ -66,8 +74,10 @@ PhpMyAdmin can be accessed via http://localhost:8080.
 If custom hosts are required in any way, you can add the following entries in your local hosts file and use them accordingly.
 
 ```bash
-127.0.0.1  helpforhealth.local
+127.0.0.1  un-acoperis.local
 ```
+
+
 
 ## Feedback
 

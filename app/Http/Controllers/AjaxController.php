@@ -17,6 +17,7 @@ use App\Http\Middleware\SetLanguage;
 use App\Http\Requests\BookAccommodationRequest;
 use App\Note;
 use App\Services\ChartService;
+use App\UaCity;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -57,6 +58,19 @@ class AjaxController extends Controller
     {
         return response()->json(
             City::where('county_id', '=', $countyId)->pluck('name', 'id')->all()
+        );
+    }
+
+    /**
+     * @param int $regionId
+     * @return JsonResponse
+     */
+    public function uaCities(int $regionId)
+    {
+        return response()->json(
+            UaCity::whereHas("region", function ($q) use($regionId){
+                $q->where("ua_regions.id", $regionId);
+            })->pluck('city_uk', 'id')->all()
         );
     }
 
@@ -641,24 +655,7 @@ class AjaxController extends Controller
             $query->where('accommodations.address_city', '=', $request->get('city'));
         }
 
-        $approvalStatus = $request->get('status');
-        if (!empty($approvalStatus)) {
-
-            switch ($approvalStatus)
-            {
-                case self::STATUS_DISAPPROVED:
-                    $query->whereNull('accommodations.approved_at');
-                    break;
-
-                case self::STATUS_APPROVED:
-                    $query->whereNotNull('accommodations.approved_at');
-                    break;
-                default:
-                    throw new \Exception('Wrong approval status param value');
-
-            }
-
-        }
+        $query = $this->filterStatus($request, $query, 'accommodations');
 
         $perPage = 10;
 
@@ -846,5 +843,63 @@ class AjaxController extends Controller
                 'countryCode' => $countryCode,
             ]
         ]);
+    }
+
+    public function userList(Request $request)
+    {
+        /** @var Builder $query */
+        $query = User::orderBy('id', 'desc');
+
+        $query = $this->filterStatus($request, $query, 'users');
+
+        $query->select([
+            'id',
+            'name',
+            'email',
+            'company_name',
+            'city',
+            'created_at',
+            DB::raw('IF (users.approved_at IS NULL, "Disapproved", "Approved") as status')
+        ]);
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
+        }
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
+
+    }
+
+    /**
+     * @param Request $request
+     * @param Builder $query
+     * @return void
+     * @throws \Exception
+     */
+    private function filterStatus(Request $request, \Illuminate\Database\Eloquent\Builder $query, string $table): \Illuminate\Database\Eloquent\Builder
+    {
+        $approvalStatus = $request->get('status');
+        if (!empty($approvalStatus)) {
+
+            switch ($approvalStatus) {
+                case self::STATUS_DISAPPROVED:
+                    $query->whereNull($table . '.approved_at');
+                    break;
+
+                case self::STATUS_APPROVED:
+                    $query->whereNotNull($table . '.approved_at');
+                    break;
+                default:
+                    throw new \Exception('Wrong approval status param value');
+
+            }
+
+        }
+
+        return $query;
     }
 }
