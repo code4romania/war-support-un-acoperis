@@ -46,10 +46,9 @@ class GetInvolvedController extends Controller
      */
     public function index(SettingRepository $settingRepository)
     {
-        //@TODO: insert records for termsAndConditionsForHosts in settings && setting_translations tables
         return view('frontend.host.terms-and-conditions')
             ->with('description', $settingRepository->byKey('get_involved_description') ?? '')
-            ->with('termsAndConditionsForHosts', $settingRepository->byKey('termsAndConditionsForHosts') ?? '');
+            ->with('termsAndConditionsForHosts', $settingRepository->byKey('terms_and_conditions_for_hosts') ?? '');
     }
 
 
@@ -82,15 +81,20 @@ class GetInvolvedController extends Controller
         return $hostService->viewSignupForm('frontend.host.signup-form', $settingRepository->byKey('get_involved_description') ?? '');
     }
 
+    private function createHost($request)
+    {
+        $hostService = new HostService();
+        $hostUser = $hostService->createHost($request);
+        Auth::login($hostUser);
+    }
+
     /**
      * @param HostRequestPerson $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function storePersonAccount(HostRequestPerson $request)
     {
-        $hostService = new HostService();
-        $hostUser = $hostService->createHostPerson($request);
-        Auth::login($hostUser);
+        $this->createHost($request);
         return redirect()->route('get-involved-add-accommodation-form');
     }
 
@@ -100,9 +104,7 @@ class GetInvolvedController extends Controller
      */
     public function storeCompanyAccount(HostRequestCompany $request)
     {
-        $hostService = new HostService();
-        $hostUser = $hostService->createHostCompany($request);
-        Auth::login($hostUser);
+        $this->createHost($request);
         return redirect()->route('get-involved-add-accommodation-form');
     }
 

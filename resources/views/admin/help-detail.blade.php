@@ -19,7 +19,7 @@
                         <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
                             <span>
-                            Locatie: <b>{{ $helpRequest->county->name }}, {{ $helpRequest->city->name }}</b>
+                            Locatie: <b>{{ $helpRequest->city }}</b>, Regiune <b>{{ $helpRequest->county->region_en }} ({{ $helpRequest->county->region_uk }})</b>
                             </span>
                         </li>
                         <li class="d-flex">

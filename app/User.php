@@ -44,7 +44,9 @@ class User extends Authenticatable implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     public const ROLE_ADMINISTRATOR = 'administrator';
+    public const ROLE_TRUSTED = 'trusted';
     public const ROLE_HOST = 'host';
+    public const ROLE_REFUGEE = 'refugee';
 
     /**
      * Attributes to exclude from the Audit.
@@ -86,17 +88,10 @@ class User extends Authenticatable implements Auditable
     /**
      * @return bool
      */
-    public function isAdministrator(): bool
-    {
-        return $this->hasRole(self::ROLE_ADMINISTRATOR) && $this->approved_at;
-    }
 
-    /**
-     * @return bool
-     */
-    public function isHost(): bool
+    public function isAuthorized($role): bool
     {
-        return $this->hasRole(self::ROLE_HOST) && $this->approved_at;
+        return $this->hasRole($role) && $this->approved_at;
     }
 
     /**
@@ -133,5 +128,20 @@ class User extends Authenticatable implements Auditable
         }
 
         return false;
+    }
+
+    public function isAdministrator(): bool
+    {
+        return $this->isAuthorized(self::ROLE_ADMINISTRATOR);
+    }
+
+    public function isHost(): bool
+    {
+        return $this->isAuthorized(self::ROLE_HOST);
+    }
+
+    public function isTrusted(): bool
+    {
+        return $this->isAuthorized(self::ROLE_TRUSTED);
     }
 }

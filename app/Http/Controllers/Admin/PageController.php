@@ -10,4 +10,6 @@ use Illuminate\Support\Facades\View;
 class PageController extends ModuleController
 {
     protected $moduleName = 'pages';
+
+    protected $permalinkBase = '';
 }

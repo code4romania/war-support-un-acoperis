@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Middleware\Administration;
-use App\Http\Middleware\Host;
-use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\User\Administration;
+use App\Http\Middleware\User\Host;
+use App\Http\Middleware\User\Refugee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,13 +36,24 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
 /**
  * Administration routes
  */
-Route::middleware([SetLanguage::class, Administration::class])
+Route::middleware([Administration::class])
     ->prefix('admin')
     ->group(function () {
         /**
          * Administrator routes
          */
-        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');;
+        Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard')->middleware('2fa');
+
+        Route::get('/users', 'Admin\UserController@index')->name('admin.user-list');
+        Route::get('/user/add-trusted', 'Admin\UserController@addTrusted')->name('admin.trusted-user-add');
+        Route::get('/user/add-admin', 'Admin\UserController@addAdministrator')->name('admin.admin-user-add');
+        Route::post('/user/store-trusted-person', 'Admin\UserController@storeTrustedPerson')->name('admin.store-trusted-person');
+        Route::post('/user/store-trusted-company', 'Admin\UserController@storeTrustedCompany')->name('admin.store-trusted-company');
+        Route::post('/user/store-admin-person', 'Admin\UserController@storeAdminPerson')->name('admin.store-admin-person');
+        Route::post('/user/store-admin-company', 'Admin\UserController@storeAdminCompany')->name('admin.store-admin-company');
+        Route::get('/user/{id}', 'Admin\UserController@userDetail')->name('admin.user-detail');
+        Route::get('/user/{id}/approve', 'Admin\UserController@approve')->name('admin.user-approve');
+        Route::get('/user/{id}/reset-password', 'Admin\UserController@resetPassword')->name('admin.user-password-reset');
 
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
@@ -81,11 +93,9 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::post('/host/store-company', 'Admin\HostController@storeCompany')->name('admin.store-host-company');
         Route::get('/host/edit/{id}', 'Admin\HostController@edit')->name('admin.host-edit');
         Route::post('/host/edit/{id}', 'Admin\HostController@update')->name('admin.host-update');
-        Route::get('/host/{id}/activate-and-reset', 'Admin\HostController@activateAndReset')->name('admin.host-activate-and-reset');
-        Route::get('/host/{id}/reset', 'Admin\HostController@reset')->name('admin.host-reset');
         Route::get('/host/{id}/delete', 'Admin\HostController@delete')->name('admin.host-delete');
 
-        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');;
+        Route::get('/profile', 'Admin\ProfileController@profile')->name('admin.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Admin\ProfileController@editProfile')->name('admin.edit-profile');
         Route::post('/profile/edit', 'Admin\ProfileController@saveProfile')->name('admin.save-profile');
         Route::get('/profile/reset-password', 'Admin\ProfileController@resetPassword')->name('admin.reset-password');
@@ -122,15 +132,17 @@ Route::middleware([SetLanguage::class, Administration::class])
         Route::put('/ajax/unbookAccommodation/{helpRequestAccommodationDetailId}/', 'AjaxController@unbookAccommodation')->name('ajax.unbook-acc');
 
         Route::get('/ajax/accommodation/{id}/requests', 'AjaxController@accommodationRequestsList')->name('ajax.accommodation-requests');
+
+        Route::get('/ajax/user-list', 'AjaxController@userList')->name('ajax.user-list');
     });
 
 /**
  * Host routes
  */
-Route::middleware([SetLanguage::class, Host::class])
+Route::middleware([Host::class])
     ->prefix('host')
     ->group(function () {
-        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');;
+        Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
         Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
         Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('host.reset-password');
@@ -151,14 +163,24 @@ Route::middleware([SetLanguage::class, Host::class])
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+    });
 
+
+
+Route::middleware([Refugee::class])
+    ->prefix('refugee')
+    ->group(function () {
+        Route::get('/profile', 'Host\ProfileController@profile')->name('refugee.profile');
     });
 
 /**
  * Ajax routes
  */
 Route::post('/ajax/phone/check', 'AjaxController@checkPhone')->name('ajax.phone');
-Route::get('/ajax/county/{countyId}/city', 'AjaxController@cities')->name('ajax.cities');
+Route::get('/ajax/county/{regionId}/city', 'AjaxController@cities')->name('ajax.cities');
+
+Route::get('/ajax/ua_region/{regionId}/city', 'AjaxController@uaCities')->name('ajax.cities');
+
 Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.clinics-cities-by-country');
 Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
@@ -166,8 +188,8 @@ Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list
 /**
  * Frontend routes
  */
-Route::middleware([SetLanguage::class])
-    ->prefix('{locale}')
+Route::middleware([SetLocale::class])
+    ->prefix('{locale?}')
     ->group(function () {
         Auth::routes(['verify' => true, 'register' => false]);
 
@@ -176,12 +198,12 @@ Route::middleware([SetLanguage::class])
          */
         Route::middleware(['throttle:60,1'])
             ->prefix('2fa')
-            ->group(function(){
-                Route::get('/','LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
+            ->group(function () {
+                Route::get('/', 'LoginSecurityController@show2faForm')->name('2fa.form')->middleware('verified', '2fa');
                 Route::get('/check', 'LoginSecurityController@afterLoginCheck')->middleware(['verified', '2fa'])->name('2fa.login.check');
-                Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
-                Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
-                Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
+                Route::post('/generateSecret', 'LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+                Route::post('/enable2fa', 'LoginSecurityController@enable2fa')->name('enable2fa');
+                Route::post('/disable2fa', 'LoginSecurityController@disable2fa')->name('disable2fa');
 
                 // 2fa middleware
                 Route::post('/verify', 'LoginSecurityController@verify')->name('2faVerify')->middleware('2fa');
@@ -192,7 +214,10 @@ Route::middleware([SetLanguage::class])
          */
         Route::get('/', 'StaticPagesController@home')->name('home');
         Route::get('/request-help', 'RequestServicesController@index')->name('request-services');
-        Route::post('/request-help', 'RequestServicesController@submit')->name('request-services-submit');
+        Route::post('/request-help-agreement', 'RequestServicesController@storeTermsAndConditionsAgreement')->name('request-services-submit-agreement');
+        Route::post('/request-help-2', 'RequestServicesController@submitStep2')->name('request-services-submit-step2');
+        Route::get('/request-help-3', 'RequestServicesController@requestHelpStep3')->name('request-services-step3');
+        Route::post('/request-help-3', 'RequestServicesController@submitStep3')->name('request-services-submit-step3');
         Route::get('/request-help-thanks', 'RequestServicesController@thanks')->name('request-services-thanks');
         Route::get('/offer-help', 'GetInvolvedController@index')->name('get-involved');
         Route::get('/offer-help-confirmation', 'GetInvolvedController@confirmation')->name('get-involved-confirmation');
@@ -212,5 +237,3 @@ Route::middleware([SetLanguage::class])
 
         Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });
-
-Route::get('/pages/{slug}', 'PageController@show');

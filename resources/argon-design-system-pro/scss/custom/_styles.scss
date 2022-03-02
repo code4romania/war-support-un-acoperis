@@ -310,6 +310,14 @@ label.required {
     }
 }
 
+.lang-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.0007 7C13.0007 10.3137 10.3144 13 7.0007 13M13.0007 7C13.0007 3.68629 10.3144 1 7.0007 1M13.0007 7H1.0007M7.0007 13C3.68699 13 1.0007 10.3137 1.0007 7M7.0007 13C8.10527 13 9.0007 10.3137 9.0007 7C9.0007 3.68629 8.10527 1 7.0007 1M7.0007 13C5.89613 13 5.0007 10.3137 5.0007 7C5.0007 3.68629 5.89613 1 7.0007 1M1.0007 7C1.0007 3.68629 3.68699 1 7.0007 1' stroke='%23111827' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    margin-right: 2px !important;
+}
+
 .alert-general {
     color:$dark-gray;
 }
@@ -559,5 +567,12 @@ label.required {
     }
     .pb-sm-25, .py-sm-25{
         padding-bottom: 2.5rem !important;
+    }
+}
+
+.person_in_care {
+    @media screen and (max-width: 768px) {
+        background: $gray-100;
+        margin-bottom: 20px;
     }
 }

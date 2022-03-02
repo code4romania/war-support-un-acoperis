@@ -26,7 +26,7 @@ class ContactController extends Controller
     public function sendContact(ContactRequest $request)
     {
 
-        Notification::route('mail', env('MAIL_TO_HELP_ADDRESS'))->notify(new ContactMail($request->validated()));
+        Notification::route('mail',config('mail.from.address'))->notify(new ContactMail($request->validated()));
 
         return redirect()->route('contact-confirmation');;
     }
