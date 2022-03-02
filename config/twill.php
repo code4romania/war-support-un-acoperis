@@ -17,7 +17,7 @@ return [
         'cascade_delete' => env('MEDIA_LIBRARY_CASCADE_DELETE', false),
         'local_path' => env('MEDIA_LIBRARY_LOCAL_PATH', 'uploads'),
         'image_service' => env('MEDIA_LIBRARY_IMAGE_SERVICE', \A17\Twill\Services\MediaLibrary\Local::class),
-        'acl' => env('MEDIA_LIBRARY_ACL', 'public'),
+        'acl' => env('MEDIA_LIBRARY_ACL', 'public-read'),
         'filesize_limit' => env('MEDIA_LIBRARY_FILESIZE_LIMIT', 50),
         'allowed_extensions' => ['svg', 'jpg', 'gif', 'png', 'jpeg'],
         'init_alt_text_from_filename' => true,
