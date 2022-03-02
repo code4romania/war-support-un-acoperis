@@ -138,15 +138,15 @@
                                                     </div>
                                                     <div id="persons_in_care">
                                                         <div class="row person_in_care" data-index="1">
-                                                            <div class="col-sm-3">
+                                                            <div class="col-12 col-sm-6 col-md-3">
                                                                 <div class="form-group">
                                                                     <label class="required font-weight-600"
-                                                                           for="person_in_care_name_0">{{ __("Full Name") }}</label>
+                                                                           for="person_in_care_name_1">{{ __("Full Name") }}</label>
                                                                     <input type="text"
-                                                                           class="form-control @error('person_in_care_name.0') is-invalid @enderror "
-                                                                           name="person_in_care_name[0]"
-                                                                           id="person_in_care_name_0"
-                                                                           value="{{ old('person_in_care_name.0') }}"
+                                                                           class="form-control @error('person_in_care_name.1') is-invalid @enderror "
+                                                                           name="person_in_care_name[1]"
+                                                                           id="person_in_care_name_1"
+                                                                           value="{{ old('person_in_care_name.1') }}"
                                                                            data-required="1"/>
 
                                                                     @error('person_in_care_name.0')
@@ -156,15 +156,15 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-3">
+                                                            <div class="col-12 col-sm-6 col-md-3">
                                                                 <div class="form-group">
                                                                     <label class="required font-weight-600"
-                                                                           for="person_in_care_age_0">{{ __("Age") }}</label>
+                                                                           for="person_in_care_age_1">{{ __("Age") }}</label>
                                                                     <input type="text"
-                                                                           class="form-control @error('person_in_care_age.0') is-invalid @enderror"
-                                                                           name="person_in_care_age[0]"
-                                                                           id="person_in_care_age_0"
-                                                                           value="{{ old('person_in_care_age.0') }}"
+                                                                           class="form-control @error('person_in_care_age.1') is-invalid @enderror"
+                                                                           name="person_in_care_age[1]"
+                                                                           id="person_in_care_age_1"
+                                                                           value="{{ old('person_in_care_age.1') }}"
                                                                            data-required="1"/>
 
                                                                     @error('person_in_care_age.0')
@@ -174,15 +174,15 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-6">
+                                                            <div class="col-12 col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="font-weight-600"
-                                                                           for="person_in_care_mentions_0">{{ __("Mentions/Special needs") }}</label>
+                                                                           for="person_in_care_mentions_1">{{ __("Mentions/Special needs") }}</label>
                                                                     <input type="text"
-                                                                           class="form-control @error('person_in_care_mentions.0') is-invalid @enderror"
-                                                                           name="person_in_care_mentions[0]"
-                                                                           id="person_in_care_mentions_0"
-                                                                           value="{{ old('person_in_care_mentions.0') }}"/>
+                                                                           class="form-control @error('person_in_care_mentions.1') is-invalid @enderror"
+                                                                           name="person_in_care_mentions[1]"
+                                                                           id="person_in_care_mentions_1"
+                                                                           value="{{ old('person_in_care_mentions.1') }}"/>
 
                                                                     @error('person_in_care_mentions.0')
                                                                     <span class="invalid-feedback"
@@ -307,11 +307,21 @@
                 $(".person_in_care:not([data-index='1'])").remove();
             }
 
+            function rewriteCloneIndexes(target, label, i) {
+                target.find(`[for="${label}_0"]`).attr('for', `${label}_${i}`);
+                target.find(`[name="${label}[0]"]`).attr('name', `${label}[${i}]`).attr('id', `${label}_${i}`);
+            }
+
+            
             function renderFields(q, fieldSet) {
                 for (let i = 2; i <= q; i++) {
                     const newSet = fieldSet.clone();
                     newSet.attr('data-index', i);
-                    console.log(newSet.children());
+
+                    rewriteCloneIndexes(newSet, 'person_in_care_name', i);
+                    rewriteCloneIndexes(newSet, 'person_in_care_age', i);
+                    rewriteCloneIndexes(newSet, 'person_in_care_mentions', i);
+
                     newSet.appendTo($('#persons_in_care'))
                 }
             }
@@ -319,7 +329,7 @@
             let trackTimeoutId;
             const personFieldSet = $('.person_in_care[data-index="1"]');
 
-            $("#person_in_care_count").on('input, change, keyup', function (e) {
+            $("#person_in_care_count").on('input, change, keyup, mouseup', function (e) {
                 if (!e.target.value) {
                     return;
                 }
