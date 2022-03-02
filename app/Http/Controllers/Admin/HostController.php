@@ -18,6 +18,7 @@ use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -54,33 +55,25 @@ class HostController extends Controller
     }
 
     /**
+     * used just to validate the request
+     *
      * @param HostRequestPerson $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function storePerson(HostRequestPerson $request)
     {
-
-        $hostService = new HostService();
-        $hostUser = $hostService->createHostPerson($request);
-
-        return redirect()
-            ->route('admin.host-detail', ['id' => $hostUser->id])
-            ->withsuccess(__("User was activated and reset password option was successfully sent"));
+        return $this->storeHost($request);
     }
 
     /**
+     * used just to validate the request
+     *
      * @param HostRequestCompany $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function storeCompany(HostRequestCompany $request)
     {
-
-        $hostService = new HostService();
-        $hostUser = $hostService->createHostCompany($request);
-
-        return redirect()
-            ->route('admin.host-detail', ['id' => $hostUser->id])
-            ->withsuccess(__("User was activated and reset password option was successfully sent"));
+        return $this->storeHost($request);
     }
 
     /**
@@ -161,48 +154,6 @@ class HostController extends Controller
             ->withSuccess(__('Data successfully saved!'));
     }
 
-    /**
-     * @param int $id
-     * @return mixed
-     */
-    public function reset(int $id)
-    {
-        /** @var User $user */
-        $user = User::find($id);
-
-        if (empty($user)) {
-            abort(404);
-        }
-
-        $this->sendResetNotification($user);
-
-        return redirect()
-            ->route('admin.host-detail', ['id' => $user->id])
-            ->withSuccess(__("Reset password option was successfully sent"));
-    }
-
-    /**
-     * @param int $id
-     * @return mixed
-     */
-    public function activateAndReset(int $id)
-    {
-        /** @var User $user */
-        $user = User::find($id);
-
-        if (empty($user)) {
-            abort(404);
-        }
-
-        $user->approved_at = Carbon::now();
-        $user->save();
-
-        $this->sendResetNotification($user);
-
-        return redirect()
-            ->route('admin.host-detail', ['id' => $user->id])
-            ->withSuccess(__("User was activated and reset password option was successfully sent"));
-    }
 
     public function delete(int $id)
     {
@@ -256,18 +207,23 @@ class HostController extends Controller
             ->withSuccess(__("Host was deleted"));
     }
 
+
     /**
-     * @param User $user
-     * @return bool
+     * @param HostRequestPerson|HostRequestCompany $request
+     * @return mixed
      */
-    private function sendResetNotification(User $user)
+    private function storeHost($request)
     {
-        /** @var PasswordBroker $broker */
-        $broker = Password::broker();
+        $approved = false;
+        if (Auth::user()->isAdministrator())
+        {
+            $approved = true;
+        }
+        $hostService = new HostService();
+        $hostUser = $hostService->createHost($request, $approved);
 
-        $response =
-            $broker->sendResetLink(['id' => $user->id]);
-
-        return $response == PasswordBroker::RESET_LINK_SENT;
+        return redirect()
+            ->route('admin.host-detail', ['id' => $hostUser->id])
+            ->withsuccess(__("User was activated and reset password option was successfully sent"));
     }
 }

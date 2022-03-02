@@ -112,7 +112,7 @@ class RequestServicesController extends Controller
     public function submitStep2(ServiceRequest $request)
     {
 
-        $user = (new UserService())->createRefugeeUser($request->validated());
+        $user = (new UserService())->createRefugeeUser($request);
         Auth::login($user);
         //TODO Send register email
         return redirect()->route('request-services-step3');
