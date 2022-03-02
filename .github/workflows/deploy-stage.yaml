@@ -17,4 +17,4 @@ jobs:
           host: ${{ secrets.DEV_SERVER_IP }}
           username: ${{ secrets.DEV_SERVER_SSH_USERNAME }}
           key: ${{ secrets.DEV_SERVER_SSH_KEY }}
-          script: "/home/ec2-user/war-support-un-acoperis/.github/deploy/pull.sh"
+          script: "/home/ec2-user/app/.github/deploy/pull.sh"
