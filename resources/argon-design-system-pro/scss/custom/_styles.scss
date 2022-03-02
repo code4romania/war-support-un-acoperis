@@ -576,3 +576,34 @@ label.required {
         margin-bottom: 20px;
     }
 }
+.justify-end {
+    justify-content: flex-end;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.h-3 {
+    height: 1rem;
+}
+
+.h-4 {
+    height: 1.5rem;
+}
+
+.h-5 {
+    height: 2rem;
+}
+
+.h-6 {
+    height: 2.5rem;
+}
