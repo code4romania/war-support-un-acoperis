@@ -272,6 +272,7 @@
                 theme: "classic",
                 tokenSeparators: [,],
                 scrollAfterSelect: true,
+                selectionCssClass: "form-control",
                 tags: true
             });
 
@@ -312,7 +313,7 @@
                 target.find(`[name="${label}[0]"]`).attr('name', `${label}[${i}]`).attr('id', `${label}_${i}`);
             }
 
-            
+
             function renderFields(q, fieldSet) {
                 for (let i = 2; i <= q; i++) {
                     const newSet = fieldSet.clone();
