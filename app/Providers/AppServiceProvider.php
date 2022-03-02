@@ -29,19 +29,5 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             \App\User::class => \App\Providers\TwillExtended\User::class,
         ]);
-
-        if (config('twill.media_library.endpoint_type') === 's3') {
-            $disk = config('twill.media_library.disk');
-
-            if (
-                config("filesystems.disks.{$disk}.key") !== null &&
-                config("filesystems.disks.{$disk}.secret") !== null
-            ) {
-                config()->set(
-                    'twill.glide.source',
-                    app(Aws::class)->filesystemFactory($disk)
-                );
-            }
-        }
     }
 }
