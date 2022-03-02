@@ -14,6 +14,8 @@ services:
       dockerfile: .docker/php/Dockerfile
       context: .
       target: dev_stage
+    environment:
+      APP_ENV: local
     volumes:
     - ./:/var/www/html
     - ./.docker/php/dev/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini:ro,cached
@@ -22,6 +24,8 @@ services:
   nodejs:
     image: node:16-alpine
     working_dir: /app
+    environment:
+      HOME: /tmp/npm
     volumes:
     - ./:/app
     command: ["sleep", "infinity"]
