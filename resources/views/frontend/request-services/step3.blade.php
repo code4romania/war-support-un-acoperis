@@ -294,9 +294,11 @@
                 if (checked) {
                     $("#dependants_family_details_div").removeClass("d-none");
                     $("input[data-required='1']", $("#dependants_family_details_div")).attr("required", true);
+                    $(".person_in_care input").removeAttr('disabled');
                 } else {
                     $("#dependants_family_details_div").addClass("d-none");
                     $("input[required]", $("#dependants_family_details_div")).attr('required', false);
+                    $(".person_in_care input").attr('disabled', true);
                 }
             });
 
@@ -351,6 +353,23 @@
                     renderFields(e.target.value, personFieldSet);
                 }
             })
+
+            $("#need_transport, #need_special_transport").on('change', function(e) {
+                if (this.checked) {
+                    $("#dont_need_transport").attr("disabled", true);
+                } else {
+                    $("#dont_need_transport").removeAttr("disabled");
+                }
+            })
+
+            $("#dont_need_transport").on('change', function(e) {
+                if (this.checked) {
+                    $("#need_transport, #need_special_transport").attr("disabled", true);
+                } else {
+                    $("#need_transport, #need_special_transport").removeAttr("disabled");
+                }
+            })
+
         });
     </script>
 @endsection

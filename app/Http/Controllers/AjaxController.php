@@ -116,13 +116,15 @@ class AjaxController extends Controller
         }
 
         $query->select([
-            'id',
-            'patient_full_name',
-            'caretaker_full_name',
-            'diagnostic',
-            'status',
-            'created_at'
-        ]);
+            'help_requests.id',
+            'users.name',
+            'help_requests.status',
+            'help_requests.need_car',
+            'help_requests.need_special_transport',
+            'help_requests.special_needs',
+            'help_requests.known_languages',
+            'help_requests.created_at'
+        ])->join('users', 'help_requests.user_id', '=', 'users.id' );
 
         $perPage = 10;
 
