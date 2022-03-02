@@ -31,10 +31,17 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         if (config('twill.media_library.endpoint_type') === 's3') {
-            config()->set(
-                'twill.glide.source',
-                app(Aws::class)->filesystemFactory(config('twill.media_library.disk'))
-            );
+            $disk = config('twill.media_library.disk');
+
+            if (
+                config("filesystems.disks.{$disk}.key") !== null &&
+                config("filesystems.disks.{$disk}.secret") !== null
+            ) {
+                config()->set(
+                    'twill.glide.source',
+                    app(Aws::class)->filesystemFactory($disk)
+                );
+            }
         }
     }
 }
