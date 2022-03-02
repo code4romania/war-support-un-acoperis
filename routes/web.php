@@ -170,7 +170,10 @@ Route::middleware([Host::class])
 Route::middleware([Refugee::class])
     ->prefix('refugee')
     ->group(function () {
-        Route::get('/profile', 'Host\ProfileController@profile')->name('refugee.profile');
+        Route::get('/', 'Refugee\ProfileController@home')->name('refugee.home');
+        Route::get('/profile', 'Refugee\ProfileController@profile')->name('refugee.profile');
+        Route::get('/accommodation', 'Refugee\ProfileController@accommodation')->name('refugee.accommodation');
+        Route::get('/information', 'Refugee\ProfileController@information')->name('refugee.information');
     });
 
 /**
