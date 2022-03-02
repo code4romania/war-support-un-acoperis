@@ -4,7 +4,7 @@
 </a>
 <a href="{{ route('refugee.accommodation') }}"
    class="list-group-item list-group-item-action {{ handleActiveClass('refugee.accommodation*') }}">
-    <i class="fa fa-bed mr-3"></i>{{__('My Accomodations')}}
+    <i class="fa fa-bed mr-3"></i>{{__('My Requests')}}
 </a>
 <a href="{{route('refugee.information')}}"
    class="list-group-item list-group-item-action {{ handleActiveClass('refugee.information*') }}">
