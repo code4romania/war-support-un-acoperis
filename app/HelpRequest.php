@@ -39,6 +39,11 @@ class HelpRequest extends Model implements Auditable
     const STATUS_IN_PROGRESS = 'in-progress';
     const STATUS_COMPLETED = 'completed';
 
+//    public $casts = [
+//        'known_languages' => 'json',
+//        'with_peoples' => 'json',
+//    ];
+
     /**
      * @return array
      */

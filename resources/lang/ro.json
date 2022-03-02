@@ -444,5 +444,7 @@
     "Thank you for your signup" : "Mulțumim pentru înscriere",
     "Confirm your account" : "Confirmă contul tău",
     "View details" : "Vezi detalii",
-    "A new contact request was submitted." : "O noua cerere de contact a fost trimisa."
+    "A new contact request was submitted." : "O noua cerere de contact a fost creată.",
+    "A new help request was submitted." : "O noua solicitare de ajutor a fost creată.",
+    "Guests number" : "Număr persoane"
 }

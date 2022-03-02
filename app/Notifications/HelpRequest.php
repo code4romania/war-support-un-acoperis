@@ -49,6 +49,7 @@ class HelpRequest extends Notification
     private function getMail(\App\HelpRequest $helpRequest): MailMessage
     {
         $user = User::find($helpRequest->user_id);
+
         $mail =  (new MailMessage)
             ->subject(__("Request help"))
             ->greeting(__("Request help greeting"))
@@ -56,7 +57,7 @@ class HelpRequest extends Notification
             ->line(__("User Id") . ': '. $user->id)
             ->line(__("Full name") . ': '. $user->name)
             ->line(__("Phone") . ': '. $user->phone)
-            ->line(__("Email") . ': '. $user->emai);
+            ->line(__("Email") . ': '. $user->email);
         $helpRequestFields = $helpRequest->toArray();
         foreach ($helpRequestFields as $field=>$value) {
             //TODO nice to have

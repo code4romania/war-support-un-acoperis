@@ -59,8 +59,8 @@
                                                                 class="custom-select form-control @error('known_languages') is-invalid @enderror"
                                                                 required multiple>
                                                             @foreach ($languages as $language)
-                                                                    <option
-                                                                        value="{{ $language->endonym }}">{{ $language->endonym }}</option>
+                                                            <option value="{{ $language->endonym }}">
+                                                                {{ $language->endonym }}</option>
                                                             @endforeach
                                                         </select>
 
@@ -221,13 +221,13 @@
                                                             <label class="custom-control-label"
                                                                    for="need_transport">{{ __("I need transport") }}</label>
                                                         </div>
-                                                        <div class="custom-control custom-checkbox mb-3">
-                                                            <input class="custom-control-input" id="dont_need_transport"
-                                                                   name="dont_need_transport"
-                                                                   type="checkbox" {{ !empty(old('dont_need_transport')) ? 'checked' : '' }}>
-                                                            <label class="custom-control-label"
-                                                                   for="dont_need_transport">{{ __("I don't need transport - I have my own vehicle") }}</label>
-                                                        </div>
+{{--                                                        <div class="custom-control custom-checkbox mb-3">--}}
+{{--                                                            <input class="custom-control-input" id="dont_need_transport"--}}
+{{--                                                                   name="dont_need_transport"--}}
+{{--                                                                   type="checkbox" {{ !empty(old('dont_need_transport')) ? 'checked' : '' }}>--}}
+{{--                                                            <label class="custom-control-label"--}}
+{{--                                                                   for="dont_need_transport">{{ __("I don't need transport - I have my own vehicle") }}</label>--}}
+{{--                                                        </div>--}}
                                                         <div class="custom-control custom-checkbox mb-3">
                                                             <input class="custom-control-input"
                                                                    id="need_special_transport"
@@ -312,7 +312,7 @@
                 target.find(`[name="${label}[0]"]`).attr('name', `${label}[${i}]`).attr('id', `${label}_${i}`);
             }
 
-            
+
             function renderFields(q, fieldSet) {
                 for (let i = 2; i <= q; i++) {
                     const newSet = fieldSet.clone();
