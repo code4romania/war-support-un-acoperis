@@ -46,10 +46,9 @@ class GetInvolvedController extends Controller
      */
     public function index(SettingRepository $settingRepository)
     {
-        //@TODO: insert records for termsAndConditionsForHosts in settings && setting_translations tables
         return view('frontend.host.terms-and-conditions')
             ->with('description', $settingRepository->byKey('get_involved_description') ?? '')
-            ->with('termsAndConditionsForHosts', $settingRepository->byKey('termsAndConditionsForHosts') ?? '');
+            ->with('termsAndConditionsForHosts', $settingRepository->byKey('terms_and_conditions_for_hosts') ?? '');
     }
 
 

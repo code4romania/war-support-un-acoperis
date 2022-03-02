@@ -5,6 +5,9 @@ ENV APP_ENV=local
 RUN apk update && apk upgrade && \
     apk add --no-cache git zip openssh autoconf g++ make openssl-dev icu-dev libpng-dev zlib-dev libzip-dev bash
 
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ gnu-libiconv=1.15-r3
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
 # avoid using home of the user for composer cache, may cause permission issues
 ENV COMPOSER_HOME=/tmp/composer
 ENV COMPOSER_MEMORY_LIMIT=-1
