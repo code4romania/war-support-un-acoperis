@@ -46,8 +46,11 @@ Route::middleware([Administration::class])
 
         Route::get('/users', 'Admin\UserController@index')->name('admin.user-list');
         Route::get('/user/add-trusted', 'Admin\UserController@addTrusted')->name('admin.trusted-user-add');
+        Route::get('/user/add-admin', 'Admin\UserController@addAdministrator')->name('admin.admin-user-add');
         Route::post('/user/store-trusted-person', 'Admin\UserController@storeTrustedPerson')->name('admin.store-trusted-person');
         Route::post('/user/store-trusted-company', 'Admin\UserController@storeTrustedCompany')->name('admin.store-trusted-company');
+        Route::post('/user/store-admin-person', 'Admin\UserController@storeAdminPerson')->name('admin.store-admin-person');
+        Route::post('/user/store-admin-company', 'Admin\UserController@storeAdminCompany')->name('admin.store-admin-company');
         Route::get('/user/{id}', 'Admin\UserController@userDetail')->name('admin.user-detail');
         Route::get('/user/{id}/approve', 'Admin\UserController@approve')->name('admin.user-approve');
         Route::get('/user/{id}/reset-password', 'Admin\UserController@resetPassword')->name('admin.user-password-reset');

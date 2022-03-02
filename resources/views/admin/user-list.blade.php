@@ -6,6 +6,9 @@
         @if(Auth::user()->isAdministrator())
             <a class="btn btn-secondary" href="{{ route('admin.trusted-user-add') }}">{{ __('Add trusted user') }}</a>
         @endif
+        @if(Auth::user()->isAdministrator())
+            <a class="btn btn-secondary" href="{{ route('admin.admin-user-add') }}">{{ __('Add admin user') }}</a>
+        @endif
     </div>
 
     <section class="mb-5">

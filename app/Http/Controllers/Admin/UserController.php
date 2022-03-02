@@ -43,6 +43,17 @@ class UserController extends Controller
         return $hs->viewSignupForm('admin.trusted-user-add');
     }
 
+    public function addAdministrator()
+    {
+        if (!Auth::user()->isAdministrator())
+        {
+            abort(403);
+        }
+
+        $hs = new HostService();
+        return $hs->viewSignupForm('admin.admin-user-add');
+    }
+
     /**
      * @param HostRequestPerson|HostRequestCompany $request
      * @return mixed
@@ -83,6 +94,48 @@ class UserController extends Controller
     public function storeTrustedCompany(HostRequestCompany $request)
     {
         return $this->storeTrustedUser($request);
+    }
+
+    /**
+     * @param HostRequestPerson|HostRequestCompany $request
+     * @return mixed
+     */
+    private function storeAdminUser($request)
+    {
+        if (!Auth::user()->isAdministrator())
+        {
+            abort(403);
+        }
+
+        $userService = new UserService();
+        $trustedUser = $userService->createAdminUser($request, true);
+
+        return redirect()
+            ->route('admin.user-detail', ['id' => $trustedUser->id])
+            ->withsuccess(__("Admin user was activated and reset password option was successfully sent"));
+
+    }
+
+    /**
+     * Used just to validate the request
+     *
+     * @param HostRequestPerson $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeAdminPerson(HostRequestPerson $request)
+    {
+        return $this->storeAdminUser($request);
+    }
+
+    /**
+     * Used just to validate the request
+     *
+     * @param HostRequestCompany $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeAdminCompany(HostRequestCompany $request)
+    {
+        return $this->storeAdminUser($request);
     }
 
     public function userDetail(int $id)

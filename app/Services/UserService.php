@@ -47,6 +47,15 @@ class UserService
         return $user;
     }
 
+    public function createAdminUser($request, bool $approved = false): User
+    {
+        $userParams = $this->prepareUserParams($request, $approved);
+        $userParams['country_id'] = self::defaultCountryId;
+        $user = User::create($userParams);
+        $user->assignRole(User::ROLE_ADMINISTRATOR);
+        return $user;
+    }
+
     /**
      * @param HostRequestPerson|HostRequestCompany $request
      */
