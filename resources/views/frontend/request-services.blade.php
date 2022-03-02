@@ -69,12 +69,17 @@
                                                 <div class="col-sm-6">
                                                     <div><label class="required font-weight-600" for="phone">{{ __("Patient's phone number") }}:</label></div>
                                                     <input type="tel" placeholder="0742000000" class="form-control @error('patient-phone') is-invalid @enderror" name="patient-phone" id="patient-phone" value="{{ old('patient-phone') }}" />
+                                                    @error('patient-phone')
+                                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="col-sm-6">
                                                     <div><label class="font-weight-600" for="phone">{{ __("Caretaker phone") }}:</label></div>
                                                     <input type="tel" placeholder="0742000000" class="form-control @error('caretaker-phone') is-invalid @enderror" name="caretaker-phone" id="caretaker-phone" value="{{ old('patient-phone') }}" />
-
+                                                    @error('caretaker-phone')
+                                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="col-sm-6">
@@ -435,6 +440,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

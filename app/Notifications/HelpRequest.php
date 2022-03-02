@@ -49,7 +49,6 @@ class HelpRequest extends Notification
     {
         $mail =  (new MailMessage)
             ->subject(__("Request help"))
-            ->greeting(__("Request help greeting"))
             ->line('')
             ->line(__("Patient full name") . ': '. $helpRequest->patient_full_name)
             ->line(__("Patient phone") . ': '. $helpRequest->patient_phone_number)
@@ -61,8 +60,8 @@ class HelpRequest extends Notification
             ->line(__("Caretaker email") . ': ' . $helpRequest->caretaker_email)
             ->line(__("Details") . ': ' . $helpRequest->extra_details)
             ->line('')
-            ->line(__("Help types"));
-
+            ->line(__("Help types"))
+            ->greeting(__("Request help greeting"));
 
         foreach ($helpRequest->helptypes as $helptype) {
             $mail->line(__($helptype->name));

@@ -388,7 +388,7 @@
     "IE11": "Browser-ul tău (Internet Explorer) este învechit și nu permite navigarea pe acest site. Pentru a putea accesa siteul te rugăm să descarci un browser modern.",
 
     "Institution/Organisation name": "Nume instituție/organizație",
-    
+
     "Type: Institution / NGO": "Tipul solicitantului: Instituție publică / ONG",
     "Public institution option": "Instituție publică",
     "NGO option": "ONG",
@@ -399,11 +399,12 @@
     "Legal representative name": "Numele reprezentantului legal",
     "Identification no": "Identificator (CUI/Nr de inregistrare in Registrul Asociațiilor și Fundațiilor, după caz)",
     "Physical address": "Adresa fizica",
-    
+
+    "Type of support": "Tip de sprijin oferit",
     "Type of support: Offer housing / Request housing for refugees": "Tip de sprijin oferit: Spații de cazare / Solicitări pentru refugiați",
     "Offer housing": "Spații de cazare",
     "Request housing for refugees": "Solicitări cazare pentru refugiați",
-    
+
     "Institution/Organisation name placeholder": "Code for Romania",
     "Contact person placeholder": "Ana-Maria Vasile",
     "Legal representative name placeholder": "Ionescu Ion",
@@ -411,5 +412,9 @@
     "I want to help": "Vreau să ajut",
     "I offer accommodation": "Ofer cazare",
     "Add an accommodation unit": "Adaugă o unitate de cazare",
-    "Accommodation details": "Detalii cazare"
+    "Accommodation details": "Detalii cazare",
+    "Thank you for your signup" : "Mulțumim pentru înscriere",
+    "Confirm your account" : "Confirmă contul tău",
+    "View details" : "Vezi detalii",
+    "A new contact request was submitted." : "O noua cerere de contact a fost trimisa."
 }

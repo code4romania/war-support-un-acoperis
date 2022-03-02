@@ -51,16 +51,13 @@ class HostSignup extends Notification
 
     private function getMail(): MailMessage
     {
-        $passwordResetLink = route('password.reset', $this->resetToken);
-
-        $mail =  (new MailMessage)
+        return (new MailMessage)
             ->subject(__("Thank you for your signup"))
-            ->greeting(__("Host signup greeting"))
             ->line($this->user->name . ', ' . __('Please click here to confirm your account and choose a password'))
-            ->line($passwordResetLink)
-            ->line(__("Bla bla") );
-
-        return $mail;
+            ->action(__("Confirm your account"), route('password.reset', $this->resetToken))
+            ->greeting(__("Thank you for your signup"));
+//            ->line(route('password.reset', $this->resetToken))
+//            ->line(__("Bla bla") );
     }
 
     /**

@@ -41,11 +41,10 @@
                                 <div class="form-group">
                                     <label class="required font-weight-600"
                                            for="type">{{ __("Type: Institution / NGO") }}:</label>
-                                    <select class="form-control @error('institution_type') is-invalid @enderror"
-                                            name='institution_type' id="type" >
-                                        <option
-                                            value="public_institution" @if(old('institution_type') =='public_institution' ) selected @endif>{{ __("Public institution option") }}</option>
-                                        <option value="ngo" @if(old('ngo') =='ngo' ) selected @endif>{{ __("NGO option") }}</option>
+                                    <select class="form-control @error('institution_type') is-invalid @enderror" name='institution_type' id="type" >
+                                    @foreach($institutionTypes as $type => $value)
+                                        <option value="{{ $type }}" @if(old('institution_type') == $type ) selected @endif>{{ $value }}</option>
+                                    @endforeach
                                     </select>
                                     @error('institution_type')
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -59,8 +58,9 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label class="required font-weight-600" for="contact">{{ __("Contact person") }}
-                                        :</label>
+                                    <label class="required font-weight-600" for="contact">
+                                        {{ __("Contact person") }}:
+                                    </label>
                                     <input type="text" placeholder="{{ __('Contact person placeholder') }}"
                                            class="form-control @error('contact_person_name') is-invalid @enderror"
                                            name="contact_person_name" id="contact"
@@ -131,8 +131,8 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label class="required font-weight-600" for="idno">{{ __("Identification no") }}
-                                        :</label>
+                                    <label class="required font-weight-600" for="idno">
+                                        {{ __("Identification no") }}:</label>
                                     <input type="text" placeholder="CUI 1234567"
                                            class="form-control @error('company_identifier') is-invalid @enderror"
                                            name="company_identifier" id="idno" value="{{ old('company_identifier') }}"/>
@@ -149,8 +149,9 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label class="required font-weight-600" for="address">{{ __("Physical address") }}
-                                        :</label>
+                                    <label class="required font-weight-600" for="address">
+                                        {{ __("Physical address") }}:
+                                    </label>
                                     <input type="text" placeholder="{{ __('Physical address placeholder') }}"
                                            class="form-control @error('address') is-invalid @enderror" name="address"
                                            id="address" value="{{ old('address') }}"/>
@@ -167,9 +168,9 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label class="required font-weight-600"
-                                           for="support_type">{{ __("Type of support: Offer housing / Request housing for refugees") }}
-                                        :</label>
+                                    <label class="required font-weight-600" for="support_type">
+                                        {{ __("Type of support: Offer housing / Request housing for refugees") }}:
+                                    </label>
 
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="support_type"
@@ -184,16 +185,22 @@
                                         <label class="form-check-label" for="request_housing_for_refugees">
                                             {{ __("Request housing for refugees") }}
                                         </label>
+                                        @error('support_type')
+                                        <input class="form-control d-none @error('support_type') is-invalid @enderror"/>
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
+
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           value="1" name="gdpr" id="gdpr">
+                                    <input class="form-check-input" type="checkbox" value="1" name="gdpr" id="gdpr">
                                     <label class="form-check-label" for="gdpr">
-                                        {{ __('I agree with <a href=":url">GDPR</a> terms.',['url'=>'#']) }}
+                                        {!! __('I agree with <a href=":url">GDPR</a> terms.',['url'=>'#']) !!}
                                     </label>
 
                                     @error('gdpr')
+                                    <input class="form-control d-none @error('gdpr') is-invalid @enderror"/>
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -202,8 +209,9 @@
 
                         <div class="border-top pt-5 mt-3 clearfix">
                             @error('g-recaptcha-response')
-                            <span class="invalid-feedback d-flex"
-                                  role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
+                            <span class="invalid-feedback d-flex" role="alert">
+                                {{ $errors->first('g-recaptcha-response') }}
+                            </span>
                             @enderror
                             {!! NoCaptcha::displaySubmit('sendContact', "<span class=\"btn-inner--text\">" . __('Send request') . "</span>
                                 <span class=\"btn-inner--icon ml-2\"><i class=\"fa fa-arrow-right\"></i></span>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary pull-right btn-lg px-6']) !!}
