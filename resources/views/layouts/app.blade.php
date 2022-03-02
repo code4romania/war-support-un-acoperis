@@ -1,62 +1,4 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Împreună pentru sănătate') }}</title>
-
-    <!--Favicon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/images/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#00b0ea">
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet" />
-    <link href="{{ asset('/css/nucleo-svg.css') }}" rel="stylesheet" />
-    <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-    <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
-    @if( env('APP_ENV') =='production' )
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECQQ08XFMQ"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', 'G-ECQQ08XFMQ');
-            </script>
-    @endif
-
-
-    @yield('head-scripts')
-</head>
-
+@include('layouts.partials.head')
 <body>
     <div id="app">
         <div class="bg-gray-100">
@@ -73,7 +15,7 @@
                 <div class="ml-4 text-sm font-medium text-gray-700">
                     <span>O soluție Code for Romania.</span>
                     <a href="https://www.code4.ro/" target="_blank" rel="noopener" class="text-blue-600 hover:underline whitespace-nowrap">
-                        Află mai multe
+                        {{ __('Find out more here.') }}
                     </a>
                 </div>
             </div>

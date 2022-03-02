@@ -8,6 +8,22 @@ class Helper
 {
     public static function getProfileRouteName(): string
     {
+        $path = self::getUserType();
+        return $path ? $path . '.profile' : 'home';
+
+    }
+
+    public static function getSidebar()
+    {
+        $role = self::getUserType();
+        return $role ? 'layouts.partials.sidebars.'.$role : 'default';
+    }
+
+    /**
+     * @return string|null
+     */
+    private static function getUserType(): ?string
+    {
         $user = User::with('roles')->find(\auth()->user()->id);
         $role = $user->roles[0]->name;
         $path = null;
@@ -25,8 +41,7 @@ class Helper
                 $path = 'refugee';
                 break;
         }
-        return $path ? $path . '.profile' : 'home';
-
+        return $path;
     }
 
 }

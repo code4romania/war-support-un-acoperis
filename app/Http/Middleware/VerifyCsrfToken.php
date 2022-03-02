@@ -30,13 +30,14 @@ class VerifyCsrfToken extends Middleware
 
         parent::__construct($app, $encrypter);
     }
+
     /**
      * Overwrite parent method to set HttpOnly with config value
      *
      * Add the CSRF token to the response cookies.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Symfony\Component\HttpFoundation\Response  $response
+     * @param \Illuminate\Http\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function addCookieToResponse($request, $response)
@@ -65,8 +66,8 @@ class VerifyCsrfToken extends Middleware
         $twillUrlBits = array_filter(array_map(function ($item) {
             return trim($item, '/'); // Remove extra /
         }, [
-            env('ADMIN_APP_URL'),
-            env('ADMIN_APP_PATH'),
+            config('twill.admin_app_url'),
+            config('twill.admin_app_path'),
             '*' // Wildcard for all admin subpages
         ]));
 
