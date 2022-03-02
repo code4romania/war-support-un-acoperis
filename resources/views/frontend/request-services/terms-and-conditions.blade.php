@@ -11,25 +11,12 @@
                         </h6>
                     </div>
                     <div class="card-body py-5">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <p>
-                                    {!! $termsAndConditionsForRefugees !!}
-                                </p>
-                            </div>
-                        </div>
+                        {!! $termsAndConditionsForRefugees !!}
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                {!! NoCaptcha::displaySubmit('sendGetInvolved', "" . __('I agree') . "
-                                <i class=\"fa fa-arrow-right\"></i>", ['type' => 'submit',  "id" => "submit-button-2", 'class' => 'btn btn-secondary btn-h4h-offer-help-submit pull-right btn-lg px-6']) !!}
-                            </div>
-                        </div>
-
+                        {!! NoCaptcha::displaySubmit('sendGetInvolved', '' . __('I agree') . " <i class=\"fa fa-arrow-right\"></i>", ['type' => 'submit', 'id' => 'submit-button-2', 'class' => 'btn btn-secondary btn-h4h-offer-help-submit pull-right btn-lg px-6']) !!}
                     </div>
                 </div>
             </form>
         </div>
     </section>
 @endsection
-
