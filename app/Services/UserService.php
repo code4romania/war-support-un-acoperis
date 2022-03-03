@@ -94,6 +94,7 @@ class UserService
             'city' => $attributes['city'],
             'address' => $attributes['address'] ?? null,
             'phone_number' => $attributes['phone'] ?? null,
+            'approved_at' => now(),
         ];
 
         if ($approved)
