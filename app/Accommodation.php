@@ -117,6 +117,14 @@ class Accommodation extends Model implements Auditable
     /**
      * @return BelongsTo
      */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function accommodationtype()
     {
         return $this->belongsTo(AccommodationType::class,  'accommodation_type_id');

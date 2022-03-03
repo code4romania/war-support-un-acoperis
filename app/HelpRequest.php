@@ -18,6 +18,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  *
  * @property int $id
  * @property int user_id
+ * @property int|null created_by
  * @property string $current_location
  * @property int $guests_number
  * @property string $known_languages
@@ -55,7 +56,8 @@ class HelpRequest extends Model implements Auditable
         return [
             self::STATUS_NEW => __('Status New'),
             self::STATUS_IN_PROGRESS => __('Status In Progress'),
-            self::STATUS_COMPLETED => __('Status Completed')
+            self::STATUS_COMPLETED => __('Status Completed'),
+            self::STATUS_PARTIAL_ALLOCATED => __('Status Partial Allocated')
         ];
     }
 
@@ -82,6 +84,13 @@ class HelpRequest extends Model implements Auditable
             ->where('notes.entity_type', '=', Note::TYPE_HELP_REQUEST);
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function toSearchableArray(): array
     {

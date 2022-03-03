@@ -194,7 +194,7 @@
                 $('#endDateFilter').val(pageState.endDate);
             }
 
-            let renderer = new HelpRequestRenderer('{{ route('ajax.help-requests') }}');
+            let renderer = new HelpRequestRenderer('{{ auth()->user()->isTrusted() ? route('share.ajax.help-requests') : route('ajax.help-requests') }}');
             renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {

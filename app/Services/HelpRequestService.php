@@ -3,13 +3,16 @@
 namespace App\Services;
 
 use App\HelpRequest;
+use App\User;
 
 class HelpRequestService
 {
-    public function create($data)
+    public function create($data, $user = null, $createdBy = null)
     {
+        $user = $user ?? auth()->user();
+
         $helpRequest = new HelpRequest();
-        $helpRequest->user_id = auth()->user()->id;
+        $helpRequest->user_id = $user->id;
         $helpRequest->current_location = $data['current_location'];
         $helpRequest->guests_number = $this->getGuestsNumber($data);
         $helpRequest->known_languages = json_encode($data['known_languages']);
@@ -19,6 +22,7 @@ class HelpRequestService
         $helpRequest->need_car = (bool)($data['need_transport'] ?? false);
         $helpRequest->need_special_transport = (bool)($data['need_special_transport'] ?? false);
         $helpRequest->status = HelpRequest::STATUS_NEW;
+        $helpRequest->created_by = $createdBy->id ?? $user->id;
         $helpRequest->save();
 
         return $helpRequest;
