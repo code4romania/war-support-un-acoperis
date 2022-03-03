@@ -17,27 +17,22 @@ class ProfileController extends Controller
 
     public function home(): View
     {
+
         return view('refugee.home');
     }
 
     public function profile(): View
     {
-        return view('refugee.profile');
+        $user = Auth::user();
+        return view('refugee.profile',compact('user'));
     }
 
-    public function accommodation(int $page = 1): View
+    public function helpRequests(int $page = 1): View
     {
         /** @var User $user */
-        $user = Auth::user();
-
-        /** @var LengthAwarePaginator $accommodations */
-        $accommodations = Accommodation::isFree()
-                                       ->isApproved()
-                                       ->orderBy('id', 'desc')
-                                       ->paginate(self::PER_PAGE, ['*'], 'page', $page);
-
-        return view('refugee.accommodation')
-            ->with('accommodations', $accommodations)
+        $user = User::with('helpRequest')->find(auth()->user()->id);
+        $helpRequests = $user->helpRequest;
+        return view('refugee.help-request',compact('helpRequests'))
             ->with('context', 'refugee');
     }
 

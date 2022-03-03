@@ -21,7 +21,7 @@
 
     <div class="card-deck accomodation-list row rows-2">
         @foreach($accommodations->items() as $accommodation)
-            @include('common.accommodation.accomodation-list-item')
+            @include('common.accommodation.accommodation-list-item')
         @endforeach
     </div>
 

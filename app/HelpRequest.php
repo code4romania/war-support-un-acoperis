@@ -29,6 +29,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
+ * @property DateTime|null $approved_at
  */
 class HelpRequest extends Model implements Auditable
 {
@@ -52,29 +53,25 @@ class HelpRequest extends Model implements Auditable
         ];
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function county()
+    public function isAllocated(): bool
+    {
+        return (bool)$this->accommodation;
+    }
+
+
+    public function county(): BelongsTo
     {
         return $this->belongsTo(UaRegion::class);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function helprequestnotes()
+    public function helprequestnotes(): HasMany
     {
         return $this
             ->hasMany(Note::class, 'entity_id')
             ->where('notes.entity_type', '=', Note::TYPE_HELP_REQUEST);
     }
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
+
     public function toSearchableArray(): array
     {
         return [

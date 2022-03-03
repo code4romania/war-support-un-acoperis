@@ -35,6 +35,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property int|null $phone_country_id
  * @property string|null $phone_number
  * @property ?DateTime $approved_at
+ * @property ?HasMany $helpRequest
  */
 class User extends Authenticatable implements Auditable
 {
@@ -94,18 +95,18 @@ class User extends Authenticatable implements Auditable
         return $this->hasRole($role) && $this->approved_at;
     }
 
-    /**
-     * @return HasMany
-     */
-    public function accommodations()
+    public function accommodations(): HasMany
     {
         return $this->hasMany(Accommodation::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function country()
+    public function helpRequest(): HasMany
+    {
+        return $this->hasMany(HelpRequest::class);
+    }
+
+
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }

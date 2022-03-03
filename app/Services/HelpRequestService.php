@@ -19,6 +19,7 @@ class HelpRequestService
         $helpRequest->need_car = (bool)($data['need_transport'] ?? false);
         $helpRequest->need_special_transport = (bool)($data['need_special_transport'] ?? false);
         $helpRequest->status = HelpRequest::STATUS_NEW;
+        $helpRequest->approved_at = now();
         $helpRequest->save();
         return $helpRequest;
     }
