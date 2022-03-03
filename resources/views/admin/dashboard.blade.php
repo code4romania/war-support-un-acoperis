@@ -20,55 +20,28 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $hostsStats->totalHosts }}</span>
+                                <span class="count">{{ $dashboardStats["hostsNumber"] }}</span>
                                 <i class="ni ni-badge"></i>
                             </h1>
-                            <small class="text-muted">Numar total gazde</small>
+                            <small class="text-muted">{{ __('Solved requests number') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->registredHelpRequest }}</span>
+                                <span class="count">{{ $dashboardStats["requestsNumber"] }}</span>
                                 <i class="ni ni-archive-2"></i>
                             </h1>
-                            <small class="text-muted">Numar total solicitari</small>
+                            <small class="text-muted">{{ __('Help requests number') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->accomodationsApproved }}</span>
+                                <span class="count">{{ $dashboardStats["allocatedNumber"] }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
-                            <small class="text-muted">Numar total beneficiari de cazare</small>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->fundRaisingApproved }}</span>
-                                <i class="ni ni-single-02"></i>
-                            </h1>
-                            <small class="text-muted">Numar total beneficiari de consultanta strangere fonduri</small>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->infosApproved }}</span>
-                                <i class="ni ni-single-02"></i>
-                            </h1>
-                            <small class="text-muted">Numar total beneficiari de informare si indrumare medicala</small>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-0">
-                        <div class="card-body">
-                            <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->othersApproved }}</span>
-                                <i class="ni ni-single-02"></i>
-                            </h1>
-                            <small class="text-muted">Numar total beneficiari de alte servicii</small>
+                            <small class="text-muted">{{ __('Solved requests number') }}</small>
                         </div>
                     </div>
                 </div>

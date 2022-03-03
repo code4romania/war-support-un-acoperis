@@ -472,5 +472,8 @@
     "There is no help request with this number": "There is no help request with this number",
     "This help request is already resolved": "This help request is already resolved",
     "Not enough space": "Not enough space",
-    "Successfully operation": "Successfully operation"
+    "Successfully operation": "Successfully operation",
+    "Solved requests number": "Solved requests number",
+    "Help requests number": "Help requests number",
+    "Accommodations number": "Accommodations number"
 }

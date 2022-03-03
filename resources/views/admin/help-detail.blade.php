@@ -19,7 +19,7 @@
                         <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
                             <span>
-                            Locatie: <b>{{ $helpRequest->city }}</b>, Regiune <b>{{ $helpRequest->county->region_en }} ({{ $helpRequest->county->region_uk }})</b>
+                            Locatie: <b>{{ $helpRequest->city }}</b>, Regiune <b>{{ $helpRequest->createdBy->county->region_en }} ({{ $helpRequest->createdBy->county->region_uk }})</b>
                             </span>
                         </li>
                         <li class="d-flex">
@@ -90,120 +90,122 @@
     ])
 
     </div>
-    @foreach($helpRequest->helptypes as $helpType)
-        <div class="card" id="helpTypeCard{{ $helpType->id }}">
-            <div class="card-body">
-                <h5 class="font-weight-600 text-primary mb-4">{{ __($helpType->name) }}</h5>
-                <div class="row">
-                    <div class="col-sm-5">
-                        @if (\App\HelpType::TYPE_SMS === $helpType->id)
-                            <div class="kv">
-                                <p>{{ __('Estimated amount required for treatment / surgery') }}:</p>
-                                <b>{{ $helpRequest->helprequestsmsdetail()->first()->amount }}</b>
-                            </div>
-                            <div class="kv">
-                                <p>{{ __('Clinic / hospital name where the patient is accepted') }}:</p>
-                                <b>{{ $helpRequest->helprequestsmsdetail()->first()->clinic }}</b>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col">
-                                    <div class="kv">
-                                        <p>{{ __('Country') }}:</p>
-                                        <b>{{ $helpRequest->helprequestsmsdetail()->first()->country->name }}</b>
+    @if (!empty($helpRequest->helptypes))
+        @foreach($helpRequest->helptypes as $helpType)
+            <div class="card" id="helpTypeCard{{ $helpType->id }}">
+                <div class="card-body">
+                    <h5 class="font-weight-600 text-primary mb-4">{{ __($helpType->name) }}</h5>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            @if (\App\HelpType::TYPE_SMS === $helpType->id)
+                                <div class="kv">
+                                    <p>{{ __('Estimated amount required for treatment / surgery') }}:</p>
+                                    <b>{{ $helpRequest->helprequestsmsdetail()->first()->amount }}</b>
+                                </div>
+                                <div class="kv">
+                                    <p>{{ __('Clinic / hospital name where the patient is accepted') }}:</p>
+                                    <b>{{ $helpRequest->helprequestsmsdetail()->first()->clinic }}</b>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col">
+                                        <div class="kv">
+                                            <p>{{ __('Country') }}:</p>
+                                            <b>{{ $helpRequest->helprequestsmsdetail()->first()->country->name }}</b>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="kv">
+                                            <p>{{ __('City') }}:</p>
+                                            <b>{{ $helpRequest->helprequestsmsdetail()->first()->city }}</b>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="kv">
-                                        <p>{{ __('City') }}:</p>
-                                        <b>{{ $helpRequest->helprequestsmsdetail()->first()->city }}</b>
-                                    </div>
+                            @elseif (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                                <div class="kv">
+                                    <p>{{ __('At which hospital will the medical investigations / treatment be performed') }}?</p>
+                                    <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->clinic }}</b>
                                 </div>
-                            </div>
-                        @elseif (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
-                            <div class="kv">
-                                <p>{{ __('At which hospital will the medical investigations / treatment be performed') }}?</p>
-                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->clinic }}</b>
-                            </div>
-                            <div class="kv">
-                                <p>{{ __('Starting with what date you need accommodation') }}?</p>
-                                <b>{{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->start_date) }}</b>
-                            </div>
-                            <div class="kv">
-                                <p>{{ __('Detail here if you need special accommodation conditions') }}:</p>
-                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->special_request }}</b>
-                            </div>
-                        @elseif (\App\HelpType::TYPE_OTHER_NEEDS === $helpType->id)
-                            <div class="kv">
-                                <b>{{ $helpType->pivot->message }}</b>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-sm-4">
-                        @if (\App\HelpType::TYPE_SMS === $helpType->id)
-                            <div class="kv">
-                                <p>{{ __('Fund destination') }}:</p>
-                                <b>{{ $helpRequest->helprequestsmsdetail()->first()->purpose }}</b>
-                            </div>
-                        @elseif (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
-                            <div class="kv">
-                                <p>{{ __('For how many people do you need accommodation') }}?</p>
-                                <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->guests_number }}</b>
-                            </div>
-                            <div class="kv">
-                                <p>{{ __('Until when do you need accommodation') }}?</p>
-                                <b>{{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->end_date) }}</b>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="change-approval-{{ $helpType->id }}">Nivel de aprobare:</label>
-                            @php
-                                $newClass = '';
-
-                                if ('pending' === $helpType->pivot->approve_status) {
-                                    $newClass = 'bg-warning border-warning';
-                                } else if ('approved' === $helpType->pivot->approve_status) {
-                                    $newClass = 'bg-success border-success';
-                                } else if ('denied' === $helpType->pivot->approve_status) {
-                                    $newClass = 'bg-danger border-danger';
-                                }
-                            @endphp
-                            <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-type-id="{{ $helpType->id }}" data-identifier="{{ $helpType->pivot->id }}" class="change-approval-status custom-select form-control text-white font-weight-600 {{ $newClass }}">
-                                @foreach(\App\HelpRequestType::approveStatusList() as $key => $value)
-                                    @if (!(\App\HelpRequestType::APPROVE_STATUS_PENDING === $key && \App\HelpRequestType::APPROVE_STATUS_PENDING !== $helpType->pivot->approve_status))
-                                    <option value="{{ $key }}" {{ ($key == $helpType->pivot->approve_status) ? 'selected' : '' }}>{{ __($value) }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-
-                        @if (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
-                        <div class="form-group">
-                            @if (empty($helpRequest->helprequestaccommodationdetail()->first()->accommodation_id))
-                            <button id="accBookAction" class="form-control font-weight-600 btn btn-secondary text-white btn-md">
-                                {{ __('Book Accommodation') }}
-                            </button>
-                            @else
-                                <button id="accCancelBookAction" class="form-control font-weight-600 btn text-white btn-warning btn-md">
-                                    {{ __('Cancel Booking') }}
-                                </button>
-
-
-
-                                <div class="mt-4">
-                                    <a class="form-control font-weight-600 btn btn-info text-white btn-md" href="{{@route('admin.accommodation-detail', ['id' => $helpRequest->helprequestaccommodationdetail()->first()->accommodation_id])}}">
-                                        Vezi detalii cazare
-                                    </a>
+                                <div class="kv">
+                                    <p>{{ __('Starting with what date you need accommodation') }}?</p>
+                                    <b>{{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->start_date) }}</b>
+                                </div>
+                                <div class="kv">
+                                    <p>{{ __('Detail here if you need special accommodation conditions') }}:</p>
+                                    <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->special_request }}</b>
+                                </div>
+                            @elseif (\App\HelpType::TYPE_OTHER_NEEDS === $helpType->id)
+                                <div class="kv">
+                                    <b>{{ $helpType->pivot->message }}</b>
                                 </div>
                             @endif
                         </div>
-                        @endif
+                        <div class="col-sm-4">
+                            @if (\App\HelpType::TYPE_SMS === $helpType->id)
+                                <div class="kv">
+                                    <p>{{ __('Fund destination') }}:</p>
+                                    <b>{{ $helpRequest->helprequestsmsdetail()->first()->purpose }}</b>
+                                </div>
+                            @elseif (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                                <div class="kv">
+                                    <p>{{ __('For how many people do you need accommodation') }}?</p>
+                                    <b>{{ $helpRequest->helprequestaccommodationdetail()->first()->guests_number }}</b>
+                                </div>
+                                <div class="kv">
+                                    <p>{{ __('Until when do you need accommodation') }}?</p>
+                                    <b>{{ formatDate($helpRequest->helprequestaccommodationdetail()->first()->end_date) }}</b>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="change-approval-{{ $helpType->id }}">Nivel de aprobare:</label>
+                                @php
+                                    $newClass = '';
+
+                                    if ('pending' === $helpType->pivot->approve_status) {
+                                        $newClass = 'bg-warning border-warning';
+                                    } else if ('approved' === $helpType->pivot->approve_status) {
+                                        $newClass = 'bg-success border-success';
+                                    } else if ('denied' === $helpType->pivot->approve_status) {
+                                        $newClass = 'bg-danger border-danger';
+                                    }
+                                @endphp
+                                <select name="change-approval-{{ $helpType->id }}" id="change-approval-{{ $helpType->id }}" data-type-id="{{ $helpType->id }}" data-identifier="{{ $helpType->pivot->id }}" class="change-approval-status custom-select form-control text-white font-weight-600 {{ $newClass }}">
+                                    @foreach(\App\HelpRequestType::approveStatusList() as $key => $value)
+                                        @if (!(\App\HelpRequestType::APPROVE_STATUS_PENDING === $key && \App\HelpRequestType::APPROVE_STATUS_PENDING !== $helpType->pivot->approve_status))
+                                        <option value="{{ $key }}" {{ ($key == $helpType->pivot->approve_status) ? 'selected' : '' }}>{{ __($value) }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            @if (\App\HelpType::TYPE_ACCOMMODATION === $helpType->id)
+                            <div class="form-group">
+                                @if (empty($helpRequest->helprequestaccommodationdetail()->first()->accommodation_id))
+                                <button id="accBookAction" class="form-control font-weight-600 btn btn-secondary text-white btn-md">
+                                    {{ __('Book Accommodation') }}
+                                </button>
+                                @else
+                                    <button id="accCancelBookAction" class="form-control font-weight-600 btn text-white btn-warning btn-md">
+                                        {{ __('Cancel Booking') }}
+                                    </button>
+
+
+
+                                    <div class="mt-4">
+                                        <a class="form-control font-weight-600 btn btn-info text-white btn-md" href="{{@route('admin.accommodation-detail', ['id' => $helpRequest->helprequestaccommodationdetail()->first()->accommodation_id])}}">
+                                            Vezi detalii cazare
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    @endif
 
     @if ($helpRequest->helprequestaccommodationdetail()->first())
     <!-- Accommodation book modal -->
