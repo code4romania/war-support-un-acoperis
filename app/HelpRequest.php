@@ -35,9 +35,10 @@ class HelpRequest extends Model implements Auditable
     use SoftDeletes, Searchable;
     use \OwenIt\Auditing\Auditable;
 
-    const STATUS_NEW = 'new';
-    const STATUS_IN_PROGRESS = 'in-progress';
-    const STATUS_COMPLETED = 'completed';
+    const STATUS_NEW = 'padding';
+    const STATUS_IN_PROGRESS = 'in_progress';
+    const STATUS_COMPLETED = 'fulfilled';
+    const STATUS_PARTIAL_ALLOCATED = 'allocated';
 
     /**
      * @return array
