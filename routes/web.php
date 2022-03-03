@@ -4,6 +4,8 @@ use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\User\Administration;
 use App\Http\Middleware\User\Host;
 use App\Http\Middleware\User\Refugee;
+use App\Http\Middleware\User\ShareMiddleware;
+use App\Http\Middleware\User\Trusted;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +38,15 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
 /**
  * Administration routes
  */
+Route::middleware([ShareMiddleware::class])->prefix('/share')->group(function (){
+    Route::get('accommodation','ShareController@accommodationList')->name('share.accommodation.list');
+    Route::get('accommodation/create','ShareController@accommodationCreate')->name('share.accommodation.create');
+    Route::post('accommodation/store','ShareController@accommodationStore')->name('share.accommodation.store');
+    Route::get('help-request','ShareController@helpRequestList')->name('share.help.request.list');
+    Route::get('help-request/create','ShareController@helpRequestCreate')->name('share.help.request.create');
+    Route::get('ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
+    Route::get('accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
+});
 Route::middleware([Administration::class])
     ->prefix('admin')
     ->group(function () {
@@ -78,7 +89,6 @@ Route::middleware([Administration::class])
         Route::get('/accommodation', 'Admin\AccommodationController@accommodationList')->name('admin.accommodation-list');
         Route::get('/accommodation/add/{userId}', 'Admin\AccommodationController@add')->name('admin.accommodation-add');
         Route::post('/accommodation/add/{userId}', 'Admin\AccommodationController@create')->name('admin.accommodation-create');
-        Route::get('/accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
         Route::get('/accommodation/{id}/edit', 'Admin\AccommodationController@edit')->name('admin.accommodation-edit');
         Route::post('/accommodation/{id}/edit', 'Admin\AccommodationController@update')->name('admin.accommodation-update');
 
@@ -108,6 +118,10 @@ Route::middleware([Administration::class])
         Route::get('/audit-logs/{log}', 'Admin\AuditLogController@show')->name('admin.auditLogs.show');
         Route::get('/audit-logs-search', 'Admin\AuditLogController@search')->name('admin.auditLogs.search');
 
+
+        Route::post('/allocate-user','AllocateController@index')->name('admin.allocate.user.to.host');
+
+
         /**
          * Ajax routes (admin)
          */
@@ -122,7 +136,6 @@ Route::middleware([Administration::class])
         Route::delete('/ajax/resources/{id}', 'AjaxController@deleteResource')->name('ajax.delete-request');
 
         Route::get('/ajax/accommodation/cities/{country?}', 'AjaxController@accommodationCityList')->name('ajax.accommodation-city-list');
-        Route::get('/ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
         Route::delete('/ajax/accommodation/{id}', 'AjaxController@deleteAccommodation')->name('ajax.accommodation-delete');
 
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.admin-delete-accommodation-photo');
@@ -134,6 +147,7 @@ Route::middleware([Administration::class])
         Route::get('/ajax/accommodation/{id}/requests', 'AjaxController@accommodationRequestsList')->name('ajax.accommodation-requests');
 
         Route::get('/ajax/user-list', 'AjaxController@userList')->name('ajax.user-list');
+
     });
 
 /**
@@ -157,6 +171,34 @@ Route::middleware([Host::class])
         Route::get('/accommodation/{id}/view', 'Host\AccommodationController@viewAccommodation')->name('host.view-accommodation');
         Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('host.edit-accommodation')->middleware('2fa');
         Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('host.update-accommodation');
+        Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');
+
+        /**
+         * Ajax routes (host)
+         */
+        Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+    });
+
+Route::middleware([Trusted::class])
+    ->prefix('trusted')
+    ->group(function () {
+        Route::get('/profile', 'Host\ProfileController@profile')->name('trusted.profile')->middleware('2fa');
+        Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('trusted.edit-profile');
+        Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('trusted.save-profile');
+        Route::get('/profile/reset-password', 'Host\ProfileController@resetPassword')->name('trusted.reset-password');
+        Route::post('/profile/reset-password', 'Host\ProfileController@saveResetPassword')->name('trusted.save-reset-password');
+        Route::post('/add-user-person', 'Trusted\TrustedController@addPersonUser')->name('trusted.store-user-person');
+        Route::post('/add-user-company', 'Trusted\TrustedController@addCompanyUser')->name('trusted.store-user-company');
+
+        Route::get('/accommodation/{page?}', 'Host\AccommodationController@accommodation')
+            ->where('page', '[0-9]+')
+            ->name('trusted.accommodation')
+            ->middleware('2fa');
+        Route::get('/accommodation/add', 'Host\AccommodationController@addAccommodation')->name('trusted.add-accommodation')->middleware('2fa');
+        Route::post('/accommodation/add', 'Host\AccommodationController@createAccommodation')->name('trusted.create-accommodation');
+        Route::get('/accommodation/{id}/view', 'Host\AccommodationController@viewAccommodation')->name('trusted.view-accommodation');
+        Route::get('/accommodation/{id}/edit', 'Host\AccommodationController@editAccommodation')->name('trusted.edit-accommodation')->middleware('2fa');
+        Route::post('/accommodation/{id}/edit', 'Host\AccommodationController@updateAccommodation')->name('trusted.update-accommodation');
         Route::get('/accommodation/{id}/delete', 'Host\AccommodationController@deleteAccommodation')->name('ajax.delete-accommodation');
 
         /**

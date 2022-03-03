@@ -51,6 +51,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $deleted_at
  * @property DateTime|null $approved_at
  * @property bool $is_free
+ * @property int|null $created_by
  */
 class Accommodation extends Model implements Auditable
 {

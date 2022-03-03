@@ -655,6 +655,9 @@ class AjaxController extends Controller
         if ($request->has('city') && !empty($request->get('city'))) {
             $query->where('accommodations.address_city', '=', $request->get('city'));
         }
+        if (auth()->user()->isTrusted()) {
+            $query->where('accommodations.created_by',auth()->user()->id);
+        }
 
         $query = $this->filterStatus($request, $query, 'accommodations');
 
