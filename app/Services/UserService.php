@@ -3,7 +3,6 @@
 
 namespace App\Services;
 
-
 use App\Http\Requests\HostRequestCompany;
 use App\Http\Requests\HostRequestPerson;
 use App\Http\Requests\ServiceRequest;
@@ -83,17 +82,19 @@ class UserService
      */
     private function prepareUserParams($request, bool $approved = true): array
     {
+        $attributes = $request->new_user;
+
         $userParams = [
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
             'password' => Hash::make(Str::random(10)),
             'remember_token' => Str::random(10),
-            'country_id' => $request->get('country_id'),
-            'county_id' => $request->get('county_id'),
-            'city' => $request->get('city'),
-            'address' => $request->get('address'),
-            'phone_number' => $request->get('phone'),
-            ];
+            'country_id' => $attributes['country_id'] ?? null,
+            'county_id' => $attributes['county_id'],
+            'city' => $attributes['city'],
+            'address' => $attributes['address'],
+            'phone_number' => $attributes['phone'],
+        ];
 
         if ($approved)
         {
@@ -102,5 +103,4 @@ class UserService
 
         return $userParams;
     }
-
 }
