@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\App;
 
 class HostSignup extends Notification
 {
@@ -51,10 +52,15 @@ class HostSignup extends Notification
 
     private function getMail(): MailMessage
     {
+        $passwordResetLink = route('password.reset', [
+            'locale' => App::getLocale(),
+            'token' => $this->resetToken,
+        ]);
+
         return (new MailMessage)
             ->subject(__("Thank you for your signup"))
             ->line($this->user->name . ', ' . __('Please click here to confirm your account and choose a password'))
-            ->action(__("Confirm your account"), route('password.reset', $this->resetToken))
+            ->action(__("Confirm your account"), $passwordResetLink)
             ->greeting(__("Thank you for your signup"));
     }
 
