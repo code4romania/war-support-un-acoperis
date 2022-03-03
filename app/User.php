@@ -144,4 +144,9 @@ class User extends Authenticatable implements Auditable
     {
         return $this->isAuthorized(self::ROLE_TRUSTED);
     }
+
+    public function isRefugee(): bool
+    {
+        return $this->isAuthorized(self::ROLE_REFUGEE);
+    }
 }

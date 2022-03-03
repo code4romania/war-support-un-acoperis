@@ -75,7 +75,6 @@ class RequestServicesController extends Controller
 
     public function submitStep2(ServiceRequest $request): RedirectResponse
     {
-
         $user = (new UserService())->createRefugeeUser($request);
         Auth::login($user);
         //TODO Send register email
@@ -90,7 +89,6 @@ class RequestServicesController extends Controller
         $mail = new HelpRequestMail($helpRequest);
         Mail::to(auth()->user()->email)->send($mail);
 
-//        Notification::route('mail', auth()->user()->email)->notify(new HelpRequest($helpRequest));
         Notification::route('mail', config('mail.from.address'))->notify(new HelpRequestInfoAdminMail($helpRequest));
 
         return redirect()->route('request-services-thanks');
@@ -100,6 +98,4 @@ class RequestServicesController extends Controller
     {
         return view('frontend.request-services-thanks');
     }
-
-
 }

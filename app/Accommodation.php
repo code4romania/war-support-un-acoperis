@@ -3,11 +3,13 @@
 namespace App;
 
 use DateTime;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditable;
 
 /**
@@ -49,6 +51,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $deleted_at
  * @property DateTime|null $approved_at
  * @property bool $is_free
+ * @property int|null $created_by
  */
 class Accommodation extends Model implements Auditable
 {
@@ -178,5 +181,40 @@ class Accommodation extends Model implements Auditable
         if (!empty($this->address_postal_code)) $addressComponents[] = 'Cod Postal ' . $this->address_postal_code;
 
         return implode(', ', $addressComponents);
+    }
+
+    public function scopeIsFree(Builder $query): Builder
+    {
+        return $query->where('is_free', 1);
+    }
+
+    public function scopeIsApproved(Builder $query): Builder
+    {
+        return $query->whereNotNull('approved_at');
+    }
+
+    public function isApproved(): bool
+    {
+        return !!$this->approved_at;
+    }
+
+    public function canBeDeleted(): bool
+    {
+        //todo should be verified
+        /**
+         * @var User $user
+         */
+        $user = Auth::user();
+        return $this->user_id === $user->id || $user->isAdministrator();
+    }
+
+    public function canBeEdited(): bool
+    {
+        //todo should be verified
+        /**
+         * @var User $user
+         */
+        $user = Auth::user();
+        return $this->user_id === $user->id || $user->isAdministrator();
     }
 }

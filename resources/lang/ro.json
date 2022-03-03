@@ -177,7 +177,7 @@
     "resource_types.services": "Servicii",
     "resource_types.other": "Alte tipuri de ajutor",
     "Select wanted domain": "Selectează specializarea de care ești interesat",
-    "Select the specialty you are interested in" : "Selectează specialitatea de care ești interesat",
+    "Select the specialty you are interested in": "Selectează specialitatea de care ești interesat",
     "Filter": "Filtrează",
     "Add": "Adaugă",
     "Delete resource": "Ștergere resursă",
@@ -325,10 +325,10 @@
     "If you are looking to disable two-factor authentication, please confirm your password and Click Disable 2FA Button.": "Dacă vrei să dezactivezi 2FA, introdu parola contului tău și apasă pe Dezactivează 2FA.",
     "Authenticate": "Autentifică-te",
     "Or skip": "Sau renunță",
-    "The 'One Time Password' typed was wrong." : "Codul introdus este incorect.",
+    "The 'One Time Password' typed was wrong.": "Codul introdus este incorect.",
     "One Time Password cannot be empty.": "Codul nu poate fi gol.",
     "An unknown error has occurred. Please try again.": "A apărut o eroare necunoscută. Te rugăm să reîncerci.",
-    "Verify two-factor authentication code" : "Verifică codul de autentificare în doi pași",
+    "Verify two-factor authentication code": "Verifică codul de autentificare în doi pași",
     "Contact": "Contact",
     "Your message": "Mesajul dumneavoastră",
     "I agree with <a href=\":url\">GDPR</a> terms.": "Sunt de acord cu <a href=\":url\">GDPR</a>.",
@@ -369,16 +369,16 @@
     "The password must contain at least 3 of each of the following: uppercase letters, lowercase letters, numbers and special characters.": "Parola trebuie să conțină cel puțin 3 caractere din următoarele: litere mari, litere mici, numere și caractere speciale.",
 
     "Find out more here.": "Află detalii aici.",
-    "Clinics and Hospitals" : "Clinici și Spitale",
+    "Clinics and Hospitals": "Clinici și Spitale",
     "Clinic specialization": "Specialitate clinică",
 
     "Read More": "Citește mai departe",
     "Partners List": "Listă parteneri",
 
     "FAQ": "Întrebări frecvente",
-    "All rights reserved." : "Toate drepturile rezervate.",
+    "All rights reserved.": "Toate drepturile rezervate.",
     "Your form has been submitted to the M.A.M.E Association. As soon as possible you will be contacted by someone from the organization to discuss details about how you can get involved.": "Formularul tău a fost transmis.",
-    "New help request with id #:id":"Aveți o nouă cerere de ajutor cu id-ul #:id",
+    "New help request with id #:id": "Aveți o nouă cerere de ajutor cu id-ul #:id",
     "A new help request was submitted. Details can be seen to the url below:": "A sosit o nouă cerere de ajutor. Mai multe detalii gasiți la linkul de mai jos:",
     "New help resource with id #:id": "Aveți o nouă ofertă de ajutor cu id-ul #:id",
     "New help resources with ids #:ids": "Aveți noi oferte de ajutor cu id-urile #:ids",
@@ -447,4 +447,6 @@
     "A new contact request was submitted." : "O noua cerere de contact a fost creată.",
     "A new help request was submitted." : "O noua solicitare de ajutor a fost creată.",
     "Guests number" : "Număr persoane"
+    "A partnership with": "Un proiect în parteneriat cu",
+    "made by": "realizat de"
 }

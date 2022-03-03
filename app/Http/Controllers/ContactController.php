@@ -32,20 +32,19 @@ class ContactController extends Controller
 
     public function sendContact(ContactRequest $request)
     {
-        $to = config('app.to_help_address');
-
+        // mail to help_address
         $mail = new NewContactMail($request->validated());
-//        echo $mail->render(); die; // preview
-        Mail::to($to)->send($mail);
+        // echo $mail->render(); die; // preview
+        Mail::to(config('app.to_help_address'))->send($mail);
 
+        // mail to the user that submit the form
         $userEmail = $request->validated()['email'];
         $mail = new NewContactMail($request->validated());
         Mail::to($userEmail)->send($mail);
 
-//        Notification::route('mail', $to)
-//            ->notify(new ContactMail($request->validated()));
+        //Notification::route('mail', config('app.to_help_address'))->notify(new ContactMail($request->validated()));
 
-        return redirect()->route('contact-confirmation');;
+        return redirect()->route('contact-confirmation');
     }
 
     public function contactConfirmation()

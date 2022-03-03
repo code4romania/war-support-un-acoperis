@@ -34,13 +34,13 @@
                 <a class="list-group-item list-group-item-action " href="{{ route('2fa.form') }}">
                     <i class="fa fa-mobile mr-3"></i> {{ __('2FA') }}
                 </a>
-                <a href="{{ route('logout') }}" class="list-group-item list-group-item-action "
+                <a href="{{ route('logout', ['locale' => app()->getLocale()]) }}" class="list-group-item list-group-item-action "
                    onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                     <i class="fa fa-power-off mr-3"></i>{{__('Logout')}}
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout', ['locale' => app()->getLocale()]) }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </div>

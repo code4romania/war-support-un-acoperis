@@ -272,6 +272,7 @@
                 theme: "classic",
                 tokenSeparators: [,],
                 scrollAfterSelect: true,
+                selectionCssClass: "form-control",
                 tags: true
             });
 
@@ -293,9 +294,11 @@
                 if (checked) {
                     $("#dependants_family_details_div").removeClass("d-none");
                     $("input[data-required='1']", $("#dependants_family_details_div")).attr("required", true);
+                    $(".person_in_care input").removeAttr('disabled');
                 } else {
                     $("#dependants_family_details_div").addClass("d-none");
                     $("input[required]", $("#dependants_family_details_div")).attr('required', false);
+                    $(".person_in_care input").attr('disabled', true);
                 }
             });
 
@@ -329,7 +332,7 @@
             let trackTimeoutId;
             const personFieldSet = $('.person_in_care[data-index="1"]');
 
-            $("#person_in_care_count").on('input, change, keyup, mouseup', function (e) {
+            $("#person_in_care_count").change(function (e) {
                 if (!e.target.value) {
                     return;
                 }
@@ -339,7 +342,7 @@
                 const timeoutId = setTimeout(() => {
                     cleanupFields();
                     renderFields(e.target.value, personFieldSet);
-                }, 500);
+                }, 250);
 
                 trackTimeoutId = timeoutId;
             });
@@ -350,6 +353,23 @@
                     renderFields(e.target.value, personFieldSet);
                 }
             })
+
+            $("#need_transport, #need_special_transport").on('change', function(e) {
+                if (this.checked) {
+                    $("#dont_need_transport").attr("disabled", true);
+                } else {
+                    $("#dont_need_transport").removeAttr("disabled");
+                }
+            })
+
+            $("#dont_need_transport").on('change', function(e) {
+                if (this.checked) {
+                    $("#need_transport, #need_special_transport").attr("disabled", true);
+                } else {
+                    $("#need_transport, #need_special_transport").removeAttr("disabled");
+                }
+            })
+
         });
     </script>
 @endsection

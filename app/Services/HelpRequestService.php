@@ -13,12 +13,12 @@ class HelpRequestService
         $helpRequest->current_location = $data['current_location'];
         $helpRequest->guests_number = $this->getGuestsNumber($data);
         $helpRequest->known_languages = json_encode($data['known_languages']);
-        $helpRequest->special_needs = isset($data['special_needs']) ? $data['special_request'] : null;
+        $helpRequest->special_needs = $data['special_request'] ?? null;
         $helpRequest->with_peoples = $this->getPersonInCareJson($data);
-        $helpRequest->more_details = $data['more_details'];
-        $helpRequest->need_car = isset($data['need_transport'])?(bool)$data['need_transport']:null;
-        $helpRequest->need_special_transport = isset($data['need_special_transport']) ? (bool)$data['need_special_transport'] : null;
-
+        $helpRequest->more_details = $data['more_details'] ?? "";
+        $helpRequest->need_car = (bool)($data['need_transport'] ?? false);
+        $helpRequest->need_special_transport = (bool)($data['need_special_transport'] ?? false);
+        $helpRequest->status = HelpRequest::STATUS_NEW;
         $helpRequest->save();
 
         return $helpRequest;
@@ -36,15 +36,22 @@ class HelpRequestService
 
     private function getPersonInCareJson($data): string
     {
-        $temp = [];
-        for ($index = 0; $index < $data['person_in_care_count']; $index++) {
-            $temp[] = [
+        $personsInCare = [];
+        for ($index = 1; $index < $data['person_in_care_count']; $index++) {
+             $person = [
                 'name' => $data['person_in_care_name'][$index] ?? null,
                 'age' => $data['person_in_care_age'][$index] ?? null,
                 'mentions' => $data['person_in_care_mentions'][$index] ?? null,
             ];
+
+             // if no info for person, skip it
+            if (count(array_filter($person)) == 0) {
+                continue;
+            }
+
+            $personsInCare[] = $person;
         }
-        return json_encode($temp);
+        return json_encode($personsInCare);
     }
 
 }

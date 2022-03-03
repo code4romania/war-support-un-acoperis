@@ -24,6 +24,8 @@ services:
   nodejs:
     image: node:16-alpine
     working_dir: /app
+    environment:
+      HOME: /tmp/npm
     volumes:
     - ./:/app
     command: ["sleep", "infinity"]

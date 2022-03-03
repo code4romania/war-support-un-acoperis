@@ -64,7 +64,6 @@ class HelpRequest extends Model implements Auditable
         return $this->belongsTo(UaRegion::class);
     }
 
-
     /**
      * @return HasMany
      */
@@ -74,10 +73,6 @@ class HelpRequest extends Model implements Auditable
             ->hasMany(Note::class, 'entity_id')
             ->where('notes.entity_type', '=', Note::TYPE_HELP_REQUEST);
     }
-
-
-
-
 
     /**
      * Get the indexable data array for the model.
