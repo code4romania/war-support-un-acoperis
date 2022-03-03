@@ -104,7 +104,15 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
                                 @foreach(config('translatable.locales') as $locale)
-                                    <a class="dropdown-item {{ $locale }}-language" href="{{ route(Route::currentRouteName(), \App\Helpers\RouteHelper::translateCurrentSlug([ 'locale' => $locale, 'slug' => Route::getCurrentRoute()->parameter("slug")])) }}">
+                                    <a class="dropdown-item {{ $locale }}-language" href="{{
+                                        route(Route::currentRouteName(), array_merge(
+                                            Arr::wrap(request()->route()->parameters()),
+                                            \App\Helpers\RouteHelper::translateCurrentSlug([
+                                                'locale' => $locale,
+                                                'slug' => Route::getCurrentRoute()->parameter("slug")
+                                            ])
+                                        ))
+                                        }}">
                                         {{ config('translatable.locales_name')[$locale] ?? strtoupper($locale) }}
                                     </a>
                                 @endforeach
