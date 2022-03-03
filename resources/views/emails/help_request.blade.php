@@ -6,8 +6,6 @@
     {{ __("A new help request was submitted.") }}
 </p>
 
-<hr>
-
 <p>
 {{--{{ __("User Id") }}: <b>{!! $user->id !!}</b> <br/>--}}
 {{ __("Full Name") }}: <b>{!! $user->name !!}</b> <br/>
@@ -35,25 +33,6 @@
 - {{ __("I need special transport (e.g. car with wheelchair space)") }} <br/>
 @endif
 </p>
-
-{{--@component('mail::table')--}}
-{{--    | Laravel       | Table         | Example  |--}}
-{{--    | ------------- |:-------------:| --------:|--}}
-{{--    | Col 2 is      | Centered      | $10      |--}}
-{{--    | Col 3 is      | Right-Aligned | $20      |--}}
-{{--@endcomponent--}}
-
-{{--@component('mail::panel')--}}
-{{--    {!! $error !!}--}}
-{{--@endcomponent--}}
-
-{{--@if($site)--}}
-{{--<a href="{{config('app.url').'/dashboard/'.$site->id}}">{!! $site->name !!}--}}
-{{--@endif--}}
-
-{{--@component('mail::button', ['url' => route('logs') ])--}}
-{{--    View logs--}}
-{{--@endcomponent--}}
 
 {{--{{ __("Regards") }}--}}
 @endcomponent

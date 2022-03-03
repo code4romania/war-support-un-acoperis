@@ -41,9 +41,6 @@ class HelpRequestInfoAdminMail extends Notification
             ->subject(__('New help request with id #:id', ['id' => $this->request->id]))
             ->line(__("A new help request was submitted. Details can be seen to the url below:"))
             ->action(__("View details"), route('admin.help-detail', ['id' => $this->request->id]) )
-//            ->line(__(":link", [
-//                'link' => route('admin.help-detail', ['id' => $this->request->id])
-//            ]))
             ->greeting(__("Thank you for your signup"));
     }
 

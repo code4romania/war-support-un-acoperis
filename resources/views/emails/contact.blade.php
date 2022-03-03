@@ -6,7 +6,6 @@
     {{ __("A new contact request was submitted.") }}
 </p>
 
-<hr>
 <br/>
 
 <p>
@@ -21,25 +20,6 @@
     {{ __("Type of support: Offer housing / Request housing for refugees") }}:
     <b>{!! $supportTypes[$data['support_type']] !!}</b> <br/>
 </p>
-
-{{--@component('mail::table')--}}
-{{--    | Laravel       | Table         | Example  |--}}
-{{--    | ------------- |:-------------:| --------:|--}}
-{{--    | Col 2 is      | Centered      | $10      |--}}
-{{--    | Col 3 is      | Right-Aligned | $20      |--}}
-{{--@endcomponent--}}
-
-{{--@component('mail::panel')--}}
-{{--    {!! $error !!}--}}
-{{--@endcomponent--}}
-
-{{--@if($site)--}}
-{{--<a href="{{config('app.url').'/dashboard/'.$site->id}}">{!! $site->name !!}--}}
-{{--@endif--}}
-
-{{--@component('mail::button', ['url' => route('logs') ])--}}
-{{--    View logs--}}
-{{--@endcomponent--}}
 
 {{--{{ __("Regards") }}--}}
 @endcomponent

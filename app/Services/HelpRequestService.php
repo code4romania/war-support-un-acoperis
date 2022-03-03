@@ -13,11 +13,11 @@ class HelpRequestService
         $helpRequest->current_location = $data['current_location'];
         $helpRequest->guests_number = $this->getGuestsNumber($data);
         $helpRequest->known_languages = json_encode($data['known_languages']);
-        $helpRequest->special_needs = isset($data['special_needs']) ? $data['special_request'] : null;
+        $helpRequest->special_needs = $data['special_request'] ?? null;
         $helpRequest->with_peoples = $this->getPersonInCareJson($data);
-        $helpRequest->more_details = $data['more_details'];
-        $helpRequest->need_car = isset($data['need_transport'])?(bool)$data['need_transport']:null;
-        $helpRequest->need_special_transport = isset($data['need_special_transport']) ? (bool)$data['need_special_transport'] : null;
+        $helpRequest->more_details = $data['more_details'] ?? "";
+        $helpRequest->need_car = (bool)($data['need_transport'] ?? false);
+        $helpRequest->need_special_transport = (bool)($data['need_special_transport'] ?? false);
 
         $helpRequest->save();
 

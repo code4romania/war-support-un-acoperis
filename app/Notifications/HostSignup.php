@@ -56,8 +56,6 @@ class HostSignup extends Notification
             ->line($this->user->name . ', ' . __('Please click here to confirm your account and choose a password'))
             ->action(__("Confirm your account"), route('password.reset', $this->resetToken))
             ->greeting(__("Thank you for your signup"));
-//            ->line(route('password.reset', $this->resetToken))
-//            ->line(__("Bla bla") );
     }
 
     /**
