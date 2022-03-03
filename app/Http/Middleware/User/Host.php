@@ -28,7 +28,7 @@ class Host
         /** @var User $user */
         $user = Auth::user();
 
-        if (empty($user) || !$user->isAuthorized(User::ROLE_HOST)) {
+        if (empty($user)) {
             throw new AuthenticationException(
                 'Unauthenticated.',
                 [],
