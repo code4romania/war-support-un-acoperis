@@ -111,6 +111,11 @@ class User extends Authenticatable implements Auditable
         return $this->belongsTo(Country::class);
     }
 
+    public function county(): BelongsTo
+    {
+        return $this->belongsTo(County::class);
+    }
+
     /**
      * @return HasOne
      */

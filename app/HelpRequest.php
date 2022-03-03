@@ -49,6 +49,18 @@ class HelpRequest extends Model implements Auditable
 //    ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'approved_at'
+    ];
+
+    /**
      * @return array
      */
     public static function statusList(): array
@@ -59,6 +71,14 @@ class HelpRequest extends Model implements Auditable
             self::STATUS_COMPLETED => __('Status Completed'),
             self::STATUS_PARTIAL_ALLOCATED => __('Status Partial Allocated')
         ];
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function accommodation(): BelongsToMany

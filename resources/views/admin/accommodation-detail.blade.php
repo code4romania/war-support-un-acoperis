@@ -304,7 +304,7 @@
                         '    <td>' + value.start_date + '</td>\n' +
                         '    <td>' + value.end_date + '</td>\n' +
                         '    <td class="text-right">\n' +
-                        '        <a href="/admin/help/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-info mb-2 mb-sm-0" >Detalii cerere de ajutor</a>\n' +
+                        '        <a href="/admin/help-request/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-info mb-2 mb-sm-0" >Detalii cerere de ajutor</a>\n' +
                         '    </td>\n' +
                         '</tr>';
                     $('#tableBody').append(row);
