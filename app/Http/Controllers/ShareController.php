@@ -27,7 +27,6 @@ class ShareController extends Controller
 {
     public function accommodationList(Request $request)
     {
-
         $countries = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
         $counties = Accommodation::join('counties', 'counties.id', '=', 'accommodations.address_county_id');
 
@@ -57,8 +56,8 @@ class ShareController extends Controller
             ->with('counties', County::all())
             ->with('hostType', old('host_type_copy'))
             ->with('description', '');
-
     }
+
     public function accommodationStore(AccommodationRequest $request)
     {
         $accommodationService = new AccommodationService();
@@ -74,8 +73,6 @@ class ShareController extends Controller
         $accommodationService->createAccommodation($request,$user);
         session()->flash('status',__('Host created successfully'));
         return redirect()->back();
-
-
     }
 
     public function helpRequestList(Request $request)
@@ -104,7 +101,6 @@ class ShareController extends Controller
             ->with('counties', $counties)
             ->with('hostType', 'person')
             ->with('languages', $languages);
-
     }
 
     public function helpRequestStore(Request $request)

@@ -11,7 +11,6 @@
     </div>
 </div>
 
-
 @include('partials.forms.host-signup-person')
 @include('partials.forms.host-signup-company')
 
