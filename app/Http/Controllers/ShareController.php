@@ -68,11 +68,11 @@ class ShareController extends Controller
             $sessionUserId = session()->pull('createdUserId');
             $user = User::find($sessionUserId);
             $accommodationService->createAccommodation($request,$user,auth()->user()->id);
-            session()->flash('status',__('Host created successfully'));
+            session()->flash('success',__('Host created successfully'));
             return redirect()->back();
         }
         $accommodationService->createAccommodation($request,$user);
-        session()->flash('status',__('Host created successfully'));
+        session()->flash('sucess',__('Host created successfully'));
         return redirect()->back();
 
 
@@ -109,16 +109,15 @@ class ShareController extends Controller
 
     public function helpRequestStore(Request $request)
     {
-        $helpRequestService = new HelpRequestService();
         if (session()->get('createdRefugeeUserId'))
         {
             $sessionUserId = session()->pull('createdRefugeeUserId');
             $user = User::find($sessionUserId);
-            $helpRequestService->create($request,$user,auth()->user()->id);
-            session()->flash('status',__('Help request created successfully'));
+            (new HelpRequestService())->create($request,$user,auth()->user()->id);
+            session()->flash('success',__('Help request created successfully'));
             return redirect()->route('share.help.request.list');
         }
-        session()->flash('status',__('Refugee user not found'));
+        session()->flash('fail',__('Refugee user not found'));
         return redirect()->back();
     }
 

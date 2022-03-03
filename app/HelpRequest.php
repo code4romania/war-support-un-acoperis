@@ -55,7 +55,8 @@ class HelpRequest extends Model implements Auditable
         return [
             self::STATUS_NEW => __('Status New'),
             self::STATUS_IN_PROGRESS => __('Status In Progress'),
-            self::STATUS_COMPLETED => __('Status Completed')
+            self::STATUS_COMPLETED => __('Status Completed'),
+            self::STATUS_PARTIAL_ALLOCATED => __('Status Partial Allocated')
         ];
     }
 
