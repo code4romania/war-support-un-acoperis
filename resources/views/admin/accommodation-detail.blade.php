@@ -5,8 +5,11 @@
         <h6 class="page-title mb-3 font-weight-600">{{ __('Accommodation resource') }}</h6>
         <a href="{{ route('admin.accommodation-list') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __('Back') }}</a>
     </section>
+    @if(@auth()->user()->isAdministrator())
+        @include('partials.forms.allocate-form')
+    @endif
     <div class="card shadow">
-        <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
+        <div class="card-header bg-ad   min-blue py-3 d-flex justify-content-between align-content-center">
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Accommodation resource') }} - {{ $user->name }}
             </h6>

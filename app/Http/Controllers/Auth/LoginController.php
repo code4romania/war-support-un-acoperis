@@ -42,10 +42,13 @@ class LoginController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if ($user->isAdministrator()) {
-            return route('admin.dashboard');
-        } elseif ($user->isHost()) {
-            return route('host.profile');
+        switch (true) {
+            case $user->isAdministrator():
+                return route('admin.dashboard');
+            case  $user->isHost():
+                return route('host.profile');
+            case $user->isRefugee():
+                return route('refugee.home');
         }
 
         return route('2fa.login.check', ['locale' => app()->getLocale()]);

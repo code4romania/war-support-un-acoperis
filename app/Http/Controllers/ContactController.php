@@ -17,10 +17,11 @@ class ContactController extends Controller
     /**
      * @return View
      */
-    public function contact(SettingRepository $settingRepository, OptionsRepository $optionsRepository)
+    public function contact(SettingRepository $settingRepository)
     {
         $countries = Country::all();
 
+        $optionsRepository = new OptionsRepository();
         $institutionTypes = $optionsRepository->getInstitutionTypes();
 
         return view('frontend.contact')
@@ -31,6 +32,8 @@ class ContactController extends Controller
 
     public function sendContact(ContactRequest $request)
     {
+        // Notification::route('mail', config('mail.contact.address'))->notify(new ContactMail($request->validated()));
+
         // mail to help_address
         $mail = new NewContactMail($request->validated());
 //        echo $mail->render(); die; // preview
@@ -40,9 +43,6 @@ class ContactController extends Controller
         $userEmail = $request->validated()['email'];
         $mail = new NewContactMail($request->validated());
         Mail::to($userEmail)->send($mail);
-
-//        Notification::route('mail', config('app.to_help_address'))
-//            ->notify(new ContactMail($request->validated()));
 
         return redirect()->route('contact-confirmation');
     }
