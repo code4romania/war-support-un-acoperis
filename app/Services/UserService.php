@@ -81,7 +81,7 @@ class UserService
      * @param HostRequestCompany|HostRequestPerson|ServiceRequest $request
      * @return array
      */
-    private function prepareUserParams($request, bool $approved = false): array
+    private function prepareUserParams($request, bool $approved = true): array
     {
         $userParams = [
             'name' => $request->get('name'),
