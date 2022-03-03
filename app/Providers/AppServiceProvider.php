@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use A17\Twill\Services\Cloud\Aws;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 

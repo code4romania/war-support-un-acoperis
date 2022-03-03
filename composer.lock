@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c145169869076de6f49a305736954e23",
+    "content-hash": "5975633726e59a87680a834fec38437c",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -72,44 +72,45 @@
         },
         {
             "name": "area17/twill",
-            "version": "2.1.1",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/area17/twill.git",
-                "reference": "b420c6954250d18ad0446e65003715ef9ae8dca7"
+                "reference": "c07b7790c203edb6d50d2a00a1cf861a271786c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/area17/twill/zipball/b420c6954250d18ad0446e65003715ef9ae8dca7",
-                "reference": "b420c6954250d18ad0446e65003715ef9ae8dca7",
+                "url": "https://api.github.com/repos/area17/twill/zipball/c07b7790c203edb6d50d2a00a1cf861a271786c5",
+                "reference": "c07b7790c203edb6d50d2a00a1cf861a271786c5",
                 "shasum": ""
             },
             "require": {
                 "astrotomic/laravel-translatable": "^11.5",
-                "cartalyst/tags": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "doctrine/dbal": "^2.9",
+                "cartalyst/tags": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "doctrine/dbal": "^2.12|^3.0",
                 "ext-json": "*",
                 "ext-pdo": "*",
-                "guzzlehttp/guzzle": "^6.2",
+                "guzzlehttp/guzzle": "^6.2|^7.0",
                 "imgix/imgix-php": "^3.0",
-                "laravel/framework": "~5.6|~5.7|~5.8|^6.0|^7.0",
-                "laravel/socialite": "^4.2",
-                "laravel/ui": "^1.0|^2.0",
+                "laravel/framework": "~5.6|~5.7|~5.8|^6.0|^7.0|^8.0",
+                "laravel/socialite": "^4.2|^5.0",
+                "laravel/ui": "^1.0|^2.0|^3.0",
                 "league/flysystem-aws-s3-v3": "^1.0",
                 "league/glide-laravel": "^1.0",
                 "matthewbdaly/laravel-azure-storage": "^1.3",
                 "myclabs/php-enum": "^1.5",
-                "php": "^7.1",
-                "pragmarx/google2fa-qrcode": "^1.0",
+                "php": "^7.1|^8.0",
+                "pragmarx/google2fa-qrcode": "^1.0|^2.0",
                 "spatie/laravel-activitylog": "^2.5|^3.2",
                 "spatie/laravel-analytics": "^3.6",
                 "spatie/once": "^2.0"
             },
             "require-dev": {
+                "chillerlan/php-qrcode": "~2.0|~3.0|~4.0",
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "kalnoy/nestedset": "^5.0",
-                "nunomaduro/collision": "^3.0|^4.2",
-                "orchestra/testbench": "~3.3|~3.4|~3.5|~3.6|~3.7|~3.8|^4.0|^5.0",
+                "nunomaduro/collision": "^3.0|^4.2|^5.0",
+                "orchestra/testbench": "~3.3|~3.4|~3.5|~3.6|~3.7|~3.8|^4.0|^5.0|^6.0",
                 "phpunit/phpunit": "~5.0|~6.0|~7.0|~8.0|~9.0"
             },
             "type": "library",
@@ -122,10 +123,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "App\\": "vendor/orchestra/testbench-core/laravel/app",
-                    "A17\\Twill\\": "src/",
-                    "A17\\Twill\\Tests\\Unit\\": "tests/unit",
-                    "A17\\Twill\\Tests\\Integration\\": "tests/integration"
+                    "A17\\Twill\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -148,12 +146,12 @@
                 "twill"
             ],
             "support": {
-                "chat": "https://spectrum.chat/twill",
+                "chat": "https://discord.link/twill",
                 "docs": "https://twill.io/docs",
                 "issues": "https://github.com/ifox/twill/issues/",
-                "source": "https://github.com/area17/twill/tree/2.x"
+                "source": "https://github.com/area17/twill/tree/2.7.0"
             },
-            "time": "2020-07-20T13:54:38+00:00"
+            "time": "2022-02-25T17:45:11+00:00"
         },
         {
             "name": "asm89/stack-cors",

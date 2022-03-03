@@ -6,7 +6,7 @@
             <div class="form-group">
                 <label for="type" class="font-weight-600 required">{{ __('Accommodation type') }}?</label>
                 <select class="form-control custom-select @error('type')is-invalid @enderror" name="type" id="type">
-                    <option value="">{{ _("Select accomodation type") }}</option>
+                    <option value="">{{ __("Select accomodation type") }}</option>
                     @foreach($types as $type)
                         <option value="{{ $type->id }}" {{ (old('type', $accommodation->accommodationtype->id) == $type->id ? 'selected' : '') ? 'selected' : '' }}>{{ __($type->name) }}</option>
                     @endforeach
@@ -195,7 +195,7 @@
             {{--                            </div>--}}
             {{--                        </div>--}}
 
-            {{-- @TODO: somehow duplicate code, see signup-form.blade.php and add-accommodation.blade.php. Someone with more Blade knowledge maybe knows how to do this better --}}
+            {{-- @TODO: somehow duplicate code, see signup-form.blade.php and add-help-request.blade.php. Someone with more Blade knowledge maybe knows how to do this better --}}
             <div class="col-sm-3">
                 <div class="form-group">
                     <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>

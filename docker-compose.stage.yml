@@ -29,8 +29,11 @@ services:
         rm -rf /mnt/public/* &&
         cp -r ./public /mnt/ &&
         php artisan config:cache &&
+        php artisan migrate --force &&
         php-fpm -F
       "
+    depends_on:
+      - database
 
   database:
     image: mysql:8
@@ -40,8 +43,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABSE: ${DB_DATABASE}
     volumes:
-    - db_data:/var/lib/mysql
-    - ./.docker/mysql/db_init.sql:/docker-entrypoint-initdb.d/db_init.sql
+      - db_data:/var/lib/mysql
+      - ./.docker/mysql/db_init.sql:/docker-entrypoint-initdb.d/db_init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      retries: 5
+      timeout: 5s
+    ports:
+      - "127.0.0.1:3306:3306"
 
 volumes:
   db_data:

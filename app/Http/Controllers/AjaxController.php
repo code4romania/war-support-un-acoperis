@@ -17,6 +17,7 @@ use App\Http\Middleware\SetLanguage;
 use App\Http\Requests\BookAccommodationRequest;
 use App\Note;
 use App\Services\ChartService;
+use App\UaCity;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -61,6 +62,19 @@ class AjaxController extends Controller
     }
 
     /**
+     * @param int $regionId
+     * @return JsonResponse
+     */
+    public function uaCities(int $regionId)
+    {
+        return response()->json(
+            UaCity::whereHas("region", function ($q) use($regionId){
+                $q->where("ua_regions.id", $regionId);
+            })->pluck('city_uk', 'id')->all()
+        );
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */
@@ -70,15 +84,14 @@ class AjaxController extends Controller
         $query = HelpRequest::orderBy('id', 'desc');
 
         if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
-            $helpRequestIds = HelpRequest::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
-            $query->whereIn('help_requests.id', $helpRequestIds);
+            $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
         }
 
         if (
             $request->has('status') &&
             array_key_exists($request->get('status'), HelpRequest::statusList())
         ) {
-            $query->where('status', '=', $request->get('status'));
+            $query->where('help_requests.status', '=', $request->get('status'));
         }
 
         if ($request->has('startDate')) {
@@ -86,7 +99,7 @@ class AjaxController extends Controller
                 $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
 
                 if ($startDate->year >= 2020) {
-                    $query->where('created_at', '>=', $startDate);
+                    $query->where('help_requests.created_at', '>=', $startDate);
                 }
             } catch (\Exception $exception) { }
         }
@@ -96,19 +109,25 @@ class AjaxController extends Controller
                 $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
 
                 if ($endDate->year >= 2020) {
-                    $query->where('created_at', '<=', $endDate);
+                    $query->where('help_requests.created_at', '<=', $endDate);
                 }
             } catch (\Exception $exception) { }
         }
 
+        if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
+            $query->where('created_by', auth()->user()->id);
+        }
+
         $query->select([
-            'id',
-            'patient_full_name',
-            'caretaker_full_name',
-            'diagnostic',
-            'status',
-            'created_at'
-        ]);
+            'help_requests.id',
+            'users.name',
+            'help_requests.status',
+            'help_requests.need_car',
+            'help_requests.need_special_transport',
+            'help_requests.special_needs',
+            'help_requests.known_languages',
+            'help_requests.created_at'
+        ])->join('users', 'help_requests.user_id', '=', 'users.id' );
 
         $perPage = 10;
 
@@ -640,25 +659,11 @@ class AjaxController extends Controller
         if ($request->has('city') && !empty($request->get('city'))) {
             $query->where('accommodations.address_city', '=', $request->get('city'));
         }
-
-        $approvalStatus = $request->get('status');
-        if (!empty($approvalStatus)) {
-
-            switch ($approvalStatus)
-            {
-                case self::STATUS_DISAPPROVED:
-                    $query->whereNull('accommodations.approved_at');
-                    break;
-
-                case self::STATUS_APPROVED:
-                    $query->whereNotNull('accommodations.approved_at');
-                    break;
-                default:
-                    throw new \Exception('Wrong approval status param value');
-
-            }
-
+        if (auth()->user()->isTrusted()) {
+            $query->where('accommodations.created_by',auth()->user()->id);
         }
+
+        $query = $this->filterStatus($request, $query, 'accommodations');
 
         $perPage = 10;
 
@@ -846,5 +851,63 @@ class AjaxController extends Controller
                 'countryCode' => $countryCode,
             ]
         ]);
+    }
+
+    public function userList(Request $request)
+    {
+        /** @var Builder $query */
+        $query = User::orderBy('id', 'desc');
+
+        $query = $this->filterStatus($request, $query, 'users');
+
+        $query->select([
+            'id',
+            'name',
+            'email',
+            'company_name',
+            'city',
+            'created_at',
+            DB::raw('IF (users.approved_at IS NULL, "Disapproved", "Approved") as status')
+        ]);
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
+        }
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
+
+    }
+
+    /**
+     * @param Request $request
+     * @param Builder $query
+     * @return void
+     * @throws \Exception
+     */
+    private function filterStatus(Request $request, \Illuminate\Database\Eloquent\Builder $query, string $table): \Illuminate\Database\Eloquent\Builder
+    {
+        $approvalStatus = $request->get('status');
+        if (!empty($approvalStatus)) {
+
+            switch ($approvalStatus) {
+                case self::STATUS_DISAPPROVED:
+                    $query->whereNull($table . '.approved_at');
+                    break;
+
+                case self::STATUS_APPROVED:
+                    $query->whereNotNull($table . '.approved_at');
+                    break;
+                default:
+                    throw new \Exception('Wrong approval status param value');
+
+            }
+
+        }
+
+        return $query;
     }
 }

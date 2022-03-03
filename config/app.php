@@ -246,5 +246,7 @@ return [
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ],
 
-    'allowed_domains' => explode(',', env('ALLOWED_DOMAINS', 'www.unacoperis.ro'))
+    'allowed_domains' => explode(',', env('ALLOWED_DOMAINS', 'www.unacoperis.ro')),
+
+    'to_help_address' => env('MAIL_TO_HELP_ADDRESS'),
 ];

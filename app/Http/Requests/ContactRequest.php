@@ -26,7 +26,6 @@ class ContactRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
             'institution' => ['required', 'string', 'min:3', 'max:128'],
             'institution_type' => ['required','in:public_institution,ngo'],
@@ -36,8 +35,9 @@ class ContactRequest extends FormRequest
             'legally_represented' => ['required','string'],
             'company_identifier' => ['required','string'],
             'address' => ['required','string'],
+            'support_type' => ['required'],
             'gdpr' => ['required'],
-            'g-recaptcha-response' => ['required', 'captcha'],
+            'g-recaptcha-response' => (! app()->environment('local')) ? ['required', 'captcha'] : [],
         ];
     }
 }

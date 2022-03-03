@@ -16,31 +16,36 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @package App
  *
  * @property int $id
- * @property string $patient_full_name
- * @property int|null $patient_phone_country_id
- * @property string|null $patient_phone_number
- * @property string|null $patient_email
- * @property string|null $caretaker_full_name
- * @property int|null $caretaker_phone_country_id
- * @property string|null $caretaker_phone_number
- * @property string|null $caretaker_email
- * @property int $county_id
- * @property int $city_id
- * @property string|null $diagnostic
- * @property string|null $extra_details
+ * @property int user_id
+ * @property int|null created_by
+ * @property string $current_location
+ * @property int $guests_number
+ * @property string $known_languages
+ * @property string|null $special_needs
+ * @property string|null $with_peoples
  * @property string $status
+ * @property string $more_details
+ * @property bool $need_car
+ * @property bool $need_special_transport
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
+ * @property DateTime|null $approved_at
  */
 class HelpRequest extends Model implements Auditable
 {
     use SoftDeletes, Searchable;
     use \OwenIt\Auditing\Auditable;
 
-    const STATUS_NEW = 'new';
-    const STATUS_IN_PROGRESS = 'in-progress';
-    const STATUS_COMPLETED = 'completed';
+    const STATUS_NEW = 'padding';
+    const STATUS_IN_PROGRESS = 'in_progress';
+    const STATUS_COMPLETED = 'fulfilled';
+    const STATUS_PARTIAL_ALLOCATED = 'allocated';
+
+//    public $casts = [
+//        'known_languages' => 'json',
+//        'with_peoples' => 'json',
+//    ];
 
     /**
      * @return array
@@ -50,30 +55,23 @@ class HelpRequest extends Model implements Auditable
         return [
             self::STATUS_NEW => __('Status New'),
             self::STATUS_IN_PROGRESS => __('Status In Progress'),
-            self::STATUS_COMPLETED => __('Status Completed')
+            self::STATUS_COMPLETED => __('Status Completed'),
+            self::STATUS_PARTIAL_ALLOCATED => __('Status Partial Allocated')
         ];
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function county()
+    public function isAllocated(): bool
     {
-        return $this->belongsTo(County::class);
+        return (bool)$this->accommodation;
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function city()
+
+    public function county(): BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(UaRegion::class);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function helprequestnotes()
+    public function helprequestnotes(): HasMany
     {
         return $this
             ->hasMany(Note::class, 'entity_id')
@@ -81,49 +79,13 @@ class HelpRequest extends Model implements Auditable
     }
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function helprequestsmsdetail()
+    public function createdBy()
     {
-        return $this->hasMany(HelpRequestSmsDetails::class);
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function helprequestaccommodationdetail()
-    {
-        return $this->hasMany(HelpRequestAccommodationDetail::class);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function helptypes()
-    {
-        return $this->belongsToMany(HelpType::class, 'help_request_types')->withPivot(['id', 'approve_status', 'message']);
-    }
-
-    public function updateStatus()
-    {
-        $total = $this->helptypes()->count();
-
-        if (0 === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
-            $this->status = self::STATUS_COMPLETED;
-        } else if ($total === $this->helptypes()->where('approve_status', '=', HelpRequestType::APPROVE_STATUS_PENDING)->count()) {
-            $this->status = self::STATUS_NEW;
-        } else {
-            $this->status = self::STATUS_IN_PROGRESS;
-        }
-
-        $this->save();
-    }
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
     public function toSearchableArray(): array
     {
         return [

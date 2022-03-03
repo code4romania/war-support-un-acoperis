@@ -57,14 +57,11 @@ class HostSignup extends Notification
             'token' => $this->resetToken,
         ]);
 
-        $mail =  (new MailMessage)
+        return (new MailMessage)
             ->subject(__("Thank you for your signup"))
-            ->greeting(__("Host signup greeting"))
             ->line($this->user->name . ', ' . __('Please click here to confirm your account and choose a password'))
-            ->line($passwordResetLink)
-            ->line(__("Bla bla") );
-
-        return $mail;
+            ->action(__("Confirm your account"), $passwordResetLink)
+            ->greeting(__("Thank you for your signup"));
     }
 
     /**

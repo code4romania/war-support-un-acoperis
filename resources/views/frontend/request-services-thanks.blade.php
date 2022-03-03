@@ -17,10 +17,6 @@
                 </p>
                 <p>
                     {{ __('If you want to communicate other information that has not already been sent through the form, you can contact us at') }}
-                    <a href="mailto:ajutor@asociatiamame.com" target="_blank">ajutor@asociatiamame.com</a>
-                </p>
-                <p class="d-none">
-                    {{ __('You will also receive the confirmation of sending the request form to the email address entered!') }}
                 </p>
             </div>
             <div class="col-sm-6">

@@ -1,22 +1,22 @@
 <form method="POST" action="{{ $formRoutePerson }}" id="hostSignupPersonForm">
     @csrf
-    <input type="hidden" name="host_type_copy" value="{{ $hostType }}" />
+    <input type="hidden" name="new_user[host_type_copy]" value="{{ $hostType }}" />
 
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="required font-weight-600" for="name">{{ __("Name and surname") }}:</label>
-                <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" />
+                <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('new_user.name') is-invalid @enderror" name="new_user[name]" id="name" value="{{ old('new_user.name') }}" />
 
-                @error('full-name')
+                @error('new_user.name')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
         </div>
         <div class="col-sm-6">
             <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
-            <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" />
-            @error('phone')
+            <input type="tel" placeholder="0742000000" class="form-control @error('new_user.phone') is-invalid @enderror" name="new_user[phone]" id="phone" value="{{ old('new_user.phone') }}" />
+            @error('new_user.phone')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
         </div>
@@ -25,9 +25,9 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="required font-weight-600" for="email">{{ __("E-Mail Address") }}:</label>
-                <input type="email" placeholder="{{ __('Email placeholder') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" />
+                <input type="email" placeholder="{{ __('Email placeholder') }}" class="form-control @error('new_user.email') is-invalid @enderror" name="new_user[email]" id="email" value="{{ old('new_user.email') }}" />
 
-                @error('email')
+                @error('new_user.email')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
@@ -37,33 +37,17 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
-                {{--                                <div class="col-sm-6">--}}
-                {{--                                    <div class="form-group">--}}
-                {{--                                        <label class="required font-weight-600" for="sms-clinic-country">{{ __('Country') }}:</label>--}}
-                {{--                                        <select name="country" id="country" class="custom-select form-control @error('country') is-invalid @enderror">--}}
-                {{--                                            <option>{{ __("Select country") }}</option>--}}
-                {{--                                            @foreach ($countries as $country)--}}
-                {{--                                                <option value="{{ $country->id }}"{{ old('country') == $country->id ? ' selected' : '' }}>{{ __('countries.' . $country->name) }}</option>--}}
-                {{--                                            @endforeach--}}
-                {{--                                        </select>--}}
-
-                {{--                                        @error('country')--}}
-                {{--                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>--}}
-                {{--                                        @enderror--}}
-                {{--                                    </div>--}}
-                {{--                                </div>--}}
-
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
-                        <select name="county_id" id="county_id" class="custom-select form-control @error('county_id') is-invalid @enderror">
+                        <select name="new_user[county_id]" id="county_id" class="custom-select form-control @error('new_user.county_id') is-invalid @enderror">
                             <option>{{ __("Select county") }}</option>
                             @foreach ($counties as $county)
-                                <option value="{{ $county->id }}"{{ old('county_id') == $county->id ? ' selected' : '' }}>{{ $county->name }}</option>
+                                <option value="{{ $county->id }}"{{ old('new_user.county_id') == $county->id ? ' selected' : '' }}>{{ $county->name }}</option>
                             @endforeach
                         </select>
 
-                        @error('county_id')
+                        @error('new_user.county_id')
                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                         @enderror
                     </div>
@@ -72,9 +56,9 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                        <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" />
+                        <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('new_user.city') is-invalid @enderror" id="city" name="new_user[city]" value="{{ old('new_user.city') }}" />
 
-                        @error('city')
+                        @error('new_user.city')
                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                         @enderror
                     </div>
@@ -84,9 +68,9 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="font-weight-600" for="address">{{ __('Address') }}:</label>
-                <input type="text" placeholder="{{ __('Address placeholder') }}" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}" />
+                <input type="text" placeholder="{{ __('Address placeholder') }}" class="form-control @error('new_user.address') is-invalid @enderror" id="address" name="new_user[address]" value="{{ old('new_user.address') }}" />
 
-                @error('address')
+                @error('new_user.address')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
@@ -98,7 +82,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="">{{ __('Other type') }}</label>
-                <input type="text" class="form-control" name="other" placeholder="{{ __('Other type placeholder') }}">
+                <input type="text" class="form-control" name="new_user[other]" placeholder="{{ __('Other type placeholder') }}">
             </div>
         </div>
     </div>
