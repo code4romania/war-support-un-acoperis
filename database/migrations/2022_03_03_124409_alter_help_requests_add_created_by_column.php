@@ -14,9 +14,11 @@ class AlterHelpRequestsAddCreatedByColumn extends Migration
     public function up()
     {
         Schema::table('help_requests', function (Blueprint $table) {
-            $table->integer('created_by')
-                ->after('user_id')
-                ->nullable();
+            if (! Schema::hasColumn('help_requests', 'created_by')) {
+                $table->integer('created_by')
+                    ->after('user_id')
+                    ->nullable();
+            }
         });
     }
 
@@ -28,7 +30,9 @@ class AlterHelpRequestsAddCreatedByColumn extends Migration
     public function down()
     {
         Schema::table('help_requests', function (Blueprint $table) {
-            $table->dropColumn('created_by');
+            if (Schema::hasColumn('help_requests', 'created_by')) {
+                $table->dropColumn('created_by');
+            }
         });
     }
 }

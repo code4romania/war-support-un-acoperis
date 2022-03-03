@@ -14,9 +14,11 @@ class AlterAccommodationsAddCreatedBy extends Migration
     public function up()
     {
         Schema::table('accommodations', function (Blueprint $table) {
-            $table->integer('created_by')
-                ->after('is_free')
-                ->nullable();
+            if (!Schema::hasColumn('accommodations', 'created_by')) {
+                $table->integer('created_by')
+                    ->after('is_free')
+                    ->nullable();
+            }
         });
     }
 
@@ -28,7 +30,9 @@ class AlterAccommodationsAddCreatedBy extends Migration
     public function down()
     {
         Schema::table('accommodations', function (Blueprint $table) {
-            $table->dropColumn('created_by');
+            if (Schema::hasColumn('accommodations', 'created_by')) {
+                $table->dropColumn('created_by');
+            }
         });
     }
 }
