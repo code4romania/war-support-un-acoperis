@@ -330,7 +330,7 @@
     "Contact": "Contact",
     "Your message": "Your message",
     "I agree with <a href=\":url\">GDPR<\/a> terms.": "I agree with <a href=\":url\">GDPR<\/a> terms.",
-    "Your message was successfully sent.": "Your message was successfully sent.",
+    "Your message was successfully sent.": "Your message has been successfully sent. You will be contacted shortly",
     "Message from :name": "Message from :name",
     "Message from: :name": "Message from: :name",
     "Phone: :phone": "Phone: :phone",
@@ -380,7 +380,7 @@
     "IE11": "Your browser (Internet Explorer) is old and doesn't perform well on this website. To access this site please download a modern browser.",
 
     "Institution/Organisation name": "Institution/Organisation name",
-    
+
     "Type: Institution / NGO": "Type: Institution / NGO",
     "Public institution option": "Public institution",
     "NGO option": "NGO",
@@ -391,11 +391,11 @@
     "Legal representative name": "Legal representative name",
     "Identification no": "Identification no",
     "Physical address": "Physical address",
-    
+
     "Type of support: Offer housing / Request housing for refugees": "Type of support: Offer housing / Request housing for refugees",
     "Offer housing": "Offer housing",
     "Request housing for refugees": "Request housing for refugees",
-    
+
     "Institution/Organisation name placeholder": "Code for Romania",
     "Contact person placeholder": "Ana-Maria Vasile",
     "Legal representative name placeholder": "Ionescu Ion",
