@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use A17\Twill\Repositories\SettingRepository;
 use App\Http\Requests\ServiceRequest;
 use App\Language;
+use App\Mail\HelpRequestMail;
+use App\Mail\NewContactMail;
 use App\Notifications\HelpRequest;
 use App\Notifications\HelpRequestInfoAdminMail;
 use App\Services\HelpRequestService;
@@ -14,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
@@ -82,7 +85,8 @@ class RequestServicesController extends Controller
     public function submitStep3(ServiceRequest $request): RedirectResponse
     {
         $helpRequest = (new HelpRequestService)->create($request->validated());
-        Notification::route('mail', auth()->user()->email)->notify(new HelpRequest($helpRequest));
+        $mail = new HelpRequestMail($helpRequest);
+        Mail::to(auth()->user()->email)->send($mail);
         // Notification::route('mail', config('mail.contact.address'))->notify(new HelpRequestInfoAdminMail($helpRequest));
         return redirect()->route('request-services-thanks');
     }

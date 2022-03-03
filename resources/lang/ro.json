@@ -400,6 +400,7 @@
     "Identification no": "Identificator (CUI/Nr de inregistrare in Registrul Asociațiilor și Fundațiilor, după caz)",
     "Physical address": "Adresa fizica",
 
+    "Type of support": "Tip de sprijin oferit",
     "Type of support: Offer housing / Request housing for refugees": "Tip de sprijin oferit: Spații de cazare / Solicitări pentru refugiați",
     "Offer housing": "Spații de cazare",
     "Request housing for refugees": "Solicitări cazare pentru refugiați",
@@ -440,6 +441,12 @@
     "I need transport": "Am nevoie de transport",
     "I don't need transport - I have my own vehicle": "Nu am nevoie de transport - am vehicul propriu",
     "I need special transport (e.g. car with wheelchair space)": "Am nevoie de transport special (ex. mașină cu spațiu pentru scaun cu rotile)",
+    "Thank you for your signup" : "Mulțumim pentru înscriere",
+    "Confirm your account" : "Confirmă contul tău",
+    "View details" : "Vezi detalii",
+    "A new contact request was submitted." : "O noua cerere de contact a fost creată.",
+    "A new help request was submitted." : "O noua solicitare de ajutor a fost creată.",
+    "Guests number" : "Număr persoane",
     "A partnership with": "Un proiect în parteneriat cu",
     "made by": "realizat de"
 }

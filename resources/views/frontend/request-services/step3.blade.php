@@ -59,8 +59,8 @@
                                                                 class="custom-select form-control @error('known_languages') is-invalid @enderror"
                                                                 required multiple>
                                                             @foreach ($languages as $language)
-                                                                    <option
-                                                                        value="{{ $language->endonym }}">{{ $language->endonym }}</option>
+                                                            <option value="{{ $language->endonym }}">
+                                                                {{ $language->endonym }}</option>
                                                             @endforeach
                                                         </select>
 

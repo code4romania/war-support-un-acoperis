@@ -20,6 +20,7 @@ class HelpRequestService
         $helpRequest->need_special_transport = (bool)($data['need_special_transport'] ?? false);
         $helpRequest->status = HelpRequest::STATUS_NEW;
         $helpRequest->save();
+
         return $helpRequest;
     }
 
