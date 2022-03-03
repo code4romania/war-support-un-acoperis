@@ -290,7 +290,7 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdn.tiny.cloud/1/bgsado4b682dgf10owt5ns07i6jh5vcf36tc06nntxc08asr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="{{config('tiny.url')}}" referrerpolicy="origin"></script>
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
         tinymce.init({selector: '#description', menubar: false, toolbar: null });
