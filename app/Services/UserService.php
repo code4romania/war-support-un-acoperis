@@ -82,7 +82,7 @@ class UserService
      */
     private function prepareUserParams($request, bool $approved = true): array
     {
-        $attributes = $request->new_user;
+        $attributes = $request->new_user ?? $request->validated();
 
         $userParams = [
             'name' => $attributes['name'],
@@ -90,10 +90,10 @@ class UserService
             'password' => Hash::make(Str::random(10)),
             'remember_token' => Str::random(10),
             'country_id' => $attributes['country_id'] ?? null,
-            'county_id' => $attributes['county_id'],
+            'county_id' => $attributes['county_id'] ?? null,
             'city' => $attributes['city'],
-            'address' => $attributes['address'],
-            'phone_number' => $attributes['phone'],
+            'address' => $attributes['address'] ?? null,
+            'phone_number' => $attributes['phone'] ?? null,
         ];
 
         if ($approved)
