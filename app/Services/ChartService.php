@@ -155,18 +155,16 @@ class ChartService
 
     private function getRegistredHosts(string $interval)
     {
-        $groupBy = $this->getGroupBy($interval, 'users.created_at');
 
         $queryResults = DB::select("
             SELECT
-                {$groupBy} label,
+                DATE(created_at) as label,
                 COUNT(*) val
             FROM users
             JOIN model_has_roles ON model_has_roles.model_type = 'App\\\\User'
                 AND model_has_roles.model_id = users.id
-                AND role_id = 2
-            WHERE users.approved_at IS NOT NULL
-            GROUP BY {$groupBy}
+                AND model_has_roles.role_id = 3
+            GROUP BY label
         ");
 
         $results = [];
@@ -179,21 +177,14 @@ class ChartService
 
     private function registredHelpRequest(string $interval)
     {
-        $groupBy = $this->getGroupBy($interval, 'help_requests.created_at');
-
-        $queryResults = DB::select("
-            SELECT
-                {$groupBy} label,
-                COUNT(*) val
-            FROM help_requests
-            JOIN help_request_types ON help_request_types.help_request_id = help_requests.id
-            WHERE help_requests.deleted_at IS NULL
-            GROUP BY {$groupBy}
-        ");
+        $queryResults = DB::table('help_requests')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as number'))
+            ->groupBy('date')
+            ->get();
 
         $results = [];
         foreach ($queryResults as $queryResult) {
-            $results[$queryResult->label] = $queryResult->val;
+            $results[$queryResult->date] = $queryResult->number;
         }
 
         return $results;
@@ -201,23 +192,14 @@ class ChartService
 
     private function accomodationsApproved(string $interval)
     {
-        $groupBy = $this->getGroupBy($interval, 'help_requests.created_at');
-
-        $queryResults = DB::select("
-            SELECT
-                {$groupBy} label,
-                COUNT(*) val
-            FROM help_requests
-            JOIN help_request_types ON help_request_types.help_request_id = help_requests.id
-                AND help_request_types.approve_status = '" . HelpRequestType::APPROVE_STATUS_APPROVED . "'
-                AND help_request_types.help_type_id = 6
-            WHERE help_requests.deleted_at IS NULL
-            GROUP BY {$groupBy}
-        ");
+        $queryResults = DB::table('accommodations')
+            ->select(DB::raw('DATE(approved_at) as date'), DB::raw('count(*) as number'))
+            ->groupBy('date')
+            ->get();
 
         $results = [];
         foreach ($queryResults as $queryResult) {
-            $results[$queryResult->label] = $queryResult->val;
+            $results[$queryResult->date] = $queryResult->number;
         }
 
         return $results;

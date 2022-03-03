@@ -10,9 +10,6 @@
             @include('partials.aria-graph', ['id' => 1, 'type' => 'registredHosts', 'title' => 'Numarul de gazde inregistrate pe platforma'])
             @include('partials.aria-graph', ['id' => 2, 'type' => 'registredHelpRequest', 'title' => 'Numar solicitari de ajutor inregistrate pe platforma'])
             @include('partials.aria-graph', ['id' => 3, 'type' => 'accomodationsApproved', 'title' => 'Numarul de persoane care au beneficiat de cazare'])
-            @include('partials.aria-graph', ['id' => 4, 'type' => 'fundRaisingApproved', 'title' => 'Numarul de persoane care au beneficiat de consultanta strangere fonduri'])
-            @include('partials.aria-graph', ['id' => 5, 'type' => 'infosApproved', 'title' => 'Numarul de persoane care au beneficiat de informare si indrumare medicala'])
-            @include('partials.aria-graph', ['id' => 6, 'type' => 'othersApproved', 'title' => 'Numarul de persoane care au beneficiat de alte servicii', 'last' => true])
         </div>
         <div class="col-sm-3">
             <div id="sidebar" class="sidebar-dash" >
@@ -20,55 +17,37 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $hostsStats->totalHosts }}</span>
+                                <span class="count">{{ $dashboardStats["hostsNumber"] }}</span>
                                 <i class="ni ni-badge"></i>
                             </h1>
-                            <small class="text-muted">Numar total gazde</small>
+                            <small class="text-muted">{{ __('Accommodations number') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->registredHelpRequest }}</span>
+                                <span class="count">{{ $dashboardStats["requestsNumber"] }}</span>
                                 <i class="ni ni-archive-2"></i>
                             </h1>
-                            <small class="text-muted">Numar total solicitari</small>
+                            <small class="text-muted">{{ __('Help requests number') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->accomodationsApproved }}</span>
+                                <span class="count">{{ $dashboardStats["allocatedNumber"] }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
-                            <small class="text-muted">Numar total beneficiari de cazare</small>
+                            <small class="text-muted">{{ __('Solved requests number') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->fundRaisingApproved }}</span>
+                                <span class="count">{{ $dashboardStats["approvedAccommodations"] }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
-                            <small class="text-muted">Numar total beneficiari de consultanta strangere fonduri</small>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->infosApproved }}</span>
-                                <i class="ni ni-single-02"></i>
-                            </h1>
-                            <small class="text-muted">Numar total beneficiari de informare si indrumare medicala</small>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-0">
-                        <div class="card-body">
-                            <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $helpRequestsStats->othersApproved }}</span>
-                                <i class="ni ni-single-02"></i>
-                            </h1>
-                            <small class="text-muted">Numar total beneficiari de alte servicii</small>
+                            <small class="text-muted">{{ __('Verified hosts') }}</small>
                         </div>
                     </div>
                 </div>

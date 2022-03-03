@@ -211,7 +211,7 @@ class Accommodation extends Model implements Auditable
         return $query->where('is_free', 1);
     }
 
-    public function scopeIsApproved(Builder $query): Builder
+    public function scopeApproved(Builder $query): Builder
     {
         return $query->whereNotNull('approved_at');
     }

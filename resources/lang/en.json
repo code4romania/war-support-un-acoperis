@@ -45,8 +45,8 @@
     "If you need help Caretaker full nameplease contact Asociația MAME": "If you need help Code for Romania ",
     "Support this project": "Support the project",
     "About the project": "About the project",
-    "Request Help": "Ask for help",
-    "Offer Help": "Offer help",
+    "Request Accommodation": "Ask for accommodation",
+    "Offer Accommodation": "Offer accommodation",
     "Clinic List": "List of clinics",
     "Donate": "Donate",
     "Login host": "Login",
@@ -473,5 +473,9 @@
     "This help request is already resolved": "This help request is already resolved",
     "Not enough space": "Not enough space",
     "Successfully operation": "Successfully operation",
+    "Solved requests number": "Solved requests number",
+    "Help requests number": "Help requests number",
+    "Accommodations number": "Accommodations number",
+    "Verified hosts": "Verified hosts",
     "Offer accommodation": "Offer accommodation"
 }

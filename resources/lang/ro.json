@@ -45,8 +45,11 @@
     "If you need help Caretaker full nameplease contact Asociația MAME": "Dacă ai nevoie de ajutor contactează Asociația Code for Romania",
     "Support this project": "Susține proiectul",
     "About the project": "Despre proiect",
-    "Request Help": "Solicită ajutor",
-    "Offer Help": "Oferă ajutor",
+    "Request Accommodation": "Solicită cazare",
+    "Offer Accommodation": "Oferă cazare",
+    "Accommodation requests": "Cereri de cazare",
+    "Available accommodations": "Cazări disponibile",
+    "Fulfilled accommodations": "Cazări accesate",
     "Clinic List": "Lista clinicilor",
     "Donate": "Donează",
     "Login host": "Autentificare",
@@ -453,5 +456,9 @@
     "Thank you for your generosity": "Îți mulțumim pentru generozitate",
     "You will be contacted" : "Vei fi contactat fie telefonic, fie în persoană, de un reprezentant al autorităților pentru a verifica informația pe care ne-ai furnizat-o. Între timp ți-am trimis pe email o copie a formularului pe care l-ai completat și un link pentru a putea să îți accesezi contul creat în platformă pentru a vedea statusul ofertei tale.",
     "Your message was successfully sent. You will be contacted soon." : "Mesajul dumneavoastră a fost trimis cu succes. Veți fi contactat în scurt timp.",
+    "Solved requests number": "Numar total de persoane cazate",
+    "Help requests number": "Numar total solicitari",
+    "Accommodations number": "Numar total gazde",
+    "Verified hosts": "Numar total de gazde verificate",
     "Offer accommodation": "Oferă cazare"
 }
