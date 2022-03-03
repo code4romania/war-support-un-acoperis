@@ -788,8 +788,9 @@ class AjaxController extends Controller
     public function accommodationRequestsList(int $id, Request $request)
     {
         /** @var Accommodation|null $query */
-        $query = Accommodation::join('help_request_accommodation_details', 'help_request_accommodation_details.accommodation_id', '=', 'accommodations.id')
-            ->join('help_requests', 'help_request_accommodation_details.help_request_id', '=', 'help_requests.id')
+        $query = Accommodation::join('allocations', 'allocations.accommodation_id', '=', 'accommodations.id')
+            ->join('help_requests', 'allocations.help_request_id', '=', 'help_requests.id')
+            ->join('users', 'users.id', '=', 'help_requests.user_id')
             ->where('accommodations.id', '=', $id);
 
         $perPage = 10;
@@ -800,14 +801,13 @@ class AjaxController extends Controller
 
         $query->select([
             'help_requests.id',
-            'help_requests.patient_full_name',
-            'help_requests.caretaker_full_name',
-            'help_request_accommodation_details.guests_number',
-            'help_request_accommodation_details.start_date',
-            'help_request_accommodation_details.end_date',
+            'users.name',
+            'allocations.number_of_guest',
+            'allocations.created_at',
+            'allocations.updated_at',
         ]);
 
-        $query->orderBy('help_request_accommodation_details.start_date', 'desc');
+        $query->orderBy('allocations.created_at', 'desc');
 
         return response()->json(
             $query->paginate($perPage)

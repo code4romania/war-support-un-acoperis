@@ -231,11 +231,10 @@
                 <table class="table table-striped w-100 mb-0">
                     <thead class="thead-dark">
                     <tr>
-                        <th>Pacient</th>
-                        <th>Responsabil</th>
-                        <th>Nr persoane</th>
-                        <th>{{ __('Starting with') }}</th>
-                        <th>{{ __('Until') }}</th>
+                        <th>{{ __('Refugee name') }}</th>
+                        <th>{{ __('Number of quests') }}</th>
+                        <th>{{ __('Allocation date') }}</th>
+                        <th>{{ __('Updated at') }}</th>
                         <th class="text-right">{{ __('Actions') }}</th>
                     </tr>
                     </thead>
@@ -298,11 +297,10 @@
 
                 $.each(responseData, function(key, value) {
                     let row = '<tr>\n' +
-                        '    <td>' + value.patient_full_name + '</td>\n' +
-                        '    <td>' + value.caretaker_full_name + '</td>\n' +
-                        '    <td>' + value.guests_number + '</td>\n' +
-                        '    <td>' + value.start_date + '</td>\n' +
-                        '    <td>' + value.end_date + '</td>\n' +
+                        '    <td>' + value.name + '</td>\n' +
+                        '    <td>' + value.number_of_guest + '</td>\n' +
+                        '    <td>' + value.created_at + '</td>\n' +
+                        '    <td>' + value.updated_at + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/admin/help-request/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-info mb-2 mb-sm-0" >Detalii cerere de ajutor</a>\n' +
                         '    </td>\n' +
