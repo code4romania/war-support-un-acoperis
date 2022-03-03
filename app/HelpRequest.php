@@ -17,6 +17,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  *
  * @property int $id
  * @property int user_id
+ * @property int|null created_by
  * @property string $current_location
  * @property int $guests_number
  * @property string $known_languages
@@ -76,6 +77,13 @@ class HelpRequest extends Model implements Auditable
             ->where('notes.entity_type', '=', Note::TYPE_HELP_REQUEST);
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function toSearchableArray(): array
     {

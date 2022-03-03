@@ -114,6 +114,10 @@ class AjaxController extends Controller
             } catch (\Exception $exception) { }
         }
 
+        if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
+            $query->where('created_by', auth()->user()->id);
+        }
+
         $query->select([
             'help_requests.id',
             'users.name',
