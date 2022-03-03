@@ -109,7 +109,7 @@ class ShareController extends Controller
         {
             $sessionUserId = session()->pull('createdRefugeeUserId');
             $user = User::find($sessionUserId);
-            (new HelpRequestService())->create($request,$user,auth()->user()->id);
+            (new HelpRequestService())->create($request, $user, auth()->user());
             session()->flash('success',__('Help request created successfully'));
             return redirect()->route('share.help.request.list');
         }
