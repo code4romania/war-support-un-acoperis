@@ -195,7 +195,7 @@
             {{--                            </div>--}}
             {{--                        </div>--}}
 
-            {{-- @TODO: somehow duplicate code, see signup-form.blade.php and add-accommodation.blade.php. Someone with more Blade knowledge maybe knows how to do this better --}}
+            {{-- @TODO: somehow duplicate code, see signup-form.blade.php and add-help-request.blade.php. Someone with more Blade knowledge maybe knows how to do this better --}}
             <div class="col-sm-3">
                 <div class="form-group">
                     <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
