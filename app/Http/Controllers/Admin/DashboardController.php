@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Accommodation;
 use App\Allocation;
 use App\HelpRequest;
 use App\HelpRequestType;
@@ -27,6 +28,7 @@ class DashboardController extends Controller
             "hostsNumber" => Role::withCount('users')->where('name', 'host')->first()->users_count ?? 0 ,
             "requestsNumber" => HelpRequest::count(),
             "allocatedNumber" => Allocation::count(),
+            "approvedAccommodations" => Accommodation::approved()->count(),
         ];
         return view('admin.dashboard')->with('dashboardStats', $dashboardStats);
     }

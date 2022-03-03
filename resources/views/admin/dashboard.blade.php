@@ -44,6 +44,15 @@
                             <small class="text-muted">{{ __('Solved requests number') }}</small>
                         </div>
                     </div>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h1 class="text-primary font-weight-600">
+                                <span class="count">{{ $dashboardStats["approvedAccommodations"] }}</span>
+                                <i class="ni ni-single-02"></i>
+                            </h1>
+                            <small class="text-muted">{{ __('Verified hosts') }}</small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
