@@ -5,7 +5,7 @@ services:
     image: library/nginx:stable-alpine
     volumes:
       - ./public:/var/www/html/public:ro,delegated
-      - ./.docker/nginx/vhost.conf:/etc/nginx/conf.d/default.conf:ro,cached
+      - ./.docker/nginx/vhost.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 80:80
 
@@ -16,8 +16,8 @@ services:
       target: dev_stage
     volumes:
     - ./:/var/www/html
-    - ./.docker/php/dev/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini:ro,cached
-    - ./.docker/php/dev/zzz-opcache-dev.ini:/usr/local/etc/php/conf.d/zzz-opcache-dev.ini:ro,cache
+    - ./.docker/php/dev/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini
+    - ./.docker/php/dev/zzz-opcache-dev.ini:/usr/local/etc/php/conf.d/zzz-opcache-dev.ini
 
   nodejs:
     image: node:16-alpine
