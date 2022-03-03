@@ -254,6 +254,6 @@ class AccommodationController extends Controller
         }
 
         $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number')]]);
-        return redirect()->back()->withSuccess(['This accommodation has been allocated']);
+        return redirect()->back()->with(['message' => 'Successfully operation']);
     }
 }
