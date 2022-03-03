@@ -84,15 +84,14 @@ class AjaxController extends Controller
         $query = HelpRequest::orderBy('id', 'desc');
 
         if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
-            $helpRequestIds = HelpRequest::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
-            $query->whereIn('help_requests.id', $helpRequestIds);
+            $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
         }
 
         if (
             $request->has('status') &&
             array_key_exists($request->get('status'), HelpRequest::statusList())
         ) {
-            $query->where('status', '=', $request->get('status'));
+            $query->where('help_requests.status', '=', $request->get('status'));
         }
 
         if ($request->has('startDate')) {
@@ -100,7 +99,7 @@ class AjaxController extends Controller
                 $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
 
                 if ($startDate->year >= 2020) {
-                    $query->where('created_at', '>=', $startDate);
+                    $query->where('help_requests.created_at', '>=', $startDate);
                 }
             } catch (\Exception $exception) { }
         }
@@ -110,19 +109,21 @@ class AjaxController extends Controller
                 $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
 
                 if ($endDate->year >= 2020) {
-                    $query->where('created_at', '<=', $endDate);
+                    $query->where('help_requests.created_at', '<=', $endDate);
                 }
             } catch (\Exception $exception) { }
         }
 
         $query->select([
-            'id',
-            'patient_full_name',
-            'caretaker_full_name',
-            'diagnostic',
-            'status',
-            'created_at'
-        ]);
+            'help_requests.id',
+            'users.name',
+            'help_requests.status',
+            'help_requests.need_car',
+            'help_requests.need_special_transport',
+            'help_requests.special_needs',
+            'help_requests.known_languages',
+            'help_requests.created_at'
+        ])->join('users', 'help_requests.user_id', '=', 'users.id' );
 
         $perPage = 10;
 

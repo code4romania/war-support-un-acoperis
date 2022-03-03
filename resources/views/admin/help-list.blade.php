@@ -85,9 +85,10 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Request ID') }}</th>
-                    <th>{{ __('Patient Name') }}</th>
-                    <th>{{ __('Caretaker Name') }}</th>
-                    <th>{{ __('Diagnostic') }}</th>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Special Needs') }}</th>
+                    <th>{{ __('Known Languages') }}</th>
+                    <th>{{ __('Transport') }}</th>
                     <th>{{ __('Request Status') }}</th>
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
@@ -136,11 +137,15 @@
 
                 let translations = {!! json_encode(\App\HelpRequest::statusList()) !!};
                 $.each(responseData, function(key, value) {
+                    let transportType = value.need_special_transport ? '{{ __('Special transport') }}' : value.need_car ? '{{ __('Car') }}' : '{{ __('Not Needed') }}';
+                    let specialNeeds =  value.special_needs ? '{{ __('Yes') }}' : '{{ __('No') }}';
+                    let knownLanguages = JSON.parse(value.known_languages).join(",");
                     let row = '<tr>\n' +
                         '    <td><a href="/admin/help/' + value.id + '">#' + value.id + '</a></td>\n' +
-                        '    <td>' + value.patient_full_name + '</td>\n' +
-                        '    <td>' + value.caretaker_full_name + '</td>\n' +
-                        '    <td>' + value.diagnostic + '</td>\n' +
+                        '    <td>' + value.name + '</td>\n' +
+                        '    <td>' + specialNeeds + '</td>\n' +
+                        '    <td>' + knownLanguages + '</td>\n' +
+                        '    <td>' + transportType + '</td>\n' +
                         '    <td>' + translations[value.status] + '</td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
