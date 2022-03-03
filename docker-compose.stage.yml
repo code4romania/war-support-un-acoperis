@@ -49,6 +49,8 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
       retries: 5
       timeout: 5s
+    ports:
+      - "127.0.0.1:3306:3306"
 
 volumes:
   db_data:
