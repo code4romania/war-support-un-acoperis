@@ -19,7 +19,9 @@ class HelpRequestController extends Controller
      */
     public function helpList()
     {
-        return view('admin.help-list');
+        return view('admin.help-list', [
+            'area' => 'admin'
+        ]);
     }
 
     /**

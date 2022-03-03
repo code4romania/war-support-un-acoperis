@@ -43,6 +43,7 @@ Route::middleware([ShareMiddleware::class])->prefix('/share')->group(function ()
     Route::get('accommodation/create','ShareController@accommodationCreate')->name('share.accommodation.create');
     Route::post('accommodation/store','ShareController@accommodationStore')->name('share.accommodation.store');
     Route::get('help-request','ShareController@helpRequestList')->name('share.help.request.list');
+    Route::get('help-request/{id}','ShareController@helpRequestDetail')->name('share.help.request.detail');
     Route::get('help-request/create','ShareController@helpRequestCreate')->name('share.help.request.create');
     Route::post('help-request/store','ShareController@helpRequestStore')->name('share.help.request.store');
     Route::post('help-request/create-refugee','ShareController@createHelpRequestUser')->name('share.help.request.create.refugee');
@@ -82,8 +83,8 @@ Route::middleware([Administration::class])
         Route::get('/clinic/category/delete/{id}', 'Admin\ClinicController@clinicCategoryDelete')->name('admin.clinic-category-delete');
         Route::get('/clinic/{id}', 'Admin\ClinicController@clinicDetail')->name('admin-clinic-detail');
 
-        Route::get('/help', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
-        Route::get('/help/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
+        Route::get('/help-request', 'Admin\HelpRequestController@helpList')->name('admin.help-list');
+        Route::get('/help-request/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help-detail');
 
         Route::get('/resources', 'Admin\ResourceController@resourceList')->name('admin.resource-list');
         Route::get('/resources/{id}/{page?}', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
