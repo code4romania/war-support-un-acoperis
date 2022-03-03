@@ -74,12 +74,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'donate' ? 'active' : '' }}" href="https://asociatiamame.ro/crowdfunding/doneaza/" target="_blank" rel="noopener">
-                                {{ __('Donate') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
                             <a class="nav-link {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}" href="{{ route('contact') }}">
                                 {{ __('Contact') }}
                             </a>
