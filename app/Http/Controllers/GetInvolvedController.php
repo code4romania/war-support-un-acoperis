@@ -148,7 +148,7 @@ class GetInvolvedController extends Controller
     public function accommodationSaved(Request $request)
     {
         //@TODO: should we check some stuff here?
-        return redirecT()->route('host.accommodation');
+        return redirect()->route('host.accommodation');
     }
 
 }
