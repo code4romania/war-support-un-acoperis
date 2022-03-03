@@ -18,10 +18,10 @@
                 <p class="mb-sm-5 mb-3">{!! $welcomeBody !!}</p>
                 <a
                     href="{{ route('request-services') }}"
-                    class="btn btn-lg btn-primary mr-3 px-sm-5">{{ __('Request Help') }}</a>
+                    class="btn btn-lg btn-primary mr-3 px-sm-5">{{ __('Request Accommodation') }}</a>
                 <a
                     href="{{ route('get-involved') }}"
-                    class="btn btn-lg btn-secondary px-sm-5">{{ __('Offer Help') }}</a>
+                    class="btn btn-lg btn-secondary px-sm-5">{{ __('Offer Accommodation') }}</a>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                         class="card-img-top w-25 mt-4 mb-2 mx-auto"
                         alt="Help requests">
                     <p class="h4">
-                        <b> {{ $helpRequests }} </b> Help requests
+                        <b> {{ $helpRequests }} </b> {{ __('Accommodation requests' )}}
                     </p>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         class="card-img-top w-25 mt-4 mb-2 mx-auto"
                         alt="Available accommodations">
                     <p class="h4">
-                        <b> {{ $freeAccommodations }}</b> Available accommodations
+                        <b> {{ $freeAccommodations }}</b> {{ __('Available accommodations') }}
                     </p>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                         class="card-img-top w-25 mt-4 mb-2  mx-auto"
                         alt="Fulfilled accommodations">
                     <p class="h4">
-                        <b> {{ $providedAccommodations }}</b> Fulfilled accommodations
+                        <b> {{ $providedAccommodations }}</b> {{ __('Fulfilled accommodations') }}
                     </p>
                 </div>
             </div>
@@ -74,8 +74,8 @@
                             {!! $askServicesBody !!}
                         </p>
                         <a
-                            href="{{ $askServicesLink }}"
-                            class="btn btn-white text-secondary btn-lg px-6 mt-4">{{ __('Read More') }}</a>
+                            href="{{ route('request-services') }}"
+                            class="btn btn-white text-secondary btn-lg px-6 mt-4">{{ __('Request Accommodation') }}</a>
                     </div>
                 </div>
                 <div class="col-sm-6 py-5 pl-sm-6">
@@ -85,8 +85,8 @@
                             {!! $becomeHostBody !!}
                         </p>
                         <a
-                            href="{{ $becomeHostLink }}"
-                            class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Partners List') }}</a>
+                            href="{{ route('get-involved') }}"
+                            class="btn btn-white text-primary btn-lg px-6 mt-4">{{ __('Offer Accommodation') }}</a>
                     </div>
                 </div>
             </div>
