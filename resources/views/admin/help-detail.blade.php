@@ -19,7 +19,7 @@
                         <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
                             <span>
-                            Locatie: <b>{{ $helpRequest->city }}</b>, Regiune <b>{{ $helpRequest->createdBy?->county->region_en }} ({{ $helpRequest->createdBy?->county->region_uk }})</b>
+                            Locatie: <b>{{ $helpRequest->city }}</b>, Regiune <b>{{ optional($helpRequest->createdBy)->county->region_en }} ({{ optional($helpRequest->createdBy)->county->region_uk }})</b>
                             </span>
                         </li>
                         <li class="d-flex">
