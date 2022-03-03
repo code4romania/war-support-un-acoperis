@@ -448,5 +448,9 @@
     "A new help request was submitted." : "O noua solicitare de ajutor a fost creată.",
     "Guests number" : "Număr persoane",
     "A partnership with": "Un proiect în parteneriat cu",
-    "made by": "realizat de"
+    "made by": "realizat de",
+    "You have successfully registered" : "Te-ai înregistrat cu succes",
+    "Thank you for your generosity": "Îți mulțumim pentru generozitate",
+    "You will be contacted" : "Vei fi contactat fie telefonic, fie în persoană, de un reprezentant al autorităților pentru a verifica informația pe care ne-ai furnizat-o. Între timp ți-am trimis pe email o copie a formularului pe care l-ai completat și un link pentru a putea să îți accesezi contul creat în platformă pentru a vedea statusul ofertei tale.",
+    "Your message was successfully sent. You will be contacted soon." : "Mesajul dumneavoastră a fost trimis cu succes. Veți fi contactat în scurt timp."
 }

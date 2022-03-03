@@ -13,7 +13,7 @@
                     {{ __('Thank you!') }}
                 </h1>
                 <p>
-                    {{ __("Your message was successfully sent.") }}
+                    {{ __("Your message was successfully sent. You will be contacted soon.") }}
                 </p>
             </div>
             <div class="col-sm-6">
