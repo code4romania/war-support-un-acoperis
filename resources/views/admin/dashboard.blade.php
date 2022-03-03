@@ -23,7 +23,7 @@
                                 <span class="count">{{ $dashboardStats["hostsNumber"] }}</span>
                                 <i class="ni ni-badge"></i>
                             </h1>
-                            <small class="text-muted">{{ __('Solved requests number') }}</small>
+                            <small class="text-muted">{{ __('Accommodations number') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
