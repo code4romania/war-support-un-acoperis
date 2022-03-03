@@ -229,6 +229,12 @@ class AccommodationController extends Controller
             ->withSuccess(__('Data successfully saved!'));
     }
 
+    /**
+     * Link accommodation with a help request on admin panel
+     * @param int $id
+     * @param AllocateRequest $request
+     * @return RedirectResponse
+     */
     public function allocate(int $id, AllocateRequest $request)
     {
         /** @var Accommodation|null $accommodation */
@@ -241,19 +247,19 @@ class AccommodationController extends Controller
         /** @var HelpRequest $helpRequest */
         $helpRequest = HelpRequest::find((int)$request->post('help_request_id'));
         if (empty($helpRequest)) {
-            return redirect()->back()->withErrors(['help_request_id' => 'There is no help request with this number']);
+            return redirect()->back()->withErrors(['help_request_id' => __('There is no help request with this number')]);
         }
 
         if ($helpRequest->isAllocated()) {
-            return redirect()->back()->withErrors(['help_request_id' => 'This help request is already resolved']);
+            return redirect()->back()->withErrors(['help_request_id' => __('This help request is already resolved')]);
         }
 
         $reservedNumber = $accommodation->helpRequests->sum('guests_number');
         if ($reservedNumber + $helpRequest->guests_number > $accommodation->max_guests) {
-            return redirect()->back()->withErrors(['guests_number' => 'Not enough space']);
+            return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
         }
 
         $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number')]]);
-        return redirect()->back()->with(['message' => 'Successfully operation']);
+        return redirect()->back()->with(['message' => __('Successfully operation')]);
     }
 }
