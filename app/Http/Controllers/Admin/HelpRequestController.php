@@ -37,8 +37,9 @@ class HelpRequestController extends Controller
             abort(404);
         }
 
-
-        return view('admin.help-detail')
-            ->with('helpRequest', $helpRequest);
+        return view('admin.help-detail', [
+            'helpRequest' => $helpRequest,
+            'area' => 'admin'
+        ]);
     }
 }

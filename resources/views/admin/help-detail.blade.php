@@ -174,12 +174,14 @@
         let setRequestStatus = function(status) {
             let badgeColor = 'badge-success';
 
-            if ('new' === status) {
+            if ('padding' === status) {
                 badgeColor = 'badge-danger';
             } else if ('in-progress' === status) {
                 badgeColor = 'badge-warning';
             } else if ('completed' === status) {
                 badgeColor = 'badge-success';
+            } else if ('allocated' === status) {
+                badgeColor = 'badge-warning';
             }
 
             $('#requestStatus span').remove();
@@ -258,10 +260,10 @@
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                .delete('/admin/ajax/help-request/{{ $helpRequest->id }}')
+                .delete('/{{ $area }}/ajax/help-request/{{ $helpRequest->id }}')
                 .then(response => {
                     $('#deleteRequestModal').modal('hide');
-                    window.location.replace('{{ route('admin.help-list') }}');
+                    window.location.replace('{{ route( $area . '.help.request.list') }}');
                 })
                 .catch(error => {
                     console.log(error);
@@ -285,7 +287,7 @@
                         _token: "{{ csrf_token() }}"
                     })
                     .then(response => {
-                        window.location.href = '{{ @route('admin.help-detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
+                        window.location.href = '{{ @route('admin.help.request.detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
                         window.location.reload();
                     })
                     .catch(error => {
@@ -303,7 +305,7 @@
                         accommodation_id: accommodationId,
                     })
                     .then(response => {
-                        window.location.href = '{{ @route('admin.help-detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
+                        window.location.href = '{{ @route($area . '.help.request.detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
                         window.location.reload();
                     })
                     .catch(error => {

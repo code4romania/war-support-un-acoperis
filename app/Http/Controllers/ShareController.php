@@ -96,8 +96,11 @@ class ShareController extends Controller
             abort(403);
         }
 
-        return view('admin.help-detail')
-            ->with('helpRequest', $helpRequest);
+        return view('admin.help-detail', [
+            'helpRequest' => $helpRequest,
+           'area' => 'share'
+        ]);
+
     }
 
     public function helpRequestCreate(Request $request, SettingRepository $settingRepository)

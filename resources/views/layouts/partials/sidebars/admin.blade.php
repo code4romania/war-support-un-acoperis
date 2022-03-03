@@ -11,7 +11,7 @@
 <a href="{{ route('admin.accommodation-list', ['status' => 2]) }}" class="list-group-item list-group-item-action sub-list ">
     <i class="fa fa-minus mx-3"></i>Neaprobate
 </a>
-<a href="{{ route('admin.help-list') }}" class="list-group-item list-group-item-action ">
+<a href="{{ route('admin.help.request.list') }}" class="list-group-item list-group-item-action ">
     <img src="/images/hand-icon.svg" class="mr-3">Solicitări cazări
 </a>
 <a href="{{ route('admin.user-list') }}" class="list-group-item list-group-item-action ">
