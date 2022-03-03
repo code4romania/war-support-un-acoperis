@@ -32,7 +32,7 @@ class ShareController extends Controller
         $counties = Accommodation::join('counties', 'counties.id', '=', 'accommodations.address_county_id');
 
 
-        return view('admin.accommodation-list',)
+        return view('admin.accommodation-list')
             ->with('types', AccommodationType::all()->pluck('name', 'id'))
             ->with('countries', $countries->get(['countries.id', 'countries.name'])->pluck('name', 'id')->toArray())
             ->with('counties', $counties->get(['counties.id', 'counties.name'])->pluck('name', 'id')->toArray())
@@ -56,7 +56,7 @@ class ShareController extends Controller
             ->with('countries', Country::all())
             ->with('counties', County::all())
             ->with('hostType', old('host_type_copy'))
-            ->with('description', '');;
+            ->with('description', '');
 
     }
     public function accommodationStore(AccommodationRequest $request)
@@ -80,10 +80,8 @@ class ShareController extends Controller
 
     public function helpRequestList(Request $request)
     {
-        $user = auth()->user();
-        return view('admin.help-list',)
-            ->with('approvalStatus', $request->get('status'))
-            ->with('user', $user);
+        return view('admin.help-list')
+            ->with('approvalStatus', $request->get('status'));
     }
 
     public function helpRequestCreate(Request $request, SettingRepository $settingRepository)
