@@ -9,9 +9,14 @@
         @if (!$accommodation->isAlreadyFull())
         <form action="{{route('admin.allocate.user.to.host', ['id' => $accommodation->id])}}" method="post">
             {{ csrf_field() }}
+            @if(session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
             <div class="form-group">
-                <label class="form-check-label" for="capacity">{{ __('Capacity') }}</label>
-                <p>{{$accommodation->max_guests}}</p>
+                <label class="form-check-label" for="capacity">{{ __('Occupied') }} /  {{ __('Capacity') }}</label>
+                <p>{{ $accommodation->getOccupiedSpace() }} / {{$accommodation->max_guests}}</p>
             </div>
             <div class="form-row">
                 <div class="col">
