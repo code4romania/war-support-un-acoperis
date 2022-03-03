@@ -44,6 +44,8 @@ Route::middleware([ShareMiddleware::class])->prefix('/share')->group(function ()
     Route::post('accommodation/store','ShareController@accommodationStore')->name('share.accommodation.store');
     Route::get('help-request','ShareController@helpRequestList')->name('share.help.request.list');
     Route::get('help-request/create','ShareController@helpRequestCreate')->name('share.help.request.create');
+    Route::post('help-request/store','ShareController@helpRequestStore')->name('share.help.request.store');
+    Route::post('help-request/create-refugee','ShareController@createHelpRequestUser')->name('share.help.request.create.refugee');
     Route::get('ajax/accommodations', 'AjaxController@accommodationList')->name('ajax.accommodation-list');
     Route::get('accommodation/{id}', 'Admin\AccommodationController@view')->name('admin.accommodation-detail');
 });
@@ -205,6 +207,7 @@ Route::middleware([Trusted::class])
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+        Route::get('/ajax/help-requests', 'AjaxController@helpRequests')->name('share.ajax.help-requests');
     });
 
 

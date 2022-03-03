@@ -81,7 +81,6 @@ class RequestServicesController extends Controller
         return redirect()->route('request-services-step3');
     }
 
-
     public function submitStep3(ServiceRequest $request): RedirectResponse
     {
         $helpRequest = (new HelpRequestService)->create($request->validated());
