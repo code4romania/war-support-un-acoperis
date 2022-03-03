@@ -10,9 +10,6 @@
             @include('partials.aria-graph', ['id' => 1, 'type' => 'registredHosts', 'title' => 'Numarul de gazde inregistrate pe platforma'])
             @include('partials.aria-graph', ['id' => 2, 'type' => 'registredHelpRequest', 'title' => 'Numar solicitari de ajutor inregistrate pe platforma'])
             @include('partials.aria-graph', ['id' => 3, 'type' => 'accomodationsApproved', 'title' => 'Numarul de persoane care au beneficiat de cazare'])
-            @include('partials.aria-graph', ['id' => 4, 'type' => 'fundRaisingApproved', 'title' => 'Numarul de persoane care au beneficiat de consultanta strangere fonduri'])
-            @include('partials.aria-graph', ['id' => 5, 'type' => 'infosApproved', 'title' => 'Numarul de persoane care au beneficiat de informare si indrumare medicala'])
-            @include('partials.aria-graph', ['id' => 6, 'type' => 'othersApproved', 'title' => 'Numarul de persoane care au beneficiat de alte servicii', 'last' => true])
         </div>
         <div class="col-sm-3">
             <div id="sidebar" class="sidebar-dash" >
