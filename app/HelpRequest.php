@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -58,9 +59,14 @@ class HelpRequest extends Model implements Auditable
         ];
     }
 
+    public function accommodation(): BelongsToMany
+    {
+        return $this->belongsToMany(Accommodation::class, 'allocations', 'help_request_id', 'accommodation_id');
+    }
+
     public function isAllocated(): bool
     {
-        return (bool)$this->accommodation;
+        return $this->accommodation()->exists();
     }
 
 

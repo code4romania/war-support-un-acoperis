@@ -99,6 +99,16 @@ class Accommodation extends Model implements Auditable
         return $this->belongsTo(User::class);
     }
 
+    public function isAlreadyFull()
+    {
+        return $this->helpRequests->sum('guests_number') >= $this->max_guests;
+    }
+
+    public function helpRequests() : BelongsToMany
+    {
+        return $this->belongsToMany(HelpRequest::class, 'allocations', 'accommodation_id', 'help_request_id');
+    }
+
     /**
      * @return BelongsTo
      */

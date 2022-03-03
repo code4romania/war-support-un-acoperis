@@ -7,8 +7,10 @@ use App\AccommodationPhoto;
 use App\AccommodationType;
 use App\AccommodationsAvailabilityIntervals;
 use App\FacilityType;
+use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
+use App\Http\Requests\Admin\AllocateRequest;
 use App\Services\AccommodationService;
 use App\User;
 use Illuminate\Http\RedirectResponse;
@@ -225,5 +227,33 @@ class AccommodationController extends Controller
         return redirect()
             ->route('admin.host-detail', $accommodation->user_id)
             ->withSuccess(__('Data successfully saved!'));
+    }
+
+    public function allocate(int $id, AllocateRequest $request)
+    {
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation)) {
+            abort(404);
+        }
+
+        /** @var HelpRequest $helpRequest */
+        $helpRequest = HelpRequest::find((int)$request->post('help_request_id'));
+        if (empty($helpRequest)) {
+            return redirect()->back()->withErrors(['help_request_id' => 'There is no help request with this number']);
+        }
+
+        if ($helpRequest->isAllocated()) {
+            return redirect()->back()->withErrors(['help_request_id' => 'This help request is already resolved']);
+        }
+
+        $reservedNumber = $accommodation->helpRequests->sum('guests_number');
+        if ($reservedNumber + $helpRequest->guests_number > $accommodation->max_guests) {
+            return redirect()->back()->withErrors(['guests_number' => 'Not enough space']);
+        }
+
+        $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number')]]);
+        return redirect()->back()->withSuccess(['This accommodation has been allocated']);
     }
 }
