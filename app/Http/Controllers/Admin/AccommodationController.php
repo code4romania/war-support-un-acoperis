@@ -57,6 +57,14 @@ class AccommodationController extends Controller
         /** @var Accommodation|null $accommodation */
         $accommodation = Accommodation::find($id);
 
+        if (auth()->user()->isTrusted())
+        {
+           if ( $accommodation->created_by != auth()->user()->id)
+           {
+               return redirect()->back();
+           }
+        }
+
         if (empty($accommodation)) {
             abort(404);
         }

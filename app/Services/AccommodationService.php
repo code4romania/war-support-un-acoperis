@@ -18,12 +18,13 @@ use Illuminate\Support\Facades\Storage;
 
 class AccommodationService
 {
-    public function createAccommodation(AccommodationRequest $request, User $user): Accommodation
+    public function createAccommodation(AccommodationRequest $request, User $user, int $createdBy = null): Accommodation
     {
         DB::beginTransaction();
 
         $accommodation = new Accommodation();
         $accommodation->user_id = $user->id;
+        $accommodation->created_by = $createdBy ?: $user->id;
         $accommodation->accommodation_type_id = $request->get('type');
         $accommodation->ownership_type = $request->get('ownership');
         $accommodation->is_fully_available = ('fully' == $request->get('property_availability'));
@@ -51,6 +52,7 @@ class AccommodationService
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance');
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
         $accommodation->transport_other_details = $request->get('transport_other_details');
+        $accommodation->approved_at = $createdBy ? now() : null;
         $accommodation->save();
 
         if ($request->has('general_facility')) {
