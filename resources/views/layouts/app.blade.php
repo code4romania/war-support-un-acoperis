@@ -121,7 +121,10 @@
             <div class="inline-flex items-center justify-content-between py-4">
                 <span>{{ __('A partnership with') }}</span>
                 <div class="grid items-center">
-                    <a href="http://www.dsu.mai.gov.ro/" target="_blank" rel="noopener" class="inline-block ml-4">
+                    <img src="/images/gov_ro.svg" class="inline-block ml-2 h-5" alt="Romanian GOV Logo">
+                </div>
+                <div class="grid items-center">
+                    <a href="http://www.dsu.mai.gov.ro/" target="_blank" rel="noopener" class="inline-block ml-2">
                         <img src="/images/dsu.png" class="inline-block h-5" alt="">
                     </a>
                 </div>

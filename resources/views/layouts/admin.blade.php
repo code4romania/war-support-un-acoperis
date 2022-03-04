@@ -8,7 +8,10 @@
             </a>
             <div class="inline-flex items-center justify-content-between py-4">
                 <div class="grid items-center">
-                    <a href="http://www.dsu.mai.gov.ro/" target="_blank" rel="noopener" class="inline-block ml-4">
+                    <img src="/images/gov_ro.svg" class="inline-block ml-2 h-5" alt="Romanian GOV Logo">
+                </div>
+                <div class="grid items-center">
+                    <a href="http://www.dsu.mai.gov.ro/" target="_blank" rel="noopener" class="inline-block ml-2">
                         <img src="{{ url('/images/dsu.png') }}" class="inline-block h-5" alt="">
                     </a>
                     <a href="https://code4.ro" target="_blank" rel="noopener" class="inline-block ml-4">
