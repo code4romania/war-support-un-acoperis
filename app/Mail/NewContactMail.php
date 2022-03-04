@@ -16,15 +16,17 @@ class NewContactMail extends Mailable
     public array $data;
     public array $institutionTypes;
     public array $supportTypes;
+    public ?string $overwriteSubject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $overwriteSubject = null)
     {
         $this->data = $data;
+        $this->overwriteSubject = $overwriteSubject;
 
         $optionsRepository = new OptionsRepository();
         $this->institutionTypes = $optionsRepository->getInstitutionTypes();
@@ -38,7 +40,12 @@ class NewContactMail extends Mailable
      */
     public function build()
     {
+        $subject = __("Message from :name", ['name' => $this->data['institution']]);
+        if (!empty($this->overwriteSubject))
+        {
+            $subject = $this->overwriteSubject;
+        }
         return $this->markdown('emails/contact')
-            ->subject(__("Message from :name", ['name' => $this->data['institution']]));
+            ->subject($subject);
     }
 }

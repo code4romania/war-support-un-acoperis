@@ -163,7 +163,7 @@
     "Full name placeholder": "Ана-Мария Василе",
     "Select country": "Выберите страну",
     "Select city": "Выберите город",
-    "City placeholder": "Вена",
+    "City placeholder": "Киев",
     "Location": "Место нахождения",
     "Address placeholder": "Адрес владельца,   «Улица, номер и т. д.»,;",
     "Phone placeholder": "0760 000 000",
@@ -445,5 +445,7 @@
     "I need special transport (e.g. car with wheelchair space)": "Мне нужен специальный транспорт (например, автомобиль с местом для инвалидной коляски)",
     "A partnership with": "Проект в партнерстве",
     "made by": "реализовано",
+    "Hotel/Guesthouse": "Отель/гостевой дом",
+    "Other spaces": "Другие места"
     "Offer accommodation": "Предоставляй жилье"
 }

@@ -162,7 +162,7 @@
     "Full name placeholder": "Ana-Maria Vasile",
     "Select country": "Оберіть країну",
     "Select city": "Оберіть країну",
-    "City placeholder": "Відень",
+    "City placeholder": "Київ",
     "Location": "Місце знаходження",
     "Address placeholder": "Вулиця, номер, і т.д.",
     "Phone placeholder": "0760 000 000",
@@ -444,5 +444,7 @@
     "I need special transport (e.g. car with wheelchair space)": "Мені потрібен спеціальний транспорт (наприклад, автомобіль з місцем для інвалідних візків)",
     "A partnership with": "Проект у партнерстві з",
     "made by": "створено",
+    "Hotel/Guesthouse": "Готель/Гостьовий будинок",
+    "Other spaces": "Інші простори"
     "Offer accommodation": "Надай житло"
 }
