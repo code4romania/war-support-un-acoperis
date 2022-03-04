@@ -1,3 +1,7 @@
+<a href="{{ route('trusted.home') }}"
+   class="list-group-item list-group-item-action {{ handleActiveClass('trusted.home*') }}">
+    <i class="fa fa-home mr-3"></i>{{__('General')}}
+</a>
 <a href="{{ route('share.accommodation.list') }}" class="list-group-item list-group-item-action ">
     <i class="fa fa-bed mr-3"></i>{{__('Offer host')}}
 </a>
