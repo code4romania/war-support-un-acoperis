@@ -15,6 +15,7 @@ use App\Language;
 use App\Mail\HelpRequestMail;
 use App\Services\AccommodationService;
 use App\Services\HelpRequestService;
+use App\Services\RefugeeService;
 use App\Services\UserService;
 use App\UaRegion;
 use App\User;
@@ -141,7 +142,7 @@ class ShareController extends Controller
 
     public function createHelpRequestUser(ServiceRequest $request): RedirectResponse
     {
-        $user = (new UserService())->createRefugeeUser($request);
+        $user = (new RefugeeService())->createRefugee($request);
         session()->put('createdRefugeeUserId',$user->id);
         return redirect()->back();
     }

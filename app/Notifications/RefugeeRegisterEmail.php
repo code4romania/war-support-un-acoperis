@@ -2,23 +2,36 @@
 
 namespace App\Notifications;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 class RefugeeRegisterEmail extends Notification
 {
     use Queueable;
 
+    private string $passwordResetLink;
+    /**
+     * @var User
+     */
+    private User $user;
+
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param User   $user
+     * @param string $resetToken
      */
-    public function __construct()
+    public function __construct(User $user, string $resetToken)
     {
-        //
+        $this->passwordResetLink = route('password.reset', [
+            'locale' => App::getLocale(),
+            'token' => $resetToken,
+        ]);
+        $this->user = $user;
     }
 
     /**
@@ -41,9 +54,10 @@ class RefugeeRegisterEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(__("Thank you for your signup"))
+            ->line($this->user->name . ', ' . __('Please click here to confirm your account and choose a password'))
+            ->action(__("Confirm your account"), $this->passwordResetLink)
+            ->greeting(__("Thank you for your signup"));
     }
 
     /**
