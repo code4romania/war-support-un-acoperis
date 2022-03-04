@@ -52,10 +52,39 @@ class StaticPagesController extends Controller
             ->with('providedAccommodations',$providedAccommodations);
     }
 
-
     public function redirectToLocale()
     {
         $locale = app()->getLocale();
         return redirect()->route('home', ['locale' => $locale]);
+    }
+
+    /**
+     * @param SettingRepository $settingRepository
+     * @return View
+     */
+    public function refugeeTermsAndConditions(SettingRepository $settingRepository)
+    {
+        return view('frontend.terms-and-conditions')
+            ->with('termsAndConditions', $settingRepository->byKey('terms_and_conditions_for_refugees') ?? '');
+    }
+
+    /**
+     * @param SettingRepository $settingRepository
+     * @return View
+     */
+    public function hostTermsAndConditions(SettingRepository $settingRepository)
+    {
+        return view('frontend.terms-and-conditions')
+            ->with('termsAndConditions', $settingRepository->byKey('terms_and_conditions_for_hosts') ?? '');
+    }
+
+    /**
+     * @param SettingRepository $settingRepository
+     * @return View
+     */
+    public function trustedTermsAndConditions(SettingRepository $settingRepository)
+    {
+        return view('frontend.terms-and-conditions')
+            ->with('termsAndConditions', $settingRepository->byKey('terms_and_conditions_for_trusted') ?? '');
     }
 }
