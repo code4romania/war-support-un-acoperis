@@ -3,7 +3,8 @@
 @section('content')
     <section class="mb-5">
         <h6 class="page-title mb-3 font-weight-600">{{ __('Accommodation resource') }}</h6>
-        <a href="{{ route('admin.accommodation-list') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __('Back') }}</a>
+        <a href="{{ route('admin.accommodation-list') }}"
+           class="btn btn-sm btn-outline-primary mr-3">{{ __('Back') }}</a>
     </section>
     @if(@auth()->user()->isAdministrator())
         @include('partials.forms.allocate-form')
@@ -22,22 +23,26 @@
             <div class="row pb-3">
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-map-marker mr-2"></i> {{ __('Location') }}: <span class="font-weight-600">{{ $accommodation->getDisplayedAddress() }}</span>
+                        <i class="fa fa-map-marker mr-2"></i> {{ __('Location') }}: <span
+                            class="font-weight-600">{{ $accommodation->getDisplayedAddress() }}</span>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-phone mr-2"></i> {{ __('Phone Number') }}: <span class="font-weight-600">{{ $user->phone_number ?? 'N/A' }}</span>
+                        <i class="fa fa-phone mr-2"></i> {{ __('Phone Number') }}: <span
+                            class="font-weight-600">{{ $user->phone_number ?? 'N/A' }}</span>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0">
-                        <i class="fa fa-envelope mr-2"></i> {{ __('Email') }}: <a href="mailto:dan.vintu@gmail.com" class="font-weight-600">{{ $user->email ?? 'N/A' }}</a>
+                        <i class="fa fa-envelope mr-2"></i> {{ __('Email') }}: <a href="mailto:dan.vintu@gmail.com"
+                                                                                  class="font-weight-600">{{ $user->email ?? 'N/A' }}</a>
                     </p>
                 </div>
                 <div class="col-sm">
                     <p class="mb-0 text-sm-right">
-                        <i class="fa fa-calendar mr-2"></i> {{ __('Date') }}: <span class="font-weight-600">{{ $user->created_at->format('d.m.Y') }}</span>
+                        <i class="fa fa-calendar mr-2"></i> {{ __('Date') }}: <span
+                            class="font-weight-600">{{ $user->created_at->format('d.m.Y') }}</span>
                     </p>
                 </div>
             </div>
@@ -48,6 +53,13 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Accommodation') }}
             </h6>
+            @if(!$accommodation->isApproved())
+                <a class="btn btn-primary"
+                   href="{{ route('admin.accommodation-approve',['id'=>$accommodation->id])}}">{{__('Approve')}}</a>
+            @else
+                <a class="btn btn-primary"
+                   href="{{ route('admin.accommodation-disapprove',['id'=>$accommodation->id])}}">{{__('Disprove')}}</a>
+            @endif
         </div>
         <div class="card-body pt-4">
             <div class="row">
@@ -82,7 +94,8 @@
                         <p>{{ $accommodation->available_bathrooms }}</p>
                     </div>
                     <div class="kv">
-                        <h6 class="font-weight-600 mb-1">{{ __('Allow the use of the kitchen of the accommodated guests') }}?</h6>
+                        <h6 class="font-weight-600 mb-1">{{ __('Allow the use of the kitchen of the accommodated guests') }}
+                            ?</h6>
                         <p>{{ $accommodation->is_kitchen_available ? __('Yes') : __('No') }}</p>
                     </div>
                     <div class="kv">
@@ -103,9 +116,10 @@
                     <h5 class="font-weight-600 text-primary mb-4">{{ __('Accommodation photos') }}</h5>
                     @if(!empty($photos))
                         <div class="gallery d-flex flex-wrap mb-4">
-                        @foreach($photos as $photo)
-                            <a href="{{ $photo }}" data-toggle="lightbox"><img src="{{ $photo }}" alt="photo" class="img-fluid"></a>
-                        @endforeach
+                            @foreach($photos as $photo)
+                                <a href="{{ $photo }}" data-toggle="lightbox"><img src="{{ $photo }}" alt="photo"
+                                                                                   class="img-fluid"></a>
+                            @endforeach
                         </div>
                     @else
                         N/A
@@ -113,7 +127,8 @@
                     <h5 class="font-weight-600 text-primary mb-4">{{ __('Available facilities') }}</h5>
                     @if (!empty($generalFacilities->count()))
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-2">{{ __('What facilities does the accommodation have') }}?</h6>
+                            <h6 class="font-weight-600 mb-2">{{ __('What facilities does the accommodation have') }}
+                                ?</h6>
                             <ul class="list-unstyled list-custom gray-bullets">
                                 @foreach($generalFacilities as $generalFacility)
                                     <li>{{ __($generalFacility->name) }}</li>
@@ -123,7 +138,8 @@
                     @endif
                     @if (!empty($specialFacilities->count()))
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-2">{{ __('What special facilities does the accommodation space have') }}?</h6>
+                            <h6 class="font-weight-600 mb-2">{{ __('What special facilities does the accommodation space have') }}
+                                ?</h6>
                             <ul class="list-unstyled list-custom gray-bullets">
                                 @foreach($specialFacilities as $specialFacility)
                                     <li>{{ __($specialFacility->name) }}</li>
@@ -133,7 +149,8 @@
                     @endif
                     @if (!empty($otherFacilities))
                         <div class="kv">
-                            <h6 class="font-weight-600 mb-2">{{ __('What other facilities does the accommodation have') }}?</h6>
+                            <h6 class="font-weight-600 mb-2">{{ __('What other facilities does the accommodation have') }}
+                                ?</h6>
                             <ul class="list-unstyled list-custom gray-bullets">
                                 <li>{{ __('test') }}</li>
                             </ul>
@@ -194,11 +211,11 @@
     </div>
 
     <div class="card shadow">
-    @include('partials.notes', [
-        'notes' => $accommodation->notes,
-        'entityType' => \App\Note::TYPE_HELP_ACCOMMODATION,
-        'entityId' => $accommodation->id
-    ])
+        @include('partials.notes', [
+            'notes' => $accommodation->notes,
+            'entityType' => \App\Note::TYPE_HELP_ACCOMMODATION,
+            'entityId' => $accommodation->id
+        ])
     </div>
 
     <div class="card shadow">
@@ -266,7 +283,8 @@
     </div>
 
     <!-- Confirmare stergere cazare -->
-    <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bd-example-modal-sm" id="deleteAccommodationModal" tabindex="-1" role="dialog"
+         aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -279,8 +297,10 @@
                     {{ __('Are you sure you want to delete this accommodation') }}?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal" id="cancel">{{ __('Cancel') }}</button>
-                    <button type="button" class="btn btn-secondary" id="proceedDeleteAccommodation">{{ __('Yes') }}</button>
+                    <button type="button" class="btn btn-link text-dark" data-dismiss="modal"
+                            id="cancel">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-secondary"
+                            id="proceedDeleteAccommodation">{{ __('Yes') }}</button>
                 </div>
             </div>
         </div>
@@ -295,7 +315,7 @@
             renderTable(responseData) {
                 this.emptyTable();
 
-                $.each(responseData, function(key, value) {
+                $.each(responseData, function (key, value) {
                     let row = '<tr>\n' +
                         '    <td>' + value.name + '</td>\n' +
                         '    <td>' + value.number_of_guest + '</td>\n' +
@@ -309,7 +329,8 @@
                 });
             }
         }
-        $(document).ready(function() {
+
+        $(document).ready(function () {
             let pageState = {};
             pageState.page = 1;
             pageState.perPage = 15;
@@ -337,14 +358,14 @@
                 renderer.renderData(pageState);
             });
 
-            $('body').on('click', 'a.page-link', function(event) {
+            $('body').on('click', 'a.page-link', function (event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');
                 $.SetQueryStringParameter('page', pageState.page);
                 renderer.renderData(pageState);
             });
 
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
                 event.preventDefault();
                 $(this).ekkoLightbox({});
             });
@@ -354,19 +375,19 @@
                 $('#deleteAccommodationModal').modal('show');
             });
 
-            $('#proceedDeleteAccommodation').on('click', function() {
+            $('#proceedDeleteAccommodation').on('click', function () {
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                .delete('/admin/ajax/accommodation/{{ $accommodation->id }}')
-                .then(response => {
-                    $('#deleteAccommodationModal').modal('hide');
+                    .delete('/admin/ajax/accommodation/{{ $accommodation->id }}')
+                    .then(response => {
+                        $('#deleteAccommodationModal').modal('hide');
 
-                    window.location.replace('{{ route('admin.accommodation-list') }}');
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                        window.location.replace('{{ route('admin.accommodation-list') }}');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             });
         });
     </script>

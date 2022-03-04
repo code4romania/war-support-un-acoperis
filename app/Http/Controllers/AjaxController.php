@@ -25,6 +25,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumber;
 use libphonenumber\PhoneNumberUtil;
@@ -165,6 +166,30 @@ class AjaxController extends Controller
         /** @var HelpRequest $helpRequest */
         $helpRequest = HelpRequest::find($helpRequestType->help_request_id);
         $helpRequest->updateStatus();
+
+        return response()->json(['success' => 'true', 'requestStatus' => $helpRequest->status]);
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function updateHelpRequestStatus(Request $request, $id)
+    {
+        $attributes = $request->validate([
+            'status' => ['required', Rule::in(
+                array_keys(HelpRequest::statusList())
+            )]
+        ]);
+
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        $helpRequest->status = $attributes['status'];
+        $helpRequest->save();
 
         return response()->json(['success' => 'true', 'requestStatus' => $helpRequest->status]);
     }
