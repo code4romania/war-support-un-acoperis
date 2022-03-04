@@ -19,7 +19,9 @@ class HelpRequestController extends Controller
      */
     public function helpList()
     {
-        return view('admin.help-list');
+        return view('admin.help-list', [
+            'area' => 'admin'
+        ]);
     }
 
     /**
@@ -35,8 +37,9 @@ class HelpRequestController extends Controller
             abort(404);
         }
 
-
-        return view('admin.help-detail')
-            ->with('helpRequest', $helpRequest);
+        return view('admin.help-detail', [
+            'helpRequest' => $helpRequest,
+            'area' => 'admin'
+        ]);
     }
 }

@@ -77,8 +77,30 @@ class ShareController extends Controller
 
     public function helpRequestList(Request $request)
     {
-        return view('admin.help-list')
-            ->with('approvalStatus', $request->get('status'));
+        return view('admin.help-list', [
+            'area' => 'share',
+            'approvalStatus' => $request->get('status')
+        ]);
+    }
+
+    public function helpRequestDetail($id)
+    {
+        /** @var HelpRequest $helpRequest */
+        $helpRequest = HelpRequest::find($id);
+
+        if (empty($helpRequest)) {
+            abort(404);
+        }
+
+        if (!in_array(auth()->user()->id, [$helpRequest->created_by, $helpRequest->user_id])) {
+            abort(403);
+        }
+
+        return view('admin.help-detail', [
+            'helpRequest' => $helpRequest,
+           'area' => 'share'
+        ]);
+
     }
 
     public function helpRequestCreate(Request $request, SettingRepository $settingRepository)

@@ -17,50 +17,72 @@
                 <div class="col-sm-6">
                     <ul class="details-wrapper list-unstyled mb-4">
                         <li class="d-flex align-items-start">
+                            <i class="fa fa-group"></i>
+                            <span>
+                             {{ __("Number of people") }}: {{ $helpRequest->guests_number }}
+                             </span>
+                        </li>
+                        <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
                             <span>
-                            Locatie: <b>{{ $helpRequest->city }}</b>, Regiune <b>{{ $helpRequest->createdBy?->county->region_en }} ({{ $helpRequest->createdBy?->county->region_uk }})</b>
-                            </span>
+                             {{ __("Location") }}: {{ $helpRequest->current_location }}
+                             </span>
                         </li>
                         <li class="d-flex">
                             <i class="fa fa-phone"></i>
                             <span>
-                            Telefon: <b>{{ $helpRequest->patient_phone_number }}</b>
-                        </span>
+                             {{ __("Phone") }} <b>{{ $helpRequest->user->phone_number }}</b>
+                         </span>
                         </li>
                         <li class="d-flex">
                             <i class="fa fa-at"></i>
                             <span>
-                            Email:  <a href="mailto:{{ $helpRequest->patient_email }}" target="_blank">{{ $helpRequest->patient_email }}</a>
-                        </span>
-                        </li>
-                    </ul>
-                    <ul class="details-wrapper list-unstyled">
-                        <li class="d-flex align-items-start">
-                            <i class="fa fa-dot-circle-o"></i>
-                            <span>
-                            Responsabil: <b>{{ $helpRequest->caretaker_full_name }}</b>
-                            </span>
+                             {{ __("Email")  }}:  <a href="mailto:{{ $helpRequest->user->email }}" target="_blank">{{ $helpRequest->user->email }}</a>
+                         </span>
                         </li>
                         <li class="d-flex">
-                            <i class="fa fa-phone"></i>
+                            <i class="fa fa-language"></i>
                             <span>
-                            Telefon responsabil: <b>{{ $helpRequest->caretaker_phone_number }}</b>
-                        </span>
+                             {{ __("Knwon Languages") }}: <b>{{ implode(",", json_decode($helpRequest->known_languages) ?? []) }}</b>
+                         </span>
                         </li>
                         <li class="d-flex">
-                            <i class="fa fa-at"></i>
+                            <i class="fa fa-car"></i>
                             <span>
-                            Email responsabil:  <a href="mailto:{{ $helpRequest->caretaker_email }}" target="_blank">{{ $helpRequest->caretaker_email }}</a>
-                        </span>
+                             {{ __("Transportation") }}: <b> {{ $helpRequest->need_special_transport ? __("Special Transport") :  ($helpRequest->need_car ? __("Need car") : __("No car needed")) }}</b>
+                         </span>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fa fa-wheelchair-alt"></i>
+                            <span>
+                             {{ __("Special Needs") }}: <b> {{ $helpRequest->special_needs }}</b>
+                         </span>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
+                <div class="kv">
+                    <p>{{ __("Created At") }}</p>
+                    <b>{{ formatDateTime($helpRequest->created_at) }}</b>
+                </div>
+                @if ($helpRequest->update_at)
                     <div class="kv">
-                        <p>Data:</p>
-                        <b>{{ formatDateTime($helpRequest->created_at) }}</b>
+                        <p>{{ __("Update At") }}</p>
+                        <b>{{ formatDateTime($helpRequest->updated_at) }}</b>
                     </div>
+                @endif
+                @if ($helpRequest->approved_at)
+                    <div class="kv">
+                        <p>{{ __("Approved At") }}</p>
+                        <b>{{ formatDateTime($helpRequest->approved_at) }}</b>
+                    </div>
+                @endif
+                @if ($helpRequest->deleted_at)
+                    <div class="kv">
+                        <p>{{ __("Deleted At") }}</p>
+                        <b>{{ formatDateTime($helpRequest->deleted_at) }}</b>
+                    </div>
+                @endif
                 </div>
                 <div class="col-sm-3">
                     <div class="kv">
@@ -70,14 +92,27 @@
                 </div>
             </div>
             <div class="border-top border-bottom py-4 mt-4">
-                <h6 class="font-weight-600">{{ __('Diagnostic') }}</h6>
-                <p class="mb-0">{{ $helpRequest->diagnostic }}</p>
+                <h6 class="font-weight-600">{{ __('Other People') }}</h6>
+                @if(count(json_decode($helpRequest->with_peoples)))
+                    <div class="row">
+                        <div class="col-sm-3"><b>{{ __("Name") }}</b></div>
+                        <div class="col-sm-2"><b>{{ __("Age") }}</b></div>
+                        <div class="col-sm-6"><b>{{ __("Mentions") }}</b></div>
+                    </div>
+                @endif
+                @foreach(json_decode($helpRequest->with_peoples) ?? [] as $human)
+                    <div class="row">
+                        <div class="col-sm-3">{{ $human->name }}</div>
+                        <div class="col-sm-2">{{ $human->age }}</div>
+                        <div class="col-sm-6">{{ $human->mentions }}</div>
+                    </div>
+                @endforeach
             </div>
             <div class="border-bottom py-4">
-                <h6 class="font-weight-600">{{ __('Extra details') }}:</h6>
+                <h6 class="font-weight-600">{{ __('More details') }}:</h6>
                 <p class="mb-0">
                     <i>
-                        {{ $helpRequest->extra_details ?? 'N/A' }}
+                        {{ $helpRequest->more_details ?? 'N/A' }}
                     </i>
                 </p>
             </div>
@@ -139,12 +174,14 @@
         let setRequestStatus = function(status) {
             let badgeColor = 'badge-success';
 
-            if ('new' === status) {
+            if ('padding' === status) {
                 badgeColor = 'badge-danger';
             } else if ('in-progress' === status) {
                 badgeColor = 'badge-warning';
             } else if ('completed' === status) {
                 badgeColor = 'badge-success';
+            } else if ('allocated' === status) {
+                badgeColor = 'badge-warning';
             }
 
             $('#requestStatus span').remove();
@@ -223,10 +260,10 @@
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 
                 axios
-                .delete('/admin/ajax/help-request/{{ $helpRequest->id }}')
+                .delete('/{{ $area }}/ajax/help-request/{{ $helpRequest->id }}')
                 .then(response => {
                     $('#deleteRequestModal').modal('hide');
-                    window.location.replace('{{ route('admin.help-list') }}');
+                    window.location.replace('{{ route( $area . '.help.request.list') }}');
                 })
                 .catch(error => {
                     console.log(error);
@@ -250,7 +287,7 @@
                         _token: "{{ csrf_token() }}"
                     })
                     .then(response => {
-                        window.location.href = '{{ @route('admin.help-detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
+                        window.location.href = '{{ @route('admin.help.request.detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
                         window.location.reload();
                     })
                     .catch(error => {
@@ -268,7 +305,7 @@
                         accommodation_id: accommodationId,
                     })
                     .then(response => {
-                        window.location.href = '{{ @route('admin.help-detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
+                        window.location.href = '{{ @route($area . '.help.request.detail', ['id' => $helpRequest->id]) }}#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}';
                         window.location.reload();
                     })
                     .catch(error => {

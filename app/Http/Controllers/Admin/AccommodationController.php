@@ -259,7 +259,7 @@ class AccommodationController extends Controller
             return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
         }
 
-        $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number')]]);
+        $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number'), 'created_at' => now()]]);
         return redirect()->back()->with(['message' => __('Successfully operation')]);
     }
 }
