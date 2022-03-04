@@ -41,7 +41,7 @@ class ContactController extends Controller
 
         // mail to the user that submit the form
         $userEmail = $request->validated()['email'];
-        $mail = new NewContactMail($request->validated());
+        $mail = new NewContactMail($request->validated(), __('Thank you!'));
         Mail::to($userEmail)->send($mail);
 
         return redirect()->route('contact-confirmation');

@@ -4,8 +4,8 @@
         <div class="form-group">
             <label class="required font-weight-600" for="host_type">{{ __("Host type") }}:</label>
             <select name="host_type" id="host_type" class="custom-select form-control @error('host_type') is-invalid @enderror">
-                <option value="person" {{ $hostType == 'person' ? ' selected' : '' }}>{{ __("Person") }}</option>
-                <option value="company" {{ $hostType == 'company' ? ' selected' : '' }}>{{ __("Company") }}</option>
+                <option value="person" {{ $hostType == 'person' ? ' selected' : '' }}>{{ __("Host type person") }}</option>
+                <option value="company" {{ $hostType == 'company' ? ' selected' : '' }}>{{ __("Host type company") }}</option>
             </select>
         </div>
     </div>

@@ -16,6 +16,8 @@ class AccomodationTypeSeeder extends Seeder
             AccommodationType::create(['id' => 1, 'name' => 'Studio']);
             AccommodationType::create(['id' => 2, 'name' => 'Apartment']);
             AccommodationType::create(['id' => 3, 'name' => 'House']);
+            AccommodationType::create(['id' => 4, 'name' => 'Hotel/Guesthouse']);
+            AccommodationType::create(['id' => 5, 'name' => 'Other spaces']);
         }
     }
 }
