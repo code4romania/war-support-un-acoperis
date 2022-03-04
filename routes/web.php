@@ -70,6 +70,7 @@ Route::middleware([Administration::class])
         Route::get('/user/{id}/approve', 'Admin\UserController@approve')->name('admin.user-approve');
         Route::get('/user/{id}/reset-password', 'Admin\UserController@resetPassword')->name('admin.user-password-reset');
 
+
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
@@ -95,6 +96,8 @@ Route::middleware([Administration::class])
         Route::post('/accommodation/add/{userId}', 'Admin\AccommodationController@create')->name('admin.accommodation-create');
         Route::get('/accommodation/{id}/edit', 'Admin\AccommodationController@edit')->name('admin.accommodation-edit');
         Route::post('/accommodation/{id}/edit', 'Admin\AccommodationController@update')->name('admin.accommodation-update');
+        Route::get('/accommodation/{id}/approve','Admin\AccommodationController@approve')->name('admin.accommodation-approve');
+        Route::get('/accommodation/{id}/disapprove','Admin\AccommodationController@disapprove')->name('admin.accommodation-disapprove');
 
         Route::get('/host/detail/{id}/{page?}', 'Admin\HostController@detail')
             ->where('page', '[0-9]+')

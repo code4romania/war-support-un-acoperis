@@ -9,6 +9,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Request Details') }}
             </h6>
+            @include('admin.change-help-status-modal')
             <button class="btn btn-white btn-sm text-danger px-4" id="delete-request-button">{{ __('Delete') }}</button>
         </div>
         <div class="card-body pt-4">

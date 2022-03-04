@@ -42,7 +42,7 @@ class AccommodationController extends Controller
         $countries = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
         $counties = Accommodation::join('counties', 'counties.id', '=', 'accommodations.address_county_id');
 
-        return view('admin.accommodation-list', )
+        return view('admin.accommodation-list',)
             ->with('types', AccommodationType::all()->pluck('name', 'id'))
             ->with('countries', $countries->get(['countries.id', 'countries.name'])->pluck('name', 'id')->toArray())
             ->with('counties', $counties->get(['counties.id', 'counties.name'])->pluck('name', 'id')->toArray())
@@ -59,12 +59,10 @@ class AccommodationController extends Controller
         /** @var Accommodation|null $accommodation */
         $accommodation = Accommodation::find($id);
 
-        if (auth()->user()->isTrusted())
-        {
-           if ( $accommodation->created_by != auth()->user()->id)
-           {
-               return redirect()->back();
-           }
+        if (auth()->user()->isTrusted()) {
+            if ($accommodation->created_by != auth()->user()->id) {
+                return redirect()->back();
+            }
         }
 
         if (empty($accommodation)) {
@@ -214,13 +212,10 @@ class AccommodationController extends Controller
             abort(400);
         }
 
-        try
-        {
+        try {
             $accService = new AccommodationService();
             $accommodation = $accService->createAccommodation($request, $user);
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             return Redirect::back()->withInput()->withErrors(['photos' => $throwable->getMessage()]);
         }
 
@@ -243,6 +238,9 @@ class AccommodationController extends Controller
         if (empty($accommodation)) {
             abort(404);
         }
+        if (!$accommodation->isApproved()) {
+            return redirect()->back();
+        }
 
         /** @var HelpRequest $helpRequest */
         $helpRequest = HelpRequest::find((int)$request->post('help_request_id'));
@@ -261,5 +259,28 @@ class AccommodationController extends Controller
 
         $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number'), 'created_at' => now()]]);
         return redirect()->back()->with(['message' => __('Successfully operation')]);
+    }
+
+    public function disapprove(int $id)
+    {
+        $accommodation = Accommodation::find($id);
+        if (empty($accommodation) || !$accommodation->isApproved()) {
+            return redirect()->back();
+        }
+        $accommodation->approved_at = null;
+        $accommodation->save();
+        return redirect()->back();
+    }
+
+    public function approve(int $id)
+    {
+        $accommodation = Accommodation::find($id);
+
+        if (empty($accommodation) || $accommodation->isApproved()) {
+            return redirect()->back();
+        }
+        $accommodation->approved_at = now();
+        $accommodation->save();
+        return redirect()->back();
     }
 }
