@@ -158,6 +158,7 @@ Route::middleware([Administration::class])
 Route::middleware([Host::class])
     ->prefix('host')
     ->group(function () {
+        Route::get('/', 'Host\ProfileController@home')->name('host.home');
         Route::get('/profile', 'Host\ProfileController@profile')->name('host.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('host.edit-profile');
         Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('host.save-profile');
@@ -184,6 +185,7 @@ Route::middleware([Host::class])
 Route::middleware([Trusted::class])
     ->prefix('trusted')
     ->group(function () {
+        Route::get('/', 'Trusted\TrustedController@home')->name('trusted.home');
         Route::get('/profile', 'Host\ProfileController@profile')->name('trusted.profile')->middleware('2fa');
         Route::get('/profile/edit', 'Host\ProfileController@editProfile')->name('trusted.edit-profile');
         Route::post('/profile/edit', 'Host\ProfileController@saveProfile')->name('trusted.save-profile');
@@ -284,6 +286,8 @@ Route::middleware([SetLocale::class])
         Route::post('/send-contact', 'ContactController@sendContact')->name('send-contact');
         Route::get('/contact-confirmation', 'ContactController@contactConfirmation')->name('contact-confirmation');
         Route::get('/newsletter', 'NewsletterController@newsletter')->name('newsletter');
-
+        Route::get('/terms/refugee', 'StaticPagesController@refugeeTermsAndConditions')->name('terms-refugee');
+        Route::get('/terms/host', 'StaticPagesController@hostTermsAndConditions')->name('terms-host');
+        Route::get('/terms/trusted', 'StaticPagesController@trustedTermsAndConditions')->name('terms-trusted');
         Route::get('/{slug}', 'PageController@show')->name('static.pages');
     });

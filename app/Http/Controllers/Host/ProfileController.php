@@ -22,6 +22,14 @@ class ProfileController extends Controller
     /**
      * @return View
      */
+    public function home(): View
+    {
+        return view('host.home');
+    }
+
+    /**
+     * @return View
+     */
     public function profile()
     {
         /** @var User $user */
