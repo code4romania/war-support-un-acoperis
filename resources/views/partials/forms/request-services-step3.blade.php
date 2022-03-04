@@ -57,7 +57,7 @@
                                                                 required multiple>
                                                             @foreach ($languages as $language)
                                                                 <option value="{{ $language->endonym }}">
-                                                                    {{ $language->endonym }}</option>
+                                                                    {{ __($language->endonym) }}</option>
                                                             @endforeach
                                                         </select>
 
