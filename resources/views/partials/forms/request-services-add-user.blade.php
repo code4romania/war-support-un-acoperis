@@ -24,9 +24,9 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="required font-weight-600" for="patient-name">{{ __("Applicant's full name") }}:</label>
-                                                    <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('name') is-invalid @enderror" name="name" id="patient-name" value="{{ old('name') }}" required />
+                                                    <input type="text" placeholder="Ana-Maria Vasile" class="form-control @error('new_user.name') is-invalid @enderror" name="new_user[name]" id="patient-name" value="{{ old('new_user.name') }}" required />
 
-                                                    @error('name')
+                                                    @error('new_user.name')
                                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -35,9 +35,9 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="required font-weight-600" for="caretaker-name">{{ __("Applicant's e-mail") }}:</label>
-                                                    <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" required />
+                                                    <input type="email" placeholder="anamaria.vasile@provider.tld" class="form-control @error('new_user.email') is-invalid @enderror" name="new_user[email]" id="email" value="{{ old('new_user.email') }}" required />
 
-                                                    @error('email')
+                                                    @error('new_user.email')
                                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -46,7 +46,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="required font-weight-600" for="phone">{{ __("Applicant's phone number") }}:</label>
-                                                    <input type="tel" placeholder="0742000000" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone') }}" required />
+                                                    <input type="tel" placeholder="0742000000" class="form-control @error('new_user.phone') is-invalid @enderror" name="new_user[phone]" id="phone" value="{{ old('new_user.phone') }}" required />
                                                 </div>
                                             </div>
 
@@ -58,14 +58,14 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="required font-weight-600" for="patient-county">{{ __('Region of origin') }}:</label>
-                                                            <select name="county_id" id="county_id" class="custom-select form-control @error('county_id') is-invalid @enderror" required >
+                                                            <select name="new_user[county_id]" id="county_id" class="custom-select form-control @error('new_user.county_id') is-invalid @enderror" required >
                                                                 <option></option>
                                                                 @foreach ($counties as $county)
-                                                                    <option value="{{ $county->id }}"  {{ (old('county_id') == $county->id  ? 'selected' : '') }} >{{ $county->region }}</option>
+                                                                    <option value="{{ $county->id }}"  {{ (old('new_user.county_id') == $county->id  ? 'selected' : '') }} >{{ $county->region }}</option>
                                                                 @endforeach
                                                             </select>
 
-                                                            @error('county_id')
+                                                            @error('new_user.county_id')
                                                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -74,9 +74,9 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="required font-weight-600" for="city">{{ __("City of origin") }}:</label>
-                                                            <input name="city" id="city" value="{{ old('city') }}" class="form-control @error('city') is-invalid @enderror" required>
+                                                            <input name="new_user[city]" id="city" value="{{ old('new_user.city') }}" class="form-control @error('new_user.city') is-invalid @enderror" required>
 
-                                                            @error('city')
+                                                            @error('new_user.city')
                                                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -88,7 +88,7 @@
                                             <div class="col-12">
                                                 <div class="border-top pt-5 mt-3 clearfix">
 
-                                                    @error('g-recaptcha-response')
+                                                    @error('new_user.g-recaptcha-response')
                                                     <span class="invalid-feedback d-flex" role="alert">{{ $errors->first('g-recaptcha-response') }}</span>
                                                     @enderror
 
