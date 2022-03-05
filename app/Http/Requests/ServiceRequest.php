@@ -76,11 +76,11 @@ class ServiceRequest extends FormRequest
     public function attributes()
     {
         return [
-            'new_user.name' => 'name',
-            'new_user.phone' => 'phone',
-            'new_user.email' => 'email',
-            'new_user.county_id' => 'county_id',
-            'new_user.city' => 'city'
+            'new_user.name' => __("Applicant's full name"),
+            'new_user.phone' => __("Applicant's phone number"),
+            'new_user.email' => __("Applicant's e-mail"),
+            'new_user.county_id' => __('Region of origin'),
+            'new_user.city' => __("City of origin")
 
         ];
     }
