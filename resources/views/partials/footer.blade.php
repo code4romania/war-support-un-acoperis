@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-between col-12 col-sm-6 ">
             <ul class="list-unstyled px-2">
                 <p class="text-white font-weight-bold mb-3">
-                    {{ __('Util links') }}
+                    {{ __('Useful links') }}
                 </p>
                 <li>
                     <a class="nav-link text-white mb-1"
@@ -19,6 +19,9 @@
                 </li>
                 <li>
                     <a class="nav-link text-white mb-1" href="https://dopomoha.ro/" target="_blank" rel="noopener">{{ __('Dopomoha.ro') }}</a>
+                </li>
+                <li>
+                    <a class="nav-link text-white mb-1" href="https://sprijindeurgenta.ro/" target="_blank" rel="noopener">{{ __('Sprijin de urgență') }}</a>
                 </li>
                 <li>
                     <a class="nav-link text-white mb-1" href="#" target="_blank" rel="noopener">{{ __('Source code') }}</a>
