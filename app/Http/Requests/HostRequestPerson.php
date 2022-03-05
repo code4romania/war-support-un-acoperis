@@ -41,4 +41,22 @@ class HostRequestPerson extends FormRequest
 
         return $validatorRules;
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'new_user.county_id' => 'county_id',
+            'new_user.city' => 'city',
+            'new_user.address' => 'address',
+            'new_user.name' => 'name',
+            'new_user.phone' => 'phone',
+            'new_user.email' => 'email',
+            'new_user.other' => 'other',
+        ];
+    }
 }
