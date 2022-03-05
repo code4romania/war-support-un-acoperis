@@ -45,9 +45,8 @@
 
                                                 <div class="col-sm-6">
 
-                                                </div>
-
-                                                <div class="col-sm-6 mt-4">
+                                                </div>       
+                                                                                         <div class="col-sm-6 mt-4">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600"
                                                                for="known_languages">{{ __("Known languages") }}
@@ -57,7 +56,7 @@
                                                                 required multiple>
                                                             @foreach ($languages as $language)
                                                                 <option value="{{ $language->endonym }}">
-                                                                    {{ $language->endonym }}</option>
+                                                                    {{ __($language->endonym) }}</option>
                                                             @endforeach
                                                         </select>
 
@@ -68,8 +67,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12">
-                                                    <div class="custom-control custom-checkbox mb-3">
+                                                <div class="col-sm-12 mt-4">
+                                                    <div class="custom-control custom-checkbox">
                                                         <input class="custom-control-input" id="special_needs"
                                                                name="special_needs"
                                                                type="checkbox" {{ !empty(old('special_needs')) ? 'checked' : '' }}>
@@ -94,12 +93,13 @@
                                                         <span class="invalid-feedback"
                                                               role="alert">{{ $message }}</span>
                                                         @enderror
-                                                    </div>
                                                     <small>@lang("Special needs detailing expl")</small>
+
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-sm-12  mt-4">
-                                                    <div class="custom-control custom-checkbox mb-3">
+                                                <div class="col-sm-12 mt-4">
+                                                    <div class="custom-control custom-checkbox">
                                                         <input class="custom-control-input" id="has_dependants_family"
                                                                name="has_dependants_family"
                                                                type="checkbox" {{ !empty(old('has_dependants_family')) ? 'checked' : '' }}>
@@ -191,7 +191,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-12 mt-4">
                                                     <div class="form-group">
                                                         <label class="font-weight-600"
                                                                for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
@@ -203,11 +203,11 @@
                                                         <span class="invalid-feedback"
                                                               role="alert">{{ $message }}</span>
                                                         @enderror
+                                                        <small>{!! __("You can mention details such as ... and other information you consider relevant") !!}</small>
                                                     </div>
-                                                    <small>{!! __("You can mention details such as ... and other information you consider relevant") !!}</small>
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 mt-4">
                                                     <div class="border-top pt-5 mt-3 clearfix">
                                                         <label
                                                             class=" font-weight-600">{{ __("resource_types.transport") }}</label>
@@ -237,7 +237,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 mt-4">
                                                     <div class="border-top pt-5 mt-3 clearfix">
                                                         <button type="submit" id="next-step-button-1"
                                                                 class="btn btn-secondary pull-right btn-lg px-6 hide">
