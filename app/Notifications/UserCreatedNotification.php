@@ -10,11 +10,12 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\App;
 
-class HostSignup extends Notification
+class UserCreatedNotification extends Notification
 {
     use Queueable;
 
     private User $user;
+
     private string $resetToken;
 
     /**
@@ -47,14 +48,9 @@ class HostSignup extends Notification
      */
     public function toMail($notifiable)
     {
-        return $this->getMail();
-    }
-
-    private function getMail(): MailMessage
-    {
         $passwordResetLink = route('password.reset', [
             'locale' => App::getLocale(),
-            'token' => $this->resetToken,
+            'token'  => $this->resetToken,
         ]);
 
         return (new MailMessage)
