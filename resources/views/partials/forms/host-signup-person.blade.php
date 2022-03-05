@@ -6,7 +6,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="required font-weight-600" for="name">{{ __("Name and surname") }}:</label>
-                <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('new_user.name') is-invalid @enderror" name="new_user[name]" id="name" value="{{ old('new_user.name') }}" />
+                <input type="text" placeholder="{{ __('Full name placeholder') }}" class="form-control @error('new_user.name') is-invalid @enderror" name="new_user[name]" id="name" value="{{ old('new_user.name') }}" oninvalid="this.setCustomValidity('{{__('Please fill out this field')}}')" oninput="setCustomValidity('')" required/>
 
                 @error('new_user.name')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -15,7 +15,7 @@
         </div>
         <div class="col-sm-6">
             <div><label class="required font-weight-600" for="phone">{{ __("Phone Number") }}:</label></div>
-            <input type="tel" placeholder="0742000000" class="form-control @error('new_user.phone') is-invalid @enderror" name="new_user[phone]" id="phone" value="{{ old('new_user.phone') }}" />
+            <input type="tel" placeholder="0742000000" class="form-control @error('new_user.phone') is-invalid @enderror" name="new_user[phone]" id="phone" value="{{ old('new_user.phone') }}" oninvalid="this.setCustomValidity('{{__('Please fill out this field')}}')" oninput="setCustomValidity('')" required/>
             @error('new_user.phone')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
@@ -25,7 +25,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="required font-weight-600" for="email">{{ __("E-Mail Address") }}:</label>
-                <input type="email" placeholder="{{ __('Email placeholder') }}" class="form-control @error('new_user.email') is-invalid @enderror" name="new_user[email]" id="email" value="{{ old('new_user.email') }}" />
+                <input type="email" placeholder="{{ __('Email placeholder') }}" class="form-control @error('new_user.email') is-invalid @enderror" name="new_user[email]" id="email" value="{{ old('new_user.email') }}" oninvalid="this.setCustomValidity('{{__('Please fill out this field')}}')" oninput="setCustomValidity('')" required/>
 
                 @error('new_user.email')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -40,8 +40,8 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="required font-weight-600" for="county_id">{{ __('County') }}:</label>
-                        <select name="new_user[county_id]" id="county_id" class="custom-select form-control @error('new_user.county_id') is-invalid @enderror">
-                            <option>{{ __("Select county") }}</option>
+                        <select name="new_user[county_id]" id="county_id" class="custom-select form-control @error('new_user.county_id') is-invalid @enderror" oninvalid="this.setCustomValidity('{{__('Please fill out this field')}}')" oninput="setCustomValidity('')" required>
+                            <option></option>
                             @foreach ($counties as $county)
                                 <option value="{{ $county->id }}"{{ old('new_user.county_id') == $county->id ? ' selected' : '' }}>{{ $county->name }}</option>
                             @endforeach
@@ -56,7 +56,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="required font-weight-600" for="sms-clinic-city">{{ __('City') }}:</label>
-                        <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('new_user.city') is-invalid @enderror" id="city" name="new_user[city]" value="{{ old('new_user.city') }}" />
+                        <input type="text" placeholder="{{ __("City placeholder") }}" class="form-control @error('new_user.city') is-invalid @enderror" id="city" name="new_user[city]" value="{{ old('new_user.city') }}" oninvalid="this.setCustomValidity('{{__('Please fill out this field')}}')" oninput="setCustomValidity('')" required/>
 
                         @error('new_user.city')
                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
