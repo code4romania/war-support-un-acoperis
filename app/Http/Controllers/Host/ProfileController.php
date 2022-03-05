@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Host;
 
+use A17\Twill\Repositories\SettingRepository;
 use App\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
@@ -22,9 +23,10 @@ class ProfileController extends Controller
     /**
      * @return View
      */
-    public function home(): View
+    public function home(SettingRepository $settingRepository): View
     {
-        return view('host.home');
+        return view('host.home')
+            ->with('termsAndConditionsForHosts', $settingRepository->byKey('terms_and_conditions_for_hosts'));
     }
 
     /**
