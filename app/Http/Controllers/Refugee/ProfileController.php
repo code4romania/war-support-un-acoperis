@@ -17,6 +17,7 @@ class ProfileController extends Controller
 
     public function home(): View
     {
+
         return view('refugee.home');
     }
 
