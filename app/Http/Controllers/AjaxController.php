@@ -69,7 +69,7 @@ class AjaxController extends Controller
     public function uaCities(int $regionId)
     {
         return response()->json(
-            UaCity::whereHas("region", function ($q) use($regionId){
+            UaCity::whereHas("region", function ($q) use ($regionId) {
                 $q->where("ua_regions.id", $regionId);
             })->pluck('city_uk', 'id')->all()
         );
@@ -102,7 +102,8 @@ class AjaxController extends Controller
                 if ($startDate->year >= 2020) {
                     $query->where('help_requests.created_at', '>=', $startDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
         if ($request->has('endDate')) {
@@ -112,7 +113,8 @@ class AjaxController extends Controller
                 if ($endDate->year >= 2020) {
                     $query->where('help_requests.created_at', '<=', $endDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
         if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
@@ -126,9 +128,9 @@ class AjaxController extends Controller
             'help_requests.need_car',
             'help_requests.need_special_transport',
             'help_requests.special_needs',
-            'help_requests.known_languages',
+            'help_requests.guests_number',
             'help_requests.created_at'
-        ])->join('users', 'help_requests.user_id', '=', 'users.id' );
+        ])->join('users', 'help_requests.user_id', '=', 'users.id');
 
         $perPage = 10;
 
@@ -244,8 +246,8 @@ class AjaxController extends Controller
             'success' => 'true',
             'noteId' => $note->id,
             'noteDate' => formatDateTime($note->created_at),
-            'noteUser' => $note->user->name]
-        );
+            'noteUser' => $note->user->name,
+        ]);
     }
 
     /**
@@ -355,7 +357,7 @@ class AjaxController extends Controller
         // Determine locale from referer url for toast messages
         $referer = parse_url(request()->headers->get('referer'));
         $path = array_values(array_filter(explode('/', $referer['path'])));
-        $locale = in_array($path[0] ?? '', config('translatable.locales') ) ?
+        $locale = in_array($path[0] ?? '', config('translatable.locales')) ?
             $path[0] :
             null;
 
@@ -474,7 +476,8 @@ class AjaxController extends Controller
                 if ($startDate->year >= 2020) {
                     $query->where('help_resource_types.created_at', '>=', $startDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
         if ($request->has('endDate')) {
@@ -484,7 +487,8 @@ class AjaxController extends Controller
                 if ($endDate->year >= 2020) {
                     $query->where('help_resource_types.created_at', '<=', $endDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
 
@@ -685,7 +689,7 @@ class AjaxController extends Controller
             $query->where('accommodations.address_city', '=', $request->get('city'));
         }
         if (auth()->user()->isTrusted()) {
-            $query->where('accommodations.created_by',auth()->user()->id);
+            $query->where('accommodations.created_by', auth()->user()->id);
         }
 
         $query = $this->filterStatus($request, $query, 'accommodations');
@@ -849,7 +853,8 @@ class AjaxController extends Controller
         $localPhone = $intlPhone = $mask = null;
 
         if (!empty($countryCode)) {
-            $mask = $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();;
+            $mask = $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();
+
             if (!empty($phoneNumber)) {
                 try {
                     /** @var PhoneNumber $parsedPhoneNumber */
@@ -862,7 +867,6 @@ class AjaxController extends Controller
                     $intlPhone = $parsedPhoneNumber->getCountryCode() . $parsedPhoneNumber->getNationalNumber();
                     $countryCode = !empty($country) ? $country->code : $countryCode;
                 } catch (NumberParseException $exception) {
-
                 }
             }
         }
@@ -904,7 +908,6 @@ class AjaxController extends Controller
         return response()->json(
             $query->paginate($perPage)
         );
-
     }
 
     /**
@@ -917,7 +920,6 @@ class AjaxController extends Controller
     {
         $approvalStatus = $request->get('status');
         if (!empty($approvalStatus)) {
-
             switch ($approvalStatus) {
                 case self::STATUS_DISAPPROVED:
                     $query->whereNull($table . '.approved_at');
@@ -930,7 +932,6 @@ class AjaxController extends Controller
                     throw new \Exception('Wrong approval status param value');
 
             }
-
         }
 
         return $query;

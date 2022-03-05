@@ -16,7 +16,7 @@
                     {{ __('Your form has been submitted to the MAME Association. As soon as possible you will be contacted by someone from the organization so that we can help you with everything you need.') }}
                 </p>
                 <p>
-                    {{ __('If you want to communicate other information that has not already been sent through the form, you can contact us at') }}
+                    {!! __('If you want to communicate other information that has not already been sent through the form, you can contact us at') !!}
                 </p>
             </div>
             <div class="col-sm-6">
