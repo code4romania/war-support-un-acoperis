@@ -186,7 +186,7 @@
         @else
             <div class="card-body pt-4">
                 <div class="row">
-                    <h3>{{__('Leave a comment')}}</h3>
+                    <h3>{{__('Leave a review')}}</h3>
                     <form method="POST" action="{{route('refugee.accommodation.review', ['accommodation' => $accommodation])}}" class="submit_review">
                         @csrf
                         <div class="form-section">
