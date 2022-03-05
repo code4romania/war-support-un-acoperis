@@ -6,18 +6,14 @@ use A17\Twill\Repositories\SettingRepository;
 use App\Http\Requests\ServiceRequest;
 use App\Language;
 use App\Mail\HelpRequestMail;
-use App\Mail\NewContactMail;
-use App\Notifications\HelpRequest;
-use App\Notifications\HelpRequestInfoAdminMail;
 use App\Services\HelpRequestService;
-use App\Services\UserService;
+use App\Services\RefugeeService;
 use App\UaRegion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 /**
@@ -75,9 +71,10 @@ class RequestServicesController extends Controller
 
     public function submitStep2(ServiceRequest $request): RedirectResponse
     {
-        $user = (new UserService())->createRefugeeUser($request);
+        $user = (new RefugeeService())->createRefugee($request);
+
         Auth::login($user);
-        //TODO Send register email
+
         return redirect()->route('request-services-step3');
     }
 
