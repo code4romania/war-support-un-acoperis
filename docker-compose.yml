@@ -17,7 +17,7 @@ services:
     environment:
       APP_ENV: local
     volumes:
-    - ./:/var/www/html
+    - ./:/var/www/html:delegated
     - ./.docker/php/dev/zz-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug.ini:ro,cached
     - ./.docker/php/dev/zzz-opcache-dev.ini:/usr/local/etc/php/conf.d/zzz-opcache-dev.ini:ro,cached
 
@@ -27,7 +27,7 @@ services:
     environment:
       HOME: /tmp/npm
     volumes:
-    - ./:/app
+    - ./:/app:delegated
     command: ["sleep", "infinity"]
 
   database:
@@ -35,11 +35,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: developer
-      MYSQL_DATABSE: unacoperis
+      MYSQL_DATABASE: unacoperis
     ports:
       - 33066:3306
-    volumes:
-      - ./.docker/mysql/db_init.sql:/docker-entrypoint-initdb.d/db_init.sql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
