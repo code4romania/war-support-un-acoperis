@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Refugee;
 
+use A17\Twill\Repositories\SettingRepository;
 use App\Accommodation;
 use App\AccommodationPhoto;
 use App\FacilityType;
@@ -15,10 +16,10 @@ class ProfileController extends Controller
 {
     const PER_PAGE = 5;
 
-    public function home(): View
+    public function home(SettingRepository $settingRepository): View
     {
-
-        return view('refugee.home');
+        return view('refugee.home')
+            ->with('termsAndConditionsForRefugees', $settingRepository->byKey('terms_and_conditions_for_refugees'));
     }
 
     public function profile(): View
