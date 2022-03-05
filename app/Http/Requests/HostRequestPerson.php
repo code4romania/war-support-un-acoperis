@@ -50,13 +50,13 @@ class HostRequestPerson extends FormRequest
     public function attributes()
     {
         return [
-            'new_user.county_id' => 'county_id',
-            'new_user.city' => 'city',
-            'new_user.address' => 'address',
-            'new_user.name' => 'name',
-            'new_user.phone' => 'phone',
-            'new_user.email' => 'email',
-            'new_user.other' => 'other',
+            'new_user.county_id' => __('County'),
+            'new_user.city' => __('City'),
+            'new_user.address' => __('Address'),
+            'new_user.name' => __("Name and surname"),
+            'new_user.phone' => __("Phone Number"),
+            'new_user.email' => __("E-Mail Address"),
+            'new_user.other' => __('Other type'),
         ];
     }
 }
