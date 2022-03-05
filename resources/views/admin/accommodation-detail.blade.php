@@ -213,6 +213,7 @@
     <div class="card shadow">
         @include('partials.notes', [
             'notes' => $accommodation->notes,
+            'reviews' => $reviews,
             'entityType' => \App\Note::TYPE_HELP_ACCOMMODATION,
             'entityId' => $accommodation->id
         ])

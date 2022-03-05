@@ -146,6 +146,11 @@ class Accommodation extends Model implements Auditable
         return $this->belongsTo(County::class, 'address_county_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(AccommodationReview::class);
+    }
+
     /**
      * @return BelongsToMany
      */
@@ -185,6 +190,11 @@ class Accommodation extends Model implements Auditable
             ->hasMany(Note::class, 'entity_id')
             ->where('notes.entity_type', '=', Note::TYPE_HELP_ACCOMMODATION)
             ->orderBy('created_at');
+    }
+
+    public function reviewedByUser(): bool
+    {
+        return $this->reviews()->exists();
     }
 
     /**

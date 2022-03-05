@@ -228,6 +228,7 @@ Route::middleware([Refugee::class])
         Route::get('/help-requests', 'Refugee\ProfileController@helpRequests')->name('refugee.help.requests');
         Route::get('/information', 'Refugee\ProfileController@information')->name('refugee.information');
         Route::get('/accommodation/{accommodation}/view', 'Refugee\ProfileController@viewAccommodation')->name('refugee.view-accommodation');
+        Route::post('/accommodation/{accommodation}/review', 'Refugee\ProfileController@reviewAccommodation')->name('refugee.accommodation.review');
     });
 
 /**
