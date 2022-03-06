@@ -234,6 +234,8 @@ Route::middleware([Refugee::class])
     ->group(function () {
         Route::get('/', 'Refugee\ProfileController@home')->name('refugee.home');
         Route::get('/profile', 'Refugee\ProfileController@profile')->name('refugee.profile');
+        Route::get('/profile/reset-password', 'Refugee\ProfileController@resetPassword')->name('refugee.reset-password');
+        Route::post('/profile/reset-password', 'Refugee\ProfileController@saveResetPassword')->name('refugee.save-reset-password');
         Route::get('/help-requests', 'Refugee\ProfileController@helpRequests')->name('refugee.help.requests');
         Route::get('/information', 'Refugee\ProfileController@information')->name('refugee.information');
         Route::get('/accommodation/{accommodation}/view', 'Refugee\ProfileController@viewAccommodation')->name('refugee.view-accommodation');
