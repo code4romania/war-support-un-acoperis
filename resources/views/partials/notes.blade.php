@@ -2,10 +2,13 @@
     <h5 class="text-primary font-weight-600 mb-4">
         {{ __('Reviews') }}
     </h5>
-    <div class="border-bottom py-4" id="noteContainer">
-        <dl class="dl-horizontal">
+    <div class="border-bottom py-4" id="note-container">
+        <dl class="dl-horizontal review">
             @foreach($reviews as $review)
-                <dt class="rating" data-rating-value="{{$review->rating}}">{{$review->rating}}</dt>
+                <dt>
+                    <h5 class="user"><a href="{{route('admin.user-detail', ['id' => $review->user])}}">{{$review->user->name}}</a></h5>
+                    <span class="rating" data-rating-value="{{$review->rating}}"></span>
+                </dt>
                 <dd>{{$review->review}}</dd>
             @endforeach
         </dl>
@@ -116,7 +119,6 @@
 @section('scripts')
     @parent
     <script src="{{config('tiny.url')}}" referrerpolicy="origin"></script>
-    <script src="{{ mix('js/star-rating.js')}}"></script>
     <script>
         $(document).ready(function() {
             tinymce.init({
@@ -221,19 +223,19 @@
                 $('#deleteNoteModal').modal('show');
             });
 
-            $(".rating").each(function() {
+            $(".rating").each(function () {
                 let el = $(this);
-                console.log(el.data('rating-value'));
                 el.starRating({
-                    initialRating: '5',
                     starIconEmpty : 'fa fa-star',
                     starIconFull  : 'fa fa-star',
                     starColorEmpty: 'lightgray',
                     starColorFull : 'orange',
-                    starsSize     : 1.5, // em
+                    starSize     : 25,
                     stars         : 5,
                     showInfo      : false,
                     wrapperClasses: '',
+                    readOnly      : true,
+                    initialRating: el.data('rating-value'),
                 });
             });
         });

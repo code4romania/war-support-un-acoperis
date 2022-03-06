@@ -80,7 +80,7 @@ class AccommodationController extends Controller
             $photos[] = $photo->getPhotoUrl();
         }
 
-        $reviews = AccommodationReview::where('accommodation_id', $accommodation->id)->get();
+        $reviews = AccommodationReview::where('accommodation_id', $accommodation->id)->with('user')->get();
 
         return view('admin.accommodation-detail')
             ->with('user', $user)

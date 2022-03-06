@@ -283,7 +283,7 @@
             starIconFull  : 'fa fa-star',
             starColorEmpty: 'lightgray',
             starColorFull : 'orange',
-            starsSize     : 1.5, // em
+            starSize      : 25,
             stars         : 5,
             showInfo      : false,
             wrapperClasses: ''
