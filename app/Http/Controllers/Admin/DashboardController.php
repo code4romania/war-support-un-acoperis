@@ -37,7 +37,7 @@ class DashboardController extends Controller
             "allocatedNumber"        => Allocation::count(),
             "approvedAccommodations" => Accommodation::approved()->count(),
         ];
-        dd($dashboardStats);
+
         return view('admin.dashboard')->with('dashboardStats', $dashboardStats);
     }
 }
