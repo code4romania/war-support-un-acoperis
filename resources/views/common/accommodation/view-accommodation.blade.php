@@ -272,6 +272,8 @@
 @endsection
 
 @section('scripts')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/star-rating.css')}}">
+
     <script src="{{ mix('js/star-rating.js')}}"></script>
 
     <script>
