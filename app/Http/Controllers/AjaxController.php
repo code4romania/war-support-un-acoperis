@@ -373,7 +373,6 @@ class AjaxController extends Controller
 
         if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
             $clinicIds = Clinic::search($request->get('searchFilter'))->get()->pluck('id')->toArray();
-//            print_r($clinicIds);
             $query->whereIn('clinics.id', $clinicIds);
         }
 
