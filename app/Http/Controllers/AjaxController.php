@@ -716,6 +716,8 @@ class AjaxController extends Controller
         $collection = $response->getCollection()
             ->map(function ($item) {
                 $item->owner = htmlentities($item->owner, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $item->approval_status = __($item->approval_status);
+
                 return $item;
             });
         $response->setCollection($collection);
@@ -905,8 +907,17 @@ class AjaxController extends Controller
             $perPage = $request->get('perPage');
         }
 
+        $response = $query->paginate($perPage);
+        $collection = $response->getCollection()
+            ->map(function ($item) {
+                $item->status = __($item->status);
+
+                return $item;
+            });
+        $response->setCollection($collection);
+
         return response()->json(
-            $query->paginate($perPage)
+            $response
         );
     }
 

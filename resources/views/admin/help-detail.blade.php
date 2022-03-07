@@ -50,7 +50,7 @@
                         <li class="d-flex">
                             <i class="fa fa-car"></i>
                             <span>
-                             {{ __("Transportation") }}: <b> {{ $helpRequest->need_special_transport ? __("Special Transport") :  ($helpRequest->need_car ? __("Need car") : __("No car needed")) }}</b>
+                             {{ __("Transportation") }}: <b> {{ $helpRequest->need_special_transport ? __("Special transport") :  ($helpRequest->need_car ? __("Need car") : __("No car needed")) }}</b>
                          </span>
                         </li>
                         <li class="d-flex">
@@ -63,24 +63,24 @@
                 </div>
                 <div class="col-sm-3">
                 <div class="kv">
-                    <p>{{ __("Created At") }}</p>
+                    <p>{{ __("Created at") }}</p>
                     <b>{{ formatDateTime($helpRequest->created_at) }}</b>
                 </div>
                 @if ($helpRequest->update_at)
                     <div class="kv">
-                        <p>{{ __("Updated At") }}</p>
+                        <p>{{ __("Updated at") }}</p>
                         <b>{{ formatDateTime($helpRequest->updated_at) }}</b>
                     </div>
                 @endif
                 @if ($helpRequest->approved_at)
                     <div class="kv">
-                        <p>{{ __("Approved At") }}</p>
+                        <p>{{ __("Approved at") }}</p>
                         <b>{{ formatDateTime($helpRequest->approved_at) }}</b>
                     </div>
                 @endif
                 @if ($helpRequest->deleted_at)
                     <div class="kv">
-                        <p>{{ __("Deleted At") }}</p>
+                        <p>{{ __("Deleted at") }}</p>
                         <b>{{ formatDateTime($helpRequest->deleted_at) }}</b>
                     </div>
                 @endif
