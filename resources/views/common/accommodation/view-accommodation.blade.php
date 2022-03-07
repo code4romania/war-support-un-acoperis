@@ -170,53 +170,55 @@
             </div>
         </div>
     </div>
-    <section class="card shadow">
-        <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
-            <h6 class="font-weight-600 text-white mb-0">
-                {{ ucwords(__('Leave a rating')) }}
-            </h6>
-        </div>
-
-        @if ($accommodation->reviewedByUser())
-            <div class="card-body pt-4 no-review">
-                <div class="row">
-                    <h5>{{__('A review has already been submitted. Thank you!')}}</h5>
-                </div>
+    @if(auth()->user()->isRefugee())
+        <section class="card shadow">
+            <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center">
+                <h6 class="font-weight-600 text-white mb-0">
+                    {{ ucwords(__('Leave a rating')) }}
+                </h6>
             </div>
-        @else
-            <div class="card-body pt-4">
-                <div class="row">
-                    <h3>{{__('Leave a review')}}</h3>
-                    <form method="POST" action="{{route('refugee.accommodation.review', ['accommodation' => $accommodation])}}" class="submit_review">
-                        @csrf
-                        <div class="form-section">
+
+            @if ($accommodation->reviewedByUser())
+                <div class="card-body pt-4 no-review">
+                    <div class="row">
+                        <h5>{{__('A review has already been submitted. Thank you!')}}</h5>
+                    </div>
+                </div>
+            @else
+                <div class="card-body pt-4">
+                    <div class="row">
+                        <h3>{{__('Leave a review')}}</h3>
+                        <form method="POST" action="{{route('refugee.accommodation.review', ['accommodation' => $accommodation])}}" class="submit_review">
+                            @csrf
+                            <div class="form-section">
                         <textarea name="review"
                                   id="review"
                                   class="form-control"
                                   minlength="5"
                                   maxlength="65000"
                         ></textarea>
-                            @error('review')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
+                                @error('review')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-                        <div class="form-section rating-wrapper">
-                            <input type="number" hidden  name="rating" id="rating" value=0>
-                            <div class="rating"></div>
-                            @error('rating')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
+                            <div class="form-section rating-wrapper">
+                                <input type="number" hidden  name="rating" id="rating" value=0>
+                                <div class="rating"></div>
+                                @error('rating')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-                        <div class="form-section cta">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </form>
+                            <div class="form-section cta">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        @endif
-    </section>
+            @endif
+        </section>
+    @endif
 @endsection
 
 @section('styles')
