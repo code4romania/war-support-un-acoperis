@@ -85,6 +85,8 @@ class ProfileController extends Controller
 
         $accommodation->reviews()->create($attributes);
 
+        session()->flash('success',__('Review added successfully'));
+
         // maybe redirect somewhere else & notify user that review was added successfully
         return $this->viewAccommodation($accommodation);
     }
