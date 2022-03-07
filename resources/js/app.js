@@ -42,7 +42,7 @@ import { Romanian } from "flatpickr/dist/l10n/ro.js"
 })(jQuery);
 
 (function($) {
-    $.TranslateRequestStatus = function(type) {
+    $.TranslateAccommodationType = function(type) {
         switch (type) {
             case 'Studio':
                 return 'Garsonieră';
@@ -57,14 +57,17 @@ import { Romanian } from "flatpickr/dist/l10n/ro.js"
 })(jQuery);
 
 (function($) {
-    $.TranslateAccommodationType = function(status) {
+    $.TranslateRequestStatus = function(status) {
         switch (status) {
             case 'new':
+            case 'padding':
                 return 'Nouă';
-            case 'in-progress':
+            case 'in_progress':
                 return 'În progres';
-            case 'completed':
+            case 'fulfilled':
                 return 'Finalizată';
+            case 'allocated':
+                return 'Parțial alocată';
             default:
                 return status;
         }

@@ -37,7 +37,8 @@ use libphonenumber\PhoneNumberUtil;
 class AjaxController extends Controller
 {
     const STATUS_APPROVED = 1;
-    const STATUS_DISAPPROVED = 2;
+    const STATUS_UNAPPROVED = 2;
+
     /**
      * @var ChartService
      */
@@ -707,7 +708,7 @@ class AjaxController extends Controller
             'countries.name as country',
             'counties.name as county',
             'accommodations.address_city as city',
-            DB::raw('IF (accommodations.approved_at IS NULL, "Disapproved", "Approved") as approval_status')
+            DB::raw('IF (accommodations.approved_at IS NULL, "Unapproved", "Approved") as approval_status')
         ]);
 
         $query->orderBy('accommodations.id', 'desc');
@@ -898,7 +899,7 @@ class AjaxController extends Controller
             'company_name',
             'city',
             'created_at',
-            DB::raw('IF (users.approved_at IS NULL, "Disapproved", "Approved") as status')
+            DB::raw('IF (users.approved_at IS NULL, "Unapproved", "Approved") as status')
         ]);
 
         $perPage = 10;
@@ -932,7 +933,7 @@ class AjaxController extends Controller
         $approvalStatus = $request->get('status');
         if (!empty($approvalStatus)) {
             switch ($approvalStatus) {
-                case self::STATUS_DISAPPROVED:
+                case self::STATUS_UNAPPROVED:
                     $query->whereNull($table . '.approved_at');
                     break;
 

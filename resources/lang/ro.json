@@ -100,6 +100,7 @@
     "Status New": "Nouă",
     "Status In Progress": "În progres",
     "Status Completed": "Finalizată",
+    "Status Partial Allocated": "Parțial alocată",
     "Search": "Caută",
     "Delete": "Șterge",
     "See details": "Vezi detalii",
@@ -117,8 +118,10 @@
     "Until": "Până la",
     "All statuses": "Toate statusurile",
     "Pending": "În așteptare",
+    "Approve": "Aprobă",
     "Approved": "Aprobat",
-    "Disapproved": "Neaprobat",
+    "Unapprove": "Dezaprobă",
+    "Unapproved": "Neaprobat",
     "Denied": "Respinsă",
     "Added by": "Adăugată de",
     "Edit": "Editează",
@@ -501,5 +504,11 @@
     "Other People": "Alte persoane",
     "Name": "Nume",
     "Mentions": "Mențiuni",
-    "More details": "Mai multe detalii"
+    "More details": "Mai multe detalii",
+    "Allocate user to host": "Alocă utilizator la gazdă",
+    "This accommodation is not approved": "Această cazare nu este aprobată",
+    "This accommodation is already full": "Această cazare este deja plină",
+    "Refugee name": "Nume refugiat",
+    "Allocation date": "Dată alocare",
+    "Change status": "Modifică status"
 }

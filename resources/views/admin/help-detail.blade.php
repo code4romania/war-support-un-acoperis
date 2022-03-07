@@ -9,8 +9,10 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Request Details') }}
             </h6>
-            @include('admin.change-help-status-modal')
-            <button class="btn btn-white btn-sm text-danger px-4" id="delete-request-button">{{ __('Delete') }}</button>
+            <div>
+                @include('admin.change-help-status-modal')
+                <button class="btn btn-white btn-sm text-danger" id="delete-request-button">{{ __('Delete') }}</button>
+            </div>
         </div>
         <div class="card-body pt-4">
             <h4 class="font-weight-600 text-primary mb-5">{{ $helpRequest->patient_full_name }}</h4>
