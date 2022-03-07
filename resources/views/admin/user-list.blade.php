@@ -27,9 +27,9 @@
                     <div class="form-group">
                         <label for="approvalStatus">{{ __('Status') }}</label>
                         <select name="approvalStatus" id="approvalStatus" class="custom-select form-control">
-                            <option value="0" {{ $approvalStatus == 0 ? ' selected' : '' }}>{{ __('All') }}</option>
+                            <option value="0" {{ $approvalStatus == 0 ? ' selected' : '' }}>{{ __('All statuses') }}</option>
                             <option value="1" {{ $approvalStatus == 1 ? ' selected' : '' }}>{{ __('Approved') }}</option>
-                            <option value="2" {{ $approvalStatus == 2 ? ' selected' : '' }}>{{ __('Disapproved') }}</option>
+                            <option value="2" {{ $approvalStatus == 2 ? ' selected' : '' }}>{{ __('Unapproved') }}</option>
                         </select>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeStatusModal">
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changeStatusModal">
     {{ __('Change status') }}
 </button>
 
