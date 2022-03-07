@@ -29,6 +29,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Refugee name') }}</th>
+                    <th>{{ __('Help request') }}</th>
                     <th>{{ __('Number of people') }}</th>
                     <th>{{ __('Allocation date') }}</th>
                     <th>{{ __('Updated at') }}</th>
@@ -72,6 +73,7 @@
                 $.each(responseData, function (key, value) {
                     let row = '<tr>\n' +
                         '    <td>' + value.name + '</td>\n' +
+                        '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + value.number_of_guest + '</td>\n' +
                         '    <td>' + value.created_at + '</td>\n' +
                         '    <td>' + value.updated_at + '</td>\n' +
