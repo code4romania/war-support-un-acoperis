@@ -35,11 +35,11 @@ class ServiceRequest extends FormRequest
         if (request()->has('request_services_step')){
             switch ($this->request->get('request_services_step')){
                 case self::REGISTER:
-                    $rules['name'] = ['required', 'string', 'max:32'];
-                    $rules['phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
-                    $rules['email'] = ['required', 'email', 'string', 'max:255', 'unique:users'];
-                    $rules['county_id'] = ['required', 'exists:ua_regions,id'];
-                    $rules['city'] = ['required', 'string', 'max:64'];
+                    $rules['new_user.name'] = ['required', 'string', 'max:32'];
+                    $rules['new_user.phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
+                    $rules['new_user.email'] = ['required', 'email', 'string', 'max:255', 'unique:users,email'];
+                    $rules['new_user.county_id'] = ['required', 'exists:ua_regions,id'];
+                    $rules['new_user.city'] = ['required', 'string', 'max:64'];
                     break;
                case self::SERVICE:
                     $rules['current_location'] = ['required', 'string' ];
@@ -66,5 +66,22 @@ class ServiceRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'new_user.name' => __("Applicant's full name"),
+            'new_user.phone' => __("Applicant's phone number"),
+            'new_user.email' => __("Applicant's e-mail"),
+            'new_user.county_id' => __('Region of origin'),
+            'new_user.city' => __("City of origin")
+
+        ];
     }
 }

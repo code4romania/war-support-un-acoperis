@@ -6,11 +6,14 @@ namespace App\Services;
 use App\Http\Requests\HostRequestCompany;
 use App\Http\Requests\HostRequestPerson;
 use App\Http\Requests\ServiceRequest;
+use App\Notifications\UserCreatedNotification;
 use App\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 /**
@@ -103,5 +106,15 @@ class UserService
         }
 
         return $userParams;
+    }
+
+    public function generateResetTokenAndNotifyUser(User $user): void
+    {
+        $resetToken = Password::getRepository()->create($user);
+
+        $notification = new UserCreatedNotification($user, $resetToken);
+
+        Notification::route('mail', $user->email)
+            ->notify($notification);
     }
 }

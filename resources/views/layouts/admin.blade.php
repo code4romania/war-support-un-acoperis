@@ -6,16 +6,7 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="/images/logo.png" height="30" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
             </a>
-            <div class="inline-flex items-center justify-content-between py-4">
-                <div class="grid items-center">
-                    <a href="http://www.dsu.mai.gov.ro/" target="_blank" rel="noopener" class="inline-block ml-4">
-                        <img src="{{ url('/images/dsu.png') }}" class="inline-block h-5" alt="">
-                    </a>
-                    <a href="https://code4.ro" target="_blank" rel="noopener" class="inline-block ml-4">
-                        <img src="{{ url('/images/code4romania.svg') }}" class="inline-block h-5" alt="">
-                    </a>
-                </div>
-            </div>
+
             <!-- Right Side Of Navbar -->
             <button class="navbar-toggler ml-4" type="button" id="sidebar-collapse"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -56,6 +47,10 @@
             <!-- New buttons end -->
         </div>
         <div class="page-wrapper">
+            <div class="px-sm-5 px-3">
+                @include('partials.partners')
+            </div>
+
             <main class="pt-4 p-sm-5">
                 @if(Session::has('success'))
                     <div class="alert alert-secondary d-flex align-items-center">

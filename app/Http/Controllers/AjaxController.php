@@ -37,7 +37,8 @@ use libphonenumber\PhoneNumberUtil;
 class AjaxController extends Controller
 {
     const STATUS_APPROVED = 1;
-    const STATUS_DISAPPROVED = 2;
+    const STATUS_UNAPPROVED = 2;
+
     /**
      * @var ChartService
      */
@@ -69,7 +70,7 @@ class AjaxController extends Controller
     public function uaCities(int $regionId)
     {
         return response()->json(
-            UaCity::whereHas("region", function ($q) use($regionId){
+            UaCity::whereHas("region", function ($q) use ($regionId) {
                 $q->where("ua_regions.id", $regionId);
             })->pluck('city_uk', 'id')->all()
         );
@@ -102,7 +103,8 @@ class AjaxController extends Controller
                 if ($startDate->year >= 2020) {
                     $query->where('help_requests.created_at', '>=', $startDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
         if ($request->has('endDate')) {
@@ -112,7 +114,8 @@ class AjaxController extends Controller
                 if ($endDate->year >= 2020) {
                     $query->where('help_requests.created_at', '<=', $endDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
         if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
@@ -126,9 +129,9 @@ class AjaxController extends Controller
             'help_requests.need_car',
             'help_requests.need_special_transport',
             'help_requests.special_needs',
-            'help_requests.known_languages',
+            'help_requests.guests_number',
             'help_requests.created_at'
-        ])->join('users', 'help_requests.user_id', '=', 'users.id' );
+        ])->join('users', 'help_requests.user_id', '=', 'users.id');
 
         $perPage = 10;
 
@@ -244,8 +247,8 @@ class AjaxController extends Controller
             'success' => 'true',
             'noteId' => $note->id,
             'noteDate' => formatDateTime($note->created_at),
-            'noteUser' => $note->user->name]
-        );
+            'noteUser' => $note->user->name,
+        ]);
     }
 
     /**
@@ -355,7 +358,7 @@ class AjaxController extends Controller
         // Determine locale from referer url for toast messages
         $referer = parse_url(request()->headers->get('referer'));
         $path = array_values(array_filter(explode('/', $referer['path'])));
-        $locale = in_array($path[0] ?? '', config('translatable.locales') ) ?
+        $locale = in_array($path[0] ?? '', config('translatable.locales')) ?
             $path[0] :
             null;
 
@@ -474,7 +477,8 @@ class AjaxController extends Controller
                 if ($startDate->year >= 2020) {
                     $query->where('help_resource_types.created_at', '>=', $startDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
         if ($request->has('endDate')) {
@@ -484,7 +488,8 @@ class AjaxController extends Controller
                 if ($endDate->year >= 2020) {
                     $query->where('help_resource_types.created_at', '<=', $endDate);
                 }
-            } catch (\Exception $exception) { }
+            } catch (\Exception $exception) {
+            }
         }
 
 
@@ -685,7 +690,7 @@ class AjaxController extends Controller
             $query->where('accommodations.address_city', '=', $request->get('city'));
         }
         if (auth()->user()->isTrusted()) {
-            $query->where('accommodations.created_by',auth()->user()->id);
+            $query->where('accommodations.created_by', auth()->user()->id);
         }
 
         $query = $this->filterStatus($request, $query, 'accommodations');
@@ -703,7 +708,7 @@ class AjaxController extends Controller
             'countries.name as country',
             'counties.name as county',
             'accommodations.address_city as city',
-            DB::raw('IF (accommodations.approved_at IS NULL, "Disapproved", "Approved") as approval_status')
+            DB::raw('IF (accommodations.approved_at IS NULL, "Unapproved", "Approved") as approval_status')
         ]);
 
         $query->orderBy('accommodations.id', 'desc');
@@ -712,6 +717,8 @@ class AjaxController extends Controller
         $collection = $response->getCollection()
             ->map(function ($item) {
                 $item->owner = htmlentities($item->owner, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $item->approval_status = __($item->approval_status);
+
                 return $item;
             });
         $response->setCollection($collection);
@@ -849,7 +856,8 @@ class AjaxController extends Controller
         $localPhone = $intlPhone = $mask = null;
 
         if (!empty($countryCode)) {
-            $mask = $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();;
+            $mask = $phoneUtil->getExampleNumber($countryCode)->getNationalNumber();
+
             if (!empty($phoneNumber)) {
                 try {
                     /** @var PhoneNumber $parsedPhoneNumber */
@@ -862,7 +870,6 @@ class AjaxController extends Controller
                     $intlPhone = $parsedPhoneNumber->getCountryCode() . $parsedPhoneNumber->getNationalNumber();
                     $countryCode = !empty($country) ? $country->code : $countryCode;
                 } catch (NumberParseException $exception) {
-
                 }
             }
         }
@@ -892,7 +899,7 @@ class AjaxController extends Controller
             'company_name',
             'city',
             'created_at',
-            DB::raw('IF (users.approved_at IS NULL, "Disapproved", "Approved") as status')
+            DB::raw('IF (users.approved_at IS NULL, "Unapproved", "Approved") as status')
         ]);
 
         $perPage = 10;
@@ -901,10 +908,18 @@ class AjaxController extends Controller
             $perPage = $request->get('perPage');
         }
 
-        return response()->json(
-            $query->paginate($perPage)
-        );
+        $response = $query->paginate($perPage);
+        $collection = $response->getCollection()
+            ->map(function ($item) {
+                $item->status = __($item->status);
 
+                return $item;
+            });
+        $response->setCollection($collection);
+
+        return response()->json(
+            $response
+        );
     }
 
     /**
@@ -917,9 +932,8 @@ class AjaxController extends Controller
     {
         $approvalStatus = $request->get('status');
         if (!empty($approvalStatus)) {
-
             switch ($approvalStatus) {
-                case self::STATUS_DISAPPROVED:
+                case self::STATUS_UNAPPROVED:
                     $query->whereNull($table . '.approved_at');
                     break;
 
@@ -930,7 +944,6 @@ class AjaxController extends Controller
                     throw new \Exception('Wrong approval status param value');
 
             }
-
         }
 
         return $query;

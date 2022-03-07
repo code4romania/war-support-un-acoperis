@@ -43,7 +43,7 @@ class AccommodationController extends Controller
         $countries = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
         $counties = Accommodation::join('counties', 'counties.id', '=', 'accommodations.address_county_id');
 
-        return view('admin.accommodation-list',)
+        return view('admin.accommodation-list')
             ->with('types', AccommodationType::all()->pluck('name', 'id'))
             ->with('countries', $countries->get(['countries.id', 'countries.name'])->pluck('name', 'id')->toArray())
             ->with('counties', $counties->get(['counties.id', 'counties.name'])->pluck('name', 'id')->toArray())
@@ -137,7 +137,6 @@ class AccommodationController extends Controller
         $accService = new AccommodationService();
 
         return $accService->viewEditAccommodation($user, $accommodation, 'admin.accommodation-edit');
-
     }
 
     /**
@@ -262,7 +261,7 @@ class AccommodationController extends Controller
         }
 
         $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number'), 'created_at' => now()]]);
-        return redirect()->back()->with(['message' => __('Successfully operation')]);
+        return redirect()->back()->with(['message' => __('Operation successful')]);
     }
 
     public function disapprove(int $id)

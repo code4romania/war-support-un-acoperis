@@ -61,7 +61,7 @@
                    href="{{ route('admin.accommodation-approve',['id'=>$accommodation->id])}}">{{__('Approve')}}</a>
             @else
                 <a class="btn btn-primary"
-                   href="{{ route('admin.accommodation-disapprove',['id'=>$accommodation->id])}}">{{__('Disprove')}}</a>
+                   href="{{ route('admin.accommodation-disapprove', ['id'=>$accommodation->id]) }}">{{__('Unapprove')}}</a>
             @endif
         </div>
         <div class="card-body pt-4">
@@ -253,7 +253,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th>{{ __('Refugee name') }}</th>
-                        <th>{{ __('Number of quests') }}</th>
+                        <th>{{ __('Number of people') }}</th>
                         <th>{{ __('Allocation date') }}</th>
                         <th>{{ __('Updated at') }}</th>
                         <th class="text-right">{{ __('Actions') }}</th>

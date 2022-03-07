@@ -45,9 +45,8 @@
 
                                                 <div class="col-sm-6">
 
-                                                </div>
-
-                                                <div class="col-sm-6 mt-4">
+                                                </div>       
+                                                                                         <div class="col-sm-6 mt-4">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600"
                                                                for="known_languages">{{ __("Known languages") }}
@@ -57,7 +56,7 @@
                                                                 required multiple>
                                                             @foreach ($languages as $language)
                                                                 <option value="{{ $language->endonym }}">
-                                                                    {{ $language->endonym }}</option>
+                                                                    {{ __($language->endonym) }}</option>
                                                             @endforeach
                                                         </select>
 
@@ -68,8 +67,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12">
-                                                    <div class="custom-control custom-checkbox mb-3">
+                                                <div class="col-sm-12 mt-4">
+                                                    <div class="custom-control custom-checkbox">
                                                         <input class="custom-control-input" id="special_needs"
                                                                name="special_needs"
                                                                type="checkbox" {{ !empty(old('special_needs')) ? 'checked' : '' }}>
@@ -94,12 +93,13 @@
                                                         <span class="invalid-feedback"
                                                               role="alert">{{ $message }}</span>
                                                         @enderror
-                                                    </div>
                                                     <small>@lang("Special needs detailing expl")</small>
+
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-sm-12  mt-4">
-                                                    <div class="custom-control custom-checkbox mb-3">
+                                                <div class="col-sm-12 mt-4">
+                                                    <div class="custom-control custom-checkbox">
                                                         <input class="custom-control-input" id="has_dependants_family"
                                                                name="has_dependants_family"
                                                                type="checkbox" {{ !empty(old('has_dependants_family')) ? 'checked' : '' }}>
@@ -191,7 +191,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-12 mt-4">
                                                     <div class="form-group">
                                                         <label class="font-weight-600"
                                                                for="more_details">{{ __("Please give us more details about the case you are bringing to our attention") }}</label>
@@ -203,11 +203,11 @@
                                                         <span class="invalid-feedback"
                                                               role="alert">{{ $message }}</span>
                                                         @enderror
+                                                        <small>{!! __("You can mention details such as ... and other information you consider relevant") !!}</small>
                                                     </div>
-                                                    <small>{!! __("You can mention details such as ... and other information you consider relevant") !!}</small>
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 mt-4">
                                                     <div class="border-top pt-5 mt-3 clearfix">
                                                         <label
                                                             class=" font-weight-600">{{ __("resource_types.transport") }}</label>
@@ -237,7 +237,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 mt-4">
                                                     <div class="border-top pt-5 mt-3 clearfix">
                                                         <button type="submit" id="next-step-button-1"
                                                                 class="btn btn-secondary pull-right btn-lg px-6 hide">
@@ -264,13 +264,52 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
+            const personInCareCount                = $("#person_in_care_count"),
+                  personFieldSet                   = $('.person_in_care[data-index="1"]'),
+                  hasDependantsFamily              = $("#has_dependants_family"),
+                  dependantsFamilyDetailsContainer = $("#dependants_family_details_div"),
+                  rewriteCloneIndexes              = function (target, label, i) {
+                          target.find(`[for="${label}_1"]`).attr('for', `${label}_${i}`);
+                          target.find(`[name="${label}[1]"]`).attr('name', `${label}[${i}]`).attr('id', `${label}_${i}`);
+                          target.find('input').val('');
+                  },
+                  showFamilyDependents             = function () {
+                      dependantsFamilyDetailsContainer.removeClass("d-none");
+                      $("input[data-required='1']", dependantsFamilyDetailsContainer).attr("required", true);
+                      $(".person_in_care input").removeAttr('disabled');
+                  },
+                  hideFamilyDependents             = function () {
+                      $("#dependants_family_details_div").addClass("d-none");
+                      $("input[required]", $("#dependants_family_details_div")).attr('required', false);
+                      $(".person_in_care input").attr('disabled', true);
+                  },
+                  toggleFamilyDependentsState      = (checkboxState) => checkboxState ? showFamilyDependents() : hideFamilyDependents(),
+                  renderFields                     = function (q, fieldSet) {
+                      for (let i = 2; i <= q; i++) {
+                          const newSet = fieldSet.clone();
+                          newSet.attr('data-index', i);
+
+                          rewriteCloneIndexes(newSet, 'person_in_care_name', i);
+                          rewriteCloneIndexes(newSet, 'person_in_care_age', i);
+                          rewriteCloneIndexes(newSet, 'person_in_care_mentions', i);
+
+                          newSet.appendTo($('#persons_in_care'));
+                      }
+                  },
+                  cleanupFields                    = function () {
+                      $(".person_in_care:not([data-index='1'])").remove();
+                  };
+
+
+            let trackTimeoutId;
+
             $('#known_languages').select2({
-                allowClear: true,
-                theme: "classic",
-                tokenSeparators: [,],
+                allowClear       : true,
+                theme            : "classic",
+                tokenSeparators  : [,],
                 scrollAfterSelect: true,
                 selectionCssClass: "form-control",
-                tags: true
+                tags             : true
             });
 
             $("#special_needs").click(function () {
@@ -285,51 +324,13 @@
                 }
             });
 
-            $("#has_dependants_family").click(function () {
-                let checked = $(this).is(":checked");
-
-                if (checked) {
-                    $("#dependants_family_details_div").removeClass("d-none");
-                    $("input[data-required='1']", $("#dependants_family_details_div")).attr("required", true);
-                    $(".person_in_care input").removeAttr('disabled');
-                } else {
-                    $("#dependants_family_details_div").addClass("d-none");
-                    $("input[required]", $("#dependants_family_details_div")).attr('required', false);
-                    $(".person_in_care input").attr('disabled', true);
-                }
+            toggleFamilyDependentsState(hasDependantsFamily.is(':checked'));
+            hasDependantsFamily.click(function () {
+                toggleFamilyDependentsState($(this).is(":checked"));
             });
 
-
-            /**
-             Script for "persons in care" form section
-             */
-            function cleanupFields() {
-                $(".person_in_care:not([data-index='1'])").remove();
-            }
-
-            function rewriteCloneIndexes(target, label, i) {
-                target.find(`[for="${label}_0"]`).attr('for', `${label}_${i}`);
-                target.find(`[name="${label}[0]"]`).attr('name', `${label}[${i}]`).attr('id', `${label}_${i}`);
-            }
-
-
-            function renderFields(q, fieldSet) {
-                for (let i = 2; i <= q; i++) {
-                    const newSet = fieldSet.clone();
-                    newSet.attr('data-index', i);
-
-                    rewriteCloneIndexes(newSet, 'person_in_care_name', i);
-                    rewriteCloneIndexes(newSet, 'person_in_care_age', i);
-                    rewriteCloneIndexes(newSet, 'person_in_care_mentions', i);
-
-                    newSet.appendTo($('#persons_in_care'))
-                }
-            }
-
-            let trackTimeoutId;
-            const personFieldSet = $('.person_in_care[data-index="1"]');
-
-            $("#person_in_care_count").change(function (e) {
+            renderFields(personInCareCount.val(), personFieldSet)
+            personInCareCount.keyup(function (e) {
                 if (!e.target.value) {
                     return;
                 }
@@ -343,30 +344,27 @@
 
                 trackTimeoutId = timeoutId;
             });
-
-            $("#person_in_care_count").on('blur', function (e) {
+            personInCareCount.on('blur', function (e) {
                 if (!e.target.value) {
                     cleanupFields();
                     renderFields(e.target.value, personFieldSet);
                 }
             })
 
-            $("#need_transport, #need_special_transport").on('change', function(e) {
+            $("#need_transport, #need_special_transport").on('change', function (e) {
                 if (this.checked) {
                     $("#dont_need_transport").attr("disabled", true);
                 } else {
                     $("#dont_need_transport").removeAttr("disabled");
                 }
             })
-
-            $("#dont_need_transport").on('change', function(e) {
+            $("#dont_need_transport").on('change', function (e) {
                 if (this.checked) {
                     $("#need_transport, #need_special_transport").attr("disabled", true);
                 } else {
                     $("#need_transport, #need_special_transport").removeAttr("disabled");
                 }
             })
-
         });
     </script>
 @endsection
