@@ -188,7 +188,9 @@
                 <div class="card-body pt-4">
                     <div class="row">
                         <h3>{{__('Leave a review')}}</h3>
-                        <form method="POST" action="{{route('refugee.accommodation.review', ['accommodation' => $accommodation])}}" class="submit_review">
+                        <form method="POST"
+                              action="{{route('refugee.accommodation.review', ['accommodation' => $accommodation])}}"
+                              class="submit_review">
                             @csrf
                             <div class="form-section">
                         <textarea name="review"
@@ -266,7 +268,7 @@
             text-align: center;
         }
 
-        .card-body.no-review .row h5{
+        .card-body.no-review .row h5 {
             width: 100%;
             text-align: center;;
         }
@@ -283,18 +285,17 @@
               ratingInput = $('#rating');
 
         rating.starRating({
-            starIconEmpty : 'fa fa-star',
-            starIconFull  : 'fa fa-star',
-            starColorEmpty: 'lightgray',
-            starColorFull : 'orange',
-            starSize      : 25,
-            stars         : 5,
-            showInfo      : false,
-            wrapperClasses: ''
+            starIconEmpty   : 'fa fa-star',
+            starIconFull    : 'fa fa-star',
+            starColorEmpty  : 'lightgray',
+            starColorFull   : 'orange',
+            starSize        : 25,
+            stars           : 5,
+            showInfo        : false,
+            wrapperClasses  : '',
+            disableAfterRate: false,
+            useFullStars    : true,
+            callback        : (stars) => ratingInput.val(stars)
         });
-
-        rating.change(function (e, stars, index) {
-            ratingInput.val(stars)
-        })
     </script>
 @endsection
