@@ -44,7 +44,7 @@
                         <li class="d-flex">
                             <i class="fa fa-language"></i>
                             <span>
-                             {{ __("Knwon Languages") }}: <b>{{ implode(",", json_decode($helpRequest->known_languages) ?? []) }}</b>
+                             {{ __("Known Languages") }}: <b>{{ implode(",", json_decode($helpRequest->known_languages) ?? []) }}</b>
                          </span>
                         </li>
                         <li class="d-flex">
@@ -68,7 +68,7 @@
                 </div>
                 @if ($helpRequest->update_at)
                     <div class="kv">
-                        <p>{{ __("Update At") }}</p>
+                        <p>{{ __("Updated At") }}</p>
                         <b>{{ formatDateTime($helpRequest->updated_at) }}</b>
                     </div>
                 @endif
