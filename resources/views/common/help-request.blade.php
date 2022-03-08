@@ -20,7 +20,9 @@
             <p>{{__('Special needs')}} : {{$item->special_needs}}</p>
             <p>{{__('Created at')}} : {{$item->created_at}}</p>
             @if($item->isAllocated())
-                @include('common.help-request-accommodation-view')
+                @include('common.help-request-accommodation-view', [
+                    'accommodation' => $item->accommodation()->get()->last()
+                ])
             @endif
         </div>
     </div>

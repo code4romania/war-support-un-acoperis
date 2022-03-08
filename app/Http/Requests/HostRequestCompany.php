@@ -44,4 +44,25 @@ class HostRequestCompany extends FormRequest
 
         return $validatorRules;
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'new_user.company_name' => __("Company name"),
+            'new_user.company_tax_id' => __("Company Tax ID"),
+            'new_user.legal_representative_name' => __("Name and surname of legal representative"),
+            'new_user.county_id' => __('County'),
+            'new_user.city' => __('City'),
+            'new_user.address' => __('Address'),
+            'new_user.name' => __("Contact person name and surname"),
+            'new_user.phone' => __("Phone Number"),
+            'new_user.email' => __("E-Mail Address"),
+            'new_user.other' => __('Other type'),
+        ];
+    }
 }
