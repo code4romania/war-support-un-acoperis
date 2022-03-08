@@ -197,9 +197,9 @@ class Accommodation extends Model implements Auditable
             ->orderBy('created_at');
     }
 
-    public function reviewedByUser(): bool
+    public function reviewedByUser(User $user): bool
     {
-        return $this->reviews()->exists();
+        return (bool)$this->reviews()->where(['user_id' => $user->id])->count();
     }
 
     /**

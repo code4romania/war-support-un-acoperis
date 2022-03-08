@@ -1,21 +1,24 @@
+@if(isset($reviews) && count($reviews))
 <div class="card-body">
     <h5 class="text-primary font-weight-600 mb-4">
         {{ __('Reviews') }}
     </h5>
-    <div class="border-bottom py-4" id="note-container">
-        <dl class="dl-horizontal review">
+    <div class="border-bottom" id="review-container">
             @foreach($reviews as $review)
-                <dt>
-                    <h5 class="user"><a href="{{route('admin.user-detail', ['id' => $review->user])}}">{{$review->user->name}}</a></h5>
-                    <span class="rating" data-rating-value="{{$review->rating}}"></span>
-                </dt>
-                <dd>{{$review->review}}</dd>
+                <div class="row py-2">
+                        <div class="col-md3">
+                            <span class="user"><a href="{{route('admin.user-detail', ['id' => $review->user])}}">{{$review->user->name}}</a></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="rating" data-rating-value="{{$review->rating}}"></span>
+                        </div>
+                        <div class="col-md-12"> {{$review->review}} </div>
+                </div>
             @endforeach
-        </dl>
-
     </div>
     <div class="pt-3 pb-3 mt-3 clearfix"></div>
 </div>
+@endif
 
 <div class="card-body">
     <h5 class="text-primary font-weight-600 mb-4">
