@@ -188,7 +188,6 @@ return [
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
 
         Laravel\Scout\ScoutServiceProvider::class,
-        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
     ],

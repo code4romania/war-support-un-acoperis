@@ -68,6 +68,8 @@ class UserController extends Controller
         $userService = new UserService();
         $trustedUser = $userService->createTrustedUser($request, true);
 
+        $userService->generateResetTokenAndNotifyUser($trustedUser);
+
         return redirect()
             ->route('admin.user-detail', ['id' => $trustedUser->id])
             ->withsuccess(__("Trusted user was activated and reset password option was successfully sent"));
@@ -109,6 +111,8 @@ class UserController extends Controller
 
         $userService = new UserService();
         $trustedUser = $userService->createAdminUser($request, true);
+
+        $userService->generateResetTokenAndNotifyUser($trustedUser);
 
         return redirect()
             ->route('admin.user-detail', ['id' => $trustedUser->id])
@@ -182,8 +186,7 @@ class UserController extends Controller
         /** @var PasswordBroker $broker */
         $broker = Password::broker();
 
-        $response =
-            $broker->sendResetLink(['id' => $user->id]);
+        $response = $broker->sendResetLink(['id' => $user->id]);
 
         return $response == PasswordBroker::RESET_LINK_SENT;
     }

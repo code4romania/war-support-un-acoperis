@@ -6,6 +6,7 @@ use App\Country;
 use App\County;
 use App\Http\Requests\HostRequestCompany;
 use App\Http\Requests\HostRequestPerson;
+use App\Notifications\UserCreatedNotification;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +39,7 @@ class HostService
     {
         $resetToken = Password::getRepository()->create($user);
 
-        $notification = new \App\Notifications\HostSignup($user, $resetToken);
+        $notification = new UserCreatedNotification($user, $resetToken);
 
         Notification::route('mail', $user->email)
             ->notify($notification);
@@ -51,7 +52,5 @@ class HostService
             ->with('countries', Country::all())
             ->with('counties', County::all())
             ->with('description', $description);
-
     }
-
 }

@@ -1,15 +1,23 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="row">
-        <a class="btn btn-secondary" href="{{ route('admin.host-add') }}">{{ __('Add host user') }}</a>
-        @if(Auth::user()->isAdministrator())
-            <a class="btn btn-secondary" href="{{ route('admin.trusted-user-add') }}">{{ __('Add trusted user') }}</a>
-        @endif
-        @if(Auth::user()->isAdministrator())
-            <a class="btn btn-secondary" href="{{ route('admin.admin-user-add') }}">{{ __('Add admin user') }}</a>
-        @endif
-    </div>
+    <section class="mb-5 row">
+        <div class="col-md-6">
+            <h1 class="page-title font-weight-600 mb-0">{{ __('Users') }}</h1>
+        </div>
+
+        <div class="col-md-6 d-md-flex justify-content-end">
+            <a class="btn btn-secondary m-2" href="{{ route('admin.host-add') }}">{{ __('Add host user') }}</a>
+            @if (Auth::user()->isAdministrator())
+                <a class="btn btn-secondary m-2"
+                    href="{{ route('admin.trusted-user-add') }}">{{ __('Add trusted user') }}</a>
+            @endif
+            @if (Auth::user()->isAdministrator())
+                <a class="btn btn-secondary m-2"
+                    href="{{ route('admin.admin-user-add') }}">{{ __('Add admin user') }}</a>
+            @endif
+        </div>
+    </section>
 
     <section class="mb-5">
         <p class="mb-sm-0">{{ __('Filter users') }}</p>
@@ -19,9 +27,9 @@
                     <div class="form-group">
                         <label for="approvalStatus">{{ __('Status') }}</label>
                         <select name="approvalStatus" id="approvalStatus" class="custom-select form-control">
-                            <option value="0" {{ $approvalStatus == 0 ? ' selected' : '' }}>{{ __('All') }}</option>
+                            <option value="0" {{ $approvalStatus == 0 ? ' selected' : '' }}>{{ __('All statuses') }}</option>
                             <option value="1" {{ $approvalStatus == 1 ? ' selected' : '' }}>{{ __('Approved') }}</option>
-                            <option value="2" {{ $approvalStatus == 2 ? ' selected' : '' }}>{{ __('Disapproved') }}</option>
+                            <option value="2" {{ $approvalStatus == 2 ? ' selected' : '' }}>{{ __('Unapproved') }}</option>
                         </select>
                     </div>
                 </div>

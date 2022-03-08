@@ -35,27 +35,27 @@ class HelpRequestService
         }
 
         return 1 + (int)$data['person_in_care_count'];
-
     }
 
     private function getPersonInCareJson($data): string
     {
         $personsInCare = [];
-        for ($index = 1; $index < $data['person_in_care_count']; $index++) {
-             $person = [
+
+        for ($index = 1; $index <= $data['person_in_care_count']; $index++) {
+            $person = [
                 'name' => $data['person_in_care_name'][$index] ?? null,
                 'age' => $data['person_in_care_age'][$index] ?? null,
                 'mentions' => $data['person_in_care_mentions'][$index] ?? null,
             ];
 
-             // if no info for person, skip it
+            // if no info for person, skip it
             if (count(array_filter($person)) == 0) {
                 continue;
             }
 
             $personsInCare[] = $person;
         }
+
         return json_encode($personsInCare);
     }
-
 }
