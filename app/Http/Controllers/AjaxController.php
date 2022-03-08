@@ -12,8 +12,6 @@ use App\HelpRequestAccommodationDetail;
 use App\HelpRequestType;
 use App\HelpResource;
 use App\HelpResourceType;
-use App\Http\Controllers\Host\ProfileController;
-use App\Http\Middleware\SetLanguage;
 use App\Http\Requests\BookAccommodationRequest;
 use App\Note;
 use App\Services\ChartService;
@@ -21,6 +19,7 @@ use App\UaCity;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -642,37 +641,24 @@ class AjaxController extends Controller
      */
     public function accommodationList(Request $request)
     {
-        /** @var Carbon|null $startDate */
-        $startDate = $request->has('startDate') ? new Carbon($request->get('startDate')) : null;
-
-        /** @var Carbon|null $endDate */
-        $endDate = $request->has('endDate') ? new Carbon($request->get('endDate')) : null;
-
         /** @var Builder $query */
         $query = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
         $query->join('counties', 'counties.id', '=', 'accommodations.address_county_id');
         $query->join('users', 'users.id', '=', 'accommodations.user_id');
         $query->join('accommodation_types', 'accommodations.accommodation_type_id', '=', 'accommodation_types.id');
 
-        //@TODO: redo the queries for availability
-//        if (!empty($startDate) && !empty($endDate) && $startDate <= $endDate) {
-//            $query->leftJoin('accommodations_availability_intervals', function($join) use ($startDate, $endDate) {
-//                $join->on('accommodations_availability_intervals.accommodation_id', '=', 'accommodations.id');
-//                $join->where(function($where) use ($startDate, $endDate) {
-//                    $where->where(function ($where2) use ($startDate, $endDate) {
-//                        $where2->where('accommodations_availability_intervals.from_date', '>=', $startDate);
-//                        $where2->where('accommodations_availability_intervals.from_date', '<', $endDate);
-//                    });
-//
-//                    $where->orWhere(function ($where3)  use ($startDate, $endDate) {
-//                        $where3->where('accommodations_availability_intervals.to_date', '>=', $startDate);
-//                        $where3->where('accommodations_availability_intervals.to_date', '<', $endDate);
-//                    });
-//                });
-//            });
-//
-//            $query->whereNull('accommodations_availability_intervals.id');
-//        }
+        /**
+         * @var Carbon|null $startDate
+         * @var Carbon|null $endDate
+         */
+        $startDate = $request->has('startDate') ? new Carbon($request->get('startDate')) : null;
+        $endDate = $request->has('endDate') ? new Carbon($request->get('endDate')) : null;
+        if ($startDate && $endDate) {
+            $query->whereHas('availabilityIntervals', function (EloquentBuilder $q) use ($startDate, $endDate) {
+                $q->whereDateStrictBetween($startDate, $endDate);
+            });
+        }
+
 
         if ($request->has('type') && !empty($request->get('type'))) {
             $query->where('accommodations.accommodation_type_id', '=', $request->get('type'));
