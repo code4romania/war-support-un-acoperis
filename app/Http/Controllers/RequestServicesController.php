@@ -26,6 +26,10 @@ class RequestServicesController extends Controller
 
     public function index(Request $request, SettingRepository $settingRepository)
     {
+        if (auth()->user() && auth()->user()->isRefugee()) {
+            return redirect()->route('request-services-step3');
+        }
+
         if (!$this->seekerTermsAreAgreed($request)) {
             return view('frontend.request-services.terms-and-conditions')
                 ->with('description', $settingRepository->byKey('request_services_description') ?? '')
@@ -71,9 +75,10 @@ class RequestServicesController extends Controller
 
     public function submitStep2(ServiceRequest $request): RedirectResponse
     {
-        $user = (new RefugeeService())->createRefugee($request);
-
-        Auth::login($user);
+        if (! auth()->check() || ! auth()->user()->isRefugee()) {
+            $user = (new RefugeeService())->createRefugee($request);
+            Auth::login($user);
+        }
 
         return redirect()->route('request-services-step3');
     }

@@ -181,7 +181,7 @@ class Accommodation extends Model implements Auditable
     /**
      * @return HasMany
      */
-    public function availabilityIntervals()
+    public function availabilityIntervals(): HasMany
     {
         return $this->hasMany(AccommodationsAvailabilityIntervals::class);
     }
