@@ -75,7 +75,7 @@ class RequestServicesController extends Controller
 
     public function submitStep2(ServiceRequest $request): RedirectResponse
     {
-        if (auth()->user() && !auth()->user()->isRefugee()) {
+        if (! auth()->check() || ! auth()->user()->isRefugee()) {
             $user = (new RefugeeService())->createRefugee($request);
             Auth::login($user);
         }
