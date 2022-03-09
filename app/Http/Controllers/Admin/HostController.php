@@ -99,6 +99,7 @@ class HostController extends Controller
 
         return view('admin.host-detail')
             ->with('user', $user)
+            ->with('host_id_url', $user->idDoc()->first()->generateUrl())
             ->with('accommodations', $accommodations);
     }
 

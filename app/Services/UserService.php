@@ -3,6 +3,7 @@
 
 namespace App\Services;
 
+use App\UserAttachment;
 use App\Http\Requests\HostRequestCompany;
 use App\Http\Requests\HostRequestPerson;
 use App\Http\Requests\ServiceRequest;
@@ -10,6 +11,7 @@ use App\Notifications\UserCreatedNotification;
 use App\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -66,15 +68,19 @@ class UserService
         $userParams = $this->prepareUserParams($request, $approved);
         $userParams['country_id'] = self::defaultCountryId;
 
-        if ($request instanceof HostRequestCompany)
-        {
-            $userParams['legal_representative_name'] = $request->get('legal_representative_name');
-            $userParams['company_name'] = $request->get('company_name');
-            $userParams['company_tax_id'] = $request->get('company_tax_id');
-        }
+        DB::beginTransaction();
 
         $user = User::create($userParams);
+        try {
+            $this->addHostIdAttachment($request instanceof HostRequestCompany ? $request->file('cui_document') : $request->file('id_document'), $user);
+        } catch (\Throwable $throwable) {
+            DB::rollBack();
+
+            throw $throwable;
+        }
         $user->assignRole(User::ROLE_HOST);
+
+        DB::commit();
 
         return $user;
     }
@@ -100,12 +106,37 @@ class UserService
             'approved_at' => now(),
         ];
 
+        if ($request instanceof HostRequestCompany)
+        {
+            $userParams['legal_representative_name'] = $attributes['legal_representative_name'];
+            $userParams['company_name'] = $attributes['company_name'];
+            $userParams['company_tax_id'] = $attributes['company_tax_id'];
+        }
+
         if ($approved)
         {
             $userParams['approved_at'] = now();
         }
 
         return $userParams;
+    }
+
+    private function addHostIdAttachment($fileInput, $user) {
+        /** @var UploadedFile $file */
+        $fileName = sha1((string)microtime() . $fileInput->getClientOriginalName()) . $fileInput->getClientOriginalExtension();
+
+        /** @var string $path */
+        $path = Storage::disk('private')->putFile('user_attachments/' . $user->id . '/id-doc/' . $fileName, $fileInput);
+
+        $attachment = new UserAttachment();
+        $attachment->user_id = $user->id;
+        $attachment->name = $fileName;
+        $attachment->identifier = sha1($path);
+        $attachment->path = $path;
+        $attachment->size = $fileInput->getSize();
+        $attachment->extension = '.' . $fileInput->getClientOriginalExtension();
+        $attachment->type = $fileInput->getClientMimeType();
+        $attachment->save();
     }
 
     public function generateResetTokenAndNotifyUser(User $user): void

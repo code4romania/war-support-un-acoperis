@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $formRouteCompany }}" id="hostSignupCompanyForm">
+<form method="POST" action="{{ $formRouteCompany }}" id="hostSignupCompanyForm" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="new_user[host_type_copy]" value="{{ $hostType }}" />
 
@@ -12,6 +12,16 @@
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="id_document" class="font-weight-600 required">
+                {{ __('Upload your CUI') }}:
+            </label>
+            <input type="file" id="cui_document" name="cui_document"/>
+
+            @error('cui_document')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
         </div>
     </div>
     <div class="row">

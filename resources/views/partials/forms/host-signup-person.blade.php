@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $formRoutePerson }}" id="hostSignupPersonForm">
+<form method="POST" action="{{ $formRoutePerson }}" id="hostSignupPersonForm" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="new_user[host_type_copy]" value="{{ $hostType }}" />
 
@@ -31,6 +31,16 @@
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="id_document" class="font-weight-600 required">
+                {{ __('Upload your ID') }}:
+            </label>
+            <input type="file" id="id_document" name="id_document"/>
+
+            @error('id_document')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 
