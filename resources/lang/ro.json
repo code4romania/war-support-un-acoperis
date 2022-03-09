@@ -511,5 +511,10 @@
     "Refugee name": "Nume refugiat",
     "Allocation date": "Dată alocare",
     "Change status": "Modifică status",
-    "Add help request": "Adaugă solicitare de ajutor"
+    "Add help request": "Adaugă solicitare de ajutor",
+    "Host": "Gazda",
+    "From": "De la",
+    "To": "La",
+    "Time": "Timp",
+    "Days": "Zile"
 }

@@ -151,6 +151,13 @@ class UserController extends Controller
             return redirect()->route('admin.host-detail', ['id' => $user->id]);
         }
 
+        if($user->hasRole(User::ROLE_REFUGEE))
+        {
+            $details = $user->load('allocationsHistory');
+
+            return view('admin.user-detail', compact('user', 'details'));
+        }
+
         return view('admin.user-detail')
             ->with('user', $user);
     }

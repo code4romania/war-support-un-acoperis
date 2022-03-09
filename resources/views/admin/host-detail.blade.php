@@ -58,6 +58,39 @@
         @endforeach
     </div>
 
+    @if($user->hasRole(\App\User::ROLE_HOST))
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>{{ __('Refugee name') }}</th>
+                <th>{{ __('Accommodation') }}</th>
+                <th>{{ __('Guests number') }}</th>
+                <th>{{ __('Time') }}</th>
+                <th>{{ __('From') }}</th>
+                <th>{{ __('To') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($details->hasAllocatedHistory as $key => $detail)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td><a href="{{ route('admin.user-detail', $detail->refugee_id) }}">{{ $detail->refugee->name }}</a></td>
+                    <td><a href="{{ route('admin.accommodation-detail', $detail->accommodation_id) }}">{{ $detail->accommodation->accommodationtype->name }}</a></td>
+                    <td>{{ $detail->number_of_guest }}</td>
+                    <td>{{ $detail->accommodationTime }} zile</td>
+                    <td>{{ $detail->from }}</td>
+                    <td>{{ $detail->to }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">{{ $user->name }} doesn't have refugees in accommodation.</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    @endif
+
     <div class="mt-4">
         <nav aria-label="...">
             <ul class="pagination justify-content-center mb-0"></ul>

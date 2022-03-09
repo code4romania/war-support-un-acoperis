@@ -97,9 +97,9 @@ class HostController extends Controller
             abort(404);
         }
 
-        return view('admin.host-detail')
-            ->with('user', $user)
-            ->with('accommodations', $accommodations);
+        $details = $user->load('hasAllocatedHistory');
+
+        return view('admin.host-detail', compact('user', 'accommodations', 'details'));
     }
 
     /**

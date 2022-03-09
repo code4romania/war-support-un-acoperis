@@ -467,5 +467,10 @@
     "Name": "Name",
     "Mentions": "Mentions",
     "More details": "More details",
-    "Add help request": "Add help request"
+    "Add help request": "Add help request",
+    "Host": "Host",
+    "From": "From",
+    "To": "To",
+    "Time": "Time",
+    "Days": "Days"
 }

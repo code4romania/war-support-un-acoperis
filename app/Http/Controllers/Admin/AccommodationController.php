@@ -257,6 +257,16 @@ class AccommodationController extends Controller
         }
 
         $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number'), 'created_at' => now()]]);
+        $accommodation->helpRequestsHistory()->attach(
+            [$helpRequest->id =>
+                ['number_of_guest' => $request->post('guests_number'),
+                    'refugee_id' => $helpRequest->user_id,
+                    'host_id' => $accommodation->user_id,
+//                    @TODO Modify dates
+                    'from' => now(),
+                    'to' => now()
+                ]
+            ]);
         return redirect()->back()->with(['message' => __('Operation successful')]);
     }
 

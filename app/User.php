@@ -105,6 +105,15 @@ class User extends Authenticatable implements Auditable
         return $this->hasMany(HelpRequest::class);
     }
 
+    public function allocationsHistory(): HasMany
+    {
+        return $this->hasMany(AllocationHistory::class, 'refugee_id', 'id');
+    }
+
+    public function hasAllocatedHistory(): HasMany
+    {
+        return $this->hasMany(AllocationHistory::class, 'host_id', 'id');
+    }
 
     public function country(): BelongsTo
     {

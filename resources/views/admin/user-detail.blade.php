@@ -24,6 +24,39 @@
         </div>
     </div>
 
+    @if($user->hasRole(\App\User::ROLE_REFUGEE))
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>{{ __('Host') }}</th>
+                <th>{{ __('Accommodation') }}</th>
+                <th>{{ __('Guests number') }}</th>
+                <th>{{ __('Time') }}</th>
+                <th>{{ __('From') }}</th>
+                <th>{{ __('To') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($details->allocationsHistory as $key => $detail)
+            <tr>
+                <td>{{ $key + 1 }}</td>
+                <td><a href="{{ route('admin.user-detail', $detail->host_id) }}">{{ $detail->host->name }}</a></td>
+                <td><a href="{{ route('admin.accommodation-detail', $detail->accommodation_id) }}">{{ $detail->accommodation->accommodationtype->name }}</a></td>
+                <td>{{ $detail->number_of_guest }}</td>
+                <td>{{ $detail->accommodationTime }} zile</td>
+                <td>{{ $detail->from }}</td>
+                <td>{{ $detail->to }}</td>
+            </tr>
+            @empty
+                <tr>
+                    <td colspan="5">{{ $user->name }} has not been in any accommodation.</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    @endif
+
 @endsection
 
 @section('scripts')

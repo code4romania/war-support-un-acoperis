@@ -86,6 +86,11 @@ class HelpRequest extends Model implements Auditable
         return $this->belongsToMany(Accommodation::class, 'allocations', 'help_request_id', 'accommodation_id');
     }
 
+    public function accommodationsHistory(): BelongsToMany
+    {
+        return $this->belongsToMany(Accommodation::class, 'allocations_history', 'help_request_id', 'accommodation_id')->withTimestamps();
+    }
+
     public function isAllocated(): bool
     {
         return $this->accommodation()->exists();
