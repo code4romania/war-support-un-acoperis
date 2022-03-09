@@ -1,37 +1,49 @@
-@php
+<?php
+    $availabilities =  $accommodation->availabilityIntervals()->get(); // from_date - to_date
+    $bookings = $accommodation->helpRequests;
 
-    $availableIntervals =  $accommodation->availabilityIntervals()->get(); // from_date - to_date
-    $bookedIntervals = $accommodation->helpRequests;
-
+    //Booked Days
     $bookedDays = [];
-
-    foreach ($bookedIntervals as $bookedInterval) {
-
-        $start_interval = new DateTime($bookedInterval->pivot->start_date);
-        $end_interval = new DateTime($bookedInterval->pivot->end_date);
+    foreach ($bookings as $bInterval) {
+        $start = new DateTime($bInterval->pivot->start_date);
+        $end = new DateTime($bInterval->pivot->end_date);
 
         $interval = DateInterval::createFromDateString('1 day');
-        $period = new DatePeriod($start_interval, $interval, $end_interval);
+        $period = new DatePeriod($start, $interval, $end);
 
         foreach ($period as $dt) {
             $day = $dt->format("d-m-Y");
             if(isset($bookedDays[$day])) {
-                $bookedDays[$day] += $bookedInterval->guests_number;
+                $bookedDays[$day] += $bInterval->guests_number;
             }
             else {
-                $bookedDays[$day] = $bookedInterval->guests_number;
+                $bookedDays[$day] = $bInterval->guests_number;
             }
         }
     }
 
-    // accomodation avem un max capacity
-    // allocation => nr guest / start date si end date
+    $availableDays = [];
+    foreach ($availabilities as $aInterval) {
+        $start = new DateTime($aInterval->from_date);
+        $end = new DateTime($aInterval->to_date);
 
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod($start, $interval, $end);
 
-    //dd($bookedDays);
+        foreach ($period as $dt) {
+            $day = $dt->format("d-m-Y");
+            $availableDays[] = $day;
+        }
+    }
+?>
 
-@endphp
-
+<script type="text/javascript">
+    window.calendar_config = {
+        max_guests : {{$accommodation->max_guests}},
+        bookedDays : '{!! json_encode($bookedDays)  !!}',
+        availableDays : '{!! json_encode(array_unique($availableDays)) !!}'
+    }
+</script>
 <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
         <div class="card shadow">
@@ -78,16 +90,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="" for="guestNumber">{{__('Number of guests')}}</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
-                                </div>
-                                <input class="form-control  @error('guests_number') is-invalid @enderror" id="guestNumber" name="guests_number" type="number" value="1">
-                                @error('guests_number') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label class="" for="guestNumber">{{__('Number of guests')}}</label>--}}
+{{--                            <div class="input-group">--}}
+{{--                                <div class="input-group-prepend">--}}
+{{--                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>--}}
+{{--                                </div>--}}
+{{--                                <input class="form-control  @error('guests_number') is-invalid @enderror" id="guestNumber" name="guests_number" type="number" value="1">--}}
+{{--                                @error('guests_number') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="form-group">
                             <label class="" for="startDateFilter">{{ __('Starting with') }}</label>

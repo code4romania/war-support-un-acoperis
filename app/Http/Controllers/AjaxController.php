@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Accommodation;
 use App\AccommodationPhoto;
+use App\Allocation;
 use App\City;
 use App\Clinic;
 use App\Country;
@@ -932,5 +933,63 @@ class AjaxController extends Controller
         }
 
         return $query;
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function allocations(Request $request)
+    {
+        /** @var Builder $query */
+        $query = Allocation::orderBy('end_date', 'desc');
+
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
+            $query->orWhere('help_requests.id',  'LIKE', '%' . $request->get('searchFilter') . '%');
+        }
+
+
+        if ($request->has('startDate')) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
+            $query->where('start_date', '>=', $startDate);
+        }
+
+        if ($request->has('endDate')) {
+            $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
+            $query->where('end_date', '<=', $startDate);
+        }
+
+        $query->select([
+            'help_requests.id',
+            'users.name',
+            'help_requests.status',
+            'start_date',
+            'end_date',
+            'help_requests.need_car',
+            'help_requests.need_special_transport',
+            'help_requests.special_needs',
+            'help_requests.guests_number',
+            'help_requests.created_at'
+        ])->join('help_requests', 'help_request_id', '=', 'help_requests.id')
+            ->join('users', 'help_requests.user_id', '=', 'users.id');
+
+        if (
+            $request->has('status') &&
+            array_key_exists($request->get('status'), HelpRequest::statusList())
+        ) {
+            $query->where('help_requests.status', '=', $request->get('status'));
+        }
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
+        }
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
     }
 }

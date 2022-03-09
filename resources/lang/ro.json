@@ -110,6 +110,8 @@
     "Total Results": "Total rezultate",
     "Request ID": "Nr. cerere",
     "Request Date": "Dată cerere",
+    "Allocation Start Date": "Dată cazare",
+    "Allocation End Date": "Dată decazare",
     "Patient Name": "Nume beneficiar",
     "Request Status": "Status cerere",
     "Caretaker Name": "Nume solicitant",

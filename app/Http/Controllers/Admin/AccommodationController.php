@@ -6,6 +6,7 @@ use App\Accommodation;
 use App\AccommodationPhoto;
 use App\AccommodationType;
 use App\AccommodationsAvailabilityIntervals;
+use App\Allocation;
 use App\FacilityType;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,8 @@ use App\Http\Requests\AccommodationRequest;
 use App\Http\Requests\Admin\AllocateRequest;
 use App\Services\AccommodationService;
 use App\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -251,16 +254,62 @@ class AccommodationController extends Controller
             return redirect()->back()->withErrors(['help_request_id' => __('This help request is already resolved')]);
         }
 
-        $reservedNumber = $accommodation->helpRequests->sum('guests_number');
-        if ($reservedNumber + $helpRequest->guests_number > $accommodation->max_guests) {
+        $start = Carbon::parse($request->startDate);
+        $end = Carbon::parse($request->endDate);
+
+        //Verify is AvailabilityInterval exists
+        $selectedInterval =  $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
+        if(empty($selectedInterval)) {
+            return redirect()->back()->withErrors(['startDate' => __('There is interval available between selected dates')]);
+        }
+
+        //Booked Periods that intersects with current request interval
+        $bookings = Allocation::where([
+                'help_request_id' => $helpRequest->id,
+                'accommodation_id'=>$accommodation->id
+            ])
+            ->where('start_date', '<=' ,$request->startDate)
+            ->where('end_date' , '>=', $request->startDate)
+            ->orWhere('start_date', '<=' ,$request->endDate)
+            ->where('end_date' , '>=', $request->endDate)
+            ->get();
+
+        $bookedDays = [];
+        foreach ($bookings as $bInterval) {
+            $period = CarbonPeriod::create($bInterval->start_date, $bInterval->end_date);
+
+            foreach ($period as $date) {
+                $day = $date->format("d-m-Y");
+                if (isset($bookedDays[$day])) {
+                    $bookedDays[$day] += $bInterval->number_of_guest;
+                }
+                else {
+                    $bookedDays[$day] = $bInterval->number_of_guest;
+                }
+            }
+        }
+
+        //Check per total if accomodation has enough space for all guests
+        if ($helpRequest->guests_number > $accommodation->max_guests) {
             return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
         }
 
+        //Check per day if accomodation has enough space for all guests
+        $request_period = CarbonPeriod::create($request->startDate, $request->endDate);
+        foreach ($request_period as $date) {
+            $day = $date->format("d-m-Y");
+            if (isset($bookedDays[$day])) {
+                $reservedNumber =  $bookedDays[$day] + $helpRequest->guests_number;
+                if($reservedNumber > $accommodation->max_guests) {
+                    return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
+                }
+            }
+        }
 
         $accommodation->helpRequests()->attach([$helpRequest->id => [
             'start_date' => $request->startDate,
             'end_date' => $request->endDate,
-            'number_of_guest' => $request->guests_number,
+            'number_of_guest' => $helpRequest->guests_number,
             'created_at' => now()]
         ]);
         return redirect()->back()->with(['message' => __('Operation successful')]);

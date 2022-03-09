@@ -346,3 +346,40 @@
     height: auto!important;
 }
 
+//Fullcalendar Custom Style
+.fc-day.disabled{
+    background:#eee!important;
+}
+
+.fc-day.available{
+    background: #82ffb7!important;
+}
+
+.fc-day.warning{
+    background: #fffa8f!important;
+}
+
+.fc-day.danger{
+    background: #ff9d86 !important;
+}
+.fc-content-skeleton,
+.fc-content-skeleton table,
+.fc-content-skeleton table thead {height:100%!important; text-align: center!important; vertical-align: middle!important;}
+
+.fc-ltr .fc-basic-view .fc-day-top{ vertical-align: middle;}
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number{ float: none!important;font-size: 20px;}
+
+span.nr-badge {
+    float: right;
+    background: #525f7f;
+    border-radius: 50%;
+    padding: 4px;
+    margin-right: 5px;
+    margin-top: 5px;
+    width: 18px;
+    text-align: center;
+    color: #fff;
+    height: 18px;
+    font-size: 14px;
+    line-height: 18px;
+}

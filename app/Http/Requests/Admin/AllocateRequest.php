@@ -29,7 +29,6 @@ class AllocateRequest extends FormRequest
     {
         return [
             'help_request_id' => 'numeric|required',
-            'guests_number' => 'numeric|required|min:0',
         ];
     }
 }
