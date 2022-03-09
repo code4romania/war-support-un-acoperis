@@ -178,7 +178,7 @@
                 </h6>
             </div>
 
-            @if ($accommodation->reviewedByUser())
+            @if ($accommodation->reviewedByUser(auth()->user()))
                 <div class="card-body pt-4 no-review">
                     <div class="row">
                         <h5>{{__('A review has already been submitted. Thank you!')}}</h5>
