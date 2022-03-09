@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Accommodation;
+
 use App\AccommodationPhoto;
+use App\UserAttachment;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Prophecy\Exception\Doubler\ClassNotFoundException;
 
 /**
  * Class MediaController
@@ -46,6 +50,44 @@ class MediaController extends Controller
         return response($photoContent, 200, [
             'Content-Type' => $photo->type,
             'Content-Length' => $photo->size,
+            'Content-Disposition' => 'inline'
+        ]);
+    }
+
+    public function attachmentContent(string $docType, int $docId, string $identifier)
+    {
+        /* ToDo - unify handling of all user related attachments in one place - accomodation ids & photo ids
+        $className = urldecode($docType);
+        try {
+            $attachment = new $className();
+        } 
+        catch (ClassNotFoundException $e)
+        {
+            abort(404);
+        }
+        */
+
+        $attachment = UserAttachment::findOrFail($docId);
+        if (empty($attachment->identifier) || empty($attachment->path)
+            || $attachment->identifier != $identifier) {
+            abort(404);
+        }
+
+        $loggedUser = Auth::user();
+        if (!($loggedUser->isAdministrator() || ($attachment->user_id === $loggedUser->id)))
+        {
+            abort(403);
+        }
+
+        try {
+            $photoContent = Storage::disk('private')->get($attachment->path);
+        } catch (FileNotFoundException $e) {
+            abort(404);
+        }
+
+        return response($photoContent, 200, [
+            'Content-Type' => $attachment->type,
+            'Content-Length' => $attachment->size,
             'Content-Disposition' => 'inline'
         ]);
     }

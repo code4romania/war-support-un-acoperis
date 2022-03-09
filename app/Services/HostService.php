@@ -26,23 +26,9 @@ class HostService
         $userService = new UserService();
         $user = $userService->createHostUser($request);
 
-        $this->generateResetTokenAndNotifyUser($user);
+        $userService->generateResetTokenAndNotifyUser($user);
 
         return $user;
-    }
-
-    /**
-     * @param User $user
-     * @return void
-     */
-    private function generateResetTokenAndNotifyUser(User $user): void
-    {
-        $resetToken = Password::getRepository()->create($user);
-
-        $notification = new UserCreatedNotification($user, $resetToken);
-
-        Notification::route('mail', $user->email)
-            ->notify($notification);
     }
 
     public function viewSignupForm(string $view, ?string $description = null)

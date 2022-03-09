@@ -36,6 +36,14 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
     ->middleware('auth');
 
 /**
+ * Attachment handling
+ */
+Route::get('/media/attachment/{docType}/{docId}/{identifier}.{extension}', 'MediaController@attachmentContent')
+    ->where('docId', '[0-9]+')
+    ->name('media.attachment-content')
+    ->middleware('auth');    
+
+/**
  * Administration routes
  */
 Route::middleware([ShareMiddleware::class])->prefix('/share')->group(function (){
