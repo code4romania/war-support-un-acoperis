@@ -83,6 +83,7 @@ class HelpRequest extends Model implements Auditable
 
     public function accommodation(): BelongsToMany
     {
+        // todo how do we know when an allocation has ran it's course?
         return $this->belongsToMany(Accommodation::class, 'allocations', 'help_request_id', 'accommodation_id');
     }
 

@@ -2,7 +2,10 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title mb-3 font-weight-600">{{ __('Accommodation resource') }}</h6>
+        <div class="title-wrapper">
+            <h6 class="page-title mb-3 font-weight-600">{{ __('Accommodation resource') }}</h6>
+            <span class="accommodation-rating" data-rating-value="{{$accommodation->rating}}"></span>
+        </div>
         <a href="{{ route('admin.accommodation-list') }}"
            class="btn btn-sm btn-outline-primary mr-3">{{ __('Back') }}</a>
     </section>
@@ -213,6 +216,7 @@
     <div class="card shadow">
         @include('partials.notes', [
             'notes' => $accommodation->notes,
+            'reviews' => $reviews,
             'entityType' => \App\Note::TYPE_HELP_ACCOMMODATION,
             'entityId' => $accommodation->id
         ])
@@ -307,9 +311,21 @@
     </div>
 @endsection
 
+@section('styles')
+    <style>
+        .title-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+@endsection
+
+
 @section('scripts')
     <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/star-rating.css')}}">
+    <script src="{{ mix('js/star-rating.js')}}"></script>
     <script>
         class AccommodationRenderer extends TableDataRenderer {
             renderTable(responseData) {
@@ -331,6 +347,7 @@
         }
 
         $(document).ready(function () {
+            const ratingEl = $('.accommodation-rating');
             let pageState = {};
             pageState.page = 1;
             pageState.perPage = 15;
@@ -388,6 +405,19 @@
                     .catch(error => {
                         console.log(error);
                     });
+            });
+
+            ratingEl.starRating({
+                starIconEmpty : 'fa fa-star',
+                starIconFull  : 'fa fa-star',
+                starColorEmpty: 'lightgray',
+                starColorFull : 'orange',
+                starSize     : 25,
+                stars         : 5,
+                showInfo      : false,
+                wrapperClasses: '',
+                readOnly      : true,
+                initialRating: ratingEl.data('rating-value'),
             });
         });
     </script>

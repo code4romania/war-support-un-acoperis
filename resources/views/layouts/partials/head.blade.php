@@ -42,5 +42,6 @@
     @endproduction
 
 
+    @yield('styles')
     @yield('head-scripts')
 </head>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Accommodation;
 use App\AccommodationPhoto;
+use App\AccommodationReview;
 use App\AccommodationType;
 use App\AccommodationsAvailabilityIntervals;
 use App\FacilityType;
@@ -79,6 +80,8 @@ class AccommodationController extends Controller
             $photos[] = $photo->getPhotoUrl();
         }
 
+        $reviews = AccommodationReview::where('accommodation_id', $accommodation->id)->with('user')->get();
+
         return view('admin.accommodation-detail')
             ->with('user', $user)
             ->with('accommodation', $accommodation)
@@ -87,7 +90,8 @@ class AccommodationController extends Controller
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
             ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
-            ->with('bookings', $accommodation->bookings()->get());
+            ->with('bookings', $accommodation->bookings()->get())
+            ->with('reviews', $reviews);
     }
 
     /**

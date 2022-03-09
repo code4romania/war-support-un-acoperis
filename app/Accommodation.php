@@ -52,6 +52,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $approved_at
  * @property bool $is_free
  * @property int|null $created_by
+ * @property int $rating
  */
 class Accommodation extends Model implements Auditable
 {
@@ -78,6 +79,10 @@ class Accommodation extends Model implements Auditable
      */
     protected $casts = [
         'is_free' => 'boolean',
+    ];
+
+    protected $appends = [
+        'rating'
     ];
 
     /**
@@ -146,6 +151,11 @@ class Accommodation extends Model implements Auditable
         return $this->belongsTo(County::class, 'address_county_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(AccommodationReview::class);
+    }
+
     /**
      * @return BelongsToMany
      */
@@ -185,6 +195,11 @@ class Accommodation extends Model implements Auditable
             ->hasMany(Note::class, 'entity_id')
             ->where('notes.entity_type', '=', Note::TYPE_HELP_ACCOMMODATION)
             ->orderBy('created_at');
+    }
+
+    public function reviewedByUser(User $user): bool
+    {
+        return (bool)$this->reviews()->where(['user_id' => $user->id])->count();
     }
 
     /**
@@ -239,5 +254,14 @@ class Accommodation extends Model implements Auditable
          */
         $user = Auth::user();
         return $this->user_id === $user->id || $user->isAdministrator();
+    }
+
+    public function getRatingAttribute(): int
+    {
+        if ($count = $this->reviews()->count()) {
+            return $this->reviews()->sum('rating') / $count;
+        }
+
+        return 0;
     }
 }

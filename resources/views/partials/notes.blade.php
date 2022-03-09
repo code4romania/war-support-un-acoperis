@@ -1,6 +1,28 @@
+@if(isset($reviews) && count($reviews))
 <div class="card-body">
     <h5 class="text-primary font-weight-600 mb-4">
-        {{ __('Notes and reviews') }}
+        {{ __('Reviews') }}
+    </h5>
+    <div class="border-bottom" id="review-container">
+            @foreach($reviews as $review)
+                <div class="row py-2">
+                        <div class="col-md3">
+                            <span class="user"><a href="{{route('admin.user-detail', ['id' => $review->user])}}">{{$review->user->name}}</a></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="rating" data-rating-value="{{$review->rating}}"></span>
+                        </div>
+                        <div class="col-md-12"> {{$review->review}} </div>
+                </div>
+            @endforeach
+    </div>
+    <div class="pt-3 pb-3 mt-3 clearfix"></div>
+</div>
+@endif
+
+<div class="card-body">
+    <h5 class="text-primary font-weight-600 mb-4">
+        {{ __('Notes') }}
     </h5>
     <div class="border-bottom py-4" id="noteContainer">
         @foreach($notes as $note)
@@ -29,12 +51,7 @@
             </div>
         @endforeach
     </div>
-    <div class="pt-3 pb-3 mt-3 clearfix">
-        <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6" data-toggle="modal" data-target=".bd-example-modal-lg">
-            <span class="btn-inner--icon mr-2"><i class="fa fa-comment"></i></span>
-            <span class="btn-inner--text">{{ __('Add note') }}</span>
-        </button>
-    </div>
+    <div class="pt-3 pb-3 mt-3 clearfix"></div>
 </div>
 
 <!-- Add note popup -->
@@ -207,6 +224,22 @@
             body.on('click', '.delete-note', function() {
                 deleteNoteId = $(this).data('note-id');
                 $('#deleteNoteModal').modal('show');
+            });
+
+            $(".rating").each(function () {
+                let el = $(this);
+                el.starRating({
+                    starIconEmpty : 'fa fa-star',
+                    starIconFull  : 'fa fa-star',
+                    starColorEmpty: 'lightgray',
+                    starColorFull : 'orange',
+                    starSize     : 25,
+                    stars         : 5,
+                    showInfo      : false,
+                    wrapperClasses: '',
+                    readOnly      : true,
+                    initialRating: el.data('rating-value'),
+                });
             });
         });
     </script>
