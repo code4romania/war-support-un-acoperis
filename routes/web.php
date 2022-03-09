@@ -241,7 +241,8 @@ Route::get('/ajax/ua_region/{regionId}/city', 'AjaxController@uaCities')->name('
 Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.clinics-cities-by-country');
 Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
-
+Route::get('/ajax/accommodation/{id}/requests', 'AjaxController@accommodationRequestsList')->name('ajax.host.accommodation-requests');
+Route::get('/ajax/accommodation/{accommodationId}/request/{helpRequestId}', 'AjaxController@accommodationRequestView')->name('ajax.host.accommodation-request-view');
 
 /**
  * 2FA
