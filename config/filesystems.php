@@ -48,23 +48,21 @@ return [
         ],
 
         'public' => [
-            'driver' => 'local',
-//            'url' => env('AWS_CDN_URL'),
-//            'key' => env('AWS_ACCESS_KEY_ID'),
-//            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-//            'region' => env('AWS_DEFAULT_REGION'),
-//            'bucket' => env('AWS_PUBLIC_BUCKET'),
+            'driver' => 's3',
+            'url' => env('AWS_CDN_URL'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_PUBLIC_BUCKET'),
             'visibility' => 'public',
-            'root' => storage_path('app'),
         ],
 
         'private' => [
-            'driver' => 'local',
-//            'key' => env('AWS_ACCESS_KEY_ID'),
-//            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-//            'region' => env('AWS_DEFAULT_REGION'),
-//            'bucket' => env('AWS_PRIVATE_BUCKET')
-            'root' => storage_path('app'),
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_PRIVATE_BUCKET')
         ],
     ],
 
