@@ -257,7 +257,7 @@ class AccommodationController extends Controller
         }
 
         $accommodation->helpRequests()->attach([$helpRequest->id => ['number_of_guest' => $request->post('guests_number'), 'created_at' => now()]]);
-        return redirect()->back()->with(['message' => __('Operation successful')]);
+        return redirect()->back()->with(['message' => __('Allocation successful')]);
     }
 
     public function disapprove(int $id)
