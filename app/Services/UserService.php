@@ -72,7 +72,7 @@ class UserService
 
         $user = User::create($userParams);
         try {
-            $this->addHostIdAttachment($request instanceof HostRequestCompany ? $request->file('cui_document') : $request->file('id_document'), $user);
+            $this->addHostIdAttachment($request instanceof HostRequestCompany ? $request->file('new_user.cui_document') : $request->file('new_user.id_document'), $user);
         } catch (\Throwable $throwable) {
             DB::rollBack();
 
@@ -106,22 +106,21 @@ class UserService
             'approved_at' => now(),
         ];
 
-        if ($request instanceof HostRequestCompany)
-        {
+        if ($request instanceof HostRequestCompany) {
             $userParams['legal_representative_name'] = $attributes['legal_representative_name'];
             $userParams['company_name'] = $attributes['company_name'];
             $userParams['company_tax_id'] = $attributes['company_tax_id'];
         }
 
-        if ($approved)
-        {
+        if ($approved) {
             $userParams['approved_at'] = now();
         }
 
         return $userParams;
     }
 
-    private function addHostIdAttachment($fileInput, $user) {
+    private function addHostIdAttachment($fileInput, $user)
+    {
         /** @var UploadedFile $file */
         $fileName = sha1((string)microtime() . $fileInput->getClientOriginalName()) . $fileInput->getClientOriginalExtension();
 

@@ -37,7 +37,7 @@
     }
 
     $(document).ready(function(){
-        $('input[name="id_document"]').fileuploader({
+        $('input#id_document').fileuploader({
             captions: $('html').attr('lang'),
             limit: 1,
             maxSize: 1,
@@ -45,7 +45,7 @@
             enableApi: true,
             addMore: true,
         });
-        $('input[name="cui_document"]').fileuploader({
+        $('input#cui_document').fileuploader({
             captions: $('html').attr('lang'),
             limit: 1,
             maxSize: 1,

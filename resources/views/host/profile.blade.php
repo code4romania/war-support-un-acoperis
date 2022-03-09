@@ -66,7 +66,13 @@
                     {{ __('Host ID') }}
                 </b>
                 <div class="gallery d-flex flex-wrap mb-4">
-                    <a href="{{ $host_id_url }}" data-toggle="lightbox"><img src="{{ $host_id_url }}" alt="photo" class="img-fluid"></a>
+                    @if ($host_id_url)
+                        <a href="{{ $host_id_url }}" data-toggle="lightbox">
+                            <img src="{{ $host_id_url }}" alt="photo" class="img-fluid">
+                        </a>
+                    @else
+                        &mdash;
+                    @endif
                 </div>
             </div>
         </div>

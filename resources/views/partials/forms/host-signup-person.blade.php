@@ -36,9 +36,9 @@
             <label for="id_document" class="font-weight-600 required">
                 {{ __('Upload your ID') }}:
             </label>
-            <input type="file" id="id_document" name="id_document"/>
+            <input type="file" id="id_document" name="new_user[id_document]"/>
 
-            @error('id_document')
+            @error('new_user.id_document')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
         </div>
