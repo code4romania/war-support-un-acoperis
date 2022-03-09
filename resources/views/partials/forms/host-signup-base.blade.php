@@ -45,6 +45,7 @@
             enableApi: true,
             addMore: true,
         });
+
         $('input#cui_document').fileuploader({
             captions: $('html').attr('lang'),
             limit: 1,
