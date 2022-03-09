@@ -106,3 +106,28 @@ $('#revealNewPass').click(function(){
         $('#revealNewPass').removeClass('fa-eye-slash').addClass('fa-eye');
     }
 });
+
+
+
+$(document).ready(function () {
+
+    var fc_today = moment();
+
+    $('#calendar').fullCalendar({
+        header: {
+            right: 'prev,next today',
+            left: 'title',
+        },
+        defaultView: 'month',
+        dayRender: function (date, cell) {
+            var current_date = date.format('DD-MM-YYYY');
+
+
+
+            // if (current_date === fc_today.format('DD-MM-YYYY')) {
+            //     cell.css("background-color", "red");
+            // }
+
+        }
+    });
+});

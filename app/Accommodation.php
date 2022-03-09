@@ -111,7 +111,8 @@ class Accommodation extends Model implements Auditable
 
     public function helpRequests() : BelongsToMany
     {
-        return $this->belongsToMany(HelpRequest::class, 'allocations', 'accommodation_id', 'help_request_id');
+        return $this->belongsToMany(HelpRequest::class, 'allocations', 'accommodation_id', 'help_request_id')
+            ->withPivot(['start_date','end_date']);
     }
 
     /**
