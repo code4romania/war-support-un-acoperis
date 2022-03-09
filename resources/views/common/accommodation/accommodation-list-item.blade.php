@@ -16,6 +16,10 @@
                         <p class="mr-3">{{ __('Maximum') }}</p>
                         <p class="text-admin-blue">{{ trans_choice('Maximum accommodated persons', $accommodation->max_guests, ['value' => $accommodation->max_guests]) }}</p>
                     </div>
+                    <div class="kv d-flex mb-0">
+                        <p class="mr-3">{{ __('Allocated') }}</p>
+                        <p class="text-admin-blue">{{ trans_choice('Currently allocated persons', $accommodation->getOccupiedSpace(), ['value' => $accommodation->getOccupiedSpace()]) }}</p>
+                    </div>
                 </div>
             </div>
         </div>

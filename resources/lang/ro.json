@@ -512,6 +512,7 @@
     "Allocation date": "Dată alocare",
     "Change status": "Modifică status",
     "Add help request": "Adaugă solicitare de ajutor",
+    "Currently allocated persons": ":value persoană|:value persoane",
     "Occupied": "Ocupat",
     "Capacity": "Capacitate totala",
     "Allocation successful": "Alocare realizata",
