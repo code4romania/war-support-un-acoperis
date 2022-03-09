@@ -3,7 +3,8 @@
         <span>{{ __('A partnership with') }}</span>
         <div class="grid items-center">
             <a href="https://www.gov.ro/" target="_blank" rel="noopener" class="inline-block ml-4">
-                <img src="/images/gov_ro.svg" class="inline-block h-5" alt="">
+                <img src="/images/gov-sm.png" class="d-inline-block h-6 d-sm-none" alt="">
+                <img src="/images/gov.png" class="d-none d-sm-inline-block h-6" alt="">
             </a>
         </div>
         <div class="grid items-center">
