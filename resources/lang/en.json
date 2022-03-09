@@ -472,7 +472,7 @@
     "There is no help request with this number": "There is no help request with this number",
     "This help request is already resolved": "This help request is already resolved",
     "Not enough space": "Not enough space",
-    "Operation successful": "Operation successful",
+    "Allocation successful": "Allocation successful",
     "Solved requests number": "Solved requests number",
     "Help requests number": "Help requests number",
     "Accommodations number": "Accommodations number",
@@ -504,5 +504,8 @@
     "Refugee name": "Refugee name",
     "Allocation date": "Allocation date",
     "Change status": "Change status",
-    "Currently allocated persons": ":value person|:value persons"
+    "Currently allocated persons": ":value person|:value persons",
+    "Occupied": "Occupied",
+    "Capacity": "Capacity",
+    "Offer Help with accommodation": "Offer Help with accommodation"
 }

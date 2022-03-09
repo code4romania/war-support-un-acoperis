@@ -473,5 +473,9 @@
     "Refugee name": "Refugee name",
     "Allocation date": "Allocation date",
     "Change status": "Change status",
-    "Currently allocated persons": ":value person|:value persons"
+    "Currently allocated persons": ":value person|:value persons",
+    "Occupied": "Occupied",
+    "Capacity": "Capacity",
+    "Allocation successful": "Allocation successful",
+    "Offer Help with accommodation": "Offer Help with accommodation"
 }

@@ -190,7 +190,7 @@
     "Add": "Adaugă",
     "Delete resource": "Ștergere resursă",
     "Studio": "Garsonieră",
-    "Apartment": "Apartment",
+    "Apartment": "Apartament",
     "House": "Casă",
     "Essential needs (towels, bad sheets, soap, toilet paper, pillows)": "Dotări esentiale (prosoape, lenjerie de pat, săpun, hârtie igienică, perne)",
     "Wi-Fi": "Wi-Fi",
@@ -476,7 +476,7 @@
     "Please mention if the availability is limited": "Vă rugăm menționati dacă disponibilitatea este limitată",
     "Add interval": "Adaugă interval",
     "Availability start date": "Dată început disponibilitate",
-    "Availability end date": "Dată sfârși disponibilitate",
+    "Availability end date": "Dată sfârșit disponibilitate",
     "Hotel/Guesthouse": "Hotel/pensiune",
     "Other spaces": "Alte spații",
     "Please click here to confirm your account and choose a password": "Te rugăm să faci click aici pentru a confirma contul dvs. și a alege o parolă",
@@ -512,5 +512,9 @@
     "Allocation date": "Dată alocare",
     "Change status": "Modifică status",
     "Add help request": "Adaugă solicitare de ajutor",
-    "Currently allocated persons": ":value persoană|:value persoane"
+    "Currently allocated persons": ":value persoană|:value persoane",
+    "Occupied": "Ocupat",
+    "Capacity": "Capacitate totala",
+    "Allocation successful": "Alocare realizata",
+    "Offer Help with accommodation": "Oferă cazare"
 }
