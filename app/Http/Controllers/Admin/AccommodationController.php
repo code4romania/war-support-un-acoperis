@@ -317,11 +317,11 @@ class AccommodationController extends Controller
                 ['number_of_guest' => $request->post('guests_number'),
                     'refugee_id' => $helpRequest->user_id,
                     'host_id' => $accommodation->user_id,
-//                    @TODO Modify dates
-                    'from' => now(),
-                    'to' => now()
+                    'from' => $request->startDate,
+                    'to' => $request->endDate
                 ]
             ]);
+        
         return redirect()->back()->with(['message' => __('Operation successful')]);
     }
 
