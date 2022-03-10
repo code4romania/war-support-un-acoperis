@@ -99,7 +99,11 @@ class HostController extends Controller
 
         $details = $user->load('hasAllocatedHistory');
 
-        return view('admin.host-detail', compact('user', 'accommodations', 'details'));
+        return view('admin.host-detail')
+            ->with('user', $user)
+            ->with('host_id_url', optional($user->idDoc)->generateUrl())
+            ->with('accommodations', $accommodations)
+            ->with('details', $details);
     }
 
     /**

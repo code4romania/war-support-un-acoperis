@@ -61,6 +61,20 @@
                     {{ $user->email }}
                 </p>
             </div>
+            <div class="kv d-flex">
+                <b class="mr-3">
+                    {{ __('Host ID') }}
+                </b>
+                <div class="gallery d-flex flex-wrap mb-4">
+                    @if ($host_id_url)
+                        <a href="{{ $host_id_url }}" data-toggle="lightbox">
+                            <img src="{{ $host_id_url }}" alt="photo" class="img-fluid">
+                        </a>
+                    @else
+                        &mdash;
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
     <div class="card shadow">

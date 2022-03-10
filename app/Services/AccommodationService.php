@@ -180,6 +180,7 @@ class AccommodationService
             $accommodation->unavailable_from_date = $request->get('unavailable_from', $accommodation->unavailable_from_date);
             $accommodation->unavailable_to_date = $request->get('unavailable_to', $accommodation->unavailable_to_date);
         }
+
         $accommodation->save();
 
 

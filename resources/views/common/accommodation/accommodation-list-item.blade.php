@@ -12,15 +12,13 @@
                     <p>{{ $accommodation->address_city }}, {{ $accommodation->addresscountry->name }}</p>
                     <p>{{ trans_choice('Maximum accommodated rooms', $accommodation->available_rooms, ['value' => $accommodation->available_rooms]) }}</p>
 
-                    @if (!empty($accommodation->unavailable_from_date) && !empty($accommodation->unavailable_to_date))
-                        <div class="kv mb-2">
-                            <p>{{ __('Unavailability') }}</p>
-                            <p>{{ formatDate($accommodation->unavailable_from_date) }} - {{ formatDate($accommodation->unavailable_to_date) }}</p>
-                        </div>
-                    @endif
                     <div class="kv d-flex mb-0">
                         <p class="mr-3">{{ __('Maximum') }}</p>
                         <p class="text-admin-blue">{{ trans_choice('Maximum accommodated persons', $accommodation->max_guests, ['value' => $accommodation->max_guests]) }}</p>
+                    </div>
+                    <div class="kv d-flex mb-0">
+                        <p class="mr-3">{{ __('Allocated') }}</p>
+                        <p class="text-admin-blue">{{ trans_choice('Currently allocated persons', $accommodation->getOccupiedSpace(), ['value' => $accommodation->getOccupiedSpace()]) }}</p>
                     </div>
                 </div>
             </div>

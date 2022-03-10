@@ -163,6 +163,11 @@
             </div>
         </div>
     </div>
+
+    @if(auth()->user()->isHost())
+        @include('partials.forms.accommodation-help-requests-view-only')
+    @endif
+
 @endsection
 
 @section('scripts')

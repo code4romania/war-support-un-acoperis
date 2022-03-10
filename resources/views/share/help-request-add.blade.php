@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+    @include('share.partials.select-user')
     @include('share.partials.add-user-help-request-modal')
 
     @include('partials.forms.request-services-step3', [

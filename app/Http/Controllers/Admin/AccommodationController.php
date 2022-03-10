@@ -293,7 +293,7 @@ class AccommodationController extends Controller
         if ($helpRequest->guests_number > $accommodation->max_guests) {
             return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
         }
-
+        
         //Check per day if accomodation has enough space for all guests
         $request_period = CarbonPeriod::create($request->startDate, $request->endDate);
         foreach ($request_period as $date) {
@@ -322,7 +322,7 @@ class AccommodationController extends Controller
                 ]
             ]);
 
-        return redirect()->back()->with(['message' => __('Operation successful')]);
+        return redirect()->back()->with(['message' => __('Allocation successful')]);
     }
 
     public function disapprove(int $id)
