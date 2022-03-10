@@ -230,8 +230,7 @@ class AccommodationController extends Controller
     public function allocate(int $id, AllocateRequest $request)
     {
         /** @var Accommodation|null $accommodation */
-        $accommodation = Accommodation::find($id);
-
+        $accommodation = Accommodation::lockForUpdate()->find($id);
         if (empty($accommodation)) {
             abort(404);
         }
@@ -240,7 +239,7 @@ class AccommodationController extends Controller
         }
 
         /** @var HelpRequest $helpRequest */
-        $helpRequest = HelpRequest::find((int)$request->post('help_request_id'));
+        $helpRequest = HelpRequest::lockForUpdate()->find((int)$request->post('help_request_id'));
         if (empty($helpRequest)) {
             return redirect()->back()->withErrors(['help_request_id' => __('There is no help request with this number')]);
         }
