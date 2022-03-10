@@ -90,16 +90,16 @@
                             </div>
                         </div>
 
-{{--                        <div class="form-group">--}}
-{{--                            <label class="" for="guestNumber">{{__('Number of guests')}}</label>--}}
-{{--                            <div class="input-group">--}}
-{{--                                <div class="input-group-prepend">--}}
-{{--                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>--}}
-{{--                                </div>--}}
-{{--                                <input class="form-control  @error('guests_number') is-invalid @enderror" id="guestNumber" name="guests_number" type="number" value="1">--}}
-{{--                                @error('guests_number') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        <div class="form-group">
+                            <label class="" for="guestNumber">{{__('Number of guests')}}</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                                </div>
+                                <input class="form-control  @error('guests_number') is-invalid @enderror" id="guestNumber" name="guests_number" type="number" value="1">
+                                @error('guests_number') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
