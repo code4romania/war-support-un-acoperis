@@ -36,6 +36,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $phone_number
  * @property ?DateTime $approved_at
  * @property ?HasMany $helpRequest
+ * @property ?HasOne $idDoc
  */
 class User extends Authenticatable implements Auditable
 {
@@ -98,6 +99,11 @@ class User extends Authenticatable implements Auditable
     public function accommodations(): HasMany
     {
         return $this->hasMany(Accommodation::class);
+    }
+
+    public function idDoc(): HasOne
+    {
+        return $this->hasOne(UserAttachment::class);
     }
 
     public function helpRequest(): HasMany

@@ -36,12 +36,21 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
     ->middleware('auth');
 
 /**
+ * Attachment handling
+ */
+Route::get('/media/attachment/{docType}/{docId}/{identifier}.{extension}', 'MediaController@attachmentContent')
+    ->where('docId', '[0-9]+')
+    ->name('media.attachment-content')
+    ->middleware('auth');
+
+/**
  * Administration routes
  */
 Route::middleware([ShareMiddleware::class])->prefix('/share')->group(function (){
     Route::get('accommodation','ShareController@accommodationList')->name('share.accommodation.list');
     Route::get('accommodation/create','ShareController@accommodationCreate')->name('share.accommodation.create');
     Route::post('accommodation/store','ShareController@accommodationStore')->name('share.accommodation.store');
+    Route::post('user/selectUser','Trusted\TrustedController@selectUser')->name('shared.select.user');
     Route::get('help-request','ShareController@helpRequestList')->name('share.help.request.list');
     Route::get('help-request/create','ShareController@helpRequestCreate')->name('share.help.request.create');
     Route::post('help-request/store','ShareController@helpRequestStore')->name('share.help.request.store');
@@ -241,7 +250,8 @@ Route::get('/ajax/ua_region/{regionId}/city', 'AjaxController@uaCities')->name('
 Route::get('/ajax/clinics/{countyId}/cities', 'AjaxController@getClinicsCitiesByCountryId')->name('ajax.clinics-cities-by-country');
 Route::get('/ajax/resources/{countyId}/cities', 'AjaxController@getResourcesCitiesByCountryId')->name('ajax.resources-cities-by-country');
 Route::get('/ajax/clinics', 'AjaxController@clinicList')->name('ajax.clinic-list');
-
+Route::get('/ajax/accommodation/{id}/requests', 'AjaxController@accommodationRequestsList')->name('ajax.host.accommodation-requests');
+Route::get('/ajax/accommodation/{accommodationId}/request/{helpRequestId}', 'AjaxController@accommodationRequestView')->name('ajax.host.accommodation-request-view');
 
 /**
  * 2FA

@@ -23,7 +23,15 @@ class TrustedController extends Controller
     {
         $userService = new UserService();
         $user = $userService->createHostUser($request);
-        session()->put('createdUserId',$user->id);
+        session()->put('createdUserId', $user->id);
+        return redirect()->back();
+    }
+
+    public function selectUser(Request $request)
+    {
+        if (!empty($request->existentUserId)) {
+            session()->put('createdUserId', $request->existentUserId);
+        }
         return redirect()->back();
     }
 }

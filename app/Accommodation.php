@@ -106,7 +106,7 @@ class Accommodation extends Model implements Auditable
 
     public function getOccupiedSpace() : int
     {
-        return $this->helpRequests->sum('guests_number');
+        return (int)$this->helpRequests()->sum('number_of_guest');
     }
 
     public function helpRequests() : BelongsToMany

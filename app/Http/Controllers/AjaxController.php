@@ -804,6 +804,12 @@ class AjaxController extends Controller
      */
     public function accommodationRequestsList(int $id, Request $request)
     {
+        /** @var User $user */
+        $user = auth()->user();
+        if (!$user || !$user->hasAnyRole([User::ROLE_HOST, User::ROLE_ADMINISTRATOR, User::ROLE_TRUSTED])) {
+            abort(401);
+        }
+
         /** @var Accommodation|null $query */
         $query = Accommodation::join('allocations', 'allocations.accommodation_id', '=', 'accommodations.id')
             ->join('help_requests', 'allocations.help_request_id', '=', 'help_requests.id')
@@ -829,6 +835,32 @@ class AjaxController extends Controller
         return response()->json(
             $query->paginate($perPage)
         );
+    }
+
+    public function accommodationRequestView(Request $request, int $accommodationId, int $helpRequestId)
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        if (!$user || !$user->hasAnyRole([User::ROLE_HOST, User::ROLE_ADMINISTRATOR, User::ROLE_TRUSTED])) {
+            abort(401);
+        }
+
+        /** @var Accommodation|null $accommodation */
+        $accommodation = Accommodation::find($accommodationId);
+
+        if (!in_array(auth()->user()->id, [$accommodation->user_id, $accommodation->created_by])) {
+            abort(403);
+        }
+
+        $helpRequest = $accommodation->helpRequests()->find($helpRequestId);
+        if (!$helpRequest) {
+            abort(404);
+        }
+
+        return view('host.help-request-detail', [
+            'helpRequest' => $helpRequest,
+            'area'  => 'admin'
+        ]);
     }
 
     public function checkPhone(Request $request)
