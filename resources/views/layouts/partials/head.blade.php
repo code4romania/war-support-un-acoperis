@@ -10,13 +10,15 @@
 
     <title>{{ config('app.name', 'Un acoperis') }}</title>
     <!--Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('/images/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('/images/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/images/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{asset('/images/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{asset('/images/favicon/safari-pinned-tab.svg')}}" color="#0e8040">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/images/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/images/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('/images/favicon/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('/images/favicon/safari-pinned-tab.svg') }}" color="#0e8040">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:image" content="{{ asset('/images/og-image.png') }}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,17 +32,20 @@
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
-@production
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+    @production
+        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECQQ08XFMQ"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
             gtag('js', new Date());
             gtag('config', 'G-ECQQ08XFMQ');
         </script>
     @endproduction
-
 
     @yield('head-scripts')
 </head>
