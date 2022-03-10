@@ -314,14 +314,14 @@ class AccommodationController extends Controller
         ]);
         $accommodation->helpRequestsHistory()->attach(
             [$helpRequest->id =>
-                ['number_of_guest' => $request->post('guests_number'),
+                ['number_of_guest' => $helpRequest->guests_number,
                     'refugee_id' => $helpRequest->user_id,
                     'host_id' => $accommodation->user_id,
                     'from' => $request->startDate,
                     'to' => $request->endDate
                 ]
             ]);
-        
+
         return redirect()->back()->with(['message' => __('Operation successful')]);
     }
 

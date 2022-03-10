@@ -958,7 +958,9 @@ class AjaxController extends Controller
 
         if ($request->has('endDate')) {
             $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
-            $query->where('end_date', '<=', $startDate);
+            $query->where('end_date', '<=', $endDate);
+        } else {
+            $query->where('end_date', '<', Carbon::tomorrow());
         }
 
         $query->select([
