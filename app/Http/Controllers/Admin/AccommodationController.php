@@ -82,7 +82,7 @@ class AccommodationController extends Controller
         }
 
 
-        $availabilities =  $accommodation->availabilityIntervals()->get(); // from_date - to_date
+        $availabilities =  $accommodation->availabilityIntervals; // from_date - to_date
         $bookings = $accommodation->helpRequests;
 
         //Booked Days
@@ -126,9 +126,9 @@ class AccommodationController extends Controller
             ->with('generalFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_GENERAL)->get())
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
-            ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
+            ->with('availabilityIntervals', $accommodation->availabilityIntervals)
             ->with('area', 'admin')
-            ->with('bookings', $accommodation->bookings()->get())
+            ->with('bookings', $accommodation->bookings)
             ->with('bookedDays', $bookedDays)
             ->with('availableDays', $availableDays);
     }
@@ -299,7 +299,7 @@ class AccommodationController extends Controller
 
         //Verify is AvailabilityInterval exists
         $selectedInterval =  $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
-        if(empty($selectedInterval)) {
+        if (empty($selectedInterval) && $accommodation->availabilityIntervals()->exists()) {
             return redirect()->back()->withErrors(['startDate' => __('There is interval available between selected dates')]);
         }
 

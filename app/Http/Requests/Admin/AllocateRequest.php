@@ -28,7 +28,7 @@ class AllocateRequest extends FormRequest
     public function rules()
     {
         return [
-            'help_request_id' => 'numeric|required',
+            'help_request_id' => 'numeric|required|exists:help_requests,id',
         ];
     }
 }
