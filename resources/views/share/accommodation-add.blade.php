@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+    @include('share.partials.select-user')
     @include('share.partials.add-user-modal')
     <div class="container py-sm-5 py-3">
         @if (session('status'))

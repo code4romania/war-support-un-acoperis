@@ -17,9 +17,9 @@
             <label for="id_document" class="font-weight-600 required">
                 {{ __('Upload your CUI') }}:
             </label>
-            <input type="file" id="cui_document" name="cui_document"/>
+            <input type="file" id="cui_document" name="new_user[cui_document]"/>
 
-            @error('cui_document')
+            @error('new_user.cui_document')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
         </div>

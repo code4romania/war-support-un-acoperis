@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
         return view('host.profile')
             ->with('user', $user)
-            ->with('host_id_url', $user->idDoc()->first()->generateUrl());
+            ->with('host_id_url', optional($user->idDoc)->generateUrl());
     }
 
     /**
