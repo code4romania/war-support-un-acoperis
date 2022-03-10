@@ -118,6 +118,8 @@ $(document).ready(function () {
         var availableDays = JSON.parse(window.calendar_config.availableDays);
         var bookedDays = JSON.parse(window.calendar_config.bookedDays);
         var max_guests = window.calendar_config.max_guests;
+        var slotName = window.calendar_config.slotName;
+
 
         console.log(availableDays,bookedDays,max_guests);
 
@@ -142,9 +144,9 @@ $(document).ready(function () {
                     if(bookedDays[current_date] !== undefined) {
                         (max_guests > bookedDays[current_date])? cell.addClass('warning') : cell.addClass('danger');
                         let spots_left = max_guests - bookedDays[current_date];
-                        cell.append('<span class="nr-badge">' + spots_left + '</span>');
+                        cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="'+spots_left+' '+slotName+'">' + spots_left + '</span>');
                     } else{
-                        cell.append('<span class="nr-badge">' + max_guests + '</span>');
+                        cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="'+max_guests+' '+slotName+'">' + max_guests + '</span>');
                     }
 
                 }

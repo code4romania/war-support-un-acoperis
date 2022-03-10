@@ -368,7 +368,7 @@
 
 .fc-ltr .fc-basic-view .fc-day-top{ vertical-align: middle;}
 .fc-ltr .fc-basic-view .fc-day-top .fc-day-number{ float: none!important;font-size: 20px;}
-
+.fc-bg{ z-index: initial!important; }
 span.nr-badge {
     float: right;
     background: #525f7f;
@@ -382,4 +382,6 @@ span.nr-badge {
     height: 18px;
     font-size: 14px;
     line-height: 18px;
+    z-index: 10;
+    position: relative;
 }

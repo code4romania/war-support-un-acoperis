@@ -1,47 +1,9 @@
-<?php
-    $availabilities =  $accommodation->availabilityIntervals()->get(); // from_date - to_date
-    $bookings = $accommodation->helpRequests;
-
-    //Booked Days
-    $bookedDays = [];
-    foreach ($bookings as $bInterval) {
-        $start = new DateTime($bInterval->pivot->start_date);
-        $end = new DateTime($bInterval->pivot->end_date);
-
-        $interval = DateInterval::createFromDateString('1 day');
-        $period = new DatePeriod($start, $interval, $end);
-
-        foreach ($period as $dt) {
-            $day = $dt->format("d-m-Y");
-            if(isset($bookedDays[$day])) {
-                $bookedDays[$day] += $bInterval->guests_number;
-            }
-            else {
-                $bookedDays[$day] = $bInterval->guests_number;
-            }
-        }
-    }
-
-    $availableDays = [];
-    foreach ($availabilities as $aInterval) {
-        $start = new DateTime($aInterval->from_date);
-        $end = new DateTime($aInterval->to_date);
-
-        $interval = DateInterval::createFromDateString('1 day');
-        $period = new DatePeriod($start, $interval, $end);
-
-        foreach ($period as $dt) {
-            $day = $dt->format("d-m-Y");
-            $availableDays[] = $day;
-        }
-    }
-?>
-
 <script type="text/javascript">
     window.calendar_config = {
         max_guests : {{$accommodation->max_guests}},
         bookedDays : '{!! json_encode($bookedDays)  !!}',
-        availableDays : '{!! json_encode(array_unique($availableDays)) !!}'
+        availableDays : '{!! json_encode(array_unique($availableDays)) !!}',
+        slotName : "{{__('Available slots')}}"
     }
 </script>
 <div class="row">

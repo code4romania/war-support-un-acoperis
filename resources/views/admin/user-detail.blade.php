@@ -50,7 +50,7 @@
             </tr>
             @empty
                 <tr>
-                    <td colspan="5">{{ $user->name }} has not been in any accommodation.</td>
+                    <td colspan="5">{{ $user->name }} {{ __lang('has not been in any accommodation.') }}</td>
                 </tr>
             @endforelse
             </tbody>

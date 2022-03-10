@@ -59,14 +59,17 @@
                 {{ $user->email }}
             </p>
         </div>
-        <div class="kv d-flex">
-            <b class="mr-3">
-                {{ __('Host ID') }}
-            </b>
-            <div class="gallery d-flex flex-wrap mb-4">
-                <a href="{{ $host_id_url }}" data-toggle="lightbox"><img src="{{ $host_id_url }}" alt="photo" class="img-fluid"></a>
+        @if($user->hasRole(\App\User::ROLE_HOST))
+            <div class="kv d-flex">
+                <b class="mr-3">
+                    {{ __('Host ID') }}
+                </b>
+                <div class="gallery d-flex flex-wrap mb-4">
+                    <a href="{{ $host_id_url }}" data-toggle="lightbox"><img src="{{ $host_id_url }}" alt="photo"
+                                                                             class="img-fluid"></a>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
 

@@ -78,7 +78,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">{{ $user->name }} doesn't have refugees in accommodation.</td>
+                    <td colspan="5">{{ $user->name }} {{ __lang("doesn't have refugees in accommodation.") }}</td>
                 </tr>
             @endforelse
             </tbody>

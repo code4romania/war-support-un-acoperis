@@ -106,6 +106,8 @@
     "Total Results": "Total results",
     "Request ID": "Request no.",
     "Request Date": "Request date",
+    "Allocation Start Date": "Allocation Start Date",
+    "Allocation End Date": "Allocation End Date",
     "Patient Name": "Beneficiary name",
     "Request Status": "Request status",
     "Caretaker Name": "Applicant name",
@@ -487,5 +489,10 @@
     "Occupied": "Occupied",
     "Capacity": "Capacity",
     "Offer Help with accommodation": "Offer Help with accommodation",
-    "Select an existent user": "Select an existent user"
+    "Select an existent user": "Select an existent user",
+    "Due date": "Due date",
+    "Refugees Due Tomorrow": "Refugees Due Tomorrow",
+    "Available slots": "Available slots",
+    "doesn't have refugees in accommodation.": "doesn't have refugees in accommodation.",
+    "has not been in any accommodation.": "has not been in any accommodation."
 }

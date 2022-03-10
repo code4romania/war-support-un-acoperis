@@ -515,5 +515,11 @@
     "Allocation successful": "Alocare realizata",
     "Offer Help with accommodation": "Oferă cazare",
     "Select an existent user": "Selectează un utilizator existent",
-    "Select": "Selectează"
+    "Select": "Selectează",
+    "Due date": "Zile Ramase",
+    "Refugees Due Tomorrow": "Refugiati cu 1 zi de cazare ramasa",
+    "Available slots": "Spatii libere",
+    "doesn't have refugees in accommodation.": "nu are refugiati.",
+    "has not been in any accommodation.": "nu a fost repartizat."
+
 }

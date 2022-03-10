@@ -16,6 +16,7 @@ use App\Services\AccommodationService;
 use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use DatePeriod;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -82,6 +83,44 @@ class AccommodationController extends Controller
             $photos[] = $photo->getPhotoUrl();
         }
 
+
+        $availabilities =  $accommodation->availabilityIntervals()->get(); // from_date - to_date
+        $bookings = $accommodation->helpRequests;
+
+        //Booked Days
+        $bookedDays = [];
+        foreach ($bookings as $bInterval) {
+            $start = new \DateTime($bInterval->pivot->start_date);
+            $end = new \DateTime($bInterval->pivot->end_date);
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($start, $interval, $end);
+
+            foreach ($period as $dt) {
+                $day = $dt->format("d-m-Y");
+                if(isset($bookedDays[$day])) {
+                    $bookedDays[$day] += $bInterval->guests_number;
+                }
+                else {
+                    $bookedDays[$day] = $bInterval->guests_number;
+                }
+            }
+        }
+
+        $availableDays = [];
+        foreach ($availabilities as $aInterval) {
+            $start = new \DateTime($aInterval->from_date);
+            $end = new \DateTime($aInterval->to_date);
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($start, $interval, $end);
+
+            foreach ($period as $dt) {
+                $day = $dt->format("d-m-Y");
+                $availableDays[] = $day;
+            }
+        }
+
         return view('admin.accommodation-detail')
             ->with('user', $user)
             ->with('accommodation', $accommodation)
@@ -90,7 +129,10 @@ class AccommodationController extends Controller
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
             ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
-            ->with('bookings', $accommodation->bookings()->get());
+            ->with('bookings', $accommodation->bookings()->get())
+            ->with('bookedDays', $bookedDays)
+            ->with('availableDays', $availableDays);
+
     }
 
     /**
@@ -293,7 +335,7 @@ class AccommodationController extends Controller
         if ($helpRequest->guests_number > $accommodation->max_guests) {
             return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
         }
-        
+
         //Check per day if accomodation has enough space for all guests
         $request_period = CarbonPeriod::create($request->startDate, $request->endDate);
         foreach ($request_period as $date) {

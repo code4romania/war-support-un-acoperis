@@ -109,6 +109,8 @@
     "Total Results": "Total results",
     "Request ID": "Запрос №",
     "Request Date": "Дата запроса",
+    "Allocation Start Date": "Allocation Start Date",
+    "Allocation End Date": "Allocation End Date",
     "Patient Name": "Имя получателя",
     "Request Status": "Статус запроса",
     "Caretaker Name": "Имя заявителя",
@@ -483,5 +485,10 @@
     "Occupied": "Occupied",
     "Capacity": "Capacity",
     "Allocation successful": "Allocation successful",
-    "Offer Help with accommodation": "Offer Help with accommodation"
+    "Offer Help with accommodation": "Offer Help with accommodation",
+    "Due date": "Due date",
+    "Refugees Due Tomorrow": "Refugees Due Tomorrow",
+    "Available slots": "Available slots",
+    "doesn't have refugees in accommodation.": "doesn't have refugees in accommodation.",
+    "has not been in any accommodation.": "has not been in any accommodation."
 }
