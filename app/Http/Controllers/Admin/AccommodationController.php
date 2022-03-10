@@ -19,10 +19,8 @@ use Carbon\CarbonPeriod;
 use DatePeriod;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -129,10 +127,10 @@ class AccommodationController extends Controller
             ->with('specialFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_SPECIAL)->get())
             ->with('otherFacilities', $accommodation->accommodationfacilitytypes()->where('type', '=', FacilityType::TYPE_OTHER)->first())
             ->with('availabilityIntervals', $accommodation->availabilityIntervals()->get())
+            ->with('area', 'admin')
             ->with('bookings', $accommodation->bookings()->get())
             ->with('bookedDays', $bookedDays)
             ->with('availableDays', $availableDays);
-
     }
 
     /**
@@ -292,7 +290,7 @@ class AccommodationController extends Controller
             return redirect()->back()->withErrors(['help_request_id' => __('There is no help request with this number')]);
         }
 
-        if ($helpRequest->isAllocated()) {
+        if ($helpRequest->isCompleted()) {
             return redirect()->back()->withErrors(['help_request_id' => __('This help request is already resolved')]);
         }
 
@@ -354,6 +352,16 @@ class AccommodationController extends Controller
             'number_of_guest' => $helpRequest->guests_number,
             'created_at' => now()]
         ]);
+
+        $helpRequestTotalAllocated = $request->post('guests_number') + $helpRequest->accommodation()->sum('number_of_guest');
+        if ( $helpRequestTotalAllocated < $helpRequest->guests_number) {
+            $helpRequest->status = HelpRequest::STATUS_PARTIAL_ALLOCATED;
+        } else {
+            $helpRequest->status = HelpRequest::STATUS_COMPLETED;
+        }
+
+        $helpRequest->save();
+
         $accommodation->helpRequestsHistory()->attach(
             [$helpRequest->id =>
                 ['number_of_guest' => $helpRequest->guests_number,

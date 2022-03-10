@@ -91,6 +91,11 @@ class HelpRequest extends Model implements Auditable
         return $this->belongsToMany(Accommodation::class, 'allocations_history', 'help_request_id', 'accommodation_id')->withTimestamps();
     }
 
+    public function isCompleted(): bool
+    {
+        return $this->accommodation()->sum('number_of_guest') == $this->guests_number;
+    }
+
     public function isAllocated(): bool
     {
         return $this->accommodation()->exists();
