@@ -6,7 +6,7 @@
     </section>
     <section class="details">
         <div class="table-responsive shadow-sm mb-4 bg-white p-4">
-            <table id="auditLogsTable" class="table table-striped w-100 mb-0 p-5">
+            <table id="auditLogsTable" class="table table-striped w-100 mb-0 info-table p-5">
                 <thead>
                 <tr>
                     <th>{{ __('User') }}</th>

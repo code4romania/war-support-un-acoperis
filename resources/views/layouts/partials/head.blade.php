@@ -29,7 +29,9 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <link type="text/css" href="{{ mix('/css/argon-design-system.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/jquery.fileuploader.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/fullcalendar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/fonts/font-fileuploader.css') }}" rel="stylesheet">
+
 @production
     <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECQQ08XFMQ"></script>

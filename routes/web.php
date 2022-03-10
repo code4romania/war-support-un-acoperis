@@ -87,6 +87,8 @@ Route::middleware([Administration::class])
         Route::get('/help-request', 'Admin\HelpRequestController@helpList')->name('admin.help.request.list');
         Route::get('/help-request/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help.request.detail');
 
+        Route::get('/allocation', 'Admin\AllocationController@allocationList')->name('admin.allocation.list');
+
         Route::get('/resources', 'Admin\ResourceController@resourceList')->name('admin.resource-list');
         Route::get('/resources/{id}/{page?}', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
 
@@ -132,6 +134,7 @@ Route::middleware([Administration::class])
          * Ajax routes (admin)
          */
         Route::get('/ajax/help-requests', 'AjaxController@helpRequests')->name('ajax.help-requests');
+        Route::get('/ajax/allocations', 'AjaxController@allocations')->name('ajax.allocations');
         Route::put('/ajax/help-type/{id}', 'AjaxController@updateHelpRequestType')->name('ajax.update-help-requests-type');
         Route::post('/ajax/help-type/{id}/status', 'AjaxController@updateHelpRequestStatus')->name('ajax.update-help-requests-status');
         Route::delete('/ajax/help-request/{id}', 'AjaxController@deleteHelpRequestType')->name('ajax.delete-help-requests-type');

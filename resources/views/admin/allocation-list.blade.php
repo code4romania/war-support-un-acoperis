@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600">Cereri de ajutor</h6>
+        <h6 class="page-title font-weight-600">{{ __('Help Requests Allocated') }}</h6>
         <p class="mb-sm-0">{{ __('Search for a help request using the search field or filter the list of requests using the present options.') }}</p>
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
@@ -52,6 +52,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="{{ route('admin.allocation.list') }}" class="btn btn-primary">Clear Filter</a>
             </form>
         </div>
     </section>
@@ -86,6 +87,8 @@
                 <tr>
                     <th>{{ __('Request ID') }}</th>
                     <th>{{ __('Name') }}</th>
+                    <th>{{ __('Allocation Start Date') }}</th>
+                    <th>{{ __('Allocation End Date') }}</th>
                     <th>{{ __('Special Needs') }}</th>
                     <th>{{ __('People') }}</th>
                     <th>{{ __('Transport') }}</th>
@@ -142,6 +145,8 @@
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + value.name + '</td>\n' +
+                        '    <td>' + moment(value.start_date).locale('ro').format('DD MMMM YYYY') + '</td>\n' +
+                        '    <td>' + moment(value.end_date).locale('ro').format('DD MMMM YYYY') + '</td>\n' +
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
                         '    <td>' + transportType + '</td>\n' +
@@ -193,7 +198,7 @@
                 $('#endDateFilter').val(pageState.endDate);
             }
 
-            let renderer = new HelpRequestRenderer('{{ auth()->user()->isTrusted() ? route('share.ajax.help-requests') : route('ajax.help-requests') }}');
+            let renderer = new HelpRequestRenderer('{{ auth()->user()->isTrusted() ? route('share.ajax.help-requests') : route('ajax.allocations') }}');
             renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {

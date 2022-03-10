@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="table-responsive shadow-sm mb-4 bg-white">
-            <table class="table table-striped w-100 mb-0">
+            <table class="table table-striped w-100 mb-0 info-table">
                 <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Clinic name') }}</th>
