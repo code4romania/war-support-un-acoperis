@@ -10,6 +10,7 @@ use App\Http\Requests\ServiceRequest;
 use App\Notifications\UserCreatedNotification;
 use App\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -104,6 +105,7 @@ class UserService
             'address' => $attributes['address'] ?? null,
             'phone_number' => $attributes['phone'] ?? null,
             'approved_at' => now(),
+            'created_by' => auth()->user()->id ?? null,
         ];
 
         if ($request instanceof HostRequestCompany) {
@@ -146,5 +148,16 @@ class UserService
 
         Notification::route('mail', $user->email)
             ->notify($notification);
+    }
+
+    public static function getChildrenUsers(): array
+    {
+        if (Auth::check()) {
+            return User::where('created_by', auth()->user()->id)
+                ->orderBy('name', 'ASC')
+                ->get()
+                ->toArray();
+        }
+        return [];
     }
 }

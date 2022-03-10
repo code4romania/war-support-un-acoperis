@@ -60,7 +60,7 @@ class MediaController extends Controller
         $className = urldecode($docType);
         try {
             $attachment = new $className();
-        } 
+        }
         catch (ClassNotFoundException $e)
         {
             abort(404);
@@ -74,8 +74,12 @@ class MediaController extends Controller
         }
 
         $loggedUser = Auth::user();
-        if (!($loggedUser->isAdministrator() || ($attachment->user_id === $loggedUser->id)))
-        {
+
+        if (
+            !$loggedUser->isAdministrator() ||
+            ($loggedUser->isTrusted() && $attachment->user()->created_by != $loggedUser->id) ||
+            ($attachment->user_id != $loggedUser->id)
+        ) {
             abort(403);
         }
 

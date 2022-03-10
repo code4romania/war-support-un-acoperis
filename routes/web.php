@@ -41,7 +41,7 @@ Route::get('/media/accommodation/{accommodationId}/{identifier}.{extension}', 'M
 Route::get('/media/attachment/{docType}/{docId}/{identifier}.{extension}', 'MediaController@attachmentContent')
     ->where('docId', '[0-9]+')
     ->name('media.attachment-content')
-    ->middleware('auth');    
+    ->middleware('auth');
 
 /**
  * Administration routes
@@ -50,6 +50,7 @@ Route::middleware([ShareMiddleware::class])->prefix('/share')->group(function ()
     Route::get('accommodation','ShareController@accommodationList')->name('share.accommodation.list');
     Route::get('accommodation/create','ShareController@accommodationCreate')->name('share.accommodation.create');
     Route::post('accommodation/store','ShareController@accommodationStore')->name('share.accommodation.store');
+    Route::post('user/selectUser','Trusted\TrustedController@selectUser')->name('shared.select.user');
     Route::get('help-request','ShareController@helpRequestList')->name('share.help.request.list');
     Route::get('help-request/create','ShareController@helpRequestCreate')->name('share.help.request.create');
     Route::post('help-request/store','ShareController@helpRequestStore')->name('share.help.request.store');
