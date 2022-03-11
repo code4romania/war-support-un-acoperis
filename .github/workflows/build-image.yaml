@@ -3,7 +3,7 @@ on:
     tags:
       - "v*"
 
-name: Deploy
+name: Build image
 
 env:
   DOCKER_IMAGE_BASE: code4romania/un-acoperis
