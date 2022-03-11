@@ -19,6 +19,7 @@ COPY --chown=www-data:www-data . .
 
 RUN composer dump-autoload --optimize
 
+ENV UPLOAD_LIMIT=10M
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
