@@ -4,6 +4,8 @@ services:
   php:
     build:
       dockerfile: .docker/php/Dockerfile
+    environment:
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
     volumes:
       - ./:/var/www:delegated
     ports:

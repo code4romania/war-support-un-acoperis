@@ -19,7 +19,11 @@ COPY --chown=www-data:www-data . .
 
 RUN composer dump-autoload --optimize
 
-ENV UPLOAD_LIMIT=10M
+ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
+    UPLOAD_LIMIT=10M
+
+COPY ./.docker/php/opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
+
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
