@@ -52,4 +52,4 @@ generate-key:
 
 .PHONY: npm-watch
 npm-watch:
-	docker-compose exec nodejs sh -c 'npm run watch'
+	docker-compose run --rm nodejs sh -c 'npm run watch'
