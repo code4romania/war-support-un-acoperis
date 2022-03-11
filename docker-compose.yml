@@ -21,7 +21,7 @@ services:
     command: >
       sh -c "
         npm ci &&
-        npm run prod
+        npm run dev
       "
 
   database:
