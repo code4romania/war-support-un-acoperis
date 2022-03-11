@@ -16,7 +16,7 @@ RUN pecl install imagick && \
 COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-dev
 
-ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0"
+ENV PHP_OPCACHE_ENABLE=1
 
 COPY ./.docker/php/opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
 COPY .docker/php/zz-custom.ini "$PHP_INI_DIR/conf.d/zz-custom.ini"
@@ -24,7 +24,13 @@ COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.
 
 COPY --chown=www-data:www-data . .
 
-RUN composer dump-autoload --optimize
+EXPOSE 8080
+
+RUN composer dump-autoload --optimize && \
+    chmod 777 -R /var/www/storage/ && \
+    echo "Listen 8080" >> /etc/apache2/ports.conf && \
+    chown -R www-data:www-data /var/www/ && \
+    a2enmod rewrite && service apache2 restart
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
@@ -39,13 +45,6 @@ RUN cd app && \
 ###################################### prod stage ######################
 FROM build as prod
 
-EXPOSE 8080
-
 # USER www-data
 
 COPY --from=assets_builder /app/public/ /var/www/public/
-
-RUN chmod 777 -R /var/www/storage/ && \
-    echo "Listen 8080" >> /etc/apache2/ports.conf && \
-    chown -R www-data:www-data /var/www/ && \
-    a2enmod rewrite && service apache2 restart
