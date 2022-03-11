@@ -106,9 +106,22 @@ class AccommodationController extends Controller
         }
 
         $availableDays = [];
-        foreach ($availabilities as $aInterval) {
-            $start = new \DateTime($aInterval->from_date);
-            $end = new \DateTime($aInterval->to_date);
+        if ($availabilities->isNotEmpty()) {
+            foreach ($availabilities as $aInterval) {
+                $start = new \DateTime($aInterval->from_date);
+                $end = new \DateTime($aInterval->to_date);
+
+                $interval = \DateInterval::createFromDateString('1 day');
+                $period = new DatePeriod($start, $interval, $end);
+
+                foreach ($period as $dt) {
+                    $day = $dt->format("d-m-Y");
+                    $availableDays[] = $day;
+                }
+            }
+        } else {
+            $start = Carbon::now();
+            $end = Carbon::now()->addYear();
 
             $interval = \DateInterval::createFromDateString('1 day');
             $period = new DatePeriod($start, $interval, $end);
