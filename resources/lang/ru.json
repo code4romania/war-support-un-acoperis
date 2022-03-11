@@ -445,6 +445,8 @@
     "I need special transport (e.g. car with wheelchair space)": "Мне нужен специальный транспорт (например, автомобиль с местом для инвалидной коляски)",
     "A partnership with": "Проект в партнерстве",
     "made by": "реализовано",
+    "There is no help request with this number": "There is no help request with this number",
+    "This help request is already resolved": "This help request is already resolved",
     "Hotel/Guesthouse": "Отель/гостевой дом",
     "Other spaces": "Другие места",
     "Offer accommodation": "Предоставляй жилье",
@@ -467,5 +469,17 @@
     "Name": "Name",
     "Mentions": "Mentions",
     "More details": "More details",
-    "Add help request": "Add help request"
+    "Add help request": "Add help request",
+    "Allocate user to host": "Allocate user to host",
+    "This accommodation is not approved": "This accommodation is not approved",
+    "This accommodation is already full": "This accommodation is already full",
+    "Refugee name": "Refugee name",
+    "Allocation date": "Allocation date",
+    "Change status": "Change status",
+    "Currently allocated persons": ":value person|:value persons",
+    "Occupied": "Occupied",
+    "Capacity": "Capacity",
+    "Allocation successful": "Allocation successful",
+    "Offer Help with accommodation": "Offer Help with accommodation"
+
 }

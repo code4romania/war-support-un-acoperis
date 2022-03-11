@@ -33,6 +33,7 @@ class HostRequestPerson extends FormRequest
             'new_user.phone' => ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\ \-\+\(\)]*)$/'],
             'new_user.email' => ['required', 'email', 'min:5', 'max:64', 'unique:users,email'],
             'new_user.other' => ['nullable', 'string', 'min:2', 'max:256'],
+            'new_user.id_document' => ['required', 'mimes:jpg,jpeg,png', 'max:1024'],
         ];
 
         if (Route::currentRouteName() == 'store-get-involved') {
@@ -57,6 +58,7 @@ class HostRequestPerson extends FormRequest
             'new_user.phone' => __("Phone Number"),
             'new_user.email' => __("E-Mail Address"),
             'new_user.other' => __('Other type'),
+            'new_user.id_document' => __('ID Document'),
         ];
     }
 }

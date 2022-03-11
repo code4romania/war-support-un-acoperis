@@ -37,6 +37,24 @@
     }
 
     $(document).ready(function(){
+        $('input#id_document').fileuploader({
+            captions: $('html').attr('lang'),
+            limit: 1,
+            maxSize: 1,
+            extensions: ['png', 'jpg', 'jpeg'],
+            enableApi: true,
+            addMore: true,
+        });
+
+        $('input#cui_document').fileuploader({
+            captions: $('html').attr('lang'),
+            limit: 1,
+            maxSize: 1,
+            extensions: ['png', 'jpg', 'jpeg'],
+            enableApi: true,
+            addMore: true,
+        });
+
         showHideHostForms();
 
         $('#host_type').on('change', function (){

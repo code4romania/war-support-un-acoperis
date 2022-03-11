@@ -94,7 +94,17 @@ class GetInvolvedController extends Controller
      */
     public function storePersonAccount(HostRequestPerson $request)
     {
-        $this->createHost($request);
+        try {
+            $this->createHost($request);
+        }
+        catch (\Throwable $throwable)
+        {
+            if ($request instanceof HostRequestCompany)
+                return Redirect::back()->withInput()->withErrors(['cui_document' => $throwable->getMessage()]);
+            else
+                return Redirect::back()->withInput()->withErrors(['id_document' => $throwable->getMessage()]);
+        }    
+
         return redirect()->route('get-involved-add-accommodation-form');
     }
 
