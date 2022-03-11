@@ -16,17 +16,15 @@ RUN pecl install imagick && \
 COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-dev
 
+ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0"
+
+COPY ./.docker/php/opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
+COPY .docker/php/zz-custom.ini "$PHP_INI_DIR/conf.d/zz-custom.ini"
 COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 COPY --chown=www-data:www-data . .
 
 RUN composer dump-autoload --optimize
-
-ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
-    UPLOAD_LIMIT=10M
-
-COPY ./.docker/php/opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
-
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
