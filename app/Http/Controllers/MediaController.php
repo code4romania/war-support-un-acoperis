@@ -76,9 +76,11 @@ class MediaController extends Controller
         $loggedUser = Auth::user();
 
         if (
-            !$loggedUser->isAdministrator() ||
-            ($loggedUser->isTrusted() && $attachment->user()->created_by != $loggedUser->id) ||
-            ($attachment->user_id != $loggedUser->id)
+            $attachment->user_id != $loggedUser->id &&
+            (
+                !$loggedUser->isAdministrator() ||
+                ($loggedUser->isTrusted() && $attachment->user()->created_by != $loggedUser->id)
+            )
         ) {
             abort(403);
         }
