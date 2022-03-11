@@ -4,8 +4,6 @@ services:
   php:
     build:
       dockerfile: .docker/php/Dockerfile
-    environment:
-      APP_ENV: local
     volumes:
       - ./:/var/www:delegated
     ports:
@@ -18,7 +16,7 @@ services:
       HOME: /tmp/npm
     volumes:
       - ./:/app:delegated
-    command: ["sleep", "infinity"]
+    command: ["npm", "run", "dev"]
 
   database:
     image: mysql:8

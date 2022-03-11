@@ -15,7 +15,7 @@ RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress
 
 COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-COPY . .
+COPY --chown=www-data:www-data . .
 
 RUN composer dump-autoload --optimize
 
