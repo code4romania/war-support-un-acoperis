@@ -13,11 +13,12 @@ RUN docker-php-ext-install -j$(nproc) opcache bcmath mysqli pdo pdo_mysql intl g
 COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-dev
 
+COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+
 COPY . .
 
 RUN composer dump-autoload --optimize
 
-COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
