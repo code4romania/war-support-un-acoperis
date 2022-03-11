@@ -829,6 +829,8 @@ class AjaxController extends Controller
             'allocations.number_of_guest',
             'allocations.created_at',
             'allocations.updated_at',
+            'allocations.id as allocationId',
+            'allocations.accommodation_id as accommodationId',
         ]);
 
         $query->orderBy('allocations.created_at', 'desc');

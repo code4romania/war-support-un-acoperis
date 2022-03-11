@@ -522,6 +522,6 @@
     "Refugees Due Tomorrow": "Refugiati cu 1 zi de cazare ramasa",
     "Available slots": "Spatii libere",
     "doesn't have refugees in accommodation.": "nu are refugiati.",
-    "has not been in any accommodation.": "nu a fost repartizat."
-
+    "has not been in any accommodation.": "nu a fost repartizat.",
+    "There is no interval available between selected dates": "Nu exista un inteval disponibil pentru datele selectate"
 }

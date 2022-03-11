@@ -59,7 +59,9 @@
                                     <span class="input-group-text"><i class="ni ni-tag"></i></span>
                                 </div>
                                 <input class="form-control  @error('guests_number') is-invalid @enderror" id="guestNumber" name="guests_number" type="number" value="1">
-                                @error('guests_number') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
+                                @error('guests_number')
+                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -69,8 +71,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control" type="text" id="startDate" name="startDate" />
+                                <input class="flatpickr flatpickr-input form-control @error('startDate') is-invalid @enderror" type="text" id="startDate" name="startDate" />
+                                @error('startDate') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
                             </div>
+
                         </div>
 
                         <div class="form-group">
@@ -79,7 +83,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control" type="text" id="endDate" name="endDate" />
+                                <input class="flatpickr flatpickr-input form-control @error('endDate') is-invalid @enderror" type="text" id="endDate" name="endDate" />
+                                @error('endDate') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
                             </div>
                         </div>
 

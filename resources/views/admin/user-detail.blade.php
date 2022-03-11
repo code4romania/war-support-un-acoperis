@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    @if($user->hasRole(\App\User::ROLE_REFUGEE))
+    @if($user->isRefugee())
         <table class="table">
             <thead>
             <tr>
@@ -35,6 +35,7 @@
                 <th>{{ __('Time') }}</th>
                 <th>{{ __('From') }}</th>
                 <th>{{ __('To') }}</th>
+                <th>{{ __('Status') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -47,6 +48,7 @@
                 <td>{{ $detail->accommodationTime }} zile</td>
                 <td>{{ $detail->from }}</td>
                 <td>{{ $detail->to }}</td>
+                <td>{{ $detail->deallocated_at ? __('Deallocated at: ') . $detail->deallocated_at : __('Allocated') }}</td>
             </tr>
             @empty
                 <tr>

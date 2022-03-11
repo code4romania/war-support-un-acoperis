@@ -115,6 +115,7 @@ Route::middleware([Administration::class])
 
         Route::get('/accommodation/{id}/delete', 'Admin\AccommodationController@delete')->name('admin.accommodation-delete');
         Route::post('/accommodation/{id}/allocate','Admin\AccommodationController@allocate')->name('admin.allocate.user.to.host');
+        Route::delete('/accommodation/{accommodation}/deallocate/{allocation}','Admin\AccommodationController@deallocate')->name('admin.deallocate.user.to.host');
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
         Route::post('/host/store-person', 'Admin\HostController@storePerson')->name('admin.store-host-person');

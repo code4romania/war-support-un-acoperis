@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Accommodation;
 use App\AccommodationPhoto;
 use App\AccommodationType;
-use App\AccommodationsAvailabilityIntervals;
 use App\Allocation;
 use App\FacilityType;
 use App\HelpRequest;
@@ -313,7 +312,7 @@ class AccommodationController extends Controller
         //Verify is AvailabilityInterval exists
         $selectedInterval =  $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
         if (empty($selectedInterval) && $accommodation->availabilityIntervals()->exists()) {
-            return redirect()->back()->withErrors(['startDate' => __('There is interval available between selected dates')]);
+            return redirect()->back()->withErrors(['startDate' => __('There is no interval available between selected dates')]);
         }
 
         //Booked Periods that intersects with current request interval
@@ -359,11 +358,13 @@ class AccommodationController extends Controller
             }
         }
 
-        $accommodation->helpRequests()->attach([$helpRequest->id => [
+        $allocation = Allocation::create([
+            'accommodation_id' => $accommodation->id,
+            'help_request_id' => $helpRequest->id,
             'start_date' => $request->startDate,
             'end_date' => $request->endDate,
             'number_of_guest' => $helpRequest->guests_number,
-            'created_at' => now()]
+            'created_at' => now(),
         ]);
 
         $helpRequestTotalAllocated = $request->post('guests_number') + $helpRequest->accommodation()->sum('number_of_guest');
@@ -380,12 +381,23 @@ class AccommodationController extends Controller
                 ['number_of_guest' => $helpRequest->guests_number,
                     'refugee_id' => $helpRequest->user_id,
                     'host_id' => $accommodation->user_id,
+                    'allocation_id' => $allocation->id,
                     'from' => $request->startDate,
                     'to' => $request->endDate
                 ]
             ]);
 
         return redirect()->back()->with(['message' => __('Allocation successful')]);
+    }
+
+    public function deallocate(Accommodation $accommodation, Allocation $allocation)
+    {
+
+        $allocation->historyItem()->update(['deallocated_at' => Carbon::now()]);
+
+        $allocation->delete();
+
+        return response()->noContent();
     }
 
     public function disapprove(int $id)

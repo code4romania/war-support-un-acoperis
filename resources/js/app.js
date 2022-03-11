@@ -121,7 +121,7 @@ $(document).ready(function () {
         var slotName = window.calendar_config.slotName;
 
 
-        console.log(availableDays,bookedDays,max_guests);
+        // console.log(availableDays,bookedDays,max_guests);
 
         fcalendar.fullCalendar({
             header: {

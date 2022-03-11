@@ -15,11 +15,13 @@ class CreateAllocationsHistoryTable extends Migration
     {
         Schema::create('allocations_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('help_request_id')->references('id')->on('help_requests');
-            $table->foreignId('refugee_id')->references('id')->on('users');
-            $table->foreignId('accommodation_id')->references('id')->on('accommodations');
-            $table->foreignId('host_id')->references('id')->on('users');
+            $table->foreignId('help_request_id');
+            $table->foreignId('refugee_id');
+            $table->foreignId('accommodation_id');
+            $table->foreignId('allocation_id');
+            $table->foreignId('host_id');
             $table->unsignedInteger('number_of_guest');
+            $table->timestamp('deallocated_at')->nullable();
             $table->timestamp('from')->nullable();
             $table->timestamp('to')->nullable();
             $table->timestamps();

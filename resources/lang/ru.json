@@ -492,5 +492,6 @@
     "Refugees Due Tomorrow": "Refugees Due Tomorrow",
     "Available slots": "Available slots",
     "doesn't have refugees in accommodation.": "doesn't have refugees in accommodation.",
-    "has not been in any accommodation.": "has not been in any accommodation."
+    "has not been in any accommodation.": "has not been in any accommodation.",
+    "There is no interval available between selected dates": "There is no interval available between selected dates"
 }
