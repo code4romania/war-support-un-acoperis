@@ -2,7 +2,8 @@ version: "3.7"
 
 services:
   php:
-    image: acoperis
+    build:
+      dockerfile: .docker/php/Dockerfile
     environment:
       APP_ENV: local
     volumes:

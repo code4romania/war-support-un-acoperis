@@ -21,12 +21,12 @@ COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
-# FROM node:16-alpine as assets_builder
+FROM node:16-alpine as assets_builder
 
-# COPY . /app
-# RUN cd app && \
-#     npm ci --no-audit --ignore-scripts --no-fund && \
-#     npm run production
+COPY . /app
+RUN cd app && \
+    npm ci --no-audit --ignore-scripts --no-fund && \
+    npm run production
 
 
 ###################################### prod stage ######################
@@ -36,11 +36,7 @@ EXPOSE 8080
 
 # USER www-data
 
-# COPY --from=assets_builder /app/public/ /var/www/public/
-
-RUN php artisan view:cache && \
-    # php artisan route:cache && \
-    php artisan event:cache
+COPY --from=assets_builder /app/public/ /var/www/public/
 
 RUN chmod 777 -R /var/www/storage/ && \
     echo "Listen 8080" >> /etc/apache2/ports.conf && \
