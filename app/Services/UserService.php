@@ -4,8 +4,8 @@
 namespace App\Services;
 
 use App\UserAttachment;
-use App\Http\Requests\HostRequestCompany;
-use App\Http\Requests\HostRequestPerson;
+use App\Http\Requests\HostCompanyRequest;
+use App\Http\Requests\HostPersonRequest;
 use App\Http\Requests\ServiceRequest;
 use App\Notifications\UserCreatedNotification;
 use App\User;
@@ -62,7 +62,7 @@ class UserService
     }
 
     /**
-     * @param HostRequestPerson|HostRequestCompany $request
+     * @param HostPersonRequest|HostCompanyRequest $request
      */
     public function createHostUser($request, bool $approved = false): User
     {
@@ -73,7 +73,7 @@ class UserService
 
         $user = User::create($userParams);
         try {
-            $this->addHostIdAttachment($request instanceof HostRequestCompany ? $request->file('new_user.cui_document') : $request->file('new_user.id_document'), $user);
+            $this->addHostIdAttachment($request instanceof HostCompanyRequest ? $request->file('new_user.cui_document') : $request->file('new_user.id_document'), $user);
         } catch (\Throwable $throwable) {
             DB::rollBack();
 
@@ -87,7 +87,7 @@ class UserService
     }
 
     /**
-     * @param HostRequestCompany|HostRequestPerson|ServiceRequest $request
+     * @param HostCompanyRequest|HostPersonRequest|ServiceRequest $request
      * @return array
      */
     private function prepareUserParams($request, bool $approved = true): array
@@ -108,7 +108,7 @@ class UserService
             'created_by' => auth()->user()->id ?? null,
         ];
 
-        if ($request instanceof HostRequestCompany) {
+        if ($request instanceof HostCompanyRequest) {
             $userParams['legal_representative_name'] = $attributes['legal_representative_name'];
             $userParams['company_name'] = $attributes['company_name'];
             $userParams['company_tax_id'] = $attributes['company_tax_id'];
