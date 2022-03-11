@@ -5,10 +5,13 @@ WORKDIR /var/www
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apt-get -y update && \
-    apt-get install -y libzip-dev libpng-dev libicu-dev zlib1g-dev
+    apt-get install -y --no-install-recommends libzip-dev libpng-dev libicu-dev libmagickwand-dev zlib1g-dev && \
+    apt-get clean all
 
-RUN docker-php-ext-install -j$(nproc) opcache bcmath mysqli pdo pdo_mysql intl gd zip && \
-    docker-php-ext-enable opcache bcmath mysqli pdo pdo_mysql intl gd zip
+
+RUN pecl install imagick && \
+    docker-php-ext-install -j$(nproc) opcache bcmath mysqli pdo pdo_mysql intl gd zip && \
+    docker-php-ext-enable opcache bcmath mysqli pdo pdo_mysql intl gd zip imagick
 
 COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-dev
