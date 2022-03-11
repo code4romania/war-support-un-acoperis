@@ -77,14 +77,13 @@ The application can be installed without using `make` by running the following c
 	docker-compose up -d
 	docker-compose exec php sh -c 'composer install'
 	docker-compose exec php sh -c 'php artisan migrate --seed'
-	docker-compose exec nodejs sh -c 'npm ci && npm run dev'
 ```
 
 Some other useful commands:
 
 -   `docker-compose up -d` - start an already installed application
 -   `docker-compose exec php bash` - open an bash inside the php container
--   `docker-compose exec nodejs sh -c 'npm run watch'` - start npm hot-reloading for js files
+-   `docker-compose run --rm nodejs sh -c 'npm run watch'` - start npm hot-reloading for js files
 
 ### Access
 

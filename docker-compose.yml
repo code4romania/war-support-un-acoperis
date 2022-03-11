@@ -16,7 +16,7 @@ services:
       HOME: /tmp/npm
     volumes:
       - ./:/app:delegated
-    command: ["npm", "run", "watch"]
+    command: ["npm", "run", "dev"]
 
   database:
     image: mysql:8

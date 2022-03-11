@@ -17,7 +17,6 @@ install:
 	docker-compose exec php sh -c 'composer install'
 	docker-compose exec php sh -c 'php artisan migrate --seed'
 	docker-compose exec php sh -c 'php artisan key:generate'
-	docker-compose exec nodejs sh -c 'npm ci && npm run dev'
 
 .PHONY: logs
 logs:
