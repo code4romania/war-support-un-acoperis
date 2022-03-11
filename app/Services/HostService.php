@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Country;
 use App\County;
-use App\Http\Requests\HostRequestCompany;
-use App\Http\Requests\HostRequestPerson;
+use App\Http\Requests\HostCompanyRequest;
+use App\Http\Requests\HostPersonRequest;
 use App\Notifications\UserCreatedNotification;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ class HostService
 {
 
     /**
-     * @param HostRequestPerson|HostRequestCompany $request
+     * @param HostPersonRequest|HostCompanyRequest $request
      * @return User
      */
     public function createHost($request): User

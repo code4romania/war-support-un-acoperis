@@ -9,8 +9,8 @@ use App\Exceptions\UserIdNotFoundInSession;
 use App\HelpResource;
 use App\HelpResourceType;
 use App\Http\Requests\AccommodationRequest;
-use App\Http\Requests\HostRequestCompany;
-use App\Http\Requests\HostRequestPerson;
+use App\Http\Requests\HostCompanyRequest;
+use App\Http\Requests\HostPersonRequest;
 use App\ResourceType;
 use App\Services\AccommodationService;
 use App\Services\HostService;
@@ -20,7 +20,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
 
 /**
  * Class GetInvolvedController
@@ -69,9 +68,7 @@ class GetInvolvedController extends Controller
      */
     public function displaySignupForm(Request $request, SettingRepository $settingRepository)
     {
-
-        if (!$this->hostTermsAreAgreed($request))
-        {
+        if (!$this->hostTermsAreAgreed($request)) {
             //@TODO: mesajul nu se afiseaza, why?
             //@TODO: translate
             return redirect()->route('get-involved')->with('error', 'You have to accept terms and conditions first');
@@ -89,30 +86,29 @@ class GetInvolvedController extends Controller
     }
 
     /**
-     * @param HostRequestPerson $request
+     * @param HostPersonRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storePersonAccount(HostRequestPerson $request)
+    public function storePersonAccount(HostPersonRequest $request)
     {
         try {
             $this->createHost($request);
-        }
-        catch (\Throwable $throwable)
-        {
-            if ($request instanceof HostRequestCompany)
+        } catch (\Throwable $throwable) {
+            if ($request instanceof HostCompanyRequest) {
                 return Redirect::back()->withInput()->withErrors(['cui_document' => $throwable->getMessage()]);
-            else
+            } else {
                 return Redirect::back()->withInput()->withErrors(['id_document' => $throwable->getMessage()]);
-        }    
+            }
+        }
 
         return redirect()->route('get-involved-add-accommodation-form');
     }
 
     /**
-     * @param HostRequestCompany $request
+     * @param HostCompanyRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeCompanyAccount(HostRequestCompany $request)
+    public function storeCompanyAccount(HostCompanyRequest $request)
     {
         $this->createHost($request);
         return redirect()->route('get-involved-add-accommodation-form');
@@ -128,13 +124,11 @@ class GetInvolvedController extends Controller
         /** @var User $user */
         $user = Auth::user();
         return $accService->viewAddAccommodation($user, 'frontend.host.add-accommodation');
-
     }
 
     public function saveAccommodation(AccommodationRequest $request)
     {
-        try
-        {
+        try {
             $user = $request->user();
 
             $accService = new AccommodationService();
@@ -142,17 +136,11 @@ class GetInvolvedController extends Controller
 
             return redirect()
                 ->route('get-involved-success');
-
-        }
-        catch (UserIdNotFoundInSession $e)
-        {
+        } catch (UserIdNotFoundInSession $e) {
             return redirect()->route('get-involved');
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             return Redirect::back()->withInput()->withErrors(['photos' => $throwable->getMessage()]);
         }
-
     }
 
     public function accommodationSaved(Request $request)
@@ -160,5 +148,4 @@ class GetInvolvedController extends Controller
         //@TODO: should we check some stuff here?
         return view('frontend.host.success');
     }
-
 }

@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HostRequestCompany;
-use App\Http\Requests\HostRequestPerson;
+use App\Http\Requests\AdminCompanyRequest;
+use App\Http\Requests\AdminPersonRequest;
+use App\Http\Requests\HostCompanyRequest;
+use App\Http\Requests\HostPersonRequest;
+use App\Http\Requests\TrustedCompanyRequest;
+use App\Http\Requests\TrustedPersonRequest;
 use App\Services\HostService;
 use App\Services\UserService;
 use App\User;
 use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
@@ -19,8 +23,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $allowAccess = false;
-        if (Auth::user()->isAdministrator() || Auth::user()->isTrusted())
-        {
+        if (Auth::user()->isAdministrator() || Auth::user()->isTrusted()) {
             $allowAccess = true;
         }
 
@@ -29,13 +32,11 @@ class UserController extends Controller
         return view('admin.user-list')
             ->with('users', User::all())
             ->with('approvalStatus', $request->get('status'));
-
     }
 
     public function addTrusted()
     {
-        if (!Auth::user()->isAdministrator())
-        {
+        if (!Auth::user()->isAdministrator()) {
             abort(403);
         }
 
@@ -45,8 +46,7 @@ class UserController extends Controller
 
     public function addAdministrator()
     {
-        if (!Auth::user()->isAdministrator())
-        {
+        if (!Auth::user()->isAdministrator()) {
             abort(403);
         }
 
@@ -55,13 +55,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param HostRequestPerson|HostRequestCompany $request
+     * @param HostPersonRequest|HostCompanyRequest $request
      * @return mixed
      */
     private function storeTrustedUser($request)
     {
-        if (!Auth::user()->isAdministrator())
-        {
+        if (!Auth::user()->isAdministrator()) {
             abort(403);
         }
 
@@ -73,16 +72,15 @@ class UserController extends Controller
         return redirect()
             ->route('admin.user-detail', ['id' => $trustedUser->id])
             ->withsuccess(__("Trusted user was activated and reset password option was successfully sent"));
-
     }
 
     /**
      * Used just to validate the request
      *
-     * @param HostRequestPerson $request
+     * @param TrustedPersonRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeTrustedPerson(HostRequestPerson $request)
+    public function storeTrustedPerson(TrustedPersonRequest $request)
     {
         return $this->storeTrustedUser($request);
     }
@@ -90,22 +88,21 @@ class UserController extends Controller
     /**
      * Used just to validate the request
      *
-     * @param HostRequestCompany $request
+     * @param HostCompanyRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeTrustedCompany(HostRequestCompany $request)
+    public function storeTrustedCompany(TrustedCompanyRequest $request)
     {
         return $this->storeTrustedUser($request);
     }
 
     /**
-     * @param HostRequestPerson|HostRequestCompany $request
+     * @param TrustedPersonRequest|TrustedCompanyRequest $request
      * @return mixed
      */
     private function storeAdminUser($request)
     {
-        if (!Auth::user()->isAdministrator())
-        {
+        if (!Auth::user()->isAdministrator()) {
             abort(403);
         }
 
@@ -117,16 +114,15 @@ class UserController extends Controller
         return redirect()
             ->route('admin.user-detail', ['id' => $trustedUser->id])
             ->withsuccess(__("Admin user was activated and reset password option was successfully sent"));
-
     }
 
     /**
      * Used just to validate the request
      *
-     * @param HostRequestPerson $request
+     * @param AdminPersonRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeAdminPerson(HostRequestPerson $request)
+    public function storeAdminPerson(AdminPersonRequest $request)
     {
         return $this->storeAdminUser($request);
     }
@@ -134,10 +130,10 @@ class UserController extends Controller
     /**
      * Used just to validate the request
      *
-     * @param HostRequestCompany $request
+     * @param AdminCompanyRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeAdminCompany(HostRequestCompany $request)
+    public function storeAdminCompany(AdminCompanyRequest $request)
     {
         return $this->storeAdminUser($request);
     }
@@ -146,8 +142,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        if ($user->hasRole(User::ROLE_HOST))//can't use isHost() because the user might not be approved
-        {
+        // can't use isHost() because the user might not be approved
+        if ($user->hasRole(User::ROLE_HOST)) {
             return redirect()->route('admin.host-detail', ['id' => $user->id]);
         }
 
@@ -210,5 +206,4 @@ class UserController extends Controller
             ->route('admin.host-detail', ['id' => $user->id])
             ->withSuccess(__("Reset password option was successfully sent"));
     }
-
 }
