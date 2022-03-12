@@ -39,6 +39,8 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
     ports:
       - 33066:3306
+    volumes:
+      - ./mysql-dump:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
