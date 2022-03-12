@@ -1,42 +1,36 @@
-FROM php:7.4-fpm-alpine as dev_stage
+FROM php:7.4-apache as build
 
-ENV APP_ENV=local
+WORKDIR /var/www
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache git zip openssh autoconf g++ make openssl-dev icu-dev libpng-dev zlib-dev libzip-dev bash
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ gnu-libiconv=1.15-r3
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+RUN apt-get -y update && \
+    apt-get install -y --no-install-recommends libzip-dev libpng-dev libicu-dev libmagickwand-dev zlib1g-dev && \
+    apt-get clean all
 
-# avoid using home of the user for composer cache, may cause permission issues
-ENV COMPOSER_HOME=/tmp/composer
-ENV COMPOSER_MEMORY_LIMIT=-1
 
-# install composer
-RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
-    && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer \
-    && php -r "unlink('/tmp/composer-setup.php');"
-
-RUN pecl -q install xdebug && \
+RUN pecl install imagick && \
     docker-php-ext-install -j$(nproc) opcache bcmath mysqli pdo pdo_mysql intl gd zip && \
-    docker-php-ext-enable opcache bcmath mysqli pdo pdo_mysql intl gd zip
+    docker-php-ext-enable opcache bcmath mysqli pdo pdo_mysql intl gd zip imagick
 
-RUN set -ex \
-    && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS imagemagick-dev libtool \
-    && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && pecl install imagick-3.4.3 \
-    && docker-php-ext-enable imagick \
-    && apk add --no-cache --virtual .imagick-runtime-deps imagemagick \
-    && apk del .phpize-deps
+COPY composer.json composer.lock ./
+RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-dev
 
-COPY .docker/php/zz-custom.ini /usr/local/etc/php/conf.d/zz-custom.ini
-COPY .docker/php/docker-entrypoint.sh /docker-entrypoint.sh
-COPY .docker/php/zzz-docker.conf /usr/local/etc/php-fpm.d/zzz-docker.conf
+ENV PHP_OPCACHE_ENABLE=1
 
-WORKDIR /var/www/html
+COPY ./.docker/php/opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
+COPY .docker/php/zz-custom.ini "$PHP_INI_DIR/conf.d/zz-custom.ini"
+COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-CMD ["php-fpm", "-F"]
+COPY --chown=www-data:www-data . .
 
+EXPOSE 8080
+
+RUN composer dump-autoload --optimize && \
+    chmod 777 -R /var/www/storage/ && \
+    echo "Listen 8080" >> /etc/apache2/ports.conf && \
+    chown -R www-data:www-data /var/www/ && \
+    a2enmod rewrite && service apache2 restart
 
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
@@ -49,29 +43,8 @@ RUN cd app && \
 
 
 ###################################### prod stage ######################
-## install app and prepare for production ##
-FROM dev_stage as prod
+FROM build as prod
 
-#make sure www-data is able to write files to /var/www/html dir
-RUN mkdir -p /var/www/html && chown www-data:www-data /var/www/html
-## make sure www-data is able to copy public files here, if needed
-RUN mkdir -p /mnt/public && chown www-data:www-data /mnt/public
+# USER www-data
 
-USER www-data
-
-ENV APP_ENV=production
-
-COPY --chown=www-data:www-data composer.json composer.lock ./
-
-RUN set -uex; umask 0002; \
-    composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-suggest --no-dev && \
-    rm -rf /tmp/composer/cache
-
-COPY --chown=www-data:www-data . .
-COPY --chown=www-data:www-data --from=assets_builder /app/public/ ./public/
-
-RUN set -uex; umask 0002; \
-    composer dump-autoload --optimize && \
-    #php artisan route:cache && \
-    php artisan view:cache && \
-    php artisan event:cache
+COPY --from=assets_builder /app/public/ /var/www/public/

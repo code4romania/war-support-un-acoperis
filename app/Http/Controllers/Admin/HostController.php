@@ -8,8 +8,8 @@ use App\County;
 use App\HelpResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
-use App\Http\Requests\HostRequestCompany;
-use App\Http\Requests\HostRequestPerson;
+use App\Http\Requests\HostCompanyRequest;
+use App\Http\Requests\HostPersonRequest;
 use App\ResourceType;
 use App\Services\HostService;
 use App\Services\UserService;
@@ -57,10 +57,10 @@ class HostController extends Controller
     /**
      * used just to validate the request
      *
-     * @param HostRequestPerson $request
+     * @param HostPersonRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storePerson(HostRequestPerson $request)
+    public function storePerson(HostPersonRequest $request)
     {
         return $this->storeHost($request);
     }
@@ -68,10 +68,10 @@ class HostController extends Controller
     /**
      * used just to validate the request
      *
-     * @param HostRequestCompany $request
+     * @param HostCompanyRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeCompany(HostRequestCompany $request)
+    public function storeCompany(HostCompanyRequest $request)
     {
         return $this->storeHost($request);
     }
@@ -213,7 +213,7 @@ class HostController extends Controller
 
 
     /**
-     * @param HostRequestPerson|HostRequestCompany $request
+     * @param HostPersonRequest|HostCompanyRequest $request
      * @return mixed
      */
     private function storeHost($request)

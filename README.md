@@ -14,23 +14,34 @@ This project is built by amazing volunteers and you can be one of them! Here's a
 
 If you see something that doesn't quite work the way you expect it to, open an Issue. Make sure to describe what you _expect to happen_ and _what is actually happening_ in detail.
 
-If you would like to suggest new functionality, open an Issue and mark it as a __[Feature request]__. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements. 
+If you would like to suggest new functionality, open an Issue and mark it as a **[Feature request]**. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements.
 
 ## Built With
+
 [Laravel](https://laravel.com) & [Bootstrap](https://getbootstrap.com)
+
 ### Programming languages
-- [PHP](https://php.com)
-- JavaScript
+
+-   [PHP](https://php.com)
+-   JavaScript
+
 ### Frontend framework
-- jQuery
-- Bootstrap CSS
+
+-   jQuery
+-   Bootstrap CSS
+
 ### Package managers
-- Composer
-- NPM
+
+-   Composer
+-   NPM
+
 ### Database technology & provider
+
 Mysql
+
 ## Repos and projects
-https://github.com/code4romania/war-support-un-acoperis 
+
+https://github.com/code4romania/war-support-un-acoperis
 
 ## Deployment
 
@@ -39,32 +50,43 @@ See instruction from this [wiki page](https://github.com/code4romania/war-suppor
 [Docker](https://docs.docker.com/get-docker/) & [Docker-Compose](https://docs.docker.com/compose/install/) should be used on the development environment.
 
 ### MacOS & Linux
+
+If running on Linux, make sure to give proper permissions to the storage folder
+
+```shell
+	chmod -R 777 storage/
+```
+
 Run `make install` to build, start containers and run migration
 
 Some other useful make commands:
-- `make start` - start an already installed application
-- `make shell` - open an bash inside the php container
-- `make npm-watch` - start npm hot-reloading for js files
+
+-   `make start` - start an already installed application
+-   `make shell` - open an bash inside the php container
+-   `make npm-watch` - start npm hot-reloading for js files
 
 ### Windows
+
 You can install `make` on windows using [GNUWin32](http://gnuwin32.sourceforge.net/packages/make.htm) or you can use WSL(Windows Subsystem for Linux).
 Afterward you can use all the commands from the MacOS & Linux section
 
 The application can be installed without using `make` by running the following commands:
+
 ```shell
 	cp .env.example .env
 	docker-compose up -d
 	docker-compose exec php sh -c 'composer install'
 	docker-compose exec php sh -c 'php artisan migrate --seed'
-	docker-compose exec nodejs sh -c 'npm ci && npm run dev'
 ```
 
 Some other useful commands:
-- `docker-compose up -d` - start an already installed application
-- `docker-compose exec php bash` - open an bash inside the php container
-- `docker-compose exec nodejs sh -c 'npm run watch'` - start npm hot-reloading for js files
+
+-   `docker-compose up -d` - start an already installed application
+-   `docker-compose exec php bash` - open an bash inside the php container
+-   `docker-compose run --rm nodejs sh -c 'npm run watch'` - start npm hot-reloading for js files
 
 ### Access
+
 The main application can be accessed via http://localhost:80.
 
 The CMS can be accessed via http://localhost:80/cms.
@@ -77,14 +99,12 @@ If custom hosts are required in any way, you can add the following entries in yo
 127.0.0.1  un-acoperis.local
 ```
 
-
-
 ## Feedback
 
-* Request a new feature on GitHub.
-* Vote for popular feature requests.
-* File a bug in GitHub Issues.
-* Email us with other feedback contact@code4.ro
+-   Request a new feature on GitHub.
+-   Vote for popular feature requests.
+-   File a bug in GitHub Issues.
+-   Email us with other feedback contact@code4.ro
 
 ## License
 

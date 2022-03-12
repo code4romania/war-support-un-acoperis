@@ -3,7 +3,7 @@
     <div id="app">
         <div class="bg-gray-100">
             <div class="container d-flex items-center py-3">
-                <svg class="h6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 121.9">
+                <svg class="h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 121.9">
                     <path d="M48.8,2.5,31.5,5.1,0,61l31.5,55.8,17.3,2.6L15.2,61ZM93,2.5l17.3,2.6L141.8,61l-31.5,55.8L93,119.4,126.6,61Z" />
                     <path d="M48.8,2.5,70.9,0V61H15.2Z" fill="#f3f3f3" />
                     <path d="M48.8,119.4l22.1,2.5V61H15.2Z" fill="#d9d9d9" />

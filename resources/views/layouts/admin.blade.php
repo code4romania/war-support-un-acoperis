@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="/images/logo.png" height="30" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
+                <img src="/images/logo-lang-ro.svg" height="30" alt="{{ config('app.name') }}">
             </a>
 
             <!-- Right Side Of Navbar -->
