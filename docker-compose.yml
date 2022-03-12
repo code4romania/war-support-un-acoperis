@@ -40,7 +40,7 @@ services:
     ports:
       - 33066:3306
     volumes:
-      - ./mysql-dump:/var/lib/mysql
+      - database:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -51,3 +51,7 @@ services:
       PMA_PASSWORD: ${DB_PASSWORD}
     ports:
       - 8080:80
+
+volumes:
+  database:
+    driver: local
