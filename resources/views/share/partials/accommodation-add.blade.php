@@ -302,7 +302,7 @@
         <h5 class="font-weight-600 mb-3">{{ __('Accommodation photos') }} ({{ __('at least one phone required') }})</h5>
         <input type="file" name="photos" id="photos">
 
-        @error('photos')
+        @error('photos.*')
         <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
         @enderror
     </div>
@@ -419,6 +419,18 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="agreement py-4">
+        <div class="form-group">
+            <div class="custom-control custom-checkbox mb-3">
+                <input class="custom-control-input" id="agree_is_free" name="agree_is_free" value="yes" {{ !empty(old('agree_is_free')) ? 'checked="checked"' : '' }} type="checkbox">
+                <label class="custom-control-label" for="agree_is_free">{{ __('Agree the unit is for free.')  }}</label>
+                @error('agree_is_free')
+                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                @enderror
             </div>
         </div>
     </div>
