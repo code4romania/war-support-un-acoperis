@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="container py-5">
+    {{-- <div class="container py-5">
         <div class="row text-center">
             <div class="col-sm">
                 <div class="p-4">
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container-holder">
         <div class="container text-white">

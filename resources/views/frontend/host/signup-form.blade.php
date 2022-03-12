@@ -24,10 +24,11 @@
                 </div>
 
                 <div class="card-body py-5">
-                    @include('partials.forms.host-signup-base',
-                                ['formRoutePerson' => route('create-host-person-account'),
-                                'formRouteCompany' => route('create-host-company-account')]
-                                )
+                    @include('partials.forms.host-signup-base', [
+                        'formRoutePerson' => route('create-host-person-account'),
+                        'formRouteCompany' => route('create-host-company-account'),
+                        'requireID' => true,
+                    ])
                 </div>
 
             </div>
@@ -38,5 +39,3 @@
 @section('scripts')
     {!! NoCaptcha::renderJs(request()->route()->parameters['locale']) !!}
 @endsection
-
-

@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="/images/logo.png" height="30" alt="{{ config('app.name', 'Împreună pentru sănătate') }}">
+                <img src="/images/logo-lang-ro.svg" height="30" alt="{{ config('app.name') }}">
             </a>
 
             <!-- Right Side Of Navbar -->
@@ -27,7 +27,7 @@
                     <span class="list-group-item list-group-header">
                         {{ Auth::user()->name }}
                     </span>
-                <a href="#" class="list-group-item list-group-item-action ">
+                <a href="{{ route('admin.profile') }}" class="list-group-item list-group-item-action ">
                     <i class="fa fa-user mr-3"></i>{{__('My account')}}
                 </a>
 

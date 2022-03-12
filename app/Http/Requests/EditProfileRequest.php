@@ -33,7 +33,7 @@ class EditProfileRequest extends FormRequest
         }
 
         return [
-            'name' => ['required', 'alpha_dash', 'min:3', 'max:255'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
             'country' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'min:3', 'max:64'],
