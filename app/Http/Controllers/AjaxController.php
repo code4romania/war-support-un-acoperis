@@ -118,7 +118,7 @@ class AjaxController extends Controller
         }
 
         if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
-            $query->where('created_by', auth()->user()->id);
+            $query->where('help_requests.created_by', auth()->user()->id);
         }
 
         $query->select([
