@@ -68,6 +68,7 @@ class AccommodationRequest extends FormRequest
             'available.*.from' => ['required', 'date', 'date_format:Y-m-d'],
             'available.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:available.*.from'],
             'available' => ['nullable', new DateIntervals()],
+            'agree_is_free' => ['accepted']
         ];
 
         if (empty($this->id)) {
@@ -75,5 +76,12 @@ class AccommodationRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'agree_is_free.accepted' => __("You have to agree that offered accommodation is for free.")
+        ];
     }
 }
