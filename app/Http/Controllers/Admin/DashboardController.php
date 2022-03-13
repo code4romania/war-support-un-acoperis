@@ -31,11 +31,15 @@ class DashboardController extends Controller
                              })
                              ->count();
 
+        $allocatedGuests = Allocation::sum('number_of_guest');
+        $totalHostSpaces = Accommodation::approved()->sum('max_guests');
+
         $dashboardStats = [
-            "hostsNumber"            => $numberOfHosts,
-            "requestsNumber"         => HelpRequest::count(),
-            "allocatedNumber"        => Allocation::count(),
-            "approvedAccommodations" => Accommodation::approved()->count(),
+            "availableHostsSpacesNumber"    => $totalHostSpaces - $allocatedGuests,
+            "totalHostsSpacesNumber"        => $totalHostSpaces,
+            "requestsNumber"                => HelpRequest::count(),
+            "allocatedGuestsNumber"         => $allocatedGuests,
+            "approvedAccommodations"        => Accommodation::approved()->count(),
         ];
 
         return view('admin.dashboard')->with('dashboardStats', $dashboardStats);
