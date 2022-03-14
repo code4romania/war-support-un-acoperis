@@ -20,6 +20,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property int user_id
  * @property int|null created_by
  * @property string $current_location
+ * @property int county_id
  * @property int $guests_number
  * @property string $known_languages
  * @property string|null $special_needs
@@ -99,7 +100,7 @@ class HelpRequest extends Model implements Auditable
 
     public function county(): BelongsTo
     {
-        return $this->belongsTo(UaRegion::class);
+        return $this->belongsTo(County::class);
     }
 
     public function helprequestnotes(): HasMany
