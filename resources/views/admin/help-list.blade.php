@@ -139,13 +139,14 @@
                 $.each(responseData, function(key, value) {
                     let transportType = value.need_special_transport ? '{{ __('Special transport') }}' : value.need_car ? '{{ __('Car') }}' : '{{ __('Not Needed') }}';
                     let specialNeeds =  value.special_needs ? '{{ __('Yes') }}' : '{{ __('No') }}';
+                    console.log(value.status);
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + value.name + '</td>\n' +
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
                         '    <td>' + transportType + '</td>\n' +
-                        '    <td>' + translations[value.status] + '</td>\n' +
+                        '    <td><span class="badge ' + window.helpRequestStatusBadges[value.status] + '">' + translations[value.status] + '</span></td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/{{ $area }}/help-request/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +

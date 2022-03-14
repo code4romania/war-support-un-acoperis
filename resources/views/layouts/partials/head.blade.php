@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Un acoperis') }}</title>
+    <meta name="description" content="Un Acoperiș este o soluție de identificare de spații de cazare pentru a ajuta refugiații care ajung în România și au nevoie de ajutor imediat.">
     <!--Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/images/favicon/favicon-32x32.png') }}">

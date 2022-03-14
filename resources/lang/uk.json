@@ -206,6 +206,7 @@
     "Accommodation details": "Деталі проживання",
     "Hosting details": "Деталі проживання",
     "Accommodation Type": "Тип розміщення",
+    "Accommodation occupancy": "Accommodation occupancy",
     "Select accommodation type": "Виберіть тип проживання",
     "Accommodation type": "Який тип проживання ви пропонуєте",
     "Ownership regime": "Тип власності",
@@ -312,6 +313,8 @@
     "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Якщо у вас виникли проблеми з натисканням кнопки \":actionText\", ви можете скопіювати посилання нижче у свій браузер:",
     "Select accomodation type": "Виберіть тип проживання",
     "Select property type": "Виберіть тип житла",
+    "Agree the unit is for free.": "I agree that accommodation is offered for free and I dont request any charge from the guests.",
+    "You have to agree that offered accommodation is for free.": "You have to agree that offered accommodation is for free.",
     "Reset password option was successfully sent": "Параметр скидання пароля успішно надіслано",
     "User was activated and reset password option was successfully sent": "Користувач типу хоста створено та активовано. На електронну адресу, заповнену у формі, надіслано лист із посиланням для відновлення пароля..",
     "2FA": "Двоетапна аутентифікація",
@@ -479,5 +482,6 @@
     "Occupied": "Occupied",
     "Capacity": "Capacity",
     "Allocation successful": "Allocation successful",
-    "Offer Help with accommodation": "Offer Help with accommodation"
+    "Offer Help with accommodation": "Offer Help with accommodation",
+    "Available hosting spaces from total approved": "Available host spaces from total approved"
 }

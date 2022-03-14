@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Accommodation;
 use App\AccommodationPhoto;
+use App\Allocation;
 use App\City;
 use App\Clinic;
 use App\Country;
@@ -118,7 +119,7 @@ class AjaxController extends Controller
         }
 
         if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
-            $query->where('created_by', auth()->user()->id);
+            $query->where('help_requests.created_by', auth()->user()->id);
         }
 
         $query->select([
@@ -693,7 +694,8 @@ class AjaxController extends Controller
             'countries.name as country',
             'counties.name as county',
             'accommodations.address_city as city',
-            DB::raw('IF (accommodations.approved_at IS NULL, "Unapproved", "Approved") as approval_status')
+            'accommodations.max_guests',
+            DB::raw('IF (accommodations.approved_at IS NULL, "Unapproved", "Approved") as approval_status'),
         ]);
 
         $query->orderBy('accommodations.id', 'desc');
@@ -703,6 +705,10 @@ class AjaxController extends Controller
             ->map(function ($item) {
                 $item->owner = htmlentities($item->owner, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 $item->approval_status = __($item->approval_status);
+                $item->occupancy = sprintf('%s/%s',
+                        Allocation::where('accommodation_id', $item->id)->sum('number_of_guest'),
+                        $item->max_guests
+                );
 
                 return $item;
             });

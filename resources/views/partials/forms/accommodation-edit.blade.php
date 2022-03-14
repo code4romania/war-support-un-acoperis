@@ -420,6 +420,18 @@
         </div>
     </div>
 
+    <div class="agreement py-4">
+        <div class="form-group">
+            <div class="custom-control custom-checkbox mb-3">
+                <input class="custom-control-input" id="agree_is_free" name="agree_is_free" value="yes" {{ !empty(old('agree_is_free', $accommodation->agree_is_free)) ? 'checked="checked"' : '' }} type="checkbox">
+                <label class="custom-control-label" for="agree_is_free">{{ __('Agree the unit is for free.')  }}</label>
+                @error('agree_is_free')
+                <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+    </div>
+
     <div class="clearfix pt-4">
         <button type="submit" id="submit-button-2" class="btn btn-secondary pull-right btn-lg px-6">
             <span class="btn-inner--text">{{ __('Save') }}</span>

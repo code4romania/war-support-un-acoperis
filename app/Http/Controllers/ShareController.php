@@ -67,12 +67,12 @@ class ShareController extends Controller
         {
             $sessionUserId = session()->pull('createdUserId');
             $user = User::find($sessionUserId);
-            $accommodationService->createAccommodation($request,$user,auth()->user()->id);
+            $accommodationService->createAccommodation($request, $user, auth()->user()->id);
             session()->flash('success',__('Host created successfully'));
             return redirect()->back();
         }
-        $accommodationService->createAccommodation($request,$user);
-        session()->flash('sucess',__('Host created successfully'));
+        $accommodationService->createAccommodation($request, $user);
+        session()->flash('success',__('Host created successfully'));
         return redirect()->back();
     }
 
