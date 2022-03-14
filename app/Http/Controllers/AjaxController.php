@@ -89,6 +89,13 @@ class AjaxController extends Controller
             $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
         }
 
+        if ($request->has('countyFilter') &&
+            !empty($request->get('countyFilter'))
+            && $request->get('countyFilter') != 'all'
+        ) {
+            $query->where('help_requests.county_id', '=', $request->get('countyFilter'));
+        }
+
         if (
             $request->has('status') &&
             array_key_exists($request->get('status'), HelpRequest::statusList())
@@ -130,8 +137,11 @@ class AjaxController extends Controller
             'help_requests.need_special_transport',
             'help_requests.special_needs',
             'help_requests.guests_number',
-            'help_requests.created_at'
-        ])->join('users', 'help_requests.user_id', '=', 'users.id');
+            'help_requests.created_at',
+        ])
+            ->selectRaw('IF(counties.name IS NULL, "", counties.name) as county_name')
+            ->join('users', 'help_requests.user_id', '=', 'users.id')
+            ->leftJoin('counties', 'help_requests.county_id', '=', 'counties.id');
 
         $perPage = 10;
 

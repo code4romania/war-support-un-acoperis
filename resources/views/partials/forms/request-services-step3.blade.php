@@ -44,9 +44,19 @@
                                                 </div>
 
                                                 <div class="col-sm-6">
-
-                                                </div>       
-                                                                                         <div class="col-sm-6 mt-4">
+                                                    <div class="form-group">
+                                                        <label class="required font-weight-600" for="county_id">{{ __("Current county") }}:</label>
+                                                        <select name="county_id" id="county_id"  class="form-control @error('county_id') is-invalid @enderror">
+                                                        @foreach($counties ?? [] as $county)
+                                                            <option value="{{ $county->id }}" @if(old('county_id') == $county->id) selected="selected" @endif> {{$county->name}} ({{ $county->code }}) </input>
+                                                        @endforeach
+                                                        </select>
+                                                        @error('county_id')
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 mt-4">
                                                     <div class="form-group">
                                                         <label class="required font-weight-600"
                                                                for="known_languages">{{ __("Known languages") }}

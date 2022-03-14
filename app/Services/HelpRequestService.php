@@ -14,6 +14,7 @@ class HelpRequestService
         $helpRequest = new HelpRequest();
         $helpRequest->user_id = $user->id;
         $helpRequest->current_location = $data['current_location'];
+        $helpRequest->county_id = $data['county_id'];
         $helpRequest->guests_number = $this->getGuestsNumber($data);
         $helpRequest->known_languages = json_encode($data['known_languages']);
         $helpRequest->special_needs = $data['special_request'] ?? null;

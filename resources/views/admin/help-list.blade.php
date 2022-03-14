@@ -7,7 +7,7 @@
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <label for="searchFilter">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
                             <div class="input-group">
@@ -16,6 +16,17 @@
                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="" for="county">{{ __('County') }}</label>
+                            <select name="countyFilter" id="countyFilter" class="custom-select form-control">
+                                <option value="all" selected>{{ __('Any County') }}</option>
+                                @foreach(\App\County::all() as $county)
+                                    <option value="{{ $county->id }}">{{ $county->name }} ({{$county->code}})</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -86,6 +97,7 @@
                 <tr>
                     <th>{{ __('Request ID') }}</th>
                     <th>{{ __('Name') }}</th>
+                    <th>{{ __('County') }}</th>
                     <th>{{ __('Special Needs') }}</th>
                     <th>{{ __('People') }}</th>
                     <th>{{ __('Transport') }}</th>
@@ -143,6 +155,7 @@
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + value.name + '</td>\n' +
+                        '    <td>' + value.county_name + '</td>\n' +
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
                         '    <td>' + transportType + '</td>\n' +
@@ -169,6 +182,10 @@
                 pageState.searchFilter = $.QueryString.searchFilter;
             }
 
+            if (undefined !== $.QueryString.countyFilter) {
+                pageState.countyFilter = $.QueryString.countyFilter;
+            }
+
             if (undefined !== $.QueryString.page) {
                 pageState.page = $.QueryString.page;
             }
@@ -182,6 +199,11 @@
             if (undefined !== $.QueryString.status) {
                 pageState.status = $.QueryString.status;
                 $('#statusFilter').val(pageState.status);
+            }
+
+            if (undefined !== $.QueryString.countyFilter) {
+                pageState.countyFilter = $.QueryString.countyFilter;
+                $('#statusFilter').val(pageState.countyFilter);
             }
 
             if (undefined !== $.QueryString.startDate) {
@@ -212,6 +234,12 @@
             $('#statusFilter').on('change', function () {
                 pageState.status = this.value;
                 $.SetQueryStringParameter('status', pageState.status);
+                renderer.renderData(pageState);
+            });
+
+            $('#countyFilter').on('change', function () {
+                pageState.countyFilter = this.value;
+                $.SetQueryStringParameter('countyFilter', pageState.countyFilter);
                 renderer.renderData(pageState);
             });
 
