@@ -1,29 +1,29 @@
 version: "3.7"
 
 services:
-  php:
-    build:
-      dockerfile: .docker/php/Dockerfile
-      target: build
-    environment:
-      PHP_OPCACHE_ENABLE: 0
-    volumes:
-      - ./:/var/www:delegated
-    ports:
-      - "80:8080"
-
-  nodejs:
-    image: node:16-alpine
-    working_dir: /app
-    environment:
-      HOME: /tmp/npm
-    volumes:
-      - ./:/app:delegated
-    command: >
-      sh -c "
-        npm ci &&
-        npm run dev
-      "
+#  php:
+#    build:
+#      dockerfile: .docker/php/Dockerfile
+#      target: build
+#    environment:
+#      PHP_OPCACHE_ENABLE: 0
+#    volumes:
+#      - ./:/var/www:delegated
+#    ports:
+#      - "8888:8080"
+#
+#  nodejs:
+#    image: node:16-alpine
+#    working_dir: /app
+#    environment:
+#      HOME: /tmp/npm
+#    volumes:
+#      - ./:/app:delegated
+#    command: >
+#      sh -c "
+#        npm ci &&
+#        npm run dev
+#      "
 
   database:
     image: mysql:8
@@ -34,13 +34,15 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
     ports:
       - 33066:3306
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    env_file: .env
-    environment:
-      PMA_HOST: database
-      PMA_USER: ${DB_USERNAME}
-      PMA_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - 8080:80
+    volumes:
+      - dbvolume:/var/lib/mysql
+#
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:latest
+#    env_file: .env
+#    environment:
+#      PMA_HOST: database
+#      PMA_USER: ${DB_USERNAME}
+#      PMA_PASSWORD: ${DB_PASSWORD}
+#    ports:
+#      - 8080:80

@@ -11,6 +11,8 @@ use App\County;
 use App\FacilityType;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
+use Carbon\Carbon;
+use DatePeriod;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -262,6 +264,61 @@ class AccommodationService
         }
 
         return $photoData;
+    }
+
+    public function getAvailabilityDetails(Accommodation $accommodation)
+    {
+        $availabilities =  $accommodation->availabilityIntervals; // from_date - to_date
+        $bookings = $accommodation->helpRequests;
+
+        //Booked Days
+        $bookedDays = [];
+        foreach ($bookings as $booking) {
+            $start = new \DateTime($booking->pivot->start_date);
+            $end = new \DateTime($booking->pivot->end_date);
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($start, $interval, $end);
+
+            foreach ($period as $dt) {
+                $day = $dt->format("d-m-Y");
+                if(isset($bookedDays[$day])) {
+                    $bookedDays[$day] += $booking->guests_number;
+                }
+                else {
+                    $bookedDays[$day] = $booking->guests_number;
+                }
+            }
+        }
+
+        $availableDays = [];
+        if ($availabilities->isNotEmpty()) {
+            foreach ($availabilities as $availability) {
+                $start = new \DateTime($availability->from_date);
+                $end = new \DateTime($availability->to_date);
+
+                $interval = \DateInterval::createFromDateString('1 day');
+                $period = new DatePeriod($start, $interval, $end);
+
+                foreach ($period as $dt) {
+                    $day = $dt->format("d-m-Y");
+                    $availableDays[] = $day;
+                }
+            }
+        } else {
+            $start = Carbon::now();
+            $end = Carbon::now()->addYear();
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($start, $interval, $end);
+
+            foreach ($period as $dt) {
+                $day = $dt->format("d-m-Y");
+                $availableDays[] = $day;
+            }
+        }
+
+        return [$bookedDays, $availableDays];
     }
 
 }

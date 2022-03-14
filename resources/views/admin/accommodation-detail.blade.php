@@ -253,6 +253,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
     <script>
         $(document).ready(function () {
+            console.log('here')
             $('body').on('click', 'a.page-link', function (event) {
                 event.preventDefault();
                 pageState.page = $(this).data('page');

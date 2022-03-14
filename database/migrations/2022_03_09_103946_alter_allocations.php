@@ -14,8 +14,8 @@ class AlterAllocations extends Migration
     public function up()
     {
         Schema::table('allocations', function (Blueprint $table) {
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
         });
     }
 

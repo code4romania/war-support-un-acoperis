@@ -39,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($details->allocationsHistory as $key => $detail)
+            @forelse($details->refugeeAllocatedHistory as $key => $detail)
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td><a href="{{ route('admin.user-detail', $detail->host_id) }}">{{ $detail->host->name }}</a></td>
@@ -52,7 +52,7 @@
             </tr>
             @empty
                 <tr>
-                    <td colspan="5">{{ $user->name }} {{ __lang('has not been in any accommodation.') }}</td>
+                    <td colspan="5">{{ $user->name }} {{ __('has not been in any accommodation.') }}</td>
                 </tr>
             @endforelse
             </tbody>

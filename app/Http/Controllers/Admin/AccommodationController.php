@@ -55,10 +55,10 @@ class AccommodationController extends Controller
      * @param int $id
      * @return View
      */
-    public function view(int $id)
+    public function view(int $id, AccommodationService $accommodationService)
     {
         /** @var Accommodation|null $accommodation */
-        $accommodation = Accommodation::find($id);
+        $accommodation = Accommodation::findOrFail($id);
 
         if (auth()->user()->isTrusted()) {
             if ($accommodation->created_by != auth()->user()->id) {
@@ -80,56 +80,7 @@ class AccommodationController extends Controller
             $photos[] = $photo->getPhotoUrl();
         }
 
-
-        $availabilities =  $accommodation->availabilityIntervals; // from_date - to_date
-        $bookings = $accommodation->helpRequests;
-
-        //Booked Days
-        $bookedDays = [];
-        foreach ($bookings as $bInterval) {
-            $start = new \DateTime($bInterval->pivot->start_date);
-            $end = new \DateTime($bInterval->pivot->end_date);
-
-            $interval = \DateInterval::createFromDateString('1 day');
-            $period = new DatePeriod($start, $interval, $end);
-
-            foreach ($period as $dt) {
-                $day = $dt->format("d-m-Y");
-                if(isset($bookedDays[$day])) {
-                    $bookedDays[$day] += $bInterval->guests_number;
-                }
-                else {
-                    $bookedDays[$day] = $bInterval->guests_number;
-                }
-            }
-        }
-
-        $availableDays = [];
-        if ($availabilities->isNotEmpty()) {
-            foreach ($availabilities as $aInterval) {
-                $start = new \DateTime($aInterval->from_date);
-                $end = new \DateTime($aInterval->to_date);
-
-                $interval = \DateInterval::createFromDateString('1 day');
-                $period = new DatePeriod($start, $interval, $end);
-
-                foreach ($period as $dt) {
-                    $day = $dt->format("d-m-Y");
-                    $availableDays[] = $day;
-                }
-            }
-        } else {
-            $start = Carbon::now();
-            $end = Carbon::now()->addYear();
-
-            $interval = \DateInterval::createFromDateString('1 day');
-            $period = new DatePeriod($start, $interval, $end);
-
-            foreach ($period as $dt) {
-                $day = $dt->format("d-m-Y");
-                $availableDays[] = $day;
-            }
-        }
+        [$bookedDays, $availableDays] = $accommodationService->getAvailabilityDetails($accommodation);
 
         return view('admin.accommodation-detail')
             ->with('user', $user)
@@ -327,16 +278,16 @@ class AccommodationController extends Controller
             ->get();
 
         $bookedDays = [];
-        foreach ($bookings as $bInterval) {
-            $period = CarbonPeriod::create($bInterval->start_date, $bInterval->end_date);
+        foreach ($bookings as $booking) {
+            $period = CarbonPeriod::create($booking->start_date, $booking->end_date);
 
             foreach ($period as $date) {
                 $day = $date->format("d-m-Y");
                 if (isset($bookedDays[$day])) {
-                    $bookedDays[$day] += $bInterval->number_of_guest;
+                    $bookedDays[$day] += $booking->number_of_guest;
                 }
                 else {
-                    $bookedDays[$day] = $bInterval->number_of_guest;
+                    $bookedDays[$day] = $booking->number_of_guest;
                 }
             }
         }

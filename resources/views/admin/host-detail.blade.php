@@ -67,7 +67,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($details->hasAllocatedHistory as $key => $detail)
+            @forelse($details->hostAllocatedHistory as $key => $detail)
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td><a href="{{ route('admin.user-detail', $detail->refugee_id) }}">{{ $detail->refugee->name }}</a></td>

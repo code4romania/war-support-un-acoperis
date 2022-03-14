@@ -149,7 +149,7 @@ class UserController extends Controller
 
         if($user->isRefugee())
         {
-            $details = $user->load('allocationsHistory');
+            $details = $user->load('refugeeAllocatedHistory');
 
             return view('admin.user-detail', compact('user', 'details'));
         }

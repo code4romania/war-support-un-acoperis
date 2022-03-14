@@ -106,3 +106,61 @@
     </div>
 </div>
 
+@section('scripts')
+    @parent
+    <script type="application/javascript">
+        $(document).ready(() => {
+
+            //fcallendar for allocation form
+
+            var fc_today = moment();
+            var fcalendar = $('#calendar');
+
+            console.log(fcalendar)
+
+            if(fcalendar !== undefined) {
+                var availableDays = JSON.parse(window.calendar_config.availableDays);
+                var bookedDays = JSON.parse(window.calendar_config.bookedDays);
+                var max_guests = window.calendar_config.max_guests;
+                var slotName = window.calendar_config.slotName;
+
+
+                // console.log(availableDays,bookedDays,max_guests);
+
+                fcalendar.fullCalendar({
+                    header: {
+                        right: 'prev,next today',
+                        left: 'title',
+                    },
+                    height : 550,
+                    showNonCurrentDates : false,
+                    fixedWeekCount : false,
+                    validRange : { "start" : fc_today.format('YYYY-MM-DD') },
+                    defaultView: 'month',
+                    dayRender: function (date, cell) {
+                        let current_date = date.format('DD-MM-YYYY');
+
+                        if(!availableDays.includes(current_date)){
+                            cell.addClass('disabled');
+                        } else {
+                            cell.addClass('available');
+
+                            if(bookedDays[current_date] !== undefined) {
+                                (max_guests > bookedDays[current_date])? cell.addClass('warning') : cell.addClass('danger');
+                                let spots_left = max_guests - bookedDays[current_date];
+                                cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="'+spots_left+' '+slotName+'">' + spots_left + '</span>');
+                            } else{
+                                cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="'+max_guests+' '+slotName+'">' + max_guests + '</span>');
+                            }
+
+                        }
+                        // if (current_date === fc_today.format('DD-MM-YYYY')) {
+                        //     cell.css("background-color", "red");
+                        // }
+
+                    }
+                });
+            }
+        })
+    </script>
+@endsection
