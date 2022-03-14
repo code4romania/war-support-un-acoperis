@@ -15,14 +15,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $code
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
- * @property array $translations
  */
 class County extends Model
 {
-
-    public function translations() {
-        return $this->hasMany(CountyTranslation::class, 'county_id', 'id');
-    }
     /**
      * @return HasMany
      */

@@ -114,11 +114,8 @@ class ShareController extends Controller
         $languages = Language::orderBy('position', 'asc')->orderBy('name', 'asc')->select('id', 'endonym')->get();
 
         $lang = App::getLocale() == 'ro' ? 'en' : App::getLocale();
-//        $counties = UaRegion::all(['id', 'region', 'region_' . $lang . ' as region'])->sortBy('region_' . $lang);
-        $counties = County::join('county_translations', 'county_translations.county_id', 'counties.id')
-            ->select('counties.id', 'code', 'county_translations.name')
-            ->where('county_translations.locale', $lang)
-            ->get();
+        $counties = UaRegion::all(['id', 'region', 'region_' . $lang . ' as region'])->sortBy('region_' . $lang);
+
 
         return view('share.help-request-add')
             ->with('description', $settingRepository->byKey('request_services_description') ?? '')
