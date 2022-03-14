@@ -6,8 +6,7 @@ services:
       dockerfile: .docker/php/Dockerfile
       target: build
       context: .
-    env_file:
-      - .env
+    env_file: .env
     environment:
       PHP_OPCACHE_ENABLE: 0
     volumes:
