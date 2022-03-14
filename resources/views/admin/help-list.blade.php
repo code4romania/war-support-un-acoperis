@@ -7,7 +7,7 @@
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <label for="searchFilter">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
                             <div class="input-group">
@@ -20,11 +20,34 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
+                            <label for="countyFilter">{{ __('County') }}</label>
+                            <select name="countyFilter" id="countyFilter" class="custom-select form-control">
+                                <option
+                                    {{ request()->isNotFilled('countyFilter') ? 'selected' : '' }}
+                                    value="">
+                                    {{ __('All counties') }}
+                                </option>
+                                @foreach ($counties as $county)
+                                    <option value="{{ $county->id }}"
+                                        {{ request()->get('countyFilter') === $county->id ? 'selected' : '' }}>
+                                        {{ $county->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
                             <label class="" for="status">Status</label>
                             <select name="statusFilter" id="statusFilter" class="custom-select form-control">
-                                    <option value="" selected>{{ __('All statuses') }}</option>
-                                @foreach(\App\HelpRequest::statusList() as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
+                                <option
+                                    {{ request()->isNotFilled('statusFilter') ? 'selected' : '' }}
+                                    value="">{{ __('All statuses') }}</option>
+                                @foreach (\App\HelpRequest::statusList() as $key => $value)
+                                    <option value="{{ $key }}"
+                                        {{ request()->get('statusFilter') === $key ? 'selected' : '' }}>
+                                        {{ $value }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -85,6 +108,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Request ID') }}</th>
+                    <th>{{ __('County') }}</th>
                     <th>{{ __('Name') }}</th>
                     <th>{{ __('Special Needs') }}</th>
                     <th>{{ __('People') }}</th>
@@ -136,12 +160,14 @@
                 this.emptyTable();
 
                 let translations = {!! json_encode(\App\HelpRequest::statusList()) !!};
+                let counties = {!! json_encode($counties->pluck('name', 'id')) !!};
                 $.each(responseData, function(key, value) {
                     let transportType = value.need_special_transport ? '{{ __('Special transport') }}' : value.need_car ? '{{ __('Car') }}' : '{{ __('Not Needed') }}';
                     let specialNeeds =  value.special_needs ? '{{ __('Yes') }}' : '{{ __('No') }}';
                     console.log(value.status);
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
+                        '    <td>' + (counties[value.county_id] || '&mdash;') + '</td>\n' +
                         '    <td>' + value.name + '</td>\n' +
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
@@ -167,6 +193,11 @@
 
             if (undefined !== $.QueryString.searchFilter) {
                 pageState.searchFilter = $.QueryString.searchFilter;
+            }
+
+            if (undefined !== $.QueryString.countyFilter) {
+                pageState.countyFilter = $.QueryString.countyFilter;
+                $('#statusFilter').val(pageState.countyFilter);
             }
 
             if (undefined !== $.QueryString.page) {
@@ -207,6 +238,12 @@
                         renderer.renderData(pageState);
                     }
                 }, 500);
+            });
+
+            $('#countyFilter').on('change', function () {
+                pageState.countyFilter = this.value;
+                $.SetQueryStringParameter('countyFilter', pageState.countyFilter);
+                renderer.renderData(pageState);
             });
 
             $('#statusFilter').on('change', function () {

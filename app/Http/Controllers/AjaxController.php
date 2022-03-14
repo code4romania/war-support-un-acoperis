@@ -82,11 +82,15 @@ class AjaxController extends Controller
      */
     public function helpRequests(Request $request)
     {
-        /** @var Builder $query */
+        /** @var EloquentBuilder $query */
         $query = HelpRequest::orderBy('id', 'desc');
 
         if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
             $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
+        }
+
+        if ($request->filled('countyFilter')) {
+            $query->whereHas('county', fn ($q) => $q->where('id', $request->get('countyFilter')));
         }
 
         if (
@@ -118,7 +122,7 @@ class AjaxController extends Controller
             }
         }
 
-        if (auth()->user()->hasRole(User::ROLE_TRUSTED)) {
+        if (auth()->user()->isTrusted()) {
             $query->where('help_requests.created_by', auth()->user()->id);
         }
 
@@ -130,7 +134,8 @@ class AjaxController extends Controller
             'help_requests.need_special_transport',
             'help_requests.special_needs',
             'help_requests.guests_number',
-            'help_requests.created_at'
+            'help_requests.created_at',
+            'help_requests.county_id',
         ])->join('users', 'help_requests.user_id', '=', 'users.id');
 
         $perPage = 10;
@@ -659,7 +664,6 @@ class AjaxController extends Controller
             });
         }
 
-
         if ($request->has('type') && !empty($request->get('type'))) {
             $query->where('accommodations.accommodation_type_id', '=', $request->get('type'));
         }
@@ -692,7 +696,7 @@ class AjaxController extends Controller
             'accommodation_types.name as type',
             'users.name as owner',
             'countries.name as country',
-            'counties.name as county',
+            'accommodations.address_county_id as county_id',
             'accommodations.address_city as city',
             'accommodations.max_guests',
             DB::raw('IF (accommodations.approved_at IS NULL, "Unapproved", "Approved") as approval_status'),
@@ -705,9 +709,10 @@ class AjaxController extends Controller
             ->map(function ($item) {
                 $item->owner = htmlentities($item->owner, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 $item->approval_status = __($item->approval_status);
-                $item->occupancy = sprintf('%s/%s',
-                        Allocation::where('accommodation_id', $item->id)->sum('number_of_guest'),
-                        $item->max_guests
+                $item->occupancy = sprintf(
+                    '%s/%s',
+                    Allocation::where('accommodation_id', $item->id)->sum('number_of_guest'),
+                    $item->max_guests
                 );
 
                 return $item;
