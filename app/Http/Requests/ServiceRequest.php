@@ -30,10 +30,12 @@ class ServiceRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [
+            'request_services_step' => ['required']
+        ];
 
-        $rules=['request_services_step' => ['required']];
-        if (request()->has('request_services_step')){
-            switch ($this->request->get('request_services_step')){
+        if (request()->has('request_services_step')) {
+            switch ($this->request->get('request_services_step')) {
                 case self::REGISTER:
                     $rules['new_user.name'] = ['required', 'string', 'max:32'];
                     $rules['new_user.phone'] = ['required', 'max:18', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'];
@@ -55,6 +57,7 @@ class ServiceRequest extends FormRequest
                     $rules['need_transport'] = [];
                     $rules['dont_need_transport'] = [];
                     $rules['need_special_transport'] = [];
+                    $rules['county'] = ['required', 'exists:counties,id'];
                     break;
                 default:
                     $rules['nothing_to_submit'] = ['required', 'array,min:2000' ];
@@ -62,7 +65,7 @@ class ServiceRequest extends FormRequest
         }
 
         if (Route::currentRouteName() == 'request-services-submit') {
-//            $rules['g-recaptcha-response'] = ['required', 'captcha'];
+            // $rules['g-recaptcha-response'] = ['required', 'captcha'];
         }
 
         return $rules;
@@ -81,7 +84,6 @@ class ServiceRequest extends FormRequest
             'new_user.email' => __("Applicant's e-mail"),
             'new_user.county_id' => __('Region of origin'),
             'new_user.city' => __("City of origin")
-
         ];
     }
 }

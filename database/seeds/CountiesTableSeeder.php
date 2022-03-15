@@ -4,12 +4,15 @@ use App\County;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Traits\Localizable;
 
 /**
  * Class CountiesTableSeeder
  */
 class CountiesTableSeeder extends Seeder
 {
+    use Localizable;
+
     /**
      * Run the database seeds.
      *
@@ -17,18 +20,39 @@ class CountiesTableSeeder extends Seeder
      */
     public function run()
     {
-        if (empty(County::all()->count())) {
-            DB::table('siruta')
-                ->where('NIV', '=', 1)
-                ->orderBy('SIRUTA', 'ASC')
-                ->each(function ($line) {
-                    $countyName = trim(str_ireplace(['JUDETUL', 'MUNICIPIUL'], '', $line->DENLOC));
-
-                    DB::table('counties')->insert([
-                        ['id' => $line->JUD, 'name' => ucfirst(strtolower($countyName)), 'code' => $this->getCountyCode($countyName),  'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]
-                    ]);
-                });
+        if (County::count()) {
+            return;
         }
+
+        $counties = [];
+        $translations = [];
+
+        DB::table('siruta')
+            ->where('NIV', '=', 1)
+            ->orderBy('SIRUTA', 'ASC')
+            ->each(function ($line) use (&$counties, &$translations) {
+                $countyName = trim(str_ireplace(['JUDETUL', 'MUNICIPIUL'], '', $line->DENLOC));
+                $countyCode = $this->getCountyCode($countyName);
+
+                $counties[] = [
+                    'id' => $line->JUD,
+                    // 'name' => ucfirst(strtolower($countyName)),
+                    'code' => $countyCode,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+
+                foreach (config('translatable.locales') as $locale) {
+                    $translations[] = [
+                        'county_id' => $line->JUD,
+                        'locale' => $locale,
+                        'name'  => $this->withLocale($locale, fn () => __("counties.{$countyCode}")),
+                    ];
+                }
+            });
+
+        DB::table('counties')->insert($counties);
+        DB::table('county_translations')->insert($translations);
     }
 
     /**
@@ -65,7 +89,7 @@ class CountiesTableSeeder extends Seeder
         $countyCodes['MEHEDINTI'] = 'MH';
         $countyCodes['MURES'] = 'MS';
         $countyCodes['NEAMT'] = 'NT';
-        $countyCodes['OLT'] = 'OL';
+        $countyCodes['OLT'] = 'OT';
         $countyCodes['PRAHOVA'] = 'PH';
         $countyCodes['SATU MARE'] = 'SM';
         $countyCodes['SALAJ'] = 'SJ';
@@ -76,7 +100,7 @@ class CountiesTableSeeder extends Seeder
         $countyCodes['TULCEA'] = 'TL';
         $countyCodes['VASLUI'] = 'VS';
         $countyCodes['VALCEA'] = 'VL';
-        $countyCodes['VRANCEA'] = 'VR';
+        $countyCodes['VRANCEA'] = 'VN';
         $countyCodes['BUCURESTI'] = 'B';
         $countyCodes['CALARASI'] = 'CL';
         $countyCodes['GIURGIU'] = 'GR';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use A17\Twill\Repositories\SettingRepository;
+use App\County;
 use App\Http\Requests\ServiceRequest;
 use App\Language;
 use App\Mail\HelpRequestMail;
@@ -53,10 +54,15 @@ class RequestServicesController extends Controller
         }
 
         $languages = Language::orderBy('position', 'asc')->orderBy('name', 'asc')->select('id', 'endonym')->get();
+        $counties = County::query()
+            ->withTranslation()
+            ->orderByTranslation('name')
+            ->get();
 
         return view('frontend.request-services.step3')
             ->with('description', $settingRepository->byKey('request_services_description') ?? '')
             ->with('info', $settingRepository->byKey('request_services_info') ?? '')
+            ->with('counties', $counties)
             ->with('languages', $languages);
     }
 

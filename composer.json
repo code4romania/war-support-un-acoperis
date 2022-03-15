@@ -13,6 +13,7 @@
         "ext-openssl": "*",
         "anhskohbo/no-captcha": "^3.3",
         "area17/twill": "2.7",
+        "astrotomic/laravel-translatable": "^11.9",
         "aws/aws-sdk-php": "^3.149",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
