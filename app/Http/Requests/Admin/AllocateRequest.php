@@ -29,7 +29,6 @@ class AllocateRequest extends FormRequest
     {
         return [
             'help_request_id' => 'numeric|required|exists:help_requests,id',
-            'guests_number' => 'numeric|required',
             'startDate' => 'date|required',
             'endDate' => 'date|required',
         ];

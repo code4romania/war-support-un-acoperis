@@ -319,7 +319,7 @@ class AccommodationController extends Controller
             'created_at' => now(),
         ]);
 
-        $helpRequestTotalAllocated = $request->post('guests_number') + $helpRequest->accommodation()->sum('number_of_guest');
+        $helpRequestTotalAllocated = $helpRequest->accommodation()->sum('number_of_guest');
         if ($helpRequestTotalAllocated < $helpRequest->guests_number) {
             $helpRequest->status = HelpRequest::STATUS_PARTIAL_ALLOCATED;
         } else {
