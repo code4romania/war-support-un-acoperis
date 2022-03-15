@@ -346,7 +346,7 @@ class AccommodationController extends Controller
     {
 
         $allocation->historyItem()->update(['deallocated_at' => Carbon::now()]);
-
+//        @TODO help-request update state disallocated
         $allocation->delete();
 
         return response()->noContent();
