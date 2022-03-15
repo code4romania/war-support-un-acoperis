@@ -1,18 +1,19 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="row mb-4 items-center">
-        <div class="col-12 col-md-6 text-md-left text-center">
-            <h1>{{ __('Requests List') }}</h1>
+    <section class="mb-5 row">
+        <div class="col-md-6">
+            <h1 class="page-title font-weight-600 mb-0">{{ __('My requests') }}</h1>
         </div>
-        <div class="col-12 col-md-6 text-md-right text-center">
-            <a class="btn btn-secondary" href="{{ route('request-services-step3') }}">{{ __('Add help request') }}</a>
+        <div class="col-md-6 d-md-flex justify-content-end">
+            <a class="btn btn-secondary m-2"
+                href="{{ route('request-services-step3') }}">{{ __('Add help request') }}</a>
         </div>
-    </div>
+    </section>
 
     <div class="card-deck accomodation-list row rows-2">
-        @foreach($helpRequests as $item)
-            @include('common.help-request',['item'=>$item])
+        @foreach ($helpRequests as $item)
+            @include('common.help-request', ['item' => $item])
         @endforeach
     </div>
 @endsection

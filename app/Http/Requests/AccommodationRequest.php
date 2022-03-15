@@ -64,9 +64,11 @@ class AccommodationRequest extends FormRequest
             'transport_subway_distance' => ['nullable', 'string', 'max:64'],
             'transport_bus_distance' => ['nullable', 'string', 'max:64'],
             'transport_railway_distance' => ['nullable', 'string', 'max:64'],
+            'transport_other_details'   => ['nullable', 'string', 'max:500'],
             'available.*.from' => ['required', 'date', 'date_format:Y-m-d'],
             'available.*.to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:available.*.from'],
             'available' => ['nullable', new DateIntervals()],
+            'agree_is_free' => ['accepted']
         ];
 
         if (empty($this->id)) {
@@ -74,5 +76,12 @@ class AccommodationRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'agree_is_free.accepted' => __("You have to agree that offered accommodation is for free.")
+        ];
     }
 }

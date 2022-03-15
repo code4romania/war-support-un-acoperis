@@ -17,10 +17,13 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $dashboardStats["hostsNumber"] }}</span>
+                                <span class="count">{{ $dashboardStats["availableHostsSpacesNumber"] }}</span>
+                                <i class="ni ni-badge"></i>
+                                /
+                                <span class="count">{{ $dashboardStats["totalHostsSpacesNumber"] }}</span>
                                 <i class="ni ni-badge"></i>
                             </h1>
-                            <small class="text-muted">{{ __('Accommodations number') }}</small>
+                            <small class="text-muted">{{ __('Available hosting spaces from total approved') }}</small>
                         </div>
                     </div>
                     <div class="card shadow-sm">
@@ -35,7 +38,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $dashboardStats["allocatedNumber"] }}</span>
+                                <span class="count">{{ $dashboardStats["allocatedGuestsNumber"] }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">{{ __('Solved requests number') }}</small>

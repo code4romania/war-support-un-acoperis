@@ -55,6 +55,7 @@ class AccommodationService
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
         $accommodation->transport_other_details = $request->get('transport_other_details');
         $accommodation->approved_at = $createdBy ? now() : null;
+        $accommodation->agree_is_free = (bool)$request->get('agree_is_free');
         $accommodation->save();
 
         if ($request->has('general_facility')) {

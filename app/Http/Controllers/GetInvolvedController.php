@@ -117,7 +117,7 @@ class GetInvolvedController extends Controller
     public function displayAccommodationForm(Request $request)
     {
         if (!Auth::check()) {
-            redirect()->route('get-involved');
+            return redirect()->route('get-involved');
         }
 
         $accService = new AccommodationService();

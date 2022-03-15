@@ -50,7 +50,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  * @property DateTime|null $approved_at
- * @property bool $is_free
+ * @property bool $agree_is_free
  * @property int|null $created_by
  */
 class Accommodation extends Model implements Auditable
@@ -77,7 +77,7 @@ class Accommodation extends Model implements Auditable
      * @var array
      */
     protected $casts = [
-        'is_free' => 'boolean',
+        'agree_is_free' => 'boolean',
     ];
 
     /**
@@ -210,11 +210,6 @@ class Accommodation extends Model implements Auditable
         if (!empty($this->address_postal_code)) $addressComponents[] = 'Cod Postal ' . $this->address_postal_code;
 
         return implode(', ', $addressComponents);
-    }
-
-    public function scopeIsFree(Builder $query): Builder
-    {
-        return $query->where('is_free', 1);
     }
 
     public function scopeApproved(Builder $query): Builder

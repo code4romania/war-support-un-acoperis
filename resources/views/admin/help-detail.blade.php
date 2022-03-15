@@ -175,32 +175,14 @@
 @section('scripts')
     <script>
         let setRequestStatus = function(status) {
-            let badgeColor = 'badge-success';
-
-            if ('padding' === status) {
-                badgeColor = 'badge-danger';
-            } else if ('in-progress' === status) {
-                badgeColor = 'badge-warning';
-            } else if ('completed' === status) {
-                badgeColor = 'badge-success';
-            } else if ('allocated' === status) {
-                badgeColor = 'badge-warning';
-            }
+            let badgeColor = window.helpRequestStatusBadges[status];
 
             $('#requestStatus span').remove();
             $('#requestStatus').append('<span class="badge ' + badgeColor + '">' + $.TranslateRequestStatus(status) + '</span>');
         };
 
         let setRequestTypeStatus = function(id, status) {
-            let newClass = '';
-
-            if ('pending' === status) {
-                newClass = 'bg-warning border-warning';
-            } else if ('approved' === status) {
-                newClass = 'bg-success border-success';
-            } else if ('denied' === status) {
-                newClass = 'bg-danger border-danger';
-            }
+            let newClass = window.helpRequestStatusBadges[status];
 
             $('#change-approval-' + id)
                 .removeClass('bg-danger border-danger bg-warning border-warning bg-success border-warning')

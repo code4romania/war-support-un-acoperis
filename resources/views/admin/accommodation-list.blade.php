@@ -124,6 +124,7 @@
                         <th>{{ __('County') }}</th>
                         <th>{{ __('City') }}</th>
                         <th>{{ __('Status') }}</th>
+                        <th>{{ __('Accommodation occupancy') }}</th>
                         <th class="text-center">{{ __('Actions') }}</th>
                     </tr>
                     </thead>
@@ -198,6 +199,7 @@
                         '    <td>' + value.county + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
                         '    <td>' + value.approval_status + '</td>\n' +
+                        '    <td>' + value.occupancy + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="#" class="btn btn-sm btn-danger mb-2 mb-sm-0 delete-accommodation" data-id=' + value.id + '>{{ __('Delete') }}</a>\n' +
                         '        <a href="/share/accommodation/' + value.id + '" class="btn btn-sm btn-info mb-2 mb-sm-0">{{ __('Accommodation details') }}</a>\n' +
