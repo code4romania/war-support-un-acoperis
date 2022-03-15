@@ -96,10 +96,9 @@ class HelpRequest extends Model implements Auditable
         return $this->accommodation()->exists();
     }
 
-
     public function county(): BelongsTo
     {
-        return $this->belongsTo(UaRegion::class);
+        return $this->belongsTo(County::class);
     }
 
     public function helprequestnotes(): HasMany

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\County;
 use App\HelpRequest;
 use App\HelpType;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,11 @@ class HelpRequestController extends Controller
     public function helpList()
     {
         return view('admin.help-list', [
-            'area' => 'admin'
+            'area' => 'admin',
+            'counties' => County::query()
+                ->withTranslation()
+                ->orderByTranslation('name')
+                ->get(),
         ]);
     }
 
