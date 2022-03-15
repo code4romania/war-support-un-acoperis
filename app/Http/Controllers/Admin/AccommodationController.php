@@ -6,6 +6,7 @@ use App\Accommodation;
 use App\AccommodationPhoto;
 use App\AccommodationType;
 use App\Allocation;
+use App\County;
 use App\FacilityType;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
@@ -41,12 +42,11 @@ class AccommodationController extends Controller
     public function accommodationList(Request $request)
     {
         $countries = Accommodation::join('countries', 'countries.id', '=', 'accommodations.address_country_id');
-        $counties = Accommodation::join('counties', 'counties.id', '=', 'accommodations.address_county_id');
 
         return view('admin.accommodation-list')
             ->with('types', AccommodationType::all()->pluck('name', 'id'))
             ->with('countries', $countries->get(['countries.id', 'countries.name'])->pluck('name', 'id')->toArray())
-            ->with('counties', $counties->get(['counties.id', 'counties.name'])->pluck('name', 'id')->toArray())
+            ->with('counties', County::query()->withTranslation()->orderByTranslation('name')->get())
             ->with('cities', Accommodation::all()->pluck('address_city', 'address_city'))
             ->with('approvalStatus', $request->get('status'));
     }

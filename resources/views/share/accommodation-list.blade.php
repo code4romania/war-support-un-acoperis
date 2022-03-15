@@ -54,9 +54,12 @@
                         <div class="form-group">
                             <label for="accommodationCounty">{{ __('County') }}</label>
                             <select name="accommodationCounty" id="accommodationCounty" class="custom-select form-control">
-                                <option value="" selected>{{ __('Select county') }}</option>
-                                @foreach($counties as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
+                                <option value="" selected>{{ __('All counties') }}</option>
+                                @foreach ($counties as $county)
+                                    <option value="{{ $county->id }}"
+                                        {{ request()->get('accommodationCounty') === $county->id ? 'selected' : '' }}>
+                                        {{ $county->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -190,12 +193,13 @@
             renderTable(responseData) {
                 this.emptyTable();
 
+                let counties = {!! json_encode($counties->pluck('name', 'id')) !!};
                 $.each(responseData, function(key, value) {
                     let row = '<tr id="accommodation-container-' + value.id + '">\n' +
                         '    <td>#' + value.id + '</td>\n' +
                         '    <td><a href="/share/accommodation/' + value.id + '">' + $.TranslateRequestStatus(value.type) + '</a></td>\n' +
                         '    <td>' + value.owner + '</td>\n' +
-                        '    <td>' + value.county + '</td>\n' +
+                        '    <td>' + (counties[value.county_id] || '&mdash;') + '</td>\n' +
                         '    <td>' + value.city + '</td>\n' +
                         '    <td>' + value.approval_status + '</td>\n' +
                         '    <td class="text-right">\n' +

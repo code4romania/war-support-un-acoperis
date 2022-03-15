@@ -25,46 +25,65 @@
                                          aria-labelledby="generalInformation" data-parent="#requestForm">
                                         <div class="card-body py-5">
                                             <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="required font-weight-600"
-                                                               for="current_location">{{ __("Current approximate location") }}
-                                                            :</label>
-                                                        <input type="text"
-                                                               placeholder="@lang("current_location_placeholder")"
-                                                               class="form-control @error('current_location') is-invalid @enderror"
-                                                               name="current_location" id="current_location"
-                                                               value="{{ old('current_location') }}" required/>
+                                                <div class="col-sm-6 form-group">
+                                                    <label class="required font-weight-600"
+                                                        for="current_location">{{ __('Current approximate location') }}
+                                                        :</label>
+                                                    <input type="text"
+                                                        placeholder="@lang('current_location_placeholder')"
+                                                        class="form-control @error('current_location') is-invalid @enderror"
+                                                        name="current_location" id="current_location"
+                                                        value="{{ old('current_location') }}" required />
 
-                                                        @error('current_location')
+                                                    @error('current_location')
                                                         <span class="invalid-feedback"
-                                                              role="alert">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
+                                                            role="alert">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-6 form-group">
+                                                    <label class="required font-weight-600"
+                                                        for="county">{{ __('County') }}</label>
+                                                    <select name="county" id="county"
+                                                        class="custom-select form-control  @error('county') is-invalid @enderror"
+                                                        required>
+                                                        <option value="" selected>{{ __('Select county') }}</option>
+                                                        @foreach ($counties as $county)
+                                                            <option
+                                                                value="{{ $county->id }}"
+                                                                {{ old('county') === $county->id ? 'selected' : '' }}>
+                                                                {{ $county->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
 
-                                                </div>       
-                                                                                         <div class="col-sm-6 mt-4">
-                                                    <div class="form-group">
-                                                        <label class="required font-weight-600"
-                                                               for="known_languages">{{ __("Known languages") }}
-                                                            :</label>
-                                                        <select name="known_languages[]" id="known_languages"
-                                                                class="custom-select form-control @error('known_languages') is-invalid @enderror"
-                                                                required multiple>
-                                                            @foreach ($languages as $language)
-                                                                <option value="{{ $language->endonym }}">
-                                                                    {{ __($language->endonym) }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                    @error('county')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
-                                                        @error('known_languages')
+                                            <div class="row">
+                                                <div class="col-sm-6 form-group">
+
+                                                    <label class="required font-weight-600"
+                                                        for="known_languages">{{ __('Known languages') }}
+                                                        :</label>
+                                                    <select name="known_languages[]" id="known_languages"
+                                                        class="custom-select form-control @error('known_languages') is-invalid @enderror"
+                                                        required multiple>
+                                                        @foreach ($languages as $language)
+                                                            <option value="{{ $language->endonym }}">
+                                                                {{ __($language->endonym) }}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                    @error('known_languages')
                                                         <span class="invalid-feedback"
-                                                              role="alert">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
+                                                            role="alert">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="col-sm-12 mt-4">
