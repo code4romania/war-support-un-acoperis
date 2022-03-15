@@ -260,21 +260,24 @@ class AccommodationController extends Controller
         $end = Carbon::parse($request->endDate);
 
         //Verify is AvailabilityInterval exists
-        $selectedInterval =  $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
+        $selectedInterval = $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
         if (empty($selectedInterval) && $accommodation->availabilityIntervals()->exists()) {
             return redirect()->back()->withErrors(['startDate' => __('There is no interval available between selected dates')]);
         }
 
         //Booked Periods that intersects with current request interval
-        $bookings = Allocation::where([
-                'help_request_id' => $helpRequest->id,
-                'accommodation_id'=>$accommodation->id
-            ])
-            ->where('start_date', '<=' ,$request->startDate)
-            ->where('end_date' , '>=', $request->startDate)
-            ->orWhere('start_date', '<=' ,$request->endDate)
-            ->where('end_date' , '>=', $request->endDate)
-            ->get();
+        $bookings = Allocation::where(
+            'accommodation_id', $accommodation->id
+        )->where(function ($query) use ($request) {
+            $query->where(function ($query) use ($request) {
+                $query->where('start_date', '<=', $request->startDate)
+                      ->where('end_date', '>=', $request->startDate);
+                })
+                ->orWhere(function ($query) use ($request) {
+                    $query->where('start_date', '<=', $request->endDate)
+                          ->where('end_date', '>=', $request->endDate);
+                });
+         })->get();
 
         $bookedDays = [];
         foreach ($bookings as $booking) {
@@ -284,8 +287,7 @@ class AccommodationController extends Controller
                 $day = $date->format("d-m-Y");
                 if (isset($bookedDays[$day])) {
                     $bookedDays[$day] += $booking->number_of_guest;
-                }
-                else {
+                } else {
                     $bookedDays[$day] = $booking->number_of_guest;
                 }
             }
@@ -301,8 +303,8 @@ class AccommodationController extends Controller
         foreach ($request_period as $date) {
             $day = $date->format("d-m-Y");
             if (isset($bookedDays[$day])) {
-                $reservedNumber =  $bookedDays[$day] + $helpRequest->guests_number;
-                if($reservedNumber > $accommodation->max_guests) {
+                $reservedNumber = $bookedDays[$day] + $helpRequest->guests_number;
+                if ($reservedNumber > $accommodation->max_guests) {
                     return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
                 }
             }
@@ -318,7 +320,7 @@ class AccommodationController extends Controller
         ]);
 
         $helpRequestTotalAllocated = $request->post('guests_number') + $helpRequest->accommodation()->sum('number_of_guest');
-        if ( $helpRequestTotalAllocated < $helpRequest->guests_number) {
+        if ($helpRequestTotalAllocated < $helpRequest->guests_number) {
             $helpRequest->status = HelpRequest::STATUS_PARTIAL_ALLOCATED;
         } else {
             $helpRequest->status = HelpRequest::STATUS_COMPLETED;
