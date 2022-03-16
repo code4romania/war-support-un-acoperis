@@ -1,8 +1,11 @@
 require("./bootstrap");
 require("flatpickr");
 require("perfect-scrollbar");
+require("chart.js");
 
 import { Romanian } from "flatpickr/dist/l10n/ro.js";
+
+window.StickySidebar = require("sticky-sidebar/dist/jquery.sticky-sidebar.js");
 
 (function ($) {
     $.QueryString = (function (paramsArray) {

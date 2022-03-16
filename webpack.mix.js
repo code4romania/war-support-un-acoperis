@@ -11,8 +11,6 @@ const mix = require("laravel-mix");
  |
  */
 
-// moment se pe scoate
-
 mix.js(
     [
         "resources/js/app.js",
@@ -22,7 +20,7 @@ mix.js(
     ],
     "public/js/app.js"
 )
-    .extract(["jquery", "bootstrap", "popper.js", "datatables.net-dt"])
+    .extract()
     .sass("resources/sass/app.scss", "public/css")
 
     .copy(

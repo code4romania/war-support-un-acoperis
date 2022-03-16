@@ -75,10 +75,10 @@
         </div>
     </div>
 </div>
-<script defer src="{{ mix('js/manifest.js') }}"></script>
-<script defer src="{{ mix('js/vendor.js') }}"></script>
-<script defer src="{{ mix('js/moment-with-locales.min.js') }}"></script>
-<script defer src="{{ mix('js/app.js') }}"></script>
+<script src="{{ mix('js/manifest.js') }}"></script>
+<script src="{{ mix('js/vendor.js') }}"></script>
+<script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 @yield('scripts')
 
 @yield('templates')

@@ -1,10 +1,12 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Titillium+Web:wght@300;400;600;700&display=swap");
 // Variables
-@import "variables";
+// @import "variables";
 
 // Vendor
+@import "~bootstrap/scss/bootstrap";
 @import "~../css/nucleo-icons.css";
+@import "../css/font-awesome.css";
 @import "../css/nucleo-svg.css";
 @import "../argon-design-system-pro/scss/argon-design-system.scss";
 @import "../css/jquery.fileuploader.min.css";
