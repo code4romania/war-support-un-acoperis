@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Http\Requests\ServiceRequest;
 use App\Notifications\RefugeeRegisterEmail;
 use App\User;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 
 class RefugeeService
@@ -14,13 +13,11 @@ class RefugeeService
     {
         $user = (new UserService())->createRefugeeUser($request);
 
-        $notification = new RefugeeRegisterEmail(
-            $user,
-            Password::getRepository()->create($user)
+        $user->notify(
+            new RefugeeRegisterEmail(
+                Password::createToken($user)
+            )
         );
-
-        Notification::route('mail', $user->email)
-            ->notify($notification);
 
         return $user;
     }
