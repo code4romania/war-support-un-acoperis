@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -22,9 +23,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class AccommodationsAvailabilityIntervals extends Model
 {
-    public function accommodation(): HasOne
+    public function accommodation(): BelongsTo
     {
-        return $this->hasOne(Accommodation::class);
+        return $this->belongsTo(Accommodation::class, 'accommodation_id', 'id');
     }
 
     public function scopeWhereDateStrictBetween(Builder $query, Carbon $fromDate, Carbon $toDate): Builder

@@ -20,6 +20,7 @@ use DatePeriod;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -237,119 +238,141 @@ class AccommodationController extends Controller
      */
     public function allocate(int $id, AllocateRequest $request)
     {
-        /** @var Accommodation|null $accommodation */
-        $accommodation = Accommodation::lockForUpdate()->find($id);
-        if (empty($accommodation)) {
-            abort(404);
-        }
-        if (!$accommodation->isApproved()) {
-            return redirect()->back();
-        }
+        DB::beginTransaction();
 
-        /** @var HelpRequest $helpRequest */
-        $helpRequest = HelpRequest::lockForUpdate()->find((int)$request->post('help_request_id'));
-        if (empty($helpRequest)) {
-            return redirect()->back()->withErrors(['help_request_id' => __('There is no help request with this number')]);
-        }
+        try {
+            /** @var Accommodation|null $accommodation */
+            $accommodation = Accommodation::lockForUpdate()->find($id);
+            if (empty($accommodation)) {
+                abort(404);
+            }
+            if (!$accommodation->isApproved()) {
+                return redirect()->back();
+            }
 
-        if ($helpRequest->isCompleted()) {
-            return redirect()->back()->withErrors(['help_request_id' => __('This help request is already resolved')]);
-        }
+            /** @var HelpRequest $helpRequest */
+            $helpRequest = HelpRequest::lockForUpdate()->find((int)$request->post('help_request_id'));
+            if (empty($helpRequest)) {
+                return redirect()->back()->withErrors(['help_request_id' => __('There is no help request with this number')]);
+            }
 
-        $start = Carbon::parse($request->startDate);
-        $end = Carbon::parse($request->endDate);
+            if ($helpRequest->isCompleted()) {
+                return redirect()->back()->withErrors(['help_request_id' => __('This help request is already resolved')]);
+            }
 
-        //Verify is AvailabilityInterval exists
-        $selectedInterval = $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
-        if (empty($selectedInterval) && $accommodation->availabilityIntervals()->exists()) {
-            return redirect()->back()->withErrors(['startDate' => __('There is no interval available between selected dates')]);
-        }
+            $start = Carbon::parse($request->startDate);
+            $end = Carbon::parse($request->endDate);
 
-        //Booked Periods that intersects with current request interval
-        $bookings = Allocation::where(
-            'accommodation_id', $accommodation->id
-        )->where(function ($query) use ($request) {
-            $query->where(function ($query) use ($request) {
-                $query->where('start_date', '<=', $request->startDate)
-                      ->where('end_date', '>=', $request->startDate);
+            // Verify if difference between inputs is less than 1 day
+            // 0 means its 1 day aka same day
+            if ($start->diffInDays($end, false) < 0) {
+                return redirect()->back()->withErrors(['startDate' => __('aaa')]);
+            }
+
+            //Verify is AvailabilityInterval exists
+            $selectedInterval = $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
+            if (empty($selectedInterval) && $accommodation->availabilityIntervals()->exists()) {
+                return redirect()->back()->withErrors(['startDate' => __('There is no interval available between selected dates')]);
+            }
+
+
+            //Booked Periods that intersects with current request interval
+            $bookings = Allocation::where(
+                'accommodation_id', $accommodation->id
+            )->where(function ($query) use ($request) {
+                $query->where(function ($query) use ($request) {
+                    $query->where('start_date', '<=', $request->startDate)
+                        ->where('end_date', '>=', $request->startDate);
                 })
-                ->orWhere(function ($query) use ($request) {
-                    $query->where('start_date', '<=', $request->endDate)
-                          ->where('end_date', '>=', $request->endDate);
-                });
-         })->get();
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('start_date', '<=', $request->endDate)
+                            ->where('end_date', '>=', $request->endDate);
+                    });
+            })->get();
 
-        $bookedDays = [];
-        foreach ($bookings as $booking) {
-            $period = CarbonPeriod::create($booking->start_date, $booking->end_date);
+            $bookedDays = $accommodation->bookedDays($bookings);
 
-            foreach ($period as $date) {
+            //Check per total if accomodation has enough space for all guests
+            if ($helpRequest->guests_number > $accommodation->max_guests) {
+                return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
+            }
+
+            //Check per day if accomodation has enough space for all guests
+            $request_period = CarbonPeriod::create($request->startDate, $request->endDate);
+            foreach ($request_period as $date) {
                 $day = $date->format("d-m-Y");
                 if (isset($bookedDays[$day])) {
-                    $bookedDays[$day] += $booking->number_of_guest;
-                } else {
-                    $bookedDays[$day] = $booking->number_of_guest;
+                    $reservedNumber = $bookedDays[$day] + $helpRequest->guests_number;
+                    if ($reservedNumber > $accommodation->max_guests) {
+                        return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
+                    }
                 }
             }
-        }
 
-        //Check per total if accomodation has enough space for all guests
-        if ($helpRequest->guests_number > $accommodation->max_guests) {
-            return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
-        }
+            $startDate = Carbon::parse($request->startDate)->startOfDay();
+            $endDate = Carbon::parse($request->endDate)->endOfDay();
 
-        //Check per day if accomodation has enough space for all guests
-        $request_period = CarbonPeriod::create($request->startDate, $request->endDate);
-        foreach ($request_period as $date) {
-            $day = $date->format("d-m-Y");
-            if (isset($bookedDays[$day])) {
-                $reservedNumber = $bookedDays[$day] + $helpRequest->guests_number;
-                if ($reservedNumber > $accommodation->max_guests) {
-                    return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
-                }
-            }
-        }
-
-        $allocation = Allocation::create([
-            'accommodation_id' => $accommodation->id,
-            'help_request_id' => $helpRequest->id,
-            'start_date' => $request->startDate,
-            'end_date' => $request->endDate,
-            'number_of_guest' => $helpRequest->guests_number,
-            'created_at' => now(),
-        ]);
-
-        $helpRequestTotalAllocated = $helpRequest->accommodation()->sum('number_of_guest');
-        if ($helpRequestTotalAllocated < $helpRequest->guests_number) {
-            $helpRequest->status = HelpRequest::STATUS_PARTIAL_ALLOCATED;
-        } else {
-            $helpRequest->status = HelpRequest::STATUS_COMPLETED;
-        }
-
-        $helpRequest->save();
-
-        $accommodation->helpRequestsHistory()->attach(
-            [$helpRequest->id =>
-                ['number_of_guest' => $helpRequest->guests_number,
-                    'refugee_id' => $helpRequest->user_id,
-                    'host_id' => $accommodation->user_id,
-                    'allocation_id' => $allocation->id,
-                    'from' => $request->startDate,
-                    'to' => $request->endDate
-                ]
+            $allocation = Allocation::create([
+                'accommodation_id' => $accommodation->id,
+                'help_request_id' => $helpRequest->id,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'number_of_guest' => $helpRequest->guests_number,
+                'created_at' => now(),
             ]);
 
-        return redirect()->back()->with(['message' => __('Allocation successful')]);
+            if ($helpRequest->accommodation()->exists()) {
+                $helpRequest->status = HelpRequest::STATUS_COMPLETED;
+                $helpRequest->save();
+            }
+
+            $accommodation->helpRequestsHistory()->attach(
+                [$helpRequest->id =>
+                    ['number_of_guest' => $helpRequest->guests_number,
+                        'refugee_id' => $helpRequest->user_id,
+                        'host_id' => $accommodation->user_id,
+                        'allocation_id' => $allocation->id,
+                        'from' => $startDate,
+                        'to' => $endDate
+                    ]
+                ]);
+
+            DB::commit();
+
+            return redirect()->back()->with(['message' => __('Allocation successful')]);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()->with(['message' => __('An unknown error has occurred. Please try again.')]);
+        }
     }
 
     public function deallocate(Accommodation $accommodation, Allocation $allocation)
     {
+        DB::beginTransaction();
 
-        $allocation->historyItem()->update(['deallocated_at' => Carbon::now()]);
-//        @TODO help-request update state disallocated
-        $allocation->delete();
+        try {
+            $accommodation = Accommodation::lockForUpdate()->find($accommodation->id);
+            if (empty($accommodation)) {
+                abort(404);
+            }
 
-        return response()->noContent();
+            $helpRequest = HelpRequest::lockForUpdate()->find($allocation->helpRequest->id);
+            if (empty($helpRequest)) {
+                abort(404);
+            }
+
+            $allocation->historyItem()->update(['deallocated_at' => Carbon::now()]);
+            $allocation->helpRequest()->update(['status' => HelpRequest::STATUS_NEW]);
+            $allocation->delete();
+
+            DB::commit();
+            return response()->noContent();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response(['message' => __('An unknown error has occurred. Please try again.')]);
+        }
     }
 
     public function disapprove(int $id)
