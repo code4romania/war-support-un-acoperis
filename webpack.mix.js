@@ -18,10 +18,11 @@ mix.js(
         "resources/js/app.js",
         "resources/js/table-data-renderer.js",
         "resources/js/jquery.fileuploader.min",
+        "resources/js/argon-design-system.js",
     ],
     "public/js/app.js"
 )
-    .extract(["jquery", "argon-design-system", "datatables.net-dt"])
+    .extract(["jquery", "bootstrap", "popper.js", "datatables.net-dt"])
     .sass("resources/sass/app.scss", "public/css")
 
     .copy(
