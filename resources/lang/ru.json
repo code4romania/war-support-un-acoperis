@@ -484,5 +484,10 @@
     "Capacity": "Capacity",
     "Allocation successful": "Allocation successful",
     "Offer Help with accommodation": "Offer Help with accommodation",
-    "Available hosting spaces from total approved": "Available host spaces from total approved"
+    "Available hosting spaces from total approved": "Available host spaces from total approved",
+    "First housing day": "Перший день проживання",
+    "Needed accommodation duration": "необхідний термін проживання",
+    "days": "days",
+    "First day starting with": "First day starting with",
+    "First day until": "First day until"
 }

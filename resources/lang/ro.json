@@ -514,5 +514,10 @@
     "Allocation successful": "Alocare realizata",
     "Offer Help with accommodation": "Oferă cazare",
     "Select an existent user": "Selectează un utilizator existent",
-    "Select": "Selectează"
+    "Select": "Selectează",
+    "First housing day": "Prima zi de cazare",
+    "Needed accommodation duration": "Durata necesară de cazare",
+    "days": "zile",
+    "First day starting with": "Prima zi incepand cu",
+    "First day until": "Prima zi pana la"
 }

@@ -28,6 +28,8 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property string $more_details
  * @property bool $need_car
  * @property bool $need_special_transport
+ * @property DateTime|null $first_housing_day
+ * @property int $needed_duration
  * @property DateTime|null $created_at
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
@@ -57,7 +59,8 @@ class HelpRequest extends Model implements Auditable
         'created_at',
         'updated_at',
         'deleted_at',
-        'approved_at'
+        'approved_at',
+        'first_housing_day'
     ];
 
     /**
