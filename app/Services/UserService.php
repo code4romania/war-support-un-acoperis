@@ -3,20 +3,17 @@
 
 namespace App\Services;
 
-use App\UserAttachment;
 use App\Http\Requests\HostCompanyRequest;
 use App\Http\Requests\HostPersonRequest;
 use App\Http\Requests\ServiceRequest;
 use App\Notifications\UserCreatedNotification;
 use App\User;
-use Illuminate\Support\Carbon;
+use App\UserAttachment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -106,6 +103,7 @@ class UserService
             'phone_number' => $attributes['phone'] ?? null,
             'approved_at' => now(),
             'created_by' => auth()->user()->id ?? null,
+            'locale' => $attributes['locale'] ?? app()->getLocale(),
         ];
 
         if ($request instanceof HostCompanyRequest) {
@@ -142,12 +140,11 @@ class UserService
 
     public function generateResetTokenAndNotifyUser(User $user): void
     {
-        $resetToken = Password::getRepository()->create($user);
-
-        $notification = new UserCreatedNotification($user, $resetToken);
-
-        Notification::route('mail', $user->email)
-            ->notify($notification);
+        $user->notify(
+            new UserCreatedNotification(
+                Password::createToken($user)
+            )
+        );
     }
 
     public static function getChildrenUsers(): array
