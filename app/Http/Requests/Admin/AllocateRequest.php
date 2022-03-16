@@ -33,4 +33,18 @@ class AllocateRequest extends FormRequest
             'endDate' => 'date|required',
         ];
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'help_request_id' => __('Help request number'),
+            'startDate' => __('From'),
+            'endDate' => __('To'),
+        ];
+    }
 }

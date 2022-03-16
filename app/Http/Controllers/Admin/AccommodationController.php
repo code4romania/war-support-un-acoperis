@@ -244,19 +244,23 @@ class AccommodationController extends Controller
             /** @var Accommodation|null $accommodation */
             $accommodation = Accommodation::lockForUpdate()->find($id);
             if (empty($accommodation)) {
+                DB::rollback();
                 abort(404);
             }
             if (!$accommodation->isApproved()) {
+                DB::rollback();
                 return redirect()->back();
             }
 
             /** @var HelpRequest $helpRequest */
             $helpRequest = HelpRequest::lockForUpdate()->find((int)$request->post('help_request_id'));
             if (empty($helpRequest)) {
+                DB::rollback();
                 return redirect()->back()->withErrors(['help_request_id' => __('There is no help request with this number')]);
             }
 
             if ($helpRequest->isCompleted()) {
+                DB::rollback();
                 return redirect()->back()->withErrors(['help_request_id' => __('This help request is already resolved')]);
             }
 
@@ -266,12 +270,14 @@ class AccommodationController extends Controller
             // Verify if difference between inputs is less than 1 day
             // 0 means its 1 day aka same day
             if ($start->diffInDays($end, false) < 0) {
-                return redirect()->back()->withErrors(['startDate' => __('aaa')]);
+                DB::rollback();
+                return back()->withErrors(['startDate' => __('There is no interval available between selected dates')]);
             }
 
             //Verify is AvailabilityInterval exists
             $selectedInterval = $accommodation->availabilityIntervals()->whereDateStrictBetween($start, $end)->first();
             if (empty($selectedInterval) && $accommodation->availabilityIntervals()->exists()) {
+                DB::rollback();
                 return redirect()->back()->withErrors(['startDate' => __('There is no interval available between selected dates')]);
             }
 
@@ -294,6 +300,7 @@ class AccommodationController extends Controller
 
             //Check per total if accomodation has enough space for all guests
             if ($helpRequest->guests_number > $accommodation->max_guests) {
+                DB::rollback();
                 return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
             }
 
@@ -304,6 +311,7 @@ class AccommodationController extends Controller
                 if (isset($bookedDays[$day])) {
                     $reservedNumber = $bookedDays[$day] + $helpRequest->guests_number;
                     if ($reservedNumber > $accommodation->max_guests) {
+                        DB::rollback();
                         return redirect()->back()->withErrors(['guests_number' => __('Not enough space')]);
                     }
                 }
@@ -343,7 +351,7 @@ class AccommodationController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
 
-            return redirect()->back()->with(['message' => __('An unknown error has occurred. Please try again.')]);
+            return redirect()->back()->with(['message' => $e->getMessage()]);
         }
     }
 
@@ -354,11 +362,13 @@ class AccommodationController extends Controller
         try {
             $accommodation = Accommodation::lockForUpdate()->find($accommodation->id);
             if (empty($accommodation)) {
+                DB::rollback();
                 abort(404);
             }
 
             $helpRequest = HelpRequest::lockForUpdate()->find($allocation->helpRequest->id);
             if (empty($helpRequest)) {
+                DB::rollback();
                 abort(404);
             }
 

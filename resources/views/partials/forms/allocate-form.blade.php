@@ -1,9 +1,9 @@
 <script type="text/javascript">
     window.calendar_config = {
-        max_guests : {{$accommodation->max_guests}},
-        bookedDays : '{!! json_encode($bookedDays)  !!}',
-        availableDays : '{!! json_encode(array_unique($availableDays)) !!}',
-        slotName : "{{__('Available slots')}}"
+        max_guests: {{$accommodation->max_guests}},
+        bookedDays: '{!! json_encode($bookedDays)  !!}',
+        availableDays: '{!! json_encode(array_unique($availableDays)) !!}',
+        slotName: "{{__('Available slots')}}"
     }
 </script>
 <div class="row">
@@ -53,21 +53,25 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-tag"></i></span>
                                 </div>
-                                <input class="form-control @error('help_request_id') is-invalid @enderror" id="helpRequestID" name="help_request_id" placeholder="e.g. 12" value="">
+                                <input class="form-control @error('help_request_id') is-invalid @enderror"
+                                       id="helpRequestID" name="help_request_id" placeholder="e.g. 12"
+                                       value="{{ old('help_request_id') }}">
                                 @error('help_request_id')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control @error('startDate') is-invalid @enderror" type="text" id="startDate" name="startDate" />
-                                @error('startDate') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
+                                <input
+                                    class="flatpickr flatpickr-input form-control @error('startDate') is-invalid @enderror"
+                                    type="text" id="startDate" name="startDate" value="{{ old('startDate') }}" />
+                                @error('startDate') <span class="invalid-feedback"
+                                                          role="alert">{{ $message }}</span> @enderror
                             </div>
 
                         </div>
@@ -78,8 +82,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="flatpickr flatpickr-input form-control @error('endDate') is-invalid @enderror" type="text" id="endDate" name="endDate" />
-                                @error('endDate') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
+                                <input
+                                    class="flatpickr flatpickr-input form-control @error('endDate') is-invalid @enderror"
+                                    type="text" id="endDate" name="endDate" value="{{ old('startDate') }}" />
+                                @error('endDate') <span class="invalid-feedback"
+                                                        role="alert">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
@@ -113,7 +120,7 @@
 
             console.log(fcalendar)
 
-            if(fcalendar !== undefined) {
+            if (fcalendar !== undefined) {
                 var availableDays = JSON.parse(window.calendar_config.availableDays);
                 var bookedDays = JSON.parse(window.calendar_config.bookedDays);
                 var max_guests = window.calendar_config.max_guests;
@@ -127,25 +134,25 @@
                         right: 'prev,next today',
                         left: 'title',
                     },
-                    height : 550,
-                    showNonCurrentDates : false,
-                    fixedWeekCount : false,
-                    validRange : { "start" : fc_today.format('YYYY-MM-DD') },
+                    height: 550,
+                    showNonCurrentDates: false,
+                    fixedWeekCount: false,
+                    validRange: {"start": fc_today.format('YYYY-MM-DD')},
                     defaultView: 'month',
                     dayRender: function (date, cell) {
                         let current_date = date.format('DD-MM-YYYY');
 
-                        if(!availableDays.includes(current_date)){
+                        if (!availableDays.includes(current_date)) {
                             cell.addClass('disabled');
                         } else {
                             cell.addClass('available');
 
-                            if(bookedDays[current_date] !== undefined) {
-                                (max_guests > bookedDays[current_date])? cell.addClass('warning') : cell.addClass('danger');
+                            if (bookedDays[current_date] !== undefined) {
+                                (max_guests > bookedDays[current_date]) ? cell.addClass('warning') : cell.addClass('danger');
                                 let spots_left = max_guests - bookedDays[current_date];
-                                cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="'+spots_left+' '+slotName+'">' + spots_left + '</span>');
-                            } else{
-                                cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="'+max_guests+' '+slotName+'">' + max_guests + '</span>');
+                                cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="' + spots_left + ' ' + slotName + '">' + spots_left + '</span>');
+                            } else {
+                                cell.append('<span class="nr-badge" data-toggle="tooltip" data-placement="top" title="' + max_guests + ' ' + slotName + '">' + max_guests + '</span>');
                             }
 
                         }
