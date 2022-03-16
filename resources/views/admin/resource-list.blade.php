@@ -175,7 +175,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
         class ResourcesRenderer extends TableDataRenderer {
             constructor(ajaxUrl, deleteText, detailsText, typeTranslations) {

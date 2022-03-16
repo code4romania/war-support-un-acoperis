@@ -75,15 +75,10 @@
         </div>
     </div>
 </div>
-<script src="{{ mix('js/manifest.js') }}"></script>
-<script src="{{ mix('js/vendor.js') }}"></script>
-<script src="{{ mix('js/moment-with-locales.min.js') }}"></script>
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ mix('js/jquery.dataTables.min.js') }}" defer></script>
-<script src="{{ mix('js/admin.js') }}" defer></script>
-<script src="{{ mix('js/argon-design-system.js')}}"></script>
-<script src="{{ asset('js/jquery.fileuploader.min.js') }}" defer></script>
-<script src="{{ asset('js/jquery.sticky-sidebar.min.js') }}" defer></script>
+<script defer src="{{ mix('js/manifest.js') }}"></script>
+<script defer src="{{ mix('js/vendor.js') }}"></script>
+<script defer src="{{ mix('js/moment-with-locales.min.js') }}"></script>
+<script defer src="{{ mix('js/app.js') }}"></script>
 @yield('scripts')
 
 @yield('templates')

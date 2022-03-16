@@ -8,27 +8,18 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@glidejs/glide": "3.3.0",
         "axios": ">=0.21.1",
-        "bootstrap": "^4.6.0",
         "choices.js": "7.0.0",
-        "eonasdan-bootstrap-datetimepicker": "4.17.47",
-        "headroom.js": "0.10.3",
-        "jasny-bootstrap": "4.0.0",
         "jquery": "^3.6.0",
         "laravel-mix": "^6.0.43",
         "lodash": "^4.17.21",
-        "nouislider": "14.0.2",
         "perfect-scrollbar": "1.4.0",
-        "popper.js": "^1.12",
-        "resolve-url-loader": "^3.1.4",
+        "resolve-url-loader": "^5.0.0",
         "sass": "^1.49.9",
         "sass-loader": "^12.6.0"
     },
     "dependencies": {
-        "@popperjs/core": "^2.9.2",
         "browser-detect": "^0.2.28",
-        "chart.js": "^2.9.4",
         "datatables.net-dt": "^1.10.25",
         "flatpickr": "^4.6.9",
         "sticky-sidebar": "^3.3.1"

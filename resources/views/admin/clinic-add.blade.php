@@ -284,7 +284,6 @@
 
 @section('scripts')
     <script src="{{config('tiny.url')}}" referrerpolicy="origin"></script>
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
         tinymce.init({selector: '#description', menubar: false });
         tinymce.init({selector: '#extra_details', menubar: false });

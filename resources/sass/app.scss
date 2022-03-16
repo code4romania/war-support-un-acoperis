@@ -1,18 +1,21 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700,900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Titillium+Web:wght@300;400;600;700&display=swap");
 // Variables
-@import 'variables';
+@import "variables";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Vendor
+@import "~../css/nucleo-icons.css";
+@import "../css/nucleo-svg.css";
+@import "../argon-design-system-pro/scss/argon-design-system.scss";
+@import "../css/jquery.fileuploader.min.css";
+@import "~datatables.net-dt/css/jquery.dataTables.css";
 
 #categoryFilterButton {
     position: absolute;
-    background: #28AEE4;
+    background: #28aee4;
     color: #fff;
     right: 0;
-    border-right: 1px solid #28AEE4;
+    border-right: 1px solid #28aee4;
     border-radius: 4px;
     height: calc(1.5em + 1.25rem - 1px);
     padding: 0.625rem 0.75rem;
@@ -23,7 +26,7 @@
 }
 
 .select2-container .select2-selection--multiple {
-    border-color: #B6CADB !important;
+    border-color: #b6cadb !important;
 }
 
 template {
@@ -31,20 +34,20 @@ template {
 }
 
 @include media-breakpoint-down(sm) {
-  footer {
-    .social-buttons {
-      justify-content: center !important;
+    footer {
+        .social-buttons {
+            justify-content: center !important;
+        }
+        .footer-logos {
+            margin-top: 1rem;
+            img {
+                max-height: 1.5rem;
+            }
+        }
     }
-    .footer-logos {
-      margin-top:1rem;
-      img {
-        max-height: 1.5rem;
-      }
-    }
-  }
 }
 
 .fileuploader.fileuploader-theme-default {
-  padding: 0px;
-  margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
