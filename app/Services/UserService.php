@@ -106,6 +106,7 @@ class UserService
             'phone_number' => $attributes['phone'] ?? null,
             'approved_at' => now(),
             'created_by' => auth()->user()->id ?? null,
+            'locale' => $attributes['locale'] ?? app()->getLocale(),
         ];
 
         if ($request instanceof HostCompanyRequest) {

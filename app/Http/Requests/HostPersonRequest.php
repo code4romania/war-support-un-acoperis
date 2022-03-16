@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\ResourceType;
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 /**
  * Class HostPersonRequest
@@ -34,6 +33,7 @@ class HostPersonRequest extends FormRequest
             'new_user.email' => ['required', 'email', 'min:5', 'max:64', 'unique:users,email'],
             'new_user.other' => ['nullable', 'string', 'min:2', 'max:256'],
             'new_user.id_document' => ['required', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'new_user.locale' => ['required', 'string', Rule::in(config('translatable.locales'))],
         ];
 
         if (Route::currentRouteName() == 'store-get-involved') {

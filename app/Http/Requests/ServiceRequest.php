@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,7 @@ class ServiceRequest extends FormRequest
                     $rules['new_user.email'] = ['required', 'email', 'string', 'max:255', 'unique:users,email'];
                     $rules['new_user.county_id'] = ['required', 'exists:ua_regions,id'];
                     $rules['new_user.city'] = ['required', 'string', 'max:64'];
+                    $rules['new_user.locale'] = ['required', 'string', Rule::in(config('translatable.locales'))];
                     break;
                case self::SERVICE:
                     $rules['current_location'] = ['required', 'string' ];
