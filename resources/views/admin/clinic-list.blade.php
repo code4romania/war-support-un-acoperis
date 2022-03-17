@@ -151,8 +151,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
         class ClinicsRenderer extends TableDataRenderer {
             constructor(ajaxUrl, editText, deleteText, detailsText) {

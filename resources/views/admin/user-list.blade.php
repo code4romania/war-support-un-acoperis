@@ -111,7 +111,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script>
         class UserRenderer extends TableDataRenderer {
             renderTable(responseData) {

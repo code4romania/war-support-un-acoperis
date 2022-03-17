@@ -171,8 +171,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script type="text/javascript">
         class ClinicsFrontRenderer extends TableDataRenderer {
             constructor(ajaxUrl, detailsText, locale) {
@@ -294,7 +292,6 @@
                 } else {
                     choices.removeActiveItemsByValue(element.val());
                 }
-                console.table(choices.getValue());
                 categoryFilter(choices.getValue().map(value => value.value).join("|"));
             })
 

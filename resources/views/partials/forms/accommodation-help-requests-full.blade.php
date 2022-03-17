@@ -64,7 +64,6 @@
 </div>
 
 @section('scripts')
-    <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script>
         class AccommodationRenderer extends TableDataRenderer {
             renderTable(responseData) {
