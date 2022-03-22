@@ -487,5 +487,10 @@
     "Occupied": "Occupied",
     "Capacity": "Capacity",
     "Offer Help with accommodation": "Offer Help with accommodation",
-    "Select an existent user": "Select an existent user"
+    "Select an existent user": "Select an existent user",
+    "First housing day": "First housing day",
+    "Needed accommodation duration": "Needed accommodation duration",
+    "days": "zile",
+    "First day starting with": "First day starting with",
+    "First day until": "First day until"
 }

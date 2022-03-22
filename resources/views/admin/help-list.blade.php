@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
+                            <label class="" for="startDateFilter">{{ __('First day starting with') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="endDateFilter">{{ __('Until') }}</label>
+                            <label class="" for="endDateFilter">{{ __('First day until') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
@@ -113,6 +113,7 @@
                     <th>{{ __('Special Needs') }}</th>
                     <th>{{ __('People') }}</th>
                     <th>{{ __('Transport') }}</th>
+                    <th>{{ __('First housing day') }}</th>
                     <th>{{ __('Request Status') }}</th>
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
@@ -164,7 +165,9 @@
                 $.each(responseData, function(key, value) {
                     let transportType = value.need_special_transport ? '{{ __('Special transport') }}' : value.need_car ? '{{ __('Car') }}' : '{{ __('Not Needed') }}';
                     let specialNeeds =  value.special_needs ? '{{ __('Yes') }}' : '{{ __('No') }}';
-                    console.log(value.status);
+
+                    let firstHousingDayIsToday = moment(value.first_housing_day).locale('ro').format('YYYY-MM-DD') == moment().locale('ro').format('YYYY-MM-DD') ? '<span class="fa fa-flag text-danger"></span>' : '';
+                    let firstHousingDay = value.first_housing_day  ? moment(value.first_housing_day).locale('ro').format('YYYY-MM-DD') : '';
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + (counties[value.county_id] || '&mdash;') + '</td>\n' +
@@ -172,6 +175,7 @@
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
                         '    <td>' + transportType + '</td>\n' +
+                        '    <td>' + firstHousingDayIsToday + firstHousingDay  + '</td>\n' +
                         '    <td><span class="badge ' + window.helpRequestStatusBadges[value.status] + '">' + translations[value.status] + '</span></td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +

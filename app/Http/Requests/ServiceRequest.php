@@ -60,6 +60,8 @@ class ServiceRequest extends FormRequest
                     $rules['dont_need_transport'] = [];
                     $rules['need_special_transport'] = [];
                     $rules['county'] = ['required', 'exists:counties,id'];
+                    $rules['first_housing_day'] = ['required', 'date', 'after:yesterday'];
+                    $rules['needed_duration'] = ['nullable', 'integer', 'min:0', 'max:365'];
                     break;
                 default:
                     $rules['nothing_to_submit'] = ['required', 'array,min:2000' ];

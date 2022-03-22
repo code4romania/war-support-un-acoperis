@@ -25,6 +25,18 @@
                              {{ __("Number of people") }}: {{ $helpRequest->guests_number }}
                              </span>
                         </li>
+                        <li class="d-cale align-items-start">
+                            <i class="fa fa-calendar"></i>
+                            <span>
+                            {{ __("First housing day") }}: {{ $helpRequest->first_housing_day ? $helpRequest->first_housing_day->format('d-M-Y') : '' }}
+                             </span>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <i class="fa fa-hashtag"></i>
+                            <span>
+                            {{ __("Needed accommodation duration") }}: {{ $helpRequest->needed_duration ?: '' }} {{ __("days")  }}
+                             </span>
+                        </li>
                         <li class="d-flex align-items-start">
                             <i class="fa fa-map-marker"></i>
                             <span>

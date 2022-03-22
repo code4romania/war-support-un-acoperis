@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\HelpRequest;
 use App\User;
+use Carbon\Carbon;
 
 class HelpRequestService
 {
@@ -23,6 +24,8 @@ class HelpRequestService
         $helpRequest->need_special_transport = (bool)($data['need_special_transport'] ?? false);
         $helpRequest->status = HelpRequest::STATUS_NEW;
         $helpRequest->created_by = $createdBy->id ?? $user->id;
+        $helpRequest->first_housing_day = Carbon::parse($data['first_housing_day']);
+        $helpRequest->needed_duration = (int)$data['needed_duration'];
 
         $helpRequest->county()->associate($data['county']);
 
