@@ -105,7 +105,7 @@ class AjaxController extends Controller
                 $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
 
                 if ($startDate->year >= 2020) {
-                    $query->where('help_requests.created_at', '>=', $startDate);
+                    $query->where('help_requests.first_housing_day', '>=', $startDate);
                 }
             } catch (\Exception $exception) {
             }
@@ -116,7 +116,7 @@ class AjaxController extends Controller
                 $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
 
                 if ($endDate->year >= 2020) {
-                    $query->where('help_requests.created_at', '<=', $endDate);
+                    $query->where('help_requests.first_housing_day', '<=', $endDate);
                 }
             } catch (\Exception $exception) {
             }
@@ -136,6 +136,7 @@ class AjaxController extends Controller
             'help_requests.guests_number',
             'help_requests.created_at',
             'help_requests.county_id',
+            'help_requests.first_housing_day',
         ])->join('users', 'help_requests.user_id', '=', 'users.id');
 
         $perPage = 10;

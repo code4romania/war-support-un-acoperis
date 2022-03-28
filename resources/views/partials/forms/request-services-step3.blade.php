@@ -85,6 +85,53 @@
                                                             role="alert">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+                                                <div class="col-sm-3 col-xl-3 col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="required font-weight-600"
+                                                            for="first_housing_day"> {{ __('First housing day') }}:
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                            </div>
+                                                            <input
+                                                                placeholder="{{ __('First housing day') }}"
+                                                                name="first_housing_day"
+                                                                id="first_housing_day"
+                                                                class="flatpickr flatpickr-input form-control @error('first_housing_day') is-invalid @enderror"
+                                                                type="text"
+                                                                value="{{ old('first_housing_day', \Carbon\Carbon::now()) }}"
+                                                            />
+
+                                                        </div>
+                                                        @error('first_housing_day')
+                                                        <span class="invalid-feedback"
+                                                              role="alert">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3 col-xl-3 col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-600"
+                                                               for="needed_duration"> {{ __('Needed accommodation duration') }}:
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <input
+                                                                placeholder="{{ __('Needed accommodation duration') }}"
+                                                                name="needed_duration"
+                                                                class="form-control  @error('first_housing_day') is-invalid @enderror"
+                                                                type="number"
+                                                                value="{{ old('needed_duration') }}"
+                                                            />
+
+                                                        </div>
+                                                        @error('needed_duration')
+                                                        <span class="invalid-feedback"
+                                                              role="alert">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
 
                                                 <div class="col-sm-12 mt-4">
                                                     <div class="custom-control custom-checkbox">
@@ -384,6 +431,8 @@
                     $("#need_transport, #need_special_transport").removeAttr("disabled");
                 }
             })
+
+            flatpickr('#first_housing_day', {minDate: 'today'});
         });
     </script>
 @endsection
