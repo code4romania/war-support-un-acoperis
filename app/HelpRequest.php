@@ -4,6 +4,7 @@ namespace App;
 
 use App\AllocationHistory;
 use DateTime;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -132,5 +133,10 @@ class HelpRequest extends Model implements Auditable
             'description' => $this->caretaker_full_name,
             'additional_information' => $this->diagnostic
         ];
+    }
+
+    public function scopeWhereFulfilled(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_COMPLETED);
     }
 }

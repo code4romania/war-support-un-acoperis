@@ -29,16 +29,26 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
+                                <span class="count">{{ $dashboardStats["allocatedGuestsNumber"] }}</span>
+                                <i class="ni ni-single-02"></i>
+                            </h1>
+                            <small class="text-muted">{{ __('Current allocated guests number') }}</small>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h1 class="text-primary font-weight-600">
                                 <span class="count">{{ $dashboardStats["requestsNumber"] }}</span>
                                 <i class="ni ni-archive-2"></i>
                             </h1>
                             <small class="text-muted">{{ __('Help requests number') }}</small>
                         </div>
                     </div>
+
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="text-primary font-weight-600">
-                                <span class="count">{{ $dashboardStats["allocatedGuestsNumber"] }}</span>
+                                <span class="count">{{ $dashboardStats["totalGuestsNumber"] }}</span>
                                 <i class="ni ni-single-02"></i>
                             </h1>
                             <small class="text-muted">{{ __('Solved requests number') }}</small>
@@ -55,47 +65,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="mt-4 card">
-        <div class="card-header">
-            <h3>{{ __('Refugees Due Tomorrow') }}</h3>
-        </div>
-        <div class="card-body">
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th>{{ __('Refugee name') }}</th>
-                    <th>{{ __('Host') }}</th>
-                    <th>{{ __('Accommodation') }}</th>
-                    <th>{{ __('Guests number') }}</th>
-                    <th>{{ __('Due date') }}</th>
-                    <th>{{ __('To') }}</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white">
-                @forelse($refugeesDueTomorrow as $key => $refugeeDueTomorrow)
-                    <tr>
-                        <td>{{ $key + 1 }}</td>
-                        <td>
-                            <a href="{{ route('admin.user-detail', $refugeeDueTomorrow->helpRequest->user->id) }}">{{ $refugeeDueTomorrow->helpRequest->user->name }}</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.user-detail', $refugeeDueTomorrow->accomodation->user->id) }}">{{ $refugeeDueTomorrow->accomodation->user->name }}</a>
-                        </td>
-                        <td>{{ $refugeeDueTomorrow->accomodation->accommodationtype->name }}</td>
-                        <td>{{ $refugeeDueTomorrow->number_of_guest }}</td>
-                        <td>{{ $refugeeDueTomorrow->dueTomorrow }}</td>
-                        <td>{{ \Carbon\Carbon::parse($refugeeDueTomorrow->end_date)->format('d m Y') }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7">There are no refugees due tomorrow.</td>
-                    </tr>
-                @endforelse
-                </tbody>
-            </table>
         </div>
     </div>
 @endsection
