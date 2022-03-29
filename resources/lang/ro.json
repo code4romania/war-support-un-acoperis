@@ -529,11 +529,10 @@
     "has not been in any accommodation.": "nu a fost repartizat.",
     "There is no interval available between selected dates": "Nu exista un inteval disponibil pentru datele selectate",
     "Not enough space": "Nu exista spatiu destul la acomodare.",
-    "Help request number": "Cerere cazare"
+    "Help request number": "Cerere cazare",
     "First housing day": "Prima zi de cazare",
     "Needed accommodation duration": "Durata necesară de cazare",
     "days": "zile",
     "First day starting with": "Prima zi incepand cu",
     "First day until": "Prima zi pana la"
-
 }
