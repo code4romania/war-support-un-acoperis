@@ -112,6 +112,15 @@ class User extends Authenticatable implements Auditable, HasLocalePreference
         return $this->hasMany(HelpRequest::class);
     }
 
+    public function refugeeAllocatedHistory(): HasMany
+    {
+        return $this->hasMany(AllocationHistory::class, 'refugee_id', 'id');
+    }
+
+    public function hostAllocatedHistory(): HasMany
+    {
+        return $this->hasMany(AllocationHistory::class, 'host_id', 'id');
+    }
 
     public function country(): BelongsTo
     {

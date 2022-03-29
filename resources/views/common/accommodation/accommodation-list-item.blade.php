@@ -1,5 +1,5 @@
-<div class="col-12 col-sm-6 mb-4">
-    <div class="card h-100">
+<div class="col-12 {{ $smcol ?? 'col-sm-6' }} mb-4">
+    <div class="card h-100 m-0">
         <div class="card-body">
             <div class="media">
                 @if (!empty($accommodation->photos()->count()))
@@ -23,13 +23,13 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <a href="{{ route("$context.view-accommodation", $accommodation->id) }}" class="btn btn-sm btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>
+        <div class="card-footer text-center mb-2">
+            <a href="{{ route("$context.view-accommodation", $accommodation->id) }}" class="btn btn-sm btn-round btn-secondary mb-2 mb-sm-0">{{ __('See details') }}</a>
             @if($accommodation->canBeEdited())
-                <a href="{{ route("$context.edit-accommodation", $accommodation->id) }}" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0">{{ __('Edit') }}</a>
+                <a href="{{ route("$context.edit-accommodation", $accommodation->id) }}" class="btn btn-sm btn-round btn-outline-primary mb-2 mb-sm-0">{{ __('Edit') }}</a>
             @endif
             @if($accommodation->canBeDeleted())
-                <a href="#" class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 delete-accommodation" data-id="{{ $accommodation->id }}">{{ __('Delete') }}</a>
+                <a href="#" class="btn btn-sm btn-round btn-outline-danger mb-2 mb-sm-0 delete-accommodation" data-id="{{ $accommodation->id }}">{{ __('Delete') }}</a>
             @endif
         </div>
     </div>

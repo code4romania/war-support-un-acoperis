@@ -79,7 +79,6 @@ Route::middleware([Administration::class])
         Route::get('/user/{id}/approve', 'Admin\UserController@approve')->name('admin.user-approve');
         Route::get('/user/{id}/reset-password', 'Admin\UserController@resetPassword')->name('admin.user-password-reset');
 
-
         Route::get('/clinic', 'Admin\ClinicController@clinicList')->name('admin.clinic-list');
         Route::get('/clinic/add', 'Admin\ClinicController@clinicAdd')->name('admin.clinic-add');
         Route::post('/clinic/add', 'Admin\ClinicController@clinicCreate')->name('admin.clinic-create');
@@ -96,6 +95,8 @@ Route::middleware([Administration::class])
 
         Route::get('/help-request', 'Admin\HelpRequestController@helpList')->name('admin.help.request.list');
         Route::get('/help-request/{id}', 'Admin\HelpRequestController@helpDetail')->name('admin.help.request.detail');
+
+        Route::get('/allocation', 'Admin\AllocationController@allocationList')->name('admin.allocation.list');
 
         Route::get('/resources', 'Admin\ResourceController@resourceList')->name('admin.resource-list');
         Route::get('/resources/{id}/{page?}', 'Admin\ResourceController@resourceDetail')->name('admin.resource-detail');
@@ -114,6 +115,7 @@ Route::middleware([Administration::class])
 
         Route::get('/accommodation/{id}/delete', 'Admin\AccommodationController@delete')->name('admin.accommodation-delete');
         Route::post('/accommodation/{id}/allocate','Admin\AccommodationController@allocate')->name('admin.allocate.user.to.host');
+        Route::delete('/accommodation/{accommodation}/deallocate/{allocation}','Admin\AccommodationController@deallocate')->name('admin.deallocate.user.to.host');
 
         Route::get('/host/add', 'Admin\HostController@add')->name('admin.host-add');
         Route::post('/host/store-person', 'Admin\HostController@storePerson')->name('admin.store-host-person');
@@ -142,6 +144,7 @@ Route::middleware([Administration::class])
          * Ajax routes (admin)
          */
         Route::get('/ajax/help-requests', 'AjaxController@helpRequests')->name('ajax.help-requests');
+        Route::get('/ajax/allocations', 'AjaxController@allocations')->name('ajax.allocations');
         Route::put('/ajax/help-type/{id}', 'AjaxController@updateHelpRequestType')->name('ajax.update-help-requests-type');
         Route::post('/ajax/help-type/{id}/status', 'AjaxController@updateHelpRequestStatus')->name('ajax.update-help-requests-status');
         Route::delete('/ajax/help-request/{id}', 'AjaxController@deleteHelpRequestType')->name('ajax.delete-help-requests-type');
@@ -195,6 +198,7 @@ Route::middleware([Host::class])
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+        Route::delete('/accommodation/{accommodation}/deallocate/{allocation}','Host\AccommodationController@deallocate')->name('admin.deallocate.user.to.host');
     });
 
 Route::middleware([Trusted::class])

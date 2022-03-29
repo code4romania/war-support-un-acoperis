@@ -147,6 +147,13 @@ class UserController extends Controller
             return redirect()->route('admin.host-detail', ['id' => $user->id]);
         }
 
+        if($user->isRefugee())
+        {
+            $details = $user->load('refugeeAllocatedHistory');
+
+            return view('admin.user-detail', compact('user', 'details'));
+        }
+
         return view('admin.user-detail')
             ->with('user', $user);
     }

@@ -164,7 +164,7 @@
         </div>
     </div>
 
-    @if(auth()->user()->isHost())
+    @if (auth()->user()->isHost() && auth()->user()->is($accommodation->user) )
         @include('partials.forms.accommodation-help-requests-view-only')
     @endif
 

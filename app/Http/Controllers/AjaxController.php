@@ -137,7 +137,11 @@ class AjaxController extends Controller
             'help_requests.created_at',
             'help_requests.county_id',
             'help_requests.first_housing_day',
-        ])->join('users', 'help_requests.user_id', '=', 'users.id');
+            'allocations.start_date',
+            'allocations.end_date',
+        ])
+            ->join('users', 'help_requests.user_id', '=', 'users.id')
+            ->join('allocations', 'help_requests.id', '=', 'allocations.help_request_id');
 
         $perPage = 10;
 
@@ -840,6 +844,8 @@ class AjaxController extends Controller
             'allocations.number_of_guest',
             'allocations.created_at',
             'allocations.updated_at',
+            'allocations.id as allocationId',
+            'allocations.accommodation_id as accommodationId',
         ]);
 
         $query->orderBy('allocations.created_at', 'desc');
@@ -976,5 +982,62 @@ class AjaxController extends Controller
         }
 
         return $query;
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function allocations(Request $request)
+    {
+        /** @var Builder $query */
+        $query = Allocation::orderBy('end_date', 'asc');
+
+        if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
+            $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
+            $query->orWhere('help_requests.id',  'LIKE', '%' . $request->get('searchFilter') . '%');
+        }
+
+        if ($request->has('startDate')) {
+            $query->whereDate('start_date', '>=', Carbon::createFromFormat('Y-m-d', $request->get('startDate')));
+        }
+
+        if ($request->has('endDate')) {
+            $query->whereDate('end_date', '<=', Carbon::createFromFormat('Y-m-d', $request->get('endDate')));
+        } else {
+            $query->where('end_date', '<=', Carbon::tomorrow()->endOfDay());
+        }
+
+        $query->select([
+            'help_requests.id',
+            'users.name',
+            'help_requests.status',
+            'start_date',
+            'end_date',
+            'help_requests.need_car',
+            'help_requests.need_special_transport',
+            'help_requests.special_needs',
+            'help_requests.guests_number',
+            'help_requests.created_at'
+        ])->join('help_requests', 'help_request_id', '=', 'help_requests.id')
+            ->join('users', 'help_requests.user_id', '=', 'users.id');
+
+        if (
+            $request->has('status') &&
+            array_key_exists($request->get('status'), HelpRequest::statusList())
+        ) {
+            $query->where('help_requests.status', '=', $request->get('status'));
+        }
+
+        $perPage = 10;
+
+        if ($request->has('perPage') && in_array($request->get('perPage'), [1, 3, 10, 25, 50])) {
+            $perPage = $request->get('perPage');
+        }
+
+        return response()->json(
+            $query->paginate($perPage)
+        );
     }
 }

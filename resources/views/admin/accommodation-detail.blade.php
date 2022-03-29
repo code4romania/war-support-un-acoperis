@@ -53,13 +53,25 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __('Accommodation') }}
             </h6>
-            @if(!$accommodation->isApproved())
-                <a class="btn btn-primary"
-                   href="{{ route('admin.accommodation-approve',['id'=>$accommodation->id])}}">{{__('Approve')}}</a>
-            @else
-                <a class="btn btn-primary"
-                   href="{{ route('admin.accommodation-disapprove', ['id'=>$accommodation->id]) }}">{{__('Unapprove')}}</a>
-            @endif
+
+            <div>
+                @if (auth()->user()->isAdministrator())
+                    <a class="btn btn-primary"
+                        href="{{ route('admin.accommodation-edit',['id'=>$accommodation->id])}}">{{__('Edit')}}</a>
+                @elseif (auth()->user()->isTrusted() && $accommodation->createdBy->is(auth()->user()))
+                    <a class="btn btn-primary"
+                        href="{{ route('trusted.edit-accommodation',['id'=>$accommodation->id])}}">{{__('Edit')}}</a>
+                @endif
+
+
+                @if(!$accommodation->isApproved())
+                    <a class="btn btn-primary"
+                        href="{{ route('admin.accommodation-approve',['id'=>$accommodation->id])}}">{{__('Approve')}}</a>
+                @else
+                    <a class="btn btn-primary"
+                        href="{{ route('admin.accommodation-disapprove', ['id'=>$accommodation->id]) }}">{{__('Unapprove')}}</a>
+                @endif
+            </div>
         </div>
         <div class="card-body pt-4">
             <div class="row">

@@ -2,12 +2,14 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600">Cereri de ajutor</h6>
-        <p class="mb-sm-0">{{ __('Search for a help request using the search field or filter the list of requests using the present options.') }}</p>
+        <h6 class="page-title font-weight-600">Ultima zi de cazare</h6>
+        <p class="mb-sm-0">
+            Aici vezi toate persoanele cazate care mai au o zi disponibilă de cazare conform cu solicitările lor.
+        </p>
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <label for="searchFilter">{{ __('Search') }}</label>
                         <div class="form-group mb-0">
                             <div class="input-group">
@@ -20,41 +22,18 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label for="countyFilter">{{ __('County') }}</label>
-                            <select name="countyFilter" id="countyFilter" class="custom-select form-control">
-                                <option
-                                    {{ request()->isNotFilled('countyFilter') ? 'selected' : '' }}
-                                    value="">
-                                    {{ __('All counties') }}
-                                </option>
-                                @foreach ($counties as $county)
-                                    <option value="{{ $county->id }}"
-                                        {{ request()->get('countyFilter') === $county->id ? 'selected' : '' }}>
-                                        {{ $county->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
                             <label class="" for="status">Status</label>
                             <select name="statusFilter" id="statusFilter" class="custom-select form-control">
-                                <option
-                                    {{ request()->isNotFilled('statusFilter') ? 'selected' : '' }}
-                                    value="">{{ __('All statuses') }}</option>
-                                @foreach (\App\HelpRequest::statusList() as $key => $value)
-                                    <option value="{{ $key }}"
-                                        {{ request()->get('statusFilter') === $key ? 'selected' : '' }}>
-                                        {{ $value }}
-                                    </option>
+                                    <option value="" selected>{{ __('All statuses') }}</option>
+                                @foreach(\App\HelpRequest::statusList() as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="startDateFilter">{{ __('First day starting with') }}</label>
+                            <label class="" for="startDateFilter">{{ __('Starting with') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
@@ -65,7 +44,7 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="" for="endDateFilter">{{ __('First day until') }}</label>
+                            <label class="" for="endDateFilter">{{ __('Until') }}</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
@@ -75,6 +54,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="{{ route('admin.allocation.list') }}" class="btn btn-primary">Clear Filter</a>
             </form>
         </div>
     </section>
@@ -108,13 +88,12 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Request ID') }}</th>
-                    <th>{{ __('County') }}</th>
                     <th>{{ __('Name') }}</th>
+                    <th>{{ __('Allocation Start Date') }}</th>
+                    <th>{{ __('Allocation End Date') }}</th>
                     <th>{{ __('Special Needs') }}</th>
                     <th>{{ __('People') }}</th>
                     <th>{{ __('Transport') }}</th>
-                    <th>{{ __('First housing day') }}</th>
-                    <th>{{ __('Housing interval') }}</th>
                     <th>{{ __('Request Status') }}</th>
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
@@ -162,26 +141,18 @@
                 this.emptyTable();
 
                 let translations = {!! json_encode(\App\HelpRequest::statusList()) !!};
-                let counties = {!! json_encode($counties->pluck('name', 'id')) !!};
                 $.each(responseData, function(key, value) {
                     let transportType = value.need_special_transport ? '{{ __('Special transport') }}' : value.need_car ? '{{ __('Car') }}' : '{{ __('Not Needed') }}';
                     let specialNeeds =  value.special_needs ? '{{ __('Yes') }}' : '{{ __('No') }}';
-
-                    let firstHousingDayIsToday = moment(value.first_housing_day).locale('ro').format('YYYY-MM-DD') == moment().locale('ro').format('YYYY-MM-DD') ? '<span class="fa fa-flag text-danger"></span>' : '';
-                    let firstHousingDay = value.first_housing_day  ? moment(value.first_housing_day).locale('ro').format('YYYY-MM-DD') : '';
-                    let startDate = value.start_date ? moment(value.start_date).locale('ro').format('YYYY-MM-DD') : '';
-                    let endDate = value.end_date ? moment(value.end_date).locale('ro').format('YYYY-MM-DD') : '';
-
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
-                        '    <td>' + (counties[value.county_id] || '&mdash;') + '</td>\n' +
                         '    <td>' + value.name + '</td>\n' +
+                        '    <td>' + moment(value.start_date).locale('ro').format('DD MMMM YYYY') + '</td>\n' +
+                        '    <td>' + moment(value.end_date).locale('ro').format('DD MMMM YYYY') + '</td>\n' +
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
                         '    <td>' + transportType + '</td>\n' +
-                        '    <td>' + firstHousingDayIsToday + ' ' + firstHousingDay  + '</td>\n' +
-                        '    <td>' + startDate + '&mdash;' + endDate  + '</td>\n' +
-                        '    <td><span class="badge ' + window.helpRequestStatusBadges[value.status] + '">' + translations[value.status] + '</span></td>\n' +
+                        '    <td>' + translations[value.status] + '</td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +
                         '        <a href="/{{ $area }}/help-request/' + value.id + '" class="btn btn-info btn-icon btn-sm" data-original-title="{{ __('Details') }}" title="{{ __('Details') }}">\n' +
@@ -202,11 +173,6 @@
 
             if (undefined !== $.QueryString.searchFilter) {
                 pageState.searchFilter = $.QueryString.searchFilter;
-            }
-
-            if (undefined !== $.QueryString.countyFilter) {
-                pageState.countyFilter = $.QueryString.countyFilter;
-                $('#statusFilter').val(pageState.countyFilter);
             }
 
             if (undefined !== $.QueryString.page) {
@@ -234,7 +200,7 @@
                 $('#endDateFilter').val(pageState.endDate);
             }
 
-            let renderer = new HelpRequestRenderer('{{ auth()->user()->isTrusted() ? route('share.ajax.help-requests') : route('ajax.help-requests') }}');
+            let renderer = new HelpRequestRenderer('{{ auth()->user()->isTrusted() ? route('share.ajax.help-requests') : route('ajax.allocations') }}');
             renderer.renderData(pageState);
 
             $('#searchFilter').on('keyup', e => {
@@ -247,12 +213,6 @@
                         renderer.renderData(pageState);
                     }
                 }, 500);
-            });
-
-            $('#countyFilter').on('change', function () {
-                pageState.countyFilter = this.value;
-                $.SetQueryStringParameter('countyFilter', pageState.countyFilter);
-                renderer.renderData(pageState);
             });
 
             $('#statusFilter').on('change', function () {

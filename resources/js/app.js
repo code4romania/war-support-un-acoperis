@@ -106,3 +106,7 @@ $('#revealNewPass').click(function(){
         $('#revealNewPass').removeClass('fa-eye-slash').addClass('fa-eye');
     }
 });
+
+
+
+

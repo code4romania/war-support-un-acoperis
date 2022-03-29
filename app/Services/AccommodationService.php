@@ -11,6 +11,8 @@ use App\County;
 use App\FacilityType;
 use App\Http\Requests\AccommodationRequest;
 use App\User;
+use Carbon\Carbon;
+use DatePeriod;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -22,72 +24,73 @@ class AccommodationService
     {
         DB::beginTransaction();
 
-        $accommodation = new Accommodation();
-        $accommodation->user_id = $user->id;
-        $accommodation->created_by = $createdBy ?: $user->id;
-        $accommodation->accommodation_type_id = $request->get('type');
-        $accommodation->ownership_type = $request->get('ownership');
-        $accommodation->is_fully_available = ('fully' == $request->get('property_availability'));
-        $accommodation->max_guests = $request->get('max_guests');
-        $accommodation->available_rooms = $request->get('available_rooms');
-        $accommodation->available_beds = $request->get('available_beds');
-        $accommodation->available_bathrooms = $request->get('available_bathrooms');
-        $accommodation->is_kitchen_available = ('yes' == $request->get('allow_kitchen'));
-        $accommodation->is_parking_available = ('yes' == $request->get('allow_parking'));
-        $accommodation->is_smoking_allowed = ('yes' == $request->get('allow_smoking'));
-        $accommodation->is_pet_allowed = ('yes' == $request->get('allow_pets'));
-        $accommodation->description = $request->get('description');
-        //@TODO should this be hardcoded? There is no country field in the UI
-        $accommodation->address_country_id = DB::table('countries')->where('code', 'RO')->first()->id;
-        $accommodation->address_county_id = (int)$request->get('county_id');
-        $accommodation->address_city = $request->get('city');
-        $accommodation->address_street = $request->get('street');
-        $accommodation->address_building = $request->get('building');
-        $accommodation->address_entry = $request->get('entrance');
-        $accommodation->address_apartment = $request->get('apartment');
-        $accommodation->address_floor = $request->get('floor');
-        $accommodation->address_postal_code = $request->get('postal_code');
-        $accommodation->other_rules = $request->get('other_rules');
-        $accommodation->transport_subway_distance = $request->get('transport_subway_distance');
-        $accommodation->transport_bus_distance = $request->get('transport_bus_distance');
-        $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
-        $accommodation->transport_other_details = $request->get('transport_other_details');
-        $accommodation->approved_at = $createdBy ? now() : null;
-        $accommodation->agree_is_free = (bool)$request->get('agree_is_free');
-        $accommodation->save();
-
-        if ($request->has('general_facility')) {
-            foreach ($request->get('general_facility') as $key => $value) {
-                $accommodation->accommodationfacilitytypes()->attach($value);
-            }
-        }
-
-        if ($request->has('special_facility')) {
-            foreach ($request->get('special_facility') as $key => $value) {
-                $accommodation->accommodationfacilitytypes()->attach($value);
-            }
-        }
-
-        if ($request->has('other_facilities') && !is_null($request->get('other_facilities'))) {
-            /** @var FacilityType|null $otherFacilityType */
-            $otherFacilityType = FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first();
-
-            if (!empty($otherFacilityType)) {
-                $accommodation->accommodationfacilitytypes()->attach($otherFacilityType->id, ['message' => $request->get('other_facilities')]);
-            }
-        }
-
-        if ($request->has("available") && is_array($request->get("available"))) {
-            foreach ($request->get("available") as $key => $value) {
-                $accommodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
-                $accommodationsUnavailableInterval->accommodation_id = $accommodation->id;
-                $accommodationsUnavailableInterval->from_date = $request->get("available")[$key]['from'];
-                $accommodationsUnavailableInterval->to_date = $request->get("available")[$key]['to'];
-                $accommodationsUnavailableInterval->save();
-            }
-        }
-
         try {
+            $accommodation = new Accommodation();
+            $accommodation->user_id = $user->id;
+            $accommodation->created_by = $createdBy ?: $user->id;
+            $accommodation->accommodation_type_id = $request->get('type');
+            $accommodation->ownership_type = $request->get('ownership');
+            $accommodation->is_fully_available = ('fully' == $request->get('property_availability'));
+            $accommodation->max_guests = $request->get('max_guests');
+            $accommodation->available_rooms = $request->get('available_rooms');
+            $accommodation->available_beds = $request->get('available_beds');
+            $accommodation->available_bathrooms = $request->get('available_bathrooms');
+            $accommodation->is_kitchen_available = ('yes' == $request->get('allow_kitchen'));
+            $accommodation->is_parking_available = ('yes' == $request->get('allow_parking'));
+            $accommodation->is_smoking_allowed = ('yes' == $request->get('allow_smoking'));
+            $accommodation->is_pet_allowed = ('yes' == $request->get('allow_pets'));
+            $accommodation->description = $request->get('description');
+            //@TODO should this be hardcoded? There is no country field in the UI
+            $accommodation->address_country_id = DB::table('countries')->where('code', 'RO')->first()->id;
+            $accommodation->address_county_id = (int)$request->get('county_id');
+            $accommodation->address_city = $request->get('city');
+            $accommodation->address_street = $request->get('street');
+            $accommodation->address_building = $request->get('building');
+            $accommodation->address_entry = $request->get('entrance');
+            $accommodation->address_apartment = $request->get('apartment');
+            $accommodation->address_floor = $request->get('floor');
+            $accommodation->address_postal_code = $request->get('postal_code');
+            $accommodation->other_rules = $request->get('other_rules');
+            $accommodation->transport_subway_distance = $request->get('transport_subway_distance');
+            $accommodation->transport_bus_distance = $request->get('transport_bus_distance');
+            $accommodation->transport_railway_distance = $request->get('transport_railway_distance');
+            $accommodation->transport_other_details = $request->get('transport_other_details');
+            $accommodation->approved_at = $createdBy ? now() : null;
+            $accommodation->agree_is_free = (bool)$request->get('agree_is_free');
+            $accommodation->save();
+
+            if ($request->has('general_facility')) {
+                foreach ($request->get('general_facility') as $key => $value) {
+                    $accommodation->accommodationfacilitytypes()->attach($value);
+                }
+            }
+
+            if ($request->has('special_facility')) {
+                foreach ($request->get('special_facility') as $key => $value) {
+                    $accommodation->accommodationfacilitytypes()->attach($value);
+                }
+            }
+
+            if ($request->has('other_facilities') && !is_null($request->get('other_facilities'))) {
+                /** @var FacilityType|null $otherFacilityType */
+                $otherFacilityType = FacilityType::where('type', '=', FacilityType::TYPE_OTHER)->first();
+
+                if (!empty($otherFacilityType)) {
+                    $accommodation->accommodationfacilitytypes()->attach($otherFacilityType->id, ['message' => $request->get('other_facilities')]);
+                }
+            }
+
+            if ($request->has("available") && is_array($request->get("available"))) {
+                foreach ($request->get("available") as $key => $value) {
+                    $accommodationsUnavailableInterval = new AccommodationsAvailabilityIntervals();
+                    $accommodationsUnavailableInterval->accommodation_id = $accommodation->id;
+                    $accommodationsUnavailableInterval->from_date = Carbon::parse($request->get("available")[$key]['from'])->startOfDay();
+                    $accommodationsUnavailableInterval->to_date = Carbon::parse($request->get("available")[$key]['to'])->endOfDay();
+                    $accommodationsUnavailableInterval->save();
+                }
+            }
+
+
             if (!empty($request->file('photos'))) {
                 /** @var UploadedFile $file */
                 foreach ($request->file('photos') as $file) {
@@ -107,6 +110,7 @@ class AccommodationService
                     $accommodationPhoto->save();
                 }
             }
+
         } catch (\Throwable $throwable) {
             DB::rollBack();
 
@@ -176,6 +180,12 @@ class AccommodationService
         $accommodation->transport_bus_distance = $request->get('transport_bus_distance', $accommodation->transport_bus_distance);
         $accommodation->transport_railway_distance = $request->get('transport_railway_distance', $accommodation->transport_other_details);
         $accommodation->transport_other_details = $request->get('transport_other_details', $accommodation->transport_other_details);
+
+        if ($request->get('unavailable_from') && $request->get('unavailable_to')) {
+            $accommodation->unavailable_from_date = $request->get('unavailable_from', $accommodation->unavailable_from_date);
+            $accommodation->unavailable_to_date = $request->get('unavailable_to', $accommodation->unavailable_to_date);
+        }
+
         $accommodation->save();
 
 
@@ -207,8 +217,8 @@ class AccommodationService
             foreach ($request->get("available") as $key => $value) {
                 $accomodationsAvailabilityInterval = new AccommodationsAvailabilityIntervals();
                 $accomodationsAvailabilityInterval->accommodation_id = $accommodation->id;
-                $accomodationsAvailabilityInterval->from_date = $request->get("available")[$key]['from'];
-                $accomodationsAvailabilityInterval->to_date = $request->get("available")[$key]['to'];
+                $accomodationsAvailabilityInterval->from_date = Carbon::parse($request->get("available")[$key]['from'])->startOfDay();
+                $accomodationsAvailabilityInterval->to_date = Carbon::parse($request->get("available")[$key]['to'])->endOfDay();
                 $accomodationsAvailabilityInterval->save();
             }
         }
@@ -257,6 +267,60 @@ class AccommodationService
         }
 
         return $photoData;
+    }
+
+    public function getAvailabilityDetails(Accommodation $accommodation)
+    {
+        $availabilities = $accommodation->availabilityIntervals; // from_date - to_date
+        $bookings = $accommodation->helpRequests;
+
+        //Booked Days
+        $bookedDays = [];
+        foreach ($bookings as $booking) {
+            $start = new \DateTime($booking->pivot->start_date);
+            $end = new \DateTime($booking->pivot->end_date);
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($start, $interval, $end);
+
+            foreach ($period as $dt) {
+                $day = $dt->format("d-m-Y");
+                if (isset($bookedDays[$day])) {
+                    $bookedDays[$day] += $booking->guests_number;
+                } else {
+                    $bookedDays[$day] = $booking->guests_number;
+                }
+            }
+        }
+
+        $availableDays = [];
+        if ($availabilities->isNotEmpty()) {
+            foreach ($availabilities as $availability) {
+                $start = new \DateTime($availability->from_date);
+                $end = new \DateTime($availability->to_date);
+
+                $interval = \DateInterval::createFromDateString('1 day');
+                $period = new DatePeriod($start, $interval, $end);
+
+                foreach ($period as $dt) {
+                    $day = $dt->format("d-m-Y");
+                    $availableDays[] = $day;
+                }
+            }
+        } else {
+            $start = Carbon::now();
+            $end = Carbon::now()->addYear();
+
+            $interval = \DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($start, $interval, $end);
+
+            foreach ($period as $dt) {
+                $day = $dt->format("d-m-Y");
+                $availableDays[] = $day;
+            }
+        }
+
+        return [$bookedDays, $availableDays];
     }
 
 }

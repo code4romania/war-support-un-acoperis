@@ -4,22 +4,19 @@ namespace App\Http\Controllers\Host;
 
 use App\Accommodation;
 use App\AccommodationPhoto;
-use App\AccommodationType;
-use App\AccommodationsAvailabilityIntervals;
-use App\Country;
-use App\County;
+use App\Allocation;
 use App\FacilityType;
+use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccommodationRequest;
 use App\Services\AccommodationService;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -212,6 +209,39 @@ class AccommodationController extends Controller
                 ->withSuccess(__('Data successfully saved!'));
         } catch (\Throwable $throwable) {
             abort(500);
+        }
+    }
+
+    public function deallocate(Accommodation $accommodation, Allocation $allocation)
+    {
+        if (! auth()->user()->is($accommodation->user)) {
+            abort(403);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $accommodation = Accommodation::lockForUpdate()->find($accommodation->id);
+            if (empty($accommodation)) {
+                DB::rollback();
+                abort(404);
+            }
+
+            $helpRequest = HelpRequest::lockForUpdate()->find($allocation->helpRequest->id);
+            if (empty($helpRequest)) {
+                DB::rollback();
+                abort(404);
+            }
+
+            $allocation->historyItem()->update(['deallocated_at' => Carbon::now()]);
+            $allocation->delete();
+
+            DB::commit();
+            return response()->noContent();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response(['message' => __('An unknown error has occurred. Please try again.')]);
         }
     }
 }

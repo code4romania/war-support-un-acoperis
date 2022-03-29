@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -99,19 +101,78 @@ class Accommodation extends Model implements Auditable
         return $this->belongsTo(User::class);
     }
 
-    public function isAlreadyFull() : Bool
+    public function getOccupiedSpace(): int
     {
-        return $this->getOccupiedSpace() >= $this->max_guests;
+        return (int) $this->helpRequests()->sum('number_of_guest');
     }
 
-    public function getOccupiedSpace() : int
+    public function isAlreadyFull(): ?bool
     {
-        return (int)$this->helpRequests()->sum('number_of_guest');
+
+        $availabilityIntervals = $this->availabilityIntervals()->get();
+
+//        No intervals means it can never be full
+        if ($availabilityIntervals->isEmpty()) {
+            return false;
+        }
+
+        if ($this->helpRequests()->doesntExist()) {
+            return false;
+        }
+
+        foreach ($availabilityIntervals as $interval) {
+            $bookings = Allocation::where('accommodation_id', $interval->accommodation_id)
+                ->where(function ($query) use ($interval) {
+                    $query->where(function ($query) use ($interval) {
+                        $query->whereDate('start_date', '<=', $interval->from_date)
+                            ->whereDate('end_date', '>=', $interval->from_date);
+                    })
+                        ->orWhere(function ($query) use ($interval) {
+                            $query->whereDate('start_date', '<=', $interval->to_date)
+                                ->whereDate('end_date', '>=', $interval->to_date);
+                        });
+                })->get();
+
+            $bookedDays = $this->bookedDays($bookings);
+            $intervalPeriod = CarbonPeriod::create($interval->from_date, $interval->to_date);
+            foreach ($intervalPeriod as $date) {
+                if (!isset($bookedDays[$date->format("d-m-Y")]) || $bookedDays[$date->format("d-m-Y")] < $interval->accommodation->max_guests) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
-    public function helpRequests() : BelongsToMany
+    public function bookedDays($bookings)
     {
-        return $this->belongsToMany(HelpRequest::class, 'allocations', 'accommodation_id', 'help_request_id');
+        $bookedDays = [];
+        foreach ($bookings as $booking) {
+            $period = CarbonPeriod::create($booking->start_date, $booking->end_date);
+
+            foreach ($period as $date) {
+                $day = $date->format("d-m-Y");
+                if (isset($bookedDays[$day])) {
+                    $bookedDays[$day] += $booking->number_of_guest;
+                } else {
+                    $bookedDays[$day] = $booking->number_of_guest;
+                }
+            }
+        }
+
+        return $bookedDays;
+    }
+
+    public function helpRequests(): BelongsToMany
+    {
+        return $this->belongsToMany(HelpRequest::class, 'allocations', 'accommodation_id', 'help_request_id')
+            ->withPivot(['start_date', 'end_date']);
+    }
+
+    public function helpRequestsHistory(): BelongsToMany
+    {
+        return $this->belongsToMany(HelpRequest::class, 'allocations_history', 'accommodation_id', 'help_request_id')->withTimestamps();
     }
 
     /**
@@ -127,7 +188,7 @@ class Accommodation extends Model implements Auditable
      */
     public function accommodationtype()
     {
-        return $this->belongsTo(AccommodationType::class,  'accommodation_type_id');
+        return $this->belongsTo(AccommodationType::class, 'accommodation_type_id');
     }
 
     /**
@@ -173,7 +234,7 @@ class Accommodation extends Model implements Auditable
      */
     public function availabilityIntervals(): HasMany
     {
-        return $this->hasMany(AccommodationsAvailabilityIntervals::class);
+        return $this->hasMany(AccommodationsAvailabilityIntervals::class, 'accommodation_id', 'id');
     }
 
     /**

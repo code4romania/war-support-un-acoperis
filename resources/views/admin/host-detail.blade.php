@@ -3,6 +3,53 @@
 @section('content')
     @include('partials.user-detail')
 
+    @if($user->isHost())
+        <div class="card shadow">
+            <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center rounded">
+                <h6 class="font-weight-600 text-white mb-0">
+                    {{ __('Refugees') }}
+                </h6>
+            </div>
+
+            <div class="card-body pre-scrollable">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('Refugee name') }}</th>
+                        <th>{{ __('Accommodation') }}</th>
+                        <th>{{ __('Guests number') }}</th>
+                        <th>{{ __('Time') }}</th>
+                        <th>{{ __('From') }}</th>
+                        <th>{{ __('To') }}</th>
+                        <th>{{ __('Status') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($details->hostAllocatedHistory as $key => $detail)
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td><a href="{{ route('admin.user-detail', $detail->refugee_id) }}">{{ $detail->refugee->name }}</a></td>
+                            <td><a href="{{ route('admin.accommodation-detail', $detail->accommodation_id) }}">{{ $detail->accommodation->accommodationtype->name }}</a></td>
+                            <td>{{ $detail->number_of_guest }}</td>
+                            <td>{{ $detail->accommodationTime }} zile</td>
+                            <td>{{ $detail->from }}</td>
+                            <td>{{ $detail->to }}</td>
+                            <td>{{ $detail->deallocated_at ? __('Deallocated at: ') . $detail->deallocated_at : __('Allocated') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">{{ $user->name }} {{ __("doesn't have refugees in accommodation.") }}</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    @endif
+
 
     <div class="card shadow">
         <div class="card-header bg-admin-blue py-3 d-flex justify-content-between align-content-center rounded">

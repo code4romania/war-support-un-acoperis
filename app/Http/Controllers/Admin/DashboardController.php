@@ -7,6 +7,7 @@ use App\Allocation;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -31,6 +32,8 @@ class DashboardController extends Controller
                              })
                              ->count();
 
+
+        $refugeesDueTomorrow = Allocation::with('accomodation', 'helpRequest')->whereDate('end_date', Carbon::tomorrow())->get();
         $allocatedGuests = Allocation::sum('number_of_guest');
         $totalHostSpaces = Accommodation::approved()->sum('max_guests');
 
@@ -42,6 +45,6 @@ class DashboardController extends Controller
             "approvedAccommodations"        => Accommodation::approved()->count(),
         ];
 
-        return view('admin.dashboard')->with('dashboardStats', $dashboardStats);
+        return view('admin.dashboard')->with('dashboardStats', $dashboardStats)->with('refugeesDueTomorrow', $refugeesDueTomorrow);
     }
 }

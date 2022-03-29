@@ -148,6 +148,9 @@
     margin-bottom: $card-deck-margin;
   }
 
+  .equal-height{
+      height:100%;
+  }
   @include media-breakpoint-up(sm) {
     flex-flow: row wrap;
     margin-right: -$card-deck-margin;
@@ -286,4 +289,99 @@
       margin-bottom: -$card-border-width;
     }
   }
+}
+
+
+
+/**
+* Custom CSS
+* #TODO - Move it in the correct place
+**/
+
+.info-table{
+    tr{
+        border-bottom: 1px solid #e7e6e6;
+
+        &:last-child{
+            border-bottom: none;
+        }
+    }
+
+    tr td{
+        height: 40px;
+        padding:5px 10px;
+    }
+    .label{
+        font-weight: 600;
+    }
+}
+
+.badge-new {
+    background-color: #43b29f;
+    color:#fff;
+}
+
+.info-table{
+    .thead-dark th{
+        background:#212529!important;
+        border-color:#212529!important;
+    }
+
+    tbody tr{
+        background: #fff!important;
+        border-bottom: 1px solid #ededed;
+        color: #333;
+    }
+
+    .btn-info{
+        color: #fff;
+        background-color: #525f7f;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+.form-control.select2-selection--multiple{
+    min-height: 32px;
+    height: auto!important;
+}
+
+//Fullcalendar Custom Style
+.fc-day.disabled{
+    background:#eee!important;
+}
+
+.fc-day.available{
+    background: #82ffb7!important;
+}
+
+.fc-day.warning{
+    background: #fffa8f!important;
+}
+
+.fc-day.danger{
+    background: #ff9d86 !important;
+}
+.fc-content-skeleton,
+.fc-content-skeleton table,
+.fc-content-skeleton table thead {height:100%!important; text-align: center!important; vertical-align: middle!important;}
+
+.fc-ltr .fc-basic-view .fc-day-top{ vertical-align: middle;}
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number{ float: none!important;font-size: 20px;}
+.fc-bg{ z-index: initial!important; }
+span.nr-badge {
+    float: right;
+    background: #525f7f;
+    border-radius: 50%;
+    padding: 4px;
+    margin-right: 5px;
+    margin-top: 5px;
+    min-width: 18px;
+    text-align: center;
+    color: #fff;
+    height: 18px;
+    font-size: 14px;
+    line-height: 18px;
+    z-index: 10;
+    position: relative;
 }

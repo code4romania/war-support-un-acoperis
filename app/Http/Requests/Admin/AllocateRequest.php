@@ -28,8 +28,23 @@ class AllocateRequest extends FormRequest
     public function rules()
     {
         return [
-            'help_request_id' => 'numeric|required',
-            'guests_number' => 'numeric|required|min:0',
+            'help_request_id' => 'numeric|required|exists:help_requests,id',
+            'startDate' => 'date|required',
+            'endDate' => 'date|required',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'help_request_id' => __('Help request number'),
+            'startDate' => __('From'),
+            'endDate' => __('To'),
         ];
     }
 }

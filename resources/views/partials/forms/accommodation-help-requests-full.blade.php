@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="table-responsive shadow-sm mb-4">
-            <table class="table table-striped w-100 mb-0">
+            <table class="table table-striped w-100 mb-0 info-table">
                 <thead class="thead-dark">
                 <tr>
                     <th>{{ __('Refugee name') }}</th>
@@ -64,6 +64,7 @@
 </div>
 
 @section('scripts')
+    @parent
     <script type="text/javascript" src="{{ mix('js/table-data-renderer.js') }}"></script>
     <script>
         class AccommodationRenderer extends TableDataRenderer {
@@ -78,6 +79,7 @@
                         '    <td>' + value.created_at + '</td>\n' +
                         '    <td>' + value.updated_at + '</td>\n' +
                         '    <td class="text-right">\n' +
+                        '        <button type="button" class="btn btn-sm btn-info mb-2 mb-sm-0 deallocate" data-accommodation-id="' + value.accommodationId + '" data-allocation-id="' + value.allocationId + '" >{{ __("Deallocate") }}</button>\n' +
                         '        <a href="/admin/help-request/' + value.id + '#helpTypeCard{{ \App\HelpType::TYPE_ACCOMMODATION }}" class="btn btn-sm btn-info mb-2 mb-sm-0" >{{ __("More details") }}</a>\n' +
                         '    </td>\n' +
                         '</tr>';
@@ -120,6 +122,17 @@
                 $.SetQueryStringParameter('page', pageState.page);
                 renderer.renderData(pageState);
             });
+
+            $('body').on('click', '.deallocate', function () {
+                const accommodationId = $(this).data('accommodation-id');
+                const allocationId = $(this).data('allocation-id');
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios.delete('/admin/accommodation/' + accommodationId + '/deallocate/' + allocationId)
+                    .then(response => {
+                        window.location.reload();
+                    });
+            })
         });
     </script>
 @endsection

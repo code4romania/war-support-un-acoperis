@@ -3,19 +3,19 @@
         <div class="card-body">
             <p>{{ __('Status') }} : @switch($item->status)
                     @case(\App\HelpRequest::STATUS_NEW)
-                        <span class="alert alert-info"> {{ __('New') }}</span>
+                    <span class="alert alert-info"> {{ __('New') }}</span>
                     @break
 
                     @case(\App\HelpRequest::STATUS_IN_PROGRESS)
-                        <span class="alert alert-warning"> {{ __('In progress') }}</span>
+                    <span class="alert alert-warning"> {{ __('In progress') }}</span>
                     @break
 
                     @case(\App\HelpRequest::STATUS_PARTIAL_ALLOCATED)
-                        <span class="alert alert-danger"> {{ __('Partial allocated') }}</span>
+                    <span class="alert alert-danger"> {{ __('Partial allocated') }}</span>
                     @break
 
                     @case(\App\HelpRequest::STATUS_COMPLETED)
-                        <span class="alert alert-success"> {{ __('Completed') }}</span>
+                    <span class="alert alert-success"> {{ __('Completed') }}</span>
                     @break
                 @endswitch
             </p>
