@@ -141,7 +141,7 @@ class AjaxController extends Controller
             'allocations.end_date',
         ])
             ->join('users', 'help_requests.user_id', '=', 'users.id')
-            ->join('allocations', 'help_requests.id', '=', 'allocations.help_request_id');
+            ->leftJoin('allocations', 'help_requests.id', '=', 'allocations.help_request_id');
 
         $perPage = 10;
 
