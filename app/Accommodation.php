@@ -103,7 +103,7 @@ class Accommodation extends Model implements Auditable
 
     public function getOccupiedSpace(): int
     {
-        return (int)$this->helpRequests()->sum('number_of_guest');
+        return (int) $this->helpRequests()->sum('number_of_guest');
     }
 
     public function isAlreadyFull(): ?bool
@@ -124,12 +124,12 @@ class Accommodation extends Model implements Auditable
             $bookings = Allocation::where('accommodation_id', $interval->accommodation_id)
                 ->where(function ($query) use ($interval) {
                     $query->where(function ($query) use ($interval) {
-                        $query->where('start_date', '<=', $interval->from_date)
-                            ->where('end_date', '>=', $interval->from_date);
+                        $query->whereDate('start_date', '<=', $interval->from_date)
+                            ->whereDate('end_date', '>=', $interval->from_date);
                     })
                         ->orWhere(function ($query) use ($interval) {
-                            $query->where('start_date', '<=', $interval->to_date)
-                                ->where('end_date', '>=', $interval->to_date);
+                            $query->whereDate('start_date', '<=', $interval->to_date)
+                                ->whereDate('end_date', '>=', $interval->to_date);
                         });
                 })->get();
 

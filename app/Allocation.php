@@ -21,6 +21,12 @@ class Allocation extends Model
         'deallocated_at'
     ];
 
+
+    protected $casts = [
+        'start_date' => 'date:Y-m-d',
+        'end_date' => 'date:Y-m-d',
+    ];
+
     /**
      * @return BelongsTo
      */

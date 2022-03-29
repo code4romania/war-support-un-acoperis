@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\AllocationHistory;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -89,9 +89,9 @@ class HelpRequest extends Model implements Auditable
         return $this->belongsToMany(Accommodation::class, 'allocations', 'help_request_id', 'accommodation_id');
     }
 
-    public function accommodationsHistory(): BelongsToMany
+    public function allocationsHistory(): HasMany
     {
-        return $this->belongsToMany(Accommodation::class, 'allocations_history', 'help_request_id', 'accommodation_id')->withTimestamps();
+        return $this->hasMany(AllocationHistory::class, 'help_request_id', 'id');
     }
 
     public function isCompleted(): bool

@@ -9,6 +9,12 @@ class AllocationHistory extends Pivot
 {
     protected $table = 'allocations_history';
 
+    protected $casts = [
+        'from'           => 'date:Y-m-d',
+        'to'             => 'date:Y-m-d',
+        'deallocated_at' => 'datetime',
+    ];
+
     public function allocation()
     {
         return $this->belongsTo(Allocation::class);
@@ -36,14 +42,14 @@ class AllocationHistory extends Pivot
 
     public function getAccommodationTimeAttribute()
     {
-        if ($this->deallocated_at) {
-            return Carbon::parse($this->deallocated_at)->diffInDays(Carbon::parse($this->from));
+        if (! is_null($this->deallocated_at)) {
+            return $this->deallocated_at->diffInDays($this->from) + 1;
         }
 
-        if($this->to){
-            return Carbon::parse($this->to)->diffInDays(Carbon::parse($this->from));
+        if (! is_null($this->to)) {
+            return $this->to->diffInDays($this->from) + 1;
         }
 
-        return today()->diffInDays(Carbon::parse($this->from));
+        return today()->diffInDays($this->from) + 1;
     }
 }

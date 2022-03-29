@@ -373,7 +373,6 @@ class AccommodationController extends Controller
             }
 
             $allocation->historyItem()->update(['deallocated_at' => Carbon::now()]);
-            $allocation->helpRequest()->update(['status' => HelpRequest::STATUS_NEW]);
             $allocation->delete();
 
             DB::commit();
