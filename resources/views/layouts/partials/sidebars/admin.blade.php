@@ -16,7 +16,7 @@
 </a>
 
 <a href="{{ route('admin.allocation.list') }}" class="list-group-item list-group-item-action sub-list ">
-    <i class="fa fa-minus mx-3"></i>Solicitări rezolvate
+    <i class="fa fa-minus mx-3"></i>Ultima zi de cazare
 </a>
 
 

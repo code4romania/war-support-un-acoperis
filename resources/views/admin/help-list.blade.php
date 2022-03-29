@@ -114,6 +114,7 @@
                     <th>{{ __('People') }}</th>
                     <th>{{ __('Transport') }}</th>
                     <th>{{ __('First housing day') }}</th>
+                    <th>{{ __('Housing interval') }}</th>
                     <th>{{ __('Request Status') }}</th>
                     <th>{{ __('Request Date') }}</th>
                     <th>{{ __('Actions') }}</th>
@@ -168,6 +169,9 @@
 
                     let firstHousingDayIsToday = moment(value.first_housing_day).locale('ro').format('YYYY-MM-DD') == moment().locale('ro').format('YYYY-MM-DD') ? '<span class="fa fa-flag text-danger"></span>' : '';
                     let firstHousingDay = value.first_housing_day  ? moment(value.first_housing_day).locale('ro').format('YYYY-MM-DD') : '';
+                    let startDate = value.start_date ? moment(value.start_date).locale('ro').format('YYYY-MM-DD') : '';
+                    let endDate = value.end_date ? moment(value.end_date).locale('ro').format('YYYY-MM-DD') : '';
+
                     let row = '<tr>\n' +
                         '    <td><a href="/{{ $area }}/help-request/' + value.id + '">#' + value.id + '</a></td>\n' +
                         '    <td>' + (counties[value.county_id] || '&mdash;') + '</td>\n' +
@@ -175,7 +179,8 @@
                         '    <td>' + specialNeeds + '</td>\n' +
                         '    <td>' + value.guests_number + '</td>\n' +
                         '    <td>' + transportType + '</td>\n' +
-                        '    <td>' + firstHousingDayIsToday + firstHousingDay  + '</td>\n' +
+                        '    <td>' + firstHousingDayIsToday + ' ' + firstHousingDay  + '</td>\n' +
+                        '    <td>' + startDate + '&mdash;' + endDate  + '</td>\n' +
                         '    <td><span class="badge ' + window.helpRequestStatusBadges[value.status] + '">' + translations[value.status] + '</span></td>\n' +
                         '    <td>' + moment(value.created_at).locale('ro').format('LLL') + '</td>\n' +
                         '    <td class="text-right">\n' +

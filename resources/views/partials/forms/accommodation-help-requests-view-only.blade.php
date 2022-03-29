@@ -95,6 +95,7 @@
                         '    <td>' + value.created_at + '</td>\n' +
                         '    <td>' + value.updated_at + '</td>\n' +
                         '    <td class="text-right">\n' +
+                        '        <button type="button" class="btn btn-sm btn-info mb-2 mb-sm-0 deallocate" data-accommodation-id="' + value.accommodationId + '" data-allocation-id="' + value.allocationId + '" >{{ __("Deallocate") }}</button>\n' +
                         '<button class="view-help-request-btn btn btn-sm btn-info mb-2 mb-sm-0" data-accommodation-id="{{ $accommodation->id }}" data-request-id="' + value.id + '">{{ __("More details") }}</button>\n' +
                         '    </td>\n' +
                         '</tr>';
@@ -141,7 +142,6 @@
 
             $("body").on('click', '.view-help-request-btn', function (e) {
                 e.preventDefault();
-                console.log("here");
                 $('#viewHelpRequest').modal('hide');
 
                 $.ajax({
@@ -155,6 +155,17 @@
                     .fail(function() {
                         $("#viewHelpRequest .modal-body").html("<span class='warning' >{{ __('An unknown error has occurred. Please try again.') }}</span>")
                         $('#viewHelpRequest').modal('show');
+                    });
+            })
+
+            $('body').on('click', '.deallocate', function () {
+                const accommodationId = $(this).data('accommodation-id');
+                const allocationId = $(this).data('allocation-id');
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+
+                axios.delete('/host/accommodation/' + accommodationId + '/deallocate/' + allocationId)
+                    .then(response => {
+                        window.location.reload();
                     });
             })
         });

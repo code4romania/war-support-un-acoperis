@@ -198,6 +198,7 @@ Route::middleware([Host::class])
          * Ajax routes (host)
          */
         Route::delete('/ajax/accommodation/{id}/photo', 'AjaxController@deleteAccommodationPhoto')->name('ajax.delete-accommodation-photo');
+        Route::delete('/accommodation/{accommodation}/deallocate/{allocation}','Host\AccommodationController@deallocate')->name('admin.deallocate.user.to.host');
     });
 
 Route::middleware([Trusted::class])

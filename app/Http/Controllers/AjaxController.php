@@ -137,7 +137,11 @@ class AjaxController extends Controller
             'help_requests.created_at',
             'help_requests.county_id',
             'help_requests.first_housing_day',
-        ])->join('users', 'help_requests.user_id', '=', 'users.id');
+            'allocations.start_date',
+            'allocations.end_date',
+        ])
+            ->join('users', 'help_requests.user_id', '=', 'users.id')
+            ->join('allocations', 'help_requests.id', '=', 'allocations.help_request_id');
 
         $perPage = 10;
 
@@ -988,24 +992,21 @@ class AjaxController extends Controller
     public function allocations(Request $request)
     {
         /** @var Builder $query */
-        $query = Allocation::orderBy('end_date', 'desc');
+        $query = Allocation::orderBy('end_date', 'asc');
 
         if ($request->has('searchFilter') && strlen($request->get('searchFilter'))) {
             $query->where('users.name', 'LIKE', '%' . $request->get('searchFilter') . '%');
             $query->orWhere('help_requests.id',  'LIKE', '%' . $request->get('searchFilter') . '%');
         }
 
-
         if ($request->has('startDate')) {
-            $startDate = Carbon::createFromFormat('Y-m-d', $request->get('startDate'));
-            $query->where('start_date', '>=', $startDate);
+            $query->whereDate('start_date', '>=', Carbon::createFromFormat('Y-m-d', $request->get('startDate')));
         }
 
         if ($request->has('endDate')) {
-            $endDate = Carbon::createFromFormat('Y-m-d', $request->get('endDate'));
-            $query->where('end_date', '<=', $endDate);
+            $query->whereDate('end_date', '<=', Carbon::createFromFormat('Y-m-d', $request->get('endDate')));
         } else {
-            $query->where('end_date', '<', Carbon::tomorrow());
+            $query->where('end_date', '<=', Carbon::tomorrow()->endOfDay());
         }
 
         $query->select([

@@ -2,8 +2,10 @@
 
 @section('content')
     <section class="mb-5">
-        <h6 class="page-title font-weight-600">{{ __('Help Requests Allocated') }}</h6>
-        <p class="mb-sm-0">{{ __('Search for a help request using the search field or filter the list of requests using the present options.') }}</p>
+        <h6 class="page-title font-weight-600">Ultima zi de cazare</h6>
+        <p class="mb-sm-0">
+            Aici vezi toate persoanele cazate care mai au o zi disponibilă de cazare conform cu solicitările lor.
+        </p>
         <div class="card p-3 mt-4 shadow-sm">
             <form action="" class="">
                 <div class="row">
