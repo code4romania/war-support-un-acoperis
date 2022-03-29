@@ -26,25 +26,18 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $numberOfHosts = User::whereNotNull('approved_at')
-                             ->whereHas('roles', function (Builder $q) {
-                                 $q->where('name', 'host');
-                             })
-                             ->count();
-
-
-        $refugeesDueTomorrow = Allocation::with('accomodation', 'helpRequest')->whereDate('end_date', Carbon::tomorrow())->get();
         $allocatedGuests = Allocation::sum('number_of_guest');
         $totalHostSpaces = Accommodation::approved()->sum('max_guests');
 
-        $dashboardStats = [
-            "availableHostsSpacesNumber"    => $totalHostSpaces - $allocatedGuests,
-            "totalHostsSpacesNumber"        => $totalHostSpaces,
-            "requestsNumber"                => HelpRequest::count(),
-            "allocatedGuestsNumber"         => $allocatedGuests,
-            "approvedAccommodations"        => Accommodation::approved()->count(),
-        ];
-
-        return view('admin.dashboard')->with('dashboardStats', $dashboardStats)->with('refugeesDueTomorrow', $refugeesDueTomorrow);
+        return view('admin.dashboard', [
+            'dashboardStats' => [
+                'availableHostsSpacesNumber' => $totalHostSpaces - $allocatedGuests,
+                'totalHostsSpacesNumber'     => $totalHostSpaces,
+                'requestsNumber'             => HelpRequest::count(),
+                'allocatedGuestsNumber'      => $allocatedGuests,
+                'totalGuestsNumber'          => HelpRequest::whereFulfilled()->sum('guests_number'),
+                'approvedAccommodations'     => Accommodation::approved()->count(),
+            ],
+        ]);
     }
 }
