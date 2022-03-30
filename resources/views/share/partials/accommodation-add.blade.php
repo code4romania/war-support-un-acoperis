@@ -58,7 +58,7 @@
                 <label for="max_guests" class="font-weight-600 required">
                     {{ __('Maximum guests number') }}?
                 </label>
-                <input type="number" min="1" max="127" class="form-control @error('max_guests')is-invalid @enderror" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
+                <input type="number" min="1" max="5000" class="form-control @error('max_guests')is-invalid @enderror" name="max_guests" id="max_guests" placeholder="ex. 3" value="{{ old('max_guests') }}">
 
                 @error('max_guests')
                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -71,7 +71,7 @@
                 <label for="available_rooms" class="font-weight-600 required">
                     {{ __('Number of rooms for sleep') }}?
                 </label>
-                <input type="number" min="1" max="127" class="form-control @error('available_rooms')is-invalid @enderror" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
+                <input type="number" min="1" max="5000" class="form-control @error('available_rooms')is-invalid @enderror" placeholder="ex. 1" name="available_rooms" id="available_rooms" value="{{ old('available_rooms') }}">
 
                 @error('available_rooms')
                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -84,7 +84,7 @@
                 <label for="available_beds" class="font-weight-600 required">
                     {{ __('Number of beds') }}?
                 </label>
-                <input type="number" min="1" max="127" class="form-control @error('available_beds')is-invalid @enderror" placeholder="ex. 1" name="available_beds" id="available_beds" value="{{ old('available_beds') }}">
+                <input type="number" min="1" max="5000" class="form-control @error('available_beds')is-invalid @enderror" placeholder="ex. 1" name="available_beds" id="available_beds" value="{{ old('available_beds') }}">
 
                 @error('available_beds')
                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
@@ -97,7 +97,7 @@
                 <label for="available_bathrooms" class="font-weight-600 required">
                     {{ __('How many bathrooms does the place have') }}?
                 </label>
-                <input type="number" min="1" max="127" class="form-control @error('available_bathrooms')is-invalid @enderror" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms') }}">
+                <input type="number" min="1" max="5000" class="form-control @error('available_bathrooms')is-invalid @enderror" placeholder="ex. 1" name="available_bathrooms" id="available_bathrooms" value="{{ old('available_bathrooms') }}">
 
                 @error('available_bathrooms')
                 <span class="invalid-feedback d-flex" role="alert">{{ $message }}</span>
