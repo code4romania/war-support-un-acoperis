@@ -5,11 +5,12 @@ services:
     image: code4romania/un-acoperis:staging
     labels:
       - com.centurylinklabs.watchtower.enable=true
+      - com.centurylinklabs.watchtower.scope=unacoperis
     env_file: .env
     environment:
       PHP_OPCACHE_ENABLE: 0
     ports:
-      - "80:8080"
+      - "8073:8080"
     depends_on:
       - database
 
@@ -29,7 +30,7 @@ services:
     image: containrrr/watchtower:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --include-restarting --label-enable --cleanup
+    command: --interval 30 --include-restarting --label-enable --scope unacoperis --cleanup
 
 volumes:
   database:
