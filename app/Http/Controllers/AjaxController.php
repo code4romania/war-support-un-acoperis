@@ -673,6 +673,16 @@ class AjaxController extends Controller
             $query->where('accommodations.accommodation_type_id', '=', $request->get('type'));
         }
 
+        if ($request->has('providerType') && !empty($request->get('providerType'))) {
+            if ($request->providerType == 'company') {
+                $query->whereNotNull('users.company_name');
+            } else {
+                $query->whereNull('users.company_name');
+            }
+        }
+
+
+
         if ($request->has('country') && !empty($request->get('country'))) {
             $query->where('accommodations.address_country_id', '=', $request->get('country'));
         }
@@ -699,7 +709,8 @@ class AjaxController extends Controller
         $query->select([
             'accommodations.id',
             'accommodation_types.name as type',
-            'users.name as owner',
+//            'users.name as owner',
+            DB::raw('IF (users.company_name IS NULL, users.name, users.company_name) as owner'),
             'countries.name as country',
             'accommodations.address_county_id as county_id',
             'accommodations.address_city as city',

@@ -41,16 +41,16 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-{{--                        <div class="form-group">--}}
-{{--                            <label for="accommodationCountry">{{ __('Country') }}</label>--}}
-{{--                            <select name="accommodationCountry" id="accommodationCountry" class="custom-select form-control">--}}
-{{--                                <option value="" selected>{{ __('Select country') }}</option>--}}
-{{--                                @foreach($countries as $key => $value)--}}
-{{--                                    <option value="{{ $key }}">{{ $value }}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-
+                        <div class="form-group">
+                            <label for="accommodationType">{{ __('Provider type') }}</label>
+                            <select name="accommodationType" id="providerType" class="custom-select form-control">
+                                <option value="" selected>{{ __('Select provider type') }}</option>
+                                <option value="company">{{ __('Company') }}</option>
+                                <option value="person">{{ __('Person') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label for="accommodationCounty">{{ __('County') }}</label>
                             <select name="accommodationCounty" id="accommodationCounty" class="custom-select form-control">
@@ -280,6 +280,7 @@
             pageState.page = 1;
             pageState.perPage = 15;
             pageState.type = null;
+            pageState.providerType = null;
             pageState.country = null;
             pageState.county = null;
             pageState.city = null;
@@ -411,6 +412,12 @@
             $('#accommodationType').on('change', function (event) {
                 pageState.type = this.value;
                 $.SetQueryStringParameter('type', pageState.type);
+                renderer.renderData(pageState);
+            });
+
+            $('#providerType').on('change', function (event) {
+                pageState.providerType = this.value;
+                $.SetQueryStringParameter('providerType', pageState.providerType);
                 renderer.renderData(pageState);
             });
 
