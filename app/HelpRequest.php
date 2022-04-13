@@ -35,6 +35,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property DateTime|null $updated_at
  * @property DateTime|null $deleted_at
  * @property DateTime|null $approved_at
+ * @property string $destination
  */
 class HelpRequest extends Model implements Auditable
 {

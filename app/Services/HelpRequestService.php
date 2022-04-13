@@ -26,6 +26,7 @@ class HelpRequestService
         $helpRequest->created_by = $createdBy->id ?? $user->id;
         $helpRequest->first_housing_day = Carbon::parse($data['first_housing_day']);
         $helpRequest->needed_duration = (int)$data['needed_duration'];
+        $helpRequest->destination = $data['destination'];
 
         $helpRequest->county()->associate($data['county']);
 

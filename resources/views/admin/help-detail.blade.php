@@ -43,6 +43,12 @@
                              {{ __("Location") }}: {{ $helpRequest->current_location }}
                              </span>
                         </li>
+                        <li class="d-flex align-items-start">
+                            <i class="fa fa-map-marker"></i>
+                            <span>
+                             {{ __("Destination") }}: {{ $helpRequest->destination ?: '–' }}
+                             </span>
+                        </li>
                         <li class="d-flex">
                             <i class="fa fa-phone"></i>
                             <span>
