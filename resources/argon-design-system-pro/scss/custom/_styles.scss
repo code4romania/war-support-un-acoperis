@@ -588,3 +588,28 @@ label.required {
 .h-6 {
     height: 2.5rem;
 }
+
+#userSignature {
+    & .modal-content .modal-body{
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: block;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 100%;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin: 0;
+        padding: 32px 16px;
+        
+        canvas{
+            border: dashed 2px black;
+        }
+    }
+}
