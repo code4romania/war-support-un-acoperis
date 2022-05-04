@@ -150,6 +150,12 @@ class UserService
     public static function getChildrenUsers(): array
     {
         if (Auth::check()) {
+            if (\auth()->user()->isAdministrator())
+            {
+               return User::orderBy('name', 'ASC')
+                    ->get()
+                    ->toArray();
+            }
             return User::where('created_by', auth()->user()->id)
                 ->orderBy('name', 'ASC')
                 ->get()
