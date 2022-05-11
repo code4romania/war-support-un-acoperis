@@ -7,10 +7,12 @@
     @include('share.partials.select-user')
     @include('share.partials.add-user-help-request-modal')
 
+    @if(session()->get('createdUserId'))
     @include('partials.forms.request-services-step3', [
         'description' => $description,
         'info'  => $info,
         'languages' => $languages,
         'formRoute' => route('share.help.request.store')
     ])
+    @endif
 @endsection
