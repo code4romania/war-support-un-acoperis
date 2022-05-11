@@ -109,15 +109,13 @@ class ShareController extends Controller
     public function helpRequestCreate(Request $request, SettingRepository $settingRepository)
     {
         $user = null;
-        if (session()->get('createdRefugeeUserId'))
+        if (session()->get('createdUserId'))
         {
-            $user = User::find(session()->get('createdRefugeeUserId'));
+            $user = User::find(session()->get('createdUserId'));
         }
         $languages = Language::orderBy('position', 'asc')->orderBy('name', 'asc')->select('id', 'endonym')->get();
 
-        $lang = App::getLocale() == 'ro' ? 'en' : App::getLocale();
-        $counties = UaRegion::all(['id', 'region', 'region_' . $lang . ' as region'])->sortBy('region_' . $lang);
-
+        $counties = County::all();
 
         return view('share.help-request-add')
             ->with('description', $settingRepository->byKey('request_services_description') ?? '')
@@ -130,9 +128,9 @@ class ShareController extends Controller
 
     public function helpRequestStore(Request $request)
     {
-        if (session()->get('createdRefugeeUserId'))
+        if (session()->get('createdUserId'))
         {
-            $sessionUserId = session()->pull('createdRefugeeUserId');
+            $sessionUserId = session()->pull('createdUserId');
             $user = User::find($sessionUserId);
             (new HelpRequestService())->create($request, $user, auth()->user());
             session()->flash('success',__('Help request created successfully'));
