@@ -108,7 +108,7 @@ class ProfileController extends Controller
             abort(403);
         }
 
-        $user->password = Hash::make($request->post('newPassword'));
+        $user->password = Hash::make($request->post('password'));
         $user->save();
 
         return redirect()

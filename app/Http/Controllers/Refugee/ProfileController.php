@@ -7,9 +7,11 @@ use App\Accommodation;
 use App\AccommodationPhoto;
 use App\FacilityType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResetPasswordRequest;
 use App\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -26,6 +28,42 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         return view('refugee.profile',compact('user'));
+    }
+
+    /**
+     * @return View
+     */
+    public function resetPassword()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        return view('refugee.reset-password')
+            ->with('user', $user);
+    }
+
+    /**
+     * @param ResetPasswordRequest $request
+     * @return RedirectResponse
+     */
+    public function saveResetPassword(ResetPasswordRequest $request)
+    {
+        $user = Auth::user();
+
+        if (empty($user)) {
+            abort(403);
+        }
+
+        $user->password = Hash::make($request->post('password'));
+        $user->save();
+
+        return redirect()
+            ->route('refugee.profile')
+            ->withSuccess(__('Data successfully saved!'));
     }
 
     public function helpRequests(int $page = 1): View

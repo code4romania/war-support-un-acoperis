@@ -3,7 +3,7 @@
 @section('content')
     <section class="mb-5">
         <h6 class="page-title mb-3 font-weight-600">{{ __("Reset password") }}</h6>
-        <a href="{{ route('host.profile') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __("Back") }}</a>
+        <a href="{{ route('refugee.profile') }}" class="btn btn-sm btn-outline-primary mr-3">{{ __("Back") }}</a>
     </section>
 
     <div class="card shadow">
@@ -13,7 +13,7 @@
             </h6>
         </div>
         <div class="card-body pt-4">
-            <form action="{{ @route('host.save-reset-password') }}" method="post">
+            <form action="{{ @route('refugee.save-reset-password') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-sm-6">
