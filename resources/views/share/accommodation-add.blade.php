@@ -2,6 +2,7 @@
 @section('content')
     @include('share.partials.select-user')
     @include('share.partials.add-user-modal')
+    @if(session()->get('createdUserId'))
     <div class="container py-sm-5 py-3">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
@@ -12,7 +13,6 @@
             - {{ __('I offer accommodation') }}</h1>
         @if(!empty($user))<h2>User: {{$user->name}} </h2>@endif
     </div>
-
 
     <section class="bg-h4h-form py-5">
         <div class="container">
@@ -28,7 +28,7 @@
             </div>
         </div>
     </section>
-
+    @endif
 @endsection
 
 @include('partials.forms.accommodation-add-scripts')
