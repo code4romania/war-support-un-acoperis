@@ -37,15 +37,15 @@ class ShareController extends Controller
             ->with('cities', Accommodation::all()->pluck('address_city', 'address_city'))
             ->with('approvalStatus', $request->get('status'));
     }
+
     public function accommodationCreate(Request $request)
     {
         $user = null;
-        if (session()->get('createdUserId'))
-        {
+        if (session()->get('createdUserId')) {
             $user = User::find(session()->get('createdUserId'));
         }
         return view('share.accommodation-add')
-            ->with('user',$user)
+            ->with('user', $user)
             ->with('types', AccommodationType::all())
             ->with('ownershipTypes', Accommodation::getOwnershipTypes())
             ->with('generalFacilities', FacilityType::where('type', '=', FacilityType::TYPE_GENERAL)->get())
@@ -61,16 +61,15 @@ class ShareController extends Controller
     {
         $accommodationService = new AccommodationService();
         $user = auth()->user();
-        if (session()->get('createdUserId'))
-        {
+        if (session()->get('createdUserId')) {
             $sessionUserId = session()->pull('createdUserId');
             $user = User::find($sessionUserId);
             $accommodationService->createAccommodation($request, $user, auth()->user()->id);
-            session()->flash('success',__('Host created successfully'));
-            return redirect()->back();
+            session()->flash('success', __('Host created successfully'));
+            return redirect()->route('share.accommodation.list');
         }
         $accommodationService->createAccommodation($request, $user);
-        session()->flash('success',__('Host created successfully'));
+        session()->flash('success', __('Host created successfully'));
         return redirect()->back();
     }
 
@@ -101,7 +100,7 @@ class ShareController extends Controller
 
         return view('admin.help-detail', [
             'helpRequest' => $helpRequest,
-           'area' => 'share'
+            'area' => 'share'
         ]);
 
     }
@@ -109,9 +108,9 @@ class ShareController extends Controller
     public function helpRequestCreate(Request $request, SettingRepository $settingRepository)
     {
         $user = null;
-        if (session()->get('createdRefugeeUserId'))
-        {
-            $user = User::find(session()->get('createdRefugeeUserId'));
+
+        if (session()->get('createdUserId')) {
+            $user = User::find(session()->get('createdUserId'));
         }
         $languages = Language::orderBy('position', 'asc')->orderBy('name', 'asc')->select('id', 'endonym')->get();
 
@@ -130,22 +129,22 @@ class ShareController extends Controller
 
     public function helpRequestStore(Request $request)
     {
-        if (session()->get('createdRefugeeUserId'))
-        {
-            $sessionUserId = session()->pull('createdRefugeeUserId');
+
+        if (session()->get('createdUserId')) {
+            $sessionUserId = session()->pull('createdUserId');
             $user = User::find($sessionUserId);
             (new HelpRequestService())->create($request, $user, auth()->user());
-            session()->flash('success',__('Help request created successfully'));
+            session()->flash('success', __('Help request created successfully'));
             return redirect()->route('share.help.request.list');
         }
-        session()->flash('fail',__('Refugee user not found'));
+        session()->flash('fail', __('Refugee user not found'));
         return redirect()->back();
     }
 
     public function createHelpRequestUser(ServiceRequest $request): RedirectResponse
     {
         $user = (new RefugeeService())->createRefugee($request);
-        session()->put('createdRefugeeUserId',$user->id);
+        session()->put('createdRefugeeUserId', $user->id);
         return redirect()->back();
     }
 }
