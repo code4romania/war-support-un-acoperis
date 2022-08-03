@@ -542,5 +542,8 @@
     "Provider type": "Tip proprietar",
     "Select provider type": "Alege tipul de proprietar",
     "Company": "Persoană juridică",
-    "Person": "Persoană fizică"
+    "Person": "Persoană fizică",
+    "Daily created help requests and offers report": "Raport cu cereri si oferte de cazare create zilnic",
+    "Generate reports": "Genereaza rapoarte",
+    "Generate": "Genereaza"
 }
