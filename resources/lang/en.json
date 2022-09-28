@@ -1,4 +1,5 @@
 {
+    "banner.code4": "A Commit Global solution.",
     "Partners": "Partners",
     "Confidentiality policy": "Privacy Policy",
     "GDPR": "GDPR",
@@ -373,7 +374,7 @@
     "Password Help": "Minimum 8 characters, uppercase, lowercase, number and special character. No consecutive characters, repetitive characters or dictionary words allowed.",
     "The password must contain at least 3 of each of the following: uppercase letters, lowercase letters, numbers and special characters.": "The password must contain at least 3 of the following characters: uppercase, lowercase, numbers and special characters.",
 
-    "Find out more here.": "Find details here",
+    "Find out more here.": "Find out more",
     "Clinics and Hospitals": "Clinics and Hospitals",
     "Clinic specialization": "Clinical specialty",
 
