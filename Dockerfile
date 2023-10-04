@@ -2,6 +2,11 @@ FROM php:7.4-fpm as build
 
 WORKDIR /var/www
 
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME /tmp
+ENV COMPOSER_CACHE_DIR /dev/null
+
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apt-get -y update && \
@@ -14,6 +19,17 @@ RUN pecl install imagick && \
     docker-php-ext-enable opcache bcmath mysqli pdo pdo_mysql intl gd zip imagick
 
 ENV PHP_OPCACHE_ENABLE=1
+
+COPY --chown=www-data:www-data . /var/www
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+RUN composer install \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-plugins \
+    --no-dev \
+    --prefer-dist
 
 EXPOSE 8080
 ##################################### assets_builder stage #############
