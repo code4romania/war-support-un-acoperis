@@ -1,9 +1,9 @@
 <!-- Footer -->
 <div class="container d-flex items-center justify-content-end py-3 layout">
    <span class="mx-4">{{ __('A project by') }}</span>
-   <a href="https://code4.ro/ro/code-for-romania-war-task-force">
-        <img src="/images/code_logo_colored.svg" alt="Code 4 Romania logo" class="h-6">
-    </a>
+   <a href="https://www.commitglobal.org/en">
+       <img src="/images/commitglobal.svg" class="inline-block h-5" alt="Commit Global">
+   </a>
 </div>
 
 <footer class="footer text-white pt-5">
@@ -41,9 +41,9 @@
                 </li>
             </ul>
         </div>
-        
+
         <div class="d-flex flex-column align-items-end col-12 col-sm-6 mt-5 pl-2">
-            <img class="mb-4" src="/images/logo-code4ro.png" alt="Code 4 Romania">
+            <img src="/images/commitglobal.svg" class="inline-block h-5" alt="">
             <p class="m-0">&copy {{ __('Copyright') }}</p>
             <p> {{ __('An independent, non-partisan, non-political, non-govermental organization.') }}</p>
         </div>
