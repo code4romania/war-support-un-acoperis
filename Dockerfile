@@ -15,10 +15,6 @@ RUN pecl install imagick && \
 
 ENV PHP_OPCACHE_ENABLE=1
 
-COPY ./.docker/php/opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
-COPY .docker/php/zz-custom.ini "$PHP_INI_DIR/conf.d/zz-custom.ini"
-COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-
 EXPOSE 8080
 
 RUN echo "Listen 8080" >> /etc/apache2/ports.conf && \
