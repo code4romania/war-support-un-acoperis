@@ -1,4 +1,4 @@
-FROM php:7.4-apache as build
+FROM php:7.4-fpm as build
 
 WORKDIR /var/www
 
@@ -16,11 +16,6 @@ RUN pecl install imagick && \
 ENV PHP_OPCACHE_ENABLE=1
 
 EXPOSE 8080
-
-RUN echo "Listen 8080" >> /etc/apache2/ports.conf && \
-    chown -R www-data:www-data /var/www/ && \
-    a2enmod rewrite && service apache2 restart
-
 ##################################### assets_builder stage #############
 ## Build nodejs files ##
 FROM node:16-alpine as assets_builder
