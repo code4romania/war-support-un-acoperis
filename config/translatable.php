@@ -11,6 +11,7 @@ return [
     |
      */
     'locales' => [
+        'hy',
         'ro',
         'en',
         'uk',
@@ -18,6 +19,7 @@ return [
     ],
 
     'locales_name' => [
+        'hy' => 'Հայերեն',
         'uk' => 'Українська',
         'ro' => 'Română',
         'en' => 'English',
