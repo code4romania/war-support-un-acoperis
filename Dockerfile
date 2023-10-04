@@ -38,19 +38,28 @@ RUN cd app && \
 ###################################### prod stage ######################
 FROM build as prod
 
-# USER www-data
+ARG S6_OVERLAY_VERSION=3.1.2.1
 
-COPY --chown=www-data:www-data composer.json composer.lock ./
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
-RUN composer install --no-scripts --no-autoloader --no-interaction --no-progress --no-suggest --no-dev && \
-    rm -rf /tmp/composer/cache
+ENTRYPOINT ["/init"]
 
-COPY --chown=www-data:www-data . .
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/php/php.ini /usr/local/etc/php/php.ini
+COPY docker/php/www.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+COPY docker/s6-rc.d /etc/s6-overlay/s6-rc.d
+
 COPY --chown=www-data:www-data --from=assets_builder /app/public/ ./public/
 
-RUN chmod 777 -R /var/www/storage/ && \
-    composer dump-autoload --optimize && \
-    #php artisan route:cache && \
-    php artisan view:cache && \
-    php artisan event:cache
+
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
+
+ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
+
+EXPOSE 80
 
