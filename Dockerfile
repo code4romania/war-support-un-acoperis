@@ -10,7 +10,7 @@ ENV COMPOSER_CACHE_DIR /dev/null
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apt-get -y update && \
-    apt-get install -y --no-install-recommends libzip-dev libpng-dev libicu-dev libmagickwand-dev zlib1g-dev && \
+    apt-get install -y --no-install-recommends libzip-dev libpng-dev libicu-dev libmagickwand-dev zlib1g-dev nginx && \
     apt-get clean all
 
 
