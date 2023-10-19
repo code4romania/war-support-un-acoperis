@@ -28,4 +28,7 @@
 <a href="{{ route('admin.user-list') }}" class="list-group-item list-group-item-action ">
     <i class="fa fa-users mr-3"></i>Utilizatori
 </a>
+<a href="{{ route('admin.reports.index') }}" class="list-group-item list-group-item-action ">
+    <i class="fa fa-table mr-3"></i>Rapoarte
+</a>
 <!-- New buttons end -->

@@ -136,7 +136,8 @@ Route::middleware([Administration::class])
         Route::get('/audit-logs', 'Admin\AuditLogController@index')->name('admin.auditLogs.index');
         Route::get('/audit-logs/{log}', 'Admin\AuditLogController@show')->name('admin.auditLogs.show');
         Route::get('/audit-logs-search', 'Admin\AuditLogController@search')->name('admin.auditLogs.search');
-
+        Route::get('/reports', 'Admin\ReportsController@index')->name('admin.reports.index');
+        Route::post('/reports/offers', 'Admin\ReportsController@offers')->name('admin.reports.offers');
 
 
 
