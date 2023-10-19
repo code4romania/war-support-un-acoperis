@@ -7,7 +7,9 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "translate": "node ./translation-helpers/populate-locales.js",
+        "generate-translations-sheet": "node ./translation-helpers/generate-translations-sheet.js"
     },
     "devDependencies": {
         "@glidejs/glide": "3.3.0",
@@ -27,7 +29,10 @@
         "resolve-url-loader": "^3.1.4",
         "sass": "^1.35.1",
         "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^2.6.14"
+        "vue-template-compiler": "^2.6.14",
+        "exceljs": "^4.3.0",
+        "mkdirp": "^1.0.4",
+        "csvtojson": "^2.0.10"
     },
     "dependencies": {
         "@popperjs/core": "^2.9.2",
