@@ -27,7 +27,7 @@
                     <span class="list-group-item list-group-header">
                         {{ Auth::user()->name }}
                     </span>
-                <a href="{{ route('admin.profile') }}" class="list-group-item list-group-item-action ">
+                <a href="{{ route('refugee.profile') }}" class="list-group-item list-group-item-action ">
                     <i class="fa fa-user mr-3"></i>{{__('My account')}}
                 </a>
 

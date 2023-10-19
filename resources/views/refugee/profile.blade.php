@@ -68,7 +68,7 @@
             <h6 class="font-weight-600 text-white mb-0">
                 {{ __("Account information") }}
             </h6>
-            <a class="btn btn-secondary btn-sm px-4" href="{{ route('host.reset-password') }}">{{ __("Reset password") }}</a>
+            <a class="btn btn-secondary btn-sm px-4" href="{{ route('refugee.reset-password') }}">{{ __("Reset password") }}</a>
         </div>
         <div class="card-body pt-4">
             <div class="kv d-flex">
