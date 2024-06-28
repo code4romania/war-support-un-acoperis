@@ -161,7 +161,7 @@
 @endsection
 
 @section('head-scripts')
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=default"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{ config('maps.api_key') }}&callback=initMap&libraries=&v=weekly"
         defer
